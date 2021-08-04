@@ -77,8 +77,20 @@ func getExecutableNameFromPlist(url : URL) -> String? {
 }
 
 func getIconNameFromPlist(url : URL) -> String? {
-    var iconList = NSDictionary(contentsOfFile: url.path)!["CFBundleIconFiles"] as! Array<String>
-    return iconList.last
+    if let plist = NSDictionary(contentsOfFile: url.path){
+        do{
+            var dict = (plist as NSDictionary).mutableCopy() as! NSMutableDictionary
+            print(plist)
+            dict["MinimumOSVersion"] = 1
+            dict.write(toFile: url.path, atomically: true)
+        } catch{
+            print(error.localizedDescription)
+        }
+        if var icons = plist["CFBundleIconFiles"] as? Array<String>{
+            return icons.last
+        }
+    }
+    return nil
 }
 
  func copyToClipBoard(textToCopy: String) {
@@ -96,6 +108,18 @@ extension Color {
             blue: Double((hex >> 00) & 0xff) / 255,
             opacity: alpha
         )
+    }
+}
+
+extension Data {
+    struct HexEncodingOptions: OptionSet {
+        let rawValue: Int
+        static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
+    }
+
+    func hexEncodedString(options: HexEncodingOptions = []) -> String {
+        let format = options.contains(.upperCase) ? "%02hhX" : "%02hhx"
+        return self.map { String(format: format, $0) }.joined()
     }
 }
 

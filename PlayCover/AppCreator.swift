@@ -35,6 +35,16 @@ struct Return {
 
 class AppCreator {
     
+    enum PlayCoverError: Error {
+        case runtimeError(String)
+    }
+    
+    static let possibleHeaders : [Array<UInt8>] = [
+        [202,254,186,190],
+        [207 ,250 ,237 ,254],
+    ]
+  
+    
     static func convertApp(url : URL){
         var files = [URL]()
         
@@ -44,15 +54,19 @@ class AppCreator {
                     let fileAttributes = try fileURL.resourceValues(forKeys:[.isRegularFileKey])
                     if fileAttributes.isRegularFile! {
                         var oldPath = fileURL.path.replacingOccurrences(of: " ", with: "\\ ")
-                        if var bts = bytesFromFile(filePath: fileURL.path){
-                            if bts.count > 2{
-                                if(bts[0] == 207 && bts[1] == 250){
-                                    var exec = FileManager.default.isExecutableFile(atPath: oldPath)
+                        if var bts = bytesFromFile(filePath: fileURL.path)?[...3]{
+                            var exec = FileManager.default.isExecutableFile(atPath: oldPath)
+                            if bts.count == 4{
+                                if(possibleHeaders.contains(Array(bts)) || fileURL.pathExtension.contains("dylib") || exec){
+                                    print(fileURL)
                                     
                                     shell("cp \(oldPath) \(oldPath)_sim")
                                     var newPath = oldPath.appending("_sim")
                                     
-                                    convert(fileURL.path)
+                                    
+                                    if convert(fileURL.path) == -24{
+                                        throw PlayCoverError.runtimeError("Currently implementation of this method is not exposed")
+                                    }
                                     
                                     var ext = fileURL.pathExtension
                                     shell("rm \(oldPath)")
@@ -64,13 +78,16 @@ class AppCreator {
                                     if exec{
                                         shell("chmod 755 \(oldPath)")
                                     }
+                                    print(shell("vtool -arch arm64 -set-build-version maccatalyst 10.0 14.5 -replace -output \(fileURL.path) \(fileURL.path)"))
                                     print(shell("codesign -fs- \(oldPath)"))
                                 }
                             }
                             
                         }
                     }
-                } catch { print(error, fileURL) }
+                } catch {
+                    print(error, fileURL)
+                }
             }
         }
     }
@@ -136,6 +153,7 @@ class AppCreator {
                 outputLog.append(shell("xattr -rd com.apple.quarantine \(appPath)"))
                 outputLog.append("Converting app\n")
                 convertApp(url: newPath.appendingPathComponent(innerUrl.lastPathComponent))
+                
                 outputLog.append("Fixing executable\n")
                 let plistUrl = newPath.appendingPathComponent(innerUrl.lastPathComponent).appendingPathComponent("Info.plist")
                 var iconUrl = newPath.appendingPathComponent(innerUrl.lastPathComponent).appendingPathComponent("AppIcon60x60@2x.png")
