@@ -1,0 +1,382 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		87063CBA26B92B5100CEE7CF /* AppCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87063CB926B92B5100CEE7CF /* AppCreator.swift */; };
+		8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */; };
+		8783CFFD26B8C52D00171041 /* ToolsInstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783CFFC26B8C52D00171041 /* ToolsInstallView.swift */; };
+		8783CFFF26B8C52E00171041 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783CFFE26B8C52E00171041 /* Assets.xcassets */; };
+		8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783D00126B8C52E00171041 /* Preview Assets.xcassets */; };
+		8783D00B26B8C9E600171041 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00A26B8C9E600171041 /* Utils.swift */; };
+		8783D00D26B8D32700171041 /* AppLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00C26B8D32700171041 /* AppLibraryView.swift */; };
+		8783D00F26B8E50E00171041 /* Downloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00E26B8E50E00171041 /* Downloads.swift */; };
+		87D5D01926BA7BEB00B87FCC /* convert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87D5D01826BA7BEB00B87FCC /* convert.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		87063CB926B92B5100CEE7CF /* AppCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCreator.swift; sourceTree = "<group>"; };
+		8783CFF726B8C52D00171041 /* PlayCover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayCover.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverApp.swift; sourceTree = "<group>"; };
+		8783CFFC26B8C52D00171041 /* ToolsInstallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolsInstallView.swift; sourceTree = "<group>"; };
+		8783CFFE26B8C52E00171041 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8783D00126B8C52E00171041 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8783D00326B8C52E00171041 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8783D00426B8C52E00171041 /* PlayCover.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayCover.entitlements; sourceTree = "<group>"; };
+		8783D00A26B8C9E600171041 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		8783D00C26B8D32700171041 /* AppLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLibraryView.swift; sourceTree = "<group>"; };
+		8783D00E26B8E50E00171041 /* Downloads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloads.swift; sourceTree = "<group>"; };
+		87D5D01626BA7BD000B87FCC /* convert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = convert.h; sourceTree = "<group>"; };
+		87D5D01726BA7BEB00B87FCC /* PlayCover-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlayCover-Bridging-Header.h"; sourceTree = "<group>"; };
+		87D5D01826BA7BEB00B87FCC /* convert.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = convert.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8783CFF426B8C52D00171041 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8783CFEE26B8C52D00171041 = {
+			isa = PBXGroup;
+			children = (
+				87D5D01A26BA815E00B87FCC /* Submodules */,
+				8783CFF926B8C52D00171041 /* PlayCover */,
+				8783CFF826B8C52D00171041 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8783CFF826B8C52D00171041 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8783CFF726B8C52D00171041 /* PlayCover.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8783CFF926B8C52D00171041 /* PlayCover */ = {
+			isa = PBXGroup;
+			children = (
+				87D5D01526BA7BC000B87FCC /* convert */,
+				8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */,
+				8783CFFC26B8C52D00171041 /* ToolsInstallView.swift */,
+				8783CFFE26B8C52E00171041 /* Assets.xcassets */,
+				8783D00326B8C52E00171041 /* Info.plist */,
+				8783D00426B8C52E00171041 /* PlayCover.entitlements */,
+				8783D00026B8C52E00171041 /* Preview Content */,
+				8783D00A26B8C9E600171041 /* Utils.swift */,
+				8783D00C26B8D32700171041 /* AppLibraryView.swift */,
+				8783D00E26B8E50E00171041 /* Downloads.swift */,
+				87063CB926B92B5100CEE7CF /* AppCreator.swift */,
+			);
+			path = PlayCover;
+			sourceTree = "<group>";
+		};
+		8783D00026B8C52E00171041 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				8783D00126B8C52E00171041 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		87D5D01526BA7BC000B87FCC /* convert */ = {
+			isa = PBXGroup;
+			children = (
+				87D5D01626BA7BD000B87FCC /* convert.h */,
+				87D5D01826BA7BEB00B87FCC /* convert.cpp */,
+				87D5D01726BA7BEB00B87FCC /* PlayCover-Bridging-Header.h */,
+			);
+			path = convert;
+			sourceTree = "<group>";
+		};
+		87D5D01A26BA815E00B87FCC /* Submodules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Submodules;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8783CFF626B8C52D00171041 /* PlayCover */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8783D00726B8C52E00171041 /* Build configuration list for PBXNativeTarget "PlayCover" */;
+			buildPhases = (
+				8783CFF326B8C52D00171041 /* Sources */,
+				8783CFF426B8C52D00171041 /* Frameworks */,
+				8783CFF526B8C52D00171041 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PlayCover;
+			productName = PlayCover;
+			productReference = 8783CFF726B8C52D00171041 /* PlayCover.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8783CFEF26B8C52D00171041 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					8783CFF626B8C52D00171041 = {
+						CreatedOnToolsVersion = 12.5.1;
+						LastSwiftMigration = 1250;
+					};
+				};
+			};
+			buildConfigurationList = 8783CFF226B8C52D00171041 /* Build configuration list for PBXProject "PlayCover" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8783CFEE26B8C52D00171041;
+			productRefGroup = 8783CFF826B8C52D00171041 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8783CFF626B8C52D00171041 /* PlayCover */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8783CFF526B8C52D00171041 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */,
+				8783CFFF26B8C52E00171041 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8783CFF326B8C52D00171041 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8783D00D26B8D32700171041 /* AppLibraryView.swift in Sources */,
+				87D5D01926BA7BEB00B87FCC /* convert.cpp in Sources */,
+				8783D00F26B8E50E00171041 /* Downloads.swift in Sources */,
+				87063CBA26B92B5100CEE7CF /* AppCreator.swift in Sources */,
+				8783CFFD26B8C52D00171041 /* ToolsInstallView.swift in Sources */,
+				8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */,
+				8783D00B26B8C9E600171041 /* Utils.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		8783D00526B8C52E00171041 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8783D00626B8C52E00171041 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		8783D00826B8C52E00171041 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = PlayCover/PlayCover.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"PlayCover/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = PlayCover/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.playcover.PlayCover;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PlayCover/convert/PlayCover-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		8783D00926B8C52E00171041 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = PlayCover/PlayCover.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"PlayCover/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = PlayCover/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.playcover.PlayCover;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PlayCover/convert/PlayCover-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8783CFF226B8C52D00171041 /* Build configuration list for PBXProject "PlayCover" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8783D00526B8C52E00171041 /* Debug */,
+				8783D00626B8C52E00171041 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8783D00726B8C52E00171041 /* Build configuration list for PBXNativeTarget "PlayCover" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8783D00826B8C52E00171041 /* Debug */,
+				8783D00926B8C52E00171041 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8783CFEF26B8C52D00171041 /* Project object */;
+}
