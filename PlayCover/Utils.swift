@@ -11,7 +11,7 @@ import SwiftUI
 
 extension String {
     func escape() -> String{
-        return self.replacingOccurrences(of: " ", with: "\\ ").replacingOccurrences(of: "%20", with: "\\ ")
+        return self.replacingOccurrences(of: " ", with: "\\ ")
     }
 }
 
@@ -86,7 +86,6 @@ func getIconNameFromPlist(url : URL) -> String? {
     if let plist = NSDictionary(contentsOfFile: url.path){
         do{
             var dict = (plist as NSDictionary).mutableCopy() as! NSMutableDictionary
-            print(plist)
             dict["MinimumOSVersion"] = 1
             dict.write(toFile: url.path, atomically: true)
         } catch{

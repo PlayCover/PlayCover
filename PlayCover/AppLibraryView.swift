@@ -92,13 +92,12 @@ struct AppLibraryView: View {
                     if !isLoading {
                         ZStack {
                             
-                            Rectangle().frame(width: 600.0, height: 150.0)
-                                .foregroundColor(.gray)
-                                .cornerRadius(16)
-                                .shadow(radius: 4).padding()
                             Text("Drag .ipa file here. Note, that .ipa must be decrypted. You can find one on AppDb.")
                                 .fontWeight(.bold)
-                                .font(.system(.title, design: .rounded)).padding()
+                                .font(.system(.callout, design: .rounded)).padding().background( Rectangle().frame(width: 600.0, height: 150.0)
+                                                .foregroundColor(.gray)
+                                                .cornerRadius(16)
+                                                .shadow(radius: 4).padding()).padding()
                         }.padding().onDrop(of: ["public.url","public.file-url"], isTargeted: nil) { (items) -> Bool in
                             isLoading = true
                             if let item = items.first {
