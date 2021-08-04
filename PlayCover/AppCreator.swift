@@ -23,11 +23,13 @@ struct AppModel: Identifiable {
 }
 
 struct Return {
-    let app : AppModel
+    let app : AppModel?
     let log : String
-    init(app : AppModel, log : String) {
+    let success : Bool
+    init(app : AppModel?, log : String, success : Bool) {
         self.app = app
         self.log = log
+        self.success = success
     }
 }
 
@@ -62,7 +64,7 @@ class AppCreator {
                                     if exec{
                                         shell("chmod 755 \(oldPath)")
                                     }
-                                    print(shell("codesign --remove-signature \(oldPath)"))
+                                    print(shell("codesign -fs- \(oldPath)"))
                                 }
                             }
                             
@@ -73,39 +75,84 @@ class AppCreator {
         }
     }
     
+    static func extractAppFromIPA(url : URL) -> (URL?, String, Bool){
+        var localLog = ""
+        var newZipurl = getDocs().appendingPathComponent(url.lastPathComponent)
+        print(newZipurl)
+        localLog.append(shell("cp \(url.path) \(newZipurl.path)"))
+        let newURL = newZipurl.deletingPathExtension().appendingPathExtension("zip")
+        print(newURL)
+        do {
+            try FileManager.default.moveItem(at: url, to: newURL)
+        } catch {
+            print("this will never happen")
+        }
+        shell("unzip \(newURL.path) -d \(getDocs().path)")
+        
+        func clearCache(){
+            shell("rm \(newZipurl.path)")
+            shell("rm \(newURL.path)")
+        }
+        
+        do {
+            let targetUrl = try (getDocs().appendingPathComponent("Payload", isDirectory: true).subDirectories())[0]
+            clearCache()
+            return (targetUrl, localLog, true)
+        } catch {
+            clearCache()
+            localLog.append("IPA file is corrupted. No .app directory found.")
+            return (URL(fileURLWithPath: ""), localLog, false)
+        }
+    }
+    
     static func copyApp(url : URL, returnCompletion: @escaping (Return) -> ()){
         DispatchQueue.global(qos: .background).async {
             var outputLog = ""
             let newPath = getDocs()
+            var success = false
+            var targetURL : URL? = url
+            
+            (targetURL,outputLog, success) = extractAppFromIPA(url: url)
+            
+            if !success{
+                returnCompletion(Return(app: nil, log: outputLog, success: false))
+            }
+            
             if !FileManager.default.fileExists(atPath: newPath.path) {
                 do {
                     try FileManager.default.createDirectory(atPath: newPath.path, withIntermediateDirectories: true, attributes: nil)
                 } catch {
-                    print(error.localizedDescription)
+                    outputLog.append(error.localizedDescription)
+                    returnCompletion(Return(app: nil, log: outputLog, success: false))
                 }
             }
             
-            outputLog.append(shell("cp -R \(url.path) \(newPath.path)"))
-            let appPath = newPath.appendingPathComponent(url.lastPathComponent).path
-            outputLog.append("Removing app from quarantine\n")
-            outputLog.append(shell("xattr -rd com.apple.quarantine \(appPath)"))
-            outputLog.append("Converting app\n")
-            convertApp(url: newPath.appendingPathComponent(url.lastPathComponent))
-            outputLog.append("Fixing executable\n")
-            let plistUrl = newPath.appendingPathComponent(url.lastPathComponent).appendingPathComponent("Info.plist")
-            var iconUrl = newPath.appendingPathComponent(url.lastPathComponent).appendingPathComponent("AppIcon60x60@2x.png")
-            if let iconName = getIconNameFromPlist(url: plistUrl){
-                iconUrl = newPath.appendingPathComponent(url.lastPathComponent).appendingPathComponent(iconName)
+            if let innerUrl = targetURL{
+                outputLog.append(shell("cp -R \(innerUrl.path) \(newPath.path)"))
+                print("foo \(innerUrl.deletingLastPathComponent())")
+                shell("rm -R \(innerUrl.deletingLastPathComponent().path)")
+                let appPath = newPath.appendingPathComponent(innerUrl.lastPathComponent).path
+                outputLog.append("Removing app from quarantine\n")
+                outputLog.append(shell("xattr -rd com.apple.quarantine \(appPath)"))
+                outputLog.append("Converting app\n")
+                convertApp(url: newPath.appendingPathComponent(innerUrl.lastPathComponent))
+                outputLog.append("Fixing executable\n")
+                let plistUrl = newPath.appendingPathComponent(innerUrl.lastPathComponent).appendingPathComponent("Info.plist")
+                var iconUrl = newPath.appendingPathComponent(innerUrl.lastPathComponent).appendingPathComponent("AppIcon60x60@2x.png")
+                if let iconName = getIconNameFromPlist(url: plistUrl){
+                    iconUrl = newPath.appendingPathComponent(innerUrl.lastPathComponent).appendingPathComponent(iconName)
+                }
+                if let execName = getExecutableNameFromPlist(url: plistUrl){
+                    let execpath = newPath.appendingPathComponent(url.lastPathComponent).appendingPathComponent(execName).path
+                    outputLog.append(shell("chmod 755 \(execpath)"))
+                }
+                outputLog.append("Codesigning\n")
+                let ents = createEntitlements()
+                outputLog.append(shell("codesign -fs- \(newPath.appendingPathComponent(innerUrl.lastPathComponent).path) --deep --entitlements \(ents.path)"))
+                outputLog.append(shell("rm \(ents.path)"))
+                returnCompletion(Return(app: AppModel(name: innerUrl.lastPathComponent, path: newPath.appendingPathComponent(innerUrl.lastPathComponent), icon: iconUrl, downloaded: true), log: outputLog, success: true))
             }
-            if let execName = getExecutableNameFromPlist(url: plistUrl){
-                let execpath = newPath.appendingPathComponent(url.lastPathComponent).appendingPathComponent(execName).path
-                outputLog.append(shell("chmod 755 \(execpath)"))
-            }
-            outputLog.append("Codesigning\n")
-            let ents = createEntitlements()
-            outputLog.append(shell("codesign -fs- \(newPath.appendingPathComponent(url.lastPathComponent).path) --deep --entitlements \(ents.path)"))
-            outputLog.append(shell("rm \(ents.path)"))
-            returnCompletion(Return(app: AppModel(name: url.lastPathComponent, path: newPath.appendingPathComponent(url.lastPathComponent), icon: iconUrl, downloaded: true), log: outputLog))
+           
         }
     }
     

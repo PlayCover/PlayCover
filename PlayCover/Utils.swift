@@ -43,6 +43,14 @@ func getApps() -> URL {
     return URL(fileURLWithPath: "/System/Applications/")
 }
 
+extension URL {
+    func subDirectories() throws -> [URL] {
+        // @available(macOS 10.11, iOS 9.0, *)
+        guard hasDirectoryPath else { return [] }
+        return try FileManager.default.contentsOfDirectory(at: self, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles]).filter(\.hasDirectoryPath)
+    }
+}
+
 extension NSOpenPanel {
     
     static func openApp(completion: @escaping (_ result: Result<URL, Error>) -> ()) {
@@ -50,7 +58,7 @@ extension NSOpenPanel {
         panel.allowsMultipleSelection = false
         panel.canChooseFiles = true
         panel.canChooseDirectories = false
-        panel.allowedFileTypes = ["app"]
+        panel.allowedFileTypes = ["ipa"]
         panel.canChooseFiles = true
         panel.begin { (result) in
             if result == .OK{

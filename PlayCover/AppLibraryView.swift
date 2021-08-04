@@ -46,17 +46,24 @@ struct AppLibraryView: View {
     @EnvironmentObject var userData: UserData
     @State var isLoading : Bool = false
     
+    private func insertApp(url : URL){
+        AppCreator.copyApp(url : url, returnCompletion: { (data) in
+            DispatchQueue.main.async {
+                isLoading = false
+                if data.success{
+                    if let app = data.app {
+                        userData.appList.append(app)
+                        userData.log = data.log
+                    }
+                }
+            }
+        })
+    }
+    
     private func selectFile() {
         NSOpenPanel.openApp { (result) in
             if case let .success(url) = result {
-                
-                AppCreator.copyApp(url : url, returnCompletion: { (data) in
-                    DispatchQueue.main.async {
-                        userData.appList.append(data.app)
-                        isLoading = false
-                        userData.log = data.log
-                    }
-                })
+                insertApp(url: url)
             }
         }
     }
@@ -89,7 +96,7 @@ struct AppLibraryView: View {
                                 .foregroundColor(.gray)
                                 .cornerRadius(16)
                                 .shadow(radius: 4).padding()
-                            Text("Drag .app file here")
+                            Text("Drag .ipa file here. Note, that .ipa must be decrypted. You can find one on AppDb.")
                                 .fontWeight(.bold)
                                 .font(.system(.title, design: .rounded)).padding()
                         }.padding().onDrop(of: ["public.url","public.file-url"], isTargeted: nil) { (items) -> Bool in
@@ -101,13 +108,7 @@ struct AppLibraryView: View {
                                             DispatchQueue.main.async {
                                                 if let urlData = urlData as? Data {
                                                     let urll = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
-                                                    AppCreator.copyApp(url : urll, returnCompletion: { (data) in
-                                                        DispatchQueue.main.async {
-                                                            userData.appList.append(data.app)
-                                                            userData.log = data.log
-                                                            isLoading = false
-                                                        }
-                                                    })
+                                                    insertApp(url: urll)
                                                 }
                                             }
                                         }
