@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Zip
 
 struct AppModel: Identifiable {
     
@@ -92,34 +93,45 @@ class AppCreator {
         }
     }
     
-    static func extractAppFromIPA(url : URL) -> (URL?, String, Bool){
+    static func extractAppFromIPA(url : URL) -> (URL?, String, Bool, URL){
         var localLog = ""
         var newZipurl = getDocs().appendingPathComponent(url.lastPathComponent)
-        print(newZipurl)
         localLog.append(shell("cp \(url.path) \(newZipurl.path)"))
         let newURL = newZipurl.deletingPathExtension().appendingPathExtension("zip")
-        print(newURL)
         do {
             try FileManager.default.moveItem(at: url, to: newURL)
         } catch {
             print("this will never happen")
         }
-        shell("unzip \(newURL.path) -d \(getDocs().path)")
         
+        var deleteDir = getDocs().appendingPathComponent(newURL.deletingPathExtension().lastPathComponent)
+        
+        do {
+            try Zip.quickUnzipFile(newURL)
+        }
+        catch {
+            return (nil ,"" ,false, deleteDir)
+        }
+       
+       
         func clearCache(){
-            shell("rm \(newZipurl.path)")
-            shell("rm \(newURL.path)")
+            shell("rm \(newZipurl.path.escape())")
+            shell("rm \(newURL.path.escape())")
         }
         
         do {
-            let targetUrl = try (getDocs().appendingPathComponent("Payload", isDirectory: true).subDirectories())[0]
-            clearCache()
-            return (targetUrl, localLog, true)
+            let targetPath = getDocs().appendingPathComponent(newURL.deletingPathExtension().lastPathComponent).appendingPathComponent("Payload", isDirectory: true)
+            print(targetPath)
+            let targetUrl = try targetPath.subDirectories()[0]
+            defer {
+                clearCache()
+            }
+            return (targetUrl, localLog, true, deleteDir)
         } catch {
-            clearCache()
             localLog.append("IPA file is corrupted. No .app directory found.")
-            return (URL(fileURLWithPath: ""), localLog, false)
+            return (URL(fileURLWithPath: ""), localLog, false, deleteDir)
         }
+        
     }
     
     static func copyApp(url : URL, returnCompletion: @escaping (Return) -> ()){
@@ -128,8 +140,8 @@ class AppCreator {
             let newPath = getDocs()
             var success = false
             var targetURL : URL? = url
-            
-            (targetURL,outputLog, success) = extractAppFromIPA(url: url)
+            var deleteDir : URL
+            (targetURL,outputLog, success, deleteDir) = extractAppFromIPA(url: url)
             
             if !success{
                 returnCompletion(Return(app: nil, log: outputLog, success: false))
@@ -145,10 +157,11 @@ class AppCreator {
             }
             
             if let innerUrl = targetURL{
-                outputLog.append(shell("cp -R \(innerUrl.path) \(newPath.path)"))
-                print("foo \(innerUrl.deletingLastPathComponent())")
-                shell("rm -R \(innerUrl.deletingLastPathComponent().path)")
+                print("cp -R \(innerUrl.path.escape()) \(newPath.path.escape())")
+                outputLog.append(shell("cp -R \(innerUrl.path.escape()) \(newPath.path.escape())"))
+                shell("rm -R \(innerUrl.deletingLastPathComponent().deletingLastPathComponent().path)")
                 let appPath = newPath.appendingPathComponent(innerUrl.lastPathComponent).path
+                shell("rm -R \(deleteDir.path.escape())")
                 outputLog.append("Removing app from quarantine\n")
                 outputLog.append(shell("xattr -rd com.apple.quarantine \(appPath)"))
                 outputLog.append("Converting app\n")

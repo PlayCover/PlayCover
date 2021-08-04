@@ -9,6 +9,12 @@ import Foundation
 import AppKit
 import SwiftUI
 
+extension String {
+    func escape() -> String{
+        return self.replacingOccurrences(of: " ", with: "\\ ").replacingOccurrences(of: "%20", with: "\\ ")
+    }
+}
+
 func shell(_ command: String) -> String {
     let task = Process()
     let pipe = Pipe()
