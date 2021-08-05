@@ -9,12 +9,6 @@ import Foundation
 import AppKit
 import SwiftUI
 
-extension String {
-    func escape() -> String{
-        return self.replacingOccurrences(of: " ", with: "\\ ")
-    }
-}
-
 func shell(_ command: String) -> String {
     let task = Process()
     let pipe = Pipe()
@@ -38,11 +32,6 @@ func goToUrl(uri : String){
 
 func checkIfXcodeInstalled() -> Bool{
     return NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.apple.dt.Xcode" ) != nil
-}
-
-func getDocs() -> URL {
-    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-    return paths[0]
 }
 
 func getApps() -> URL {
@@ -78,10 +67,6 @@ extension NSOpenPanel {
     }
 }
 
-func getExecutableNameFromPlist(url : URL) -> String? {
-    return NSDictionary(contentsOfFile: url.path)!["CFBundleExecutable"] as! String?
-}
-
 func getIconNameFromPlist(url : URL) -> String? {
     if let plist = NSDictionary(contentsOfFile: url.path){
         do{
@@ -114,6 +99,27 @@ extension Color {
             opacity: alpha
         )
     }
+}
+
+extension URL {
+    var isDirectory: Bool {
+       return (try? resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory == true
+    }
+}
+
+func showInFinder(url: URL?) {
+    guard let url = url else { return }
+    
+    if url.isDirectory {
+        NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: url.path)
+    }
+    else {
+        showInFinderAndSelectLastComponent(of: url)
+    }
+}
+
+fileprivate func showInFinderAndSelectLastComponent(of url: URL) {
+    NSWorkspace.shared.activateFileViewerSelecting([url])
 }
 
 extension Data {

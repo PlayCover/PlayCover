@@ -17,7 +17,6 @@
 		8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783D00126B8C52E00171041 /* Preview Assets.xcassets */; };
 		8783D00B26B8C9E600171041 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00A26B8C9E600171041 /* Utils.swift */; };
 		8783D00D26B8D32700171041 /* AppLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00C26B8D32700171041 /* AppLibraryView.swift */; };
-		8783D00F26B8E50E00171041 /* Downloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00E26B8E50E00171041 /* Downloads.swift */; };
 		87D5D01926BA7BEB00B87FCC /* convert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87D5D01826BA7BEB00B87FCC /* convert.cpp */; };
 		87D5D02026BB0ECC00B87FCC /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 87D5D01F26BB0ECC00B87FCC /* Zip */; };
 /* End PBXBuildFile section */
@@ -36,7 +35,6 @@
 		8783D00426B8C52E00171041 /* PlayCover.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayCover.entitlements; sourceTree = "<group>"; };
 		8783D00A26B8C9E600171041 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		8783D00C26B8D32700171041 /* AppLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLibraryView.swift; sourceTree = "<group>"; };
-		8783D00E26B8E50E00171041 /* Downloads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloads.swift; sourceTree = "<group>"; };
 		87D5D01626BA7BD000B87FCC /* convert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = convert.h; sourceTree = "<group>"; };
 		87D5D01726BA7BEB00B87FCC /* PlayCover-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlayCover-Bridging-Header.h"; sourceTree = "<group>"; };
 		87D5D01826BA7BEB00B87FCC /* convert.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = convert.cpp; sourceTree = "<group>"; };
@@ -93,7 +91,6 @@
 				8783D00026B8C52E00171041 /* Preview Content */,
 				8783D00A26B8C9E600171041 /* Utils.swift */,
 				8783D00C26B8D32700171041 /* AppLibraryView.swift */,
-				8783D00E26B8E50E00171041 /* Downloads.swift */,
 				87063CB926B92B5100CEE7CF /* AppCreator.swift */,
 			);
 			path = PlayCover;
@@ -198,7 +195,6 @@
 			files = (
 				8783D00D26B8D32700171041 /* AppLibraryView.swift in Sources */,
 				87D5D01926BA7BEB00B87FCC /* convert.cpp in Sources */,
-				8783D00F26B8E50E00171041 /* Downloads.swift in Sources */,
 				87063CBA26B92B5100CEE7CF /* AppCreator.swift in Sources */,
 				8783CFFD26B8C52D00171041 /* ToolsInstallView.swift in Sources */,
 				8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */,
