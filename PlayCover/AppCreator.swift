@@ -48,7 +48,9 @@ class AppCreator {
                 disableFileLock(url: docAppDir)
                 try fixExecutable()
                 try patchMinVersion()
-                try fullscreenAndControls()
+                if userData.makeFullscreen{
+                    try fullscreenAndControls()
+                }
                 try signApp()
                 returnCompletion(docAppDir)
             } catch {
@@ -198,8 +200,12 @@ class AppCreator {
                 infoPlistFile = docAppDir.appendingPathComponent("Info.plist")
                 let plist = NSDictionary(contentsOfFile: infoPlistFile.path)
                 let dict = (plist! as NSDictionary).mutableCopy() as! NSMutableDictionary
-                dict["MinimumOSVersion"] = 1
-                dict.write(toFile: url.path, atomically: true)
+                if let val = dict["MinimumOSVersion"] as? Int{
+                    if val > 11{
+                        dict["MinimumOSVersion"] = 11
+                    }
+                }
+                dict.write(toFile: infoPlistFile.path, atomically: true)
             }
             
             func fullscreenAndControls() throws {
