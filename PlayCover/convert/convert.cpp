@@ -4,5 +4,6 @@ extern "C"
 }
 
 int convert(const char* path) {
-    return 0;
+   
+    return -24;
 }

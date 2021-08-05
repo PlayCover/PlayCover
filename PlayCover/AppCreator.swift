@@ -74,7 +74,7 @@ class AppCreator {
                                         attributes[.posixPermissions] = 0o755
                                         try fm.setAttributes(attributes, ofItemAtPath: fileURL.path)
                                     }
-                                    print(shell("vtool -arch arm64 -set-build-version maccatalyst 10.0 14.5 -replace -output \(fileURL.path) \(fileURL.path)"))
+                                    print(shell("vtool -arch arm64 -set-build-version maccatalyst 13.0 15.0 -replace -output \(fileURL.path) \(fileURL.path)"))
                                     print(shell("codesign -fs- \(fileURL.path.escape())"))
                                 }
                             }
@@ -118,6 +118,7 @@ class AppCreator {
     }
     
     static func copyApp(url : URL, returnCompletion: @escaping (Return) -> ()){
+        
         DispatchQueue.global(qos: .background).async {
             let fm = FileManager.default
             var outputLog = ""
@@ -146,17 +147,52 @@ class AppCreator {
                         outputLog.append("Removing app from quarantine\n")
                         outputLog.append(shell("xattr -rd com.apple.quarantine \(appPath)"))
                         outputLog.append("Converting app\n")
-                        convertApp(url: newPath.appendingPathComponent(innerUrl.lastPathComponent))
+                        
+                        let playCover = Bundle.main.url(forResource: "PlayCoverInject", withExtension: "")
+                        
+                        let macHelper = Bundle.main.url(forResource: "MacHelper", withExtension: "")
+                        
+                        let plistUrl = newPath.appendingPathComponent(innerUrl.lastPathComponent).appendingPathComponent("Info.plist")
+                        
+                        let aurl = newPath.appendingPathComponent(innerUrl.lastPathComponent)
+                        
+                        if let execName = getExecutableNameFromPlist(url: plistUrl){
+                            let execpath = aurl.appendingPathComponent(execName).path
+                            
+                            var attributes = [FileAttributeKey : Any]()
+                            attributes[.posixPermissions] = 0o755
+                            try fm.setAttributes(attributes, ofItemAtPath: execpath)
+                            
+                            let pc = aurl.appendingPathComponent(playCover!.lastPathComponent)
+                            let mh = aurl.appendingPathComponent(macHelper!.lastPathComponent)
+                            
+                            try fm.copyItem(at: playCover!, to: pc)
+                            try fm.copyItem(at: macHelper!, to: mh)
+                            
+                            let optool = Bundle.main.url(forResource: "optool", withExtension: "")
+                            attributes = [FileAttributeKey : Any]()
+                            attributes[.posixPermissions] = 0o755
+                            try fm.setAttributes(attributes, ofItemAtPath: optool!.path)
+                            print(shell("\(optool!.path) install -p \"@executable_path/PlayCoverInject\" -t \(execpath)"))
+                            print(shell("\(optool!.path) install -p \"@executable_path/MacHelper\" -t \(execpath)"))
+                            
+//                            let array: [String?] = ["install", "-p", "@executable_path/PlayCoverInject", "-t", execpath.escape() ,nil]
+//                            // Create [UnsafePointer<Int8>]:
+//                            var cargs = array.map { $0.flatMap { UnsafePointer<Int8>(strdup($0)) } }
+//                            // Call C function:
+//                            print(optool(5, &cargs))
+//                            // Free the duplicated strings:
+//                            for ptr in cargs { free(UnsafeMutablePointer(mutating: ptr)) }
+                            
+                        }
+                        
+                        convertApp(url: aurl)
                         
                         outputLog.append("Fixing executable\n")
-                        let plistUrl = newPath.appendingPathComponent(innerUrl.lastPathComponent).appendingPathComponent("Info.plist")
+                      
                         var iconUrl = newPath.appendingPathComponent(innerUrl.lastPathComponent).appendingPathComponent("AppIcon60x60@2x.png")
                         if let iconName = getIconNameFromPlist(url: plistUrl){
                             iconUrl = newPath.appendingPathComponent(innerUrl.lastPathComponent).appendingPathComponent(iconName)
-                        }
-                        if let execName = getExecutableNameFromPlist(url: plistUrl){
-                            let execpath = newPath.appendingPathComponent(url.lastPathComponent).appendingPathComponent(execName).path
-                            outputLog.append(shell("chmod 755 \(execpath)"))
                         }
                         
                         outputLog.append("Codesigning\n")

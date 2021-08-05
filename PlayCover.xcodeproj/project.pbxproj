@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		87063CBA26B92B5100CEE7CF /* AppCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87063CB926B92B5100CEE7CF /* AppCreator.swift */; };
+		8722A60626BC065D0007D9EC /* optool in Resources */ = {isa = PBXBuildFile; fileRef = 8722A60326BC065D0007D9EC /* optool */; };
+		8722A60826BC06940007D9EC /* PlayCoverInject in Resources */ = {isa = PBXBuildFile; fileRef = 8722A60226BC065D0007D9EC /* PlayCoverInject */; };
+		8722A60926BC06980007D9EC /* MacHelper in Resources */ = {isa = PBXBuildFile; fileRef = 8722A60426BC065D0007D9EC /* MacHelper */; };
 		8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */; };
 		8783CFFD26B8C52D00171041 /* ToolsInstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783CFFC26B8C52D00171041 /* ToolsInstallView.swift */; };
 		8783CFFF26B8C52E00171041 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783CFFE26B8C52E00171041 /* Assets.xcassets */; };
@@ -21,6 +24,9 @@
 
 /* Begin PBXFileReference section */
 		87063CB926B92B5100CEE7CF /* AppCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCreator.swift; sourceTree = "<group>"; };
+		8722A60226BC065D0007D9EC /* PlayCoverInject */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = PlayCoverInject; sourceTree = "<group>"; };
+		8722A60326BC065D0007D9EC /* optool */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = optool; sourceTree = "<group>"; };
+		8722A60426BC065D0007D9EC /* MacHelper */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = MacHelper; sourceTree = "<group>"; };
 		8783CFF726B8C52D00171041 /* PlayCover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayCover.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverApp.swift; sourceTree = "<group>"; };
 		8783CFFC26B8C52D00171041 /* ToolsInstallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolsInstallView.swift; sourceTree = "<group>"; };
@@ -48,10 +54,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8722A60126BC065D0007D9EC /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				8722A60226BC065D0007D9EC /* PlayCoverInject */,
+				8722A60326BC065D0007D9EC /* optool */,
+				8722A60426BC065D0007D9EC /* MacHelper */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		8783CFEE26B8C52D00171041 = {
 			isa = PBXGroup;
 			children = (
-				87D5D01A26BA815E00B87FCC /* Submodules */,
 				8783CFF926B8C52D00171041 /* PlayCover */,
 				8783CFF826B8C52D00171041 /* Products */,
 			);
@@ -68,6 +83,7 @@
 		8783CFF926B8C52D00171041 /* PlayCover */ = {
 			isa = PBXGroup;
 			children = (
+				8722A60126BC065D0007D9EC /* Tools */,
 				87D5D01526BA7BC000B87FCC /* convert */,
 				8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */,
 				8783CFFC26B8C52D00171041 /* ToolsInstallView.swift */,
@@ -99,13 +115,6 @@
 				87D5D01726BA7BEB00B87FCC /* PlayCover-Bridging-Header.h */,
 			);
 			path = convert;
-			sourceTree = "<group>";
-		};
-		87D5D01A26BA815E00B87FCC /* Submodules */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Submodules;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,7 +181,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8722A60926BC06980007D9EC /* MacHelper in Resources */,
+				8722A60826BC06940007D9EC /* PlayCoverInject in Resources */,
 				8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */,
+				8722A60626BC065D0007D9EC /* optool in Resources */,
 				8783CFFF26B8C52E00171041 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -329,6 +341,10 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PlayCover/Tools",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = app.playcover.PlayCover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -354,6 +370,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PlayCover/Tools",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = app.playcover.PlayCover;
