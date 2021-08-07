@@ -2,8 +2,6 @@
 //  NSWindowHelper.swift
 //  MacHelper
 //
-//  Created by Alice on 23.06.2021.
-//
 
 import Foundation
 import AppKit

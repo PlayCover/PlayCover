@@ -29,6 +29,7 @@ class AppCreator {
             var tempDir : URL? = nil
             
             do {
+                shell("vtool -h")
                 tempDir = try createTempFolder()
                 let ipaFile = try copyIPAToTempFolder(temp: tempDir)
                 let appDir = try unzipIPA(ipa: ipaFile)
@@ -37,10 +38,16 @@ class AppCreator {
                 if userData.makeFullscreen{
                     try fullscreenAndControls(app: appDir, name: appName)
                 }
+                let execFile = appDir.appendingPathComponent(appName)
+                if isIPAEncrypted(exec: execFile){
+                    try decryptApp(app: appDir, temp: tempDir!, name: appName)
+                }
+                
                 try convertApp(app: appDir)
-                try fixExecutable(app: appDir, name: appName)
+               
+                try fixExecutable(exec: execFile)
                 //try patchMinVersion(info: infoPlist)
-                try signApp(app: appDir, appName: appName)
+                try signApp(app: appDir, exec: execFile)
                 disableFileLock(url: appDir)
                 let docAppDir = try placeAppToDocs(app: appDir, name: appName)
                 clearCache(temp: tempDir!)
@@ -107,13 +114,57 @@ class AppCreator {
                 }
             }
             
+            func isIPAEncrypted(exec: URL) -> Bool {
+                let response = shell("otool -l \(exec.path) | grep LC_ENCRYPTION_INFO -A5")
+                return response.contains("cryptid 1")
+            }
+            
+            func deleteFolder(at url: URL) throws {
+                        if FileManager.default.fileExists(atPath: url.path) {
+                            ulog(str: "Clearing \(url.path)\n")
+                            try FileManager.default.removeItem(atPath: url.path)
+                        }
+                    }
+            
+            func decryptApp(app : URL, temp : URL, name : String) throws {
+                ulog(str: "IPA is encrypted, trying to decrypt\n")
+                let finalProduct = temp.appendingPathComponent("\(name).app")
+                try deleteFolder(at: finalProduct)
+                ulog(str: "Creating Wrapper folder\n")
+                        let wrapperPath = finalProduct.appendingPathComponent("Wrapper")
+                        try FileManager.default.createDirectory(atPath: wrapperPath.path, withIntermediateDirectories: true, attributes: nil)
+                     ulog(str: "Wrapper path: \(wrapperPath.path)")
+                        
+                      ulog(str: "Copying files\n")
+                        try FileManager.default.copyItem(
+                            atPath: app.path,
+                            toPath: wrapperPath.appendingPathComponent(app.lastPathComponent).path
+                        )
+                ulog(str: "Creating symbolic link\n")
+                        try FileManager.default.createSymbolicLink(
+                            atPath: finalProduct.appendingPathComponent("WrappedBundle").path,
+                            withDestinationPath: "Wrapper/\(app.lastPathComponent)"
+                        )
+                shell("xattr -dr com.apple.quarantine \(finalProduct.path)")
+                ulog(str: "Moving to /Applications \n")
+                shell("mv \(finalProduct.path) /Applications")
+                let sourceExecFile = URL(fileURLWithPath: "/Applications/\(name).app/Wrapper/\(name).app/\(name)", isDirectory: false)
+                let targetExecFile = app.appendingPathComponent("\(name)1")
+                Dump.init().staticMode(data: userData, sourceUrl: sourceExecFile, targetUrl: targetExecFile)
+                try fm.removeItem(at: app.appendingPathComponent(name, isDirectory: false))
+                try fm.moveItem(at: targetExecFile, to: app.appendingPathComponent(name, isDirectory: false))
+                ulog(str : shell("rm -rf /Applications/\(name).app/"))
+            }
+            
             func checkIfFileMacho(fileUrl : URL) -> Bool {
+                if !fileUrl.pathExtension.isEmpty && fileUrl.pathExtension != "dylib" {
+                    return false
+                }
                 if let bts = bytesFromFile(filePath: fileUrl.path){
                     if bts.count > 4{
                         let header = bts[...3]
-                        let exec = fm.isExecutableFile(atPath: fileUrl.path)
                         if header.count == 4{
-                            if(possibleHeaders.contains(Array(header)) || fileUrl.pathExtension.contains("dylib") || exec){
+                            if(possibleHeaders.contains(Array(header))){
                                 return true
                             }
                         }
@@ -145,7 +196,7 @@ class AppCreator {
             }
             
             func getInfoPlist(app: URL) -> URL {
-                return app.appendingPathComponent("Info.plist")
+                return app.appendingPathComponent("Info.plist", isDirectory: false)
             }
             
             func getAppName(plist: URL) throws -> String {
@@ -157,45 +208,42 @@ class AppCreator {
                 ulog(str: "Importing app to Documents\n")
                 let docApp = fm.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("PlayCover").appendingPathComponent(name).appendingPathComponent(app.lastPathComponent)
                 
-                if fm.fileExists(atPath: docApp.path){
-                    try fm.removeItem(at: docApp)
-                }
+                try deleteFolder(at: docApp)
+                
                 try fm.createDirectory(at: docApp.deletingPathExtension().deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
                 try fm.moveItem(at: app, to: docApp)
                 return docApp
             }
             
-            func fixExecutable(app: URL, name : String) throws {
+            func fixExecutable(exec : URL) throws {
                 ulog(str: "Fixing executable\n")
-                let executableFile = app.appendingPathComponent(name)
                 var attributes = [FileAttributeKey : Any]()
-                attributes[.posixPermissions] = 0o755
-                try fm.setAttributes(attributes, ofItemAtPath: executableFile.path)
+                attributes[.posixPermissions] = 0o777
+                try fm.setAttributes(attributes, ofItemAtPath: exec.path)
             }
             
-            func signApp(app : URL, appName : String) throws {
+            func signApp(app : URL, exec: URL) throws {
                 ulog(str: "Signing app\n")
-                let ents = try createEntitlements(app: app, name: appName)
+                let ents = try createEntitlements(app: app, exec: exec)
                 ulog(str: shell("codesign -fs- \(app.path) --deep --entitlements \(ents.path)"))
                 try fm.removeItem(at: ents)
             }
             
-            func createEntitlements(app: URL, name : String) throws -> URL{
+            func createEntitlements(app: URL, exec : URL) throws -> URL{
                 ulog(str: "Creating entitlements file\n")
                 let ents = app.deletingLastPathComponent().appendingPathComponent("ent.plist")
                 if userData.fixLogin{
-                    try copyEntitlements(app: app, name: name).write(to: ents, atomically: true, encoding: String.Encoding.utf8)
+                    try copyEntitlements(exec: exec).write(to: ents, atomically: true, encoding: String.Encoding.utf8)
                 } else{
                     try entitlements_template.write(to: ents, atomically: true, encoding: String.Encoding.utf8)
                 }
                 return ents
             }
             
-            func copyEntitlements(app: URL, name : String) throws -> String{
+            func copyEntitlements(exec: URL) throws -> String{
                 ulog(str: "Copying entitlements \n")
-                let executablePath = app.appendingPathComponent(name).path
-                print(shell("codesign -d --entitlements :- \(executablePath)"))
-                var en = shell("codesign -d --entitlements :- \(executablePath)")
+                print(shell("codesign -d --entitlements :- \(exec)"))
+                var en = shell("codesign -d --entitlements :- \(exec)")
                 if !en.contains("DOCTYPE plist PUBLIC"){
                     en = entitlements_template
                 }
@@ -212,7 +260,7 @@ class AppCreator {
             func patchMinVersion(info : URL) throws {
                 let plist = NSDictionary(contentsOfFile: info.path)
                 let dict = (plist! as NSDictionary).mutableCopy() as! NSMutableDictionary
-                if let val = dict["MinimumOSVersion"] {
+                if dict["MinimumOSVersion"] != nil {
                     dict["MinimumOSVersion"] = 11
                 }
                 dict.write(toFile: info.path, atomically: true)
@@ -231,7 +279,7 @@ class AppCreator {
                 let optool = Bundle.main.url(forResource: "optool", withExtension: "")
                 if !fm.isExecutableFile(atPath: optool!.path){
                     var attributes = [FileAttributeKey : Any]()
-                    attributes[.posixPermissions] = 0o755
+                    attributes[.posixPermissions] = 0o777
                     try fm.setAttributes(attributes, ofItemAtPath: optool!.path)
                 }
                 

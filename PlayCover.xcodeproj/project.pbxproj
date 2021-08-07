@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		537F7C3926BF1615005B25FA /* Decrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537F7C3826BF1615005B25FA /* Decrypt.swift */; };
 		87063CBA26B92B5100CEE7CF /* AppCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87063CB926B92B5100CEE7CF /* AppCreator.swift */; };
 		8722A60626BC065D0007D9EC /* optool in Resources */ = {isa = PBXBuildFile; fileRef = 8722A60326BC065D0007D9EC /* optool */; };
 		8722A60826BC06940007D9EC /* PlayCoverInject in Resources */ = {isa = PBXBuildFile; fileRef = 8722A60226BC065D0007D9EC /* PlayCoverInject */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		537F7C3826BF1615005B25FA /* Decrypt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decrypt.swift; sourceTree = "<group>"; };
 		53ECEE8026BEC3D90016BEC1 /* PlayCoverInject.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PlayCoverInject.xcodeproj; path = PlayCover/PlayCoverInject/PlayCoverInject.xcodeproj; sourceTree = "<group>"; };
 		87063CB926B92B5100CEE7CF /* AppCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCreator.swift; sourceTree = "<group>"; };
 		8722A60226BC065D0007D9EC /* PlayCoverInject */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = PlayCoverInject; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				87D5D01626BA7BD000B87FCC /* convert.h */,
 				87D5D01826BA7BEB00B87FCC /* convert.cpp */,
 				87D5D01726BA7BEB00B87FCC /* PlayCover-Bridging-Header.h */,
+				537F7C3826BF1615005B25FA /* Decrypt.swift */,
 			);
 			path = convert;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				8783D00D26B8D32700171041 /* AppLibraryView.swift in Sources */,
 				87D5D01926BA7BEB00B87FCC /* convert.cpp in Sources */,
 				87063CBA26B92B5100CEE7CF /* AppCreator.swift in Sources */,
+				537F7C3926BF1615005B25FA /* Decrypt.swift in Sources */,
 				8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */,
 				8783D00B26B8C9E600171041 /* Utils.swift in Sources */,
 			);
