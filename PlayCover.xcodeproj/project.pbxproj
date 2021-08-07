@@ -12,7 +12,6 @@
 		8722A60826BC06940007D9EC /* PlayCoverInject in Resources */ = {isa = PBXBuildFile; fileRef = 8722A60226BC065D0007D9EC /* PlayCoverInject */; };
 		8722A60926BC06980007D9EC /* MacHelper in Resources */ = {isa = PBXBuildFile; fileRef = 8722A60426BC065D0007D9EC /* MacHelper */; };
 		8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */; };
-		8783CFFD26B8C52D00171041 /* ToolsInstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783CFFC26B8C52D00171041 /* ToolsInstallView.swift */; };
 		8783CFFF26B8C52E00171041 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783CFFE26B8C52E00171041 /* Assets.xcassets */; };
 		8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783D00126B8C52E00171041 /* Preview Assets.xcassets */; };
 		8783D00B26B8C9E600171041 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00A26B8C9E600171041 /* Utils.swift */; };
@@ -21,14 +20,31 @@
 		87D5D02026BB0ECC00B87FCC /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 87D5D01F26BB0ECC00B87FCC /* Zip */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		53ECEE8526BEC3D90016BEC1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 53ECEE8026BEC3D90016BEC1 /* PlayCoverInject.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FAFD13FA2618A5B2002D36C2;
+			remoteInfo = PlayCoverInject;
+		};
+		53ECEE8726BEC3D90016BEC1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 53ECEE8026BEC3D90016BEC1 /* PlayCoverInject.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 957F4F562683D5BA002114DE;
+			remoteInfo = MacHelper;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		53ECEE8026BEC3D90016BEC1 /* PlayCoverInject.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PlayCoverInject.xcodeproj; path = PlayCover/PlayCoverInject/PlayCoverInject.xcodeproj; sourceTree = "<group>"; };
 		87063CB926B92B5100CEE7CF /* AppCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCreator.swift; sourceTree = "<group>"; };
 		8722A60226BC065D0007D9EC /* PlayCoverInject */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = PlayCoverInject; sourceTree = "<group>"; };
 		8722A60326BC065D0007D9EC /* optool */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = optool; sourceTree = "<group>"; };
 		8722A60426BC065D0007D9EC /* MacHelper */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = MacHelper; sourceTree = "<group>"; };
 		8783CFF726B8C52D00171041 /* PlayCover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayCover.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverApp.swift; sourceTree = "<group>"; };
-		8783CFFC26B8C52D00171041 /* ToolsInstallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolsInstallView.swift; sourceTree = "<group>"; };
 		8783CFFE26B8C52E00171041 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8783D00126B8C52E00171041 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8783D00326B8C52E00171041 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -52,6 +68,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		53ECEE8126BEC3D90016BEC1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				53ECEE8626BEC3D90016BEC1 /* PlayCoverInject.framework */,
+				53ECEE8826BEC3D90016BEC1 /* MacHelper.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		8722A60126BC065D0007D9EC /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +90,7 @@
 		8783CFEE26B8C52D00171041 = {
 			isa = PBXGroup;
 			children = (
+				53ECEE8026BEC3D90016BEC1 /* PlayCoverInject.xcodeproj */,
 				8783CFF926B8C52D00171041 /* PlayCover */,
 				8783CFF826B8C52D00171041 /* Products */,
 			);
@@ -84,7 +110,6 @@
 				8722A60126BC065D0007D9EC /* Tools */,
 				87D5D01526BA7BC000B87FCC /* convert */,
 				8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */,
-				8783CFFC26B8C52D00171041 /* ToolsInstallView.swift */,
 				8783CFFE26B8C52E00171041 /* Assets.xcassets */,
 				8783D00326B8C52E00171041 /* Info.plist */,
 				8783D00426B8C52E00171041 /* PlayCover.entitlements */,
@@ -166,12 +191,35 @@
 			);
 			productRefGroup = 8783CFF826B8C52D00171041 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 53ECEE8126BEC3D90016BEC1 /* Products */;
+					ProjectRef = 53ECEE8026BEC3D90016BEC1 /* PlayCoverInject.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8783CFF626B8C52D00171041 /* PlayCover */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		53ECEE8626BEC3D90016BEC1 /* PlayCoverInject.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PlayCoverInject.framework;
+			remoteRef = 53ECEE8526BEC3D90016BEC1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		53ECEE8826BEC3D90016BEC1 /* MacHelper.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MacHelper.framework;
+			remoteRef = 53ECEE8726BEC3D90016BEC1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8783CFF526B8C52D00171041 /* Resources */ = {
@@ -196,7 +244,6 @@
 				8783D00D26B8D32700171041 /* AppLibraryView.swift in Sources */,
 				87D5D01926BA7BEB00B87FCC /* convert.cpp in Sources */,
 				87063CBA26B92B5100CEE7CF /* AppCreator.swift in Sources */,
-				8783CFFD26B8C52D00171041 /* ToolsInstallView.swift in Sources */,
 				8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */,
 				8783D00B26B8C9E600171041 /* Utils.swift in Sources */,
 			);

@@ -30,14 +30,6 @@ func goToUrl(uri : String){
     NSWorkspace.shared.open(url)
 }
 
-func checkIfXcodeInstalled() -> Bool{
-    return NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.apple.dt.Xcode" ) != nil
-}
-
-func getApps() -> URL {
-    return URL(fileURLWithPath: "/System/Applications/")
-}
-
 extension URL {
     func subDirectories() throws -> [URL] {
         // @available(macOS 10.11, iOS 9.0, *)
@@ -67,38 +59,11 @@ extension NSOpenPanel {
     }
 }
 
-func getIconNameFromPlist(url : URL) -> String? {
-    if let plist = NSDictionary(contentsOfFile: url.path){
-        do{
-            var dict = (plist as NSDictionary).mutableCopy() as! NSMutableDictionary
-            dict["MinimumOSVersion"] = 1
-            dict.write(toFile: url.path, atomically: true)
-        } catch{
-            print(error.localizedDescription)
-        }
-        if var icons = plist["CFBundleIconFiles"] as? Array<String>{
-            return icons.last
-        }
-    }
-    return nil
-}
-
  func copyToClipBoard(textToCopy: String) {
     let pasteBoard = NSPasteboard.general
     pasteBoard.clearContents()
     pasteBoard.setString(textToCopy, forType: .string)
 
-}
-extension Color {
-    init(hex: UInt, alpha: Double = 1) {
-        self.init(
-            .sRGB,
-            red: Double((hex >> 16) & 0xff) / 255,
-            green: Double((hex >> 08) & 0xff) / 255,
-            blue: Double((hex >> 00) & 0xff) / 255,
-            opacity: alpha
-        )
-    }
 }
 
 extension URL {
@@ -120,18 +85,6 @@ func showInFinder(url: URL?) {
 
 fileprivate func showInFinderAndSelectLastComponent(of url: URL) {
     NSWorkspace.shared.activateFileViewerSelecting([url])
-}
-
-extension Data {
-    struct HexEncodingOptions: OptionSet {
-        let rawValue: Int
-        static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
-    }
-
-    func hexEncodedString(options: HexEncodingOptions = []) -> String {
-        let format = options.contains(.upperCase) ? "%02hhX" : "%02hhx"
-        return self.map { String(format: format, $0) }.joined()
-    }
 }
 
 func bytesFromFile(filePath: String) -> [UInt8]? {

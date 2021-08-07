@@ -13,6 +13,7 @@ struct AppLibraryView: View {
     
     private func insertApp(url : URL){
         isLoading = true
+        userData.log = ""
         AppCreator.handleApp(url : url, userData: userData, returnCompletion: { (data) in
             DispatchQueue.main.async {
                 isLoading = false
@@ -45,12 +46,11 @@ struct AppLibraryView: View {
                 VStack {
                     if !isLoading {
                         ZStack {
-                            Text("Drag .ipa file here. Note, that .ipa must be decrypted. You can find one on AppDb.")
+                            Text("Drag .ipa file here")
                                 .fontWeight(.bold)
-                                .font(.system(.callout, design: .rounded)).padding().background( Rectangle().frame(width: 600.0, height: 150.0)
-                                                .foregroundColor(.gray)
+                                .font(.system(.title, design: .rounded)).padding().background( Rectangle().frame(width: 600.0, height: 150.0).foregroundColor(Color(NSColor.gridColor))
                                                 .cornerRadius(16)
-                                                .shadow(radius: 4).padding()).padding()
+                                                .shadow(radius: 1).padding()).padding()
                         }.frame(minWidth: 600).padding().onDrop(of: ["public.url","public.file-url"], isTargeted: nil) { (items) -> Bool in
                       
                             if let item = items.first {
@@ -99,12 +99,11 @@ struct LogView : View {
                         copyToClipBoard(textToCopy: userData.log)
                     }
                 }
-                Text(userData.log).background(Color(hex: 0x383838)).padding().lineLimit(nil)
+                Text(userData.log).padding().lineLimit(nil)
             }.frame(minWidth: 900, minHeight: 200)
         }.frame(minWidth: 900,  minHeight: 200).padding()
     }
     
 }
-
 
 

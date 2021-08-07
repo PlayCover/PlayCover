@@ -11,11 +11,7 @@ import SwiftUI
 struct PlayCoverApp: App {
     var body: some Scene {
         WindowGroup {
-            if !checkIfXcodeInstalled(){
-                ToolsInstallView()
-            } else {
                 AppLibraryView().environmentObject(UserData())
-            }
         }.windowStyle(HiddenTitleBarWindowStyle())
     }
 }

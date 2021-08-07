@@ -26,66 +26,63 @@ class AppCreator {
             
             let fm = FileManager.default
             
-            var tempDir = URL(fileURLWithPath: "")
-            var ipaFile = URL(fileURLWithPath: "")
-            var zipFile = URL(fileURLWithPath: "")
-            var unzippedDir = URL(fileURLWithPath: "")
-            var appDir = URL(fileURLWithPath: "")
-            var infoPlistFile = URL(fileURLWithPath: "")
-            var ents = URL(fileURLWithPath: "")
-            var docAppDir = URL(fileURLWithPath: "")
-            var appName = "App"
+            var tempDir : URL? = nil
             
             do {
-                try createTempFolder()
-                try copyIPAToTempFolder()
-                try unzipIPA()
-                try convertApp()
-                getInfoPlist()
-                try getAppName()
-                try placeAppToDocs()
-                clearCache()
-                disableFileLock(url: docAppDir)
-                try fixExecutable()
-                try patchMinVersion()
+                tempDir = try createTempFolder()
+                var ipaFile = try copyIPAToTempFolder(temp: tempDir)
+                var appDir = try unzipIPA(ipa: ipaFile)
+                var infoPlist = getInfoPlist(app: appDir)
+                var appName = try getAppName(plist : infoPlist)
                 if userData.makeFullscreen{
-                    try fullscreenAndControls()
+                    try fullscreenAndControls(app: appDir, name: appName)
                 }
-                try signApp()
+                try convertApp(app: appDir)
+                try fixExecutable(app: appDir, name: appName)
+                try patchMinVersion(info: infoPlist)
+                try signApp(app: appDir)
+                disableFileLock(url: appDir)
+                let docAppDir = try placeAppToDocs(app: appDir, name: appName)
+                clearCache(temp: tempDir!)
                 returnCompletion(docAppDir)
             } catch {
                 ulog(str: error.localizedDescription)
-                clearCache()
+                if let tmp = tempDir{
+                    clearCache(temp: tmp)
+                }
                 returnCompletion(nil)
             }
             
-            func createTempFolder() throws{
+            func createTempFolder() throws -> URL {
                 ulog(str: "Creating temp directory\n")
-                tempDir = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-                ipaFile = tempDir.appendingPathComponent("ipafile.ipa")
+                let tempDir = fm.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("PlayCover").appendingPathComponent(UUID().uuidString)
                 try? fm.createDirectory(at: tempDir, withIntermediateDirectories: true, attributes: [:])
+                return tempDir
             }
             
-            func clearCache(){
+            func clearCache(temp: URL){
                 ulog(str: "Clearing cache\n")
                 do{
-                    try fm.removeItem(at: tempDir)
+                    try fm.removeItem(at: temp)
                 } catch{
                     
                 }
             }
             
-            func copyIPAToTempFolder() throws {
+            func copyIPAToTempFolder(temp: URL?) throws -> URL {
+                let ipa = temp!.appendingPathComponent("ipafile.ipa")
                 ulog(str: "Copying .ipa to temp folder\n")
-                try secureCopyItem(at: url, to: ipaFile)
+                try secureCopyItem(at: url, to: ipa)
+                return ipa
             }
             
-            func unzipIPA() throws {
+            func unzipIPA(ipa : URL) throws -> URL {
                 ulog(str: "Unzipping .ipa\n")
-                zipFile = ipaFile.deletingPathExtension().appendingPathExtension("zip")
-                unzippedDir = zipFile.deletingPathExtension()
-                try fm.moveItem(at: ipaFile, to: zipFile)
-                try Zip.unzipFile(zipFile, destination: unzippedDir, overwrite: true, password: nil)
+                let zip = ipa.deletingPathExtension().appendingPathExtension("zip")
+                let unzip = zip.deletingPathExtension()
+                try fm.moveItem(at: ipa, to: zip)
+                try Zip.unzipFile(zip, destination: unzip, overwrite: true, password: nil)
+                return try unzip.appendingPathComponent("Payload").subDirectories()[0]
             }
             
             func disableFileLock(url : URL){
@@ -93,11 +90,10 @@ class AppCreator {
                 ulog(str: shell("xattr -rd com.apple.quarantine \(url.path)"))
             }
             
-            func convertApp() throws {
+            func convertApp(app : URL) throws{
                 ulog(str: "Converting app\n")
-                appDir = try unzippedDir.appendingPathComponent("Payload").subDirectories()[0]
                 var files = [URL]()
-                if let enumerator = fm.enumerator(at: appDir, includingPropertiesForKeys: [.isRegularFileKey], options: [.skipsHiddenFiles, .skipsPackageDescendants]) {
+                if let enumerator = fm.enumerator(at: app, includingPropertiesForKeys: [.isRegularFileKey], options: [.skipsHiddenFiles, .skipsPackageDescendants]) {
                     for case let fileURL as URL in enumerator {
                         do {
                             let fileAttributes = try fileURL.resourceValues(forKeys:[.isRegularFileKey])
@@ -129,17 +125,16 @@ class AppCreator {
             func convertBinary(fileUrl : URL) throws {
                 ulog(str: "Converting \(fileUrl.lastPathComponent)\n")
                 let newURL = URL(fileURLWithPath: fileUrl.path.appending("_sim"))
-                try fm.copyItem(at: fileUrl, to: newURL)
                 
-                if convert(fileUrl.path) == -24{
-                    
+                if convert(fileUrl.path) == -1{
+                    try fm.copyItem(at: fileUrl, to: newURL)
+                    shell("vtool -arch arm64 -set-build-version maccatalyst 13.0 15.0 -replace -output \(newURL.path) \(newURL.path)")
                 }
+                
+                ulog(str: shell("codesign -fs- \(newURL.path)"))
                 
                 try fm.removeItem(at: fileUrl)
                 try fm.moveItem(at: newURL, to: fileUrl)
-                
-                ulog(str: shell("vtool -arch arm64 -set-build-version maccatalyst 13.0 15.0 -replace -output \(fileUrl.path) \(fileUrl.path)"))
-                ulog(str: shell("codesign -fs- \(fileUrl.path)"))
             }
             
             func secureCopyItem(at srcURL: URL, to dstURL: URL) throws{
@@ -149,45 +144,47 @@ class AppCreator {
                 try fm.copyItem(at: srcURL, to: dstURL)
             }
             
-            func getInfoPlist() {
-                infoPlistFile = appDir.appendingPathComponent("Info.plist")
+            func getInfoPlist(app: URL) -> URL {
+                return app.appendingPathComponent("Info.plist")
             }
             
-            func getAppName() throws {
+            func getAppName(plist: URL) throws -> String {
                 ulog(str: "Rietriving app name\n")
-                appName = (NSDictionary(contentsOfFile: infoPlistFile.path)!["CFBundleExecutable"] as! String?)!
+                return (NSDictionary(contentsOfFile: plist.path)!["CFBundleExecutable"] as! String?)!
             }
             
-            func placeAppToDocs() throws {
+            func placeAppToDocs(app : URL, name: String) throws -> URL {
                 ulog(str: "Importing app to Documents\n")
-                docAppDir = fm.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("PlayCover").appendingPathComponent(appName).appendingPathComponent(appDir.lastPathComponent)
+                let docApp = fm.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("PlayCover").appendingPathComponent(name).appendingPathComponent(app.lastPathComponent)
                 
-                if fm.fileExists(atPath: docAppDir.path){
-                    try fm.removeItem(at: docAppDir)
+                if fm.fileExists(atPath: docApp.path){
+                    try fm.removeItem(at: docApp)
                 }
-                try fm.createDirectory(at: docAppDir.deletingPathExtension().deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
-                try fm.moveItem(at: appDir, to: docAppDir)
+                try fm.createDirectory(at: docApp.deletingPathExtension().deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
+                try fm.moveItem(at: app, to: docApp)
+                return docApp
             }
             
-            func fixExecutable() throws {
+            func fixExecutable(app: URL, name : String) throws {
                 ulog(str: "Fixing executable\n")
-                let executableFile = docAppDir.appendingPathComponent(appName)
+                let executableFile = app.appendingPathComponent(name)
                 var attributes = [FileAttributeKey : Any]()
                 attributes[.posixPermissions] = 0o755
                 try fm.setAttributes(attributes, ofItemAtPath: executableFile.path)
             }
             
-            func signApp() throws {
+            func signApp(app : URL) throws {
                 ulog(str: "Signing app\n")
-                try createEntitlements()
-                ulog(str: shell("codesign -fs- \(docAppDir.path) --deep --entitlements \(ents.path)"))
+                let ents = try createEntitlements(app: app)
+                ulog(str: shell("codesign -fs- \(app.path) --deep --entitlements \(ents.path)"))
                 try fm.removeItem(at: ents)
             }
             
-            func createEntitlements() throws {
+            func createEntitlements(app: URL) throws -> URL{
                 ulog(str: "Creating entitlements file\n")
-                ents = docAppDir.deletingLastPathComponent().appendingPathComponent("ent.plist")
+                let ents = app.deletingLastPathComponent().appendingPathComponent("ent.plist")
                 try entitlements_template.write(to: ents, atomically: true, encoding: String.Encoding.utf8)
+                return ents
             }
             
             func ulog(str : String = "Unknown error!"){
@@ -196,23 +193,19 @@ class AppCreator {
                 }
             }
             
-            func patchMinVersion() throws {
-                infoPlistFile = docAppDir.appendingPathComponent("Info.plist")
-                let plist = NSDictionary(contentsOfFile: infoPlistFile.path)
+            func patchMinVersion(info : URL) throws {
+                let plist = NSDictionary(contentsOfFile: info.path)
                 let dict = (plist! as NSDictionary).mutableCopy() as! NSMutableDictionary
-                if let val = dict["MinimumOSVersion"] as? Int{
-                    if val > 11{
-                        dict["MinimumOSVersion"] = 11
-                    }
-                }
-                dict.write(toFile: infoPlistFile.path, atomically: true)
+                dict["MinimumOSVersion"] = 11
+                dict.write(toFile: info.path, atomically: true)
             }
             
-            func fullscreenAndControls() throws {
+            func fullscreenAndControls(app : URL, name : String) throws {
+                ulog(str: "Adding PlayCover\n")
                 let playCover = Bundle.main.url(forResource: "PlayCoverInject", withExtension: "")
                 let macHelper = Bundle.main.url(forResource: "MacHelper", withExtension: "")
-                let pc = docAppDir.appendingPathComponent(playCover!.lastPathComponent)
-                let mh = docAppDir.appendingPathComponent(macHelper!.lastPathComponent)
+                let pc = app.appendingPathComponent(playCover!.lastPathComponent)
+                let mh = app.appendingPathComponent(macHelper!.lastPathComponent)
 
                 try fm.copyItem(at: playCover!, to: pc)
                 try fm.copyItem(at: macHelper!, to: mh)
@@ -224,9 +217,9 @@ class AppCreator {
                     try fm.setAttributes(attributes, ofItemAtPath: optool!.path)
                 }
                 
-                let executablePath = docAppDir.appendingPathComponent(appName)
-                ulog( str: shell("\(optool!.path) install -p \"@executable_path/PlayCoverInject\" -t \(executablePath)"))
-                ulog( str: shell("\(optool!.path) install -p \"@executable_path/MacHelper\" -t \(executablePath)"))
+                let executablePath = app.appendingPathComponent(name)
+                ulog( str: shell("\(optool!.path) install -p \"@executable_path/PlayCoverInject\" -t \(executablePath.path)"))
+                ulog( str: shell("\(optool!.path) install -p \"@executable_path/MacHelper\" -t \(executablePath.path)"))
             }
             
         }

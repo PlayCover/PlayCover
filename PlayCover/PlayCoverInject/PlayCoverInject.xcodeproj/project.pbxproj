@@ -1,0 +1,784 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		11805D04266F73F00070BB25 /* Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11805D03266F73F00070BB25 /* Values.swift */; };
+		953B794A268C2A52001BF935 /* Toucher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953B7949268C2A52001BF935 /* Toucher.swift */; };
+		953B795D268C31E4001BF935 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953B795C268C31E4001BF935 /* Recorder.swift */; };
+		953B795F268C53AA001BF935 /* KeyboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953B795E268C53AA001BF935 /* KeyboardController.swift */; };
+		95611B9F2683DFAB0045005F /* PatchLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 95611B9D2683DFAB0045005F /* PatchLoader.h */; };
+		95611BA02683DFAB0045005F /* PatchLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 95611B9E2683DFAB0045005F /* PatchLoader.m */; };
+		957F4F5A2683D5BA002114DE /* MacHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 957F4F582683D5BA002114DE /* MacHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		957F4FB32683D6D2002114DE /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F4FAF2683D6D2002114DE /* Dynamic.swift */; };
+		957F4FB42683D6D2002114DE /* TypeMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F4FB02683D6D2002114DE /* TypeMapping.swift */; };
+		957F4FB52683D6D2002114DE /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F4FB12683D6D2002114DE /* Logger.swift */; };
+		957F4FB62683D6D2002114DE /* Invocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F4FB22683D6D2002114DE /* Invocation.swift */; };
+		957F4FB82683D704002114DE /* NSWindowHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F4FB72683D704002114DE /* NSWindowHelper.swift */; };
+		957F4FBB2683DBB0002114DE /* PatchLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 957F4FB92683DBB0002114DE /* PatchLoader.h */; };
+		957F4FBC2683DBB0002114DE /* PatchLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 957F4FBA2683DBB0002114DE /* PatchLoader.m */; };
+		95B41107268EFDAC00DBC813 /* PTFakeMetaTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B410D9268EFDAC00DBC813 /* PTFakeMetaTouch.m */; };
+		95B41108268EFDAC00DBC813 /* FixCategoryBug.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B410DA268EFDAC00DBC813 /* FixCategoryBug.h */; };
+		95B41109268EFDAC00DBC813 /* PTFakeMetaTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B410DB268EFDAC00DBC813 /* PTFakeMetaTouch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		95B4110A268EFDAC00DBC813 /* IOHIDEvent+KIF.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B410DD268EFDAC00DBC813 /* IOHIDEvent+KIF.h */; };
+		95B4110B268EFDAC00DBC813 /* UIAccessibilityElement-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B410DE268EFDAC00DBC813 /* UIAccessibilityElement-KIFAdditions.m */; };
+		95B4110C268EFDAC00DBC813 /* UIScreen+KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B410DF268EFDAC00DBC813 /* UIScreen+KIFAdditions.m */; };
+		95B4110D268EFDAC00DBC813 /* NSException-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B410E0268EFDAC00DBC813 /* NSException-KIFAdditions.m */; };
+		95B4110E268EFDAC00DBC813 /* NSString+KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B410E1268EFDAC00DBC813 /* NSString+KIFAdditions.m */; };
+		95B4110F268EFDAC00DBC813 /* UIApplication-KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B410E2268EFDAC00DBC813 /* UIApplication-KIFAdditions.h */; };
+		95B41110268EFDAC00DBC813 /* CGGeometry-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B410E3268EFDAC00DBC813 /* CGGeometry-KIFAdditions.m */; };
+		95B41111268EFDAC00DBC813 /* UIWindow-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B410E4268EFDAC00DBC813 /* UIWindow-KIFAdditions.m */; };
+		95B41112268EFDAC00DBC813 /* UIScrollView-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B410E5268EFDAC00DBC813 /* UIScrollView-KIFAdditions.m */; };
+		95B41113268EFDAC00DBC813 /* UIView-Debugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B410E6268EFDAC00DBC813 /* UIView-Debugging.m */; };
+		95B41114268EFDAC00DBC813 /* UITouch-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B410E7268EFDAC00DBC813 /* UITouch-KIFAdditions.m */; };
+		95B41115268EFDAC00DBC813 /* UITableView-KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B410E8268EFDAC00DBC813 /* UITableView-KIFAdditions.h */; };
+		95B41116268EFDAC00DBC813 /* NSFileManager-KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B410E9268EFDAC00DBC813 /* NSFileManager-KIFAdditions.h */; };
+		95B41117268EFDAC00DBC813 /* UIView-KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B410EA268EFDAC00DBC813 /* UIView-KIFAdditions.h */; };
+		95B41119268EFDAC00DBC813 /* UIEvent+KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B410EC268EFDAC00DBC813 /* UIEvent+KIFAdditions.h */; };
+		95B4111A268EFDAC00DBC813 /* CALayer-KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B410ED268EFDAC00DBC813 /* CALayer-KIFAdditions.h */; };
+		95B4111C268EFDAC00DBC813 /* NSPredicate+KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B410EF268EFDAC00DBC813 /* NSPredicate+KIFAdditions.h */; };
+		95B4111E268EFDAC00DBC813 /* UIScrollView-KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B410F1268EFDAC00DBC813 /* UIScrollView-KIFAdditions.h */; };
+		95B4111F268EFDAC00DBC813 /* UIWindow-KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B410F2268EFDAC00DBC813 /* UIWindow-KIFAdditions.h */; };
+		95B41120268EFDAC00DBC813 /* CGGeometry-KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B410F3268EFDAC00DBC813 /* CGGeometry-KIFAdditions.h */; };
+		95B41121268EFDAC00DBC813 /* UIApplication-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B410F4268EFDAC00DBC813 /* UIApplication-KIFAdditions.m */; };
+		95B41122268EFDAC00DBC813 /* NSString+KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B410F5268EFDAC00DBC813 /* NSString+KIFAdditions.h */; };
+		95B41123268EFDAC00DBC813 /* NSException-KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B410F6268EFDAC00DBC813 /* NSException-KIFAdditions.h */; };
+		95B41124268EFDAC00DBC813 /* UIScreen+KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B410F7268EFDAC00DBC813 /* UIScreen+KIFAdditions.h */; };
+		95B41125268EFDAC00DBC813 /* UIAccessibilityElement-KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B410F8268EFDAC00DBC813 /* UIAccessibilityElement-KIFAdditions.h */; };
+		95B41126268EFDAC00DBC813 /* IOHIDEvent+KIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B410F9268EFDAC00DBC813 /* IOHIDEvent+KIF.m */; };
+		95B41127268EFDAC00DBC813 /* UIView-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B410FA268EFDAC00DBC813 /* UIView-KIFAdditions.m */; };
+		95B41128268EFDAC00DBC813 /* NSFileManager-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B410FB268EFDAC00DBC813 /* NSFileManager-KIFAdditions.m */; };
+		95B41129268EFDAC00DBC813 /* UITouch-KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B410FC268EFDAC00DBC813 /* UITouch-KIFAdditions.h */; };
+		95B4112A268EFDAC00DBC813 /* UITableView-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B410FD268EFDAC00DBC813 /* UITableView-KIFAdditions.m */; };
+		95B4112B268EFDAC00DBC813 /* UIView-Debugging.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B410FE268EFDAC00DBC813 /* UIView-Debugging.h */; };
+		95B4112C268EFDAD00DBC813 /* UIEvent+KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B410FF268EFDAC00DBC813 /* UIEvent+KIFAdditions.m */; };
+		95B4112E268EFDAD00DBC813 /* LoadableCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B41101268EFDAC00DBC813 /* LoadableCategory.h */; };
+		95B41130268EFDAD00DBC813 /* NSPredicate+KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B41103268EFDAC00DBC813 /* NSPredicate+KIFAdditions.m */; };
+		95B41131268EFDAD00DBC813 /* NSBundle-KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 95B41104268EFDAC00DBC813 /* NSBundle-KIFAdditions.h */; };
+		95B41132268EFDAD00DBC813 /* CALayer-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B41105268EFDAC00DBC813 /* CALayer-KIFAdditions.m */; };
+		FA079A17262DEBD300C664F5 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA079A16262DEBD300C664F5 /* OverlayView.swift */; };
+		FA0D4468262701FC00986A15 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0D4467262701FC00986A15 /* IOKit.framework */; };
+		FA39A0482636B15600EF2140 /* MouseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39A0472636B15600EF2140 /* MouseController.swift */; };
+		FA39A04B2636C59A00EF2140 /* ControlMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39A04A2636C59A00EF2140 /* ControlMapping.swift */; };
+		FA8D3C2D262E056400C2B45D /* KeyCodeNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D3C2C262E056400C2B45D /* KeyCodeNames.swift */; };
+		FAFD13FF2618A5B2002D36C2 /* PlayCoverInject.h in Headers */ = {isa = PBXBuildFile; fileRef = FAFD13FD2618A5B2002D36C2 /* PlayCoverInject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FAFD14162618A70D002D36C2 /* InputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFD14142618A70D002D36C2 /* InputController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		11805D03266F73F00070BB25 /* Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Values.swift; sourceTree = "<group>"; };
+		953B7949268C2A52001BF935 /* Toucher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toucher.swift; sourceTree = "<group>"; };
+		953B795C268C31E4001BF935 /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
+		953B795E268C53AA001BF935 /* KeyboardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardController.swift; sourceTree = "<group>"; };
+		95611B9D2683DFAB0045005F /* PatchLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PatchLoader.h; sourceTree = "<group>"; };
+		95611B9E2683DFAB0045005F /* PatchLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PatchLoader.m; sourceTree = "<group>"; };
+		957F4F562683D5BA002114DE /* MacHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MacHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		957F4F582683D5BA002114DE /* MacHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacHelper.h; sourceTree = "<group>"; };
+		957F4F592683D5BA002114DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		957F4FAF2683D6D2002114DE /* Dynamic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
+		957F4FB02683D6D2002114DE /* TypeMapping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeMapping.swift; sourceTree = "<group>"; };
+		957F4FB12683D6D2002114DE /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		957F4FB22683D6D2002114DE /* Invocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invocation.swift; sourceTree = "<group>"; };
+		957F4FB72683D704002114DE /* NSWindowHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSWindowHelper.swift; sourceTree = "<group>"; };
+		957F4FB92683DBB0002114DE /* PatchLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatchLoader.h; sourceTree = "<group>"; };
+		957F4FBA2683DBB0002114DE /* PatchLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatchLoader.m; sourceTree = "<group>"; };
+		95B410D9268EFDAC00DBC813 /* PTFakeMetaTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTFakeMetaTouch.m; sourceTree = "<group>"; };
+		95B410DA268EFDAC00DBC813 /* FixCategoryBug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixCategoryBug.h; sourceTree = "<group>"; };
+		95B410DB268EFDAC00DBC813 /* PTFakeMetaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTFakeMetaTouch.h; sourceTree = "<group>"; };
+		95B410DD268EFDAC00DBC813 /* IOHIDEvent+KIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IOHIDEvent+KIF.h"; sourceTree = "<group>"; };
+		95B410DE268EFDAC00DBC813 /* UIAccessibilityElement-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAccessibilityElement-KIFAdditions.m"; sourceTree = "<group>"; };
+		95B410DF268EFDAC00DBC813 /* UIScreen+KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+KIFAdditions.m"; sourceTree = "<group>"; };
+		95B410E0268EFDAC00DBC813 /* NSException-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSException-KIFAdditions.m"; sourceTree = "<group>"; };
+		95B410E1268EFDAC00DBC813 /* NSString+KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KIFAdditions.m"; sourceTree = "<group>"; };
+		95B410E2268EFDAC00DBC813 /* UIApplication-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication-KIFAdditions.h"; sourceTree = "<group>"; };
+		95B410E3268EFDAC00DBC813 /* CGGeometry-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CGGeometry-KIFAdditions.m"; sourceTree = "<group>"; };
+		95B410E4268EFDAC00DBC813 /* UIWindow-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow-KIFAdditions.m"; sourceTree = "<group>"; };
+		95B410E5268EFDAC00DBC813 /* UIScrollView-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView-KIFAdditions.m"; sourceTree = "<group>"; };
+		95B410E6268EFDAC00DBC813 /* UIView-Debugging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView-Debugging.m"; sourceTree = "<group>"; };
+		95B410E7268EFDAC00DBC813 /* UITouch-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITouch-KIFAdditions.m"; sourceTree = "<group>"; };
+		95B410E8268EFDAC00DBC813 /* UITableView-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView-KIFAdditions.h"; sourceTree = "<group>"; };
+		95B410E9268EFDAC00DBC813 /* NSFileManager-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager-KIFAdditions.h"; sourceTree = "<group>"; };
+		95B410EA268EFDAC00DBC813 /* UIView-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView-KIFAdditions.h"; sourceTree = "<group>"; };
+		95B410EC268EFDAC00DBC813 /* UIEvent+KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIEvent+KIFAdditions.h"; sourceTree = "<group>"; };
+		95B410ED268EFDAC00DBC813 /* CALayer-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer-KIFAdditions.h"; sourceTree = "<group>"; };
+		95B410EF268EFDAC00DBC813 /* NSPredicate+KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPredicate+KIFAdditions.h"; sourceTree = "<group>"; };
+		95B410F1268EFDAC00DBC813 /* UIScrollView-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView-KIFAdditions.h"; sourceTree = "<group>"; };
+		95B410F2268EFDAC00DBC813 /* UIWindow-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow-KIFAdditions.h"; sourceTree = "<group>"; };
+		95B410F3268EFDAC00DBC813 /* CGGeometry-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CGGeometry-KIFAdditions.h"; sourceTree = "<group>"; };
+		95B410F4268EFDAC00DBC813 /* UIApplication-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication-KIFAdditions.m"; sourceTree = "<group>"; };
+		95B410F5268EFDAC00DBC813 /* NSString+KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KIFAdditions.h"; sourceTree = "<group>"; };
+		95B410F6268EFDAC00DBC813 /* NSException-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSException-KIFAdditions.h"; sourceTree = "<group>"; };
+		95B410F7268EFDAC00DBC813 /* UIScreen+KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+KIFAdditions.h"; sourceTree = "<group>"; };
+		95B410F8268EFDAC00DBC813 /* UIAccessibilityElement-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAccessibilityElement-KIFAdditions.h"; sourceTree = "<group>"; };
+		95B410F9268EFDAC00DBC813 /* IOHIDEvent+KIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IOHIDEvent+KIF.m"; sourceTree = "<group>"; };
+		95B410FA268EFDAC00DBC813 /* UIView-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView-KIFAdditions.m"; sourceTree = "<group>"; };
+		95B410FB268EFDAC00DBC813 /* NSFileManager-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager-KIFAdditions.m"; sourceTree = "<group>"; };
+		95B410FC268EFDAC00DBC813 /* UITouch-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITouch-KIFAdditions.h"; sourceTree = "<group>"; };
+		95B410FD268EFDAC00DBC813 /* UITableView-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView-KIFAdditions.m"; sourceTree = "<group>"; };
+		95B410FE268EFDAC00DBC813 /* UIView-Debugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView-Debugging.h"; sourceTree = "<group>"; };
+		95B410FF268EFDAC00DBC813 /* UIEvent+KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIEvent+KIFAdditions.m"; sourceTree = "<group>"; };
+		95B41101268EFDAC00DBC813 /* LoadableCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadableCategory.h; sourceTree = "<group>"; };
+		95B41103268EFDAC00DBC813 /* NSPredicate+KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPredicate+KIFAdditions.m"; sourceTree = "<group>"; };
+		95B41104268EFDAC00DBC813 /* NSBundle-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle-KIFAdditions.h"; sourceTree = "<group>"; };
+		95B41105268EFDAC00DBC813 /* CALayer-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer-KIFAdditions.m"; sourceTree = "<group>"; };
+		95B41133268EFDF400DBC813 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		FA079A16262DEBD300C664F5 /* OverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
+		FA0D4467262701FC00986A15 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IOKit.framework; sourceTree = "<group>"; };
+		FA39A0472636B15600EF2140 /* MouseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseController.swift; sourceTree = "<group>"; };
+		FA39A04A2636C59A00EF2140 /* ControlMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlMapping.swift; sourceTree = "<group>"; };
+		FA8D3C2C262E056400C2B45D /* KeyCodeNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCodeNames.swift; sourceTree = "<group>"; };
+		FABC1A6A2618F98E000B65B6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAFD13FA2618A5B2002D36C2 /* PlayCoverInject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PlayCoverInject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAFD13FD2618A5B2002D36C2 /* PlayCoverInject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayCoverInject.h; sourceTree = "<group>"; };
+		FAFD14142618A70D002D36C2 /* InputController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		957F4F532683D5BA002114DE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAFD13F72618A5B2002D36C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA0D4468262701FC00986A15 /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		953B794B268C2C25001BF935 /* record */ = {
+			isa = PBXGroup;
+			children = (
+				953B795C268C31E4001BF935 /* Recorder.swift */,
+			);
+			path = record;
+			sourceTree = "<group>";
+		};
+		957F4F572683D5BA002114DE /* MacHelper */ = {
+			isa = PBXGroup;
+			children = (
+				957F4F582683D5BA002114DE /* MacHelper.h */,
+				957F4F592683D5BA002114DE /* Info.plist */,
+				957F4FB72683D704002114DE /* NSWindowHelper.swift */,
+				95611B9D2683DFAB0045005F /* PatchLoader.h */,
+				95611B9E2683DFAB0045005F /* PatchLoader.m */,
+			);
+			path = MacHelper;
+			sourceTree = "<group>";
+		};
+		957F4FAE2683D67F002114DE /* Dynamic */ = {
+			isa = PBXGroup;
+			children = (
+				957F4FAF2683D6D2002114DE /* Dynamic.swift */,
+				957F4FB22683D6D2002114DE /* Invocation.swift */,
+				957F4FB12683D6D2002114DE /* Logger.swift */,
+				957F4FB02683D6D2002114DE /* TypeMapping.swift */,
+			);
+			path = Dynamic;
+			sourceTree = "<group>";
+		};
+		95B410D7268EFDAC00DBC813 /* PTFakeTouch */ = {
+			isa = PBXGroup;
+			children = (
+				95B410D9268EFDAC00DBC813 /* PTFakeMetaTouch.m */,
+				95B410DA268EFDAC00DBC813 /* FixCategoryBug.h */,
+				95B410DB268EFDAC00DBC813 /* PTFakeMetaTouch.h */,
+				95B410DC268EFDAC00DBC813 /* addition */,
+			);
+			path = PTFakeTouch;
+			sourceTree = "<group>";
+		};
+		95B410DC268EFDAC00DBC813 /* addition */ = {
+			isa = PBXGroup;
+			children = (
+				95B410DD268EFDAC00DBC813 /* IOHIDEvent+KIF.h */,
+				95B410DE268EFDAC00DBC813 /* UIAccessibilityElement-KIFAdditions.m */,
+				95B410DF268EFDAC00DBC813 /* UIScreen+KIFAdditions.m */,
+				95B410E0268EFDAC00DBC813 /* NSException-KIFAdditions.m */,
+				95B410E1268EFDAC00DBC813 /* NSString+KIFAdditions.m */,
+				95B410E2268EFDAC00DBC813 /* UIApplication-KIFAdditions.h */,
+				95B410E3268EFDAC00DBC813 /* CGGeometry-KIFAdditions.m */,
+				95B410E4268EFDAC00DBC813 /* UIWindow-KIFAdditions.m */,
+				95B410E5268EFDAC00DBC813 /* UIScrollView-KIFAdditions.m */,
+				95B410E6268EFDAC00DBC813 /* UIView-Debugging.m */,
+				95B410E7268EFDAC00DBC813 /* UITouch-KIFAdditions.m */,
+				95B410E8268EFDAC00DBC813 /* UITableView-KIFAdditions.h */,
+				95B410E9268EFDAC00DBC813 /* NSFileManager-KIFAdditions.h */,
+				95B410EA268EFDAC00DBC813 /* UIView-KIFAdditions.h */,
+				95B410EC268EFDAC00DBC813 /* UIEvent+KIFAdditions.h */,
+				95B410ED268EFDAC00DBC813 /* CALayer-KIFAdditions.h */,
+				95B410EF268EFDAC00DBC813 /* NSPredicate+KIFAdditions.h */,
+				95B410F1268EFDAC00DBC813 /* UIScrollView-KIFAdditions.h */,
+				95B410F2268EFDAC00DBC813 /* UIWindow-KIFAdditions.h */,
+				95B410F3268EFDAC00DBC813 /* CGGeometry-KIFAdditions.h */,
+				95B410F4268EFDAC00DBC813 /* UIApplication-KIFAdditions.m */,
+				95B410F5268EFDAC00DBC813 /* NSString+KIFAdditions.h */,
+				95B410F6268EFDAC00DBC813 /* NSException-KIFAdditions.h */,
+				95B410F7268EFDAC00DBC813 /* UIScreen+KIFAdditions.h */,
+				95B410F8268EFDAC00DBC813 /* UIAccessibilityElement-KIFAdditions.h */,
+				95B410F9268EFDAC00DBC813 /* IOHIDEvent+KIF.m */,
+				95B410FA268EFDAC00DBC813 /* UIView-KIFAdditions.m */,
+				95B410FB268EFDAC00DBC813 /* NSFileManager-KIFAdditions.m */,
+				95B410FC268EFDAC00DBC813 /* UITouch-KIFAdditions.h */,
+				95B410FD268EFDAC00DBC813 /* UITableView-KIFAdditions.m */,
+				95B410FE268EFDAC00DBC813 /* UIView-Debugging.h */,
+				95B410FF268EFDAC00DBC813 /* UIEvent+KIFAdditions.m */,
+				95B41101268EFDAC00DBC813 /* LoadableCategory.h */,
+				95B41103268EFDAC00DBC813 /* NSPredicate+KIFAdditions.m */,
+				95B41104268EFDAC00DBC813 /* NSBundle-KIFAdditions.h */,
+				95B41105268EFDAC00DBC813 /* CALayer-KIFAdditions.m */,
+			);
+			path = addition;
+			sourceTree = "<group>";
+		};
+		FAFD13F02618A5B2002D36C2 = {
+			isa = PBXGroup;
+			children = (
+				FAFD13FC2618A5B2002D36C2 /* PlayCoverInject */,
+				957F4F572683D5BA002114DE /* MacHelper */,
+				FAFD13FB2618A5B2002D36C2 /* Products */,
+				FAFD14282618A7E4002D36C2 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		FAFD13FB2618A5B2002D36C2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FAFD13FA2618A5B2002D36C2 /* PlayCoverInject.framework */,
+				957F4F562683D5BA002114DE /* MacHelper.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FAFD13FC2618A5B2002D36C2 /* PlayCoverInject */ = {
+			isa = PBXGroup;
+			children = (
+				95B410D7268EFDAC00DBC813 /* PTFakeTouch */,
+				953B794B268C2C25001BF935 /* record */,
+				957F4FB92683DBB0002114DE /* PatchLoader.h */,
+				957F4FBA2683DBB0002114DE /* PatchLoader.m */,
+				957F4FAE2683D67F002114DE /* Dynamic */,
+				FABC1A6A2618F98E000B65B6 /* Info.plist */,
+				FAFD14142618A70D002D36C2 /* InputController.swift */,
+				FAFD13FD2618A5B2002D36C2 /* PlayCoverInject.h */,
+				FA079A16262DEBD300C664F5 /* OverlayView.swift */,
+				FA8D3C2C262E056400C2B45D /* KeyCodeNames.swift */,
+				FA39A0472636B15600EF2140 /* MouseController.swift */,
+				FA39A04A2636C59A00EF2140 /* ControlMapping.swift */,
+				11805D03266F73F00070BB25 /* Values.swift */,
+				953B7949268C2A52001BF935 /* Toucher.swift */,
+				953B795E268C53AA001BF935 /* KeyboardController.swift */,
+			);
+			path = PlayCoverInject;
+			sourceTree = "<group>";
+		};
+		FAFD14282618A7E4002D36C2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				95B41133268EFDF400DBC813 /* XCTest.framework */,
+				FA0D4467262701FC00986A15 /* IOKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		957F4F512683D5BA002114DE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95611B9F2683DFAB0045005F /* PatchLoader.h in Headers */,
+				957F4F5A2683D5BA002114DE /* MacHelper.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAFD13F52618A5B2002D36C2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				957F4FBB2683DBB0002114DE /* PatchLoader.h in Headers */,
+				95B41109268EFDAC00DBC813 /* PTFakeMetaTouch.h in Headers */,
+				95B41108268EFDAC00DBC813 /* FixCategoryBug.h in Headers */,
+				95B41117268EFDAC00DBC813 /* UIView-KIFAdditions.h in Headers */,
+				95B41125268EFDAC00DBC813 /* UIAccessibilityElement-KIFAdditions.h in Headers */,
+				95B41124268EFDAC00DBC813 /* UIScreen+KIFAdditions.h in Headers */,
+				95B41123268EFDAC00DBC813 /* NSException-KIFAdditions.h in Headers */,
+				95B4110F268EFDAC00DBC813 /* UIApplication-KIFAdditions.h in Headers */,
+				95B41122268EFDAC00DBC813 /* NSString+KIFAdditions.h in Headers */,
+				95B41116268EFDAC00DBC813 /* NSFileManager-KIFAdditions.h in Headers */,
+				95B4112E268EFDAD00DBC813 /* LoadableCategory.h in Headers */,
+				95B4111C268EFDAC00DBC813 /* NSPredicate+KIFAdditions.h in Headers */,
+				95B41129268EFDAC00DBC813 /* UITouch-KIFAdditions.h in Headers */,
+				95B4110A268EFDAC00DBC813 /* IOHIDEvent+KIF.h in Headers */,
+				95B41131268EFDAD00DBC813 /* NSBundle-KIFAdditions.h in Headers */,
+				95B4111A268EFDAC00DBC813 /* CALayer-KIFAdditions.h in Headers */,
+				95B4111F268EFDAC00DBC813 /* UIWindow-KIFAdditions.h in Headers */,
+				95B41120268EFDAC00DBC813 /* CGGeometry-KIFAdditions.h in Headers */,
+				95B41119268EFDAC00DBC813 /* UIEvent+KIFAdditions.h in Headers */,
+				FAFD13FF2618A5B2002D36C2 /* PlayCoverInject.h in Headers */,
+				95B41115268EFDAC00DBC813 /* UITableView-KIFAdditions.h in Headers */,
+				95B4112B268EFDAC00DBC813 /* UIView-Debugging.h in Headers */,
+				95B4111E268EFDAC00DBC813 /* UIScrollView-KIFAdditions.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		957F4F552683D5BA002114DE /* MacHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 957F4F5B2683D5BA002114DE /* Build configuration list for PBXNativeTarget "MacHelper" */;
+			buildPhases = (
+				957F4F512683D5BA002114DE /* Headers */,
+				957F4F522683D5BA002114DE /* Sources */,
+				957F4F532683D5BA002114DE /* Frameworks */,
+				957F4F542683D5BA002114DE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacHelper;
+			productName = MacHelper;
+			productReference = 957F4F562683D5BA002114DE /* MacHelper.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		FAFD13F92618A5B2002D36C2 /* PlayCoverInject */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FAFD14022618A5B2002D36C2 /* Build configuration list for PBXNativeTarget "PlayCoverInject" */;
+			buildPhases = (
+				FAFD13F52618A5B2002D36C2 /* Headers */,
+				FAFD13F62618A5B2002D36C2 /* Sources */,
+				FAFD13F72618A5B2002D36C2 /* Frameworks */,
+				FAFD13F82618A5B2002D36C2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PlayCoverInject;
+			packageProductDependencies = (
+			);
+			productName = PlayCoverInject;
+			productReference = FAFD13FA2618A5B2002D36C2 /* PlayCoverInject.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FAFD13F12618A5B2002D36C2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					957F4F552683D5BA002114DE = {
+						CreatedOnToolsVersion = 12.5.1;
+						LastSwiftMigration = 1250;
+					};
+					FAFD13F92618A5B2002D36C2 = {
+						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
+					};
+				};
+			};
+			buildConfigurationList = FAFD13F42618A5B2002D36C2 /* Build configuration list for PBXProject "PlayCoverInject" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FAFD13F02618A5B2002D36C2;
+			packageReferences = (
+			);
+			productRefGroup = FAFD13FB2618A5B2002D36C2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FAFD13F92618A5B2002D36C2 /* PlayCoverInject */,
+				957F4F552683D5BA002114DE /* MacHelper */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		957F4F542683D5BA002114DE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAFD13F82618A5B2002D36C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		957F4F522683D5BA002114DE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				957F4FB82683D704002114DE /* NSWindowHelper.swift in Sources */,
+				95611BA02683DFAB0045005F /* PatchLoader.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAFD13F62618A5B2002D36C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95B41132268EFDAD00DBC813 /* CALayer-KIFAdditions.m in Sources */,
+				95B41112268EFDAC00DBC813 /* UIScrollView-KIFAdditions.m in Sources */,
+				957F4FB52683D6D2002114DE /* Logger.swift in Sources */,
+				95B41107268EFDAC00DBC813 /* PTFakeMetaTouch.m in Sources */,
+				95B41121268EFDAC00DBC813 /* UIApplication-KIFAdditions.m in Sources */,
+				95B4110E268EFDAC00DBC813 /* NSString+KIFAdditions.m in Sources */,
+				957F4FB32683D6D2002114DE /* Dynamic.swift in Sources */,
+				95B41128268EFDAC00DBC813 /* NSFileManager-KIFAdditions.m in Sources */,
+				953B795F268C53AA001BF935 /* KeyboardController.swift in Sources */,
+				95B41130268EFDAD00DBC813 /* NSPredicate+KIFAdditions.m in Sources */,
+				95B41126268EFDAC00DBC813 /* IOHIDEvent+KIF.m in Sources */,
+				957F4FB42683D6D2002114DE /* TypeMapping.swift in Sources */,
+				957F4FB62683D6D2002114DE /* Invocation.swift in Sources */,
+				FA39A04B2636C59A00EF2140 /* ControlMapping.swift in Sources */,
+				FAFD14162618A70D002D36C2 /* InputController.swift in Sources */,
+				95B41111268EFDAC00DBC813 /* UIWindow-KIFAdditions.m in Sources */,
+				953B794A268C2A52001BF935 /* Toucher.swift in Sources */,
+				95B4110C268EFDAC00DBC813 /* UIScreen+KIFAdditions.m in Sources */,
+				95B41114268EFDAC00DBC813 /* UITouch-KIFAdditions.m in Sources */,
+				FA079A17262DEBD300C664F5 /* OverlayView.swift in Sources */,
+				953B795D268C31E4001BF935 /* Recorder.swift in Sources */,
+				95B4112C268EFDAD00DBC813 /* UIEvent+KIFAdditions.m in Sources */,
+				95B4110B268EFDAC00DBC813 /* UIAccessibilityElement-KIFAdditions.m in Sources */,
+				FA8D3C2D262E056400C2B45D /* KeyCodeNames.swift in Sources */,
+				95B4110D268EFDAC00DBC813 /* NSException-KIFAdditions.m in Sources */,
+				95B41110268EFDAC00DBC813 /* CGGeometry-KIFAdditions.m in Sources */,
+				957F4FBC2683DBB0002114DE /* PatchLoader.m in Sources */,
+				FA39A0482636B15600EF2140 /* MouseController.swift in Sources */,
+				95B4112A268EFDAC00DBC813 /* UITableView-KIFAdditions.m in Sources */,
+				95B41127268EFDAC00DBC813 /* UIView-KIFAdditions.m in Sources */,
+				11805D04266F73F00070BB25 /* Values.swift in Sources */,
+				95B41113268EFDAC00DBC813 /* UIView-Debugging.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		957F4F5C2683D5BA002114DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = MacHelper/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				PRODUCT_BUNDLE_IDENTIFIER = app.playcover.MacHelper;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		957F4F5D2683D5BA002114DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = MacHelper/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				PRODUCT_BUNDLE_IDENTIFIER = app.playcover.MacHelper;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		FAFD14002618A5B2002D36C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-framework",
+					IOKit,
+				);
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		FAFD14012618A5B2002D36C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-framework",
+					IOKit,
+				);
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		FAFD14032618A5B2002D36C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = PlayCoverInject/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = keymapper.controller.PlayCoverInject;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FAFD14042618A5B2002D36C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = PlayCoverInject/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"$(BUILT_PRODUCTS_DIR)/Digitizer",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = keymapper.controller.PlayCoverInject;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		957F4F5B2683D5BA002114DE /* Build configuration list for PBXNativeTarget "MacHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				957F4F5C2683D5BA002114DE /* Debug */,
+				957F4F5D2683D5BA002114DE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FAFD13F42618A5B2002D36C2 /* Build configuration list for PBXProject "PlayCoverInject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAFD14002618A5B2002D36C2 /* Debug */,
+				FAFD14012618A5B2002D36C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FAFD14022618A5B2002D36C2 /* Build configuration list for PBXNativeTarget "PlayCoverInject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAFD14032618A5B2002D36C2 /* Debug */,
+				FAFD14042618A5B2002D36C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FAFD13F12618A5B2002D36C2 /* Project object */;
+}
