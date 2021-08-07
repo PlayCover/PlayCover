@@ -10,6 +10,7 @@ struct AppLibraryView: View {
     
     @EnvironmentObject var userData: UserData
     @State var isLoading : Bool = false
+    @State var showWrongfileTypeAlert : Bool = false
     
     private func insertApp(url : URL){
         isLoading = true
@@ -60,7 +61,11 @@ struct AppLibraryView: View {
                                             DispatchQueue.main.async {
                                                 if let urlData = urlData as? Data {
                                                     let urll = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
-                                                    insertApp(url: urll)
+                                                    if urll.pathExtension == "ipa"{
+                                                        insertApp(url: urll)
+                                                    } else{
+                                                        showWrongfileTypeAlert = true
+                                                    }
                                                 }
                                             }
                                         }
@@ -76,7 +81,9 @@ struct AppLibraryView: View {
                         Spacer()
                         Button("Add new app"){
                             selectFile()
-                        }.padding()
+                        }.padding().alert(isPresented: $showWrongfileTypeAlert) {
+                            Alert(title: Text("Wrong file type"), message: Text("You should use .ipa file"), dismissButton: .default(Text("OK")))
+                        }
                     } else{
                         ProgressView("Installing...")
                         

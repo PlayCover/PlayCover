@@ -30,10 +30,10 @@ class AppCreator {
             
             do {
                 tempDir = try createTempFolder()
-                var ipaFile = try copyIPAToTempFolder(temp: tempDir)
-                var appDir = try unzipIPA(ipa: ipaFile)
-                var infoPlist = getInfoPlist(app: appDir)
-                var appName = try getAppName(plist : infoPlist)
+                let ipaFile = try copyIPAToTempFolder(temp: tempDir)
+                let appDir = try unzipIPA(ipa: ipaFile)
+                let infoPlist = getInfoPlist(app: appDir)
+                let appName = try getAppName(plist : infoPlist)
                 if userData.makeFullscreen{
                     try fullscreenAndControls(app: appDir, name: appName)
                 }
