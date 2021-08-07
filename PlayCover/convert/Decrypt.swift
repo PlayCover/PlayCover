@@ -60,7 +60,7 @@ class Dump {
                             }
                             munmap(base, base_size)
                             munmap(dupe, dupe_size)
-                            ulog(str: "Dump Success")
+                            ulog(str: "Dump Success\n")
                             DispatchQueue.main.async {
                                 NotificationCenter.default.post(name: NSNotification.Name("stop"), object: nil)
                             }

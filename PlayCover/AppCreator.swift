@@ -35,19 +35,22 @@ class AppCreator {
                 let appDir = try unzipIPA(ipa: ipaFile)
                 let infoPlist = getInfoPlist(app: appDir)
                 let appName = try getAppName(plist : infoPlist)
-                if userData.makeFullscreen{
-                    try fullscreenAndControls(app: appDir, name: appName)
-                }
                 let execFile = appDir.appendingPathComponent(appName)
+                let ents = try createEntitlements(app: appDir, exec: execFile)
+              
                 if isIPAEncrypted(exec: execFile){
                     try decryptApp(app: appDir, temp: tempDir!, name: appName)
+                }
+                
+                if userData.makeFullscreen{
+                    try fullscreenAndControls(app: appDir, name: appName)
                 }
                 
                 try convertApp(app: appDir)
                
                 try fixExecutable(exec: execFile)
-                //try patchMinVersion(info: infoPlist)
-                try signApp(app: appDir, exec: execFile)
+                try patchMinVersion(info: infoPlist)
+                try signApp(app: appDir, ents: ents)
                 disableFileLock(url: appDir)
                 let docAppDir = try placeAppToDocs(app: appDir, name: appName)
                 clearCache(temp: tempDir!)
@@ -94,7 +97,7 @@ class AppCreator {
             
             func disableFileLock(url : URL){
                 ulog(str: "Disabling quarantine\n")
-                ulog(str: shell("xattr -rd com.apple.quarantine \(url.path)"))
+                ulog(str: shell("xattr -rds com.apple.quarantine \(url.path)"))
             }
             
             func convertApp(app : URL) throws{
@@ -177,14 +180,12 @@ class AppCreator {
                 ulog(str: "Converting \(fileUrl.lastPathComponent)\n")
                 let newURL = URL(fileURLWithPath: fileUrl.path.appending("_sim"))
                 
-                if convert(fileUrl.path) == -1{
-                    try fm.copyItem(at: fileUrl, to: newURL)
-                    shell("vtool -arch arm64 -set-build-version maccatalyst 13.0 15.0 -replace -output \(newURL.path) \(newURL.path)")
-                }
+                try fm.copyItem(at: fileUrl, to: newURL)
+                shell("vtool -arch arm64 -set-build-version maccatalyst 13.0 15.0 -replace -output \(newURL.path) \(newURL.path)")
                 
                 ulog(str: shell("codesign -fs- \(newURL.path)"))
                 
-                try fm.removeItem(at: fileUrl)
+                try deleteFolder(at: fileUrl)
                 try fm.moveItem(at: newURL, to: fileUrl)
             }
             
@@ -222,11 +223,10 @@ class AppCreator {
                 try fm.setAttributes(attributes, ofItemAtPath: exec.path)
             }
             
-            func signApp(app : URL, exec: URL) throws {
+            func signApp(app : URL, ents: URL) throws {
                 ulog(str: "Signing app\n")
-                let ents = try createEntitlements(app: app, exec: exec)
                 ulog(str: shell("codesign -fs- \(app.path) --deep --entitlements \(ents.path)"))
-                try fm.removeItem(at: ents)
+                try deleteFolder(at: ents)
             }
             
             func createEntitlements(app: URL, exec : URL) throws -> URL{
@@ -234,6 +234,7 @@ class AppCreator {
                 let ents = app.deletingLastPathComponent().appendingPathComponent("ent.plist")
                 if userData.fixLogin{
                     try copyEntitlements(exec: exec).write(to: ents, atomically: true, encoding: String.Encoding.utf8)
+                    try addSandobox(ents: ents)
                 } else{
                     try entitlements_template.write(to: ents, atomically: true, encoding: String.Encoding.utf8)
                 }
@@ -242,13 +243,20 @@ class AppCreator {
             
             func copyEntitlements(exec: URL) throws -> String{
                 ulog(str: "Copying entitlements \n")
-                print(shell("codesign -d --entitlements :- \(exec)"))
-                var en = shell("codesign -d --entitlements :- \(exec)")
+                var en = excludeEntitlements(from: shell("codesign -d --entitlements :- \(exec.path)"))
                 if !en.contains("DOCTYPE plist PUBLIC"){
                     en = entitlements_template
                 }
-                print(en)
                 return en
+            }
+            
+            func excludeEntitlements(from : String) -> String {
+                if let range: Range<String.Index> = from.range(of: "<?xml") {
+                    return String(from[range.lowerBound...])
+                }
+                else {
+                    return entitlements_template
+                }
             }
             
             func ulog(str : String = "Unknown error!"){
@@ -257,10 +265,28 @@ class AppCreator {
                 }
             }
             
+            func addSandobox(ents : URL) throws {
+                ulog(str: "Adding Sandbox\n")
+                if let plist = NSDictionary(contentsOfFile: ents.path){
+                    if let dict = (plist as NSDictionary).mutableCopy() as? NSMutableDictionary{
+                        dict["com.apple.security.app-sandbox"] = true
+                        dict["com.apple.security.network.client"] = true
+                        dict["com.apple.security.network.server"] = true
+                        dict.write(toFile: ents.path, atomically: true)
+                    } else{
+                        throw PlayCoverError.ipaCorrupted
+                    }
+                } else{
+                    throw PlayCoverError.ipaCorrupted
+                }
+                
+            }
+            
             func patchMinVersion(info : URL) throws {
                 let plist = NSDictionary(contentsOfFile: info.path)
                 let dict = (plist! as NSDictionary).mutableCopy() as! NSMutableDictionary
-                if dict["MinimumOSVersion"] != nil {
+                if Double(dict["MinimumOSVersion"] as! String)! > 11.0 {
+                    ulog(str: "Patching Minimum OS version\n")
                     dict["MinimumOSVersion"] = 11
                 }
                 dict.write(toFile: info.path, atomically: true)
