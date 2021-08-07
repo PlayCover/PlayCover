@@ -8,7 +8,7 @@ import UIKit
 
 class Values {
     static var screenWidth : CGFloat {
-        windowWidth() * 1.64
+        windowWidth() * 1.3
     }
     static var screenHeight : CGFloat {
         windowHeight() * 1.3

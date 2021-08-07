@@ -39,8 +39,8 @@ class AppCreator {
                 }
                 try convertApp(app: appDir)
                 try fixExecutable(app: appDir, name: appName)
-                try patchMinVersion(info: infoPlist)
-                try signApp(app: appDir)
+                //try patchMinVersion(info: infoPlist)
+                try signApp(app: appDir, appName: appName)
                 disableFileLock(url: appDir)
                 let docAppDir = try placeAppToDocs(app: appDir, name: appName)
                 clearCache(temp: tempDir!)
@@ -92,7 +92,7 @@ class AppCreator {
             
             func convertApp(app : URL) throws{
                 ulog(str: "Converting app\n")
-                var files = [URL]()
+                let files = [URL]()
                 if let enumerator = fm.enumerator(at: app, includingPropertiesForKeys: [.isRegularFileKey], options: [.skipsHiddenFiles, .skipsPackageDescendants]) {
                     for case let fileURL as URL in enumerator {
                         do {
@@ -173,18 +173,34 @@ class AppCreator {
                 try fm.setAttributes(attributes, ofItemAtPath: executableFile.path)
             }
             
-            func signApp(app : URL) throws {
+            func signApp(app : URL, appName : String) throws {
                 ulog(str: "Signing app\n")
-                let ents = try createEntitlements(app: app)
+                let ents = try createEntitlements(app: app, name: appName)
                 ulog(str: shell("codesign -fs- \(app.path) --deep --entitlements \(ents.path)"))
                 try fm.removeItem(at: ents)
             }
             
-            func createEntitlements(app: URL) throws -> URL{
+            func createEntitlements(app: URL, name : String) throws -> URL{
                 ulog(str: "Creating entitlements file\n")
                 let ents = app.deletingLastPathComponent().appendingPathComponent("ent.plist")
-                try entitlements_template.write(to: ents, atomically: true, encoding: String.Encoding.utf8)
+                if userData.fixLogin{
+                    try copyEntitlements(app: app, name: name).write(to: ents, atomically: true, encoding: String.Encoding.utf8)
+                } else{
+                    try entitlements_template.write(to: ents, atomically: true, encoding: String.Encoding.utf8)
+                }
                 return ents
+            }
+            
+            func copyEntitlements(app: URL, name : String) throws -> String{
+                ulog(str: "Copying entitlements \n")
+                let executablePath = app.appendingPathComponent(name).path
+                print(shell("codesign -d --entitlements :- \(executablePath)"))
+                var en = shell("codesign -d --entitlements :- \(executablePath)")
+                if !en.contains("DOCTYPE plist PUBLIC"){
+                    en = entitlements_template
+                }
+                print(en)
+                return en
             }
             
             func ulog(str : String = "Unknown error!"){
@@ -196,7 +212,9 @@ class AppCreator {
             func patchMinVersion(info : URL) throws {
                 let plist = NSDictionary(contentsOfFile: info.path)
                 let dict = (plist! as NSDictionary).mutableCopy() as! NSMutableDictionary
-                dict["MinimumOSVersion"] = 11
+                if let val = dict["MinimumOSVersion"] {
+                    dict["MinimumOSVersion"] = 11
+                }
                 dict.write(toFile: info.path, atomically: true)
             }
             

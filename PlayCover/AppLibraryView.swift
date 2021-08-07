@@ -4,6 +4,7 @@ import Cocoa
 class UserData: ObservableObject {
     @Published var log : String = ""
     @Published var makeFullscreen : Bool = false
+    @Published var fixLogin : Bool = false
 }
 
 struct AppLibraryView: View {
@@ -78,6 +79,8 @@ struct AppLibraryView: View {
                         }
                         Spacer()
                         Toggle("Make Fullscreen & add keymapping", isOn: $userData.makeFullscreen).padding()
+                        Spacer()
+                        Toggle("Fix login in games", isOn: $userData.fixLogin).padding()
                         Spacer()
                         Button("Add new app"){
                             selectFile()
