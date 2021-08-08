@@ -31,4 +31,8 @@ https://github.com/alexzielenski/optool
 
 https://github.com/Ret70/PTFakeTouch
 
+# Commercial
+
+See LICENSE.MD file or contact me to get exclusive Commercial license.
+
 
