@@ -9,6 +9,18 @@ import Foundation
 import AppKit
 import SwiftUI
 
+extension URL {
+    var esc : String {
+        return self.path.esc
+    }
+}
+
+extension String {
+    var esc : String {
+        return self.replacingOccurrences(of: " ", with: "\\ ")
+    }
+}
+
 func shell(_ command: String) -> String {
     let task = Process()
     let pipe = Pipe()

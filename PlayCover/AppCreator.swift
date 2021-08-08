@@ -50,7 +50,7 @@ class AppCreator {
                
                 try fixExecutable(exec: execFile)
                 try patchMinVersion(info: infoPlist)
-                try signApp(app: appDir, ents: ents)
+                try signApp(exec: execFile, ents: ents)
                 disableFileLock(url: appDir)
                 let docAppDir = try placeAppToDocs(app: appDir, name: appName)
                 clearCache(temp: tempDir!)
@@ -97,7 +97,7 @@ class AppCreator {
             
             func disableFileLock(url : URL){
                 ulog(str: "Disabling quarantine\n")
-                ulog(str: shell("xattr -rds com.apple.quarantine \(url.path)"))
+                ulog(str: shell("xattr -rds com.apple.quarantine \(url.esc)"))
             }
             
             func convertApp(app : URL) throws{
@@ -118,13 +118,13 @@ class AppCreator {
             }
             
             func isIPAEncrypted(exec: URL) -> Bool {
-                let response = shell("otool -l \(exec.path) | grep LC_ENCRYPTION_INFO -A5")
+                let response = shell("otool -l \(exec.esc) | grep LC_ENCRYPTION_INFO -A5")
                 return response.contains("cryptid 1")
             }
             
             func deleteFolder(at url: URL) throws {
                         if FileManager.default.fileExists(atPath: url.path) {
-                            ulog(str: "Clearing \(url.path)\n")
+                            ulog(str: "Clearing \(url.esc)\n")
                             try FileManager.default.removeItem(atPath: url.path)
                         }
                     }
@@ -136,7 +136,7 @@ class AppCreator {
                 ulog(str: "Creating Wrapper folder\n")
                         let wrapperPath = finalProduct.appendingPathComponent("Wrapper")
                         try FileManager.default.createDirectory(atPath: wrapperPath.path, withIntermediateDirectories: true, attributes: nil)
-                     ulog(str: "Wrapper path: \(wrapperPath.path)")
+                     ulog(str: "Wrapper path: \(wrapperPath.esc)")
                         
                       ulog(str: "Copying files\n")
                         try FileManager.default.copyItem(
@@ -148,12 +148,16 @@ class AppCreator {
                             atPath: finalProduct.appendingPathComponent("WrappedBundle").path,
                             withDestinationPath: "Wrapper/\(app.lastPathComponent)"
                         )
-                shell("xattr -dr com.apple.quarantine \(finalProduct.path)")
+                shell("xattr -dr com.apple.quarantine \(finalProduct.esc)")
                 ulog(str: "Moving to /Applications \n")
-                shell("mv \(finalProduct.path) /Applications")
+                shell("mv \(finalProduct.esc) /Applications")
                 let sourceExecFile = URL(fileURLWithPath: "/Applications/\(name).app/Wrapper/\(name).app/\(name)", isDirectory: false)
-                let targetExecFile = app.appendingPathComponent("\(name)1")
-                Dump.init().staticMode(data: userData, sourceUrl: sourceExecFile, targetUrl: targetExecFile)
+                let targetExecFile = tempDir!.appendingPathComponent(name, isDirectory: false)
+                let crypt = try makeUtilExecutable(utilName: "appdecrypt")
+                print("\(crypt.esc) \(sourceExecFile.esc) \(targetExecFile.esc)")
+                ulog(str: shell("\(crypt.esc) \(sourceExecFile.esc) \(targetExecFile.esc)"))
+                try deleteFolder(at: app)
+                ulog(str: shell("mv /Applications/\(name).app/Wrapper/\(name).app \(tempDir!.esc)/ipafile/Payload/"))
                 try fm.removeItem(at: app.appendingPathComponent(name, isDirectory: false))
                 try fm.moveItem(at: targetExecFile, to: app.appendingPathComponent(name, isDirectory: false))
                 ulog(str : shell("rm -rf /Applications/\(name).app/"))
@@ -178,15 +182,9 @@ class AppCreator {
             
             func convertBinary(fileUrl : URL) throws {
                 ulog(str: "Converting \(fileUrl.lastPathComponent)\n")
-                let newURL = URL(fileURLWithPath: fileUrl.path.appending("_sim"))
                 
-                try fm.copyItem(at: fileUrl, to: newURL)
-                shell("vtool -arch arm64 -set-build-version maccatalyst 13.0 15.0 -replace -output \(newURL.path) \(newURL.path)")
-                
-                ulog(str: shell("codesign -fs- \(newURL.path)"))
-                
-                try deleteFolder(at: fileUrl)
-                try fm.moveItem(at: newURL, to: fileUrl)
+                shell("vtool -arch arm64 -set-build-version maccatalyst 10.0 14.5 -replace -output \(fileUrl.esc) \(fileUrl.esc)")
+                ulog(str: shell("codesign -fs- \(fileUrl.esc)"))
             }
             
             func secureCopyItem(at srcURL: URL, to dstURL: URL) throws{
@@ -202,7 +200,7 @@ class AppCreator {
             
             func getAppName(plist: URL) throws -> String {
                 ulog(str: "Rietriving app name\n")
-                return (NSDictionary(contentsOfFile: plist.path)!["CFBundleExecutable"] as! String?)!
+                return (NSDictionary(contentsOfFile: plist.path)!["CFBundleExecutable"] as! String?)!.esc
             }
             
             func placeAppToDocs(app : URL, name: String) throws -> URL {
@@ -223,9 +221,9 @@ class AppCreator {
                 try fm.setAttributes(attributes, ofItemAtPath: exec.path)
             }
             
-            func signApp(app : URL, ents: URL) throws {
+            func signApp(exec : URL, ents: URL) throws {
                 ulog(str: "Signing app\n")
-                ulog(str: shell("codesign -fs- \(app.path) --deep --entitlements \(ents.path)"))
+                ulog(str: shell("codesign -fs- \(exec.esc) --deep --entitlements \(ents.esc)"))
                 try deleteFolder(at: ents)
             }
             
@@ -243,7 +241,7 @@ class AppCreator {
             
             func copyEntitlements(exec: URL) throws -> String{
                 ulog(str: "Copying entitlements \n")
-                var en = excludeEntitlements(from: shell("codesign -d --entitlements :- \(exec.path)"))
+                var en = excludeEntitlements(from: shell("codesign -d --entitlements :- \(exec.esc)"))
                 if !en.contains("DOCTYPE plist PUBLIC"){
                     en = entitlements_template
                 }
@@ -302,20 +300,25 @@ class AppCreator {
                 try fm.copyItem(at: playCover!, to: pc)
                 try fm.copyItem(at: macHelper!, to: mh)
                 
-                let optool = Bundle.main.url(forResource: "optool", withExtension: "")
-                if !fm.isExecutableFile(atPath: optool!.path){
-                    var attributes = [FileAttributeKey : Any]()
-                    attributes[.posixPermissions] = 0o777
-                    try fm.setAttributes(attributes, ofItemAtPath: optool!.path)
-                }
+                let optool = try makeUtilExecutable(utilName: "optool")
                 
                 let executablePath = app.appendingPathComponent(name)
-                ulog( str: shell("\(optool!.path) install -p \"@executable_path/PlayCoverInject\" -t \(executablePath.path)"))
-                ulog( str: shell("\(optool!.path) install -p \"@executable_path/MacHelper\" -t \(executablePath.path)"))
+                ulog( str: shell("\(optool.esc) install -p \"@executable_path/PlayCoverInject\" -t \(executablePath.esc)"))
+                ulog( str: shell("\(optool.esc) install -p \"@executable_path/MacHelper\" -t \(executablePath.esc)"))
+            }
+            
+            func makeUtilExecutable(utilName : String) throws -> URL{
+                let util = Bundle.main.url(forResource: utilName, withExtension: "")
+                if !fm.isExecutableFile(atPath: util!.path){
+                    var attributes = [FileAttributeKey : Any]()
+                    attributes[.posixPermissions] = 0o777
+                    try fm.setAttributes(attributes, ofItemAtPath: util!.path)
+                }
+                return util!
             }
             
         }
-        
+    
     }
     
     static let entitlements_template = """

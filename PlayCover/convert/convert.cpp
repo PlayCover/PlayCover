@@ -29,74 +29,74 @@ bool patch_for_simulator(char *base) {
     struct load_command *lc;
 
     mach_header_64 *header = (mach_header_64 *)base;
-    if (header->magic == FAT_CIGAM_64 || header->magic == FAT_CIGAM) {
-        fat_header *fat = (fat_header *)base;
-        if (swap_uint32(fat->nfat_arch) != 1) {
-            printf("error: iOS App has fat macho with more than one architecture? (%d)\n", fat->nfat_arch);
+        if (header->magic == FAT_CIGAM_64 || header->magic == FAT_CIGAM) {
+            fat_header *fat = (fat_header *)base;
+            if (swap_uint32(fat->nfat_arch) != 1) {
+                printf("error: iOS App has fat macho with more than one architecture? (%d)\n", fat->nfat_arch);
+                return false;
+            }
+            cpu_type_t cputype;
+            uint64_t offset;
+            if (header->magic == FAT_CIGAM_64) {
+                fat_arch_64 *farch64 = (fat_arch_64 *)(base + sizeof(fat_header));
+                cputype = swap_uint32(farch64->cputype);
+                offset = swap_uint64(farch64->offset);
+            } else {
+                fat_arch *farch = (fat_arch *)(base + sizeof(fat_header));
+                cputype = swap_uint32(farch->cputype);
+                offset = swap_uint32(farch->offset);
+            }
+
+            if (cputype != CPU_TYPE_ARM64) {
+                printf("error: iOS App has macho with wrong cputype:0x%x\n", cputype);
+                return false;
+            }
+            if (offset > max_header_size) {
+                printf("error: huge fat arch offset 0x%llx > 0x%lx, set MAX_HEADER_SIZE environment to change the default\n", offset, max_header_size);
+            }
+            header = (mach_header_64 *)(base + offset);
+        }
+        if (header->magic != MH_MAGIC_64) {
+            printf("error: not a valid macho file\n");
             return false;
         }
-        cpu_type_t cputype;
-        uint64_t offset;
-        if (header->magic == FAT_CIGAM_64) {
-            fat_arch_64 *farch64 = (fat_arch_64 *)(base + sizeof(fat_header));
-            cputype = swap_uint32(farch64->cputype);
-            offset = swap_uint64(farch64->offset);
-        } else {
-            fat_arch *farch = (fat_arch *)(base + sizeof(fat_header));
-            cputype = swap_uint32(farch->cputype);
-            offset = swap_uint32(farch->offset);
-        }
 
-        if (cputype != CPU_TYPE_ARM64) {
-            printf("error: iOS App has macho with wrong cputype:0x%x\n", cputype);
+        //load commands begins after the macho header
+        lc = (load_command*)((mach_vm_address_t)header + sizeof(mach_header_64));
+        uint32_t removedSize = 0, sizeofcmds = 0, numOfRemoved = 0, i = 0, cmdsize = 0;
+        bool found_build_version_command = false, removed = false;
+        for (; i < header->ncmds; i++) {
+            removed = false;
+            if (lc->cmd == LC_ENCRYPTION_INFO || lc->cmd == LC_ENCRYPTION_INFO_64 || lc->cmd == LC_VERSION_MIN_IPHONEOS){
+                removed = true; // mark the load command as removed
+                removedSize += lc->cmdsize;
+                numOfRemoved += 1;
+                printf("remove load command[0x%x] at offset:0x%llx\n", lc->cmd, (mach_vm_address_t)lc-(mach_vm_address_t)header);
+            } else if (lc->cmd == LC_BUILD_VERSION) { // replace build version with simulator version
+                memcpy(lc, &buildVersionForSimulator, sizeof(build_version_command)+sizeof(build_tool_version));
+                found_build_version_command = true;
+                printf("patch build version command at offset:0x%llx\n", (mach_vm_address_t)lc-(mach_vm_address_t)header);
+            }
+            cmdsize = lc->cmdsize; // maybe overwrite, backup cmdsize
+            if (removedSize && !removed) { // move forward with removedSize bytes.
+                memcpy((char *)lc-removedSize, lc, cmdsize);
+            }
+            sizeofcmds += cmdsize;
+            lc = (struct load_command*)((mach_vm_address_t)lc + cmdsize);
+        }
+        if (sizeofcmds != header->sizeofcmds) {
+            printf("error: sizeofcmds(0x%x) != header->sizeofcmds(0x%x)\n", sizeofcmds, header->sizeofcmds);
             return false;
         }
-        if (offset > max_header_size) {
-            printf("error: huge fat arch offset 0x%llx > 0x%lx, set MAX_HEADER_SIZE environment to change the default\n", offset, max_header_size);
-        }
-        header = (mach_header_64 *)(base + offset);
-    }
-    if (header->magic != MH_MAGIC_64) {
-        printf("error: not a valid macho file\n");
-        return false;
-    }
 
-    //load commands begins after the macho header
-    lc = (load_command*)((mach_vm_address_t)header + sizeof(mach_header_64));
-    uint32_t removedSize = 0, sizeofcmds = 0, numOfRemoved = 0, i = 0, cmdsize = 0;
-    bool found_build_version_command = false, removed = false;
-    for (; i < header->ncmds; i++) {
-        removed = false;
-        if (lc->cmd == LC_ENCRYPTION_INFO || lc->cmd == LC_ENCRYPTION_INFO_64 || lc->cmd == LC_VERSION_MIN_IPHONEOS){
-            removed = true; // mark the load command as removed
-            removedSize += lc->cmdsize;
-            numOfRemoved += 1;
-            printf("remove load command[0x%x] at offset:0x%llx\n", lc->cmd, (mach_vm_address_t)lc-(mach_vm_address_t)header);
-        } else if (lc->cmd == LC_BUILD_VERSION) { // replace build version with simulator version
-            memcpy(lc, &buildVersionForSimulator, sizeof(build_version_command)+sizeof(build_tool_version));
-            found_build_version_command = true;
-            printf("patch build version command at offset:0x%llx\n", (mach_vm_address_t)lc-(mach_vm_address_t)header);
+        if (!found_build_version_command) { // not found, then insert one
+            memcpy((char *)lc-removedSize, &buildVersionForSimulator, sizeof(build_version_command)+sizeof(build_tool_version));
+            removedSize -= (sizeof(build_version_command)+sizeof(build_tool_version));
+            numOfRemoved -= 1;
         }
-        cmdsize = lc->cmdsize; // maybe overwrite, backup cmdsize
-        if (removedSize && !removed) { // move forward with removedSize bytes.
-            memcpy((char *)lc-removedSize, lc, cmdsize);
-        }
-        sizeofcmds += cmdsize;
-        lc = (struct load_command*)((mach_vm_address_t)lc + cmdsize);
-    }
-    if (sizeofcmds != header->sizeofcmds) {
-        printf("error: sizeofcmds(0x%x) != header->sizeofcmds(0x%x)\n", sizeofcmds, header->sizeofcmds);
-        return false;
-    }
-
-    if (!found_build_version_command) { // not found, then insert one
-        memcpy((char *)lc-removedSize, &buildVersionForSimulator, sizeof(build_version_command)+sizeof(build_tool_version));
-        removedSize -= (sizeof(build_version_command)+sizeof(build_tool_version));
-        numOfRemoved -= 1;
-    }
-    header->ncmds -= numOfRemoved;
-    header->sizeofcmds -= removedSize;
-    return true;
+        header->ncmds -= numOfRemoved;
+        header->sizeofcmds -= removedSize;
+        return true;
 }
 
 int convert(const char* path) {
