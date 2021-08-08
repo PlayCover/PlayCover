@@ -80,7 +80,7 @@ struct AppLibraryView: View {
                         Spacer()
                         Toggle("Make Fullscreen & add keymapping", isOn: $userData.makeFullscreen).padding()
                         Spacer()
-                        Toggle("Fix login in games", isOn: $userData.fixLogin).padding()
+                        Toggle("Fix login in games (Still Supporter only feature) ", isOn: $userData.fixLogin).padding().disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
                         Spacer()
                         Button("Add new app"){
                             selectFile()
@@ -89,7 +89,6 @@ struct AppLibraryView: View {
                         }
                     } else{
                         ProgressView("Installing...")
-                        
                     }
                    
                 }

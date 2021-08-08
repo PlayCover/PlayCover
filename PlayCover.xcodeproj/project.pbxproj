@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		532A0A6326C02440008DFFDF /* appdecrypt in Resources */ = {isa = PBXBuildFile; fileRef = 532A0A6026C02440008DFFDF /* appdecrypt */; };
+		533F664826C06A460051CB3E /* AppsDownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533F664726C06A460051CB3E /* AppsDownloadView.swift */; };
 		87063CBA26B92B5100CEE7CF /* AppCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87063CB926B92B5100CEE7CF /* AppCreator.swift */; };
 		8722A60626BC065D0007D9EC /* optool in Resources */ = {isa = PBXBuildFile; fileRef = 8722A60326BC065D0007D9EC /* optool */; };
 		8722A60826BC06940007D9EC /* PlayCoverInject in Resources */ = {isa = PBXBuildFile; fileRef = 8722A60226BC065D0007D9EC /* PlayCoverInject */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		532A0A6026C02440008DFFDF /* appdecrypt */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = appdecrypt; sourceTree = "<group>"; };
+		533F664726C06A460051CB3E /* AppsDownloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsDownloadView.swift; sourceTree = "<group>"; };
 		53ECEE8026BEC3D90016BEC1 /* PlayCoverInject.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PlayCoverInject.xcodeproj; path = PlayCover/PlayCoverInject/PlayCoverInject.xcodeproj; sourceTree = "<group>"; };
 		87063CB926B92B5100CEE7CF /* AppCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCreator.swift; sourceTree = "<group>"; };
 		8722A60226BC065D0007D9EC /* PlayCoverInject */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = PlayCoverInject; sourceTree = "<group>"; };
@@ -70,6 +72,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		533F664B26C06A500051CB3E /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */,
+				8783D00C26B8D32700171041 /* AppLibraryView.swift */,
+				533F664726C06A460051CB3E /* AppsDownloadView.swift */,
+			);
+			path = ui;
+			sourceTree = "<group>";
+		};
 		53ECEE8126BEC3D90016BEC1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -110,15 +122,14 @@
 		8783CFF926B8C52D00171041 /* PlayCover */ = {
 			isa = PBXGroup;
 			children = (
+				533F664B26C06A500051CB3E /* ui */,
 				8722A60126BC065D0007D9EC /* Tools */,
 				87D5D01526BA7BC000B87FCC /* convert */,
-				8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */,
 				8783CFFE26B8C52E00171041 /* Assets.xcassets */,
 				8783D00326B8C52E00171041 /* Info.plist */,
 				8783D00426B8C52E00171041 /* PlayCover.entitlements */,
 				8783D00026B8C52E00171041 /* Preview Content */,
 				8783D00A26B8C9E600171041 /* Utils.swift */,
-				8783D00C26B8D32700171041 /* AppLibraryView.swift */,
 				87063CB926B92B5100CEE7CF /* AppCreator.swift */,
 			);
 			path = PlayCover;
@@ -245,6 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				533F664826C06A460051CB3E /* AppsDownloadView.swift in Sources */,
 				8783D00D26B8D32700171041 /* AppLibraryView.swift in Sources */,
 				87D5D01926BA7BEB00B87FCC /* convert.cpp in Sources */,
 				87063CBA26B92B5100CEE7CF /* AppCreator.swift in Sources */,

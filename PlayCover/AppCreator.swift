@@ -16,8 +16,8 @@ class AppCreator {
     }
     
     static let possibleHeaders : [Array<UInt8>] = [
-        [202,254,186, 190],
-        [207 ,250 ,237 ,254]
+        [202, 254, 186, 190],
+        [207, 250, 237, 254]
     ]
     
     static func handleApp(url : URL, userData : UserData, returnCompletion: @escaping (URL?) -> ()){
@@ -50,8 +50,8 @@ class AppCreator {
                
                 try fixExecutable(exec: execFile)
                 try patchMinVersion(info: infoPlist)
-                try signApp(exec: execFile, ents: ents)
                 disableFileLock(url: appDir)
+                try signApp(app: appDir, ents: ents)
                 let docAppDir = try placeAppToDocs(app: appDir, name: appName)
                 clearCache(temp: tempDir!)
                 returnCompletion(docAppDir)
@@ -136,7 +136,7 @@ class AppCreator {
                 ulog(str: "Creating Wrapper folder\n")
                         let wrapperPath = finalProduct.appendingPathComponent("Wrapper")
                         try FileManager.default.createDirectory(atPath: wrapperPath.path, withIntermediateDirectories: true, attributes: nil)
-                     ulog(str: "Wrapper path: \(wrapperPath.esc)")
+                     ulog(str: "Wrapper path: \(wrapperPath.esc)\n")
                         
                       ulog(str: "Copying files\n")
                         try FileManager.default.copyItem(
@@ -157,10 +157,10 @@ class AppCreator {
                 print("\(crypt.esc) \(sourceExecFile.esc) \(targetExecFile.esc)")
                 ulog(str: shell("\(crypt.esc) \(sourceExecFile.esc) \(targetExecFile.esc)"))
                 try deleteFolder(at: app)
-                ulog(str: shell("mv /Applications/\(name).app/Wrapper/\(name).app \(tempDir!.esc)/ipafile/Payload/"))
+                ulog(str: shell("mv /Applications/\(name.esc).app/Wrapper/\(name.esc).app \(tempDir!.esc)/ipafile/Payload/"))
                 try fm.removeItem(at: app.appendingPathComponent(name, isDirectory: false))
                 try fm.moveItem(at: targetExecFile, to: app.appendingPathComponent(name, isDirectory: false))
-                ulog(str : shell("rm -rf /Applications/\(name).app/"))
+                ulog(str : shell("rm -rf /Applications/\(name.esc).app/"))
             }
             
             func checkIfFileMacho(fileUrl : URL) -> Bool {
@@ -182,8 +182,8 @@ class AppCreator {
             
             func convertBinary(fileUrl : URL) throws {
                 ulog(str: "Converting \(fileUrl.lastPathComponent)\n")
-                
                 shell("vtool -arch arm64 -set-build-version maccatalyst 10.0 14.5 -replace -output \(fileUrl.esc) \(fileUrl.esc)")
+                shell("vtool -arch armv7 -remove-build-version ios -replace -output \(fileUrl.esc) \(fileUrl.esc)")
                 ulog(str: shell("codesign -fs- \(fileUrl.esc)"))
             }
             
@@ -200,7 +200,7 @@ class AppCreator {
             
             func getAppName(plist: URL) throws -> String {
                 ulog(str: "Rietriving app name\n")
-                return (NSDictionary(contentsOfFile: plist.path)!["CFBundleExecutable"] as! String?)!.esc
+                return (NSDictionary(contentsOfFile: plist.path)!["CFBundleExecutable"] as! String?)!
             }
             
             func placeAppToDocs(app : URL, name: String) throws -> URL {
@@ -221,9 +221,9 @@ class AppCreator {
                 try fm.setAttributes(attributes, ofItemAtPath: exec.path)
             }
             
-            func signApp(exec : URL, ents: URL) throws {
+            func signApp(app : URL, ents: URL) throws {
                 ulog(str: "Signing app\n")
-                ulog(str: shell("codesign -fs- \(exec.esc) --deep --entitlements \(ents.esc)"))
+                ulog(str: shell("codesign -fs- \(app.esc) --deep --entitlements \(ents.esc)"))
                 try deleteFolder(at: ents)
             }
             
