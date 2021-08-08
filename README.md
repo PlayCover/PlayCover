@@ -15,7 +15,7 @@ Press Ctrl + P to open editor mode.
 Now you can use Ctrl + N to add button, Ctrl + J - joystick, Ctrl + M - mouse.
 After edit, just press Ctrl + P again to save results.
 
-#Project support
+# Project support
 
 You can support me via http://paypal.me/playcoverapp
 Supporters privilegies are listed under https://discord.gg/B6ZFpTBqUF
