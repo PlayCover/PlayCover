@@ -40,7 +40,7 @@ struct AppLibraryView: View {
         
         NavigationView {
             VStack{
-                Text("Play Cover")
+                Text("Play Cover v0.4.0")
                     .fontWeight(.bold)
                     .font(.system(.largeTitle, design: .rounded)).padding()
                 Spacer().frame(height: 100)
@@ -79,7 +79,7 @@ struct AppLibraryView: View {
                         Spacer()
                         Toggle("Make Fullscreen & add keymapping", isOn: $installData.makeFullscreen).padding()
                         Toggle("Alternative convert method", isOn: $installData.useAlternativeWay).padding()
-                        Toggle("Fix login in games (Still Supporter only feature) ", isOn: $installData.fixLogin).padding().disabled(true)
+                        Toggle("Fix login in games (Still Supporter only feature) ", isOn: $installData.fixLogin).padding()
                         Spacer()
                         Button("Add new app"){
                             selectFile()

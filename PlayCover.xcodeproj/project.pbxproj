@@ -80,14 +80,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		533F664B26C06A500051CB3E /* ui */ = {
+		533F664B26C06A500051CB3E /* View */ = {
 			isa = PBXGroup;
 			children = (
 				8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */,
 				8783D00C26B8D32700171041 /* AppLibraryView.swift */,
 				533F664726C06A460051CB3E /* AppsDownloadView.swift */,
 			);
-			path = ui;
+			path = View;
 			sourceTree = "<group>";
 		};
 		53ECEE8126BEC3D90016BEC1 /* Products */ = {
@@ -97,6 +97,26 @@
 				53ECEE8826BEC3D90016BEC1 /* MacHelper.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		53F5E73B26C1C566005AED1D /* AppInstaller */ = {
+			isa = PBXGroup;
+			children = (
+				87063CB926B92B5100CEE7CF /* AppInstaller.swift */,
+				87D5D01526BA7BC000B87FCC /* AlternativePatch */,
+				53D9DAF226C1849D0071959E /* PlayCoverError.swift */,
+				53D9DAF626C184B40071959E /* InfoPlist.swift */,
+				53D9DAFA26C18C3F0071959E /* Entitlements.swift */,
+			);
+			path = AppInstaller;
+			sourceTree = "<group>";
+		};
+		53F5E73E26C1C654005AED1D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				53D9DAF826C186DE0071959E /* ViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		8722A60126BC065D0007D9EC /* Tools */ = {
@@ -113,6 +133,7 @@
 		8783CFEE26B8C52D00171041 = {
 			isa = PBXGroup;
 			children = (
+				8722A60126BC065D0007D9EC /* Tools */,
 				53ECEE8026BEC3D90016BEC1 /* PlayCoverInject.xcodeproj */,
 				8783CFF926B8C52D00171041 /* PlayCover */,
 				8783CFF826B8C52D00171041 /* Products */,
@@ -130,19 +151,14 @@
 		8783CFF926B8C52D00171041 /* PlayCover */ = {
 			isa = PBXGroup;
 			children = (
-				533F664B26C06A500051CB3E /* ui */,
-				8722A60126BC065D0007D9EC /* Tools */,
-				87D5D01526BA7BC000B87FCC /* convert */,
+				53F5E73E26C1C654005AED1D /* ViewModel */,
+				53F5E73B26C1C566005AED1D /* AppInstaller */,
+				533F664B26C06A500051CB3E /* View */,
 				8783CFFE26B8C52E00171041 /* Assets.xcassets */,
 				8783D00326B8C52E00171041 /* Info.plist */,
 				8783D00426B8C52E00171041 /* PlayCover.entitlements */,
 				8783D00026B8C52E00171041 /* Preview Content */,
 				8783D00A26B8C9E600171041 /* Utils.swift */,
-				87063CB926B92B5100CEE7CF /* AppInstaller.swift */,
-				53D9DAF226C1849D0071959E /* PlayCoverError.swift */,
-				53D9DAF626C184B40071959E /* InfoPlist.swift */,
-				53D9DAF826C186DE0071959E /* ViewModel.swift */,
-				53D9DAFA26C18C3F0071959E /* Entitlements.swift */,
 			);
 			path = PlayCover;
 			sourceTree = "<group>";
@@ -155,14 +171,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		87D5D01526BA7BC000B87FCC /* convert */ = {
+		87D5D01526BA7BC000B87FCC /* AlternativePatch */ = {
 			isa = PBXGroup;
 			children = (
 				87D5D01626BA7BD000B87FCC /* convert.h */,
 				87D5D01826BA7BEB00B87FCC /* convert.cpp */,
 				87D5D01726BA7BEB00B87FCC /* PlayCover-Bridging-Header.h */,
 			);
-			path = convert;
+			path = AlternativePatch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -423,7 +439,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = app.playcover.PlayCover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "PlayCover/convert/PlayCover-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "PlayCover/AppInstaller/AlternativePatch/PlayCover-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -453,7 +469,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = app.playcover.PlayCover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "PlayCover/convert/PlayCover-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "PlayCover/AppInstaller/AlternativePatch/PlayCover-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

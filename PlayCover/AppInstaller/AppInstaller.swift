@@ -37,6 +37,9 @@ class AppInstaller {
                 let ents = try Entitlements.createEntitlements(app: appDir, exec: execFile)
                 
                 if isIPAEncrypted(exec: execFile){
+                    if !isSIPEnabled(){
+                        throw PlayCoverError.sipDisabled
+                    }
                     try decryptApp(app: appDir, temp: tempDir!, name: appName, bundleName: bundleName, exec: execFile)
                 }
                 
@@ -58,7 +61,9 @@ class AppInstaller {
                 if case PlayCoverError.cantDecryptIpa = error {
                     errorMessage = "This .IPA can't be decrypted on this Mac. Download this .ipa from AppDb.to"
                 } else if case PlayCoverError.infoPlistNotFound = error{
-                    errorMessage = "This .IPA is courrupted. It doesn't contains Info.plist. "
+                    errorMessage = "This .IPA is courrupted. It doesn't contains Info.plist."
+                } else if case PlayCoverError.sipDisabled = error{
+                    errorMessage = "It it impossible to decrypt .IPA with SIP disabled. Please, enable it."
                 } else{
                     errorMessage = error.localizedDescription
                 }
@@ -159,10 +164,10 @@ class AppInstaller {
                     ulog(shell("\(crypt.esc) \(sourceExecFile.esc) \(targetExecFile.esc)"))
                 }
                 
-//                if isIPAEncrypted(exec: targetExecFile){
-//                    ulog("This IPA can't be decrypted on Mac\n")
-//                    throw PlayCoverError.cantDecryptIpa
-//                }
+                if isIPAEncrypted(exec: targetExecFile){
+                    ulog("This IPA can't be decrypted on Mac\n")
+                    throw PlayCoverError.cantDecryptIpa
+                }
                 
                 try deleteFolder(at: app)
                 ulog(shell("cp -R /Applications/\(bundleName.esc).app/Wrapper/\(name.esc).app \(tempDir!.esc)/ipafile/Payload/"))
@@ -236,12 +241,16 @@ class AppInstaller {
             
             func convertBinary(fileUrl : URL, useAlternative : Bool) throws {
                 ulog("Converting \(fileUrl.lastPathComponent)\n")
-                if useAlternative {
-                    try internalWay()
-                } else{
-                    vtoolWay()
-                }
                 
+                if !fileUrl.lastPathComponent.contains("PlayCoverInject") && !fileUrl.lastPathComponent.contains("MacHelper"){
+                    
+                    if useAlternative {
+                        try internalWay()
+                    } else{
+                        vtoolWay()
+                    }
+                }
+               
                 ulog(shell("codesign -fs- \(fileUrl.esc)"))
                 
                 func vtoolWay(){
@@ -251,7 +260,6 @@ class AppInstaller {
                 func internalWay() throws {
                     convert(fileUrl.path.esc)
                     let newUrl = fileUrl.path.appending("_sim")
-                    
                     try deleteFolder(at: fileUrl)
                     try fm.moveItem(atPath: newUrl, toPath: fileUrl.path)
                 }

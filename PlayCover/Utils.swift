@@ -108,3 +108,7 @@ func bytesFromFile(filePath: String) -> [UInt8]? {
 
     return buffer
 }
+
+func isSIPEnabled() -> Bool{
+    return shell("csrutil status").contains("enabled")
+}

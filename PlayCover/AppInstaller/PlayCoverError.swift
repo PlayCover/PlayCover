@@ -12,4 +12,5 @@ enum PlayCoverError: Error {
     case ipaCorrupted
     case cantDecryptIpa
     case infoPlistNotFound
+    case sipDisabled
 }
