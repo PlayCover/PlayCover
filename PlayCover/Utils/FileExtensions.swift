@@ -1,9 +1,6 @@
 //
 //  FileExtensions.swift
 //  PlayCover
-//
-//  Created by siri on 10.08.2021.
-//
 
 import Foundation
 
@@ -22,10 +19,10 @@ extension FileManager{
         }
     }
     
-    func clearCache(temp: URL){
+    func clearCache(){
         ulog("Clearing cache\n")
         do{
-            try fm.delete(at: temp)
+            try fm.delete(at: fm.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("PlayCover").appendingPathComponent("temp"))
         } catch{
             
         }

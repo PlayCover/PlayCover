@@ -2,8 +2,6 @@
 //  Entitlements.swift
 //  PlayCover
 //
-//  Created by siri on 09.08.2021.
-//
 
 import Foundation
 

@@ -13,6 +13,7 @@ class InstalViewModel: ObservableObject {
     @Published var fixLogin : Bool = false
     @Published var errorMessage : String = ""
     @Published var useAlternativeWay : Bool = false
+    @Published var exportForSideloadly : Bool = false
     
     required init() {}
 

@@ -2,8 +2,6 @@
 //  AppCreator.swift
 //  PlayCover
 //
-//  Created by syren on 03.08.2021.
-//
 
 import Foundation
 import Zip
@@ -13,11 +11,6 @@ class AppInstaller {
     static let shared = AppInstaller()
     
     required init() {}
-
-    static let possibleHeaders : [Array<UInt8>] = [
-        [202, 254, 186, 190],
-        [207, 250, 237, 254]
-    ]
     
     func installApp(url : URL, returnCompletion: @escaping (URL?, String) -> ()){
         
@@ -46,14 +39,14 @@ class AppInstaller {
                 if vm.makeFullscreen{
                     try fullscreenAndControls(app: appDir, exec: execFile)
                 }
-                try BinaryPatcher.patchApp(app: appDir, alternativeWay: vm.useAlternativeWay)
+                try BinaryPatcher.patchApp(app: appDir)
                 
                 try fixExecutable(exec: execFile)
                 try infoPlist.patchMinVersion()
                 disableFileLock(url: appDir)
                 try signApp(app: appDir, ents: ents)
                 let docAppDir = try placeAppToDocs(app: appDir, name: appName)
-                fm.clearCache(temp: tempDir!)
+                fm.clearCache()
                 returnCompletion(docAppDir, "")
             } catch {
                 var errorMessage = ""
@@ -67,15 +60,14 @@ class AppInstaller {
                     errorMessage = error.localizedDescription
                 }
                 ulog(error.localizedDescription)
-                if let tmp = tempDir{
-                    fm.clearCache(temp: tmp)
-                }
+                fm.clearCache()
                 returnCompletion(nil, errorMessage)
             }
             
             func createTempFolder() throws -> URL {
                 ulog("Creating temp directory\n")
-                let tempDir = fm.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("PlayCover").appendingPathComponent(UUID().uuidString)
+                let tempDir = fm.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("PlayCover").appendingPathComponent("temp")
+                    .appendingPathComponent(UUID().uuidString)
                 try? fm.createDirectory(at: tempDir, withIntermediateDirectories: true, attributes: [:])
                 return tempDir
             }

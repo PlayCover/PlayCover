@@ -2,14 +2,17 @@
 //  BinaryPatcher.swift
 //  PlayCover
 //
-//  Created by siri on 10.08.2021.
-//
 
 import Foundation
 
 class BinaryPatcher {
     
-    static func patchApp(app : URL, alternativeWay : Bool) throws {
+    static let possibleHeaders : [Array<UInt8>] = [
+        [202, 254, 186, 190],
+        [207, 250, 237, 254]
+    ]
+    
+    static func patchApp(app : URL) throws {
         ulog("Converting app\n")
         if let enumerator = fm.enumerator(at: app, includingPropertiesForKeys: [.isRegularFileKey], options: [.skipsHiddenFiles, .skipsPackageDescendants]) {
             for case let fileURL as URL in enumerator {
@@ -17,7 +20,7 @@ class BinaryPatcher {
                     let fileAttributes = try fileURL.resourceValues(forKeys:[.isRegularFileKey])
                     if fileAttributes.isRegularFile! {
                         if isMacho(fileUrl: fileURL){
-                            try patchBinary(fileUrl: fileURL, useAlternative: alternativeWay)
+                            try patchBinary(fileUrl: fileURL)
                         }
                     }
                 }
@@ -33,7 +36,7 @@ class BinaryPatcher {
             if bts.count > 4{
                 let header = bts[...3]
                 if header.count == 4{
-                    if(AppInstaller.possibleHeaders.contains(Array(header))){
+                    if(possibleHeaders.contains(Array(header))){
                         return true
                     }
                 }
@@ -42,12 +45,12 @@ class BinaryPatcher {
         return false
     }
     
-    private static func patchBinary(fileUrl : URL, useAlternative : Bool) throws {
+    private static func patchBinary(fileUrl : URL) throws {
         ulog("Converting \(fileUrl.lastPathComponent)\n")
         
         if !fileUrl.lastPathComponent.contains("PlayCoverInject") && !fileUrl.lastPathComponent.contains("MacHelper"){
             
-            if useAlternative {
+            if vm.useAlternativeWay {
                 try internalWay()
             } else{
                 vtoolWay()
