@@ -1,29 +1,28 @@
 import SwiftUI
 import Cocoa
 
-class UserData: ObservableObject {
-    @Published var log : String = ""
-    @Published var makeFullscreen : Bool = false
-    @Published var fixLogin : Bool = false
-}
-
 struct AppLibraryView: View {
     
-    @EnvironmentObject var userData: UserData
+    @EnvironmentObject var installData: InstalViewModel
+    @EnvironmentObject var logger: Logger
     @State var isLoading : Bool = false
     @State var showWrongfileTypeAlert : Bool = false
+    @State var showInstallErrorAlert : Bool = false
     
     private func insertApp(url : URL){
         isLoading = true
-        userData.log = ""
-        AppCreator.handleApp(url : url, userData: userData, returnCompletion: { (data) in
+        installData.errorMessage = ""
+        logger.logs = ""
+        AppInstaller.shared.installApp(url : url, returnCompletion: { (app, error) in
             DispatchQueue.main.async {
                 isLoading = false
-                if let pathToApp = data {
-                    userData.log.append("Success!")
+                if let pathToApp = app {
+                    logger.logs.append("Success!")
                     showInFinder(url: pathToApp)
                 } else{
-                    userData.log.append("Failure!")
+                    logger.logs.append("Failure!")
+                    installData.errorMessage = error
+                    showInstallErrorAlert = true
                 }
             }
         })
@@ -76,39 +75,44 @@ struct AppLibraryView: View {
                             } else {
                                 return false
                             }
-                        }
+                        }.padding()
                         Spacer()
-                        Toggle("Make Fullscreen & add keymapping", isOn: $userData.makeFullscreen).padding()
-                        Spacer()
-                        Toggle("Fix login in games (Still Supporter only feature) ", isOn: $userData.fixLogin).padding().disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+                        Toggle("Make Fullscreen & add keymapping", isOn: $installData.makeFullscreen).padding()
+                        Toggle("Alternative convert method", isOn: $installData.useAlternativeWay).padding()
+                        Toggle("Fix login in games (Still Supporter only feature) ", isOn: $installData.fixLogin).padding().disabled(true)
                         Spacer()
                         Button("Add new app"){
                             selectFile()
                         }.padding().alert(isPresented: $showWrongfileTypeAlert) {
                             Alert(title: Text("Wrong file type"), message: Text("You should use .ipa file"), dismissButton: .default(Text("OK")))
+                        }.padding().alert(isPresented: $showInstallErrorAlert ) {
+                            Alert(title: Text("Error during installation!"), message: Text(installData.errorMessage), dismissButton: .default(Text("OK")))
                         }
                     } else{
                         ProgressView("Installing...")
                     }
                    
                 }
-                LogView().environmentObject(userData)
+                LogView()
+                    .environmentObject(InstalViewModel.shared)
+                    .environmentObject(Logger.shared)
             }
         }
     }
 }
 
 struct LogView : View {
-    @EnvironmentObject var userData: UserData
+    @EnvironmentObject var userData: InstalViewModel
+    @EnvironmentObject var logger: Logger
     var body: some View {
         ScrollView {
             VStack {
-                if !userData.log.isEmpty {
+                if !logger.logs.isEmpty {
                     Button("Copy log"){
-                        copyToClipBoard(textToCopy: userData.log)
+                        copyToClipBoard(textToCopy: logger.logs)
                     }
                 }
-                Text(userData.log).padding().lineLimit(nil)
+                Text(logger.logs).padding().lineLimit(nil)
             }.frame(minWidth: 900, minHeight: 200)
         }.frame(minWidth: 900,  minHeight: 200).padding()
     }

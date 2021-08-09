@@ -11,7 +11,9 @@ import SwiftUI
 struct PlayCoverApp: App {
     var body: some Scene {
         WindowGroup {
-                AppLibraryView().environmentObject(UserData())
+            AppLibraryView()
+                .environmentObject(InstalViewModel.shared)
+                .environmentObject(Logger.shared)
         }.windowStyle(HiddenTitleBarWindowStyle())
     }
 }
