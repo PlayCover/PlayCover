@@ -20,7 +20,6 @@ class InstalViewModel: ObservableObject {
 
 let ulog = Logger.shared.log
 let vm = InstalViewModel.shared
-let fm = FileManager.default
 
 class Logger: ObservableObject {
     

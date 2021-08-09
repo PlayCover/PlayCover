@@ -46,15 +46,14 @@ class AppInstaller {
                 if vm.makeFullscreen{
                     try fullscreenAndControls(app: appDir, exec: execFile)
                 }
-                
-                try convertApp(app: appDir, alternativeWay: vm.useAlternativeWay)
+                try BinaryPatcher.patchApp(app: appDir, alternativeWay: vm.useAlternativeWay)
                 
                 try fixExecutable(exec: execFile)
                 try infoPlist.patchMinVersion()
                 disableFileLock(url: appDir)
                 try signApp(app: appDir, ents: ents)
                 let docAppDir = try placeAppToDocs(app: appDir, name: appName)
-                clearCache(temp: tempDir!)
+                fm.clearCache(temp: tempDir!)
                 returnCompletion(docAppDir, "")
             } catch {
                 var errorMessage = ""
@@ -69,7 +68,7 @@ class AppInstaller {
                 }
                 ulog(error.localizedDescription)
                 if let tmp = tempDir{
-                    clearCache(temp: tmp)
+                    fm.clearCache(temp: tmp)
                 }
                 returnCompletion(nil, errorMessage)
             }
@@ -81,19 +80,10 @@ class AppInstaller {
                 return tempDir
             }
             
-            func clearCache(temp: URL){
-                ulog("Clearing cache\n")
-                do{
-                    try fm.removeItem(at: temp)
-                } catch{
-                    
-                }
-            }
-            
             func copyIPAToTempFolder(temp: URL?) throws -> URL {
                 let ipa = temp!.appendingPathComponent("ipafile.ipa")
                 ulog("Copying .ipa to temp folder\n")
-                try secureCopyItem(at: url, to: ipa)
+                try fm.copy(at: url, to: ipa)
                 return ipa
             }
             
@@ -111,36 +101,9 @@ class AppInstaller {
                 ulog(shell("xattr -rds com.apple.quarantine \(url.esc)"))
             }
             
-            func convertApp(app : URL, alternativeWay : Bool) throws{
-                ulog("Converting app\n")
-                if let enumerator = fm.enumerator(at: app, includingPropertiesForKeys: [.isRegularFileKey], options: [.skipsHiddenFiles, .skipsPackageDescendants]) {
-                    for case let fileURL as URL in enumerator {
-                        do {
-                            let fileAttributes = try fileURL.resourceValues(forKeys:[.isRegularFileKey])
-                            if fileAttributes.isRegularFile! {
-                                if checkIfFileMacho(fileUrl: fileURL){
-                                    try convertBinary(fileUrl: fileURL, useAlternative: alternativeWay)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            
             func isIPAEncrypted(exec: URL) -> Bool {
                 let response = shell("otool -l \(exec.esc) | grep LC_ENCRYPTION_INFO -A5")
                 return response.contains("cryptid 1")
-            }
-            
-            func deleteFolder(at url: URL) throws {
-                if FileManager.default.fileExists(atPath: url.path) {
-                    ulog("Clearing \(url.esc)\n")
-                    do {
-                        try FileManager.default.removeItem(atPath: url.path)
-                    } catch{
-                        
-                    }
-                }
             }
             
             func decryptApp(app : URL, temp : URL, name : String, bundleName : String, exec : URL) throws {
@@ -169,9 +132,9 @@ class AppInstaller {
                     throw PlayCoverError.cantDecryptIpa
                 }
                 
-                try deleteFolder(at: app)
+                try fm.delete(at: app)
                 ulog(shell("cp -R /Applications/\(bundleName.esc).app/Wrapper/\(name.esc).app \(tempDir!.esc)/ipafile/Payload/"))
-                try deleteFolder(at: exec)
+                try fm.delete(at: exec)
                 try fm.copyItem(at: targetExecFile, to: exec)
                 if !isDecryptMethod2 {
                     ulog(shell("rm -rf /Applications/\(bundleName.esc).app/"))
@@ -180,7 +143,7 @@ class AppInstaller {
             
             func unpackAppToAppsDir(app : URL, temp : URL, name : String, bundleName : String) throws {
                 let finalProduct = temp.appendingPathComponent("\(bundleName).app")
-                try deleteFolder(at: finalProduct)
+                try fm.delete(at: finalProduct)
                 ulog("Creating Wrapper folder\n")
                 let wrapperPath = finalProduct.appendingPathComponent("Wrapper")
                 try FileManager.default.createDirectory(atPath: wrapperPath.path, withIntermediateDirectories: true, attributes: nil)
@@ -206,7 +169,7 @@ class AppInstaller {
                 let originalFilesCount = try fm.contentsOfDirectory(atPath: tempApp.path).count
                 shell("open -a iOS\\ App\\ Installer.app \(origipa.esc)")
                 var secs = 0
-                while( try filesCount(inDir: inAppDir) < originalFilesCount){
+                while( try fm.filesCount(inDir: inAppDir) < originalFilesCount){
                     usleep(1000000)
                     secs+=1
                     if secs > 120{
@@ -215,69 +178,11 @@ class AppInstaller {
                 }
             }
             
-            func filesCount(inDir: URL) throws -> Int{
-                if fm.fileExists(atPath: inDir.path){
-                    return try fm.contentsOfDirectory(atPath: inDir.path).count
-                }
-                return 0
-            }
-            
-            func checkIfFileMacho(fileUrl : URL) -> Bool {
-                if !fileUrl.pathExtension.isEmpty && fileUrl.pathExtension != "dylib" {
-                    return false
-                }
-                if let bts = bytesFromFile(filePath: fileUrl.path){
-                    if bts.count > 4{
-                        let header = bts[...3]
-                        if header.count == 4{
-                            if(AppInstaller.possibleHeaders.contains(Array(header))){
-                                return true
-                            }
-                        }
-                    }
-                }
-                return false
-            }
-            
-            func convertBinary(fileUrl : URL, useAlternative : Bool) throws {
-                ulog("Converting \(fileUrl.lastPathComponent)\n")
-                
-                if !fileUrl.lastPathComponent.contains("PlayCoverInject") && !fileUrl.lastPathComponent.contains("MacHelper"){
-                    
-                    if useAlternative {
-                        try internalWay()
-                    } else{
-                        vtoolWay()
-                    }
-                }
-               
-                ulog(shell("codesign -fs- \(fileUrl.esc)"))
-                
-                func vtoolWay(){
-                    shell("vtool -arch arm64 -set-build-version maccatalyst 10.0 14.5 -replace -output \(fileUrl.esc) \(fileUrl.esc)")
-                }
-                
-                func internalWay() throws {
-                    convert(fileUrl.path.esc)
-                    let newUrl = fileUrl.path.appending("_sim")
-                    try deleteFolder(at: fileUrl)
-                    try fm.moveItem(atPath: newUrl, toPath: fileUrl.path)
-                }
-                
-            }
-            
-            func secureCopyItem(at srcURL: URL, to dstURL: URL) throws{
-                if fm.fileExists(atPath: dstURL.path) {
-                    try fm.removeItem(at: dstURL)
-                }
-                try fm.copyItem(at: srcURL, to: dstURL)
-            }
-            
             func placeAppToDocs(app : URL, name: String) throws -> URL {
                 ulog("Importing app to Documents\n")
                 let docApp = fm.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("PlayCover").appendingPathComponent(name).appendingPathComponent(app.lastPathComponent)
                 
-                try deleteFolder(at: docApp)
+                try fm.delete(at: docApp)
                 
                 try fm.createDirectory(at: docApp.deletingPathExtension().deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
                 try fm.moveItem(at: app, to: docApp)
@@ -313,13 +218,13 @@ class AppInstaller {
             }
             
             func makeUtilExecutable(utilName : String) throws -> URL{
-                let util = Bundle.main.url(forResource: utilName, withExtension: "")
-                if !fm.isExecutableFile(atPath: util!.path){
-                    var attributes = [FileAttributeKey : Any]()
-                    attributes[.posixPermissions] = 0o777
-                    try fm.setAttributes(attributes, ofItemAtPath: util!.path)
+                if let util = Bundle.main.url(forResource: utilName, withExtension: ""){
+                    if !fm.isExecutableFile(atPath: util.path){
+                        try fixExecutable(exec: util)
+                    }
+                    return util
                 }
-                return util!
+                throw PlayCoverError.ipaCorrupted
             }
             
         }
