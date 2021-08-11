@@ -1,7 +1,7 @@
 import SwiftUI
 import Cocoa
 
-struct AppLibraryView: View {
+struct AppInstallView: View {
     
     @EnvironmentObject var installData: InstalViewModel
     @EnvironmentObject var logger: Logger
@@ -18,7 +18,7 @@ struct AppLibraryView: View {
                 isLoading = false
                 if let pathToApp = app {
                     logger.logs.append("Success!")
-                    showInFinder(url: pathToApp)
+                    pathToApp.showInFinder()
                 } else{
                     logger.logs.append("Failure!")
                     installData.errorMessage = error
@@ -29,7 +29,7 @@ struct AppLibraryView: View {
     }
     
     private func selectFile() {
-        NSOpenPanel.openApp { (result) in
+        NSOpenPanel.selectIPA { (result) in
             if case let .success(url) = result {
                 insertApp(url: url)
             }
@@ -37,13 +37,10 @@ struct AppLibraryView: View {
     }
     
     var body: some View {
-        
-        NavigationView {
             VStack{
-                Text("Play Cover v0.4.0")
+                Text("Play Cover v0.6.0")
                     .fontWeight(.bold)
-                    .font(.system(.largeTitle, design: .rounded)).padding()
-                Spacer().frame(minHeight: 100)
+                    .font(.system(.largeTitle, design: .rounded)).padding().frame(minHeight: 150)
                 VStack {
                     if !isLoading {
                         ZStack {
@@ -87,22 +84,19 @@ struct AppLibraryView: View {
                             Alert(title: Text("Error during installation!"), message: Text(installData.errorMessage), dismissButton: .default(Text("OK")))
                         }
                         Button("Download app"){
-                          
-                        }.disabled(true)
+                            
+                        }
                         Spacer().frame(minHeight: 20)
-                        Text("* Inactive elements are currently tested with Supporters")
-                        Text("** Don't disable SIP, you can't fix captcha without instructions")
                     } else{
                         ProgressView("Installing...")
                     }
                    
                 }
-                Spacer(minLength: 50)
+                Spacer(minLength: 20)
                 LogView()
                     .environmentObject(InstalViewModel.shared)
                     .environmentObject(Logger.shared)
-            }
-        }
+            }.padding().frame(minWidth: 700)
     }
 }
 
@@ -113,15 +107,15 @@ struct LogView : View {
         VStack{
             if !logger.logs.isEmpty {
                 Button("Copy log"){
-                    copyToClipBoard(textToCopy: logger.logs)
+                    logger.logs.copyToClipBoard()
                 }
             }
             ScrollView {
                 VStack(alignment: .leading) {
                     Text(logger.logs).padding().lineLimit(nil).frame(alignment: .leading)
-                }.frame(minHeight: 200)
-            }.frame(minHeight: 200).padding()
-        }
+                }
+            }.frame(maxHeight: 200).padding()
+        }.padding()
     }
 }
 
@@ -135,8 +129,8 @@ struct InstallSettings : View {
                 VStack(alignment: .leading){
                     Toggle("Fullscreen & Keymapping", isOn: $installData.makeFullscreen).frame(alignment: .leading)
                     Toggle("Alternative convert method", isOn: $installData.useAlternativeWay).frame(alignment: .leading)
-                    Toggle("Fix login in games", isOn: $installData.fixLogin).frame(alignment: .leading).disabled(true)
-                    Toggle("Export for iOS, Mac (Sideloadly, AltStore)", isOn: $installData.exportForSideloadly).frame(alignment: .leading).disabled(true)
+                    Toggle("Fix login in games", isOn: $installData.fixLogin).frame(alignment: .leading)
+                    Toggle("Export for iOS, Mac (Sideloadly, AltStore)", isOn: $installData.exportForSideloadly).frame(alignment: .leading)
                 }.padding(.init(top: 0, leading: 20, bottom: 0, trailing: 0))
             }
     }

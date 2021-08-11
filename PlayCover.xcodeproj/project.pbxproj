@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5314D1EE26C402EC00A0A727 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5314D1ED26C402EC00A0A727 /* Shell.swift */; };
+		5321F48C26C2E978000CF2FA /* PlayCoverInject in Resources */ = {isa = PBXBuildFile; fileRef = 5321F48B26C2E978000CF2FA /* PlayCoverInject */; };
+		5321F48E26C2EA46000CF2FA /* MacHelper in Resources */ = {isa = PBXBuildFile; fileRef = 5321F48D26C2EA46000CF2FA /* MacHelper */; };
 		532A0A6326C02440008DFFDF /* appdecrypt in Resources */ = {isa = PBXBuildFile; fileRef = 532A0A6026C02440008DFFDF /* appdecrypt */; };
 		533F664826C06A460051CB3E /* AppsDownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533F664726C06A460051CB3E /* AppsDownloadView.swift */; };
 		53D9DAF326C1849D0071959E /* PlayCoverError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D9DAF226C1849D0071959E /* PlayCoverError.swift */; };
@@ -17,13 +20,11 @@
 		53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F5E74226C1D37E005AED1D /* FileExtensions.swift */; };
 		87063CBA26B92B5100CEE7CF /* AppInstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87063CB926B92B5100CEE7CF /* AppInstaller.swift */; };
 		8722A60626BC065D0007D9EC /* optool in Resources */ = {isa = PBXBuildFile; fileRef = 8722A60326BC065D0007D9EC /* optool */; };
-		8722A60826BC06940007D9EC /* PlayCoverInject in Resources */ = {isa = PBXBuildFile; fileRef = 8722A60226BC065D0007D9EC /* PlayCoverInject */; };
-		8722A60926BC06980007D9EC /* MacHelper in Resources */ = {isa = PBXBuildFile; fileRef = 8722A60426BC065D0007D9EC /* MacHelper */; };
 		8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */; };
 		8783CFFF26B8C52E00171041 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783CFFE26B8C52E00171041 /* Assets.xcassets */; };
 		8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783D00126B8C52E00171041 /* Preview Assets.xcassets */; };
-		8783D00B26B8C9E600171041 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00A26B8C9E600171041 /* Utils.swift */; };
-		8783D00D26B8D32700171041 /* AppLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00C26B8D32700171041 /* AppLibraryView.swift */; };
+		8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00A26B8C9E600171041 /* URLExtensions.swift */; };
+		8783D00D26B8D32700171041 /* AppInstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00C26B8D32700171041 /* AppInstallView.swift */; };
 		87D5D01926BA7BEB00B87FCC /* convert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87D5D01826BA7BEB00B87FCC /* convert.cpp */; };
 		87D5D02026BB0ECC00B87FCC /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 87D5D01F26BB0ECC00B87FCC /* Zip */; };
 /* End PBXBuildFile section */
@@ -46,6 +47,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5314D1ED26C402EC00A0A727 /* Shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
+		5321F48B26C2E978000CF2FA /* PlayCoverInject */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = PlayCoverInject; path = "../../Library/Developer/Xcode/DerivedData/PlayCover-edlgafudzghgghgwqdbihtslptmc/Build/Products/Release-iphoneos/PlayCoverInject.framework/PlayCoverInject"; sourceTree = "<group>"; };
+		5321F48D26C2EA46000CF2FA /* MacHelper */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = MacHelper; path = "../../Library/Developer/Xcode/DerivedData/PlayCover-edlgafudzghgghgwqdbihtslptmc/Build/Products/Debug/MacHelper.framework/Versions/A/MacHelper"; sourceTree = "<group>"; };
 		532A0A6026C02440008DFFDF /* appdecrypt */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = appdecrypt; sourceTree = "<group>"; };
 		533F664726C06A460051CB3E /* AppsDownloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsDownloadView.swift; sourceTree = "<group>"; };
 		53D9DAF226C1849D0071959E /* PlayCoverError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverError.swift; sourceTree = "<group>"; };
@@ -56,17 +60,15 @@
 		53F5E73F26C1D29A005AED1D /* BinaryPatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryPatcher.swift; sourceTree = "<group>"; };
 		53F5E74226C1D37E005AED1D /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
 		87063CB926B92B5100CEE7CF /* AppInstaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInstaller.swift; sourceTree = "<group>"; };
-		8722A60226BC065D0007D9EC /* PlayCoverInject */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = PlayCoverInject; sourceTree = "<group>"; };
 		8722A60326BC065D0007D9EC /* optool */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = optool; sourceTree = "<group>"; };
-		8722A60426BC065D0007D9EC /* MacHelper */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = MacHelper; sourceTree = "<group>"; };
 		8783CFF726B8C52D00171041 /* PlayCover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayCover.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverApp.swift; sourceTree = "<group>"; };
 		8783CFFE26B8C52E00171041 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8783D00126B8C52E00171041 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8783D00326B8C52E00171041 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8783D00426B8C52E00171041 /* PlayCover.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayCover.entitlements; sourceTree = "<group>"; };
-		8783D00A26B8C9E600171041 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		8783D00C26B8D32700171041 /* AppLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLibraryView.swift; sourceTree = "<group>"; };
+		8783D00A26B8C9E600171041 /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
+		8783D00C26B8D32700171041 /* AppInstallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInstallView.swift; sourceTree = "<group>"; };
 		87D5D01626BA7BD000B87FCC /* convert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = convert.h; sourceTree = "<group>"; };
 		87D5D01726BA7BEB00B87FCC /* PlayCover-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlayCover-Bridging-Header.h"; sourceTree = "<group>"; };
 		87D5D01826BA7BEB00B87FCC /* convert.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = convert.cpp; sourceTree = "<group>"; };
@@ -88,7 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */,
-				8783D00C26B8D32700171041 /* AppLibraryView.swift */,
+				8783D00C26B8D32700171041 /* AppInstallView.swift */,
 				533F664726C06A460051CB3E /* AppsDownloadView.swift */,
 			);
 			path = View;
@@ -127,8 +129,9 @@
 		53F5E74126C1D369005AED1D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				8783D00A26B8C9E600171041 /* Utils.swift */,
+				8783D00A26B8C9E600171041 /* URLExtensions.swift */,
 				53F5E74226C1D37E005AED1D /* FileExtensions.swift */,
+				5314D1ED26C402EC00A0A727 /* Shell.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -137,9 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				532A0A6026C02440008DFFDF /* appdecrypt */,
-				8722A60226BC065D0007D9EC /* PlayCoverInject */,
 				8722A60326BC065D0007D9EC /* optool */,
-				8722A60426BC065D0007D9EC /* MacHelper */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -147,6 +148,8 @@
 		8783CFEE26B8C52D00171041 = {
 			isa = PBXGroup;
 			children = (
+				5321F48D26C2EA46000CF2FA /* MacHelper */,
+				5321F48B26C2E978000CF2FA /* PlayCoverInject */,
 				8722A60126BC065D0007D9EC /* Tools */,
 				53ECEE8026BEC3D90016BEC1 /* PlayCoverInject.xcodeproj */,
 				8783CFF926B8C52D00171041 /* PlayCover */,
@@ -282,8 +285,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8722A60926BC06980007D9EC /* MacHelper in Resources */,
-				8722A60826BC06940007D9EC /* PlayCoverInject in Resources */,
+				5321F48E26C2EA46000CF2FA /* MacHelper in Resources */,
+				5321F48C26C2E978000CF2FA /* PlayCoverInject in Resources */,
 				532A0A6326C02440008DFFDF /* appdecrypt in Resources */,
 				8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */,
 				8722A60626BC065D0007D9EC /* optool in Resources */,
@@ -300,14 +303,15 @@
 			files = (
 				533F664826C06A460051CB3E /* AppsDownloadView.swift in Sources */,
 				53D9DAF926C186DE0071959E /* ViewModel.swift in Sources */,
-				8783D00D26B8D32700171041 /* AppLibraryView.swift in Sources */,
+				8783D00D26B8D32700171041 /* AppInstallView.swift in Sources */,
 				53D9DAFB26C18C3F0071959E /* Entitlements.swift in Sources */,
 				87D5D01926BA7BEB00B87FCC /* convert.cpp in Sources */,
 				53D9DAF726C184B40071959E /* InfoPlist.swift in Sources */,
 				87063CBA26B92B5100CEE7CF /* AppInstaller.swift in Sources */,
 				53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */,
 				8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */,
-				8783D00B26B8C9E600171041 /* Utils.swift in Sources */,
+				5314D1EE26C402EC00A0A727 /* Shell.swift in Sources */,
+				8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */,
 				53D9DAF326C1849D0071959E /* PlayCoverError.swift in Sources */,
 				53F5E74026C1D29A005AED1D /* BinaryPatcher.swift in Sources */,
 			);

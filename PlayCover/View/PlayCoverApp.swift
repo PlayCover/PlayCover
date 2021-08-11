@@ -2,8 +2,6 @@
 //  PlayCoverApp.swift
 //  PlayCover
 //
-//  Created by syren on 03.08.2021.
-//
 
 import SwiftUI
 
@@ -21,7 +19,7 @@ struct PlayCoverApp: App {
     
     var body: some Scene {
         WindowGroup {
-            AppLibraryView()
+            AppInstallView()
                 .environmentObject(InstalViewModel.shared)
                 .environmentObject(Logger.shared).accentColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
         }.windowStyle(HiddenTitleBarWindowStyle())
