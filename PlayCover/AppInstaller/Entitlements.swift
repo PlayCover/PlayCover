@@ -7,9 +7,9 @@ import Foundation
 
 class Entitlements {
     
-    static func createEntitlements(app: URL, exec : URL) throws -> URL{
+    static func createEntitlements(temp: URL, exec : URL) throws -> URL{
         ulog("Creating entitlements file\n")
-        let ents = app.deletingLastPathComponent().appendingPathComponent("ent.plist")
+        let ents = temp.appendingPathComponent("ent.plist")
         if vm.fixLogin{
             try copyEntitlements(exec: exec).write(to: ents, atomically: true, encoding: String.Encoding.utf8)
             try addSandobox(ents: ents)
@@ -21,14 +21,15 @@ class Entitlements {
     
     static func copyEntitlements(exec: URL) throws -> String {
         ulog("Copying entitlements \n")
-        var en = excludeEntitlements(from: shell("codesign -d --entitlements :- \(exec.esc)"))
+        var en = excludeEntitlements(exec: exec)
         if !en.contains("DOCTYPE plist PUBLIC"){
             en = Entitlements.entitlements_template
         }
         return en
     }
     
-    static func excludeEntitlements(from : String) -> String {
+    static func excludeEntitlements(exec : URL) -> String {
+        let from = sh.fetchEntitlements(exec)
         if let range: Range<String.Index> = from.range(of: "<?xml") {
             return String(from[range.lowerBound...])
         }

@@ -24,7 +24,9 @@ extension UIWindow {
 @objc public class InputController: NSObject {
 
     @objc static public func initUI(){
+        if #available(macOS 11, *) {
         window()?.frame = CGRect(x: 0, y: 0, width: Values.screenWidth, height: Values.screenHeight)
+        }
         root()?.setup()
     }
     

@@ -16,7 +16,10 @@ class MouseController{
     }
     
     public static var overallMousePosition : CGPoint {
-        var point = Dynamic(InputController.window()?.nsWindow).mouseLocationOutsideOfEventStream.asCGPoint!
+        var point = CGPoint(x: 0,y: 0)
+        if #available(macOS 11, *) {
+         point = Dynamic(InputController.window()?.nsWindow).mouseLocationOutsideOfEventStream.asCGPoint!
+        }
         
         point.x = point.x * 1.3
         point.y = (Values.screenHeight - point.y * 1.3)

@@ -32,7 +32,7 @@ class BinaryPatcher {
         if !fileUrl.pathExtension.isEmpty && fileUrl.pathExtension != "dylib" {
             return false
         }
-        if let bts = bytesFromFile(filePath: fileUrl.path){
+        if let bts = fileUrl.bytesFromFile(){
             if bts.count > 4{
                 let header = bts[...3]
                 if header.count == 4{
@@ -48,19 +48,16 @@ class BinaryPatcher {
     private static func patchBinary(fileUrl : URL) throws {
         ulog("Converting \(fileUrl.lastPathComponent)\n")
         
-        if !fileUrl.lastPathComponent.contains("PlayCoverInject") && !fileUrl.lastPathComponent.contains("MacHelper"){
-            
-            if vm.useAlternativeWay {
-                try internalWay()
-            } else{
-                vtoolWay()
-            }
+        if vm.useAlternativeWay {
+            try internalWay()
+        } else{
+            vtoolWay()
         }
-       
-        ulog(shell("codesign -fs- \(fileUrl.esc)"))
+        
+        sh.codesign(fileUrl)
         
         func vtoolWay(){
-            shell("vtool -arch arm64 -set-build-version maccatalyst 10.0 14.5 -replace -output \(fileUrl.esc) \(fileUrl.esc)")
+            sh.vtoolPatch(fileUrl)
         }
         
         func internalWay() throws {

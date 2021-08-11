@@ -3,6 +3,7 @@
 //  PlayCover
 
 import Foundation
+import AppKit
 
 let fm = FileManager.default
 
@@ -41,5 +42,22 @@ extension FileManager{
         }
         return 0
     }
+}
+
+extension NSOpenPanel {
     
+    static func selectIPA(completion: @escaping (_ result: Result<URL, Error>) -> ()) {
+        let panel = NSOpenPanel()
+        panel.allowsMultipleSelection = false
+        panel.canChooseFiles = true
+        panel.canChooseDirectories = false
+        panel.allowedFileTypes = ["ipa"]
+        panel.canChooseFiles = true
+        panel.begin { (result) in
+            if result == .OK{
+                let url = panel.urls.first
+                completion(.success(url!))
+            }
+        }
+    }
 }

@@ -16,38 +16,47 @@ class AppInstaller {
         
         DispatchQueue.global(qos: .background).async {
             
-            var tempDir : URL? = nil
-            
             do {
-                shell("vtool -h")
-                tempDir = try createTempFolder()
+                sh.checkIfXcodeToolsInstalled()
+                let tempDir = try createTempFolder()
                 let ipaFile = try copyIPAToTempFolder(temp: tempDir)
                 let appDir = try unzipIPA(ipa: ipaFile)
                 let infoPlist = try InfoPlist.readInfoPlist(app: appDir)
                 let appName = try infoPlist.appName()
                 let bundleName = try infoPlist.bundleName()
                 let execFile = appDir.appendingPathComponent(appName )
-                let ents = try Entitlements.createEntitlements(app: appDir, exec: execFile)
+                let ents = try Entitlements.createEntitlements(temp: tempDir, exec: execFile)
                 
-                if isIPAEncrypted(exec: execFile){
-                    if !isSIPEnabled(){
+                if sh.isIPAEncrypted(exec: execFile){
+                    if !sh.isSIPEnabled(){
                         throw PlayCoverError.sipDisabled
                     }
-                    try decryptApp(app: appDir, temp: tempDir!, name: appName, bundleName: bundleName, exec: execFile)
+                    try decryptApp(app: appDir, temp: tempDir, name: appName, bundleName: bundleName, exec: execFile)
                 }
                 
                 if vm.makeFullscreen{
                     try fullscreenAndControls(app: appDir, exec: execFile)
                 }
-                try BinaryPatcher.patchApp(app: appDir)
                 
-                try fixExecutable(exec: execFile)
-                try infoPlist.patchMinVersion()
-                disableFileLock(url: appDir)
-                try signApp(app: appDir, ents: ents)
-                let docAppDir = try placeAppToDocs(app: appDir, name: appName)
-                fm.clearCache()
-                returnCompletion(docAppDir, "")
+                if !vm.exportForSideloadly{
+                    try BinaryPatcher.patchApp(app: appDir)
+                    try fixExecutable(exec: execFile)
+                    try infoPlist.patchMinVersion()
+                    sh.removeQuarantine(appDir)
+                    sh.signApp(appDir, ents: ents)
+                }
+                
+                if vm.exportForSideloadly{
+                    let ipaFile = try exportIPA(app: appDir, bundleName: bundleName)
+                    fm.clearCache()
+                    returnCompletion(ipaFile, "")
+                } else {
+                    let docAppDir = try placeAppToDocs(app: appDir, name: appName)
+                    fm.clearCache()
+                    returnCompletion(docAppDir, "")
+                }
+                
+               
             } catch {
                 var errorMessage = ""
                 if case PlayCoverError.cantDecryptIpa = error {
@@ -88,48 +97,39 @@ class AppInstaller {
                 return try unzip.appendingPathComponent("Payload").subDirectories()[0]
             }
             
-            func disableFileLock(url : URL){
-                ulog("Disabling quarantine\n")
-                ulog(shell("xattr -rds com.apple.quarantine \(url.esc)"))
-            }
-            
-            func isIPAEncrypted(exec: URL) -> Bool {
-                let response = shell("otool -l \(exec.esc) | grep LC_ENCRYPTION_INFO -A5")
-                return response.contains("cryptid 1")
-            }
-            
             func decryptApp(app : URL, temp : URL, name : String, bundleName : String, exec : URL) throws {
                 ulog("IPA is encrypted, trying to decrypt\n")
                 try unpackAppToAppsDir(app: app, temp: temp, name: name, bundleName: bundleName)
                 let sourceExecFile = URL(fileURLWithPath: "/Applications/\(bundleName).app/Wrapper/\(name).app/\(name)", isDirectory: false)
-                let targetExecFile = tempDir!.appendingPathComponent(name, isDirectory: false)
+                let targetExecFile = temp.appendingPathComponent(name, isDirectory: false)
                 let crypt = try makeUtilExecutable(utilName: "appdecrypt")
                 var isDecryptMethod2 = false
                 
-                ulog(shell("\(crypt.esc) \(sourceExecFile.esc) \(targetExecFile.esc)"))
-                if isIPAEncrypted(exec: targetExecFile){
+                sh.appdecrypt(crypt, src: sourceExecFile, target: targetExecFile)
+                
+                if sh.isIPAEncrypted(exec: targetExecFile){
                     ulog("IPA is still encrypted, trying again\n")
-                    ulog(shell("\(crypt.esc) \(sourceExecFile.esc) \(targetExecFile.esc)"))
+                    sh.appdecrypt(crypt, src: sourceExecFile, target: targetExecFile)
                 }
                 
-                if isIPAEncrypted(exec: targetExecFile){
-                    ulog(shell("rm -rf /Applications/\(bundleName.esc).app/"))
+                if sh.isIPAEncrypted(exec: targetExecFile){
+                    sh.removeAppFromApps(bundleName)
                     isDecryptMethod2 = true
                     try installIPA(origipa: url, inAppDir: URL(fileURLWithPath: "/Applications/\(bundleName).app/Wrapper/\(name).app"), tempApp: app)
-                    ulog(shell("\(crypt.esc) \(sourceExecFile.esc) \(targetExecFile.esc)"))
+                    sh.appdecrypt(crypt, src: sourceExecFile, target: targetExecFile)
                 }
                 
-                if isIPAEncrypted(exec: targetExecFile){
+                if sh.isIPAEncrypted(exec: targetExecFile){
                     ulog("This IPA can't be decrypted on Mac\n")
                     throw PlayCoverError.cantDecryptIpa
                 }
                 
                 try fm.delete(at: app)
-                ulog(shell("cp -R /Applications/\(bundleName.esc).app/Wrapper/\(name.esc).app \(tempDir!.esc)/ipafile/Payload/"))
+                sh.copyAppToTemp(bundleName, name: name, temp: temp)
                 try fm.delete(at: exec)
                 try fm.copyItem(at: targetExecFile, to: exec)
                 if !isDecryptMethod2 {
-                    ulog(shell("rm -rf /Applications/\(bundleName.esc).app/"))
+                    sh.removeAppFromApps(bundleName)
                 }
             }
             
@@ -151,15 +151,14 @@ class AppInstaller {
                     atPath: finalProduct.appendingPathComponent("WrappedBundle").path,
                     withDestinationPath: "Wrapper/\(app.lastPathComponent)"
                 )
-                shell("xattr -dr com.apple.quarantine \(finalProduct.esc)")
-                ulog("Moving to /Applications \n")
-                shell("mv \(finalProduct.esc) /Applications")
+                sh.removeQuarantine(finalProduct)
+                sh.moveAppToApps(finalProduct)
             }
             
             func installIPA(origipa: URL, inAppDir: URL, tempApp: URL) throws {
                 ulog("Decrypting using alternative way\n")
                 let originalFilesCount = try fm.contentsOfDirectory(atPath: tempApp.path).count
-                shell("open -a iOS\\ App\\ Installer.app \(origipa.esc)")
+                sh.installIPA(origipa)
                 var secs = 0
                 while( try fm.filesCount(inDir: inAppDir) < originalFilesCount){
                     usleep(1000000)
@@ -188,11 +187,6 @@ class AppInstaller {
                 try fm.setAttributes(attributes, ofItemAtPath: exec.path)
             }
             
-            func signApp(app : URL, ents : URL) throws {
-                ulog("Signing app\n")
-                ulog(shell("codesign -fs- \(app.esc) --deep --entitlements \(ents.esc)"))
-            }
-            
             func fullscreenAndControls(app : URL, exec : URL) throws {
                 ulog("Adding PlayCover\n")
                 let playCover = Bundle.main.url(forResource: "PlayCoverInject", withExtension: "")
@@ -201,12 +195,16 @@ class AppInstaller {
                 let mh = app.appendingPathComponent(macHelper!.lastPathComponent)
                 
                 try fm.copyItem(at: playCover!, to: pc)
-                try fm.copyItem(at: macHelper!, to: mh)
                 
                 let optool = try makeUtilExecutable(utilName: "optool")
                 
-                ulog( shell("\(optool.esc) install -p \"@executable_path/PlayCoverInject\" -t \(exec.esc)"))
-                ulog( shell("\(optool.esc) install -p \"@executable_path/MacHelper\" -t \(exec.esc)"))
+                sh.optoolInstall(optool, library: "PlayCoverInject", exec: exec)
+               
+                if !vm.exportForSideloadly{
+                    try fm.copyItem(at: macHelper!, to: mh)
+                    sh.optoolInstall(optool, library: "MacHelper", exec: exec)
+                }
+                
             }
             
             func makeUtilExecutable(utilName : String) throws -> URL{
@@ -217,6 +215,14 @@ class AppInstaller {
                     return util
                 }
                 throw PlayCoverError.ipaCorrupted
+            }
+            
+            func exportIPA(app: URL, bundleName : String) throws -> URL {
+                ulog("Exporting .ipa\n")
+                let payload = app.deletingLastPathComponent()
+                let res = try Zip.quickZipFiles([payload], fileName: "\(bundleName)")
+                try fm.moveItem(at: res, to: res.deletingPathExtension().appendingPathExtension("ipa"))
+                return res
             }
             
         }
