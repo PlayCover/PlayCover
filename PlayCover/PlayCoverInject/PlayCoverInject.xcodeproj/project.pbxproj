@@ -11,8 +11,8 @@
 		953B794A268C2A52001BF935 /* Toucher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953B7949268C2A52001BF935 /* Toucher.swift */; };
 		953B795D268C31E4001BF935 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953B795C268C31E4001BF935 /* Recorder.swift */; };
 		953B795F268C53AA001BF935 /* KeyboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953B795E268C53AA001BF935 /* KeyboardController.swift */; };
-		95611B9F2683DFAB0045005F /* PatchLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 95611B9D2683DFAB0045005F /* PatchLoader.h */; };
-		95611BA02683DFAB0045005F /* PatchLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 95611B9E2683DFAB0045005F /* PatchLoader.m */; };
+		95611B9F2683DFAB0045005F /* MacPatchLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 95611B9D2683DFAB0045005F /* MacPatchLoader.h */; };
+		95611BA02683DFAB0045005F /* MacPatchLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 95611B9E2683DFAB0045005F /* MacPatchLoader.m */; };
 		957F4F5A2683D5BA002114DE /* MacHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 957F4F582683D5BA002114DE /* MacHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		957F4FB32683D6D2002114DE /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F4FAF2683D6D2002114DE /* Dynamic.swift */; };
 		957F4FB42683D6D2002114DE /* TypeMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F4FB02683D6D2002114DE /* TypeMapping.swift */; };
@@ -74,8 +74,8 @@
 		953B7949268C2A52001BF935 /* Toucher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toucher.swift; sourceTree = "<group>"; };
 		953B795C268C31E4001BF935 /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		953B795E268C53AA001BF935 /* KeyboardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardController.swift; sourceTree = "<group>"; };
-		95611B9D2683DFAB0045005F /* PatchLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PatchLoader.h; sourceTree = "<group>"; };
-		95611B9E2683DFAB0045005F /* PatchLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PatchLoader.m; sourceTree = "<group>"; };
+		95611B9D2683DFAB0045005F /* MacPatchLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacPatchLoader.h; sourceTree = "<group>"; };
+		95611B9E2683DFAB0045005F /* MacPatchLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MacPatchLoader.m; sourceTree = "<group>"; };
 		957F4F562683D5BA002114DE /* MacHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MacHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		957F4F582683D5BA002114DE /* MacHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacHelper.h; sourceTree = "<group>"; };
 		957F4F592683D5BA002114DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -170,8 +170,8 @@
 				957F4F582683D5BA002114DE /* MacHelper.h */,
 				957F4F592683D5BA002114DE /* Info.plist */,
 				957F4FB72683D704002114DE /* NSWindowHelper.swift */,
-				95611B9D2683DFAB0045005F /* PatchLoader.h */,
-				95611B9E2683DFAB0045005F /* PatchLoader.m */,
+				95611B9D2683DFAB0045005F /* MacPatchLoader.h */,
+				95611B9E2683DFAB0045005F /* MacPatchLoader.m */,
 			);
 			path = MacHelper;
 			sourceTree = "<group>";
@@ -298,7 +298,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95611B9F2683DFAB0045005F /* PatchLoader.h in Headers */,
+				95611B9F2683DFAB0045005F /* MacPatchLoader.h in Headers */,
 				957F4F5A2683D5BA002114DE /* MacHelper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -437,7 +437,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				957F4FB82683D704002114DE /* NSWindowHelper.swift in Sources */,
-				95611BA02683DFAB0045005F /* PatchLoader.m in Sources */,
+				95611BA02683DFAB0045005F /* MacPatchLoader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

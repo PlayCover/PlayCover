@@ -2,8 +2,6 @@
 //  Utils.swift
 //  PlayCover
 //
-//  Created by syren on 03.08.2021.
-//
 
 import Foundation
 import AppKit
@@ -13,6 +11,7 @@ extension String {
     var esc : String {
         return self.replacingOccurrences(of: " ", with: "\\ ")
     }
+    
     func copyToClipBoard() {
         let pasteBoard = NSPasteboard.general
         pasteBoard.clearContents()
@@ -26,9 +25,11 @@ extension URL {
         guard hasDirectoryPath else { return [] }
         return try FileManager.default.contentsOfDirectory(at: self, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles]).filter(\.hasDirectoryPath)
     }
+    
     var esc : String {
         return self.path.esc
     }
+    
     var isDirectory: Bool {
        return (try? resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory == true
     }
@@ -56,4 +57,10 @@ extension URL {
         return buffer
     }
     
+    func fixExecutable() throws {
+        ulog("Fixing executable\n")
+        var attributes = [FileAttributeKey : Any]()
+        attributes[.posixPermissions] = 0o777
+        try fm.setAttributes(attributes, ofItemAtPath: self.path)
+    }
 }

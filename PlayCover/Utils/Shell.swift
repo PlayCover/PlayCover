@@ -2,8 +2,6 @@
 //  Shell.swift
 //  PlayCover
 //
-//  Created by siri on 11.08.2021.
-//
 
 import Foundation
 
@@ -39,8 +37,8 @@ class Shell {
         return shell("otool -l \(exec.esc) | grep LC_ENCRYPTION_INFO -A5").contains("cryptid 1")
     }
     
-    static func optoolInstall(_ optool : URL, library : String, exec : URL) {
-        shell("\(optool.esc) install -p \"@executable_path/\(library)\" -t \(exec.esc)")
+    static func optoolInstall(library : String, exec : URL) {
+        shell("\(utils.optool.esc) install -p \"@executable_path/\(library)\" -t \(exec.esc)")
     }
     
     static func signApp(_ app : URL, ents : URL){
@@ -48,8 +46,8 @@ class Shell {
         ulog(shell("codesign -fs- \(app.esc) --deep --entitlements \(ents.esc)"))
     }
     
-    static func appdecrypt(_ crypt : URL, src : URL, target: URL) {
-        ulog(shell("\(crypt.esc) \(src.esc) \(target.esc)"))
+    static func appdecrypt(_ src : URL, target: URL) {
+        ulog(shell("\(utils.crypt.esc) \(src.esc) \(target.esc)"))
     }
     
     static func removeAppFromApps(_ bundleName : String){
@@ -67,6 +65,10 @@ class Shell {
     
     static func installIPA(_ ipa : URL){
         shell("open -a iOS\\ App\\ Installer.app \(ipa.esc)")
+    }
+    
+    static func fetchAppsBy(_ request : String) -> String {
+        return shell("\(utils.ipatool.esc) search \"\(request)\"" )
     }
     
     @discardableResult

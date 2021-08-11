@@ -12,7 +12,7 @@ class AppInstaller {
     
     required init() {}
     
-    func installApp(url : URL, returnCompletion: @escaping (URL?, String) -> ()){
+    func installApp(url : URL, returnCompletion: @escaping (URL?) -> ()){
         
         DispatchQueue.global(qos: .background).async {
             
@@ -40,7 +40,7 @@ class AppInstaller {
                 
                 if !vm.exportForSideloadly{
                     try BinaryPatcher.patchApp(app: appDir)
-                    try fixExecutable(exec: execFile)
+                    try execFile.fixExecutable()
                     try infoPlist.patchMinVersion()
                     sh.removeQuarantine(appDir)
                     sh.signApp(appDir, ents: ents)
@@ -49,28 +49,16 @@ class AppInstaller {
                 if vm.exportForSideloadly{
                     let ipaFile = try exportIPA(app: appDir, bundleName: bundleName)
                     fm.clearCache()
-                    returnCompletion(ipaFile, "")
+                    returnCompletion(ipaFile)
                 } else {
                     let docAppDir = try placeAppToDocs(app: appDir, name: appName)
                     fm.clearCache()
-                    returnCompletion(docAppDir, "")
+                    returnCompletion(docAppDir)
                 }
-                
                
             } catch {
-                var errorMessage = ""
-                if case PlayCoverError.cantDecryptIpa = error {
-                    errorMessage = "This .IPA can't be decrypted on this Mac. Download this .ipa from AppDb.to"
-                } else if case PlayCoverError.infoPlistNotFound = error{
-                    errorMessage = "This .IPA is courrupted. It doesn't contains Info.plist."
-                } else if case PlayCoverError.sipDisabled = error{
-                    errorMessage = "It it impossible to decrypt .IPA with SIP disabled. Please, enable it."
-                } else{
-                    errorMessage = error.localizedDescription
-                }
-                ulog(error.localizedDescription)
                 fm.clearCache()
-                returnCompletion(nil, errorMessage)
+                returnCompletion(nil)
             }
             
             func createTempFolder() throws -> URL {
@@ -102,21 +90,20 @@ class AppInstaller {
                 try unpackAppToAppsDir(app: app, temp: temp, name: name, bundleName: bundleName)
                 let sourceExecFile = URL(fileURLWithPath: "/Applications/\(bundleName).app/Wrapper/\(name).app/\(name)", isDirectory: false)
                 let targetExecFile = temp.appendingPathComponent(name, isDirectory: false)
-                let crypt = try makeUtilExecutable(utilName: "appdecrypt")
                 var isDecryptMethod2 = false
                 
-                sh.appdecrypt(crypt, src: sourceExecFile, target: targetExecFile)
+                sh.appdecrypt(sourceExecFile, target: targetExecFile)
                 
                 if sh.isIPAEncrypted(exec: targetExecFile){
                     ulog("IPA is still encrypted, trying again\n")
-                    sh.appdecrypt(crypt, src: sourceExecFile, target: targetExecFile)
+                    sh.appdecrypt(sourceExecFile, target: targetExecFile)
                 }
                 
                 if sh.isIPAEncrypted(exec: targetExecFile){
                     sh.removeAppFromApps(bundleName)
                     isDecryptMethod2 = true
                     try installIPA(origipa: url, inAppDir: URL(fileURLWithPath: "/Applications/\(bundleName).app/Wrapper/\(name).app"), tempApp: app)
-                    sh.appdecrypt(crypt, src: sourceExecFile, target: targetExecFile)
+                    sh.appdecrypt(sourceExecFile, target: targetExecFile)
                 }
                 
                 if sh.isIPAEncrypted(exec: targetExecFile){
@@ -180,13 +167,6 @@ class AppInstaller {
                 return docApp
             }
             
-            func fixExecutable(exec : URL) throws {
-                ulog("Fixing executable\n")
-                var attributes = [FileAttributeKey : Any]()
-                attributes[.posixPermissions] = 0o777
-                try fm.setAttributes(attributes, ofItemAtPath: exec.path)
-            }
-            
             func fullscreenAndControls(app : URL, exec : URL) throws {
                 ulog("Adding PlayCover\n")
                 let playCover = Bundle.main.url(forResource: "PlayCoverInject", withExtension: "")
@@ -196,25 +176,13 @@ class AppInstaller {
                 
                 try fm.copyItem(at: playCover!, to: pc)
                 
-                let optool = try makeUtilExecutable(utilName: "optool")
-                
-                sh.optoolInstall(optool, library: "PlayCoverInject", exec: exec)
+                sh.optoolInstall(library: "PlayCoverInject", exec: exec)
                
                 if !vm.exportForSideloadly{
                     try fm.copyItem(at: macHelper!, to: mh)
-                    sh.optoolInstall(optool, library: "MacHelper", exec: exec)
+                    sh.optoolInstall(library: "MacHelper", exec: exec)
                 }
                 
-            }
-            
-            func makeUtilExecutable(utilName : String) throws -> URL{
-                if let util = Bundle.main.url(forResource: utilName, withExtension: ""){
-                    if !fm.isExecutableFile(atPath: util.path){
-                        try fixExecutable(exec: util)
-                    }
-                    return util
-                }
-                throw PlayCoverError.ipaCorrupted
             }
             
             func exportIPA(app: URL, bundleName : String) throws -> URL {
