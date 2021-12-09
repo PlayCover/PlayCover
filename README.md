@@ -9,13 +9,7 @@ On 19th August 2021 some company violated the open source license. Therefore, th
 
 # Installation
 
-Just build last commit version or download last installer from Releases tab.
-
-On first launch, app will prompt you to install Xcode Tools. Agree, please.
-
-Now you can simply drag & drop any .ipa from iMazing, M1 Checker or AppDb.
-
-Wait till PlayCover will convert app and launch it.
+Watch video for fresh setup: https://www.youtube.com/watch?v=mh70tXwPkY4
 
 # How to create key mapping
 
