@@ -1,7 +1,7 @@
 # PlayCover
 Run iOS apps & games on M1 Mac with mouse, keyboard and controller support.
 
-Intel macs support will be implemented later.
+Don't create issue here if you are not dev, just visit https://discord.gg/q7TysgDD
 
 # Source code
 
@@ -42,8 +42,6 @@ https://www.youtube.com/watch?v=H3CoI84s_FI
 You can support me via:
 
 https://www.patreon.com/playcoverapp
-
-Supporters privilegies are listed under https://discord.gg/B6ZFpTBqUF
 
 # Used libraries
 
