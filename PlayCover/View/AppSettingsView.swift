@@ -10,7 +10,6 @@ import SwiftUI
 import AlertToast
 
 struct AppSettingsView : View {
-    
     @State var settings : AppSettings
     
     @State var adaptiveDisplay : Bool
@@ -49,11 +48,11 @@ struct AppSettingsView : View {
                 Toggle("Enable Jailbreak Bypass (Alpha)", isOn: $bypass).padding()
                 HStack{
                     Image(systemName: "terminal.fill").font(.system(size: 96)).foregroundColor(Colr.primary).padding(.leading)
-                    Text("ATTENTION: Don't enough for some games yet!!! With this you can bypass bans and detect that don't let you login game").frame(maxWidth: 200).padding().frame(minHeight: 100)
+                    Text("ATTENTION: Don't enable for some games yet! This allows you to bypass bans that don't let you login").frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
-            HStack(spacing: 0){
+            HStack(spacing: 0) {
                 Spacer()
                 Picker(selection: $selectedRefreshRate, label: Text("Screen refresh rate"), content: {
                     Text("60hz").tag(0)
@@ -65,8 +64,7 @@ struct AppSettingsView : View {
                 Divider().padding(.leading, 36).padding(.trailing, 36)
                 Text("Mouse sensivity: \(sensivity, specifier: "%.f")")
                 Slider(value: $sensivity, in: 1...100).frame(maxWidth: 400)
-                       
-                }
+            }
             
             Divider().padding(.leading, 36).padding(.trailing, 36)
             HStack{

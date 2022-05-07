@@ -9,6 +9,7 @@ import SwiftUI
 import Cocoa
 
 struct AppsView : View {
+    @Binding public var bottomPadding: CGFloat
     
     @EnvironmentObject var vm : AppsVM
     
@@ -30,10 +31,12 @@ struct AppsView : View {
                         } else if app.type == .app{
                             PlayAppView(app: app as! PlayApp)
                         } else if app.type == .store {
-                           StoreAppView(app: app as! StoreApp)
+                            StoreAppView(app: app as! StoreApp)
                         }
                     }
-                }.padding(.top, 16).animation(.spring())
+                }
+                .padding(.top, 16).padding(.bottom, bottomPadding + 16)
+                .animation(.spring())
             }
         }
     }
@@ -64,7 +67,7 @@ struct AppAddView : View {
             .frame(width: 150, height: 150).onHover(perform: { hovering in
                 isHover = hovering
             }).alert(isPresented: $showWrongfileTypeAlert) {
-                Alert(title: Text("Wrong file type"), message: Text("You should use .ipa file"), dismissButton: .default(Text("OK")))
+                Alert(title: Text("Wrong file type"), message: Text("Choose an .ipa file"), dismissButton: .default(Text("OK")))
             }
             .onTapGesture {
                 if install.installing{
@@ -76,7 +79,6 @@ struct AppAddView : View {
                 }
                 
             }.onDrop(of: ["public.url","public.file-url"], isTargeted: nil) { (items) -> Bool in
-                
                 if install.installing{
                     Log.shared.error(PlayCoverError.waitInstallation)
                     return false
@@ -118,7 +120,7 @@ struct AppAddView : View {
         Installer.install(ipaUrl : uif.ipaUrl! , returnCompletion: { (app) in
             DispatchQueue.main.async {
                 AppsVM.shared.fetchApps()
-                NotifyService.shared.notify("App is installed!", "Please, check it out in 'My Apps'")
+                NotifyService.shared.notify("App installed!", "Check it out in 'My Apps'")
             }
         })
     }
