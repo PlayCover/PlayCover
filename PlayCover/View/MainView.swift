@@ -79,8 +79,7 @@ struct MainView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     VStack(alignment: .leading, spacing: 8) {
                         HStack(spacing: 8) {
-                            Link("Join Discord Server",
-                                  destination: URL(string: "https://discord.gg/rMv5qxGTGC")!)
+                            Link("Join Discord Server", destination: URL(string: "https://discord.gg/rMv5qxGTGC")!)
                             Spacer()
                             Button(action: {
                                 Log.shared.logdata.copyToClipBoard()
@@ -151,8 +150,8 @@ struct MainView: View {
             .sheet(isPresented: $showSetup) {
                 SetupView()
             }
-            .alert("PlayCover must be inside Applications folder. Press button to move it.", isPresented: $integrity.integrityOff) {
-                Button("Move to apps", role: .cancel) {
+            .alert("PlayCover must be in the Applications folder. Press the button below to let PlayCover move itself to /Applications.", isPresented: $integrity.integrityOff) {
+                Button("Move to /Applications", role: .cancel) {
                     integrity.moveToApps()
                 }
             }
