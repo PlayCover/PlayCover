@@ -84,8 +84,9 @@ struct MainView: View {
                         HStack {
                             VStack{
                                 Text("Have a problem with controller?")
-                                Link("Visit Discord",
-                                      destination: URL(string: "https://discord.gg/rMv5qxGTGC")!)
+                                Link(destination: URL(string: "https://discord.gg/rMv5qxGTGC")!) {
+                                    Text("Visit Discord")
+                                }
                             }
                         }
                     }.buttonStyle(CancelButton())

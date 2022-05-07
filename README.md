@@ -1,13 +1,14 @@
 # PlayCover
+
 Run iOS apps & games on M1 Mac with mouse, keyboard and controller support.
 
-Don't create issue here if you are not dev, just visit https://discord.gg/q7TysgDD
+Don't create issue here if you are not dev, just visit <https://discord.gg/q7TysgDD>
 
-# Installation
+## Installation
 
-Watch video for fresh setup: https://www.youtube.com/watch?v=mh70tXwPkY4
+Watch video for fresh setup: <https://www.youtube.com/watch?v=mh70tXwPkY4>
 
-# How to create key mapping
+## How to create key mapping
 
 Press Ctrl + P to open editor mode.
 
@@ -19,30 +20,29 @@ After edit, just press Ctrl + P again to save results.
 
 You can hold Alt during game to stop mouse camera control.
 
-# Showcase
+## Showcase
 
-https://www.youtube.com/watch?v=grY63FBJ6N4
+<https://www.youtube.com/watch?v=grY63FBJ6N4>
 
-# Instruction
+## Instruction
 
-https://www.youtube.com/watch?v=H3CoI84s_FI
+<https://www.youtube.com/watch?v=H3CoI84s_FI>
 
-# Project support
+## Project support
 
 You can support me via:
 
-https://www.patreon.com/playcoverapp
+<https://www.patreon.com/playcoverapp>
 
-# Used libraries
+## Used libraries
 
-https://github.com/paradiseduo/appdecrypt/tree/main/Sources/appdecrypt
+<https://github.com/paradiseduo/appdecrypt/tree/main/Sources/appdecrypt>
 
-https://github.com/alexzielenski/optool
+<https://github.com/alexzielenski/optool>
 
-https://github.com/Ret70/PTFakeTouch
+<https://github.com/Ret70/PTFakeTouch>
 
-
-# License and Commercial
+## License and Commercial
 
 AGPLv3
 ***

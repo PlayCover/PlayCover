@@ -46,7 +46,9 @@ struct AppSettingsView : View {
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
             VStack(alignment: .leading){
-                Toggle("Enable Jailbreak Bypass (Alpha)", isOn: $bypass).padding()
+                Toggle(isOn: $bypass) {
+                    Text("Enable Jailbreak Bypass (Alpha)")
+                }.padding()
                 HStack{
                     Image(systemName: "terminal.fill").font(.system(size: 96)).foregroundColor(Colr.primary).padding(.leading)
                     Text("ATTENTION: Don't enough for some games yet!!! With this you can bypass bans and detect that don't let you login game").frame(maxWidth: 200).padding().frame(minHeight: 100)
