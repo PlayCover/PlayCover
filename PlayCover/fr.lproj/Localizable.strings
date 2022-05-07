@@ -26,12 +26,12 @@
 "Your system is not ready to run games! Watch video for easy setup." = "Votre système n'est pas prêt à lancer des jeux! Veuillez regarder la vidéo pour une installation facile.";
 "Your system setup is correct." = "L'installation est valide.";
 "About app" = "À propos de l'app";
-"This .IPA can't be decrypted on this Mac. Download .ipa from AppDb.to or our Discord. You can also try to use 'Alterntaive decrypt' checkbox" = "Ce fichier .ipa ne peut être décrypté sur ce Mac. Veuillez télécharger l'.ipa depuis AppDb.to ou notre serveur Discord. Vous pouvez aussi tenter de cocher la 'méthode alternative de décryptage'";
+"App is encrypted! Please, use decrypted .ipa from AppDb or download one from the internal store. iMazing .ipa are not currently supported!" = "Votre fichier .ipa est encrypté! Veuillez télécharger l'.ipa depuis AppDb ou depuis notre magasin. Les .ipa obtenus à l'aide d'iMazing ou Apple Configurator ne sont pas supportés pour le moment!";
 "This .IPA is courrupted. It doesn't contains Info.plist." = "Ce fichier .ipa est corrompu. Il ne contient pas de fichier Info.plist.";
 "It it impossible to decrypt .IPA with SIP disabled. Please, enable it." = "Il est impossible de décrypter le fichier .ipa avec SIP désactivé. Veuillez le réactiver.";
-"Please reinstall PlayCoverApp" = "Veuillez réinstaller PlayCoverApp";
+"Please, reinstall PlayCover app" = "Veuillez réinstaller l'application PlayCover";
 "Make sure you don't disallowed PlayCover to access files in Settings - Secuirity & Privacy" = "Assurez-vous de ne pas avoir bloqué l'accès aux fichiers pour PlayCover dans les Préférences Systèmes - Sécurité et confidentialité";
-"This .IPA is courrupted.Try to use another .ipa" = "Ce fichier .ipa est corrompu. Essayez d'utiliser un autre fichier .ipa";
+"Something went wrong with this .ipa. Please try to use another .ipa file." = "Quelque chose n'a pas fonctionné avec ce fichier .ipa. Essayez d'utiliser un autre fichier .ipa";
 "You have not performed all instructions! Please, perform all instructions in 'Settings' or watch video in pinned messages." = "Vous n'avez pas suivi toutes les instructions! Veuillez suivre toutes les instructions dans les 'Réglages' ou regardez la vidéo dans les messages épinglés.";
 "Get" = "Obtenir";
 "To do this you need to reboot, enter into Recovery mode, open Terminal and type" = "Pour faire ceci, vous devez redémarrer en entrant en mode de récupération, aller dans le Terminal et taper";
@@ -84,7 +84,16 @@
 "With this you can bind touch layout to bind touch controls to mouse and keyboard. Use Control + P to open editor menu." = "Avec ça vous pouvez associer les contrôles tactiles avec votre souris et clavier. Utilisez Control + P pour ouvrir l'éditeur."
 "Use this feature to play games in fullscreen and adapt app window to another dimensions." = "Utilisez cette fonctionnalité pour jouer à des jeux en plein écran et ajuster les dimensions de la fenêtre avec d'autres dimensions."
 "Enable Jailbreak Bypass (Alpha)" = "Activer le contournement du jailbreak (Alpha)"
-"ATTENTION: Don't enough for some games yet!!! With this you can bypass bans and detect that don't let you login game" = "ATTENTION : Cela ne fonctionne pas avec certains jeux!!! Avec cette fonctionnalité vous pouvez contourner le bannissement et les détections par certains jeux."
+"ATTENTION: Don't enable for some games yet! This allows you to bypass bans that don't let you login" = "ATTENTION : Ne pas l'activer pour certains jeux ! Avec cette fonctionnalité vous pouvez contourner le bannissement et les détections par certains jeux."
 "Screen refresh rate" = "Taux de rafraîchissement de l'écran"
 "Mouse sensivity: %.f" = "Sensitivté de la souris : %.f"
 "Settings reseted to default!" = "Paramètres réinitialisés!"
+"No device with sample rate of 48 / 44.1 ghz found! Please, lower sample rate in Audio settings or connect another output audio device. Otherwise crashes possible!" = "Nous n'avons pas trouvé d'appareil configuré pour 48 ou 44.1 Ghz! Veuillez abaisser la fréquence d'échantillonage dans les réglages audio ou connecter un autre appareil ou certaines applications pourraient crasher."
+"Copy logs" = "Copier les logs"
+"Notices" = "Notes"
+"Having problems logging into apps?" = "Vous avez des problèmes pour vous connecter à certaines apps."
+"PlayCover must be inside Applications folder. Press button to move it." = "PlayCover doit être dans le dossier Applications."
+"If you encounter any errors, restart and repeat the whole process again" = "Si vous avez des erreurs, redémarrez et répétez le processus encore une fois."
+"Please, wait current install to finish!" = "Veuillez attendre que l'installation se termine!"
+
+"You'll receive ban on this PlayCover version! Call of Duty supported on 0.9.2-0.9.4. PUBG requires higher PlayCover version. Free Fire status is not confirmed. There is one message of ban." = "Vous risquez d'être banni sur cette version de PlayCover! Call of Duty est supporté sur les versions 0.9.2-0.9.4. PUBG requiert une version plus récente. Free Fire n'est pas encore confirmé. Il y a un message de ban".

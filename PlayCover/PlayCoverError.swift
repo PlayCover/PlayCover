@@ -24,7 +24,7 @@ extension PlayCoverError: LocalizedError {
         case .appEncrypted:
             return NSLocalizedString("App is encrypted! Please, use decrypted .ipa from AppDb or download one from the internal store. iMazing .ipa are not currently supported!", comment: "")
         case .appCorrupted:
-            return NSLocalizedString("Something wrong with this .ipa. Pls, try another.", comment: "")
+            return NSLocalizedString("Something went wrong with this .ipa. Please try to use another .ipa file.", comment: "")
         case .appProhibited:
             return NSLocalizedString("You'll receive ban on this PlayCover version! Call of Duty supported on 0.9.2-0.9.4. PUBG requires higher PlayCover version. Free Fire status is not confirmed. There is one message of ban.", comment: "")
     }
