@@ -41,16 +41,18 @@ struct PlayCoverApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
-            .padding()
-            .environmentObject(UpdateService.shared)
-            .environmentObject(InstallVM.shared)
-            .environmentObject(AppsVM.shared)
-            .environmentObject(AppIntegrity())
-            .frame(minHeight: 650).frame(minWidth: 600).onAppear {
-                SoundDeviceService.shared.prepareSoundDevice()
-                UpdateService.shared.checkUpdate()
-                NotifyService.shared.allowNotify()
-            }.padding(-15)
+                .padding()
+                .environmentObject(UpdateService.shared)
+                .environmentObject(InstallVM.shared)
+                .environmentObject(AppsVM.shared)
+                .environmentObject(AppIntegrity())
+                .frame(minWidth: 600, minHeight: 650)
+                .onAppear {
+                    SoundDeviceService.shared.prepareSoundDevice()
+                    UpdateService.shared.checkUpdate()
+                    NotifyService.shared.allowNotify()
+                }
+                .padding(-15)
         }.windowStyle(HiddenTitleBarWindowStyle()).commands {
             CommandGroup(replacing: CommandGroupPlacement.newItem) {
                 EmptyView()

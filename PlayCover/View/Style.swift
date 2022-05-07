@@ -76,10 +76,11 @@ struct GrowingButton: ButtonStyle {
 struct CancelButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .padding()
+            .padding(.vertical, 12)
+            .padding(.horizontal, 16)
             .background(Colr.control(Colr.isDarkMode()))
-            .clipShape(Capsule())
-            .scaleEffect(configuration.isPressed ? 1.2 : 1)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .scaleEffect(configuration.isPressed ? 1.1 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }
 }

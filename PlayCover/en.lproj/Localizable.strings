@@ -35,10 +35,10 @@
 "It it impossible to decrypt .IPA with SIP disabled. Please, enable it." = "It it impossible to decrypt .IPA with SIP disabled. Please, enable it.";
 "Please reinstall PlayCoverApp" = "Please reinstall PlayCoverApp";
 "Make sure you don't disallowed PlayCover to access files in Settings - Secuirity & Privacy" = "Make sure you don't disallowed PlayCover to access files in Settings - Secuirity & Privacy";
-"This .IPA is courrupted.Try to use another .ipa" = "This .IPA is courrupted.Try to use another .ipa";
+"This .IPA is courrupted.Try to use another .ipa" = "This .IPA is courrupted. Try using another .ipa";
 "You have not performed all instructions! Please, perform all instructions in 'Settings' or watch video in pinned messages." = "You have not performed all instructions! Please, perform all instructions in 'Settings' or watch video in pinned messages.";
 "Get" = "Get";
 "To do this you need to reboot, enter into Recovery mode, open Terminal and type" = "To do this you need to reboot, enter into Recovery mode, open Terminal and type";
-"App is installed!" = "App is installed!";
+"App is installed!" = "App installed!";
 "Please, check it out in 'My Apps'" = "Please, check it out in 'My Apps'";
 
