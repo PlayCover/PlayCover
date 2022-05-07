@@ -66,11 +66,15 @@ struct SetupView : View {
                 Divider()
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text("1) Click the Apple symbol in the Menu bar. Click Restart")
-                    Text("2) When screen turns black, hold on Power button")
-                    Text("3) Click Utilities -> Terminal")
+                    Group {
+                        Text("1) Restart your Mac")
+                        Text("2) Hold the power button when the screen turns black")
+                        Text("3) When \"Loading Startup Options\" appears below the Apple logo, release the power button")
+                        Text("4) Click the Recovery Mode boot option")
+                        Text("5) In Recovery, open Terminal (Utilities -> Terminal)")
+                    }
                     HStack(spacing: 4) {
-                        Text("4) Type: ")
+                        Text("6) Type: ")
                         Label {
                             Text("csrutil disable").textSelection(.enabled).font(.monospaced(.body)())
                         } icon: {
@@ -80,8 +84,8 @@ struct SetupView : View {
                         .padding(.vertical, 8)
                         .background(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1).foregroundColor(Colr.highlighted(Colr.isDarkMode())))
                     }
-                    Text("5) Press Return or Enter on your keyboard. Input your Mac screen password (it is invisible)")
-                    Text("6) Click the Apple symbol in the Menu bar and Restart")
+                    Text("7) Press Return or Enter on your keyboard. Input your Mac screen password (it is invisible)")
+                    Text("8) Click the Apple symbol in the Menu bar and Restart")
                     HStack {
                         ZStack{
                             Link("YouTube", destination: URL(string: "https://www.youtube.com/watch?v=H3CoI84s_FI")!).font(.system(size: 12)).padding().frame(alignment: .center)
