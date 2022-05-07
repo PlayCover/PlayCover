@@ -88,7 +88,6 @@
 		8783D00D26B8D32700171041 /* InstallSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00C26B8D32700171041 /* InstallSettings.swift */; };
 		92037247280F27A50064A1EF /* LoginKitWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 92037246280F27A50064A1EF /* LoginKitWrapper.m */; };
 		9203724A280F288C0064A1EF /* LoginServiceKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92037249280F288C0064A1EF /* LoginServiceKit.swift */; };
-		920CDB132796FB5A00713A88 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 920CDB122796FB5A00713A88 /* AlertToast */; };
 		9221730A27623DA100C8A3A2 /* StoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9221730927623DA100C8A3A2 /* StoreApp.swift */; };
 		922410E8275ADB48000BF6C0 /* otool in Resources */ = {isa = PBXBuildFile; fileRef = 922410E7275ADB48000BF6C0 /* otool */; };
 		92279BBF27610433009F28BF /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92279BBE27610433009F28BF /* AppSettingsView.swift */; };
@@ -98,9 +97,6 @@
 		9238C6B2278D59FE009D0D8E /* CircleMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9238C6B1278D59FE009D0D8E /* CircleMenu.swift */; };
 		9238C6B4278D5A15009D0D8E /* CircleMenuLoader.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9238C6B3278D5A15009D0D8E /* CircleMenuLoader.swift.swift */; };
 		9238C6B6278D5A3D009D0D8E /* CircleMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9238C6B5278D5A3D009D0D8E /* CircleMenuButton.swift */; };
-		923E001027B6CD1600541A44 /* AppCenterAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 923E000F27B6CD1600541A44 /* AppCenterAnalytics */; };
-		923E001227B6CD1600541A44 /* AppCenterCrashes in Frameworks */ = {isa = PBXBuildFile; productRef = 923E001127B6CD1600541A44 /* AppCenterCrashes */; };
-		923E001427B6CD5800541A44 /* PlayTools in Resources */ = {isa = PBXBuildFile; fileRef = 923E001327B6CD5700541A44 /* PlayTools */; };
 		9241A83F278BBC6D0044AF78 /* DragElementsView.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9241A83E278BBC6D0044AF78 /* DragElementsView.swift.swift */; };
 		9253122F2724DE7C00EB6996 /* PlayMice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9253122E2724DE7C00EB6996 /* PlayMice.swift */; };
 		9256220127491E4700728698 /* NSData+Reading.m in Sources */ = {isa = PBXBuildFile; fileRef = 925621FD27491E4700728698 /* NSData+Reading.m */; };
@@ -110,7 +106,6 @@
 		92562209274921E500728698 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92562208274921E500728698 /* main.m */; };
 		9272F19E273B74C800DFBEF1 /* AppsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9272F19C273B74C800DFBEF1 /* AppsVM.swift */; };
 		927E1F0427501EF300DA12E6 /* vtool in Resources */ = {isa = PBXBuildFile; fileRef = 927E1F0327501EF300DA12E6 /* vtool */; };
-		928087192824A8590034C510 /* SimplyCoreAudio in Frameworks */ = {isa = PBXBuildFile; productRef = 928087182824A8590034C510 /* SimplyCoreAudio */; };
 		9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280871A2824A8D20034C510 /* SoundDeviceService.swift */; };
 		9280871D2824AD360034C510 /* Unarchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280871C2824AD360034C510 /* Unarchiver.swift */; };
 		9286D296273A7E4200958DD3 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286D295273A7E4200958DD3 /* AppSettings.swift */; };
@@ -136,6 +131,11 @@
 		92EE06DC274EB19A002C907B /* StoreAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06DB274EB19A002C907B /* StoreAppView.swift */; };
 		92EE06DE274EC09F002C907B /* Entitlements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06DD274EC09F002C907B /* Entitlements.swift */; };
 		92F8500A27675124005CE6BE /* AppIntegrity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8500927675124005CE6BE /* AppIntegrity.swift */; };
+		DA248572282567E000DFF60A /* PlayTools in Resources */ = {isa = PBXBuildFile; fileRef = DA248571282567E000DFF60A /* PlayTools */; };
+		DA9B9F812825608C006DDB46 /* SimplyCoreAudio in Frameworks */ = {isa = PBXBuildFile; productRef = DA9B9F802825608C006DDB46 /* SimplyCoreAudio */; };
+		DA9B9F882825615F006DDB46 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = DA9B9F872825615F006DDB46 /* AlertToast */; };
+		DA9B9F8F282561E3006DDB46 /* AppCenterAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = DA9B9F8E282561E3006DDB46 /* AppCenterAnalytics */; };
+		DA9B9F91282561E3006DDB46 /* AppCenterCrashes in Frameworks */ = {isa = PBXBuildFile; productRef = DA9B9F90282561E3006DDB46 /* AppCenterCrashes */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -260,7 +260,6 @@
 		9238C6B1278D59FE009D0D8E /* CircleMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleMenu.swift; sourceTree = "<group>"; };
 		9238C6B3278D5A15009D0D8E /* CircleMenuLoader.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleMenuLoader.swift.swift; sourceTree = "<group>"; };
 		9238C6B5278D5A3D009D0D8E /* CircleMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleMenuButton.swift; sourceTree = "<group>"; };
-		923E001327B6CD5700541A44 /* PlayTools */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = PlayTools; path = "../../../Library/Developer/Xcode/DerivedData/PlayCover-fcpamevbewicdidzpuqtsenbykns/Build/Products/Release-iphoneos/PlayTools.framework/PlayTools"; sourceTree = "<group>"; };
 		9241A83E278BBC6D0044AF78 /* DragElementsView.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragElementsView.swift.swift; sourceTree = "<group>"; };
 		9253122E2724DE7C00EB6996 /* PlayMice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayMice.swift; sourceTree = "<group>"; };
 		925621F927491E4700728698 /* NSData+Reading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Reading.h"; sourceTree = "<group>"; };
@@ -289,7 +288,6 @@
 		92AAD03F27C6AF940031F44A /* LaunchServicesWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchServicesWrapper.m; sourceTree = "<group>"; };
 		92B4D38E2737CF3D0001D7BB /* PlayTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayTools.swift; sourceTree = "<group>"; };
 		92B8CE9027233A2700502982 /* PlayAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAction.swift; sourceTree = "<group>"; };
-		92D408FC2750060A005E852F /* libswiftUIKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftUIKit.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/usr/lib/swift/libswiftUIKit.tbd; sourceTree = DEVELOPER_DIR; };
 		92D409252750166B005E852F /* install_name_tool */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = install_name_tool; sourceTree = "<group>"; };
 		92D79316273C065A001CC964 /* libsandbox.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsandbox.1.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/libsandbox.1.tbd; sourceTree = DEVELOPER_DIR; };
 		92ECD8A2274E75CD00DB7AC6 /* Installer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Installer.swift; sourceTree = "<group>"; };
@@ -304,6 +302,7 @@
 		92EE06DB274EB19A002C907B /* StoreAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAppView.swift; sourceTree = "<group>"; };
 		92EE06DD274EC09F002C907B /* Entitlements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entitlements.swift; sourceTree = "<group>"; };
 		92F8500927675124005CE6BE /* AppIntegrity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntegrity.swift; sourceTree = "<group>"; };
+		DA248571282567E000DFF60A /* PlayTools */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = PlayTools; path = "../../Library/Developer/Xcode/DerivedData/PlayCover-dyjinuulcsdzjaeclknheholubxi/Build/Products/Release-iphoneos/PlayTools.framework/PlayTools"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,10 +318,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				928087192824A8590034C510 /* SimplyCoreAudio in Frameworks */,
-				923E001027B6CD1600541A44 /* AppCenterAnalytics in Frameworks */,
-				923E001227B6CD1600541A44 /* AppCenterCrashes in Frameworks */,
-				920CDB132796FB5A00713A88 /* AlertToast in Frameworks */,
+				DA9B9F882825615F006DDB46 /* AlertToast in Frameworks */,
+				DA9B9F812825608C006DDB46 /* SimplyCoreAudio in Frameworks */,
+				DA9B9F8F282561E3006DDB46 /* AppCenterAnalytics in Frameworks */,
+				DA9B9F91282561E3006DDB46 /* AppCenterCrashes in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,7 +467,6 @@
 		53841CC826D9D7920021D27C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				92D408FC2750060A005E852F /* libswiftUIKit.tbd */,
 				92D79316273C065A001CC964 /* libsandbox.1.tbd */,
 				53468A4A2712917900887A08 /* libmis.tbd */,
 				53468A452712632800887A08 /* Security.tbd */,
@@ -556,7 +554,7 @@
 		8783CFEE26B8C52D00171041 = {
 			isa = PBXGroup;
 			children = (
-				923E001327B6CD5700541A44 /* PlayTools */,
+				DA248571282567E000DFF60A /* PlayTools */,
 				922410E7275ADB48000BF6C0 /* otool */,
 				92A4A8C42756F38E00E8E3D2 /* libplist-2.0.3.dylib */,
 				92A4A8C12756EEA500E8E3D2 /* ldid */,
@@ -717,10 +715,10 @@
 			);
 			name = PlayCover;
 			packageProductDependencies = (
-				920CDB122796FB5A00713A88 /* AlertToast */,
-				923E000F27B6CD1600541A44 /* AppCenterAnalytics */,
-				923E001127B6CD1600541A44 /* AppCenterCrashes */,
-				928087182824A8590034C510 /* SimplyCoreAudio */,
+				DA9B9F802825608C006DDB46 /* SimplyCoreAudio */,
+				DA9B9F872825615F006DDB46 /* AlertToast */,
+				DA9B9F8E282561E3006DDB46 /* AppCenterAnalytics */,
+				DA9B9F90282561E3006DDB46 /* AppCenterCrashes */,
 			);
 			productName = PlayCover;
 			productReference = 8783CFF726B8C52D00171041 /* PlayCover.app */;
@@ -763,9 +761,9 @@
 			);
 			mainGroup = 8783CFEE26B8C52D00171041;
 			packageReferences = (
-				920CDB112796FB5A00713A88 /* XCRemoteSwiftPackageReference "AlertToast" */,
-				920CDB142796FBAE00713A88 /* XCRemoteSwiftPackageReference "appcenter-sdk-apple" */,
-				928087172824A8590034C510 /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */,
+				DA9B9F7D28256074006DDB46 /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */,
+				DA9B9F862825615F006DDB46 /* XCRemoteSwiftPackageReference "AlertToast" */,
+				DA9B9F89282561CF006DDB46 /* XCRemoteSwiftPackageReference "appcenter-sdk-apple" */,
 			);
 			productRefGroup = 8783CFF826B8C52D00171041 /* Products */;
 			projectDirPath = "";
@@ -789,11 +787,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				923E001427B6CD5800541A44 /* PlayTools in Resources */,
 				922410E8275ADB48000BF6C0 /* otool in Resources */,
 				92A4A8C52756F38E00E8E3D2 /* libplist-2.0.3.dylib in Resources */,
 				92A4A8C22756EEA500E8E3D2 /* libcrypto.1.1.dylib in Resources */,
 				92A4A8C32756EEA500E8E3D2 /* ldid in Resources */,
+				DA248572282567E000DFF60A /* PlayTools in Resources */,
 				92D409262750166B005E852F /* install_name_tool in Resources */,
 				8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */,
 				538ED92526F3DC6A002D73E8 /* Auth0.plist in Resources */,
@@ -938,7 +936,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = QKT93KWTW8;
+				DEVELOPMENT_TEAM = Q382QLKDG3;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -985,7 +983,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = QKT93KWTW8;
+				DEVELOPMENT_TEAM = Q382QLKDG3;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1154,7 +1152,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "PlayCover/Preview\\ Content";
-				DEVELOPMENT_TEAM = QKT93KWTW8;
+				DEVELOPMENT_TEAM = Q382QLKDG3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PlayCover/Info.plist;
@@ -1170,7 +1168,7 @@
 				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = me.playcover.PlayCover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/xor/Desktop/PlayCover/PlayCoverPrivate-main/PlayCover/PlayCover-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "./PlayCover/PlayCover-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -1188,7 +1186,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "PlayCover/Preview\\ Content";
-				DEVELOPMENT_TEAM = QKT93KWTW8;
+				DEVELOPMENT_TEAM = Q382QLKDG3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PlayCover/Info.plist;
@@ -1205,8 +1203,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = me.playcover.PlayCover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/xor/Desktop/PlayCover/PlayCoverPrivate-main/PlayCover/PlayCover-Bridging-Header.h";
-				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "/Users/xor/Desktop/PlayCover/PlayCoverPrivate-main/PlayCover/PlayCover-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "./PlayCover/PlayCover-Bridging-Header.h";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "./PlayCover/PlayCover-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -1244,7 +1242,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		920CDB112796FB5A00713A88 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+		DA9B9F7D28256074006DDB46 /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rnine/SimplyCoreAudio";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
+		DA9B9F862825615F006DDB46 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/elai950/AlertToast.git";
 			requirement = {
@@ -1252,44 +1258,36 @@
 				kind = branch;
 			};
 		};
-		920CDB142796FBAE00713A88 /* XCRemoteSwiftPackageReference "appcenter-sdk-apple" */ = {
+		DA9B9F89282561CF006DDB46 /* XCRemoteSwiftPackageReference "appcenter-sdk-apple" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/microsoft/appcenter-sdk-apple.git";
-			requirement = {
-				branch = develop;
-				kind = branch;
-			};
-		};
-		928087172824A8590034C510 /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rnine/SimplyCoreAudio.git";
+			repositoryURL = "https://github.com/microsoft/appcenter-sdk-apple";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
+				minimumVersion = 4.4.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		920CDB122796FB5A00713A88 /* AlertToast */ = {
+		DA9B9F802825608C006DDB46 /* SimplyCoreAudio */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 920CDB112796FB5A00713A88 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			package = DA9B9F7D28256074006DDB46 /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */;
+			productName = SimplyCoreAudio;
+		};
+		DA9B9F872825615F006DDB46 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA9B9F862825615F006DDB46 /* XCRemoteSwiftPackageReference "AlertToast" */;
 			productName = AlertToast;
 		};
-		923E000F27B6CD1600541A44 /* AppCenterAnalytics */ = {
+		DA9B9F8E282561E3006DDB46 /* AppCenterAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 920CDB142796FBAE00713A88 /* XCRemoteSwiftPackageReference "appcenter-sdk-apple" */;
+			package = DA9B9F89282561CF006DDB46 /* XCRemoteSwiftPackageReference "appcenter-sdk-apple" */;
 			productName = AppCenterAnalytics;
 		};
-		923E001127B6CD1600541A44 /* AppCenterCrashes */ = {
+		DA9B9F90282561E3006DDB46 /* AppCenterCrashes */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 920CDB142796FBAE00713A88 /* XCRemoteSwiftPackageReference "appcenter-sdk-apple" */;
+			package = DA9B9F89282561CF006DDB46 /* XCRemoteSwiftPackageReference "appcenter-sdk-apple" */;
 			productName = AppCenterCrashes;
-		};
-		928087182824A8590034C510 /* SimplyCoreAudio */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 928087172824A8590034C510 /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */;
-			productName = SimplyCoreAudio;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
