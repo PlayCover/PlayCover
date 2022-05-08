@@ -1,4 +1,3 @@
-"Add app" = "Añadir aplicación";
 "My Apps" = "Mis Aplicaciones";
 "Store" = "Tienda";
 "Settings" = "Configuración";
@@ -8,11 +7,8 @@
 "Reset PlayTools settings" = "Reiniciar configuración de PlayTools";
 "Clear app cache" = "Limpiar cache";
 "Delete app" = "Borrar aplicación";
-"Wrong file type" = "Tipo de archivo equivocado";
-"You should use .ipa file" = "Debes usar un archivo .ipa";
-"OK" = "OK";
 "Please, input your admin password" = "Escribe tu contraseña de administrador";
-"App needs it for xattr command" = "La aplicación requiere ejecutar el comando xattr";
+"App needs it for xattr command" = "La aplicación la requiere ejecutar el comando xattr";
 "Advanced settings" = "Configuraciones avanzadas";
 "Cancel" = "Cancelar";
 "Install app" = "Instalar aplicación";
@@ -30,14 +26,74 @@
 "Your system is not ready to run games! Watch video for easy setup." = "Tu sistema no está listo para iniciar a jugar! Ve el video para una configuración sencilla";
 "Your system setup is correct." = "Tu sistema está correctamente configurado";
 "About app" = "Acerca de la aplicación";
-"This .IPA can't be decrypted on this Mac. Download .ipa from AppDb.to or our Discord. You can also try to use 'Alterntaive decrypt' checkbox" = "Este .IPA no puede ser desencriptado en esta Mac. Descarga el .ipa desde AppDb o nuestro servidor de Discord. También puedes intentar usar ‘Método alternativo de desencripción’ ";
+"App is encrypted! Please, use decrypted .ipa from AppDb or download one from the internal store. iMazing .ipa are not currently supported!" = "La aplicación está encriptada! Por favor, usa una .ipa desencriptada de AppDb o descarga una de la tienda interna. los .ipa de iMazing no funcionan por el momento!";
 "This .IPA is courrupted. It doesn't contains Info.plist." = "Este .IPA se encuentra corrupto. No contiene el archivo Info.plist";
 "It it impossible to decrypt .IPA with SIP disabled. Please, enable it." = "Es imposible desencriptar archivos .IPA con SIP deshabilitado, por favor, habilitalo";
-"Please reinstall PlayCoverApp" = "Por favor, reinstale PlayCoverApp";
+"Please reinstall PlayCoverApp" = "Por favor, reinstale PlayCover";
 "Make sure you don't disallowed PlayCover to access files in Settings - Secuirity & Privacy" = "Asegúrese que PlayCover tiene acceso a los archivos en Preferencias de Sistema - Seguridad y privacidad";
-"This .IPA is courrupted.Try to use another .ipa" = "Este .IPA está corrupto. Intente con otro";
+"Something went wrong with this .ipa. Please try to use another .ipa file." = "Algo salió mal con este .ipa. Por favor, intenta usar otro archivo .ipa";
 "You have not performed all instructions! Please, perform all instructions in 'Settings' or watch video in pinned messages." = "No ha seguido todas las instrucciones! Siga todas las instrucciones en 'configuraciones' o vea el video fijado.";
-"Get" = "Descargar";
+"Get" = "Obtener";
 "To do this you need to reboot, enter into Recovery mode, open Terminal and type" = "Para hacerlo necesitas reiniciar, entrar en el modo de recuperación, abrir el terminal y escribir";
 "App is installed!" = "Aplicación instalada!";
 "Please, check it out in 'My Apps'" = "Por favor, compruebelo en 'Mis Aplicaciones'";
+
+
+"Have a problem with controller?" = "¿Tienes un problema con los controles?";
+"Visit Discord" = "Visita Discord";
+"Update app" = "Actualizar aplicación";
+"To Genshin players: if you see <Data error, please login again> you need to enable SIP (csrutil enable). If you have problems with captcha login, press <Enable PlaySign> button below." = "Para los jugadores de Genshin: si ve <Data error, please login again> necesitas habilitar SIP (csrutil enable). Si tienes problemas con el inicio de sesión con captcha, presiona el botón <Enable PlaySign> debajo.";
+"Have problems with login in apps?" = "¿Tienes problemas con el inicio de sesión en las aplicaciones?";
+"Enable PlaySign" = "Activar PlaySign";
+"Unzipping app" = "Descomprimiendo aplicación";
+"Creating app wrapper" = "Creando un contender para la aplicación";
+"Installing PlayTools" = "Instalando PlayTools";
+"Signing app" = "Firmando aplicación";
+"Adding app to library" = "Añadiendo aplicación a la biblioteca";
+"Copying app" = "Copiando aplicación";
+"Finished" = "Terminado";
+"Add app" = "Añadir aplicación";
+
+"Wrong file type" = "Tipo de archivo incorrecto";
+"You should use .ipa file" = "Deberías usar un archivo .ipa";
+"OK" = "OK";
+"PlaySign apps require one time system setup. Please, follow instruction." = "Las aplicaciones PlaySign requieren una configuración inicial del sistema. Por favor, sigue las instrucciones.";
+"1) Click the Apple symbol in the Menu bar.Click Restart" = "1) Haga clic en el símbolo de Apple en la barra de menú. Haga clic en Reiniciar";
+"2) When screen turns black, hold on Power button" = "2) Cuando la pantalla se ponga en negro, presiona el boton de encendido"
+"3) Click Utilities -> Terminal" = "3) Haga clic en utilidades y seguidamente a terminal"
+"4) Type: " = "4) Escriba:"
+
+"5) Press Return or Enter on your keyboard. Input your Mac screen password (it is invisible)" = "5) Presione la tecla de Retorno o Enter en su teclado. Ingrese su contraseña de pantalla de Mac (es invisible)";
+"6) Click the Apple symbol in the Menu bar and Restart" = "6) Haga clic en el símbolo de Apple en la barra de menú y reinicie";
+
+"If you have any error, press on Apple icon and select Startup disk. Then click on Restart or Unlock. After screen turns black, hold Power button again." = "Si tiene algún error, presione en el símbolo de Apple y seleccione el disco de arranque. Luego haga clic en Reiniciar o Desbloquear. Cuando la pantalla se ponga en negro presione el boton de encendido nuevamente"
+"Please, press below button and input your Mac unlock screen password." = "Por favor, presione el boton de abajo en ingrese su contraseña"
+"Please, input your login password" = "Por favor, ingrese su contraseña de inicio de sesión";
+"You typed incorrect password." = "Ha escrito una contraseña incorrecta";
+"It is one you use for Mac unlock" = "Es una que usas para desbloquear tu Mac";
+"Now restart Mac and all is done!" = "Ahora reinicie su Mac y todo está listo!";
+
+"App settings" = "Configuración de la aplicación";
+"Open app cache" = "Abrir caché de la aplicación";
+"Import keymapping" = "Importar mapeado de teclado";
+"Export keymapping" = "Exportar mapeado de teclado"
+"All app data will be erased. You may need to redownload app files again. Wish to continue?" = "Todos los datos de la aplicación se borraran. Puede que tenga que descargar los archivos de la aplicación de nuevo. ¿Desea continuar?";
+"App cache was cleared!" = "¡Se ha borrado la caché de la aplicación!";
+"Keymapping imported!" = "¡Se ha importado el mapeado de teclado!";
+"Error during import" = "Error durante la importación";
+"With this you can bind touch layout to bind touch controls to mouse and keyboard. Use Control + P to open editor menu." = "Con esto puedes asociar el diseño touch a los controles touch a los ratones y teclado. Use Control + P para abrir el menú del editor.";
+"Use this feature to play games in fullscreen and adapt app window to another dimensions." = "Use esta función para jugar a juegos en pantalla completa y adaptar la ventana de la aplicación a otras dimensiones.";
+"Enable Jailbreak Bypass (Alpha)" = "Habilitar Jailbreak Bypass (alpha)";
+"ATTENTION: Don't enable for some games yet! This allows you to bypass bans that don't let you login" = "ATENCIÓN: ¡No habilite esto para algunos juegos aún! Esto solo le permite pasar por alto los baneos que no te permiten iniciar sesión";
+"Screen refresh rate" = "Tasa de refresco de la pantalla";
+"Mouse sensivity: %.f" = "Sensibilidad del ratón: %.f";
+"Settings reseted to default!" = "¡Se han restablecido los ajustes por defecto!";
+"No device with sample rate of 48 / 44.1 ghz found! Please, lower sample rate in Audio settings or connect another output audio device. Otherwise crashes possible!" = "¡No se ha encontrado ningún dispositivo con una frecuencia de muestreo de 48 / 44.1 ghz! Por favor, baje la frecuencia de muestreo en la configuración de audio o conecte otro dispositivo de salida de audio. De lo contrario, puede que se produzcan errores!";
+"Copy logs" = "Copiar logs";
+"Notices" = "Notificaciones";
+"Having problems logging into apps?" = "¿Tienes problemas para iniciar sesión en las aplicaciones?";
+"PlayCover must be inside Applications folder. Press button to move it." = "PlayCover debe estar dentro de la carpeta de aplicaciones. Pulse el botón para moverlo.";
+"If you encounter any errors, restart and repeat the whole process again" = "Si encuentra algún error, reinicie y repita el proceso de nuevo";
+"Please, wait current install to finish!" = "Por favor, espere a que la instalación termine!";
+
+"You'll receive ban on this PlayCover version! Call of Duty supported on 0.9.2-0.9.4. PUBG requires higher PlayCover version. Free Fire status is not confirmed. There is one message of ban." = "Su cuenta sera banneada si utiliza esta versión de PlayCover! Call of duty funciona correctamente en las versiones 0.9.2-0.9.4. Mientas que PUBG requiere una versión más reciente. Sobre Free Fire aún no tenemos datos suficientes sin embargo hay una prueba de banneo".
