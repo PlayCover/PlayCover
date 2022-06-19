@@ -37,8 +37,6 @@
 "To do this you need to reboot, enter into Recovery mode, open Terminal and type" = "Para hacerlo necesitas reiniciar, entrar en el modo de recuperación, abrir el terminal y escribir";
 "App is installed!" = "Aplicación instalada!";
 "Please, check it out in 'My Apps'" = "Por favor, compruebelo en 'Mis Aplicaciones'";
-
-
 "Have a problem with controller?" = "¿Tienes un problema con los controles?";
 "Visit Discord" = "Visita Discord";
 "Update app" = "Actualizar aplicación";
@@ -53,30 +51,26 @@
 "Copying app" = "Copiando aplicación";
 "Finished" = "Terminado";
 "Add app" = "Añadir aplicación";
-
 "Wrong file type" = "Tipo de archivo incorrecto";
 "You should use .ipa file" = "Deberías usar un archivo .ipa";
 "OK" = "OK";
 "PlaySign apps require one time system setup. Please, follow instruction." = "Las aplicaciones PlaySign requieren una configuración inicial del sistema. Por favor, sigue las instrucciones.";
 "1) Click the Apple symbol in the Menu bar.Click Restart" = "1) Haga clic en el símbolo de Apple en la barra de menú. Haga clic en Reiniciar";
-"2) When screen turns black, hold on Power button" = "2) Cuando la pantalla se ponga en negro, presiona el boton de encendido"
-"3) Click Utilities -> Terminal" = "3) Haga clic en utilidades y seguidamente a terminal"
-"4) Type: " = "4) Escriba:"
-
+"2) When screen turns black, hold on Power button" = "2) Cuando la pantalla se ponga en negro, presiona el boton de encendido";
+"3) Click Utilities -> Terminal" = "3) Haga clic en utilidades y seguidamente a terminal";
+"4) Type: " = "4) Escriba:";
 "5) Press Return or Enter on your keyboard. Input your Mac screen password (it is invisible)" = "5) Presione la tecla de Retorno o Enter en su teclado. Ingrese su contraseña de pantalla de Mac (es invisible)";
 "6) Click the Apple symbol in the Menu bar and Restart" = "6) Haga clic en el símbolo de Apple en la barra de menú y reinicie";
-
-"If you have any error, press on Apple icon and select Startup disk. Then click on Restart or Unlock. After screen turns black, hold Power button again." = "Si tiene algún error, presione en el símbolo de Apple y seleccione el disco de arranque. Luego haga clic en Reiniciar o Desbloquear. Cuando la pantalla se ponga en negro presione el boton de encendido nuevamente"
-"Please, press below button and input your Mac unlock screen password." = "Por favor, presione el boton de abajo en ingrese su contraseña"
+"If you have any error, press on Apple icon and select Startup disk. Then click on Restart or Unlock. After screen turns black, hold Power button again." = "Si tiene algún error, presione en el símbolo de Apple y seleccione el disco de arranque. Luego haga clic en Reiniciar o Desbloquear. Cuando la pantalla se ponga en negro presione el boton de encendido nuevamente";
+"Please, press below button and input your Mac unlock screen password." = "Por favor, presione el boton de abajo en ingrese su contraseña";
 "Please, input your login password" = "Por favor, ingrese su contraseña de inicio de sesión";
 "You typed incorrect password." = "Ha escrito una contraseña incorrecta";
 "It is one you use for Mac unlock" = "Es una que usas para desbloquear tu Mac";
 "Now restart Mac and all is done!" = "Ahora reinicie su Mac y todo está listo!";
-
 "App settings" = "Configuración de la aplicación";
 "Open app cache" = "Abrir caché de la aplicación";
 "Import keymapping" = "Importar mapeado de teclado";
-"Export keymapping" = "Exportar mapeado de teclado"
+"Export keymapping" = "Exportar mapeado de teclado";
 "All app data will be erased. You may need to redownload app files again. Wish to continue?" = "Todos los datos de la aplicación se borraran. Puede que tenga que descargar los archivos de la aplicación de nuevo. ¿Desea continuar?";
 "App cache was cleared!" = "¡Se ha borrado la caché de la aplicación!";
 "Keymapping imported!" = "¡Se ha importado el mapeado de teclado!";
@@ -95,5 +89,4 @@
 "PlayCover must be inside Applications folder. Press button to move it." = "PlayCover debe estar dentro de la carpeta de aplicaciones. Pulse el botón para moverlo.";
 "If you encounter any errors, restart and repeat the whole process again" = "Si encuentra algún error, reinicie y repita el proceso de nuevo";
 "Please, wait current install to finish!" = "Por favor, espere a que la instalación termine!";
-
-"You'll receive ban on this PlayCover version! Call of Duty supported on 0.9.2-0.9.4. PUBG requires higher PlayCover version. Free Fire status is not confirmed. There is one message of ban." = "Su cuenta sera banneada si utiliza esta versión de PlayCover! Call of duty funciona correctamente en las versiones 0.9.2-0.9.4. Mientas que PUBG requiere una versión más reciente. Sobre Free Fire aún no tenemos datos suficientes sin embargo hay una prueba de banneo".
+"You'll receive ban on this PlayCover version! Call of Duty supported on 0.9.2-0.9.4. PUBG requires higher PlayCover version. Free Fire status is not confirmed. There is one message of ban." = "Su cuenta sera banneada si utiliza esta versión de PlayCover! Call of duty funciona correctamente en las versiones 0.9.2-0.9.4. Mientas que PUBG requiere una versión más reciente. Sobre Free Fire aún no tenemos datos suficientes sin embargo hay una prueba de banneo";

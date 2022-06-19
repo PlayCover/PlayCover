@@ -93,6 +93,7 @@
 		92279BBF27610433009F28BF /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92279BBE27610433009F28BF /* AppSettingsView.swift */; };
 		922D457E2787A71600D4FF88 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922D457D2787A71600D4FF88 /* MenuController.swift */; };
 		922ED9BA272DEEDB008CA401 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922ED9B9272DEEDB008CA401 /* MainView.swift */; };
+		92324086283FBA34006C46DE /* SimplyCoreAudio in Frameworks */ = {isa = PBXBuildFile; productRef = 92324085283FBA34006C46DE /* SimplyCoreAudio */; };
 		923421F7275F40300030CD7D /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923421F6275F40300030CD7D /* AppContainer.swift */; };
 		9238C6B2278D59FE009D0D8E /* CircleMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9238C6B1278D59FE009D0D8E /* CircleMenu.swift */; };
 		9238C6B4278D5A15009D0D8E /* CircleMenuLoader.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9238C6B3278D5A15009D0D8E /* CircleMenuLoader.swift.swift */; };
@@ -104,6 +105,7 @@
 		9256220427491E4700728698 /* headers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9256220027491E4700728698 /* headers.m */; };
 		9256220627491E8200728698 /* patch.m in Sources */ = {isa = PBXBuildFile; fileRef = 9256220527491E8200728698 /* patch.m */; };
 		92562209274921E500728698 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92562208274921E500728698 /* main.m */; };
+		926E1B9A285F386D001D4686 /* PlayTools in Resources */ = {isa = PBXBuildFile; fileRef = 926E1B99285F386D001D4686 /* PlayTools */; };
 		9272F19E273B74C800DFBEF1 /* AppsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9272F19C273B74C800DFBEF1 /* AppsVM.swift */; };
 		927E1F0427501EF300DA12E6 /* vtool in Resources */ = {isa = PBXBuildFile; fileRef = 927E1F0327501EF300DA12E6 /* vtool */; };
 		9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280871A2824A8D20034C510 /* SoundDeviceService.swift */; };
@@ -131,8 +133,6 @@
 		92EE06DC274EB19A002C907B /* StoreAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06DB274EB19A002C907B /* StoreAppView.swift */; };
 		92EE06DE274EC09F002C907B /* Entitlements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06DD274EC09F002C907B /* Entitlements.swift */; };
 		92F8500A27675124005CE6BE /* AppIntegrity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8500927675124005CE6BE /* AppIntegrity.swift */; };
-		DA248572282567E000DFF60A /* PlayTools in Resources */ = {isa = PBXBuildFile; fileRef = DA248571282567E000DFF60A /* PlayTools */; };
-		DA9B9F812825608C006DDB46 /* SimplyCoreAudio in Frameworks */ = {isa = PBXBuildFile; productRef = DA9B9F802825608C006DDB46 /* SimplyCoreAudio */; };
 		DA9B9F882825615F006DDB46 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = DA9B9F872825615F006DDB46 /* AlertToast */; };
 		DA9B9F8F282561E3006DDB46 /* AppCenterAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = DA9B9F8E282561E3006DDB46 /* AppCenterAnalytics */; };
 		DA9B9F91282561E3006DDB46 /* AppCenterCrashes in Frameworks */ = {isa = PBXBuildFile; productRef = DA9B9F90282561E3006DDB46 /* AppCenterCrashes */; };
@@ -272,6 +272,8 @@
 		9256220527491E8200728698 /* patch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = patch.m; sourceTree = "<group>"; };
 		9256220727491E9F00728698 /* patch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = patch.h; sourceTree = "<group>"; };
 		92562208274921E500728698 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		926E1B97285F37B4001D4686 /* PlayTools */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = PlayTools; path = "../Library/Developer/Xcode/DerivedData/PlayCover-gvenicwdcfyrevdxwzwcxacuneyn/Build/Products/Release-iphoneos/PlayTools.framework/PlayTools"; sourceTree = "<group>"; };
+		926E1B99285F386D001D4686 /* PlayTools */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = PlayTools; path = "../Library/Developer/Xcode/DerivedData/PlayCover-gvenicwdcfyrevdxwzwcxacuneyn/Build/Products/Release-iphoneos/PlayTools.framework/PlayTools"; sourceTree = "<group>"; };
 		9272F19C273B74C800DFBEF1 /* AppsVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppsVM.swift; sourceTree = "<group>"; };
 		927E1F0327501EF300DA12E6 /* vtool */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = vtool; sourceTree = "<group>"; };
 		9280871A2824A8D20034C510 /* SoundDeviceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundDeviceService.swift; sourceTree = "<group>"; };
@@ -302,7 +304,6 @@
 		92EE06DB274EB19A002C907B /* StoreAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAppView.swift; sourceTree = "<group>"; };
 		92EE06DD274EC09F002C907B /* Entitlements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entitlements.swift; sourceTree = "<group>"; };
 		92F8500927675124005CE6BE /* AppIntegrity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntegrity.swift; sourceTree = "<group>"; };
-		DA248571282567E000DFF60A /* PlayTools */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = PlayTools; path = "../../Library/Developer/Xcode/DerivedData/PlayCover-dyjinuulcsdzjaeclknheholubxi/Build/Products/Release-iphoneos/PlayTools.framework/PlayTools"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,8 +319,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92324086283FBA34006C46DE /* SimplyCoreAudio in Frameworks */,
 				DA9B9F882825615F006DDB46 /* AlertToast in Frameworks */,
-				DA9B9F812825608C006DDB46 /* SimplyCoreAudio in Frameworks */,
 				DA9B9F8F282561E3006DDB46 /* AppCenterAnalytics in Frameworks */,
 				DA9B9F91282561E3006DDB46 /* AppCenterCrashes in Frameworks */,
 			);
@@ -554,7 +555,8 @@
 		8783CFEE26B8C52D00171041 = {
 			isa = PBXGroup;
 			children = (
-				DA248571282567E000DFF60A /* PlayTools */,
+				926E1B97285F37B4001D4686 /* PlayTools */,
+				926E1B99285F386D001D4686 /* PlayTools */,
 				922410E7275ADB48000BF6C0 /* otool */,
 				92A4A8C42756F38E00E8E3D2 /* libplist-2.0.3.dylib */,
 				92A4A8C12756EEA500E8E3D2 /* ldid */,
@@ -715,10 +717,10 @@
 			);
 			name = PlayCover;
 			packageProductDependencies = (
-				DA9B9F802825608C006DDB46 /* SimplyCoreAudio */,
 				DA9B9F872825615F006DDB46 /* AlertToast */,
 				DA9B9F8E282561E3006DDB46 /* AppCenterAnalytics */,
 				DA9B9F90282561E3006DDB46 /* AppCenterCrashes */,
+				92324085283FBA34006C46DE /* SimplyCoreAudio */,
 			);
 			productName = PlayCover;
 			productReference = 8783CFF726B8C52D00171041 /* PlayCover.app */;
@@ -761,9 +763,9 @@
 			);
 			mainGroup = 8783CFEE26B8C52D00171041;
 			packageReferences = (
-				DA9B9F7D28256074006DDB46 /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */,
 				DA9B9F862825615F006DDB46 /* XCRemoteSwiftPackageReference "AlertToast" */,
 				DA9B9F89282561CF006DDB46 /* XCRemoteSwiftPackageReference "appcenter-sdk-apple" */,
+				92324084283FBA34006C46DE /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */,
 			);
 			productRefGroup = 8783CFF826B8C52D00171041 /* Products */;
 			projectDirPath = "";
@@ -787,11 +789,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				926E1B9A285F386D001D4686 /* PlayTools in Resources */,
 				922410E8275ADB48000BF6C0 /* otool in Resources */,
 				92A4A8C52756F38E00E8E3D2 /* libplist-2.0.3.dylib in Resources */,
 				92A4A8C22756EEA500E8E3D2 /* libcrypto.1.1.dylib in Resources */,
 				92A4A8C32756EEA500E8E3D2 /* ldid in Resources */,
-				DA248572282567E000DFF60A /* PlayTools in Resources */,
 				92D409262750166B005E852F /* install_name_tool in Resources */,
 				8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */,
 				538ED92526F3DC6A002D73E8 /* Auth0.plist in Resources */,
@@ -936,7 +938,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = Q382QLKDG3;
+				DEVELOPMENT_TEAM = QKT93KWTW8;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -983,7 +985,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = Q382QLKDG3;
+				DEVELOPMENT_TEAM = QKT93KWTW8;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1152,7 +1154,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "PlayCover/Preview\\ Content";
-				DEVELOPMENT_TEAM = Q382QLKDG3;
+				DEVELOPMENT_TEAM = QKT93KWTW8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PlayCover/Info.plist;
@@ -1186,7 +1188,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "PlayCover/Preview\\ Content";
-				DEVELOPMENT_TEAM = Q382QLKDG3;
+				DEVELOPMENT_TEAM = QKT93KWTW8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PlayCover/Info.plist;
@@ -1242,9 +1244,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DA9B9F7D28256074006DDB46 /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */ = {
+		92324084283FBA34006C46DE /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rnine/SimplyCoreAudio";
+			repositoryURL = "https://github.com/rnine/SimplyCoreAudio.git";
 			requirement = {
 				branch = develop;
 				kind = branch;
@@ -1269,9 +1271,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DA9B9F802825608C006DDB46 /* SimplyCoreAudio */ = {
+		92324085283FBA34006C46DE /* SimplyCoreAudio */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DA9B9F7D28256074006DDB46 /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */;
+			package = 92324084283FBA34006C46DE /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */;
 			productName = SimplyCoreAudio;
 		};
 		DA9B9F872825615F006DDB46 /* AlertToast */ = {
