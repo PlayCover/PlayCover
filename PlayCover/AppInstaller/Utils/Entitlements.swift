@@ -239,6 +239,7 @@ class Entitlements {
     ]
     private static let BASE_PROFILE = [
                                                 "(deny process-fork)",
+                                                "(allow file* file-read* file-read-metadata file-ioctl) (literal \"/tmp/cclibraries-ngl-log.cfg\")",
                                                 "(deny file* file-read* file-read-metadata file-ioctl)",
                                                 "(allow file* file-read* file-read-metadata file-ioctl (literal \"/usr/lib/libobjc-trampolines.dylib\"))",
                                                 "(allow file-read-metadata (subpath \"/private/var/db/timezone/\"))",
