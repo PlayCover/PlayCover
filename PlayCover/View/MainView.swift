@@ -80,6 +80,7 @@ struct MainView: View {
                     VStack(alignment: .leading, spacing: 8) {
                         HStack(spacing: 8) {
                             Link("Join Discord Server", destination: URL(string: "https://discord.gg/rMv5qxGTGC")!)
+                            Link("Get Pro version", destination: URL(string: "https://www.patreon.com/playcoverapp")!).foregroundColor(Colr.accent)
                             Spacer()
                             if install.installing {
                                 InstallProgress().environmentObject(install).padding(.bottom)

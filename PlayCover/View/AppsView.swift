@@ -19,12 +19,24 @@ struct AppsView : View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Toggle(isOn: $showAppLinks) {
-                Text("Show app links")
-            }.onChange(of: showAppLinks) { value in
-                UserDefaults.standard.set(showAppLinks, forKey: "ShowLinks")
-                vm.fetchApps()
-            }.padding(.leading, 42).padding(.top, 12).padding(.bottom, 8)
+            HStack {
+                Toggle(isOn: $showAppLinks) {
+                    Text("Show app links")
+                }.onChange(of: showAppLinks) { value in
+                    UserDefaults.standard.set(showAppLinks, forKey: "ShowLinks")
+                    vm.fetchApps()
+                }.padding(.leading, 42).padding(.top, 12).padding(.bottom, 8)
+                Spacer()
+                Button(action: {
+                    if let url = URL(string: "https://armconverter.com/decryptedappstore") {
+                        NSWorkspace.shared.open(url)
+                    }
+                }) {
+                    Text("Download any app")
+                }.foregroundColor(Colr.accent).padding(.trailing, 18)
+            }
+           
+            
             HStack(alignment: .center){
                 Spacer()
                 SearchView().padding(.leading, 36)
