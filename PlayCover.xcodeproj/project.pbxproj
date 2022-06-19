@@ -304,6 +304,7 @@
 		92EE06DB274EB19A002C907B /* StoreAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAppView.swift; sourceTree = "<group>"; };
 		92EE06DD274EC09F002C907B /* Entitlements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entitlements.swift; sourceTree = "<group>"; };
 		92F8500927675124005CE6BE /* AppIntegrity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntegrity.swift; sourceTree = "<group>"; };
+		ABF0BA1A285F9ED200FC5259 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -760,6 +761,7 @@
 				ja,
 				ko,
 				fr,
+				vi,
 			);
 			mainGroup = 8783CFEE26B8C52D00171041;
 			packageReferences = (
@@ -924,6 +926,7 @@
 				53F3802526EB6CEA00D6B525 /* ja */,
 				53E3311126F574B600217197 /* ko */,
 				8FBBE76B2826709500F4FE9F /* fr */,
+				ABF0BA1A285F9ED200FC5259 /* vi */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
