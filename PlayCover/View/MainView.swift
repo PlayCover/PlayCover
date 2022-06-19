@@ -81,25 +81,27 @@ struct MainView: View {
                         HStack(spacing: 8) {
                             Link("Join Discord Server", destination: URL(string: "https://discord.gg/rMv5qxGTGC")!)
                             Spacer()
+                            if install.installing {
+                                InstallProgress().environmentObject(install).padding(.bottom)
+                            }
+                            Spacer()
                             Button(action: {
                                 Log.shared.logdata.copyToClipBoard()
                                 showToast.toggle()
                             }) {
                                 Text("Copy logs")
                             }
+                            if !update.updateLink.isEmpty {
+                                Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
+                                    HStack {
+                                        Image(systemName: "arrow.down.square.fill")
+                                        Text("Update app")
+                                    }
+                                }.buttonStyle(UpdateButton())
+                            }
                         }.padding().frame(maxWidth : .infinity)
                         
-                        if install.installing {
-                            InstallProgress().environmentObject(install).padding(.bottom)
-                        }
-                        if !update.updateLink.isEmpty {
-                            Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
-                                HStack {
-                                    Image(systemName: "arrow.down.square.fill")
-                                    Text("Update app")
-                                }
-                            }.buttonStyle(UpdateButton())
-                        }
+                       
                     }
                     
                     Divider()

@@ -15,8 +15,16 @@ struct AppsView : View {
     
     @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150), spacing: 10)]
     
+    @State private var showAppLinks = UserDefaults.standard.bool(forKey: "ShowLinks")
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
+            Toggle(isOn: $showAppLinks) {
+                Text("Show app links")
+            }.onChange(of: showAppLinks) { value in
+                UserDefaults.standard.set(showAppLinks, forKey: "ShowLinks")
+                vm.fetchApps()
+            }.padding(.leading, 42).padding(.top, 12).padding(.bottom, 8)
             HStack(alignment: .center){
                 Spacer()
                 SearchView().padding(.leading, 36)

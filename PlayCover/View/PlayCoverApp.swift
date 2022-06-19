@@ -48,6 +48,7 @@ struct PlayCoverApp: App {
                 .environmentObject(AppIntegrity())
                 .frame(minWidth: 600, minHeight: 650)
                 .onAppear {
+                    UserDefaults.standard.register(defaults: ["ShowLinks" : true])
                     SoundDeviceService.shared.prepareSoundDevice()
                     UpdateService.shared.checkUpdate()
                     NotifyService.shared.allowNotify()

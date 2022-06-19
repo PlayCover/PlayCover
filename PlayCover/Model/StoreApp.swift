@@ -41,8 +41,10 @@ class StoreApp : BaseApp {
     private static let JSON : String = {
         if let url = URL(string: "https://gist.githubusercontent.com/iVoider/53e9649d3abffc8a8b0187a37ac6b457/raw/") {
                     do {
-                        let contents = try String(contentsOf: url)
-                        return contents
+                        if checkAvaliability(url: url) {
+                            let contents = try String(contentsOf: url)
+                            return contents
+                        }
                     } catch {
                         print(error)
                     }
@@ -53,14 +55,40 @@ class StoreApp : BaseApp {
      static let notice : String = {
         if let url = URL(string: "https://gist.githubusercontent.com/iVoider/2e654eb9590f3a2f493908a6179979fd/raw/") {
                     do {
-                        let contents = try String(contentsOf: url)
-                        return contents
+                        if checkAvaliability(url: url) {
+                            let contents = try String(contentsOf: url)
+                            return contents
+                        }
                     } catch {
                         print(error)
                     }
                 }
         return "To Genshin players: if you see <Data error, please login again> you need to enable SIP (csrutil enable). If you have problems with captcha login, press <Enable PlaySign> button below."
     }()
+}
+
+func checkAvaliability(url : URL) -> Bool{
+    var avaliable = true
+    var request = URLRequest(url: url)
+        request.httpMethod = "HEAD"
+        URLSession(configuration: .default)
+          .dataTask(with: request) { (_, response, error) -> Void in
+            guard error == nil else {
+              print("Error:", error ?? "")
+             avaliable = false
+              return
+            }
+
+            guard (response as? HTTPURLResponse)?
+              .statusCode == 200 else {
+                print("down")
+                avaliable = false
+                return
+            }
+          
+          }
+          .resume()
+    return avaliable
 }
 
 struct StoreAppData: Decodable {
