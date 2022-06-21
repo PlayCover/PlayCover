@@ -1,9 +1,9 @@
 /*
-See LICENSE folder for this sample’s licensing information.
-
-Abstract:
-Menu construction extensions for this sample.
-*/
+ See LICENSE folder for this sample’s licensing information.
+ 
+ Abstract:
+ Menu construction extensions for this sample.
+ */
 
 import UIKit
 
@@ -29,58 +29,106 @@ extension UIViewController {
         EditorController.shared.focusedControl?.resize(down: true)
     }
     
-}
-struct CommandPListKeys {
-        static let ArrowsKeyIdentifier = "id" // Arrow command-keys
-        static let CitiesKeyIdentifier = "city" // City command-keys
-        static let TownsIdentifierKey = "town" // Town commands
-        static let StylesIdentifierKey = "font" // Font style commands
-        static let ToolsIdentifierKey = "tool" // Tool commands
+    // Macros
+    @objc
+    func startTouchRecording(_ sender: AnyObject) {
+        
     }
+    
+    @objc
+    func stopTouchRecording(_ sender: AnyObject) {
+        
+    }
+    
+    @objc
+    func loopTouchRecording(_ sender: AnyObject) {
+        
+    }
+    
+}
+struct CommandsList {
+    static let KeymappingToolbox = "keymapping"
+    static let MacrosToolbox = "macros"
+}
 
-var arrowss = ["Open/Close Keymapping Editor", "Delete selected element", "Upsize selected element", "Downsize selected element"]
-var selectors = [#selector(UIViewController.switchEditorMode(_:)), #selector(UIViewController.removeElement(_:)), #selector(UIViewController.upscaleElement(_:)), #selector(UIViewController.downscaleElement(_:))]
+var keymapping = ["Open/Close Keymapping Editor", "Delete selected element", "Upsize selected element", "Downsize selected element"]
+var keymappingSelectors = [#selector(UIViewController.switchEditorMode(_:)), #selector(UIViewController.removeElement(_:)), #selector(UIViewController.upscaleElement(_:)), #selector(UIViewController.downscaleElement(_:))]
+
+var macros = ["Start touch recording", "Stop recording", "Loop current recording"] // "Replay current recording",
+var macroSelectors = [#selector(UIViewController.startTouchRecording(_:)), #selector(UIViewController.stopTouchRecording(_:)), #selector(UIViewController.loopTouchRecording(_:))]
 
 class MenuController {
     
     init(with builder: UIMenuBuilder) {
         if #available(iOS 15.0, *) {
-            builder.insertSibling(MenuController.navigationMenu(), afterMenu: .view)
+            builder.insertSibling(MenuController.keymappingMenu(), afterMenu: .view)
+            builder.insertSibling(MenuController.macrosMenu(), afterMenu: .keymappingMenu)
         } else {
             
         }
     }
-   
+    
     @available(iOS 15.0, *)
-    class func navigationMenu() -> UIMenu {
+    class func keymappingMenu() -> UIMenu {
         let keyCommands = [ "K", UIKeyCommand.inputDelete , UIKeyCommand.inputUpArrow, UIKeyCommand.inputDownArrow ]
-            
-            let arrowKeyChildrenCommands = zip(keyCommands, arrowss).map { (command, arrow) in
-                UIKeyCommand(title: arrow,
-                             image: nil,
-                             action: selectors[arrowss.index(of: arrow)!],
-                             input: command,
-                             modifierFlags: .command,
-                             propertyList: [CommandPListKeys.ArrowsKeyIdentifier: arrow]
-                          )
-            }
-            
-            let arrowKeysGroup = UIMenu(title: "",
-                          image: nil,
-                          identifier: .arrowsMenu,
-                          options: .displayInline,
-                          children: arrowKeyChildrenCommands)
-            
-            return UIMenu(title: NSLocalizedString("Keymapping", comment: ""),
-                          image: nil,
-                          identifier: .navMenu,
-                          options: [],
-                          children: [arrowKeysGroup])
+        
+        let arrowKeyChildrenCommands = zip(keyCommands, keymapping).map { (command, btn) in
+            UIKeyCommand(title: btn,
+                         image: nil,
+                         action: keymappingSelectors[keymapping.index(of: btn)!],
+                         input: command,
+                         modifierFlags: .command,
+                         propertyList: [CommandsList.KeymappingToolbox: btn]
+            )
         }
+        
+        let arrowKeysGroup = UIMenu(title: "",
+                                    image: nil,
+                                    identifier: .keymappingOptionsMenu,
+                                    options: .displayInline,
+                                    children: arrowKeyChildrenCommands)
+        
+        return UIMenu(title: NSLocalizedString("Keymapping", comment: ""),
+                      image: nil,
+                      identifier: .keymappingMenu,
+                      options: [],
+                      children: [arrowKeysGroup])
+    }
+    
+    @available(iOS 15.0, *)
+    class func macrosMenu() -> UIMenu {
+        let keyCommands = [ "O","P","L" ]
+        
+        let macroCommands = zip(keyCommands, macros).map { (command, btn) in
+            UIKeyCommand(title: btn,
+                         image: nil,
+                         action: keymappingSelectors[macros.firstIndex(of: btn)!],
+                         input: command,
+                         modifierFlags: .command,
+                         propertyList: [CommandsList.MacrosToolbox: btn]
+            )
+        }
+        
+        let macrosKeysGroup = UIMenu(title: "",
+                                    image: nil,
+                                         identifier: .macrosMenu,
+                                    options: .displayInline,
+                                    children: macroCommands)
+        
+        return UIMenu(title: NSLocalizedString("Macros", comment: ""),
+                      image: nil,
+                      identifier: .macrosActionsMenu,
+                      options: [],
+                      children: [macrosKeysGroup])
+    }
+    
     
 }
 
+
 extension UIMenu.Identifier {
-    static var navMenu: UIMenu.Identifier { UIMenu.Identifier("me.playcover.PlayTools.menus.editor") }
-    static var arrowsMenu: UIMenu.Identifier { UIMenu.Identifier("me.playcover.PlayTools.menus.keymapping") }
+    static var keymappingMenu: UIMenu.Identifier { UIMenu.Identifier("me.playcover.PlayTools.menus.editor") }
+    static var keymappingOptionsMenu: UIMenu.Identifier { UIMenu.Identifier("me.playcover.PlayTools.menus.keymapping") }
+    static var macrosMenu: UIMenu.Identifier { UIMenu.Identifier("me.playcover.PlayTools.menus.macros") }
+    static var macrosActionsMenu: UIMenu.Identifier { UIMenu.Identifier("me.playcover.PlayTools.menus.touchrecord") }
 }

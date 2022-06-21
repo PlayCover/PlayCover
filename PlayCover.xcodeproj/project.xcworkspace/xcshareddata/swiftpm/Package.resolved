@@ -1,52 +1,50 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "AlertToast",
-        "repositoryURL": "https://github.com/elai950/AlertToast.git",
-        "state": {
-          "branch": "master",
-          "revision": "551a7590ca9976c079123c330b7332cbfbfce47b",
-          "version": null
-        }
-      },
-      {
-        "package": "AppCenter",
-        "repositoryURL": "https://github.com/microsoft/appcenter-sdk-apple",
-        "state": {
-          "branch": null,
-          "revision": "8354a50fe01a7e54e196d3b5493b5ab53dd5866a",
-          "version": "4.4.2"
-        }
-      },
-      {
-        "package": "PLCrashReporter",
-        "repositoryURL": "https://github.com/microsoft/PLCrashReporter.git",
-        "state": {
-          "branch": null,
-          "revision": "6b27393cad517c067dceea85fadf050e70c4ceaa",
-          "version": "1.10.1"
-        }
-      },
-      {
-        "package": "SimplyCoreAudio",
-        "repositoryURL": "https://github.com/rnine/SimplyCoreAudio.git",
-        "state": {
-          "branch": "develop",
-          "revision": "343d463cffef1f30458d02ce2dc441138e9e0134",
-          "version": null
-        }
-      },
-      {
-        "package": "swift-atomics",
-        "repositoryURL": "https://github.com/apple/swift-atomics.git",
-        "state": {
-          "branch": null,
-          "revision": "3e95ba32cd1b4c877f6163e8eea54afc4e63bf9f",
-          "version": "0.0.3"
-        }
+  "pins" : [
+    {
+      "identity" : "alerttoast",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/elai950/AlertToast.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "551a7590ca9976c079123c330b7332cbfbfce47b"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "appcenter-sdk-apple",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/microsoft/appcenter-sdk-apple",
+      "state" : {
+        "revision" : "8354a50fe01a7e54e196d3b5493b5ab53dd5866a",
+        "version" : "4.4.2"
+      }
+    },
+    {
+      "identity" : "plcrashreporter",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/microsoft/PLCrashReporter.git",
+      "state" : {
+        "revision" : "6b27393cad517c067dceea85fadf050e70c4ceaa",
+        "version" : "1.10.1"
+      }
+    },
+    {
+      "identity" : "simplycoreaudio",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rnine/SimplyCoreAudio.git",
+      "state" : {
+        "branch" : "develop",
+        "revision" : "343d463cffef1f30458d02ce2dc441138e9e0134"
+      }
+    },
+    {
+      "identity" : "swift-atomics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-atomics.git",
+      "state" : {
+        "revision" : "3e95ba32cd1b4c877f6163e8eea54afc4e63bf9f",
+        "version" : "0.0.3"
+      }
+    }
+  ],
+  "version" : 2
 }
