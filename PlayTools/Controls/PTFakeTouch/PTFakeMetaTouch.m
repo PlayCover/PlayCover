@@ -64,7 +64,7 @@ void moveCursorTo(CGPoint point){
     KW_ENABLE_CATEGORY(UITouch_KIFAdditions);
     KW_ENABLE_CATEGORY(UIEvent_KIFAdditions);
     touchAry = [[NSMutableArray alloc] init];
-    for (NSInteger i = 0; i<150; i++) {
+    for (NSInteger i = 0; i< 100; i++) {
         UITouch *touch = [[UITouch alloc] initTouch];
         [touch setPhaseAndUpdateTimestamp:UITouchPhaseEnded];
         [touchAry addObject:touch];
@@ -127,7 +127,7 @@ void moveCursorTo(CGPoint point){
 + (NSInteger)getAvailablePointId{
     NSInteger availablePointId=0;
     NSMutableArray *availableIds = [[NSMutableArray alloc]init];
-    for (NSInteger i=0; i<touchAry.count-75; i++) {
+    for (NSInteger i=0; i<touchAry.count; i++) {
         UITouch *touch = [touchAry objectAtIndex:i];
         if (touch.phase==UITouchPhaseEnded||touch.phase==UITouchPhaseStationary) {
             [availableIds addObject:@(i+1)];

@@ -13,7 +13,6 @@ final class EditorController : NSObject {
     var controls : Array<ControlModel> = []
     lazy var view : EditorView = EditorView(s : 0)
     
-    
     private func addControlToView(control : ControlModel){
         controls.append(control)
         view.addSubview(control.button)
@@ -33,19 +32,30 @@ final class EditorController : NSObject {
         }
     }
     
+    var isReadyToBeOpened = true
+    
     public func switchMode(){
+        if EditorController.shared.editorMode {
+            Toast.showOver(msg: "Keymapping saved")
+        } else{
+            Toast.showOver(msg: "Click to start keymmaping edit")
+        }
         if editorMode {
             KeymapHolder.shared.hide()
             saveButtons()
             view.removeFromSuperview()
             editorMode = false
             mode.show(false)
+            PlayCover.delay(0.1) {
+                self.isReadyToBeOpened = true
+            }
         } else{
             mode.show(true)
             editorMode = true
             showButtons()
             screen.window?.addSubview(view)
             view.becomeFirstResponder()
+            self.isReadyToBeOpened = false
         }
     }
     

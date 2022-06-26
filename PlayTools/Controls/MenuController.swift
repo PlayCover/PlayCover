@@ -11,6 +11,7 @@ extension UIViewController {
     
     @objc
     func switchEditorMode(_ sender: AnyObject) {
+        MacroController.shared.stopReplaying()
         EditorController.shared.switchMode()
     }
     
@@ -31,18 +32,31 @@ extension UIViewController {
     
     // Macros
     @objc
-    func startTouchRecording(_ sender: AnyObject) {
+    func switchTouchRecording(_ sender: AnyObject) {
         
+        if MacroController.shared.isRecording {
+            MacroController.shared.stopRecording()
+        } else{
+            MacroController.shared.startRecording()
+        }
     }
     
     @objc
-    func stopTouchRecording(_ sender: AnyObject) {
-        
+    func switchTouchReplaying(_ sender: AnyObject) {
+        if MacroController.shared.isReplaying {
+            MacroController.shared.stopReplaying()
+        } else{
+            MacroController.shared.startReplaying()
+        }
     }
     
     @objc
-    func loopTouchRecording(_ sender: AnyObject) {
-        
+    func switchTouchReplayingLoop(_ sender: AnyObject) {
+        if MacroController.shared.isReplaying {
+            MacroController.shared.stopReplaying()
+        } else{
+            MacroController.shared.startReplayingLoop()
+        }
     }
     
 }
@@ -54,8 +68,8 @@ struct CommandsList {
 var keymapping = ["Open/Close Keymapping Editor", "Delete selected element", "Upsize selected element", "Downsize selected element"]
 var keymappingSelectors = [#selector(UIViewController.switchEditorMode(_:)), #selector(UIViewController.removeElement(_:)), #selector(UIViewController.upscaleElement(_:)), #selector(UIViewController.downscaleElement(_:))]
 
-var macros = ["Start touch recording", "Stop recording", "Loop current recording"] // "Replay current recording",
-var macroSelectors = [#selector(UIViewController.startTouchRecording(_:)), #selector(UIViewController.stopTouchRecording(_:)), #selector(UIViewController.loopTouchRecording(_:))]
+var macros = ["Start/Stop touch recording", "Start/Stop replaying", "Loop/Stop replaying"]
+var macroSelectors = [#selector(UIViewController.switchTouchRecording(_:)), #selector(UIViewController.switchTouchReplaying(_:)), #selector(UIViewController.switchTouchReplayingLoop(_:))]
 
 class MenuController {
     
@@ -75,7 +89,7 @@ class MenuController {
         let arrowKeyChildrenCommands = zip(keyCommands, keymapping).map { (command, btn) in
             UIKeyCommand(title: btn,
                          image: nil,
-                         action: keymappingSelectors[keymapping.index(of: btn)!],
+                         action: keymappingSelectors[keymapping.firstIndex(of: btn)!],
                          input: command,
                          modifierFlags: .command,
                          propertyList: [CommandsList.KeymappingToolbox: btn]
@@ -97,12 +111,12 @@ class MenuController {
     
     @available(iOS 15.0, *)
     class func macrosMenu() -> UIMenu {
-        let keyCommands = [ "O","P","L" ]
+        let keyCommands = ["O","P","L" ]
         
         let macroCommands = zip(keyCommands, macros).map { (command, btn) in
             UIKeyCommand(title: btn,
                          image: nil,
-                         action: keymappingSelectors[macros.firstIndex(of: btn)!],
+                         action: macroSelectors[macros.firstIndex(of: btn)!],
                          input: command,
                          modifierFlags: .command,
                          propertyList: [CommandsList.MacrosToolbox: btn]

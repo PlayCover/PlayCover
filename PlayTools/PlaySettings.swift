@@ -2,8 +2,6 @@ import Foundation
 
 let settings = PlaySettings.shared
 
-
-
 extension Dictionary {
     
     func store(_ to : URL) throws {

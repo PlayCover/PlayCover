@@ -814,8 +814,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "86"
             endingLineNumber = "86"
-            landmarkName = "removeLoadEntryFromBinary(binary, macho, payload)"
-            landmarkType = "9">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -830,7 +830,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "186"
             endingLineNumber = "186"
-            landmarkName = "insertLoadEntryIntoBinary(dylibPath, binary, macho, type)"
+            landmarkName = "unrestrictBinary(binary, macho, soft)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>

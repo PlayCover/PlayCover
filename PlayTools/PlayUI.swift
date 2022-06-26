@@ -15,7 +15,7 @@ final class PlayUI {
     
     func showAlert(_ title : String, _ content : String) {
         let ac = UIAlertController(title: title, message: content, preferredStyle: .alert)
-        input.root?.present(ac, animated: true, completion: nil)
+        PlayInput.shared.root?.present(ac, animated: true, completion: nil)
     }
     
     func showLauncherWarning() -> Void {
@@ -23,7 +23,7 @@ final class PlayUI {
         ac.addAction(UIAlertAction(title: "OK", style: .default){ _ in
             Dynamic.NSApplication.sharedApplication.terminate(self)
         })
-        input.root?.present(ac, animated: true, completion: nil)
+        PlayInput.shared.root?.present(ac, animated: true, completion: nil)
     }
     
 }

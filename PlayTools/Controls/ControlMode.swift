@@ -17,8 +17,6 @@ let mode = ControlMode.mode
         return [1,2].contains(Dynamic(event).type.asInt)
     }
     
-    public var recentlyWasSwitched = false
-    
     func show(_ show: Bool) {
         if !editor.editorMode {
             if show {
@@ -43,11 +41,8 @@ let mode = ControlMode.mode
                     if screen.fullscreen{
                         screen.switchDock(false)
                     }
-                    recentlyWasSwitched = true
-                    PlayCover.delay(0.25){
-                        self.recentlyWasSwitched = false
-                    }
-                    input.setup()
+
+                    PlayInput.shared.setup()
                 }
             }
             visible = show

@@ -28,7 +28,7 @@
 		53841C9D26D9D53D0021D27C /* PTFakeMetaTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 53841C7526D9D53D0021D27C /* PTFakeMetaTouch.m */; };
 		53841C9E26D9D53D0021D27C /* FixCategoryBug.h in Headers */ = {isa = PBXBuildFile; fileRef = 53841C7626D9D53D0021D27C /* FixCategoryBug.h */; };
 		53841C9F26D9D53D0021D27C /* PTFakeMetaTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 53841C7726D9D53D0021D27C /* PTFakeMetaTouch.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		53841CA026D9D53D0021D27C /* IOHIDEvent+KIF.h in Headers */ = {isa = PBXBuildFile; fileRef = 53841C7926D9D53D0021D27C /* IOHIDEvent+KIF.h */; };
+		53841CA026D9D53D0021D27C /* IOHIDEvent+KIF.h in Headers */ = {isa = PBXBuildFile; fileRef = 53841C7926D9D53D0021D27C /* IOHIDEvent+KIF.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53841CA126D9D53D0021D27C /* UIAccessibilityElement-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 53841C7A26D9D53D0021D27C /* UIAccessibilityElement-KIFAdditions.m */; };
 		53841CA226D9D53D0021D27C /* UIScreen+KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 53841C7B26D9D53D0021D27C /* UIScreen+KIFAdditions.m */; };
 		53841CA326D9D53D0021D27C /* NSException-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 53841C7C26D9D53D0021D27C /* NSException-KIFAdditions.m */; };
@@ -112,12 +112,17 @@
 		9280871D2824AD360034C510 /* Unarchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280871C2824AD360034C510 /* Unarchiver.swift */; };
 		9286D296273A7E4200958DD3 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286D295273A7E4200958DD3 /* AppSettings.swift */; };
 		928C01D9272E162C007EB2DF /* InstallVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928C01D8272E162C007EB2DF /* InstallVM.swift */; };
+		9294F14E286317B60042B958 /* MacroController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9294F14D286317B60042B958 /* MacroController.swift */; };
 		9298512E2738E67E008F19DC /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9298512D2738E67E008F19DC /* SetupView.swift */; };
+		92A14D9928683DFC00ED8738 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A14D9828683DFC00ED8738 /* Toast.swift */; };
 		92A4A8C22756EEA500E8E3D2 /* libcrypto.1.1.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 92A4A8C02756EEA500E8E3D2 /* libcrypto.1.1.dylib */; };
 		92A4A8C32756EEA500E8E3D2 /* ldid in Resources */ = {isa = PBXBuildFile; fileRef = 92A4A8C12756EEA500E8E3D2 /* ldid */; };
 		92A4A8C52756F38E00E8E3D2 /* libplist-2.0.3.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 92A4A8C42756F38E00E8E3D2 /* libplist-2.0.3.dylib */; };
 		92A8AAC9275EFEA800D89B50 /* SystemConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A8AAC8275EFEA800D89B50 /* SystemConfig.swift */; };
 		92AAD04027C6AF940031F44A /* LaunchServicesWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AAD03F27C6AF940031F44A /* LaunchServicesWrapper.m */; };
+		92AE4541286181CC00E07D9F /* UIApplication+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 92AE453E286181CC00E07D9F /* UIApplication+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		92AE4542286181CC00E07D9F /* UITouch+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 92AE453F286181CC00E07D9F /* UITouch+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		92AE4543286181CC00E07D9F /* UIEvent+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 92AE4540286181CC00E07D9F /* UIEvent+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		92B4D38F2737CF3D0001D7BB /* PlayTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B4D38E2737CF3D0001D7BB /* PlayTools.swift */; };
 		92B8CE9127233A2700502982 /* PlayAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B8CE9027233A2700502982 /* PlayAction.swift */; };
 		92D409262750166B005E852F /* install_name_tool in Resources */ = {isa = PBXBuildFile; fileRef = 92D409252750166B005E852F /* install_name_tool */; };
@@ -281,13 +286,18 @@
 		9286D295273A7E4200958DD3 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		928C01D7272DF1A2007EB2DF /* PlayCover-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlayCover-Bridging-Header.h"; sourceTree = "<group>"; };
 		928C01D8272E162C007EB2DF /* InstallVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallVM.swift; sourceTree = "<group>"; };
+		9294F14D286317B60042B958 /* MacroController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacroController.swift; sourceTree = "<group>"; };
 		9298512D2738E67E008F19DC /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
+		92A14D9828683DFC00ED8738 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		92A4A8C02756EEA500E8E3D2 /* libcrypto.1.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libcrypto.1.1.dylib; sourceTree = "<group>"; };
 		92A4A8C12756EEA500E8E3D2 /* ldid */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ldid; sourceTree = "<group>"; };
 		92A4A8C42756F38E00E8E3D2 /* libplist-2.0.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "libplist-2.0.3.dylib"; sourceTree = "<group>"; };
 		92A8AAC8275EFEA800D89B50 /* SystemConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemConfig.swift; sourceTree = "<group>"; };
 		92AAD03E27C6AF940031F44A /* LaunchServicesWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchServicesWrapper.h; sourceTree = "<group>"; };
 		92AAD03F27C6AF940031F44A /* LaunchServicesWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchServicesWrapper.m; sourceTree = "<group>"; };
+		92AE453E286181CC00E07D9F /* UIApplication+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+Private.h"; sourceTree = "<group>"; };
+		92AE453F286181CC00E07D9F /* UITouch+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITouch+Private.h"; sourceTree = "<group>"; };
+		92AE4540286181CC00E07D9F /* UIEvent+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIEvent+Private.h"; sourceTree = "<group>"; };
 		92B4D38E2737CF3D0001D7BB /* PlayTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayTools.swift; sourceTree = "<group>"; };
 		92B8CE9027233A2700502982 /* PlayAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAction.swift; sourceTree = "<group>"; };
 		92D409252750166B005E852F /* install_name_tool */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = install_name_tool; sourceTree = "<group>"; };
@@ -333,6 +343,7 @@
 		531E6FDC26D9C33E00817A10 /* PlayTools */ = {
 			isa = PBXGroup;
 			children = (
+				92AE453128617CAF00E07D9F /* Macros */,
 				9238C6B0278D59D5009D0D8E /* Menu */,
 				53270E7226DD5A2A00DC4130 /* Utils */,
 				53841C6626D9D4000021D27C /* Controls */,
@@ -354,6 +365,7 @@
 			children = (
 				53841C6B26D9D5010021D27C /* Dynamic */,
 				530B1CDB26DD9A6B006CD011 /* PlayInfo.swift */,
+				92A14D9828683DFC00ED8738 /* Toast.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -413,6 +425,9 @@
 		53841C7426D9D53D0021D27C /* PTFakeTouch */ = {
 			isa = PBXGroup;
 			children = (
+				92AE453E286181CC00E07D9F /* UIApplication+Private.h */,
+				92AE4540286181CC00E07D9F /* UIEvent+Private.h */,
+				92AE453F286181CC00E07D9F /* UITouch+Private.h */,
 				53488E032714F2D60047CF76 /* NSObject+Swizzle.h */,
 				53488E042714F2D60047CF76 /* NSObject+Swizzle.m */,
 				53841C7526D9D53D0021D27C /* PTFakeMetaTouch.m */,
@@ -637,6 +652,14 @@
 			path = optool;
 			sourceTree = "<group>";
 		};
+		92AE453128617CAF00E07D9F /* Macros */ = {
+			isa = PBXGroup;
+			children = (
+				9294F14D286317B60042B958 /* MacroController.swift */,
+			);
+			path = Macros;
+			sourceTree = "<group>";
+		};
 		92ECD8A6274E769600DB7AC6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,6 +680,10 @@
 			files = (
 				53841CAE26D9D53D0021D27C /* UIEvent+KIFAdditions.h in Headers */,
 				53841C9F26D9D53D0021D27C /* PTFakeMetaTouch.h in Headers */,
+				92AE4542286181CC00E07D9F /* UITouch+Private.h in Headers */,
+				92AE4541286181CC00E07D9F /* UIApplication+Private.h in Headers */,
+				92AE4543286181CC00E07D9F /* UIEvent+Private.h in Headers */,
+				53841CA026D9D53D0021D27C /* IOHIDEvent+KIF.h in Headers */,
 				53841CB226D9D53D0021D27C /* UIWindow-KIFAdditions.h in Headers */,
 				53841CB126D9D53D0021D27C /* UIScrollView-KIFAdditions.h in Headers */,
 				53841CAF26D9D53D0021D27C /* CALayer-KIFAdditions.h in Headers */,
@@ -676,7 +703,6 @@
 				53841CA526D9D53D0021D27C /* UIApplication-KIFAdditions.h in Headers */,
 				53841CB826D9D53D0021D27C /* UIAccessibilityElement-KIFAdditions.h in Headers */,
 				53841CB026D9D53D0021D27C /* NSPredicate+KIFAdditions.h in Headers */,
-				53841CA026D9D53D0021D27C /* IOHIDEvent+KIF.h in Headers */,
 				53841CBE26D9D53D0021D27C /* UIView-Debugging.h in Headers */,
 				53841CBC26D9D53D0021D27C /* UITouch-KIFAdditions.h in Headers */,
 			);
@@ -734,7 +760,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1310;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					531E6FDA26D9C33E00817A10 = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -847,11 +873,13 @@
 				92B8CE9127233A2700502982 /* PlayAction.swift in Sources */,
 				53841CE126DA2B530021D27C /* PlaySettings.swift in Sources */,
 				9238C6B4278D5A15009D0D8E /* CircleMenuLoader.swift.swift in Sources */,
+				9294F14E286317B60042B958 /* MacroController.swift in Sources */,
 				53841C9D26D9D53D0021D27C /* PTFakeMetaTouch.m in Sources */,
 				53841C6026D9CF280021D27C /* EditorController.swift in Sources */,
 				53841CA426D9D53D0021D27C /* NSString+KIFAdditions.m in Sources */,
 				53841CB926D9D53D0021D27C /* IOHIDEvent+KIF.m in Sources */,
 				53841C6326D9CFBF0021D27C /* KeyCodeNames.swift in Sources */,
+				92A14D9928683DFC00ED8738 /* Toast.swift in Sources */,
 				922D457E2787A71600D4FF88 /* MenuController.swift in Sources */,
 				53841CAA26D9D53D0021D27C /* UITouch-KIFAdditions.m in Sources */,
 			);
@@ -1063,6 +1091,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1125,6 +1154,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1156,6 +1186,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "PlayCover/Preview\\ Content";
 				DEVELOPMENT_TEAM = QKT93KWTW8;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1190,6 +1221,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "PlayCover/Preview\\ Content";
 				DEVELOPMENT_TEAM = QKT93KWTW8;
 				ENABLE_HARDENED_RUNTIME = YES;
