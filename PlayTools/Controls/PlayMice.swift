@@ -78,6 +78,9 @@ typealias ResponseBlockBool = @convention(block) (_ event: Any) -> Bool
     
     private func setupMouseButton(_up : Int, _down : Int){
         Dynamic.NSEvent.addLocalMonitorForEventsMatchingMask(_up, handler: { event in
+            if self.mouseActions[_up] == nil {
+                          MacroController.shared.recordEvent(point: self.cursorPos, phase: UITouch.Phase.began, tid: 1)
+                      }
             if !mode.visible || self.acceptMouseEvents {
                 self.mouseActions[_up]?.update(pressed: true)
                 if self.acceptMouseEvents {
@@ -88,6 +91,9 @@ typealias ResponseBlockBool = @convention(block) (_ event: Any) -> Bool
             return event
         } as ResponseBlock)
         Dynamic.NSEvent.addLocalMonitorForEventsMatchingMask(_down, handler: { event in
+            if self.mouseActions[_up] == nil {
+                          MacroController.shared.recordEvent(point: self.cursorPos, phase: UITouch.Phase.began, tid: 1)
+                      }
             if !mode.visible || self.acceptMouseEvents {
                 self.mouseActions[_up]?.update(pressed: false)
                 if self.acceptMouseEvents {

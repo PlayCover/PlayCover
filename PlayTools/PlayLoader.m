@@ -37,6 +37,83 @@ void* my_dyld_get_base_platform(void* platform)
     return 2;
 }
 
+#define DEVICE_MODEL ("iPad8,6")
+
+// find Mac by using sysctl of HW_TARGET
+#define OEM_ID ("J320xAP")
+
+static int my_uname(struct utsname *uts)
+{
+    int result = 0;
+    NSString *nickname = @"ipad";
+    NSString *productType = @"iPad8,6";
+    if (nickname.length == 0)
+        result = uname(uts);
+    else
+    {
+        strncpy(uts->nodename, [nickname UTF8String], nickname.length+1);
+        strncpy(uts->machine, [productType UTF8String], productType.length+1);
+    }
+    return result;
+}
+
+static int my_sysctl(int *name, u_int types, void *buf, size_t *size, void *arg0, size_t arg1){
+    
+    if(name[0] == CTL_HW && (name[1] == HW_MACHINE || name[0] == HW_PRODUCT)) {
+            if(NULL == buf) {
+                *size = strlen(DEVICE_MODEL) + 1;
+            } else {
+                if(*size > strlen(DEVICE_MODEL)) {
+                    strcpy(buf, DEVICE_MODEL);
+                } else {
+                    return ENOMEM;
+                }
+            }
+            return 0;
+        } else if(name[0] == CTL_HW && (name[1] == HW_TARGET)) {
+            if(NULL == buf) {
+                *size = strlen(OEM_ID) + 1;
+            } else {
+                if(*size > strlen(OEM_ID)) {
+                    strcpy(buf, OEM_ID);
+                } else {
+                    return ENOMEM;
+                }
+            }
+            return 0;
+        }
+    
+    return sysctl(name, types, buf, size, arg0, arg1);
+}
+
+static int my_sysctlbyname(const char *name, void *oldp, size_t *oldlenp, void *newp, size_t newlen)
+{
+    if ((strcmp(name,"hw.machine") == 0) || (strcmp(name,"hw.product") == 0) || (strcmp(name,"hw.model") == 0)){
+        if (oldp != NULL) {
+            int ret = sysctlbyname(name,oldp,oldlenp,newp,newlen);
+            const char* mechine = DEVICE_MODEL;
+            strncpy((char *)oldp,mechine,strlen(mechine));
+            return ret;
+        } else {
+            int ret = sysctlbyname(name,oldp,oldlenp,newp,newlen);
+            return ret;
+        }
+    } else if ((strcmp(name,"hw.target") == 0)){
+        if (oldp != NULL) {
+            int ret = sysctlbyname(name,oldp,oldlenp,newp,newlen);
+            const char* mechine = OEM_ID;
+            strncpy((char *)oldp,mechine,strlen(mechine));
+            return ret;
+        } else {
+            int ret = sysctlbyname(name,oldp,oldlenp,newp,newlen);
+            return ret;
+        }
+    } else {
+        return sysctlbyname(name,oldp,oldlenp,newp,newlen);
+    }
+}
+
+
 static bool isGenshin = false;
 
 extern int csops(pid_t pid, unsigned int ops, void *useraddr, size_t usersize);
@@ -53,9 +130,12 @@ int my_csops(pid_t pid, uint32_t ops, user_addr_t useraddr, user_size_t usersize
 }
 
 DYLD_INTERPOSE(my_csops, csops)
+
 DYLD_INTERPOSE(my_dyld_get_active_platform, dyld_get_active_platform)
 DYLD_INTERPOSE(my_dyld_get_base_platform, dyld_get_base_platform)
-
+DYLD_INTERPOSE(my_uname, uname)
+DYLD_INTERPOSE(my_sysctlbyname, sysctlbyname)
+DYLD_INTERPOSE(my_sysctl, sysctl)
 
 @implementation PlayLoader
 
