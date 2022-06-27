@@ -209,7 +209,7 @@ class AppSettings {
                             do {
                                 let selectedPath = openPanel.url!.appendingPathComponent(self.info.bundleIdentifier).appendingPathExtension("playmap")
                                 try self.dictionary.store(selectedPath)
-                                selectedPath.showInFinder()
+                                selectedPath.openInFinder()
                             } catch{
                                 openPanel.close()
                                 Log.shared.error(error)

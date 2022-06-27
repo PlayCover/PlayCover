@@ -30,4 +30,17 @@ internal class TempAllocator {
         
         return workDir
     }
+    
+    static func allocatePayloadDirectory(tempDir : URL, app : URL) throws -> URL {
+        let workDir = tempDir.appendingPathComponent("Payload")
+        
+        if FileManager.default.fileExists(atPath: workDir.path) {
+            try FileManager.default.delete(at: workDir)
+        }
+        
+        try FileManager.default.createDirectory(at: workDir, withIntermediateDirectories: true, attributes: [:])
+        
+        try FileManager.default.moveItem(at: app, to: workDir)
+        return workDir
+    }
 }

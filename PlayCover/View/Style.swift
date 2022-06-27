@@ -84,3 +84,18 @@ struct CancelButton: ButtonStyle {
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }
 }
+
+struct OutlineButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration
+            .label
+            .foregroundColor(configuration.isPressed ? .gray : .accentColor)
+            .padding()
+            .background(
+                RoundedRectangle(
+                    cornerRadius: 8,
+                    style: .continuous
+                ).stroke(Color.accentColor)
+        )
+    }
+}

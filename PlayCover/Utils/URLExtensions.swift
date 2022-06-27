@@ -34,7 +34,7 @@ extension URL {
        return (try? resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory == true
     }
     
-    func showInFinder() {
+    func openInFinder() {
         do {
             if self.isDirectory {
                 NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: self.path)
@@ -42,6 +42,14 @@ extension URL {
             else {
                 self.showInFinderAndSelectLastComponent()
             }
+        }
+    }
+    
+    func showInFinder() {
+        if self.isDirectory {
+            NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: self.path)
+        } else {
+            NSWorkspace.shared.activateFileViewerSelecting([self])
         }
     }
 

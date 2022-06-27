@@ -206,8 +206,8 @@
             filePath = "PlayCover/View/AppsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -668,8 +668,8 @@
             filePath = "PlayCover/View/AppsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "AppAddView"
             landmarkType = "14">
          </BreakpointContent>
@@ -1004,8 +1004,8 @@
             filePath = "PlayCover/Utils/Shell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "shell(_:print:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1516,8 +1516,8 @@
             filePath = "PlayCover/Utils/Shell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
             landmarkName = "shell(_:print:)"
             landmarkType = "7">
          </BreakpointContent>

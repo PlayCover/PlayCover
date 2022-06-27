@@ -1201,7 +1201,7 @@
 					"$(PROJECT_DIR)/PlayCover/Tools",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = me.playcover.PlayCover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./PlayCover/PlayCover-Bridging-Header.h";
@@ -1236,7 +1236,7 @@
 					"$(PROJECT_DIR)/PlayCover/Tools",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = me.playcover.PlayCover;
 				PRODUCT_NAME = "$(TARGET_NAME)";

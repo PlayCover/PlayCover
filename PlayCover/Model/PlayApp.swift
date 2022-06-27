@@ -37,7 +37,7 @@ class PlayApp : PhysicialApp {
             } else if try !isCodesigned(){
                 Log.shared.msg("App is not codesigned! Please, open Xcode and accept license agreement.")
             } else{
-                URL(fileURLWithPath: url.path).showInFinder()
+                URL(fileURLWithPath: url.path).openInFinder()
             }
             AppsVM.shared.updatingApps = false
         } catch {

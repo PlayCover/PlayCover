@@ -19,7 +19,7 @@ class AppIntegrity : ObservableObject {
                 try fm.delete(at: AppIntegrity.expectedUrl)
             }
             try fm.copyItem(at: AppIntegrity.appUrl!, to: AppIntegrity.expectedUrl)
-            URL(fileURLWithPath: AppIntegrity.expectedUrl.path).showInFinder()
+            URL(fileURLWithPath: AppIntegrity.expectedUrl.path).openInFinder()
             try fm.delete(at: AppIntegrity.appUrl!)
             exit(0);
         } catch {

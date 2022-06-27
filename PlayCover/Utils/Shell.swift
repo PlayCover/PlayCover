@@ -43,6 +43,11 @@ class Shell : ObservableObject {
         shell("unzip \(zip.esc) -d \(to.esc)")
     }
     
+    static func zip(ipa : URL, name : String, payload : URL) throws{
+        shell("cd \(payload.esc) && zip -r \(name.esc).ipa Payload")
+        try FileManager.default.moveItem(at: payload.appendingPathComponent(name).appendingPathExtension("ipa"), to: ipa)
+    }
+    
     static func signAppWith(_ exec : URL, entitlements : URL){
         shell("/usr/bin/codesign -fs- \(exec.deletingLastPathComponent().esc) --deep --entitlements \(entitlements.esc)")
     }

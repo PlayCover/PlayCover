@@ -46,4 +46,16 @@ public class IPA {
         case let bomError: throw PlayCoverError.appCorrupted
         }
     }
+    
+     func packIPABack(app : URL) throws -> URL {
+         let newIpa = getDocumentsDirectory().appendingPathComponent(app.deletingPathExtension().lastPathComponent).appendingPathExtension("ipa")
+         try Shell.zip(ipa : newIpa, name: app.deletingPathExtension().lastPathComponent, payload: app.deletingLastPathComponent().deletingLastPathComponent())
+        return newIpa
+    }
+    
+    private func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
 }
