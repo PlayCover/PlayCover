@@ -99,13 +99,13 @@
 		9238C6B4278D5A15009D0D8E /* CircleMenuLoader.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9238C6B3278D5A15009D0D8E /* CircleMenuLoader.swift.swift */; };
 		9238C6B6278D5A3D009D0D8E /* CircleMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9238C6B5278D5A3D009D0D8E /* CircleMenuButton.swift */; };
 		9241A83F278BBC6D0044AF78 /* DragElementsView.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9241A83E278BBC6D0044AF78 /* DragElementsView.swift.swift */; };
+		924896D92871B81A00369B47 /* PlayTools in Resources */ = {isa = PBXBuildFile; fileRef = 924896D82871B81A00369B47 /* PlayTools */; };
 		9253122F2724DE7C00EB6996 /* PlayMice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9253122E2724DE7C00EB6996 /* PlayMice.swift */; };
 		9256220127491E4700728698 /* NSData+Reading.m in Sources */ = {isa = PBXBuildFile; fileRef = 925621FD27491E4700728698 /* NSData+Reading.m */; };
 		9256220327491E4700728698 /* operations.m in Sources */ = {isa = PBXBuildFile; fileRef = 925621FF27491E4700728698 /* operations.m */; };
 		9256220427491E4700728698 /* headers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9256220027491E4700728698 /* headers.m */; };
 		9256220627491E8200728698 /* patch.m in Sources */ = {isa = PBXBuildFile; fileRef = 9256220527491E8200728698 /* patch.m */; };
 		92562209274921E500728698 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92562208274921E500728698 /* main.m */; };
-		926E1B9A285F386D001D4686 /* PlayTools in Resources */ = {isa = PBXBuildFile; fileRef = 926E1B99285F386D001D4686 /* PlayTools */; };
 		9272F19E273B74C800DFBEF1 /* AppsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9272F19C273B74C800DFBEF1 /* AppsVM.swift */; };
 		927E1F0427501EF300DA12E6 /* vtool in Resources */ = {isa = PBXBuildFile; fileRef = 927E1F0327501EF300DA12E6 /* vtool */; };
 		9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280871A2824A8D20034C510 /* SoundDeviceService.swift */; };
@@ -266,6 +266,7 @@
 		9238C6B3278D5A15009D0D8E /* CircleMenuLoader.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleMenuLoader.swift.swift; sourceTree = "<group>"; };
 		9238C6B5278D5A3D009D0D8E /* CircleMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleMenuButton.swift; sourceTree = "<group>"; };
 		9241A83E278BBC6D0044AF78 /* DragElementsView.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragElementsView.swift.swift; sourceTree = "<group>"; };
+		924896D82871B81A00369B47 /* PlayTools */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = PlayTools; path = "../../Library/Developer/Xcode/DerivedData/PlayCover-dgtrxitzuqidvrdrdxxrpngmilwd/Build/Products/Release-iphoneos/PlayTools.framework/PlayTools"; sourceTree = "<group>"; };
 		9253122E2724DE7C00EB6996 /* PlayMice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayMice.swift; sourceTree = "<group>"; };
 		925621F927491E4700728698 /* NSData+Reading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Reading.h"; sourceTree = "<group>"; };
 		925621FA27491E4700728698 /* operations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = operations.h; sourceTree = "<group>"; };
@@ -277,8 +278,6 @@
 		9256220527491E8200728698 /* patch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = patch.m; sourceTree = "<group>"; };
 		9256220727491E9F00728698 /* patch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = patch.h; sourceTree = "<group>"; };
 		92562208274921E500728698 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		926E1B97285F37B4001D4686 /* PlayTools */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = PlayTools; path = "../Library/Developer/Xcode/DerivedData/PlayCover-gvenicwdcfyrevdxwzwcxacuneyn/Build/Products/Release-iphoneos/PlayTools.framework/PlayTools"; sourceTree = "<group>"; };
-		926E1B99285F386D001D4686 /* PlayTools */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = PlayTools; path = "../Library/Developer/Xcode/DerivedData/PlayCover-gvenicwdcfyrevdxwzwcxacuneyn/Build/Products/Release-iphoneos/PlayTools.framework/PlayTools"; sourceTree = "<group>"; };
 		9272F19C273B74C800DFBEF1 /* AppsVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppsVM.swift; sourceTree = "<group>"; };
 		927E1F0327501EF300DA12E6 /* vtool */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = vtool; sourceTree = "<group>"; };
 		9280871A2824A8D20034C510 /* SoundDeviceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundDeviceService.swift; sourceTree = "<group>"; };
@@ -571,8 +570,7 @@
 		8783CFEE26B8C52D00171041 = {
 			isa = PBXGroup;
 			children = (
-				926E1B97285F37B4001D4686 /* PlayTools */,
-				926E1B99285F386D001D4686 /* PlayTools */,
+				924896D82871B81A00369B47 /* PlayTools */,
 				922410E7275ADB48000BF6C0 /* otool */,
 				92A4A8C42756F38E00E8E3D2 /* libplist-2.0.3.dylib */,
 				92A4A8C12756EEA500E8E3D2 /* ldid */,
@@ -817,7 +815,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				926E1B9A285F386D001D4686 /* PlayTools in Resources */,
+				924896D92871B81A00369B47 /* PlayTools in Resources */,
 				922410E8275ADB48000BF6C0 /* otool in Resources */,
 				92A4A8C52756F38E00E8E3D2 /* libplist-2.0.3.dylib in Resources */,
 				92A4A8C22756EEA500E8E3D2 /* libcrypto.1.1.dylib in Resources */,

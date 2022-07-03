@@ -8,7 +8,7 @@ import Foundation
 internal class TempAllocator {
     
     static var documentDirectory: URL {
-        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("PlayCover")
+        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("PlayCoverInstall")
     }
     
     static func clearTemp(){
