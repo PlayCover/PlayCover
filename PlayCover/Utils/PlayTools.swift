@@ -23,6 +23,11 @@ class PlayTools {
         }
     }
     
+    static func injectFor(_ exec : URL, payload : URL) throws {
+        patch_binary_with_dylib(exec.path, "@executable_path/Frameworks/PlayTools.dylib")
+        try injectPlayTools(payload)
+    }
+    
     static func deleteFrom(_ exec : URL) throws {
         remove_play_tools_from(exec.path, PLAY_TOOLS_PATH)
         sh.signApp(exec)
@@ -62,6 +67,22 @@ class PlayTools {
                 }
                 Log.shared.log("Copying PlayTools to Frameworks")
                 sh.shell("cp \(tools.esc) \(PLAY_TOOLS_PATH)")
+            } catch {
+                Log.shared.error(error)
+            }
+        }
+    }
+    
+    static func injectPlayTools(_ payload : URL) throws{
+        DispatchQueue.global(qos: .background).async {
+            do {
+                let tools = Bundle.main.url(forResource: "PlayTools", withExtension: "")!
+                if !FileManager.default.fileExists(atPath: payload.appendingPathComponent("Frameworks").path) {
+                    try FileManager.default.createDirectory(at: payload.appendingPathComponent("Frameworks"), withIntermediateDirectories: true)
+                }
+                let libraryTraget = payload.appendingPathComponent("Frameworks").appendingPathComponent("PlayTools").appendingPathExtension("dylib")
+                sh.shell("cp \(tools.esc) \(libraryTraget.esc)")
+                try libraryTraget.fixExecutable()
             } catch {
                 Log.shared.error(error)
             }

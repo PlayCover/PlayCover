@@ -173,7 +173,7 @@ struct ExportView : View {
     var body: some View {
         
         Button("Export for Sideloadly") {
-            if install.installing{
+            if install.installing {
                 isHover = false
                 Log.shared.error(PlayCoverError.waitInstallation)
             } else{

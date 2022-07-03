@@ -71,7 +71,7 @@ class Installer {
             let machos = try app.resolveValidMachOs()
             
             InstallVM.shared.next(.playtools)
-            try PlayTools.installFor(app.executable, resign: true)
+            try PlayTools.injectFor(app.executable, payload: app.url)
             
             for macho in machos {
                 if try PlayTools.isMachoEncrypted(atURL: macho) {
