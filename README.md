@@ -1,10 +1,10 @@
 <div id="top"></div>
 
-‎<h1 align="center">[![Contributors][contributors-shield]][contributors-url]
+<h1 align="center">[![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+[![GPLv3 License][license-shield]][license-url]
 </h1>
 
 
@@ -12,7 +12,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/iVoider/PlayCover">
+  <a href="https://github.com/PlayCover/PlayCover">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -24,13 +24,35 @@
     <br />
     <a href="https://www.youtube.com/watch?v=grY63FBJ6N4">Showcase</a>
     ·
-    <a href="https://github.com/iVoider/PlayCover/pulls">Contribute</a>
+    <a href="https://github.com/PlayCover/PlayCover/pulls">Contribute</a>
     ·
     <a href="https://discord.gg/rMv5qxGTGC">Discord</a>
   </p>
 </div>
 
+## About the fork & Disclaimer
 
+This fork have been created by the community to support the development of PlayCover, since the original project became non-free and non-open-source.
+
+This fork is not affiliated with the original project, nor the original author.
+
+This fork is not affiliated with the website <https://playcover.me>.
+
+I am supporting this project in my spare time, so if you have any questions, please ask the community for help first.
+
+The original project is under GNU General Public License v3.0, so there is no legal issue to fork it and redistribute.
+
+Many things are under construction, so please be patient. Any contribution is welcome.
+
+If you want to compile it on your own computer, you may need to make a few changes to the source code:
+
+- Linking paths to the correct libraries
+- Auth0 integration
+- i18n resources
+
+CI and compilation fixes are comming soon.
+
+If anyone feels like this fork somehow violates the copyright (e.g., the logo), please open an issue.
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -190,9 +212,9 @@ Distributed under the AGPLv3 License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Alexandr Dorofeev - business@playcover.me
+Lucas Lee - playcover@lucas.icu
 
-Project Link: [https://github.com/iVoider/PlayCover](https://github.com/iVoider/PlayCover)
+Project Link: [https://github.com/PlayCover/PlayCover](https://github.com/PlayCover/PlayCover)
 
 <p align="right"><a href="#top">⬆️ Back to top️</a></p>
 
@@ -207,18 +229,20 @@ These open source libraries were used to create this project.
 * [optool](https://github.com/alexzielenski/optool)
 * [PTFakeTouch](https://github.com/Ret70/PTFakeTouch)
 
+* Thanks to @iVoider for creating such a great project!
+
 <p align="right"><a href="#top">⬆️ Back to top️</a></p>
 
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[contributors-shield]: https://img.shields.io/github/contributors/iVoider/PlayCover.svg?style=for-the-badge
-[contributors-url]: https://github.com/iVoider/PlayCover/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/iVoider/PlayCover.svg?style=for-the-badge
-[forks-url]: https://github.com/iVoider/PlayCover/network/members
-[stars-shield]: https://img.shields.io/github/stars/iVoider/PlayCover.svg?style=for-the-badge
-[stars-url]: https://github.com/iVoider/PlayCover/stargazers
-[issues-shield]: https://img.shields.io/github/issues/iVoider/PlayCover.svg?style=for-the-badge
-[issues-url]: https://github.com/iVoider/PlayCover/issues
-[license-shield]: https://img.shields.io/github/license/iVoider/PlayCover.svg?style=for-the-badge
-[license-url]: https://github.com/iVoider/PlayCover/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/PlayCover/PlayCover.svg?style=for-the-badge
+[contributors-url]: https://github.com/PlayCover/PlayCover/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/PlayCover/PlayCover.svg?style=for-the-badge
+[forks-url]: https://github.com/PlayCover/PlayCover/network/members
+[stars-shield]: https://img.shields.io/github/stars/PlayCover/PlayCover.svg?style=for-the-badge
+[stars-url]: https://github.com/PlayCover/PlayCover/stargazers
+[issues-shield]: https://img.shields.io/github/issues/PlayCover/PlayCover.svg?style=for-the-badge
+[issues-url]: https://github.com/PlayCover/PlayCover/issues
+[license-shield]: https://img.shields.io/github/license/PlayCover/PlayCover.svg?style=for-the-badge
+[license-url]: https://github.com/PlayCover/PlayCover/blob/master/LICENSE
