@@ -1,6 +1,6 @@
 <div id="top"></div>
 
-<h1 align="center">[![Contributors][contributors-shield]][contributors-url]
+‎<h1 align="center">[![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
