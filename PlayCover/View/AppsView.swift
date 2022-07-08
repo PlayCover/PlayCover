@@ -30,13 +30,11 @@ struct AppsView : View {
                 Spacer()
                 ExportView().environmentObject(InstallVM.shared)
                 Spacer()
-                Button(action: {
+                Button("Download any appaction") {
                     if let url = URL(string: "https://armconverter.com/decryptedappstore") {
                         NSWorkspace.shared.open(url)
                     }
-                }) {
-                    Text("Download any app")
-                }.foregroundColor(Colr.accent).padding(.trailing, 18).help("Use this site to decrypt and download any global app")
+                }.buttonStyle(.borderedProminent).accentColor(Colr.control()).controlSize(.large).help("Use this site to decrypt and download any global app")
             }
             
             HStack(alignment: .center){

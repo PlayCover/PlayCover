@@ -9,6 +9,8 @@ import UIKit
 
 extension UIViewController {
     
+    
+    
     @objc
     func switchEditorMode(_ sender: AnyObject) {
         MacroController.shared.stopReplaying()
@@ -33,7 +35,6 @@ extension UIViewController {
     // Macros
     @objc
     func switchTouchRecording(_ sender: AnyObject) {
-        
         if MacroController.shared.isRecording {
             MacroController.shared.stopRecording()
         } else{
@@ -60,6 +61,7 @@ extension UIViewController {
     }
     
 }
+
 struct CommandsList {
     static let KeymappingToolbox = "keymapping"
     static let MacrosToolbox = "macros"

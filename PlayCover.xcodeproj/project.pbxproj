@@ -96,10 +96,7 @@
 		92324086283FBA34006C46DE /* SimplyCoreAudio in Frameworks */ = {isa = PBXBuildFile; productRef = 92324085283FBA34006C46DE /* SimplyCoreAudio */; };
 		923421F7275F40300030CD7D /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923421F6275F40300030CD7D /* AppContainer.swift */; };
 		9238C6B2278D59FE009D0D8E /* CircleMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9238C6B1278D59FE009D0D8E /* CircleMenu.swift */; };
-		9238C6B4278D5A15009D0D8E /* CircleMenuLoader.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9238C6B3278D5A15009D0D8E /* CircleMenuLoader.swift.swift */; };
 		9238C6B6278D5A3D009D0D8E /* CircleMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9238C6B5278D5A3D009D0D8E /* CircleMenuButton.swift */; };
-		9241A83F278BBC6D0044AF78 /* DragElementsView.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9241A83E278BBC6D0044AF78 /* DragElementsView.swift.swift */; };
-		924896D92871B81A00369B47 /* PlayTools in Resources */ = {isa = PBXBuildFile; fileRef = 924896D82871B81A00369B47 /* PlayTools */; };
 		9253122F2724DE7C00EB6996 /* PlayMice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9253122E2724DE7C00EB6996 /* PlayMice.swift */; };
 		9256220127491E4700728698 /* NSData+Reading.m in Sources */ = {isa = PBXBuildFile; fileRef = 925621FD27491E4700728698 /* NSData+Reading.m */; };
 		9256220327491E4700728698 /* operations.m in Sources */ = {isa = PBXBuildFile; fileRef = 925621FF27491E4700728698 /* operations.m */; };
@@ -107,6 +104,9 @@
 		9256220627491E8200728698 /* patch.m in Sources */ = {isa = PBXBuildFile; fileRef = 9256220527491E8200728698 /* patch.m */; };
 		92562209274921E500728698 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92562208274921E500728698 /* main.m */; };
 		9272F19E273B74C800DFBEF1 /* AppsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9272F19C273B74C800DFBEF1 /* AppsVM.swift */; };
+		927578B62877402800BCA63D /* PlayTools in Resources */ = {isa = PBXBuildFile; fileRef = 927578B52877402800BCA63D /* PlayTools */; };
+		927578B8287743FD00BCA63D /* CircleMenuLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927578B7287743FD00BCA63D /* CircleMenuLoader.swift */; };
+		927578BA2877440E00BCA63D /* DragElementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927578B92877440E00BCA63D /* DragElementsView.swift */; };
 		927E1F0427501EF300DA12E6 /* vtool in Resources */ = {isa = PBXBuildFile; fileRef = 927E1F0327501EF300DA12E6 /* vtool */; };
 		9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280871A2824A8D20034C510 /* SoundDeviceService.swift */; };
 		9280871D2824AD360034C510 /* Unarchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280871C2824AD360034C510 /* Unarchiver.swift */; };
@@ -263,10 +263,7 @@
 		922ED9B9272DEEDB008CA401 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		923421F6275F40300030CD7D /* AppContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
 		9238C6B1278D59FE009D0D8E /* CircleMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleMenu.swift; sourceTree = "<group>"; };
-		9238C6B3278D5A15009D0D8E /* CircleMenuLoader.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleMenuLoader.swift.swift; sourceTree = "<group>"; };
 		9238C6B5278D5A3D009D0D8E /* CircleMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleMenuButton.swift; sourceTree = "<group>"; };
-		9241A83E278BBC6D0044AF78 /* DragElementsView.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragElementsView.swift.swift; sourceTree = "<group>"; };
-		924896D82871B81A00369B47 /* PlayTools */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = PlayTools; path = "../../Library/Developer/Xcode/DerivedData/PlayCover-dgtrxitzuqidvrdrdxxrpngmilwd/Build/Products/Release-iphoneos/PlayTools.framework/PlayTools"; sourceTree = "<group>"; };
 		9253122E2724DE7C00EB6996 /* PlayMice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayMice.swift; sourceTree = "<group>"; };
 		925621F927491E4700728698 /* NSData+Reading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Reading.h"; sourceTree = "<group>"; };
 		925621FA27491E4700728698 /* operations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = operations.h; sourceTree = "<group>"; };
@@ -279,6 +276,9 @@
 		9256220727491E9F00728698 /* patch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = patch.h; sourceTree = "<group>"; };
 		92562208274921E500728698 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9272F19C273B74C800DFBEF1 /* AppsVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppsVM.swift; sourceTree = "<group>"; };
+		927578B52877402800BCA63D /* PlayTools */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = PlayTools; path = "../Library/Developer/Xcode/DerivedData/PlayCover-gvenicwdcfyrevdxwzwcxacuneyn/Build/Products/Release-iphoneos/PlayTools.framework/PlayTools"; sourceTree = "<group>"; };
+		927578B7287743FD00BCA63D /* CircleMenuLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleMenuLoader.swift; sourceTree = "<group>"; };
+		927578B92877440E00BCA63D /* DragElementsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragElementsView.swift; sourceTree = "<group>"; };
 		927E1F0327501EF300DA12E6 /* vtool */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = vtool; sourceTree = "<group>"; };
 		9280871A2824A8D20034C510 /* SoundDeviceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundDeviceService.swift; sourceTree = "<group>"; };
 		9280871C2824AD360034C510 /* Unarchiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Unarchiver.swift; sourceTree = "<group>"; };
@@ -388,10 +388,10 @@
 		53841C5B26D9CEF30021D27C /* Keymap */ = {
 			isa = PBXGroup;
 			children = (
+				927578B92877440E00BCA63D /* DragElementsView.swift */,
 				53841C6226D9CFBF0021D27C /* KeyCodeNames.swift */,
 				53841C5C26D9CF280021D27C /* ControlModel.swift */,
 				53841C5D26D9CF280021D27C /* EditorController.swift */,
-				9241A83E278BBC6D0044AF78 /* DragElementsView.swift.swift */,
 			);
 			path = Keymap;
 			sourceTree = "<group>";
@@ -570,7 +570,7 @@
 		8783CFEE26B8C52D00171041 = {
 			isa = PBXGroup;
 			children = (
-				924896D82871B81A00369B47 /* PlayTools */,
+				927578B52877402800BCA63D /* PlayTools */,
 				922410E7275ADB48000BF6C0 /* otool */,
 				92A4A8C42756F38E00E8E3D2 /* libplist-2.0.3.dylib */,
 				92A4A8C12756EEA500E8E3D2 /* ldid */,
@@ -626,8 +626,8 @@
 		9238C6B0278D59D5009D0D8E /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				927578B7287743FD00BCA63D /* CircleMenuLoader.swift */,
 				9238C6B1278D59FE009D0D8E /* CircleMenu.swift */,
-				9238C6B3278D5A15009D0D8E /* CircleMenuLoader.swift.swift */,
 				9238C6B5278D5A3D009D0D8E /* CircleMenuButton.swift */,
 			);
 			path = Menu;
@@ -815,7 +815,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				924896D92871B81A00369B47 /* PlayTools in Resources */,
+				927578B62877402800BCA63D /* PlayTools in Resources */,
 				922410E8275ADB48000BF6C0 /* otool in Resources */,
 				92A4A8C52756F38E00E8E3D2 /* libplist-2.0.3.dylib in Resources */,
 				92A4A8C22756EEA500E8E3D2 /* libcrypto.1.1.dylib in Resources */,
@@ -839,9 +839,11 @@
 				53488E062714F2D60047CF76 /* NSObject+Swizzle.m in Sources */,
 				53841CC526D9D5C00021D27C /* Toucher.swift in Sources */,
 				53841CBF26D9D53D0021D27C /* UIEvent+KIFAdditions.m in Sources */,
+				927578B8287743FD00BCA63D /* CircleMenuLoader.swift in Sources */,
 				53841CA226D9D53D0021D27C /* UIScreen+KIFAdditions.m in Sources */,
 				53841C5F26D9CF280021D27C /* ControlModel.swift in Sources */,
 				53841CC126D9D53D0021D27C /* NSPredicate+KIFAdditions.m in Sources */,
+				927578BA2877440E00BCA63D /* DragElementsView.swift in Sources */,
 				53841C7226D9D5010021D27C /* Invocation.swift in Sources */,
 				530B1CDC26DD9A6B006CD011 /* PlayInfo.swift in Sources */,
 				53841CA926D9D53D0021D27C /* UIView-Debugging.m in Sources */,
@@ -852,7 +854,6 @@
 				53841CD726D9D9000021D27C /* PlayInput.swift in Sources */,
 				53841CC726D9D6E70021D27C /* ControlMode.swift in Sources */,
 				531E6FE526D9C36500817A10 /* PlayScreen.swift in Sources */,
-				9241A83F278BBC6D0044AF78 /* DragElementsView.swift.swift in Sources */,
 				53841C7326D9D5010021D27C /* TypeMapping.swift in Sources */,
 				53841CA826D9D53D0021D27C /* UIScrollView-KIFAdditions.m in Sources */,
 				53841C7126D9D5010021D27C /* Logger.swift in Sources */,
@@ -870,7 +871,6 @@
 				53841CA126D9D53D0021D27C /* UIAccessibilityElement-KIFAdditions.m in Sources */,
 				92B8CE9127233A2700502982 /* PlayAction.swift in Sources */,
 				53841CE126DA2B530021D27C /* PlaySettings.swift in Sources */,
-				9238C6B4278D5A15009D0D8E /* CircleMenuLoader.swift.swift in Sources */,
 				9294F14E286317B60042B958 /* MacroController.swift in Sources */,
 				53841C9D26D9D53D0021D27C /* PTFakeMetaTouch.m in Sources */,
 				53841C6026D9CF280021D27C /* EditorController.swift in Sources */,
@@ -1199,8 +1199,8 @@
 					"$(PROJECT_DIR)/PlayCover/Tools",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = me.playcover.PlayCover;
+				MARKETING_VERSION = 1.0.5;
+				PRODUCT_BUNDLE_IDENTIFIER = def.not.PlayCover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./PlayCover/PlayCover-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1234,9 +1234,9 @@
 					"$(PROJECT_DIR)/PlayCover/Tools",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.5;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = me.playcover.PlayCover;
+				PRODUCT_BUNDLE_IDENTIFIER = def.not.PlayCover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "./PlayCover/PlayCover-Bridging-Header.h";
 				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "./PlayCover/PlayCover-Bridging-Header.h";

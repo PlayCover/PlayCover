@@ -76,6 +76,7 @@
     }
 }
 
+
 +(void)load
 {
     static dispatch_once_t onceToken;
@@ -93,7 +94,9 @@
         }
 
         [objc_getClass("NSMenuItem") swizzleClassMethod:@selector(enabled) withMethod:@selector(hook_enabled)];
-
+        
+        [objc_getClass("IOSViewController") swizzleInstanceMethod:@selector(prefersPointerLocked) withMethod:@selector(hook_prefersPointerLocked)];
+        
         if ([[[NSBundle mainBundle] bundleIdentifier] isEqual:@"com.riotgames.league.wildrift"] || [[[NSBundle mainBundle] bundleIdentifier] isEqual:@"com.tencent.lolm"]){
             [objc_getClass("MTLRenderPipelineDescriptorInternal") swizzleInstanceMethod:@selector(validateWithDevice:error:) withMethod:@selector(hook_validateWithDevice:error:)];
             [objc_getClass("MTLRenderPipelineDescriptorInternal") swizzleInstanceMethod:@selector(depthStencilPixelformat) withMethod:@selector(hook_depthAttachmentPixelFormat)];
@@ -102,6 +105,10 @@
         
         
     });
+}
+
+-(BOOL) hook_prefersPointerLocked {
+    return false;
 }
 
 - (void) hook_callbackFramerateChange:(int)targetFPS {
@@ -138,10 +145,16 @@
     return [PlayScreen sizeAspectRatio:[self hook_size]];
 }
 
+bool menuWasCreated = false;
+
 -(id)init {
-    if ([[self class] isEqual: NSClassFromString(@"_UIMenuBuilder")]) {
-        [PlayCover initMenuWithMenu: self];
+    if (!menuWasCreated) {
+        if ([[self class] isEqual: NSClassFromString(@"_UIMenuBuilder")]) {
+            [PlayCover initMenuWithMenu: self];
+            menuWasCreated = TRUE;
+        }
     }
+    
     return self;
 }
 

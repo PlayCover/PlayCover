@@ -52,23 +52,23 @@ final public class PlayCover : NSObject {
 }
 
 @objc extension FileManager {
-
+    
     private static let FOUNDATION = "/System/Library/Frameworks/Foundation.framework/Foundation"
-
+    
     static func classInit()  {
         let originalMethod = class_getInstanceMethod(FileManager.self, #selector(fileExists(atPath:)))
         let swizzledMethod = class_getInstanceMethod(FileManager.self, #selector(hook_fileExists(atPath:)))
         method_exchangeImplementations(originalMethod!, swizzledMethod!)
-
+        
         let originalMethod2 = class_getInstanceMethod(FileManager.self, #selector(fileExists(atPath:isDirectory:)))
         let swizzledMethod2 = class_getInstanceMethod(FileManager.self, #selector(hook_fileExists(atPath:isDirectory:)))
-
+        
         let originalMethod3 = class_getInstanceMethod(FileManager.self, #selector(isReadableFile(atPath:)))
         let swizzledMethod3 = class_getInstanceMethod(FileManager.self, #selector(hook_isReadableFile(atPath:)))
-
+        
         method_exchangeImplementations(originalMethod3!, swizzledMethod3!)
-        }
-
+    }
+    
     @objc func hook_fileExists(atPath: String) -> Bool {
         let answer = hook_fileExists(atPath: atPath)
         if atPath.elementsEqual(FileManager.FOUNDATION){
@@ -76,16 +76,16 @@ final public class PlayCover : NSObject {
         }
         return answer
     }
-
+    
     @objc func hook_fileExists(atPath path: String,
-                    isDirectory: UnsafeMutablePointer<ObjCBool>?) -> Bool {
+                               isDirectory: UnsafeMutablePointer<ObjCBool>?) -> Bool {
         let answer = hook_fileExists(atPath: path, isDirectory: isDirectory)
         if path.elementsEqual(FileManager.FOUNDATION){
             return true
         }
         return answer
     }
-
+    
     @objc func hook_isReadableFile(atPath path: String) -> Bool {
         let answer = hook_isReadableFile(atPath: path)
         if path.elementsEqual(FileManager.FOUNDATION){
