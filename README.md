@@ -54,6 +54,12 @@ CI and compilation fixes are comming soon.
 
 If anyone feels like this fork somehow violates the copyright (e.g., the logo), please open an issue.
 
+Some promises:
+
+1. This fork will always stay open-source and will be maintained by the community.
+2. Even if I don't have time to maintain this fork, I will leave this fork to community to maintain.
+3. Ask for maintainer's role in the community if you would like to help.
+
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
