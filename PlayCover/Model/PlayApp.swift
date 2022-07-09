@@ -25,7 +25,6 @@ class PlayApp : PhysicialApp {
             
             AppsVM.shared.updatingApps = true
             AppsVM.shared.fetchApps()
-            self.settings
             self.settings.sync()
             if try !Entitlements.areEntitlementsValid(app: self){
                 sign()

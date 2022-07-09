@@ -105,5 +105,4 @@ struct StoreAppData: Decodable {
 	let icon : String
 	let link : String
 	let region : Region
-
 }

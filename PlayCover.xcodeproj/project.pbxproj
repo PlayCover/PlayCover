@@ -133,6 +133,10 @@
 		92EE06DC274EB19A002C907B /* StoreAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06DB274EB19A002C907B /* StoreAppView.swift */; };
 		92EE06DE274EC09F002C907B /* Entitlements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06DD274EC09F002C907B /* Entitlements.swift */; };
 		92F8500A27675124005CE6BE /* AppIntegrity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8500927675124005CE6BE /* AppIntegrity.swift */; };
+		AA719645287A0DD400623C15 /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = AA719644287A0DD400623C15 /* Yams */; };
+		AA719648287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA719646287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml */; };
+		AA719649287A0E2500623C15 /* default.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA719647287A0E2500623C15 /* default.yaml */; };
+		AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA71964A287A0EA800623C15 /* PlayRules.swift */; };
 		DA9B9F882825615F006DDB46 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = DA9B9F872825615F006DDB46 /* AlertToast */; };
 		DA9B9F8F282561E3006DDB46 /* AppCenterAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = DA9B9F8E282561E3006DDB46 /* AppCenterAnalytics */; };
 		DA9B9F91282561E3006DDB46 /* AppCenterCrashes in Frameworks */ = {isa = PBXBuildFile; productRef = DA9B9F90282561E3006DDB46 /* AppCenterCrashes */; };
@@ -303,6 +307,9 @@
 		92EE06DB274EB19A002C907B /* StoreAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAppView.swift; sourceTree = "<group>"; };
 		92EE06DD274EC09F002C907B /* Entitlements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entitlements.swift; sourceTree = "<group>"; };
 		92F8500927675124005CE6BE /* AppIntegrity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntegrity.swift; sourceTree = "<group>"; };
+		AA719646287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = com.YostarJP.BlueArchive.yaml; sourceTree = "<group>"; };
+		AA719647287A0E2500623C15 /* default.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = default.yaml; sourceTree = "<group>"; };
+		AA71964A287A0EA800623C15 /* PlayRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayRules.swift; sourceTree = "<group>"; };
 		AA970FD228793A310099A5D0 /* PlayCoverRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayCoverRelease.entitlements; sourceTree = "<group>"; };
 		ABF0BA1A285F9ED200FC5259 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -321,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92324086283FBA34006C46DE /* SimplyCoreAudio in Frameworks */,
+				AA719645287A0DD400623C15 /* Yams in Frameworks */,
 				DA9B9F882825615F006DDB46 /* AlertToast in Frameworks */,
 				DA9B9F8F282561E3006DDB46 /* AppCenterAnalytics in Frameworks */,
 				DA9B9F91282561E3006DDB46 /* AppCenterCrashes in Frameworks */,
@@ -502,6 +510,7 @@
 				92EE06D7274EA98B002C907B /* PhysicialApp.swift */,
 				92EE06D1274EA596002C907B /* InstallApp.swift */,
 				92ECD8AD274E787200DB7AC6 /* AppInfo.swift */,
+				AA71964A287A0EA800623C15 /* PlayRules.swift */,
 				9286D295273A7E4200958DD3 /* AppSettings.swift */,
 				92EE06CF274EA433002C907B /* BaseApp.swift */,
 				92EE06D9274EB009002C907B /* PlayApp.swift */,
@@ -583,6 +592,7 @@
 		8783CFF926B8C52D00171041 /* PlayCover */ = {
 			isa = PBXGroup;
 			children = (
+				AA719640287A085200623C15 /* Rules */,
 				AA970FD228793A310099A5D0 /* PlayCoverRelease.entitlements */,
 				53D9DAF226C1849D0071959E /* PlayCoverError.swift */,
 				53F3802626EB6F5600D6B525 /* Services */,
@@ -654,6 +664,15 @@
 				92EE06DD274EC09F002C907B /* Entitlements.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		AA719640287A085200623C15 /* Rules */ = {
+			isa = PBXGroup;
+			children = (
+				AA719646287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml */,
+				AA719647287A0E2500623C15 /* default.yaml */,
+			);
+			path = Rules;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -733,6 +752,7 @@
 				DA9B9F8E282561E3006DDB46 /* AppCenterAnalytics */,
 				DA9B9F90282561E3006DDB46 /* AppCenterCrashes */,
 				92324085283FBA34006C46DE /* SimplyCoreAudio */,
+				AA719644287A0DD400623C15 /* Yams */,
 			);
 			productName = PlayCover;
 			productReference = 8783CFF726B8C52D00171041 /* PlayCover.app */;
@@ -779,6 +799,7 @@
 				DA9B9F862825615F006DDB46 /* XCRemoteSwiftPackageReference "AlertToast" */,
 				DA9B9F89282561CF006DDB46 /* XCRemoteSwiftPackageReference "appcenter-sdk-apple" */,
 				92324084283FBA34006C46DE /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */,
+				AA719643287A0DD400623C15 /* XCRemoteSwiftPackageReference "Yams" */,
 			);
 			productRefGroup = 8783CFF826B8C52D00171041 /* Products */;
 			projectDirPath = "";
@@ -804,9 +825,11 @@
 			files = (
 				927578B62877402800BCA63D /* PlayTools in Resources */,
 				92A4A8C52756F38E00E8E3D2 /* libplist-2.0.3.dylib in Resources */,
+				AA719649287A0E2500623C15 /* default.yaml in Resources */,
 				92A4A8C22756EEA500E8E3D2 /* libcrypto.1.1.dylib in Resources */,
 				8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */,
 				532644DE26E79E56002EA34D /* Localizable.strings in Resources */,
+				AA719648287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml in Resources */,
 				8783CFFF26B8C52E00171041 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -896,6 +919,7 @@
 				9221730A27623DA100C8A3A2 /* StoreApp.swift in Sources */,
 				538ED92926F40BAF002D73E8 /* Style.swift in Sources */,
 				53F4D29E26C43C040020167C /* UserIntentFlow.swift in Sources */,
+				AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */,
 				53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */,
 				92EE06D0274EA433002C907B /* BaseApp.swift in Sources */,
 				92F8500A27675124005CE6BE /* AppIntegrity.swift in Sources */,
@@ -1271,6 +1295,14 @@
 				kind = branch;
 			};
 		};
+		AA719643287A0DD400623C15 /* XCRemoteSwiftPackageReference "Yams" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jpsim/Yams.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		DA9B9F862825615F006DDB46 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/elai950/AlertToast.git";
@@ -1294,6 +1326,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 92324084283FBA34006C46DE /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */;
 			productName = SimplyCoreAudio;
+		};
+		AA719644287A0DD400623C15 /* Yams */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA719643287A0DD400623C15 /* XCRemoteSwiftPackageReference "Yams" */;
+			productName = Yams;
 		};
 		DA9B9F872825615F006DDB46 /* AlertToast */ = {
 			isa = XCSwiftPackageProductDependency;
