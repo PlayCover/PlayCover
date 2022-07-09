@@ -31,18 +31,18 @@ extern void *dyld_get_base_platform(void *platform);
 
 void *my_dyld_get_base_platform(void *platform) { return 2; }
 
-// #define DEVICE_MODEL ("iPad13,8")
-#define DEVICE_MODEL ("iPad8,6")
+ #define DEVICE_MODEL ("iPad13,8")
+//#define DEVICE_MODEL ("iPad8,6")
 
 // find Mac by using sysctl of HW_TARGET
-// #define OEM_ID ("J522AP")
-#define OEM_ID ("J320xAP")
+ #define OEM_ID ("J522AP")
+//#define OEM_ID ("J320xAP")
 
 static int my_uname(struct utsname *uts) {
   int result = 0;
   NSString *nickname = @"ipad";
-  // NSString *productType = @"iPad13,8";
-  NSString *productType = @"iPad8,6";
+   NSString *productType = @"iPad13,8";
+//  NSString *productType = @"iPad8,6";
   if (nickname.length == 0)
     result = uname(uts);
   else {
