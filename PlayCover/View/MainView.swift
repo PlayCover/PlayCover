@@ -58,11 +58,16 @@ struct SearchView : View {
 }
 
 struct MainView: View {
+	@Environment(\.openURL) var openURL
     @EnvironmentObject var update : UpdateService
     @EnvironmentObject var install : InstallVM
     @EnvironmentObject var apps : AppsVM
     @EnvironmentObject var integrity : AppIntegrity
-    
+
+	@State private var xcodeSelectError = ""
+	@State private var xcodeSelectFailed = false
+
+
     @State var showSetup = false
     @State var noticesExpanded = false
     @State var bottomHeight: CGFloat = 0
@@ -125,7 +130,40 @@ struct MainView: View {
                                 .clipped()
                                 .padding(.top, noticesExpanded ? 8 : 0)
                         }
-                        
+
+						if !FileManager().isExecutableFile(atPath: "/usr/bin/otool") {
+							Divider()
+							HStack(spacing: 12) {
+								Text("You need to install Command line tools for Xcode").font(.title3)
+								Button("Install") {
+									do {
+										_ = try sh.shello("/usr/bin/xcode-select","--install")
+									} catch {
+										print("failed \(error)")
+										xcodeSelectError = error.localizedDescription
+										xcodeSelectFailed = true
+									}
+								}
+								.buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
+							}.frame(maxWidth: .infinity).alert(isPresented: $xcodeSelectFailed) {
+								Alert(title: Text("xcode-select --install failed"), message: Text(xcodeSelectError), dismissButton: .default(Text("OK"), action: {
+									xcodeSelectError = ""
+									xcodeSelectFailed = false
+								}))
+							}
+						}
+
+						if !FileManager().isExecutableFile(atPath: "/opt/homebrew/bin/ldid") {
+							Divider()
+							HStack(spacing: 12) {
+								Text("You need to install ldid before using PlayCover").font(.title3)
+								Button("Install") {
+									openURL(URL(string: "https://formulae.brew.sh/formula/ldid")!)
+								}
+								.buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
+							}.frame(maxWidth: .infinity)
+						}
+
                         if !SystemConfig.isPlaySignActive() {
                             Divider()
                             HStack(spacing: 12) {

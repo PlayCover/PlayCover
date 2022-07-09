@@ -28,6 +28,11 @@ class Shell : ObservableObject {
         if print {
             Log.shared.log(String(decoding: output, as: UTF8.self))
         }
+
+		let status = process.terminationStatus
+		if status != 0 {
+			throw String(decoding: output, as: UTF8.self)
+		}
         return String(decoding: output, as: UTF8.self)
     }
     
@@ -123,3 +128,8 @@ class Shell : ObservableObject {
 }
 
 
+extension String: Error {}
+
+extension String: LocalizedError {
+	public var errorDescription: String? { return self }
+}

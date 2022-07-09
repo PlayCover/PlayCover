@@ -140,19 +140,23 @@ class PlayTools {
     }
     
     private static let vtool : URL = {
-        return builtInUtil("vtool")
+        return URL(fileURLWithPath: "/usr/bin/vtool")
+        // return builtInUtil("vtool")
     }()
     
     private static let otool : URL = {
-        return builtInUtil("otool")
+        return URL(fileURLWithPath: "/usr/bin/otool")
+        // return builtInUtil("otool")
     }()
     
     private static let install_name_tool : URL = {
-        return builtInUtil("install_name_tool")
+        return URL(fileURLWithPath: "/usr/bin/install_name_tool")
+        // return builtInUtil("install_name_tool")
     }()
     
     private static let ldid : URL = {
-        return builtInUtil("ldid")
+        return URL(fileURLWithPath: "/opt/homebrew/bin/ldid")
+        // return builtInUtil("ldid")
     }()
     
     private static func builtInUtil(_ name : String) -> URL{

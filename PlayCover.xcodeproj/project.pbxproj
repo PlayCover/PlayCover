@@ -88,7 +88,6 @@
 		92037247280F27A50064A1EF /* LoginKitWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 92037246280F27A50064A1EF /* LoginKitWrapper.m */; };
 		9203724A280F288C0064A1EF /* LoginServiceKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92037249280F288C0064A1EF /* LoginServiceKit.swift */; };
 		9221730A27623DA100C8A3A2 /* StoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9221730927623DA100C8A3A2 /* StoreApp.swift */; };
-		922410E8275ADB48000BF6C0 /* otool in Resources */ = {isa = PBXBuildFile; fileRef = 922410E7275ADB48000BF6C0 /* otool */; };
 		92279BBF27610433009F28BF /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92279BBE27610433009F28BF /* AppSettingsView.swift */; };
 		922D457E2787A71600D4FF88 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922D457D2787A71600D4FF88 /* MenuController.swift */; };
 		922ED9BA272DEEDB008CA401 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922ED9B9272DEEDB008CA401 /* MainView.swift */; };
@@ -106,7 +105,6 @@
 		927578B62877402800BCA63D /* PlayTools in Resources */ = {isa = PBXBuildFile; fileRef = 927578B52877402800BCA63D /* PlayTools */; };
 		927578B8287743FD00BCA63D /* CircleMenuLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927578B7287743FD00BCA63D /* CircleMenuLoader.swift */; };
 		927578BA2877440E00BCA63D /* DragElementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927578B92877440E00BCA63D /* DragElementsView.swift */; };
-		927E1F0427501EF300DA12E6 /* vtool in Resources */ = {isa = PBXBuildFile; fileRef = 927E1F0327501EF300DA12E6 /* vtool */; };
 		9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280871A2824A8D20034C510 /* SoundDeviceService.swift */; };
 		9280871D2824AD360034C510 /* Unarchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280871C2824AD360034C510 /* Unarchiver.swift */; };
 		9286D296273A7E4200958DD3 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286D295273A7E4200958DD3 /* AppSettings.swift */; };
@@ -115,7 +113,6 @@
 		9298512E2738E67E008F19DC /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9298512D2738E67E008F19DC /* SetupView.swift */; };
 		92A14D9928683DFC00ED8738 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A14D9828683DFC00ED8738 /* Toast.swift */; };
 		92A4A8C22756EEA500E8E3D2 /* libcrypto.1.1.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 92A4A8C02756EEA500E8E3D2 /* libcrypto.1.1.dylib */; };
-		92A4A8C32756EEA500E8E3D2 /* ldid in Resources */ = {isa = PBXBuildFile; fileRef = 92A4A8C12756EEA500E8E3D2 /* ldid */; };
 		92A4A8C52756F38E00E8E3D2 /* libplist-2.0.3.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 92A4A8C42756F38E00E8E3D2 /* libplist-2.0.3.dylib */; };
 		92A8AAC9275EFEA800D89B50 /* SystemConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A8AAC8275EFEA800D89B50 /* SystemConfig.swift */; };
 		92AAD04027C6AF940031F44A /* LaunchServicesWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AAD03F27C6AF940031F44A /* LaunchServicesWrapper.m */; };
@@ -124,7 +121,6 @@
 		92AE4543286181CC00E07D9F /* UIEvent+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 92AE4540286181CC00E07D9F /* UIEvent+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		92B4D38F2737CF3D0001D7BB /* PlayTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B4D38E2737CF3D0001D7BB /* PlayTools.swift */; };
 		92B8CE9127233A2700502982 /* PlayAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B8CE9027233A2700502982 /* PlayAction.swift */; };
-		92D409262750166B005E852F /* install_name_tool in Resources */ = {isa = PBXBuildFile; fileRef = 92D409252750166B005E852F /* install_name_tool */; };
 		92ECD8A3274E75CD00DB7AC6 /* Installer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ECD8A2274E75CD00DB7AC6 /* Installer.swift */; };
 		92ECD8A5274E763700DB7AC6 /* IPA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ECD8A4274E763700DB7AC6 /* IPA.swift */; };
 		92ECD8AA274E76FD00DB7AC6 /* TempAllocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ECD8A9274E76FD00DB7AC6 /* TempAllocator.swift */; };
@@ -255,7 +251,6 @@
 		92037248280F27CB0064A1EF /* LoginKitWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginKitWrapper.h; sourceTree = "<group>"; };
 		92037249280F288C0064A1EF /* LoginServiceKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginServiceKit.swift; sourceTree = "<group>"; };
 		9221730927623DA100C8A3A2 /* StoreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreApp.swift; sourceTree = "<group>"; };
-		922410E7275ADB48000BF6C0 /* otool */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = otool; sourceTree = "<group>"; };
 		92279BBE27610433009F28BF /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
 		922D457D2787A71600D4FF88 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		922ED9B9272DEEDB008CA401 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -277,7 +272,6 @@
 		927578B52877402800BCA63D /* PlayTools */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = PlayTools; path = "../../Library/Developer/Xcode/DerivedData/PlayCover-fclpsewgxwrktjbamkwuqwkclsra/Build/Products/Release-iphoneos/PlayTools.framework/PlayTools"; sourceTree = SOURCE_ROOT; };
 		927578B7287743FD00BCA63D /* CircleMenuLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleMenuLoader.swift; sourceTree = "<group>"; };
 		927578B92877440E00BCA63D /* DragElementsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragElementsView.swift; sourceTree = "<group>"; };
-		927E1F0327501EF300DA12E6 /* vtool */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = vtool; sourceTree = "<group>"; };
 		9280871A2824A8D20034C510 /* SoundDeviceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundDeviceService.swift; sourceTree = "<group>"; };
 		9280871C2824AD360034C510 /* Unarchiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Unarchiver.swift; sourceTree = "<group>"; };
 		9286D295273A7E4200958DD3 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
@@ -287,7 +281,6 @@
 		9298512D2738E67E008F19DC /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		92A14D9828683DFC00ED8738 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		92A4A8C02756EEA500E8E3D2 /* libcrypto.1.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libcrypto.1.1.dylib; sourceTree = "<group>"; };
-		92A4A8C12756EEA500E8E3D2 /* ldid */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ldid; sourceTree = "<group>"; };
 		92A4A8C42756F38E00E8E3D2 /* libplist-2.0.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "libplist-2.0.3.dylib"; sourceTree = "<group>"; };
 		92A8AAC8275EFEA800D89B50 /* SystemConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemConfig.swift; sourceTree = "<group>"; };
 		92AAD03E27C6AF940031F44A /* LaunchServicesWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchServicesWrapper.h; sourceTree = "<group>"; };
@@ -297,7 +290,6 @@
 		92AE4540286181CC00E07D9F /* UIEvent+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIEvent+Private.h"; sourceTree = "<group>"; };
 		92B4D38E2737CF3D0001D7BB /* PlayTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayTools.swift; sourceTree = "<group>"; };
 		92B8CE9027233A2700502982 /* PlayAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAction.swift; sourceTree = "<group>"; };
-		92D409252750166B005E852F /* install_name_tool */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = install_name_tool; sourceTree = "<group>"; };
 		92D79316273C065A001CC964 /* libsandbox.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsandbox.1.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/libsandbox.1.tbd; sourceTree = DEVELOPER_DIR; };
 		92ECD8A2274E75CD00DB7AC6 /* Installer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Installer.swift; sourceTree = "<group>"; };
 		92ECD8A4274E763700DB7AC6 /* IPA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPA.swift; sourceTree = "<group>"; };
@@ -570,12 +562,8 @@
 			isa = PBXGroup;
 			children = (
 				927578B52877402800BCA63D /* PlayTools */,
-				922410E7275ADB48000BF6C0 /* otool */,
 				92A4A8C42756F38E00E8E3D2 /* libplist-2.0.3.dylib */,
-				92A4A8C12756EEA500E8E3D2 /* ldid */,
 				92A4A8C02756EEA500E8E3D2 /* libcrypto.1.1.dylib */,
-				927E1F0327501EF300DA12E6 /* vtool */,
-				92D409252750166B005E852F /* install_name_tool */,
 				8783CFF926B8C52D00171041 /* PlayCover */,
 				531E6FDC26D9C33E00817A10 /* PlayTools */,
 				8783CFF826B8C52D00171041 /* Products */,
@@ -815,14 +803,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				927578B62877402800BCA63D /* PlayTools in Resources */,
-				922410E8275ADB48000BF6C0 /* otool in Resources */,
 				92A4A8C52756F38E00E8E3D2 /* libplist-2.0.3.dylib in Resources */,
 				92A4A8C22756EEA500E8E3D2 /* libcrypto.1.1.dylib in Resources */,
-				92A4A8C32756EEA500E8E3D2 /* ldid in Resources */,
-				92D409262750166B005E852F /* install_name_tool in Resources */,
 				8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */,
 				532644DE26E79E56002EA34D /* Localizable.strings in Resources */,
-				927E1F0427501EF300DA12E6 /* vtool in Resources */,
 				8783CFFF26B8C52E00171041 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
