@@ -46,8 +46,8 @@ public class IPA {
         case let bomError: throw PlayCoverError.appCorrupted
         }
     }
-    
-     func packIPABack(app : URL) throws -> URL {
+
+    func packIPABack(app : URL) throws -> URL {
          let newIpa = getDocumentsDirectory().appendingPathComponent(app.deletingPathExtension().lastPathComponent).appendingPathExtension("ipa")
          try Shell.zip(ipa : newIpa, name: app.deletingPathExtension().lastPathComponent, payload: app.deletingLastPathComponent().deletingLastPathComponent())
         return newIpa

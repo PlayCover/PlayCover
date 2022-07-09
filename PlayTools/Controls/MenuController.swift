@@ -143,8 +143,8 @@ class MenuController {
 
 
 extension UIMenu.Identifier {
-    static var keymappingMenu: UIMenu.Identifier { UIMenu.Identifier("me.playcover.PlayTools.menus.editor") }
-    static var keymappingOptionsMenu: UIMenu.Identifier { UIMenu.Identifier("me.playcover.PlayTools.menus.keymapping") }
-    static var macrosMenu: UIMenu.Identifier { UIMenu.Identifier("me.playcover.PlayTools.menus.macros") }
-    static var macrosActionsMenu: UIMenu.Identifier { UIMenu.Identifier("me.playcover.PlayTools.menus.touchrecord") }
+    static var keymappingMenu: UIMenu.Identifier { UIMenu.Identifier("io.playcover.PlayTools.menus.editor") }
+    static var keymappingOptionsMenu: UIMenu.Identifier { UIMenu.Identifier("io.playcover.PlayTools.menus.keymapping") }
+    static var macrosMenu: UIMenu.Identifier { UIMenu.Identifier("io.playcover.PlayTools.menus.macros") }
+    static var macrosActionsMenu: UIMenu.Identifier { UIMenu.Identifier("io.playcover.PlayTools.menus.touchrecord") }
 }

@@ -81,8 +81,6 @@ struct MainView: View {
                         HStack(spacing: 8) {
                             Link("Join Discord Server", destination: URL(string: "https://discord.gg/rMv5qxGTGC")!)
                                 .help("If you have some problem you always can visit our friendly community.")
-                            Link("Get Pro version", destination: URL(string: "https://www.patreon.com/playcoverapp")!).foregroundColor(Colr.accent)
-                                .help("Get early access to the fresh versions and extra perks.")
                             Spacer()
                             if install.installing {
                                 InstallProgress().environmentObject(install).padding(.bottom)
@@ -104,7 +102,6 @@ struct MainView: View {
                             }
                         }.padding().frame(maxWidth : .infinity)
                         
-                       
                     }
                     
                     Divider()

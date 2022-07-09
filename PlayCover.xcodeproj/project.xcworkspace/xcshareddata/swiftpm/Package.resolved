@@ -6,7 +6,7 @@
       "location" : "https://github.com/elai950/AlertToast.git",
       "state" : {
         "branch" : "master",
-        "revision" : "551a7590ca9976c079123c330b7332cbfbfce47b"
+        "revision" : "6f0c1da59221ff337ebab856e13c7fcd26f9a426"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/microsoft/PLCrashReporter.git",
       "state" : {
-        "revision" : "6b27393cad517c067dceea85fadf050e70c4ceaa",
-        "version" : "1.10.1"
+        "revision" : "81cdec2b3827feb03286cb297f4c501a8eb98df1",
+        "version" : "1.10.2"
       }
     },
     {

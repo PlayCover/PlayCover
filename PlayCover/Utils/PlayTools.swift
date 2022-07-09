@@ -103,7 +103,7 @@ class PlayTools {
     
     private static let PLAY_TOOLS_PATH = "\(FRAMEWORKS_PATH)/\(getSystemUUID()?.prefix(4) ?? "3DEF")N"
     private static let FRAMEWORKS_PATH = "/Users/\(NSUserName())/Library/Frameworks"
-    private static let PLAY_COVER_PATH = URL(fileURLWithPath: "/Users/\(NSUserName())/Library/Containers/me.playcover.PlayCover")
+    private static let PLAY_COVER_PATH = URL(fileURLWithPath: "/Users/\(NSUserName())/Library/Containers/io.playcover.PlayCover")
     
     public static var playCoverContainer : URL {
         

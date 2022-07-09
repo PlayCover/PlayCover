@@ -55,8 +55,8 @@ extension Dictionary {
                 settings[PlaySettings.layoutKey] = layout
                 allPrefs[Bundle.main.bundleIdentifier!] = settings
                 try allPrefs.store(PlaySettings.settingsUrl)
-            } catch{
-                print(error)
+            } catch {
+                print("failed to save settings: \(error)")
             }
         }
     }
@@ -122,6 +122,7 @@ extension Dictionary {
                 return all
             }
         } catch {
+            print("failed to load settings: \(error)")
         }
         return [:]
     }()

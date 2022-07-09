@@ -39,12 +39,12 @@ class UpdateService : ObservableObject {
     
     static let shared = UpdateService()
     
-    static let baseUrl = "https://github.com/iVoider/PlayCover/releases/download/$/PlayCover.$.zip"
+    static let baseUrl = "https://github.com/PlayCover/PlayCover/releases/download/$/PlayCover.$.zip"
     
     @Published var updateLink : String = ""
     
      func checkUpdate() {
-        if let url = URL(string: "https://github.com/iVoider/PlayCover/releases") {
+        if let url = URL(string: "https://github.com/PlayCover/PlayCover/releases") {
             do {
                 let contents = try String(contentsOf: url)
                 if let index = contents.index(of: "/releases/tag/") {

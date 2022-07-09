@@ -61,19 +61,9 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
-			<string>None</string>
-			<key>CFBundleURLName</key>
-			<string>auth0</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>me.playcover.PlayCover</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>me.playcover.PlayCover</string>
+			<string>io.playcover.PlayCover</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>playcover</string>

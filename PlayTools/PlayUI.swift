@@ -19,7 +19,7 @@ final class PlayUI {
     }
     
     func showLauncherWarning() -> Void {
-        let ac = UIAlertController(title: "PlayCover Launcher is not found!", message: "Please, install it from playcover.me site to use this app.", preferredStyle: .alert)
+        let ac = UIAlertController(title: "PlayCover Launcher is not found!", message: "Please, install it from playcover.io site to use this app.", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default){ _ in
             Dynamic.NSApplication.sharedApplication.terminate(self)
         })
