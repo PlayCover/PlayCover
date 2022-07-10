@@ -42,8 +42,6 @@
 		9286D296273A7E4200958DD3 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286D295273A7E4200958DD3 /* AppSettings.swift */; };
 		928C01D9272E162C007EB2DF /* InstallVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928C01D8272E162C007EB2DF /* InstallVM.swift */; };
 		9298512E2738E67E008F19DC /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9298512D2738E67E008F19DC /* SetupView.swift */; };
-		92A4A8C22756EEA500E8E3D2 /* libcrypto.1.1.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 92A4A8C02756EEA500E8E3D2 /* libcrypto.1.1.dylib */; };
-		92A4A8C52756F38E00E8E3D2 /* libplist-2.0.3.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 92A4A8C42756F38E00E8E3D2 /* libplist-2.0.3.dylib */; };
 		92A8AAC9275EFEA800D89B50 /* SystemConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A8AAC8275EFEA800D89B50 /* SystemConfig.swift */; };
 		92AAD04027C6AF940031F44A /* LaunchServicesWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AAD03F27C6AF940031F44A /* LaunchServicesWrapper.m */; };
 		92B4D38F2737CF3D0001D7BB /* PlayTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B4D38E2737CF3D0001D7BB /* PlayTools.swift */; };
@@ -65,8 +63,6 @@
 		AA71964D287A35F400623C15 /* com.nexon.bluearchive.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA71964C287A35F400623C15 /* com.nexon.bluearchive.yaml */; };
 		AA818CB2287ABE9B000BEE9D /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = AA818CB1287ABE9B000BEE9D /* AlertToast */; };
 		AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = AA818CB4287ABEC3000BEE9D /* Yams */; };
-		AA818CBE287AC237000BEE9D /* input.xcfilelist in Resources */ = {isa = PBXBuildFile; fileRef = AA818CBD287AC237000BEE9D /* input.xcfilelist */; };
-		AA818CC0287AC274000BEE9D /* output.xcfilelist in Resources */ = {isa = PBXBuildFile; fileRef = AA818CBF287AC274000BEE9D /* output.xcfilelist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -126,8 +122,6 @@
 		928C01D7272DF1A2007EB2DF /* PlayCover-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlayCover-Bridging-Header.h"; sourceTree = "<group>"; };
 		928C01D8272E162C007EB2DF /* InstallVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallVM.swift; sourceTree = "<group>"; };
 		9298512D2738E67E008F19DC /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
-		92A4A8C02756EEA500E8E3D2 /* libcrypto.1.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libcrypto.1.1.dylib; sourceTree = "<group>"; };
-		92A4A8C42756F38E00E8E3D2 /* libplist-2.0.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "libplist-2.0.3.dylib"; sourceTree = "<group>"; };
 		92A8AAC8275EFEA800D89B50 /* SystemConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemConfig.swift; sourceTree = "<group>"; };
 		92AAD03E27C6AF940031F44A /* LaunchServicesWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchServicesWrapper.h; sourceTree = "<group>"; };
 		92AAD03F27C6AF940031F44A /* LaunchServicesWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchServicesWrapper.m; sourceTree = "<group>"; };
@@ -152,6 +146,8 @@
 		AA818CBD287AC237000BEE9D /* input.xcfilelist */ = {isa = PBXFileReference; lastKnownFileType = text.xcfilelist; path = input.xcfilelist; sourceTree = "<group>"; };
 		AA818CBF287AC274000BEE9D /* output.xcfilelist */ = {isa = PBXFileReference; lastKnownFileType = text.xcfilelist; path = output.xcfilelist; sourceTree = "<group>"; };
 		AA970FD228793A310099A5D0 /* PlayCoverRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayCoverRelease.entitlements; sourceTree = "<group>"; };
+		AAE8809E287ACE9F00FBB23C /* cp_frameworks.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = cp_frameworks.sh; sourceTree = "<group>"; };
+		AAE8809F287ACE9F00FBB23C /* bootstrap.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = bootstrap.sh; sourceTree = "<group>"; };
 		ABF0BA1A285F9ED200FC5259 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -274,8 +270,7 @@
 		8783CFEE26B8C52D00171041 = {
 			isa = PBXGroup;
 			children = (
-				92A4A8C42756F38E00E8E3D2 /* libplist-2.0.3.dylib */,
-				92A4A8C02756EEA500E8E3D2 /* libcrypto.1.1.dylib */,
+				AAE8809D287ACE7D00FBB23C /* scripts */,
 				8783CFF926B8C52D00171041 /* PlayCover */,
 				8783CFF826B8C52D00171041 /* Products */,
 				53841CC826D9D7920021D27C /* Frameworks */,
@@ -361,6 +356,15 @@
 			path = Rules;
 			sourceTree = "<group>";
 		};
+		AAE8809D287ACE7D00FBB23C /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				AAE8809F287ACE9F00FBB23C /* bootstrap.sh */,
+				AAE8809E287ACE9F00FBB23C /* cp_frameworks.sh */,
+			);
+			path = scripts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -440,11 +444,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA818CBE287AC237000BEE9D /* input.xcfilelist in Resources */,
-				AA818CC0287AC274000BEE9D /* output.xcfilelist in Resources */,
-				92A4A8C52756F38E00E8E3D2 /* libplist-2.0.3.dylib in Resources */,
 				AA719649287A0E2500623C15 /* default.yaml in Resources */,
-				92A4A8C22756EEA500E8E3D2 /* libcrypto.1.1.dylib in Resources */,
 				8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */,
 				532644DE26E79E56002EA34D /* Localizable.strings in Resources */,
 				AA719648287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml in Resources */,
@@ -474,7 +474,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\necho \"Use carthage to copy framework\"\n\nif [ -x /usr/local/bin/carthage ]; then\n\t/usr/local/bin/carthage copy-frameworks\nelif [ -x /opt/homebrew/bin/carthage ]; then\n\t/opt/homebrew/bin/carthage copy-frameworks\nelse\n\techo \"Cannot find carthage\"\n\texit 1\nfi\n";
+			shellScript = "#!/bin/sh\necho \"Use carthage to copy framework\"\n\nif [ -x /usr/local/bin/carthage ]; then\n    carthage=/usr/local/bin/carthage\nelif [ -x /opt/homebrew/bin/carthage ]; then\n    carthage=/opt/homebrew/bin/carthage\nelse\n    echo \"Cannot find carthage\"\n    exit 1\nfi\n\n$carthage copy-frameworks\n\n";
 		};
 		AAE8809C287ACA4900FBB23C /* Carthage Bootstrap */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -492,7 +492,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\necho \"Bootstraping carthage\"\n\nif [ -x /usr/local/bin/carthage ]; then\n\t/usr/local/bin/carthage bootstrap --use-xcframeworks\nelif [ -x /opt/homebrew/bin/carthage ]; then\n\t/opt/homebrew/bin/carthage bootstrap --use-xcframeworks\nelse\n\techo \"Cannot find carthage\"\n\texit 1\nfi\n";
+			shellScript = "#!/bin/sh\necho \"Bootstraping carthage\"\n\nif [ -x /usr/local/bin/carthage ]; then\n    carthage=/usr/local/bin/carthage\nelif [ -x /opt/homebrew/bin/carthage ]; then\n    carthage=/opt/homebrew/bin/carthage\nelse\n    echo \"Cannot find carthage\"\n    exit 1\nfi\n\n$carthage bootstrap --use-xcframeworks\n\nif [ -f cartfile.resolved ]; then\n    cartfile_changed=$(git diff --stat $(git_previous_successful_commit) $(git_commit) | grep '\\|' | awk '{print $$1}' | grep cartfile.resolved)\n    if test \"$(cartfile_changed)\"; then\n        echo \"## step: updating carthage\"\n        $carthage bootstrap --use-xcframeworks\n    else\n        echo \"## carthage is up to date\"\n    fi\nelse\n    echo \"## step: installing carthage dependencies\"\n    $carthage bootstrap --use-xcframeworks\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
