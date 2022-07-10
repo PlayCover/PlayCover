@@ -474,7 +474,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ -x /usr/local/bin/carthage ]; then\n\t/usr/local/bin/carthage copy-frameworks\nelif [ -x /opt/homebrew/bin/carthage ]; then\n\t/opt/homebrew/bin/carthage copy-frameworks\nelse\n\techo \"Cannot find carthage\"\n\texit 1\nfi\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\necho \"Use carthage to copy framework\"\n\nif [ -x /usr/local/bin/carthage ]; then\n\t/usr/local/bin/carthage copy-frameworks\nelif [ -x /opt/homebrew/bin/carthage ]; then\n\t/opt/homebrew/bin/carthage copy-frameworks\nelse\n\techo \"Cannot find carthage\"\n\texit 1\nfi\n";
 		};
 		AAE8809C287ACA4900FBB23C /* Carthage Bootstrap */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -492,7 +492,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ -x /usr/local/bin/carthage ]; then\n\t/usr/local/bin/carthage bootstrap --use-xcframeworks\nelif [ -x /opt/homebrew/bin/carthage ]; then\n\t/opt/homebrew/bin/carthage bootstrap --use-xcframeworks\nelse\n\techo \"Cannot find carthage\"\n\texit 1\nfi\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\necho \"Bootstraping carthage\"\n\nif [ -x /usr/local/bin/carthage ]; then\n\t/usr/local/bin/carthage bootstrap --use-xcframeworks\nelif [ -x /opt/homebrew/bin/carthage ]; then\n\t/opt/homebrew/bin/carthage bootstrap --use-xcframeworks\nelse\n\techo \"Cannot find carthage\"\n\texit 1\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
