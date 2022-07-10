@@ -44,7 +44,6 @@ struct PlayAppView : View {
             .frame(width: 150, height: 150)
             .onTapGesture {
                 isHover = false
-                AnalyticsService.shared.logAppLaunch(app.id)
                 app.launch()
             }
             .contextMenu {

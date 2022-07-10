@@ -39,7 +39,6 @@ class Installer {
             
             let info = app.info
             
-            AnalyticsService.shared.logAppInstall(info.bundleIdentifier)
             info.assert(minimumVersion: 11.0)
             try info.write()
             

@@ -27,7 +27,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        AnalyticsService.shared.start()
         LaunchServicesWrapper.setMyselfAsDefaultApplicationForFileExtension("ipa")
     }
     

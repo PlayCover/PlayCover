@@ -5,26 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/elai950/AlertToast.git",
       "state" : {
-        "branch" : "master",
-        "revision" : "6f0c1da59221ff337ebab856e13c7fcd26f9a426"
-      }
-    },
-    {
-      "identity" : "appcenter-sdk-apple",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/microsoft/appcenter-sdk-apple",
-      "state" : {
-        "revision" : "8354a50fe01a7e54e196d3b5493b5ab53dd5866a",
-        "version" : "4.4.2"
-      }
-    },
-    {
-      "identity" : "plcrashreporter",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/microsoft/PLCrashReporter.git",
-      "state" : {
-        "revision" : "81cdec2b3827feb03286cb297f4c501a8eb98df1",
-        "version" : "1.10.2"
+        "revision" : "a4f4267f6454259ba4ed8f9dadb87334a789c26c",
+        "version" : "1.3.7"
       }
     },
     {
