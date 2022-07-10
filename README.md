@@ -93,7 +93,20 @@ At the moment, PlayCover can only be installed and executed on M1 MacBooks. Devi
 
  Unfortunately, it cannot run on any Intel chips, so you are forced to use Bootcamp or other emulators.
 
-### Installation
+### Build from source
+
+You will need:
+
+- [Carthage](https://formulae.brew.sh/formula/carthage)
+- Xcode
+- An Apple ID
+
+Just clone this project, open it in Xcode.
+
+You have to codesign it with your Apple ID in Xcode,
+just follow the instructions.
+
+### Extra Installation Steps For Genshin Impact
 
 1. Disable SIP
     - This can be done by shutting down your mac, holding down power button
