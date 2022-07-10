@@ -65,6 +65,8 @@
 		AA71964D287A35F400623C15 /* com.nexon.bluearchive.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA71964C287A35F400623C15 /* com.nexon.bluearchive.yaml */; };
 		AA818CB2287ABE9B000BEE9D /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = AA818CB1287ABE9B000BEE9D /* AlertToast */; };
 		AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = AA818CB4287ABEC3000BEE9D /* Yams */; };
+		AA818CBE287AC237000BEE9D /* input.xcfilelist in Resources */ = {isa = PBXBuildFile; fileRef = AA818CBD287AC237000BEE9D /* input.xcfilelist */; };
+		AA818CC0287AC274000BEE9D /* output.xcfilelist in Resources */ = {isa = PBXBuildFile; fileRef = AA818CBF287AC274000BEE9D /* output.xcfilelist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -147,6 +149,8 @@
 		AA719647287A0E2500623C15 /* default.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = default.yaml; sourceTree = "<group>"; };
 		AA71964A287A0EA800623C15 /* PlayRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayRules.swift; sourceTree = "<group>"; };
 		AA71964C287A35F400623C15 /* com.nexon.bluearchive.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = com.nexon.bluearchive.yaml; sourceTree = "<group>"; };
+		AA818CBD287AC237000BEE9D /* input.xcfilelist */ = {isa = PBXFileReference; lastKnownFileType = text.xcfilelist; path = input.xcfilelist; sourceTree = "<group>"; };
+		AA818CBF287AC274000BEE9D /* output.xcfilelist */ = {isa = PBXFileReference; lastKnownFileType = text.xcfilelist; path = output.xcfilelist; sourceTree = "<group>"; };
 		AA970FD228793A310099A5D0 /* PlayCoverRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayCoverRelease.entitlements; sourceTree = "<group>"; };
 		ABF0BA1A285F9ED200FC5259 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -305,6 +309,8 @@
 				8783D00026B8C52E00171041 /* Preview Content */,
 				532644E026E79E56002EA34D /* Localizable.strings */,
 				928C01D7272DF1A2007EB2DF /* PlayCover-Bridging-Header.h */,
+				AA818CBD287AC237000BEE9D /* input.xcfilelist */,
+				AA818CBF287AC274000BEE9D /* output.xcfilelist */,
 			);
 			path = PlayCover;
 			sourceTree = "<group>";
@@ -362,9 +368,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8783D00726B8C52E00171041 /* Build configuration list for PBXNativeTarget "PlayCover" */;
 			buildPhases = (
+				AAE8809C287ACA4900FBB23C /* Carthage Bootstrap */,
 				8783CFF326B8C52D00171041 /* Sources */,
 				8783CFF426B8C52D00171041 /* Frameworks */,
 				8783CFF526B8C52D00171041 /* Resources */,
+				AA818CBC287AC1C6000BEE9D /* Copy Carthage frameworks */,
 			);
 			buildRules = (
 			);
@@ -432,6 +440,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA818CBE287AC237000BEE9D /* input.xcfilelist in Resources */,
+				AA818CC0287AC274000BEE9D /* output.xcfilelist in Resources */,
 				92A4A8C52756F38E00E8E3D2 /* libplist-2.0.3.dylib in Resources */,
 				AA719649287A0E2500623C15 /* default.yaml in Resources */,
 				92A4A8C22756EEA500E8E3D2 /* libcrypto.1.1.dylib in Resources */,
@@ -444,6 +454,47 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AA818CBC287AC1C6000BEE9D /* Copy Carthage frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"$(SRCROOT)/$(SWIFT_MODULE_NAME)/input.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "Copy Carthage frameworks";
+			outputFileListPaths = (
+				"$(SRCROOT)/$(SWIFT_MODULE_NAME)/output.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/zsh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ -x /usr/local/bin/carthage ]; then\n\t/usr/local/bin/carthage copy-frameworks\nelif [ -x /opt/homebrew/bin/carthage ]; then\n\t/opt/homebrew/bin/carthage copy-frameworks\nelse\n\techo \"Cannot find carthage\"\n\texit 1\nfi\n";
+		};
+		AAE8809C287ACA4900FBB23C /* Carthage Bootstrap */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Carthage Bootstrap";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ -x /usr/local/bin/carthage ]; then\n\t/usr/local/bin/carthage bootstrap --use-xcframeworks\nelif [ -x /opt/homebrew/bin/carthage ]; then\n\t/opt/homebrew/bin/carthage bootstrap --use-xcframeworks\nelse\n\techo \"Cannot find carthage\"\n\texit 1\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8783CFF326B8C52D00171041 /* Sources */ = {
@@ -660,6 +711,7 @@
 				DEVELOPMENT_TEAM = 792V9HMJW3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = x86_64;
 				INFOPLIST_FILE = PlayCover/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -695,6 +747,7 @@
 				DEVELOPMENT_TEAM = 792V9HMJW3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = x86_64;
 				INFOPLIST_FILE = PlayCover/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -55,7 +55,7 @@ class PlayTools {
     static func install(){
         DispatchQueue.global(qos: .background).async {
             do {
-                let tools = Bundle.main.url(forResource: "PlayTools", withExtension: "")!
+				let tools = URL(fileURLWithPath: "\(Bundle.main.bundlePath)/Contents/Frameworks/PlayTools.framework/PlayTools")
                 Log.shared.log("Installing PlayTools")
                 try convertMacho(tools)
                 sh.codesign(tools)
@@ -76,7 +76,7 @@ class PlayTools {
     static func injectPlayTools(_ payload : URL) throws{
         DispatchQueue.global(qos: .background).async {
             do {
-                let tools = Bundle.main.url(forResource: "PlayTools", withExtension: "")!
+				let tools = URL(fileURLWithPath: "\(Bundle.main.bundlePath)/Contents/Frameworks/PlayTools.framework/PlayTools")
                 if !FileManager.default.fileExists(atPath: payload.appendingPathComponent("Frameworks").path) {
                     try FileManager.default.createDirectory(at: payload.appendingPathComponent("Frameworks"), withIntermediateDirectories: true)
                 }
