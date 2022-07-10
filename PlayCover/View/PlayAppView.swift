@@ -109,7 +109,7 @@ struct PlayAppView : View {
                 AppSettingsView(settings: app.settings, adaptiveDisplay: app.settings.adaptiveDisplay, keymapping: app.settings.keymapping, gamingMode: app.settings.gamingMode, bypass: app.settings.bypass, selectedRefreshRate: app.settings.refreshRate == 60 ? 0 : 1, sensivity: app.settings.sensivity).frame(minWidth: 500)
             }.sheet(isPresented: $showSetup) {
                 SetupView()
-            }.alert("All app data will be erased. You may need to redownload app files again. Wish to continue?", isPresented: $showClearCacheAlert) {
+            }.alert("All app data will be erased. You may need to redownload app files again. Do you wish to continue?", isPresented: $showClearCacheAlert) {
                 Button("OK", role: .cancel) {
                     app.container?.clear()
                     showClearCacheToast.toggle()

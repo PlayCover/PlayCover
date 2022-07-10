@@ -38,12 +38,12 @@ struct SetupView : View {
     }
     
     func playSignPromt(_ firstTime : Bool){
-        let text = firstTime ? "Please, input your login password" : "You typed incorrect password."
-        promptForReply(text, "It is one you use for Mac unlock"){ strResponse, bResponse in
+        let text = firstTime ? "Please, input your login password" : "You have typed an incorrect password."
+        promptForReply(text, "It is the one you use to unlock your Mac"){ strResponse, bResponse in
             if SystemConfig.enablePlaySign(strResponse) {
                 if SystemConfig.isPRAMValid() {
                     presentationMode.wrappedValue.dismiss()
-                    Log.shared.msg("Now restart Mac and all is done!")
+                    Log.shared.msg("Now, restart the Mac and all is done!")
                 } else{
                     playSignPromt(false)
                 }
