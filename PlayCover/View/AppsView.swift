@@ -30,7 +30,7 @@ struct AppsView : View {
                 Spacer()
                 ExportView().environmentObject(InstallVM.shared)
                 Spacer()
-                Button("Download any appaction") {
+                Button("Download any application") {
                     if let url = URL(string: "https://armconverter.com/decryptedappstore") {
                         NSWorkspace.shared.open(url)
                     }
@@ -133,7 +133,7 @@ struct AppAddView : View {
                 } else{
                     showWrongfileTypeAlert = true
                 }
-            }.help("Drag or open app file to install. IPA from Configurator or iMazing won't work! You should get decrypted IPA, either from top right button, Discord, AppDb, jailbroken device.")
+            }.help("Drag or open an app file to install. IPAs from Configurator or iMazing won't work! You should get decrypted IPAs, either from the top right button, Discord, AppDb, or a jailbroken device.")
     }
     
     private func installApp(){
@@ -170,7 +170,7 @@ struct ExportView : View {
     
     var body: some View {
         
-        Button("Export for Sideloadly") {
+        Button("Export to Sideloadly") {
             if install.installing {
                 isHover = false
                 Log.shared.error(PlayCoverError.waitInstallation)
@@ -220,7 +220,7 @@ struct ExportView : View {
             } else{
                 showWrongfileTypeAlert = true
             }
-        }.help("Drag or open app file to install. IPA from Configurator or iMazing won't work! You should get decrypted IPA, either from top right button, Discord, AppDb, jailbroken device.")
+        }.help("Drag or open an app file to install. IPAs from Configurator or iMazing won't work! You should get decrypted IPAs, either from the top right button, Discord, AppDb, or a jailbroken device.")
     }
     
     private func exportIPA(){
