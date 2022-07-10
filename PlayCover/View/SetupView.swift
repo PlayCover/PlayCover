@@ -43,7 +43,7 @@ struct SetupView : View {
             if SystemConfig.enablePlaySign(strResponse) {
                 if SystemConfig.isPRAMValid() {
                     presentationMode.wrappedValue.dismiss()
-                    Log.shared.msg("Now, restart the Mac, and all is done!")
+                    Log.shared.msg("Now, restart the Mac and all is done!")
                 } else{
                     playSignPromt(false)
                 }
