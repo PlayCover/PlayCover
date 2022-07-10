@@ -1,4 +1,5 @@
 #!/bin/sh
+set -euo pipefail
 echo "Use carthage to copy framework"
 
 if [ -x /usr/local/bin/carthage ]; then

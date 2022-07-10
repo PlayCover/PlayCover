@@ -1,4 +1,6 @@
 #!/bin/sh
+set -euo pipefail
+
 echo "Bootstraping carthage"
 
 if [ -x /usr/local/bin/carthage ]; then
