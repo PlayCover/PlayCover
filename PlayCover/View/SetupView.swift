@@ -89,7 +89,7 @@ struct SetupView : View {
                         Text("If you encounter any errors, restart and repeat the whole process again").font(.callout)
                     }
                     
-                    GroupBox(label: Label("Video Tutorials", systemImage: "play.rectangle")) {
+                    GroupBox(label: Label(NSLocalizedString("Video Tutorials", comment: ""), systemImage: "play.rectangle")) {
                         HStack {
                             ZStack{
                                 Link("YouTube", destination: URL(string: "https://www.youtube.com/watch?v=H3CoI84s_FI")!)

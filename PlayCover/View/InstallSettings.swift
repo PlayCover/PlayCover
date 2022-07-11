@@ -7,7 +7,7 @@ struct InstallProgress: View {
     
     var body: some View {
         VStack{
-            Text(install.status.rawValue).frame(width: 300, height: 15, alignment: .center)
+            Text(install.status).frame(width: 300, height: 15, alignment: .center)
             ProgressBar().frame(width: 300, height: 15, alignment: .center).environmentObject(InstallVM.shared)
         }
     }
