@@ -75,7 +75,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2021 Alexandr Dorofeev. All rights reserved.</string>
+	<string>Copyright © PlayCover Community Edition</string>
 	<key>NSSystemAdministrationUsageDescription</key>
 	<string>PlayCover needs to read files to save apps</string>
 	<key>UTImportedTypeDeclarations</key>
