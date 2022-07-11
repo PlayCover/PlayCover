@@ -22,7 +22,7 @@ struct SearchView : View {
     @Environment(\.colorScheme) var colorScheme
     
     var body : some View {
-        TextField("Search...", text: $search)
+        TextField(NSLocalizedString("Search...", comment: ""), text: $search)
             .padding(7)
             .padding(.horizontal, 25)
             .background(Color(NSColor.textBackgroundColor))
@@ -84,8 +84,8 @@ struct MainView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     VStack(alignment: .leading, spacing: 8) {
                         HStack(spacing: 8) {
-                            Link("Join Discord Server", destination: URL(string: "https://discord.gg/rMv5qxGTGC")!)
-                                .help("If you have some problem you always can visit our friendly community.")
+                            Link(NSLocalizedString("Join Discord Server", comment: ""), destination: URL(string: "https://discord.gg/rMv5qxGTGC")!)
+                                .help(NSLocalizedString("If you have some problem you always can visit our friendly community.", comment: ""))
                             Spacer()
                             if install.installing {
                                 InstallProgress().environmentObject(install).padding(.bottom)
@@ -157,7 +157,7 @@ struct MainView: View {
 							Divider()
 							HStack(spacing: 12) {
 								Text("You need to install ldid before using PlayCover").font(.title3)
-								Button("Install") {
+                                Button(NSLocalizedString("Install ldid", comment: "")) {
 									openURL(URL(string: "https://formulae.brew.sh/formula/ldid")!)
 								}
 								.buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
@@ -168,7 +168,7 @@ struct MainView: View {
                             Divider()
                             HStack(spacing: 12) {
                                 Text("Having problems logging into apps?").font(.title3)
-                                Button("Enable PlaySign") { showSetup = true }
+                                Button(NSLocalizedString("Enable PlaySign", comment:"")) { showSetup = true }
                                     .buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
                             }.frame(maxWidth: .infinity)
                         }
@@ -185,13 +185,13 @@ struct MainView: View {
                 })
             }
             .toast(isPresenting: $showToast) {
-                AlertToast(type: .regular, title: "Logs copied!")
+                AlertToast(type: .regular, title: NSLocalizedString("Logs copied!", comment: ""))
             }
             .sheet(isPresented: $showSetup) {
                 SetupView()
             }
-            .alert("PlayCover must be in the Applications folder. Press the button below to let PlayCover move itself to /Applications.", isPresented: $integrity.integrityOff) {
-                Button("Move to /Applications", role: .cancel) {
+            .alert(NSLocalizedString("PlayCover must be in the Applications folder. Press the button below to let PlayCover move itself to /Applications.", comment: ""), isPresented: $integrity.integrityOff) {
+                Button(NSLocalizedString("Move to /Applications",comment: ""), role: .cancel) {
                     integrity.moveToApps()
                 }
             }

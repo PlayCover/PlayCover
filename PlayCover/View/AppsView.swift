@@ -139,14 +139,14 @@ struct AppAddView : View {
                 } else{
                     showWrongfileTypeAlert = true
                 }
-            }.help("Drag or open an app file to install. IPAs from Configurator or iMazing won't work! You should get decrypted IPAs, either from the top right button, Discord, AppDb, or a jailbroken device.")
+            }.help(NSLocalizedString("Drag or open an app file to install. IPAs from Configurator or iMazing won't work! You should get decrypted IPAs, either from the top right button, Discord, AppDb, or a jailbroken device.", comment: ""))
     }
     
     private func installApp(){
         Installer.install(ipaUrl : uif.ipaUrl! , returnCompletion: { (app) in
             DispatchQueue.main.async {
                 AppsVM.shared.fetchApps()
-                NotifyService.shared.notify("App installed!", "Check it out in 'My Apps'")
+                NotifyService.shared.notify(NSLocalizedString("App installed!", comment: ""), NSLocalizedString("Check it out in 'My Apps'", comment: ""))
             }
         })
     }
@@ -176,7 +176,7 @@ struct ExportView : View {
     
     var body: some View {
         
-        Button("Export to Sideloadly") {
+        Button(NSLocalizedString("Export to Sideloadly", comment: "")) {
             if install.installing {
                 isHover = false
                 Log.shared.error(PlayCoverError.waitInstallation)
@@ -186,7 +186,7 @@ struct ExportView : View {
             }
         }
         .buttonStyle(OutlineButton())
-        .help("If you want to play without disabling SIP. You need to download this software from iosgods.com").background(colorScheme == .dark ? elementColor(true) : elementColor(false))
+        .help(NSLocalizedString("If you want to play without disabling SIP. You need to download this software from iosgods.com", comment: "")).background(colorScheme == .dark ? elementColor(true) : elementColor(false))
         .onHover(perform: { hovering in
             isHover = hovering
         }).alert(isPresented: $showWrongfileTypeAlert) {
@@ -226,7 +226,7 @@ struct ExportView : View {
             } else{
                 showWrongfileTypeAlert = true
             }
-        }.help("Drag or open an app file to install. IPAs from Configurator or iMazing won't work! You should get decrypted IPAs, either from the top right button, Discord, AppDb, or a jailbroken device.")
+        }.help(NSLocalizedString("Drag or open an app file to install. IPAs from Configurator or iMazing won't work! You should get decrypted IPAs, either from the top right button, Discord, AppDb, or a jailbroken device.", comment: ""))
     }
     
     private func exportIPA(){

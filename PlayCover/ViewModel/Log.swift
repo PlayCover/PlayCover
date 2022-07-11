@@ -12,14 +12,14 @@ class Log: ObservableObject {
     
     func error(_ e : Error){
         DispatchQueue.main.async {
-            self.dialog(question: "Some error happened!", text: e.localizedDescription, style: NSAlert.Style.critical)
+            self.dialog(question: NSLocalizedString("Some error happened!", comment: ""), text: e.localizedDescription, style: NSAlert.Style.critical)
         }
     }
     
     func msg(_ msg : String){
         DispatchQueue.main.async {
             self.log(msg)
-            self.dialog(question: "Success!", text: msg, style: NSAlert.Style.informational)
+            self.dialog(question: NSLocalizedString("Success!", comment: ""), text: msg, style: NSAlert.Style.informational)
         }
     }
     
