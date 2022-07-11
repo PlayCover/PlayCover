@@ -222,7 +222,7 @@ If you have a suggestion that would make this better, please fork the repo and c
 <!-- LICENSE -->
 ## License
 
-Distributed under the AGPLv3 License. See `LICENSE` for more information.
+Distributed under the GPLv3 License. See `LICENSE` for more information.
 
 <p align="right"><a href="#top">⬆️ Back to top️</a></p>
 
