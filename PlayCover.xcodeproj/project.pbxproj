@@ -139,6 +139,7 @@
 		92EE06DB274EB19A002C907B /* StoreAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAppView.swift; sourceTree = "<group>"; };
 		92EE06DD274EC09F002C907B /* Entitlements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entitlements.swift; sourceTree = "<group>"; };
 		92F8500927675124005CE6BE /* AppIntegrity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntegrity.swift; sourceTree = "<group>"; };
+		AA18F6C6287BA6E90092E378 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA719646287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = com.YostarJP.BlueArchive.yaml; sourceTree = "<group>"; };
 		AA719647287A0E2500623C15 /* default.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = default.yaml; sourceTree = "<group>"; };
 		AA71964A287A0EA800623C15 /* PlayRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayRules.swift; sourceTree = "<group>"; };
@@ -423,6 +424,7 @@
 				ko,
 				fr,
 				vi,
+				it,
 			);
 			mainGroup = 8783CFEE26B8C52D00171041;
 			packageReferences = (
@@ -567,6 +569,7 @@
 				53E3311126F574B600217197 /* ko */,
 				8FBBE76B2826709500F4FE9F /* fr */,
 				ABF0BA1A285F9ED200FC5259 /* vi */,
+				AA18F6C6287BA6E90092E378 /* it */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
