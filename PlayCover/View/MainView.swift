@@ -22,7 +22,7 @@ struct SearchView : View {
     @Environment(\.colorScheme) var colorScheme
     
     var body : some View {
-        TextField("Search...", text: $search)
+        TextField(NSLocalizedString("Search...", comment: ""), text: $search)
             .padding(7)
             .padding(.horizontal, 25)
             .background(Color(NSColor.textBackgroundColor))
@@ -157,12 +157,12 @@ struct MainView: View {
                 })
             }
             .toast(isPresenting: $showToast) {
-                AlertToast(type: .regular, title: "Logs copied!")
+                AlertToast(type: .regular, title: NSLocalizedString("Logs copied!", comment: ""))
             }
             .sheet(isPresented: $showSetup) {
                 SetupView()
             }
-            .alert("PlayCover must be in the Applications folder. Press the button below to let PlayCover move itself to /Applications.", isPresented: $integrity.integrityOff) {
+            .alert(NSLocalizedString("PlayCover must be in the Applications folder. Press the button below to let PlayCover move itself to /Applications.", comment: ""), isPresented: $integrity.integrityOff) {
                 Button("Move to /Applications", role: .cancel) {
                     integrity.moveToApps()
                 }
