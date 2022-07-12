@@ -34,7 +34,6 @@ lane :release do
     output_directory: "output",
     output_name: "PlayCover",
     export_method: "developer-id",
-    use_system_scm: true,
     skip_package_pkg: true,
     )
 end
