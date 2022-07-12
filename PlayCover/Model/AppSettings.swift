@@ -202,7 +202,7 @@ class AppSettings {
                     openPanel.allowsMultipleSelection = false
                     openPanel.canChooseDirectories = true
                     openPanel.canCreateDirectories = true
-                    openPanel.title = "Choose place to export keymapping"
+                    openPanel.title = "Choose a place to export keymapping to"
                     
                     openPanel.begin { (result) in
                         if result == .OK {
@@ -226,7 +226,7 @@ class AppSettings {
         openPanel.canChooseDirectories = false
         openPanel.canCreateDirectories = true
         openPanel.allowedFileTypes = ["playmap"]
-        openPanel.title = "Select .playmap file"
+        openPanel.title = "Select a valid file ending in .playmap"
         
         openPanel.begin { (result) in
             if result == .OK {
