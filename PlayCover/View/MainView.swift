@@ -172,6 +172,13 @@ struct MainView: View {
                                     .buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
                             }.frame(maxWidth: .infinity)
                         }
+						#if DEBUG
+						Divider()
+						HStack(spacing: 12) {
+							Button("Crash") { fatalError("Crash was triggered") }
+								.buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
+						}.frame(maxWidth: .infinity)
+						#endif
                     }.padding()
                 }
                 .background(.regularMaterial)
