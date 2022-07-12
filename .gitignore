@@ -4,6 +4,9 @@
 
 /Carthage
 .DS_store
+/vendor
+/output
+/apikey.json
 
 ## User settings
 xcuserdata/
