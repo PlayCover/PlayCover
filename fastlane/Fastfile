@@ -34,7 +34,7 @@ lane :release do
     output_directory: "output",
     output_name: "PlayCover",
     export_method: "developer-id",
-    destination: "generic/platform=macOS,arch=arm64",
+    destination: "generic/platform=macOS",
     skip_package_pkg: true,
     )
 end
