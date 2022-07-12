@@ -28,7 +28,7 @@ end
 lane :release do
   setup_ci if ENV['CI']
   match(type: "developer_id", readonly: true)
-  carthage(cache_builds: true, use_xcframeworks: true)
+  carthage(use_xcframeworks: true)
   build_mac_app(
     scheme: "PlayCover",
     output_directory: "output",
