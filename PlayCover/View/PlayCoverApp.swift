@@ -4,6 +4,11 @@
 //
 
 import SwiftUI
+import FirebaseCore
+import FirebaseCrashlytics
+import FirebaseAnalytics
+import FirebaseAnalyticsSwift
+import FirebaseInstallations
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     
@@ -27,6 +32,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationDidFinishLaunching(_ notification: Notification) {
+		UserDefaults.standard.register(
+			defaults: ["NSApplicationCrashOnExceptions" : true]
+		)
+		FirebaseApp.configure()
+		print("instance id: \(Analytics.appInstanceID() ?? "")")
         LaunchServicesWrapper.setMyselfAsDefaultApplicationForFileExtension("ipa")
     }
     
@@ -34,7 +44,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 @main
 struct PlayCoverApp: App {
-    
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     var body: some Scene {

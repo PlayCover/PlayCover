@@ -1,0 +1,80 @@
+name: build-ios-app
+on:
+  push:
+    tags:
+      - "*"
+env:
+  CI: true
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Get the version
+        id: tag_version
+        run: echo ::set-output name=TAG_NAME::${GITHUB_REF/refs\/tags\//}
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          brew install graphicsmagick imagemagick
+          bundle install
+          npm install --global create-dmg
+
+      - name: Fastlane Release
+        shell: bash
+        run: fastlane release
+        env:
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 120 # x86 is slooooooow
+
+      - name: Exract API_KEY
+        shell: bash
+        run: 'echo "$API_KEY" > apikey.json'
+        env:
+          API_KEY: ${{secrets.APPLE_API_KEY_JSON}}
+
+      - name: Notarize App
+        shell: bash
+        run: |
+          fastlane notarize_app
+
+      - name: Create DMG
+        shell: bash
+        run: |
+          create-dmg ./output/PlayCover.app ./output
+          mv ./output/*.dmg ./output/PlayCover_${{ env.TAG_NAME }}.dmg
+        env:
+          TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
+
+      - name: Notarize DMG
+        shell: bash
+        run: |
+          fastlane notarize_dmg package:output/PlayCover_${{ env.TAG_NAME }}.dmg
+        env:
+          TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
+
+      - name: Clean Up
+        shell: bash
+        run: rm apikey.json
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: PlayCover_${{ env.TAG_NAME }}.dmg
+          path: output/PlayCover_${{ env.TAG_NAME }}.dmg
+        env:
+          TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
+
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          files: |
+            output/PlayCover_${{ env.TAG_NAME }}.dmg
+        env:
+          TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
