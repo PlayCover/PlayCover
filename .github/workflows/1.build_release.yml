@@ -69,6 +69,12 @@ jobs:
         env:
           TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
 
+      - name: Upload output folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: output
+          path: output
+
       - name: Release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
