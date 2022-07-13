@@ -72,14 +72,14 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © PlayCover Community Edition</string>
 	<key>NSSystemAdministrationUsageDescription</key>
 	<string>PlayCover needs to read files to save apps</string>
-	<key>LSApplicationCategoryType</key>
-	<string>public.app-category.utilities</string>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
