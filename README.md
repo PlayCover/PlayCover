@@ -65,7 +65,7 @@ Some promises:
 
 Welcome to PlayCover! This software is all about allowing you to run apps & games on your M1 device running macOS 12.0 or newer. 
 
-It does this by putting the applications through a wrapper which imitates an iPad. This allows the apps to perform very well and run natively, because the M1 chip is essentially a glorified mobile chip. Another advantage to the software is that you can insert and manipulate custom controls with your keyboard, which is not possible in alternative sideloading methods such as Sideloadly. These controls include all the essentials, from WASD, Camera movement, Left and Right clicks, and individual keymapping, similar to a popular Android emulator’s keymapping system called Bluestacks. 
+It does this by putting the applications through a wrapper which imitates an iPad. This allows the apps to perform very well and run natively because the M1 chip is essentially a glorified mobile chip. Another advantage to the software is that you can insert and manipulate custom controls with your keyboard, which is not possible in alternative sideloading methods such as Sideloadly. These controls include all the essentials, from WASD, Camera movement, Left and Right clicks, and individual keymapping, similar to a popular Android emulator’s keymapping system called Bluestacks. 
 
 While this software was originally created to allow you to run Genshin Impact on your M1 device, it grew to allow many more applications to run. Although support for all games is not promised and bugs with games are expected.
 
