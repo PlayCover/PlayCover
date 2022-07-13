@@ -1,0 +1,55 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:mac)
+
+bundle_id = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
+
+platform :mac do
+  desc "Description of what the lane does"
+  lane :custom_lane do
+    # add actions here: https://docs.fastlane.tools/actions
+  end
+end
+
+
+lane :release do
+  setup_ci if ENV['CI']
+  match(type: "developer_id", readonly: true)
+  carthage(use_xcframeworks: true)
+  build_mac_app(
+    scheme: "PlayCover",
+    output_directory: "output",
+    output_name: "PlayCover",
+    export_method: "developer-id",
+    destination: "generic/platform=macOS",
+    skip_package_pkg: true,
+    )
+end
+
+lane :notarize_dmg do
+  rename_dmg
+  notarize(
+    package: "output/PlayCover.dmg",
+    api_key_path: "apikey.json",
+    bundle_id: bundle_id,
+  )
+end
+
+lane :rename_dmg do
+  sh(
+    "cd .. && find output -name '*.dmg' -exec mv {} output/PlayCover.dmg \\;",
+  )
+end
