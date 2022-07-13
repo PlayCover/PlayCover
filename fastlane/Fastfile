@@ -39,10 +39,17 @@ lane :release do
     )
 end
 
-lane :notarize_dmg do
-  rename_dmg
+lane :notarize_app do
   notarize(
-    package: "output/PlayCover.dmg",
+    package: "output/PlayCover.app",
+    api_key_path: "apikey.json",
+    bundle_id: bundle_id,
+  )
+end
+
+lane :notarize_dmg do |options|
+  notarize(
+    package: options[:package],
     api_key_path: "apikey.json",
     bundle_id: bundle_id,
   )
