@@ -50,7 +50,7 @@ If you want to compile it on your own computer, you may need to make a few chang
 - Auth0 integration
 - i18n resources
 
-CI and compilation fixes are comming soon.
+CI and compilation fixes are coming soon.
 
 If anyone feels like this fork somehow violates the copyright (e.g., the logo), please open an issue.
 
