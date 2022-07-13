@@ -1,4 +1,4 @@
-name: build-ios-app
+name: Build & Release macOS App
 on:
   push:
     tags:
