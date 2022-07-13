@@ -16,8 +16,8 @@ struct SetupView : View {
     func promptForReply(_ strMsg:String, _ strInformative:String, completion:promptResponseClosure) {
         let alert: NSAlert = NSAlert()
 
-        alert.addButton(withTitle: "OK")      // 1st button
-        alert.addButton(withTitle: "Cancel")  // 2nd button
+        alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))      // 1st button
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))  // 2nd button
         alert.messageText = strMsg
         alert.informativeText = strInformative
 
@@ -38,8 +38,8 @@ struct SetupView : View {
     }
     
     func playSignPromt(_ firstTime : Bool){
-        let text = firstTime ? "Please, input your login password" : "You have typed an incorrect password."
-        promptForReply(text, "It is the one you use to unlock your Mac"){ strResponse, bResponse in
+        let text = firstTime ? NSLocalizedString("Please, input your login password", comment:"") : NSLocalizedString("You have typed an incorrect password.", comment: "")
+        promptForReply(text, NSLocalizedString("It is the one you use to unlock your Mac", comment: "")){ strResponse, bResponse in
             if SystemConfig.enablePlaySign(strResponse) {
                 if SystemConfig.isPRAMValid() {
                     presentationMode.wrappedValue.dismiss()

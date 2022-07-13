@@ -102,3 +102,7 @@
 "Success!" = "Success!";
 "App installed!" = "App installed!";
 "Check it out in 'My Apps'" = "Check it out in 'My Apps'";
+"Please, input your login password" = "Please, input your login password";
+"You have typed an incorrect password." = "You have typed an incorrect password.";
+"It is the one you use to unlock your Mac" = "It is the one you use to unlock your Mac";
+"Now, restart the Mac and all is done!" = "Now, restart the Mac and all is done!";
