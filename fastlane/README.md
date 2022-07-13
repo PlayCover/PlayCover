@@ -21,6 +21,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
+### notarize_app
+
+```sh
+[bundle exec] fastlane notarize_app
+```
+
+
+
 ### notarize_dmg
 
 ```sh
