@@ -64,10 +64,6 @@ struct MainView: View {
     @EnvironmentObject var apps : AppsVM
     @EnvironmentObject var integrity : AppIntegrity
 
-	@State private var xcodeSelectError = ""
-	@State private var xcodeSelectFailed = false
-
-
     @State var showSetup = false
     @State var noticesExpanded = false
     @State var bottomHeight: CGFloat = 0
@@ -131,29 +127,7 @@ struct MainView: View {
                                 .padding(.top, noticesExpanded ? 8 : 0)
                         }
 
-						if !sh.isXcodeCliToolsInstalled {
-							Divider()
-							HStack(spacing: 12) {
-								Text("You need to install Command line tools for Xcode").font(.title3)
-								Button("Install") {
-									do {
-										_ = try sh.sh("xcode-select --install")
-									} catch {
-										print("failed \(error)")
-										xcodeSelectError = error.localizedDescription
-										xcodeSelectFailed = true
-									}
-								}
-								.buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
-							}.frame(maxWidth: .infinity).alert(isPresented: $xcodeSelectFailed) {
-								Alert(title: Text("xcode CLI Tools Installation failed"), message: Text(xcodeSelectError), dismissButton: .default(Text("OK"), action: {
-									xcodeSelectError = ""
-									xcodeSelectFailed = false
-								}))
-							}
-						}
-
-                        if !SystemConfig.isPlaySignActive() {
+                        if !SystemConfig.isPlaySignActive {
                             Divider()
                             HStack(spacing: 12) {
                                 Text("Having problems logging into apps?").font(.title3)
