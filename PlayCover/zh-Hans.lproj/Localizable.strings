@@ -82,9 +82,9 @@
 "Reset settings and keymapping" = "恢复默认设置";
 "Settings reseted to default!" = "已重置设置到默认值！";
 "Ok" = "OK";
-"No device with sample rate of 48 / 44.1 ghz found! Please, lower sample rate in Audio settings or connect another output audio device. Otherwise crashes possible!" = "未找到采样率为48或44.1GHz的设备！请在音频设置中降低采样率或者连接其他的输出音频设备，否则可能会发生崩溃！";
+"No device with sample rate of 48 / 44.1 ghz found! Please, lower sample rate in Audio settings or connect another output audio device. Otherwise crashes possible!" = "未找到采样率为 48 或 44.1GHz 的设备！请在音频设置中降低采样率或者连接其他的输出音频设备，否则可能会发生崩溃！";
 "Copy logs" = "拷贝日志";
 "Notices" = "注意事项";
 "PlayCover must be inside Applications folder. Press button to move it." = "PlayCover 必须被放入“应用程序”文件夹中。按下按钮以移动。";
 "Please, wait current install to finish!" = "请等待当前应用安装完成！";
-"You'll receive ban on this PlayCover version! Call of Duty supported on 0.9.2-0.9.4. PUBG requires higher PlayCover version. Free Fire status is not confirmed. There is one message of ban." = "在此 PlayCover 版本你将会被禁止使用！0.9.2到0.9.4版本支持使命召唤。PUBG 需要更高的 PlayCover 版本。Free Fire 的状态尚未经确认，已有一条被封禁的信息。";
+"You'll receive ban on this PlayCover version! Call of Duty supported on 0.9.2-0.9.4. PUBG requires higher PlayCover version. Free Fire status is not confirmed. There is one message of ban." = "在此 PlayCover 版本你将会被禁止使用！0.9.2 到 0.9.4 版本支持使命召唤。PUBG 需要更高的 PlayCover 版本。Free Fire 的状态尚未经确认，已有一条被封禁的信息。";
