@@ -59,7 +59,7 @@ struct AppsView : View {
                 Image("Happy").resizable().frame(width: 64, height: 64).padding(.bottom, 0).padding(.trailing, 16)
             }.padding(.top, 0)
             Divider().padding(.top, 0).padding(.leading, 36).padding(.trailing, 36)
-			if sh.isXcodeCliToolsInstalled {
+			if !sh.isXcodeCliToolsInstalled {
 				VStack(spacing: 12) {
 					Text("You need to install Xcode Commandline tools and restart this App.")
 						.font(.title3)
