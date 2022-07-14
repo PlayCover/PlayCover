@@ -60,6 +60,10 @@
 "Update app" = "Update app";
 "Notices" = "Notices";
 "You need to install command line tools for Xcode" = "You need to install command line tools for Xcode";
+"Xcode tools installation succeeded" = "Xcode tools installation succeeded";
+"Close" = "Close";
+"Please follow the given instructions, and restart the App." = "Please follow the given instructions, and restart the App.";
+"Xcode tools intallation failed" = "Xcode tools intallation failed";
 "Having problems logging into apps?" = "Having problems logging into apps?";
 "Enable PlaySign" = "Enable PlaySign";
 "Logs copied" = "Logs copied";

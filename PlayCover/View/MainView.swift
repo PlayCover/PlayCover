@@ -93,7 +93,7 @@ struct MainView: View {
                     VStack(alignment: .leading, spacing: 16) {
                         VStack(alignment: .leading, spacing: 0) {
                             HStack {
-                                Text("Notices").font(.headline).help(NSLocalizedString("Important news and announcements", comment: ""))
+                                Text("Notices").font(.headline).help("Important news and announcements")
                                 Spacer()
                                 Button {
                                     withAnimation { noticesExpanded.toggle() }
