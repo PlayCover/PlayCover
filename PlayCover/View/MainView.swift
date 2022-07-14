@@ -110,7 +110,7 @@ struct MainView: View {
                     VStack(alignment: .leading, spacing: 16) {
                         VStack(alignment: .leading, spacing: 0) {
                             HStack {
-                                Text("Notices").font(.headline).help("Important news and announcements")
+                                Text("Notices").font(.headline).help(NSLocalizedString("Important news and announcements", comment: ""))
                                 Spacer()
                                 Button {
                                     withAnimation { noticesExpanded.toggle() }
@@ -131,7 +131,7 @@ struct MainView: View {
                             Divider()
                             HStack(spacing: 12) {
                                 Text("Having problems logging into apps?").font(.title3)
-                                Button(NSLocalizedString("Enable PlaySign", comment:"")) { showSetup = true }
+                                Button("Enable PlaySign") { showSetup = true }
                                     .buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
                             }.frame(maxWidth: .infinity)
                         }
@@ -161,7 +161,7 @@ struct MainView: View {
                 SetupView()
             }
             .alert(NSLocalizedString("PlayCover must be in the Applications folder. Press the button below to let PlayCover move itself to /Applications.", comment: ""), isPresented: $integrity.integrityOff) {
-                Button(NSLocalizedString("Move to /Applications",comment: ""), role: .cancel) {
+                Button("Move to /Applications", role: .cancel) {
                     integrity.moveToApps()
                 }
             }

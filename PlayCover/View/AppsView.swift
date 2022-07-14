@@ -44,7 +44,7 @@ struct AppsView : View {
                     .frame(alignment: .center)
                 HStack{
                     Spacer()
-                    Button(NSLocalizedString("Download more apps", comment: "")) {
+                    Button("Download more apps") {
                         if let url = URL(string: "https://armconverter.com/decryptedappstore") {
                             NSWorkspace.shared.open(url)
                         }
@@ -220,7 +220,7 @@ struct ExportView : View {
     
     var body: some View {
         
-        Button(NSLocalizedString("Export to Sideloadly", comment: "")) {
+        Button("Export to Sideloadly") {
             if install.installing {
                 isHover = false
                 Log.shared.error(PlayCoverError.waitInstallation)

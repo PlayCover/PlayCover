@@ -71,7 +71,7 @@ struct AppSettingsView : View {
             Divider().padding(.leading, 36).padding(.trailing, 36)
             HStack{
                 Spacer()
-                Button(NSLocalizedString("Reset settings and keymapping", comment:"")){
+                Button("Reset settings and keymapping"){
                     resetedAlert.toggle()
                     settings.reset()
                 }.buttonStyle(CancelButton()).padding()
