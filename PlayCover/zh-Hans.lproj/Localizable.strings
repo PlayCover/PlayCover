@@ -18,7 +18,7 @@
 "Fix login in games" = "修复游戏登录";
 "Alternative convert method" = "特殊转换模式";
 "Alternative decrypt method" = "特殊解密模式";
-"Export for iOS, Mac (Sideloadly, AltStore)" = "为 iOS、Mac 导出 (通过Sideloadly侧载并通过AltStore签名)";
+"Export for iOS, Mac (Sideloadly, AltStore)" = "为 iOS、Mac 导出（利用 Sideloadly 侧载并通过 AltStore 签名）";
 "Install instruction" = "安装指南";
 "(for Genshin login fix e.g.)" = "(修复原神登录等问题)";
 "You have enabled SIP. You must disable it to run the game." = "SIP 已经启用, 请禁用 SIP 方可运行游戏";
