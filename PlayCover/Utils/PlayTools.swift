@@ -102,20 +102,32 @@ class PlayTools {
 	private static let PLAY_TOOLS_PATH = "\(PLAY_TOOLS_FRAMEWORKS_PATH)/PlayTools"
 //    private static let PLAY_TOOLS_PATH = "\(FRAMEWORKS_PATH)/\(getSystemUUID()?.prefix(4) ?? "3DEF")N"
     private static let FRAMEWORKS_PATH = "/Users/\(NSUserName())/Library/Frameworks"
-    private static let PLAY_COVER_PATH = URL(fileURLWithPath: "/Users/\(NSUserName())/Library/Containers/io.playcover.PlayCover")
+    
+    private static let USER_CONTAINER_PATH = "/Users/\(NSUserName())/Library/Containers/"
+    private static let PLAY_COVER_DEFAULT_PATH = URL(fileURLWithPath: USER_CONTAINER_PATH + "io.playcover.PlayCover")
 	private static let BUNDLED_PLAY_TOOLS_FRAMEWORKS_PATH = "\(Bundle.main.bundlePath)/Contents/Frameworks/PlayTools.framework"
     
     public static var playCoverContainer : URL {
         
-        if !fm.fileExists(atPath: PLAY_COVER_PATH.path){
+        if !fm.fileExists(atPath: PLAY_COVER_DEFAULT_PATH.path){
             do {
-                try fm.createDirectory(at: PLAY_COVER_PATH, withIntermediateDirectories: true, attributes: [:])
+                try fm.createDirectory(at: PLAY_COVER_DEFAULT_PATH, withIntermediateDirectories: true, attributes: [:])
             } catch{
                 Log.shared.error(error)
             }
         }
-        
-        return PLAY_COVER_PATH
+
+        do {
+            let redir = try fm.destinationOfSymbolicLink(atPath: PLAY_COVER_DEFAULT_PATH.path)
+            
+            if redir != "" {
+                return URL(fileURLWithPath: USER_CONTAINER_PATH + redir)
+            }
+        } catch {
+            Log.shared.error(error)
+        }
+
+        return PLAY_COVER_DEFAULT_PATH
     }
     
 //    static func getSystemUUID() -> String? {
