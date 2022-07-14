@@ -60,8 +60,6 @@
 "Update app" = "Update app";
 "Notices" = "Notices";
 "You need to install command line tools for Xcode" = "You need to install command line tools for Xcode";
-"Install ldid" = "Install ldid";
-"You need to install ldid before using PlayCover" = "You need to install ldid before using PlayCover";
 "Having problems logging into apps?" = "Having problems logging into apps?";
 "Enable PlaySign" = "Enable PlaySign";
 "Logs copied" = "Logs copied";
@@ -106,3 +104,4 @@
 "You have typed an incorrect password." = "You have typed an incorrect password.";
 "It is the one you use to unlock your Mac" = "It is the one you use to unlock your Mac";
 "Now, restart the Mac and all is done!" = "Now, restart the Mac and all is done!";
+"Important news and announcements" = "Important news and announcements";
