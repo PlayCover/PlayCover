@@ -74,7 +74,7 @@
 "Keymapping imported!" = "已导入键盘映射！";
 "Error during import" = "导入时发生错误";
 "With this you can bind touch layout to bind touch controls to mouse and keyboard. Use Control + P to open editor menu." = "借此你可以将触控按键布局和触控控制绑定到鼠标和键盘上。点击 Control + P 打开编辑菜单。";
-"Use this feature to play games in fullscreen and adapt app window to another dimensions." = "使用本功能以全屏进行游戏或将App窗口适应其他分辨率。";
+"Use this feature to play games in fullscreen and adapt app window to another dimensions." = "使用本功能以全屏进行游戏或将 App 窗口适应其他分辨率。";
 "Enable Jailbreak Bypass (Alpha)" = "绕过越狱检测（测试版）";
 "ATTENTION: Don't enable for some games yet! This allows you to bypass bans that don't let you login" = "注意：对于某些游戏不要启用！这允许你绕过某些使你无法登录的限制。";
 "Screen refresh rate" = "屏幕刷新率";
