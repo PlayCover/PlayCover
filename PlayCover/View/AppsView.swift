@@ -16,48 +16,98 @@ struct AppsView : View {
     @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150), spacing: 10)]
     
     @State private var showAppLinks = UserDefaults.standard.bool(forKey: "ShowLinks")
-    
+
+	@State private var alertTitle = ""
+
+	@State private var alertText = ""
+
+	@State private var alertBtn = ""
+
+	@State private var alertAction : (() -> Void) = {}
+
+	@State private var showAlert = false
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                Toggle(isOn: $showAppLinks) {
-                    Text("Show app links")
-                }.onChange(of: showAppLinks) { value in
-                    UserDefaults.standard.set(showAppLinks, forKey: "ShowLinks")
-                    vm.fetchApps()
-                }.padding(.leading, 42).padding(.top, 12).padding(.bottom, 8)
-                    .help("Untick this option to show installed apps only")
-                Spacer()
+            ZStack {
+                HStack{
+                    Toggle(isOn: $showAppLinks) {
+                        Text("Show app links")
+                    }.onChange(of: showAppLinks) { value in
+                        UserDefaults.standard.set(showAppLinks, forKey: "ShowLinks")
+                        vm.fetchApps()
+                    }.padding(.leading, 30)
+                        .help("Untick this option to show installed apps only")
+                    Spacer()
+                }
                 ExportView().environmentObject(InstallVM.shared)
-                Button("Download any application") {
-                    if let url = URL(string: "https://armconverter.com/decryptedappstore") {
-                        NSWorkspace.shared.open(url)
-                    }
-                }.buttonStyle(OutlineButton()).controlSize(.large).help("Use this site to decrypt and download any global app").padding(.trailing, 32)
+                    .frame(alignment: .center)
+                HStack{
+                    Spacer()
+                    Button(NSLocalizedString("Download more apps", comment: "")) {
+                        if let url = URL(string: "https://armconverter.com/decryptedappstore") {
+                            NSWorkspace.shared.open(url)
+                        }
+                    }.buttonStyle(OutlineButton()).controlSize(.large).help(NSLocalizedString("Use this site to decrypt and download any global app", comment:""))
+                        .padding(.trailing, 30)
+                }
             }
-            
+
             HStack(alignment: .center){
                 Spacer()
                 SearchView().padding(.leading, 20).padding(.trailing, 25).padding(.vertical, 8)
 //                Image("Happy").resizable().frame(width: 64, height: 64).padding(.bottom, 0).padding(.trailing, 16) // "remove the damm cat" - Perseque
             }.padding(.top, 0)
             Divider().padding(.top, 0).padding(.horizontal, 36)
-            ScrollView() {
-                LazyVGrid(columns: gridLayout, spacing: 10) {
-                    ForEach(vm.apps, id:\.id) { app in
-                        if app.type == BaseApp.AppType.add {
-                            AppAddView().environmentObject(InstallVM.shared)
-                        } else if app.type == .app{
-                            PlayAppView(app: app as! PlayApp)
-                        } else if app.type == .store {
-                            StoreAppView(app: app as! StoreApp)
-                        }
-                    }
-                }
-                .padding(.top, 16).padding(.bottom, bottomPadding + 16)
-                .animation(.spring())
-                
-            }
+			if !sh.isXcodeCliToolsInstalled {
+				VStack(spacing: 12) {
+					Text("You need to install Xcode Commandline tools and restart this App.")
+						.font(.title3)
+					Button("Install") {
+						do {
+							_ = try sh.sh("xcode-select --install")
+							alertTitle = "Xcode tools installation succeeded"
+							alertBtn = "Close"
+							alertText = "Please follow the given instructions, and restart the App."
+							alertAction = {
+								exit(0)
+							}
+							showAlert = true
+						} catch {
+							alertTitle = "Xcode tools intallation failed"
+							alertBtn = "OK"
+							alertText = error.localizedDescription
+							alertAction = {}
+							showAlert = true
+						}
+					}
+					.buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
+					.alert(isPresented: $showAlert) {
+						Alert(title: Text(alertTitle), message: Text(alertText), dismissButton: .default(Text(alertBtn), action: {
+							showAlert = false
+							alertAction()
+						}))
+					}
+				}
+				.frame(maxWidth: .infinity, maxHeight: .infinity)
+				.padding(.top, 16).padding(.bottom, bottomPadding + 16)
+			} else {
+				ScrollView() {
+					LazyVGrid(columns: gridLayout, spacing: 10) {
+						ForEach(vm.apps, id:\.id) { app in
+							if app.type == BaseApp.AppType.add {
+								AppAddView().environmentObject(InstallVM.shared)
+							} else if app.type == .app{
+								PlayAppView(app: app as! PlayApp)
+							} else if app.type == .store {
+								StoreAppView(app: app as! StoreApp)
+							}
+						}
+					}
+					.padding(.top, 16).padding(.bottom, bottomPadding + 16)
+					.animation(.spring())
+				}
+			}
         }
     }
 }

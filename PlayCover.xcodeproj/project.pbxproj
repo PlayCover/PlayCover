@@ -57,18 +57,6 @@
 		92EE06DC274EB19A002C907B /* StoreAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06DB274EB19A002C907B /* StoreAppView.swift */; };
 		92EE06DE274EC09F002C907B /* Entitlements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06DD274EC09F002C907B /* Entitlements.swift */; };
 		92F8500A27675124005CE6BE /* AppIntegrity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8500927675124005CE6BE /* AppIntegrity.swift */; };
-		AA151108287D153200EC71A9 /* FirebaseInstallations in Frameworks */ = {isa = PBXBuildFile; productRef = AA151107287D153200EC71A9 /* FirebaseInstallations */; };
-		AA15110A287D153200EC71A9 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = AA151109287D153200EC71A9 /* FirebasePerformance */; };
-		AA151111287D194300EC71A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA151110287D194300EC71A9 /* GoogleService-Info.plist */; };
-		AA151119287D2AD300EC71A9 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AA151118287D2AD300EC71A9 /* FirebaseAnalyticsSwift */; };
-		AA15111B287D2AD300EC71A9 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		AA15111D287D2AD300EC71A9 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		AA151121287D2AD300EC71A9 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		AA151123287D2AD300EC71A9 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		AA151124287D2BEB00EC71A9 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = AA151103287D153200EC71A9 /* FirebaseAnalyticsWithoutAdIdSupport */; };
-		AA151125287D2BEB00EC71A9 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = AA151105287D153200EC71A9 /* FirebaseCrashlytics */; };
-		AA151126287D2BEB00EC71A9 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = AA15110B287D153200EC71A9 /* FirebaseRemoteConfig */; };
-		AA151127287D2BEB00EC71A9 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AA15110D287D153200EC71A9 /* FirebaseRemoteConfigSwift */; };
 		AA719648287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA719646287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml */; };
 		AA719649287A0E2500623C15 /* default.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA719647287A0E2500623C15 /* default.yaml */; };
 		AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA71964A287A0EA800623C15 /* PlayRules.swift */; };
@@ -151,7 +139,6 @@
 		92EE06DB274EB19A002C907B /* StoreAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAppView.swift; sourceTree = "<group>"; };
 		92EE06DD274EC09F002C907B /* Entitlements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entitlements.swift; sourceTree = "<group>"; };
 		92F8500927675124005CE6BE /* AppIntegrity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntegrity.swift; sourceTree = "<group>"; };
-		AA151110287D194300EC71A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AA18F6C6287BA6E90092E378 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA719646287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = com.YostarJP.BlueArchive.yaml; sourceTree = "<group>"; };
 		AA719647287A0E2500623C15 /* default.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = default.yaml; sourceTree = "<group>"; };
@@ -170,19 +157,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA15111B287D2AD300EC71A9 /* (null) in Frameworks */,
-				AA151119287D2AD300EC71A9 /* FirebaseAnalyticsSwift in Frameworks */,
-				AA15110A287D153200EC71A9 /* FirebasePerformance in Frameworks */,
-				AA151127287D2BEB00EC71A9 /* FirebaseRemoteConfigSwift in Frameworks */,
-				AA15111D287D2AD300EC71A9 /* (null) in Frameworks */,
-				AA151124287D2BEB00EC71A9 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				92324086283FBA34006C46DE /* SimplyCoreAudio in Frameworks */,
 				AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */,
-				AA151121287D2AD300EC71A9 /* (null) in Frameworks */,
-				AA151123287D2AD300EC71A9 /* (null) in Frameworks */,
-				AA151125287D2BEB00EC71A9 /* FirebaseCrashlytics in Frameworks */,
-				AA151126287D2BEB00EC71A9 /* FirebaseRemoteConfig in Frameworks */,
-				AA151108287D153200EC71A9 /* FirebaseInstallations in Frameworks */,
 				AA818CB2287ABE9B000BEE9D /* AlertToast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -329,7 +305,6 @@
 				8783D00026B8C52E00171041 /* Preview Content */,
 				532644E026E79E56002EA34D /* Localizable.strings */,
 				928C01D7272DF1A2007EB2DF /* PlayCover-Bridging-Header.h */,
-				AA151110287D194300EC71A9 /* GoogleService-Info.plist */,
 				AA818CBD287AC237000BEE9D /* input.xcfilelist */,
 				AA818CBF287AC274000BEE9D /* output.xcfilelist */,
 			);
@@ -403,7 +378,6 @@
 				8783CFF426B8C52D00171041 /* Frameworks */,
 				8783CFF526B8C52D00171041 /* Resources */,
 				AA818CBC287AC1C6000BEE9D /* Copy Carthage frameworks */,
-				AA15110F287D15A400EC71A9 /* Upload dSYM to Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -414,13 +388,6 @@
 				92324085283FBA34006C46DE /* SimplyCoreAudio */,
 				AA818CB1287ABE9B000BEE9D /* AlertToast */,
 				AA818CB4287ABEC3000BEE9D /* Yams */,
-				AA151103287D153200EC71A9 /* FirebaseAnalyticsWithoutAdIdSupport */,
-				AA151105287D153200EC71A9 /* FirebaseCrashlytics */,
-				AA151107287D153200EC71A9 /* FirebaseInstallations */,
-				AA151109287D153200EC71A9 /* FirebasePerformance */,
-				AA15110B287D153200EC71A9 /* FirebaseRemoteConfig */,
-				AA15110D287D153200EC71A9 /* FirebaseRemoteConfigSwift */,
-				AA151118287D2AD300EC71A9 /* FirebaseAnalyticsSwift */,
 			);
 			productName = PlayCover;
 			productReference = 8783CFF726B8C52D00171041 /* PlayCover.app */;
@@ -465,7 +432,6 @@
 				92324084283FBA34006C46DE /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */,
 				AA818CB0287ABE9B000BEE9D /* XCRemoteSwiftPackageReference "AlertToast" */,
 				AA818CB3287ABEC3000BEE9D /* XCRemoteSwiftPackageReference "Yams" */,
-				AA151102287D153200EC71A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 8783CFF826B8C52D00171041 /* Products */;
 			projectDirPath = "";
@@ -487,34 +453,12 @@
 				AA719648287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml in Resources */,
 				8783CFFF26B8C52E00171041 /* Assets.xcassets in Resources */,
 				AA71964D287A35F400623C15 /* com.nexon.bluearchive.yaml in Resources */,
-				AA151111287D194300EC71A9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		AA15110F287D15A400EC71A9 /* Upload dSYM to Crashlytics */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-				"$(SRCROOT)/Carthage/Build/PlayTools.xcframework/ios-arm64/dSYMs/PlayTools.framework.dSYM/Contents/Resources/DWARF/PlayTools",
-			);
-			name = "Upload dSYM to Crashlytics";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\n";
-		};
 		AA818CBC287AC1C6000BEE9D /* Copy Carthage frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -533,7 +477,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "echo \"Use carthage to copy framework\"\n\nif [ -x /usr/local/bin/carthage ]; then\n    carthage=/usr/local/bin/carthage\nelif [ -x /opt/homebrew/bin/carthage ]; then\n    carthage=/opt/homebrew/bin/carthage\nelse\n    echo \"Cannot find carthage\"\n    exit 1\nfi\n\n$carthage copy-frameworks\n\n";
+			shellScript = "set -euo pipefail\n\nif [ -x /usr/local/bin/carthage ]; then\n    carthage=/usr/local/bin/carthage\nelif [ -x /opt/homebrew/bin/carthage ]; then\n    carthage=/opt/homebrew/bin/carthage\nelse\n    echo \"Cannot find carthage\"\n    exit 1\nfi\n\necho \"Converting to maccatalyst\"\nvtool \\\n\t-set-build-version maccatalyst 11.0 14.0 \\\n\t-replace -output \\\n\t\"${SCRIPT_INPUT_FILE_0}/PlayTools\" \\\n\t\"${SCRIPT_INPUT_FILE_0}/PlayTools\"\n\necho \"Codesigning PlayTools\"\ncodesign -fs- \"${SCRIPT_INPUT_FILE_0}/PlayTools\"\n\n$carthage copy-frameworks\n";
 		};
 		AAE8809C287ACA4900FBB23C /* Carthage Bootstrap */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -551,7 +495,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"Bootstraping carthage\"\n\nif [ -x /usr/local/bin/carthage ]; then\n    carthage=/usr/local/bin/carthage\nelif [ -x /opt/homebrew/bin/carthage ]; then\n    carthage=/opt/homebrew/bin/carthage\nelse\n    echo \"Cannot find carthage\"\n    exit 1\nfi\n\n$carthage bootstrap --use-xcframeworks\n";
+			shellScript = "set -euo pipefail\n\necho \"Bootstraping carthage\"\n\nif [ -x /usr/local/bin/carthage ]; then\n    carthage=/usr/local/bin/carthage\nelif [ -x /opt/homebrew/bin/carthage ]; then\n    carthage=/opt/homebrew/bin/carthage\nelse\n    echo \"Cannot find carthage\"\n    exit 1\nfi\n\n$carthage bootstrap --use-xcframeworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -695,6 +639,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = off;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -754,6 +699,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = off;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
@@ -783,12 +729,13 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0.6;
+				MARKETING_VERSION = 1.0.7;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.playcover.PlayCover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.playcover.PlayCover macos";
+				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = off;
 				SWIFT_OBJC_BRIDGING_HEADER = "./PlayCover/PlayCover-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -820,12 +767,13 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0.6;
+				MARKETING_VERSION = 1.0.7;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.playcover.PlayCover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Direct io.playcover.PlayCover macos";
+				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = off;
 				SWIFT_OBJC_BRIDGING_HEADER = "./PlayCover/PlayCover-Bridging-Header.h";
 				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "./PlayCover/PlayCover-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -864,14 +812,6 @@
 				kind = branch;
 			};
 		};
-		AA151102287D153200EC71A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
-			};
-		};
 		AA818CB0287ABE9B000BEE9D /* XCRemoteSwiftPackageReference "AlertToast" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/elai950/AlertToast.git";
@@ -896,41 +836,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 92324084283FBA34006C46DE /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */;
 			productName = SimplyCoreAudio;
-		};
-		AA151103287D153200EC71A9 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AA151102287D153200EC71A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalyticsWithoutAdIdSupport;
-		};
-		AA151105287D153200EC71A9 /* FirebaseCrashlytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AA151102287D153200EC71A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCrashlytics;
-		};
-		AA151107287D153200EC71A9 /* FirebaseInstallations */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AA151102287D153200EC71A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseInstallations;
-		};
-		AA151109287D153200EC71A9 /* FirebasePerformance */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AA151102287D153200EC71A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebasePerformance;
-		};
-		AA15110B287D153200EC71A9 /* FirebaseRemoteConfig */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AA151102287D153200EC71A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseRemoteConfig;
-		};
-		AA15110D287D153200EC71A9 /* FirebaseRemoteConfigSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AA151102287D153200EC71A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseRemoteConfigSwift;
-		};
-		AA151118287D2AD300EC71A9 /* FirebaseAnalyticsSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AA151102287D153200EC71A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalyticsSwift;
 		};
 		AA818CB1287ABE9B000BEE9D /* AlertToast */ = {
 			isa = XCSwiftPackageProductDependency;

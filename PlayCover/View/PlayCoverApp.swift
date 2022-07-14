@@ -4,11 +4,6 @@
 //
 
 import SwiftUI
-import FirebaseCore
-import FirebaseCrashlytics
-import FirebaseAnalytics
-import FirebaseAnalyticsSwift
-import FirebaseInstallations
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     
@@ -35,8 +30,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		UserDefaults.standard.register(
 			defaults: ["NSApplicationCrashOnExceptions" : true]
 		)
-		FirebaseApp.configure()
-		print("instance id: \(Analytics.appInstanceID() ?? "")")
         LaunchServicesWrapper.setMyselfAsDefaultApplicationForFileExtension("ipa")
     }
     
@@ -70,10 +63,3 @@ struct PlayCoverApp: App {
     }
     
 }
-
-
-
-
-
-
-

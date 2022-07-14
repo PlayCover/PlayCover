@@ -57,7 +57,7 @@ class Entitlements {
         base["com.apple.security.personal-information.location"] = true
         base["com.apple.security.print"] = true
 
-        if SystemConfig.isPlaySignActive() {
+        if SystemConfig.isPlaySignActive {
             base["com.apple.private.tcc.allow"] = TCC.split(whereSeparator: \.isNewline)
             if let specific = try Dictionary<String,Any>.read(app.entitlements) {
                 for key in specific.keys {

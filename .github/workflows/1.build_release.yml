@@ -37,11 +37,6 @@ jobs:
         env:
           API_KEY: ${{secrets.APPLE_API_KEY_JSON}}
 
-      - name: Notarize App
-        shell: bash
-        run: |
-          fastlane notarize_app
-
       - name: Create DMG
         shell: bash
         run: |

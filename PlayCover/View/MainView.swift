@@ -64,10 +64,6 @@ struct MainView: View {
     @EnvironmentObject var apps : AppsVM
     @EnvironmentObject var integrity : AppIntegrity
 
-	@State private var xcodeSelectError = ""
-	@State private var xcodeSelectFailed = false
-
-
     @State var showSetup = false
     @State var noticesExpanded = false
     @State var bottomHeight: CGFloat = 0
@@ -207,4 +203,23 @@ struct MainView: View {
             }
         }
     }
+}
+
+struct Previews_MainView_Previews: PreviewProvider {
+	static var previews: some View {
+		MainView()
+			.padding()
+			.environmentObject(UpdateService.shared)
+			.environmentObject(InstallVM.shared)
+			.environmentObject(AppsVM.shared)
+			.environmentObject(AppIntegrity())
+			.frame(minWidth: 600, minHeight: 650)
+			.onAppear {
+				UserDefaults.standard.register(defaults: ["ShowLinks" : true])
+				SoundDeviceService.shared.prepareSoundDevice()
+				UpdateService.shared.checkUpdate()
+				NotifyService.shared.allowNotify()
+			}
+			.padding(-15)
+	}
 }
