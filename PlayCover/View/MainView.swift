@@ -109,40 +109,6 @@ struct MainView: View {
                                 .clipped()
                                 .padding(.top, noticesExpanded ? 8 : 0)
                         }
-
-						if !FileManager().isExecutableFile(atPath: "/usr/bin/otool") {
-							Divider()
-							HStack(spacing: 12) {
-								Text("You need to install Command line tools for Xcode").font(.title3)
-								Button("Install") {
-									do {
-										_ = try sh.shello("/usr/bin/xcode-select","--install")
-									} catch {
-										print("failed \(error)")
-										xcodeSelectError = error.localizedDescription
-										xcodeSelectFailed = true
-									}
-								}
-								.buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
-							}.frame(maxWidth: .infinity).alert(isPresented: $xcodeSelectFailed) {
-								Alert(title: Text("xcode-select --install failed"), message: Text(xcodeSelectError), dismissButton: .default(Text("OK"), action: {
-									xcodeSelectError = ""
-									xcodeSelectFailed = false
-								}))
-							}
-						}
-
-						if !FileManager().isExecutableFile(atPath: "/opt/homebrew/bin/ldid") {
-							Divider()
-							HStack(spacing: 12) {
-								Text("You need to install ldid before using PlayCover").font(.title3)
-								Button("Install") {
-									openURL(URL(string: "https://formulae.brew.sh/formula/ldid")!)
-								}
-								.buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
-							}.frame(maxWidth: .infinity)
-						}
-
                         
                         Divider()
                         HStack(spacing: 12) {
@@ -150,7 +116,7 @@ struct MainView: View {
                                 .help("If you have some problem you always can visit our friendly community.")
                                 .foregroundColor(.accentColor)
                             Spacer()
-                                if !SystemConfig.isPlaySignActive() {
+                                if !SystemConfig.isPlaySignActive {
                                     Text("Having problems logging into apps?").font(.title3)
                                     Button("Enable PlaySign") { showSetup = true }
                                         .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)

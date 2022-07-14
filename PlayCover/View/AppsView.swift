@@ -29,28 +29,22 @@ struct AppsView : View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            ZStack {
-                HStack{
-                    Toggle(isOn: $showAppLinks) {
-                        Text("Show app links")
-                    }.onChange(of: showAppLinks) { value in
-                        UserDefaults.standard.set(showAppLinks, forKey: "ShowLinks")
-                        vm.fetchApps()
-                    }.padding(.leading, 30)
-                        .help("Untick this option to show installed apps only")
-                    Spacer()
-                }
+            HStack {
+                Toggle(isOn: $showAppLinks) {
+                    Text("Show app links")
+                }.onChange(of: showAppLinks) { value in
+                    UserDefaults.standard.set(showAppLinks, forKey: "ShowLinks")
+                    vm.fetchApps()
+                }.padding(.leading, 30)
+                    .help("Untick this option to show installed apps only")
+                Spacer()
                 ExportView().environmentObject(InstallVM.shared)
-                    .frame(alignment: .center)
-                HStack{
-                    Spacer()
-                    Button(NSLocalizedString("Download more apps", comment: "")) {
-                        if let url = URL(string: "https://armconverter.com/decryptedappstore") {
-                            NSWorkspace.shared.open(url)
-                        }
-                    }.buttonStyle(OutlineButton()).controlSize(.large).help(NSLocalizedString("Use this site to decrypt and download any global app", comment:""))
-                        .padding(.trailing, 30)
-                }
+                Button(NSLocalizedString("Download more apps", comment: "")) {
+                    if let url = URL(string: "https://armconverter.com/decryptedappstore") {
+                        NSWorkspace.shared.open(url)
+                    }
+                }.buttonStyle(OutlineButton()).controlSize(.large).help(NSLocalizedString("Use this site to decrypt and download any global app", comment:""))
+                    .padding(.trailing, 30)
             }
 
             HStack(alignment: .center){
