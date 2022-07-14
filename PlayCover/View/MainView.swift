@@ -131,13 +131,13 @@ struct MainView: View {
                                 .padding(.top, noticesExpanded ? 8 : 0)
                         }
 
-						if !FileManager().isExecutableFile(atPath: "/usr/bin/otool") {
+						if !sh.isXcodeCliToolsInstalled {
 							Divider()
 							HStack(spacing: 12) {
 								Text("You need to install Command line tools for Xcode").font(.title3)
 								Button("Install") {
 									do {
-										_ = try sh.shello("/usr/bin/xcode-select","--install")
+										_ = try sh.sh("xcode-select --install")
 									} catch {
 										print("failed \(error)")
 										xcodeSelectError = error.localizedDescription
@@ -146,22 +146,11 @@ struct MainView: View {
 								}
 								.buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
 							}.frame(maxWidth: .infinity).alert(isPresented: $xcodeSelectFailed) {
-								Alert(title: Text("xcode-select --install failed"), message: Text(xcodeSelectError), dismissButton: .default(Text("OK"), action: {
+								Alert(title: Text("xcode CLI Tools Installation failed"), message: Text(xcodeSelectError), dismissButton: .default(Text("OK"), action: {
 									xcodeSelectError = ""
 									xcodeSelectFailed = false
 								}))
 							}
-						}
-
-						if !FileManager().isExecutableFile(atPath: "/opt/homebrew/bin/ldid") {
-							Divider()
-							HStack(spacing: 12) {
-								Text("You need to install ldid before using PlayCover").font(.title3)
-								Button("Install") {
-									openURL(URL(string: "https://formulae.brew.sh/formula/ldid")!)
-								}
-								.buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
-							}.frame(maxWidth: .infinity)
 						}
 
                         if !SystemConfig.isPlaySignActive() {
@@ -204,4 +193,23 @@ struct MainView: View {
             }
         }
     }
+}
+
+struct Previews_MainView_Previews: PreviewProvider {
+	static var previews: some View {
+		MainView()
+			.padding()
+			.environmentObject(UpdateService.shared)
+			.environmentObject(InstallVM.shared)
+			.environmentObject(AppsVM.shared)
+			.environmentObject(AppIntegrity())
+			.frame(minWidth: 600, minHeight: 650)
+			.onAppear {
+				UserDefaults.standard.register(defaults: ["ShowLinks" : true])
+				SoundDeviceService.shared.prepareSoundDevice()
+				UpdateService.shared.checkUpdate()
+				NotifyService.shared.allowNotify()
+			}
+			.padding(-15)
+	}
 }

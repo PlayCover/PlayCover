@@ -8,33 +8,66 @@ import Foundation
 let sh = Shell.self
 
 class Shell : ObservableObject {
-    
     static let shared = Shell()
-    
+
+	@discardableResult
+	static func sh(_ command: String, print : Bool = true, pipeStdErr : Bool = true) throws -> String {
+		let task = Process()
+		let pipe = Pipe()
+
+		task.standardOutput = pipe
+		if pipeStdErr { task.standardError = pipe }
+		task.executableURL = URL(fileURLWithPath: "/bin/zsh")
+		task.arguments = ["-c", command]
+		try task.run()
+
+		let data = try pipe.fileHandleForReading.readToEnd() ?? Data()
+		let output = String(data: data, encoding: .utf8)!
+
+		if print {
+			Log.shared.log(output)
+		}
+
+
+		task.waitUntilExit()
+
+		let status = task.terminationStatus
+		if status != 0 {
+			throw output
+		}
+		return output
+	}
+
     internal static func shello(print : Bool = true, _ binary: String, _ args: String...) throws -> String {
         let process = Process()
-        
+		let pipe = Pipe()
+
         process.executableURL = URL(fileURLWithPath: binary)
         process.arguments = args
-        
-        let pipe = Pipe()
         process.standardOutput = pipe
         process.standardError = pipe
         
         try process.run()
-        process.waitUntilExit()
         
         let output = try pipe.fileHandleForReading.readToEnd() ?? Data()
         if print {
             Log.shared.log(String(decoding: output, as: UTF8.self))
         }
 
+		process.waitUntilExit()
 		let status = process.terminationStatus
 		if status != 0 {
 			throw String(decoding: output, as: UTF8.self)
 		}
         return String(decoding: output, as: UTF8.self)
     }
+
+	static let isXcodeCliToolsInstalled : Bool = {
+		guard let _ = try? sh("xcode-select -p") else {
+			return false
+		}
+		return true
+	}()
     
     static func isMachoSigned(_ exec : URL) -> Bool {
         return !shell("/usr/bin/codesign -dv \(exec.esc)").contains("code object is not signed at all")
