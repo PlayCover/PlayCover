@@ -32,7 +32,7 @@
 
 ## About the fork & Disclaimer
 
-This fork have been created by the community to support the development of PlayCover, since the original project became non-free and non-open-source.
+This fork has been created by the community to support the development of PlayCover, since the original project became non-free and non-open-source.
 
 This fork is not affiliated with the original project, nor the original author.
 
@@ -93,7 +93,7 @@ At the moment, PlayCover can only be installed and executed on M1 MacBooks. Devi
 
  Unfortunately, it cannot run on any Intel chips, so you are forced to use Bootcamp or other emulators.
 
-### Build from source
+### Build From Source
 
 You will need:
 
