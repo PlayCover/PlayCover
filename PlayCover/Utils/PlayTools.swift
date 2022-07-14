@@ -6,7 +6,6 @@
 import Foundation
 
 class PlayTools {
-    
     static func replaceLibraries(atURL url: URL) throws {
         Log.shared.log("Replacing libswiftUIKit.dylib")
         _ = try sh.shello(
@@ -55,18 +54,18 @@ class PlayTools {
     static func install(){
         DispatchQueue.global(qos: .background).async {
             do {
-				let tools = URL(fileURLWithPath: "\(Bundle.main.bundlePath)/Contents/Frameworks/PlayTools.framework/PlayTools")
+				let tools = URL(fileURLWithPath: BUNDLED_PLAY_TOOLS_FRAMEWORKS_PATH)
                 Log.shared.log("Installing PlayTools")
-                try convertMacho(tools)
-                sh.codesign(tools)
-                if !fm.fileExists(atPath: "/Users/\(NSUserName())/Library/Frameworks"){
+//                try convertMacho(tools)
+//                sh.codesign(tools)
+                if !fm.fileExists(atPath: FRAMEWORKS_PATH){
                     try fm.createDirectory(atPath: FRAMEWORKS_PATH, withIntermediateDirectories: true, attributes: [:])
                 }
-                if fm.fileExists(atPath: PLAY_TOOLS_PATH){
-                    try fm.delete(at: URL(fileURLWithPath: PLAY_TOOLS_PATH))
+                if fm.fileExists(atPath: PLAY_TOOLS_FRAMEWORKS_PATH){
+                    try fm.delete(at: URL(fileURLWithPath: PLAY_TOOLS_FRAMEWORKS_PATH))
                 }
                 Log.shared.log("Copying PlayTools to Frameworks")
-                sh.shell("cp \(tools.esc) \(PLAY_TOOLS_PATH)")
+                try sh.sh("cp -r \(tools.esc) \(PLAY_TOOLS_FRAMEWORKS_PATH)")
             } catch {
                 Log.shared.error(error)
             }
@@ -76,7 +75,7 @@ class PlayTools {
     static func injectPlayTools(_ payload : URL) throws{
         DispatchQueue.global(qos: .background).async {
             do {
-				let tools = URL(fileURLWithPath: "\(Bundle.main.bundlePath)/Contents/Frameworks/PlayTools.framework/PlayTools")
+				let tools = URL(fileURLWithPath: "\(BUNDLED_PLAY_TOOLS_FRAMEWORKS_PATH)/PlayTools")
                 if !FileManager.default.fileExists(atPath: payload.appendingPathComponent("Frameworks").path) {
                     try FileManager.default.createDirectory(at: payload.appendingPathComponent("Frameworks"), withIntermediateDirectories: true)
                 }
@@ -94,16 +93,17 @@ class PlayTools {
     }
     
     static func isValidArch(_ path : String) throws -> Bool {
-        return try sh.shello(
-            vtool.path,
-            "-show-build",
-            path
-        ).contains("MACCATALYST")
+		guard let output = try? sh.shello(vtool.path, "-show-build", path) else {
+			return false
+		}
+		return output.contains("MACCATALYST")
     }
-    
-    private static let PLAY_TOOLS_PATH = "\(FRAMEWORKS_PATH)/\(getSystemUUID()?.prefix(4) ?? "3DEF")N"
+	private static let PLAY_TOOLS_FRAMEWORKS_PATH = "\(FRAMEWORKS_PATH)/PlayTools.framework"
+	private static let PLAY_TOOLS_PATH = "\(PLAY_TOOLS_FRAMEWORKS_PATH)/PlayTools"
+//    private static let PLAY_TOOLS_PATH = "\(FRAMEWORKS_PATH)/\(getSystemUUID()?.prefix(4) ?? "3DEF")N"
     private static let FRAMEWORKS_PATH = "/Users/\(NSUserName())/Library/Frameworks"
     private static let PLAY_COVER_PATH = URL(fileURLWithPath: "/Users/\(NSUserName())/Library/Containers/io.playcover.PlayCover")
+	private static let BUNDLED_PLAY_TOOLS_FRAMEWORKS_PATH = "\(Bundle.main.bundlePath)/Contents/Frameworks/PlayTools.framework"
     
     public static var playCoverContainer : URL {
         
@@ -118,58 +118,69 @@ class PlayTools {
         return PLAY_COVER_PATH
     }
     
-    static func getSystemUUID() -> String? {
-        let dev = IOServiceMatching("IOPlatformExpertDevice")
-        let platformExpert: io_service_t = IOServiceGetMatchingService(kIOMasterPortDefault, dev)
-        let serialNumberAsCFString = IORegistryEntryCreateCFProperty(platformExpert, kIOPlatformUUIDKey as CFString, kCFAllocatorDefault, 0)
-        IOObjectRelease(platformExpert)
-        if let ser: CFTypeRef = serialNumberAsCFString?.takeUnretainedValue(){
-            if let result = ser as? String {
-                return result
-            }
-        }
-        return nil
+//    static func getSystemUUID() -> String? {
+//        let dev = IOServiceMatching("IOPlatformExpertDevice")
+//        let platformExpert: io_service_t = IOServiceGetMatchingService(kIOMasterPortDefault, dev)
+//        let serialNumberAsCFString = IORegistryEntryCreateCFProperty(platformExpert, kIOPlatformUUIDKey as CFString, kCFAllocatorDefault, 0)
+//        IOObjectRelease(platformExpert)
+//        if let ser: CFTypeRef = serialNumberAsCFString?.takeUnretainedValue(){
+//            if let result = ser as? String {
+//                return result
+//            }
+//        }
+//        return nil
+//    }
+//
+//    static func fetchEntitlements(_ exec : URL) throws -> String {
+//        return try sh.shello(
+//            ldid.path,
+//            "-e",
+//            exec.path
+//        )
+//    }
+
+	static func fetchEntitlements(_ exec : URL) throws -> String {
+		return try sh.sh("codesign --display --entitlements - --xml '\(exec.path)' | xmllint --format -", pipeStdErr: false)
+	}
+
+	private static func binPath(_ bin: String) throws -> URL {
+		return URL(fileURLWithPath: try sh.sh("which \(bin)").trimmingCharacters(in: .newlines))
+	}
+
+    private static var vtool : URL {
+		get throws {
+			try binPath("vtool")
+		}
+    }
+
+    private static var otool : URL {
+		get throws {
+			try binPath("otool")
+		}
+    }
+
+    private static var install_name_tool : URL {
+		get throws {
+			try binPath("install_name_tool")
+		}
+    }
+
+    private static var ldid : URL {
+		get throws {
+			try binPath("ldid")
+		}
     }
     
-    static func fetchEntitlements(_ exec : URL) throws -> String {
-        return try sh.shello(
-            ldid.path,
-            "-e",
-            exec.path
-        )
-    }
-    
-    private static let vtool : URL = {
-        return URL(fileURLWithPath: "/usr/bin/vtool")
-        // return builtInUtil("vtool")
-    }()
-    
-    private static let otool : URL = {
-        return URL(fileURLWithPath: "/usr/bin/otool")
-        // return builtInUtil("otool")
-    }()
-    
-    private static let install_name_tool : URL = {
-        return URL(fileURLWithPath: "/usr/bin/install_name_tool")
-        // return builtInUtil("install_name_tool")
-    }()
-    
-    private static let ldid : URL = {
-        return URL(fileURLWithPath: "/opt/homebrew/bin/ldid")
-        // return builtInUtil("ldid")
-    }()
-    
-    private static func builtInUtil(_ name : String) -> URL{
-        let tools = Bundle.main.url(forResource: name, withExtension: "")!
-        sh.codesign(tools)
-        do {
-            try tools.setBinaryPosixPermissions(0x755)
-        } catch{
-            Log.shared.error(error)
-        }
-        return tools
-    }
-    
+//    private static func builtInUtil(_ name : String) -> URL{
+//        let tools = Bundle.main.url(forResource: name, withExtension: "")!
+//        sh.codesign(tools)
+//        do {
+//            try tools.setBinaryPosixPermissions(0x755)
+//        } catch{
+//            Log.shared.error(error)
+//        }
+//        return tools
+//    }
 }
 
 extension URL {

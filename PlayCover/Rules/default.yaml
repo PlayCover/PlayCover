@@ -67,8 +67,7 @@ allow:
     - (allow user-preference-write (preference-domain ".GlobalPreferences"))
     - (allow user-preference-read (preference-domain ".GlobalPreferences"))
     - (allow file* file-read* file-write* file-write-data file-read-metadata file-ioctl (literal "/Users/${NSUserName}/Library/Preferences/playcover.plist"))
-    - (allow file* file-read* file-read-metadata file-ioctl (subpath "/Users/${NSUserName}/Library/Frameworks/865DN"))
-    - (allow file* file-read* file-read-metadata file-ioctl (subpath "/Users/${NSUserName}/Library/Frameworks/E922N"))
+    - (allow file* file-read* file-read-metadata file-ioctl (subpath "/Users/${NSUserName}/Library/Frameworks/PlayTools.framework"))
 
 bypass:
     - (deny process-fork)

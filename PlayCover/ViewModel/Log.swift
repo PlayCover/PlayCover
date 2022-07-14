@@ -40,8 +40,7 @@ class Log: ObservableObject {
         alert.informativeText = text
         alert.alertStyle = style
         alert.addButton(withTitle: "OK")
-        return alert.beginSheetModal(for: NSApp.mainWindow!) {_ in
-        }
+        alert.runModal()
     }
     
     required init() {}

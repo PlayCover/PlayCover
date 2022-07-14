@@ -64,10 +64,6 @@ struct MainView: View {
     @EnvironmentObject var apps : AppsVM
     @EnvironmentObject var integrity : AppIntegrity
 
-	@State private var xcodeSelectError = ""
-	@State private var xcodeSelectFailed = false
-
-
     @State var showSetup = false
     @State var noticesExpanded = false
     @State var bottomHeight: CGFloat = 0
@@ -82,31 +78,14 @@ struct MainView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity).environmentObject(AppsVM.shared)
                 
                 VStack(alignment: .leading, spacing: 0) {
-                    VStack(alignment: .leading, spacing: 8) {
-                        HStack(spacing: 8) {
-                            Link("Join Discord Server", destination: URL(string: "https://discord.gg/rMv5qxGTGC")!)
-                                .help("If you have some problem you always can visit our friendly community.")
-                            Spacer()
-                            if install.installing {
-                                InstallProgress().environmentObject(install).padding(.bottom)
-                            }
-                            Spacer()
-                            Button(action: {
-                                Log.shared.logdata.copyToClipBoard()
-                                showToast.toggle()
-                            }) {
-                                Text("Copy logs")
-                            }
-                            if !update.updateLink.isEmpty {
-                                Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
-                                    HStack {
-                                        Image(systemName: "arrow.down.square.fill")
-                                        Text("Update app")
-                                    }
-                                }.buttonStyle(UpdateButton())
-                            }
-                        }.padding().frame(maxWidth : .infinity)
-                        
+                    if install.installing {
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack(spacing: 8) {
+                                
+                                    InstallProgress().environmentObject(install).padding(.bottom)
+                            }.padding().frame(maxWidth : .infinity)
+                            
+                        }
                     }
                     
                     Divider()
@@ -130,53 +109,39 @@ struct MainView: View {
                                 .clipped()
                                 .padding(.top, noticesExpanded ? 8 : 0)
                         }
-
-						if !FileManager().isExecutableFile(atPath: "/usr/bin/otool") {
-							Divider()
-							HStack(spacing: 12) {
-								Text("You need to install Command line tools for Xcode").font(.title3)
-								Button("Install") {
-									do {
-										_ = try sh.shello("/usr/bin/xcode-select","--install")
-									} catch {
-										print("failed \(error)")
-										xcodeSelectError = error.localizedDescription
-										xcodeSelectFailed = true
-									}
-								}
-								.buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
-							}.frame(maxWidth: .infinity).alert(isPresented: $xcodeSelectFailed) {
-								Alert(title: Text("xcode-select --install failed"), message: Text(xcodeSelectError), dismissButton: .default(Text("OK"), action: {
-									xcodeSelectError = ""
-									xcodeSelectFailed = false
-								}))
-							}
-						}
-
-						if !FileManager().isExecutableFile(atPath: "/opt/homebrew/bin/ldid") {
-							Divider()
-							HStack(spacing: 12) {
-								Text("You need to install ldid before using PlayCover").font(.title3)
-								Button("Install") {
-									openURL(URL(string: "https://formulae.brew.sh/formula/ldid")!)
-								}
-								.buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
-							}.frame(maxWidth: .infinity)
-						}
-
-                        if !SystemConfig.isPlaySignActive() {
-                            Divider()
-                            HStack(spacing: 12) {
-                                Text("Having problems logging into apps?").font(.title3)
-                                Button("Enable PlaySign") { showSetup = true }
-                                    .buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
-                            }.frame(maxWidth: .infinity)
-                        }
+                        
+                        Divider()
+                        HStack(spacing: 12) {
+                            Link("Join Discord Server", destination: URL(string: "https://discord.gg/rMv5qxGTGC")!)
+                                .help("If you have some problem you always can visit our friendly community.")
+                                .foregroundColor(.accentColor)
+                            Spacer()
+                                if !SystemConfig.isPlaySignActive {
+                                    Text("Having problems logging into apps?").font(.title3)
+                                    Button("Enable PlaySign") { showSetup = true }
+                                        .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
+                                    Spacer()
+                                }
+                            Button(action: {
+                                Log.shared.logdata.copyToClipBoard()
+                                showToast.toggle()
+                            }) {
+                                Text("Copy logs")
+                            }.controlSize(.large)
+                            if !update.updateLink.isEmpty {
+                                Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
+                                    HStack {
+                                        Image(systemName: "arrow.down.square.fill")
+                                        Text("Update app")
+                                    }
+                                }.buttonStyle(UpdateButton()).controlSize(.large)
+                            }
+                        }.frame(maxWidth: .infinity)
 						#if DEBUG
 						Divider()
 						HStack(spacing: 12) {
 							Button("Crash") { fatalError("Crash was triggered") }
-								.buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
+								.buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
 						}.frame(maxWidth: .infinity)
 						#endif
                     }.padding()
@@ -204,4 +169,23 @@ struct MainView: View {
             }
         }
     }
+}
+
+struct Previews_MainView_Previews: PreviewProvider {
+	static var previews: some View {
+		MainView()
+			.padding()
+			.environmentObject(UpdateService.shared)
+			.environmentObject(InstallVM.shared)
+			.environmentObject(AppsVM.shared)
+			.environmentObject(AppIntegrity())
+			.frame(minWidth: 600, minHeight: 650)
+			.onAppear {
+				UserDefaults.standard.register(defaults: ["ShowLinks" : true])
+				SoundDeviceService.shared.prepareSoundDevice()
+				UpdateService.shared.checkUpdate()
+				NotifyService.shared.allowNotify()
+			}
+			.padding(-15)
+	}
 }
