@@ -29,36 +29,30 @@ struct AppsView : View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            ZStack {
-                HStack{
-                    Toggle(isOn: $showAppLinks) {
-                        Text("Show app links")
-                    }.onChange(of: showAppLinks) { value in
-                        UserDefaults.standard.set(showAppLinks, forKey: "ShowLinks")
-                        vm.fetchApps()
-                    }.padding(.leading, 30)
-                        .help("Untick this option to show installed apps only")
-                    Spacer()
-                }
+            HStack {
+                Toggle(isOn: $showAppLinks) {
+                    Text("Show app links")
+                }.onChange(of: showAppLinks) { value in
+                    UserDefaults.standard.set(showAppLinks, forKey: "ShowLinks")
+                    vm.fetchApps()
+                }.padding(.leading, 30)
+                    .help("Untick this option to show installed apps only")
+                Spacer()
                 ExportView().environmentObject(InstallVM.shared)
-                    .frame(alignment: .center)
-                HStack{
-                    Spacer()
-                    Button("Download more apps") {
-                        if let url = URL(string: "https://armconverter.com/decryptedappstore") {
-                            NSWorkspace.shared.open(url)
-                        }
-                    }.buttonStyle(.borderedProminent).accentColor(Colr.control()).controlSize(.large).help(NSLocalizedString("Use this site to decrypt and download any global app", comment:""))
-                        .padding(.trailing, 30)
-                }
+                Button(NSLocalizedString("Download more apps", comment: "")) {
+                    if let url = URL(string: "https://armconverter.com/decryptedappstore") {
+                        NSWorkspace.shared.open(url)
+                    }
+                }.buttonStyle(OutlineButton()).controlSize(.large).help(NSLocalizedString("Use this site to decrypt and download any global app", comment:""))
+                    .padding(.trailing, 30)
             }
 
             HStack(alignment: .center){
                 Spacer()
-                SearchView().padding(.leading, 36)
-                Image("Happy").resizable().frame(width: 64, height: 64).padding(.bottom, 0).padding(.trailing, 16)
+                SearchView().padding(.leading, 20).padding(.trailing, 25).padding(.vertical, 8)
+//                Image("Happy").resizable().frame(width: 64, height: 64).padding(.bottom, 0).padding(.trailing, 16) // "remove the damm cat" - Perseque
             }.padding(.top, 0)
-            Divider().padding(.top, 0).padding(.leading, 36).padding(.trailing, 36)
+            Divider().padding(.top, 0).padding(.horizontal, 36)
 			if !sh.isXcodeCliToolsInstalled {
 				VStack(spacing: 12) {
 					Text("You need to install Xcode Commandline tools and restart this App.")
@@ -74,7 +68,7 @@ struct AppsView : View {
 							}
 							showAlert = true
 						} catch {
-							alertTitle = "xcode tools intallation failed"
+							alertTitle = "Xcode tools intallation failed"
 							alertBtn = "OK"
 							alertText = error.localizedDescription
 							alertAction = {}
@@ -130,8 +124,8 @@ struct AppAddView : View {
             Image(systemName: "plus.square")
                 .font(.system(size: 38.0, weight: .thin))
                 .frame(width: 64, height: 68).padding(.top).foregroundColor(
-                    install.installing ? Color.gray : Colr.primary)
-            Text("Add app").padding(.horizontal).frame(width: 150, height: 50).padding(.bottom).lineLimit(nil).foregroundColor( install.installing ? Color.gray : Colr.primary).minimumScaleFactor(0.8).multilineTextAlignment(.center)
+                    install.installing ? Color.gray : Color.accentColor)
+            Text("Add app").padding(.horizontal).frame(width: 150, height: 50).padding(.bottom).lineLimit(nil).foregroundColor( install.installing ? Color.gray : Color.accentColor).minimumScaleFactor(0.8).multilineTextAlignment(.center)
         }.background(colorScheme == .dark ? elementColor(true) : elementColor(false))
             .cornerRadius(16.0)
             .frame(width: 150, height: 150).onHover(perform: { hovering in
@@ -230,10 +224,9 @@ struct ExportView : View {
             }
         }
         .buttonStyle(OutlineButton())
-        .help(NSLocalizedString("If you want to play without disabling SIP. You need to download this software from iosgods.com", comment: "")).background(colorScheme == .dark ? elementColor(true) : elementColor(false))
-        .onHover(perform: { hovering in
-            isHover = hovering
-        }).alert(isPresented: $showWrongfileTypeAlert) {
+        .controlSize(.large)
+        .help("If you want to play without disabling SIP. You need to download this software from iosgods.com").background(colorScheme == .dark ? elementColor(true) : elementColor(false))
+        .alert(isPresented: $showWrongfileTypeAlert) {
             Alert(title: Text("Wrong file type"), message: Text("Choose an .ipa file"), dismissButton: .default(Text("OK")))
         }.onDrop(of: ["public.url","public.file-url"], isTargeted: nil) { (items) -> Bool in
             if install.installing{

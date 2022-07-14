@@ -11,7 +11,7 @@ class Shell : ObservableObject {
     static let shared = Shell()
 
 
-	static func sh(_ command: String, print : Bool = true, pipeStdErr : Bool = true, delay : Int = 0) throws -> String {
+	static func sh(_ command: String, print : Bool = true, pipeStdErr : Bool = true) throws -> String {
 		let task = Process()
 		let pipe = Pipe()
 
@@ -26,10 +26,6 @@ class Shell : ObservableObject {
 
 		if print {
 			Log.shared.log(output)
-		}
-
-		if delay > 0 {
-			sleep(UInt32(delay)) // sleep is your best friend to avoid crashing
 		}
 
 		task.waitUntilExit()
@@ -65,8 +61,8 @@ class Shell : ObservableObject {
         return String(decoding: output, as: UTF8.self)
     }
 
-	static var isXcodeCliToolsInstalled : Bool = {
-		guard let _ = try? sh("xcode-select -p", delay: 1) else {
+	static let isXcodeCliToolsInstalled : Bool = {
+		guard let _ = try? sh("xcode-select -p") else {
 			return false
 		}
 		return true

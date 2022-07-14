@@ -22,7 +22,7 @@ struct SearchView : View {
     @Environment(\.colorScheme) var colorScheme
     
     var body : some View {
-        TextField(NSLocalizedString("Search...", comment: ""), text: $search)
+        TextField("Search...", text: $search)
             .padding(7)
             .padding(.horizontal, 25)
             .background(Color(NSColor.textBackgroundColor))
@@ -78,31 +78,14 @@ struct MainView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity).environmentObject(AppsVM.shared)
                 
                 VStack(alignment: .leading, spacing: 0) {
-                    VStack(alignment: .leading, spacing: 8) {
-                        HStack(spacing: 8) {
-                            Link(NSLocalizedString("Join Discord Server", comment: ""), destination: URL(string: "https://discord.gg/rMv5qxGTGC")!)
-                                .help(NSLocalizedString("If you have some problem you always can visit our friendly community.", comment: ""))
-                            Spacer()
-                            if install.installing {
-                                InstallProgress().environmentObject(install).padding(.bottom)
-                            }
-                            Spacer()
-                            Button(action: {
-                                Log.shared.logdata.copyToClipBoard()
-                                showToast.toggle()
-                            }) {
-                                Text("Copy logs")
-                            }
-                            if !update.updateLink.isEmpty {
-                                Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
-                                    HStack {
-                                        Image(systemName: "arrow.down.square.fill")
-                                        Text("Update app")
-                                    }
-                                }.buttonStyle(UpdateButton())
-                            }
-                        }.padding().frame(maxWidth : .infinity)
-                        
+                    if install.installing {
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack(spacing: 8) {
+                                
+                                    InstallProgress().environmentObject(install).padding(.bottom)
+                            }.padding().frame(maxWidth : .infinity)
+                            
+                        }
                     }
                     
                     Divider()
@@ -126,20 +109,39 @@ struct MainView: View {
                                 .clipped()
                                 .padding(.top, noticesExpanded ? 8 : 0)
                         }
-
-                        if !SystemConfig.isPlaySignActive {
-                            Divider()
-                            HStack(spacing: 12) {
-                                Text("Having problems logging into apps?").font(.title3)
-                                Button("Enable PlaySign") { showSetup = true }
-                                    .buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
-                            }.frame(maxWidth: .infinity)
-                        }
+                        
+                        Divider()
+                        HStack(spacing: 12) {
+                            Link("Join Discord Server", destination: URL(string: "https://discord.gg/rMv5qxGTGC")!)
+                                .help("If you have some problem you always can visit our friendly community.")
+                                .foregroundColor(.accentColor)
+                            Spacer()
+                                if !SystemConfig.isPlaySignActive {
+                                    Text("Having problems logging into apps?").font(.title3)
+                                    Button("Enable PlaySign") { showSetup = true }
+                                        .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
+                                    Spacer()
+                                }
+                            Button(action: {
+                                Log.shared.logdata.copyToClipBoard()
+                                showToast.toggle()
+                            }) {
+                                Text("Copy logs")
+                            }.controlSize(.large)
+                            if !update.updateLink.isEmpty {
+                                Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
+                                    HStack {
+                                        Image(systemName: "arrow.down.square.fill")
+                                        Text("Update app")
+                                    }
+                                }.buttonStyle(UpdateButton()).controlSize(.large)
+                            }
+                        }.frame(maxWidth: .infinity)
 						#if DEBUG
 						Divider()
 						HStack(spacing: 12) {
 							Button("Crash") { fatalError("Crash was triggered") }
-								.buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
+								.buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
 						}.frame(maxWidth: .infinity)
 						#endif
                     }.padding()
