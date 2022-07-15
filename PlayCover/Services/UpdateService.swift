@@ -39,7 +39,7 @@ class UpdateService : ObservableObject {
     
     static let shared = UpdateService()
     
-    static let baseUrl = "https://github.com/PlayCover/PlayCover/releases/download/$/PlayCover.$.zip"
+    static let baseUrl = "https://github.com/PlayCover/PlayCover/releases/download/$/PlayCover_$.dmg"
     
     @Published var updateLink : String = ""
     
