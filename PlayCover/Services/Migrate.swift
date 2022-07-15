@@ -17,4 +17,10 @@ class Migrate: ObservableObject {
         
         fm.createFile(atPath: "/Users/\(NSUserName())/Library/Containers/io.playcover.PlayCover/migrate", contents: nil)
     }
+    
+    static func verifyMigrateState() {
+        if !fm.fileExists(atPath: "/Users/\(NSUserName())/Library/Containers/io.playcover.PlayCover/migrate") {
+                    Migrate.migrateData()
+        }
+    }
 }
