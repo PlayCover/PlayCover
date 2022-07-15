@@ -36,28 +36,50 @@ extension StringProtocol {
 }
 
 class UpdateService : ObservableObject {
-    
+
     static let shared = UpdateService()
-    
+
     static let baseUrl = "https://github.com/PlayCover/PlayCover/releases/download/$/PlayCover_$.dmg"
-    
+
     @Published var updateLink : String = ""
-    
-     func checkUpdate() {
-        if let url = URL(string: "https://github.com/PlayCover/PlayCover/releases") {
-            do {
-                let contents = try String(contentsOf: url)
-                if let index = contents.index(of: "/releases/tag/") {
-                    let end = contents.index(index, offsetBy: 19)
-                    let start = contents.index(index, offsetBy: 14)
-                    let version = contents[start..<end]
-                    if version.compare(Bundle.main.releaseVersionNumber! , options: .numeric) == .orderedDescending{
-                        updateLink = UpdateService.baseUrl.replacingOccurrences(of: "$", with: version)
+    @Published var updateVersion: String = ""
+    @Published var updateChangelog: String = ""
+
+    func checkUpdate() {
+        if let url = URL(string: "https://api.github.com/repos/PlayCover/PlayCover/releases") {
+            let task = URLSession.shared.dataTask(with: url) { data, response, error in 
+                if let error = error { return }
+
+                if let data = data {
+                    let decoder = JSONDecoder()
+                    let releases: [GithubRelease] = decoder.decode([GithubRelease].self, from: data)
+                    let release = releases.first(where: { $0.draft == false })
+
+                    if let release = release {
+                        let version = release.tag_name
+                        if version.compare(Bundle.main.releaseVersionNumber! , options: .numeric) == .orderedDescending{
+                            if let asset = release.assets.first {
+                                updateLink = asset.browser_download_url
+                                updateVersion = version
+                                updateChangelog = release.body
+                            }
+                        }
                     }
                 }
-            } catch{
-                
             }
         }
     }
+}
+
+struct GithubRelease: Codable {
+    let tag_name: String
+    let prerelease: Bool
+    let draft: Bool
+    let assets: [GithubAsset]
+    let body: String
+}
+
+struct GithubAsset: Codable {
+    let name: String
+    let browser_download_url: String
 }
