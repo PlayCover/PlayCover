@@ -69,6 +69,7 @@ struct MainView: View {
     @State var bottomHeight: CGFloat = 0
     
     @State private var showToast = false
+    @State private var showChangelog = false
     
     var body: some View {
         if apps.updatingApps { ProgressView() }
@@ -129,6 +130,19 @@ struct MainView: View {
                                 Text("Copy logs")
                             }.controlSize(.large)
                             if !update.updateLink.isEmpty {
+                                Button(action: {
+                                    self.showChangelog.toggle()
+                                }) {
+                                    Text("Show Changelog")
+                                }.sheet(isPresented: $showChangelog) {
+                                    VStack {
+                                        Text(markdown: update.updateChangelog)
+                                            .padding(50)
+                                        Button("Dismiss") { showChangelog.toggle() }
+                                            .buttonStyle(.borderedProminent)
+                                    }
+                                }
+
                                 Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
                                     HStack {
                                         Image(systemName: "arrow.down.square.fill")
