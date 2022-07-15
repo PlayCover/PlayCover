@@ -31,11 +31,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			defaults: ["NSApplicationCrashOnExceptions" : true]
 		)
         LaunchServicesWrapper.setMyselfAsDefaultApplicationForFileExtension("ipa")
-        if !fm.fileExists(atPath: "/Users/\(NSUserName())/Library/Containers/io.playcover.PlayCover/migrate") {
-                    Migrate.migrateData()
-        }
+        Migrate.verifyMigrateState()
     }
-    
 }
 
 @main
