@@ -118,6 +118,40 @@ class AppSettings {
             dictionary = dict
         }
     }
+    
+    private static let discordActivity = "pc.discordActivity"
+    var discordActivity : Bool {
+        get {
+            dictionary[AppSettings.discordActivity] as? Bool ?? true
+        }
+        set {
+            var dict = dictionary
+            dict[AppSettings.discordActivity] = newValue
+            dictionary = dict
+        }
+    }
+    
+    private static let customActivity = "pc.customActivity"
+    var customActivity : DiscordActivity {
+        get {
+            do{
+                let dict = dictionary[AppSettings.customActivity] as? Dictionary ?? [:]
+                let data = try JSONSerialization.data(withJSONObject: dict, options: [.fragmentsAllowed])
+                return try JSONDecoder().decode(DiscordActivity.self, from: data)
+            } catch {
+                return DiscordActivity()
+            }
+        }
+        set {
+            var value: [String: Any] = [:]
+            let data = try? JSONEncoder().encode(newValue)
+            value = try! JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any] ?? [:]
+            var dict = dictionary
+            dict[AppSettings.customActivity] = value
+            dictionary = dict
+        }
+    }
+    
     private static let keymapping = "pc.keymapping"
     var keymapping: Bool {
         get {
@@ -194,7 +228,7 @@ class AppSettings {
     private func createSettingsIfNotExists() {
         if !fileMgr.fileExists(atPath: AppSettings.settingsUrl.path) || allPrefs[info.bundleIdentifier] == nil {
             dictionary = [AppSettings.keymapping: info.isGame, AppSettings.adaptiveDisplay: info.isGame,
-                          AppSettings.refreshRate: 60, AppSettings.sensivity: 50]
+                          AppSettings.discordActivity: true, AppSettings.refreshRate: 60, AppSettings.sensivity: 50]
         }
     }
 

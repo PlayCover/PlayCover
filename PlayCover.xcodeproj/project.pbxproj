@@ -64,6 +64,7 @@
 		AA818CB2287ABE9B000BEE9D /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = AA818CB1287ABE9B000BEE9D /* AlertToast */; };
 		AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = AA818CB4287ABEC3000BEE9D /* Yams */; };
 		ABED59832887A32F004D782B /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABED59822887A32F004D782B /* MenuBarView.swift */; };
+		B12717272881D0E20025112B /* DiscordActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12717262881D0E20025112B /* DiscordActivity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -152,6 +153,7 @@
 		AAE8809F287ACE9F00FBB23C /* bootstrap.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = bootstrap.sh; sourceTree = "<group>"; };
 		ABED59822887A32F004D782B /* MenuBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		ABF0BA1A285F9ED200FC5259 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B12717262881D0E20025112B /* DiscordActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscordActivity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +221,7 @@
 				92EE06CF274EA433002C907B /* BaseApp.swift */,
 				92EE06D9274EB009002C907B /* PlayApp.swift */,
 				9221730927623DA100C8A3A2 /* StoreApp.swift */,
+				B12717262881D0E20025112B /* DiscordActivity.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				92EE06D4274EA604002C907B /* PlayAppView.swift in Sources */,
 				9280871D2824AD360034C510 /* Unarchiver.swift in Sources */,
 				92279BBF27610433009F28BF /* AppSettingsView.swift in Sources */,
+				B12717272881D0E20025112B /* DiscordActivity.swift in Sources */,
 				9256220327491E4700728698 /* operations.m in Sources */,
 				92EE06D8274EA98B002C907B /* PhysicialApp.swift in Sources */,
 				92037247280F27A50064A1EF /* LoginKitWrapper.m in Sources */,

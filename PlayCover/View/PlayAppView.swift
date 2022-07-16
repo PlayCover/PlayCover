@@ -111,8 +111,9 @@ struct PlayAppView: View {
             }).sheet(isPresented: $showSettings) {
                 AppSettingsView(settings: app.settings, adaptiveDisplay: app.settings.adaptiveDisplay,
                                 keymapping: app.settings.keymapping, gamingMode: app.settings.gamingMode,
-                                bypass: app.settings.bypass, selectedRefreshRate:
-                                    app.settings.refreshRate == 60 ? 0 : 1,
+                                bypass: app.settings.bypass, discordActivity: app.settings.discordActivity,
+                                customActivity: app.settings.customActivity,
+                                selectedRefreshRate: app.settings.refreshRate == 60 ? 0 : 1,
                                 sensivity: app.settings.sensivity).frame(minWidth: 500)
             }.sheet(isPresented: $showSetup) {
                 SetupView()
