@@ -6,7 +6,7 @@
 import Foundation
 import AppKit
 
-let notchModels = [ "MacBookPro18,3", "MacBookPro18,4", "MacBookPro18,1", "MacBookPro18,2"]
+let notchModels = [ "MacBookPro18,3", "MacBookPro18,4", "MacBookPro18,1", "MacBookPro18,2", "Mac14,2"]
 
 extension NSScreen {
     
