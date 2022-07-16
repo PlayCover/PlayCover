@@ -101,6 +101,13 @@ struct MainView: View {
                                     Image(systemName: "chevron.down")
                                         .rotationEffect(Angle(degrees: noticesExpanded ? 180 : 0))
                                 }
+                                .onHover { hovering in
+                                    if hovering {
+                                        NSCursor.pointingHand.push()
+                                    } else {
+                                        NSCursor.pop()
+                                    }
+                                }
                             }
                             Text(StoreApp.notice)
                                 .font(.body)
@@ -115,11 +122,25 @@ struct MainView: View {
                             Link("Join Discord Server", destination: URL(string: "https://discord.gg/rMv5qxGTGC")!)
                                 .help("If you have some problem you always can visit our friendly community.")
                                 .foregroundColor(.accentColor)
+                                .onHover { hovering in
+                                    if hovering {
+                                        NSCursor.pointingHand.push()
+                                    } else {
+                                        NSCursor.pop()
+                                    }
+                                }
                             Spacer()
                                 if !SystemConfig.isPlaySignActive {
                                     Text("Having problems logging into apps?").font(.title3)
                                     Button("Enable PlaySign") { showSetup = true }
                                         .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
+                                        .onHover { hovering in
+                                            if hovering {
+                                                NSCursor.pointingHand.push()
+                                            } else {
+                                                NSCursor.pop()
+                                            }
+                                        }
                                     Spacer()
                                 }
                             Button(action: {
@@ -128,6 +149,13 @@ struct MainView: View {
                             }) {
                                 Text("Copy logs")
                             }.controlSize(.large)
+                            .onHover { hovering in
+                                if hovering {
+                                    NSCursor.pointingHand.push()
+                                } else {
+                                    NSCursor.pop()
+                                }
+                            }
                             if !update.updateLink.isEmpty {
                                 Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
                                     HStack {
@@ -135,6 +163,13 @@ struct MainView: View {
                                         Text("Update app")
                                     }
                                 }.buttonStyle(UpdateButton()).controlSize(.large)
+                                .onHover { hovering in
+                                    if hovering {
+                                        NSCursor.pointingHand.push()
+                                    } else {
+                                        NSCursor.pop()
+                                    }
+                                }
                             }
                         }.frame(maxWidth: .infinity)
 						#if DEBUG
@@ -142,6 +177,13 @@ struct MainView: View {
 						HStack(spacing: 12) {
 							Button("Crash") { fatalError("Crash was triggered") }
 								.buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
+                                .onHover { hovering in
+                                    if hovering {
+                                        NSCursor.pointingHand.push()
+                                    } else {
+                                        NSCursor.pop()
+                                    }
+                                }
 						}.frame(maxWidth: .infinity)
 						#endif
                     }.padding()

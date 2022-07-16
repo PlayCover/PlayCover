@@ -135,8 +135,14 @@ struct AppAddView : View {
             Text("Add app").padding(.horizontal).frame(width: 150, height: 50).padding(.bottom).lineLimit(nil).foregroundColor( install.installing ? Color.gray : Color.accentColor).minimumScaleFactor(0.8).multilineTextAlignment(.center)
         }.background(colorScheme == .dark ? elementColor(true) : elementColor(false))
             .cornerRadius(16.0)
-            .frame(width: 150, height: 150).onHover(perform: { hovering in
+            .frame(width: 150, height: 150)
+            .onHover(perform: { hovering in
                 isHover = hovering
+                if hovering {
+                    NSCursor.pointingHand.push()
+                } else {
+                    NSCursor.pop()
+                }
             }).alert(isPresented: $showWrongfileTypeAlert) {
                 Alert(title: Text("Wrong file type"), message: Text("Choose an .ipa file"), dismissButton: .default(Text("OK")))
             }
