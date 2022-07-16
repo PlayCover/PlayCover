@@ -16,7 +16,17 @@ struct AppsView : View {
     @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150), spacing: 10)]
     
     @State private var showAppLinks = UserDefaults.standard.bool(forKey: "ShowLinks")
-    
+
+	@State private var alertTitle = ""
+
+	@State private var alertText = ""
+
+	@State private var alertBtn = ""
+
+	@State private var alertAction : (() -> Void) = {}
+
+	@State private var showAlert = false
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
@@ -25,39 +35,73 @@ struct AppsView : View {
                 }.onChange(of: showAppLinks) { value in
                     UserDefaults.standard.set(showAppLinks, forKey: "ShowLinks")
                     vm.fetchApps()
-                }.padding(.leading, 42).padding(.top, 12).padding(.bottom, 8)
+                }.padding(.leading, 30)
                     .help("Untick this option to show installed apps only")
                 Spacer()
                 ExportView().environmentObject(InstallVM.shared)
-                Spacer()
-                Button("Download any application") {
+                Button(NSLocalizedString("Download more apps", comment: "")) {
                     if let url = URL(string: "https://armconverter.com/decryptedappstore") {
                         NSWorkspace.shared.open(url)
                     }
-                }.buttonStyle(.borderedProminent).accentColor(Colr.control()).controlSize(.large).help("Use this site to decrypt and download any global app")
+                }.buttonStyle(OutlineButton()).controlSize(.large).help(NSLocalizedString("Use this site to decrypt and download any global app", comment:""))
+                    .padding(.trailing, 30)
             }
-            
+
             HStack(alignment: .center){
                 Spacer()
-                SearchView().padding(.leading, 36)
-                Image("Happy").resizable().frame(width: 64, height: 64).padding(.bottom, 0).padding(.trailing, 16)
+                SearchView().padding(.leading, 20).padding(.trailing, 25).padding(.vertical, 8)
+//                Image("Happy").resizable().frame(width: 64, height: 64).padding(.bottom, 0).padding(.trailing, 16) // "remove the damm cat" - Perseque
             }.padding(.top, 0)
-            Divider().padding(.top, 0).padding(.leading, 36).padding(.trailing, 36)
-            ScrollView() {
-                LazyVGrid(columns: gridLayout, spacing: 10) {
-                    ForEach(vm.apps, id:\.id) { app in
-                        if app.type == BaseApp.AppType.add {
-                            AppAddView().environmentObject(InstallVM.shared)
-                        } else if app.type == .app{
-                            PlayAppView(app: app as! PlayApp)
-                        } else if app.type == .store {
-                            StoreAppView(app: app as! StoreApp)
-                        }
-                    }
-                }
-                .padding(.top, 16).padding(.bottom, bottomPadding + 16)
-                .animation(.spring())
-            }
+            Divider().padding(.top, 0).padding(.horizontal, 36)
+			if !sh.isXcodeCliToolsInstalled {
+				VStack(spacing: 12) {
+					Text("You need to install Xcode Commandline tools and restart this App.")
+						.font(.title3)
+					Button("Install") {
+						do {
+							_ = try sh.sh("xcode-select --install")
+							alertTitle = "Xcode tools installation succeeded"
+							alertBtn = "Close"
+							alertText = "Please follow the given instructions, and restart the App."
+							alertAction = {
+								exit(0)
+							}
+							showAlert = true
+						} catch {
+							alertTitle = "Xcode tools intallation failed"
+							alertBtn = "OK"
+							alertText = error.localizedDescription
+							alertAction = {}
+							showAlert = true
+						}
+					}
+					.buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
+					.alert(isPresented: $showAlert) {
+						Alert(title: Text(alertTitle), message: Text(alertText), dismissButton: .default(Text(alertBtn), action: {
+							showAlert = false
+							alertAction()
+						}))
+					}
+				}
+				.frame(maxWidth: .infinity, maxHeight: .infinity)
+				.padding(.top, 16).padding(.bottom, bottomPadding + 16)
+			} else {
+				ScrollView() {
+					LazyVGrid(columns: gridLayout, spacing: 10) {
+						ForEach(vm.apps, id:\.id) { app in
+							if app.type == BaseApp.AppType.add {
+								AppAddView().environmentObject(InstallVM.shared)
+							} else if app.type == .app{
+								PlayAppView(app: app as! PlayApp)
+							} else if app.type == .store {
+								StoreAppView(app: app as! StoreApp)
+							}
+						}
+					}
+					.padding(.top, 16).padding(.bottom, bottomPadding + 16)
+					.animation(.spring())
+				}
+			}
         }
     }
 }
@@ -80,8 +124,8 @@ struct AppAddView : View {
             Image(systemName: "plus.square")
                 .font(.system(size: 38.0, weight: .thin))
                 .frame(width: 64, height: 68).padding(.top).foregroundColor(
-                    install.installing ? Color.gray : Colr.primary)
-            Text("Add app").padding(.horizontal).frame(width: 150, height: 50).padding(.bottom).lineLimit(nil).foregroundColor( install.installing ? Color.gray : Colr.primary).minimumScaleFactor(0.8).multilineTextAlignment(.center)
+                    install.installing ? Color.gray : Color.accentColor)
+            Text("Add app").padding(.horizontal).frame(width: 150, height: 50).padding(.bottom).lineLimit(nil).foregroundColor( install.installing ? Color.gray : Color.accentColor).minimumScaleFactor(0.8).multilineTextAlignment(.center)
         }.background(colorScheme == .dark ? elementColor(true) : elementColor(false))
             .cornerRadius(16.0)
             .frame(width: 150, height: 150).onHover(perform: { hovering in
@@ -180,10 +224,9 @@ struct ExportView : View {
             }
         }
         .buttonStyle(OutlineButton())
+        .controlSize(.large)
         .help("If you want to play without disabling SIP. You need to download this software from iosgods.com").background(colorScheme == .dark ? elementColor(true) : elementColor(false))
-        .onHover(perform: { hovering in
-            isHover = hovering
-        }).alert(isPresented: $showWrongfileTypeAlert) {
+        .alert(isPresented: $showWrongfileTypeAlert) {
             Alert(title: Text("Wrong file type"), message: Text("Choose an .ipa file"), dismissButton: .default(Text("OK")))
         }.onDrop(of: ["public.url","public.file-url"], isTargeted: nil) { (items) -> Bool in
             if install.installing{

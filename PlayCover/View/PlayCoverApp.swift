@@ -27,6 +27,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationDidFinishLaunching(_ notification: Notification) {
+		UserDefaults.standard.register(
+			defaults: ["NSApplicationCrashOnExceptions" : true]
+		)
         LaunchServicesWrapper.setMyselfAsDefaultApplicationForFileExtension("ipa")
     }
     
@@ -34,7 +37,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 @main
 struct PlayCoverApp: App {
-    
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     var body: some Scene {
@@ -61,10 +63,3 @@ struct PlayCoverApp: App {
     }
     
 }
-
-
-
-
-
-
-

@@ -1,0 +1,8 @@
+# app_identifier("[[APP_IDENTIFIER]]") # The bundle identifier of your app
+# apple_id("[[APPLE_ID]]") # Your Apple email address
+app_identifier("io.playcover.PlayCover") # The bundle identifier of your app
+apple_id("lee9311@gmail.com") # Your Apple email address
+team_id("792V9HMJW3") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile

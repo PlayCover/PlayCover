@@ -7,9 +7,9 @@ import Foundation
 
 class SystemConfig {
     
-    static func isPlaySignActive() -> Bool{
+	static let isPlaySignActive : Bool = {
         return isSIPDisabled() && isPRAMValid()
-    }
+    }()
     
     static func enablePlaySign(_ argc : String) -> Bool{
         return sh.sudosh(["-S", "/usr/sbin/nvram", "boot-args=amfi_get_out_of_my_way=0x1 ipc_control_port_options=0"], argc)
