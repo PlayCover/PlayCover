@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import Combine
 
 extension Bundle {
     var releaseVersionNumber: String? {
@@ -38,6 +39,8 @@ extension StringProtocol {
 class UpdateService : ObservableObject {
 
     static let shared = UpdateService()
+    private static let sessionProcessingQueue = DispatchQueue(label: "SessionProcessingQueue")
+    private var cancelable: AnyCancellable?
 
     static let baseUrl = "https://github.com/PlayCover/PlayCover/releases/download/$/PlayCover_$.dmg"
 
@@ -46,28 +49,51 @@ class UpdateService : ObservableObject {
     @Published var updateChangelog: String = ""
 
     func checkUpdate() {
+        
         if let url = URL(string: "https://api.github.com/repos/PlayCover/PlayCover/releases") {
-            let task = URLSession.shared.dataTask(with: url) { data, response, error in 
-                if let error = error { return }
-
-                if let data = data {
-                    let decoder = JSONDecoder()
-                    let releases: [GithubRelease] = decoder.decode([GithubRelease].self, from: data)
+            cancelable = URLSession.shared.dataTaskPublisher(for: url)
+                .subscribe(on: UpdateService.sessionProcessingQueue)
+                .map({ $0.data })
+                .decode(type: [GithubRelease].self, decoder: JSONDecoder())
+                .map({ releases -> GithubRelease? in
                     let release = releases.first(where: { $0.draft == false })
 
                     if let release = release {
                         let version = release.tag_name
                         if version.compare(Bundle.main.releaseVersionNumber! , options: .numeric) == .orderedDescending{
-                            if let asset = release.assets.first {
-                                updateLink = asset.browser_download_url
-                                updateVersion = version
-                                updateChangelog = release.body
+                            if release.assets.first != nil {
+                                return release
                             }
                         }
                     }
-                }
-            }
+                    return nil
+                })
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { subscriberCompletion in
+                    switch subscriberCompletion {
+                    case .finished:
+                        print("Checked for updates!")
+                    case .failure(let error):
+                        print("Updater error: \(error)")
+                    }
+                }, receiveValue: { [self] release in
+                    if let release = release {
+                        if let asset = release.assets.first {
+                            updateLink = asset.browser_download_url
+                            updateVersion = release.tag_name
+                            updateChangelog = release.body
+                        }
+                    }
+                })
         }
+    }
+    
+    deinit {
+        self.cancel()
+    }
+    
+    func cancel() {
+        cancelable?.cancel()
     }
 }
 

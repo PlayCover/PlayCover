@@ -136,12 +136,21 @@ struct MainView: View {
                                     Text("Show Changelog")
                                 }.sheet(isPresented: $showChangelog) {
                                     VStack {
-                                        Text(markdown: update.updateChangelog)
-                                            .padding(50)
+                                        Text("Version \(update.updateVersion) Changelog")
+                                            .padding(.top)
+                                            .font(.title)
+                                        ScrollView {
+                                            Text((try? AttributedString(markdown: update.updateChangelog, options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? AttributedString(update.updateChangelog))
+                                                .multilineTextAlignment(.leading)
+                                        }
+                                        .padding(20)
                                         Button("Dismiss") { showChangelog.toggle() }
                                             .buttonStyle(.borderedProminent)
+                                            .padding(.top, 0)
+                                            .padding(.bottom, 20)
                                     }
-                                }
+                                    .frame(minWidth: 300, maxWidth: 750, minHeight: 150, maxHeight: 550, alignment: .center)
+                                }.controlSize(.large)
 
                                 Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
                                     HStack {
