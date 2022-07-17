@@ -5,6 +5,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 extension Bundle {
     var releaseVersionNumber: String? {
@@ -41,14 +42,16 @@ class UpdateService : ObservableObject {
     static let shared = UpdateService()
     private static let sessionProcessingQueue = DispatchQueue(label: "SessionProcessingQueue")
     private var cancelable: AnyCancellable?
-
-    static let baseUrl = "https://github.com/PlayCover/PlayCover/releases/download/$/PlayCover_$.dmg"
+    
+    @AppStorage("playcover.checkUpdates") private var checkUpdates = true
+    @AppStorage("playcover.prereleaseUpdates") private var prereleaseUpdates = false
 
     @Published var updateLink : String = ""
     @Published var updateVersion: String = ""
     @Published var updateChangelog: String = ""
 
-    func checkUpdate() {
+    func checkUpdate(force: Bool = false) {
+        if !checkUpdates && !force { return }
         
         if let url = URL(string: "https://api.github.com/repos/PlayCover/PlayCover/releases") {
             cancelable = URLSession.shared.dataTaskPublisher(for: url)
@@ -56,7 +59,13 @@ class UpdateService : ObservableObject {
                 .map({ $0.data })
                 .decode(type: [GithubRelease].self, decoder: JSONDecoder())
                 .map({ releases -> GithubRelease? in
-                    let release = releases.first(where: { $0.draft == false })
+                    let release = releases.first(where: {
+                        if self.prereleaseUpdates {
+                            return $0.draft == false
+                        } else {
+                            return $0.draft == false && $0.prerelease == false
+                        }
+                    })
 
                     if let release = release {
                         let version = release.tag_name

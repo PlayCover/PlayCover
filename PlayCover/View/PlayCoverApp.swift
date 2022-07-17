@@ -60,6 +60,10 @@ struct PlayCoverApp: App {
                 EmptyView()
             }
         }.handlesExternalEvents(matching: Set(arrayLiteral: "{same path of URL?}")) // create new window if doesn't exist
+
+        Settings {
+            PlayCoverSettingsView()
+        }
     }
     
 }

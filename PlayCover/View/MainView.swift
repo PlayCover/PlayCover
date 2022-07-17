@@ -155,7 +155,7 @@ struct MainView: View {
                                 Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
                                     HStack {
                                         Image(systemName: "arrow.down.square.fill")
-                                        Text("Update app")
+                                        Text("Update app to \(update.updateVersion)")
                                     }
                                 }.buttonStyle(UpdateButton()).controlSize(.large)
                             }
