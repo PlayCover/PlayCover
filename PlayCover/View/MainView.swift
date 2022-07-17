@@ -101,13 +101,6 @@ struct MainView: View {
                                     Image(systemName: "chevron.down")
                                         .rotationEffect(Angle(degrees: noticesExpanded ? 180 : 0))
                                 }
-                                .onHover { hovering in
-                                    if hovering {
-                                        NSCursor.pointingHand.push()
-                                    } else {
-                                        NSCursor.pop()
-                                    }
-                                }
                             }
                             Text(StoreApp.notice)
                                 .font(.body)
@@ -177,13 +170,6 @@ struct MainView: View {
 						HStack(spacing: 12) {
 							Button("Crash") { fatalError("Crash was triggered") }
 								.buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
-                                .onHover { hovering in
-                                    if hovering {
-                                        NSCursor.pointingHand.push()
-                                    } else {
-                                        NSCursor.pop()
-                                    }
-                                }
 						}.frame(maxWidth: .infinity)
 						#endif
                     }.padding()

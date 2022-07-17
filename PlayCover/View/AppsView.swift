@@ -138,11 +138,6 @@ struct AppAddView : View {
             .frame(width: 150, height: 150)
             .onHover(perform: { hovering in
                 isHover = hovering
-                if hovering {
-                    NSCursor.pointingHand.push()
-                } else {
-                    NSCursor.pop()
-                }
             }).alert(isPresented: $showWrongfileTypeAlert) {
                 Alert(title: Text("Wrong file type"), message: Text("Choose an .ipa file"), dismissButton: .default(Text("OK")))
             }
