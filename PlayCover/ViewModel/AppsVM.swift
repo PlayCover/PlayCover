@@ -34,7 +34,7 @@ class AppsVM : ObservableObject {
                         let app = PlayApp(appUrl: sub)
                         if let container = containers[app.info.bundleIdentifier] {
                             app.container = container
-                            print(sub.path)
+                            print("Application installed under:", sub.path)
                             LoginServiceKit.removeLoginItems(at: sub.path)
                         }
                         result.append(app)
