@@ -79,8 +79,8 @@
 "ATTENTION: Don't enable for some games yet! This allows you to bypass bans that don't let you login" = "警告：暫時不要為某些遊戲啟用！ 這使您可以繞過不允許您登錄的限制";
 "Screen refresh rate" = "螢幕刷新率";
 "Mouse sensivity: %.f" = "滑鼠靈敏度：%.f";
-"Reset settings and keymapping" = "恢复默认设置";
-"Settings reseted to default!" = "已重置设置到默认值！";
+"Reset settings and keymapping" = "恢復默認設置";
+"Settings reseted to default!" = "已重置設定到默認值！";
 "Ok" = "OK";
 "No device with sample rate of 48 / 44.1 ghz found! Please, lower sample rate in Audio settings or connect another output audio device. Otherwise crashes possible!" = "未找到採樣率為 48 / 44.1 ghz 的設備！ 請在聲音設置中降低採樣率或連接另一個輸出音訊設備。 否則可能導致崩潰！";
 "Copy logs" = "複製日誌";
