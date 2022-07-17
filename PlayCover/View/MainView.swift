@@ -59,7 +59,7 @@ struct SearchView : View {
 
 struct MainView: View {
 	@Environment(\.openURL) var openURL
-    @EnvironmentObject var update : UpdateService
+    //@EnvironmentObject var update : UpdateService
     @EnvironmentObject var install : InstallVM
     @EnvironmentObject var apps : AppsVM
     @EnvironmentObject var integrity : AppIntegrity
@@ -129,36 +129,36 @@ struct MainView: View {
                             }) {
                                 Text("Copy logs")
                             }.controlSize(.large)
-                            if !update.updateLink.isEmpty {
-                                Button(action: {
-                                    self.showChangelog.toggle()
-                                }) {
-                                    Text("Show Changelog")
-                                }.sheet(isPresented: $showChangelog) {
-                                    VStack {
-                                        Text("Version \(update.updateVersion) Changelog")
-                                            .padding(.top)
-                                            .font(.title)
-                                        ScrollView {
-                                            Text((try? AttributedString(markdown: update.updateChangelog, options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? AttributedString(update.updateChangelog))
-                                                .multilineTextAlignment(.leading)
-                                        }
-                                        .padding(20)
-                                        Button("Dismiss") { showChangelog.toggle() }
-                                            .buttonStyle(.borderedProminent)
-                                            .padding(.top, 0)
-                                            .padding(.bottom, 20)
-                                    }
-                                    .frame(minWidth: 300, maxWidth: 750, minHeight: 150, maxHeight: 550, alignment: .center)
-                                }.controlSize(.large)
-
-                                Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
-                                    HStack {
-                                        Image(systemName: "arrow.down.square.fill")
-                                        Text("Update app to \(update.updateVersion)")
-                                    }
-                                }.buttonStyle(UpdateButton()).controlSize(.large)
-                            }
+//                            if !update.updateLink.isEmpty {
+//                                Button(action: {
+//                                    self.showChangelog.toggle()
+//                                }) {
+//                                    Text("Show Changelog")
+//                                }.sheet(isPresented: $showChangelog) {
+//                                    VStack {
+//                                        Text("Version \(update.updateVersion) Changelog")
+//                                            .padding(.top)
+//                                            .font(.title)
+//                                        ScrollView {
+//                                            Text((try? AttributedString(markdown: update.updateChangelog, options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? AttributedString(update.updateChangelog))
+//                                                .multilineTextAlignment(.leading)
+//                                        }
+//                                        .padding(20)
+//                                        Button("Dismiss") { showChangelog.toggle() }
+//                                            .buttonStyle(.borderedProminent)
+//                                            .padding(.top, 0)
+//                                            .padding(.bottom, 20)
+//                                    }
+//                                    .frame(minWidth: 300, maxWidth: 750, minHeight: 150, maxHeight: 550, alignment: .center)
+//                                }.controlSize(.large)
+//
+//                                Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
+//                                    HStack {
+//                                        Image(systemName: "arrow.down.square.fill")
+//                                        Text("Update app to \(update.updateVersion)")
+//                                    }
+//                                }.buttonStyle(UpdateButton()).controlSize(.large)
+//                            }
                         }.frame(maxWidth: .infinity)
 						#if DEBUG
 						Divider()
@@ -198,7 +198,7 @@ struct Previews_MainView_Previews: PreviewProvider {
 	static var previews: some View {
 		MainView()
 			.padding()
-			.environmentObject(UpdateService.shared)
+			//.environmentObject(UpdateService.shared)
 			.environmentObject(InstallVM.shared)
 			.environmentObject(AppsVM.shared)
 			.environmentObject(AppIntegrity())
@@ -206,7 +206,7 @@ struct Previews_MainView_Previews: PreviewProvider {
 			.onAppear {
 				UserDefaults.standard.register(defaults: ["ShowLinks" : true])
 				SoundDeviceService.shared.prepareSoundDevice()
-				UpdateService.shared.checkUpdate()
+				// UpdateService.shared.checkUpdate()
 				NotifyService.shared.allowNotify()
 			}
 			.padding(-15)

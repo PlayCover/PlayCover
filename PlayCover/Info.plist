@@ -80,6 +80,10 @@
 	<string>Copyright © PlayCover Community Edition</string>
 	<key>NSSystemAdministrationUsageDescription</key>
 	<string>PlayCover needs to read files to save apps</string>
+	<key>SUFeedURL</key>
+	<string>https://playcover.io/updates/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>u08aYwJaZ3F/qAs2NauIA5DGKhS4nRDccvBDNW8sbi4=</string>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
