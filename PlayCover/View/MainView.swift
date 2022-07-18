@@ -116,8 +116,7 @@ struct MainView: View {
                             Spacer()
                                 if !SystemConfig.isPlaySignActive {
                                     HStack {
-                                        Text("Problems signing in?")
-                                        Button("Disable SIP") { showSetup = true }
+                                        Button("Problems logging in?") { showSetup = true }
                                             .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
                                     }
                                 }
