@@ -76,10 +76,8 @@ struct PlayCoverApp: App {
                     Button("Discord") {
                         NSWorkspace.shared.open(URL(string: "https://discord.gg/PlayCover")!)
                     }
-
                 }
             }
-        
     }
     
 }
