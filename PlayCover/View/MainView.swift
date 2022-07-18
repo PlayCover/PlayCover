@@ -115,8 +115,11 @@ struct MainView: View {
                                 .foregroundColor(.accentColor)
                             Spacer()
                                 if !SystemConfig.isPlaySignActive {
-                                    Button("Finish Setup") { showSetup = true }
-                                        .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
+                                    HStack {
+                                        Text("Problems signing in?")
+                                        Button("Disable SIP") { showSetup = true }
+                                            .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
+                                    }
                                 }
                             Button(action: {
                                 Log.shared.logdata.copyToClipBoard()
