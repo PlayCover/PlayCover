@@ -67,8 +67,8 @@ struct SetupView : View {
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Group {
-                        Text("1) Restart your Mac")
-                        Text("2) Hold the power button when the screen turns black")
+                        Text("1) Shutdown your Mac")
+                        Text("2) Hold down the power button 10 seconds after the screen turns black")
                         Text("3) When \"Loading Startup Options\" appears below the Apple logo, release the power button")
                         Text("4) Click the Recovery Mode boot option")
                         Text("5) In Recovery, open Terminal (Utilities -> Terminal)")
