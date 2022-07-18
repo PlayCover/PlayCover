@@ -94,6 +94,27 @@ struct MainView: View {
                         VStack(alignment: .leading, spacing: 0) {
                             HStack {
                                 Text("Notices").font(.headline).help("Important news and announcements")
+                                Button {
+                                    withAnimation { noticesExpanded.toggle() }
+                                } label: {
+                                    Image(systemName: "chevron.up")
+                                        .rotationEffect(Angle(degrees: noticesExpanded ? 180 : 0))
+                                }
+                                Spacer()
+                                if !SystemConfig.isPlaySignActive {
+                                    HStack {
+                                        Button("Problems logging in?") { showSetup = true }
+                                            .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
+                                    }
+                                }
+                                if !update.updateLink.isEmpty {
+                                    Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
+                                        HStack {
+                                            Image(systemName: "arrow.down.square.fill")
+                                            Text("Update app")
+                                        }
+                                    }.buttonStyle(UpdateButton()).controlSize(.large)
+                                }
                             }
                             Text(StoreApp.notice)
                                 .font(.body)
@@ -104,33 +125,7 @@ struct MainView: View {
                         }
                         
                         HStack(spacing: 12) {
-                            Button {
-                                withAnimation { noticesExpanded.toggle() }
-                            } label: {
-                                Image(systemName: "chevron.up")
-                                    .rotationEffect(Angle(degrees: noticesExpanded ? 180 : 0))
-                            }
                             Spacer()
-                                if !SystemConfig.isPlaySignActive {
-                                    HStack {
-                                        Button("Problems logging in?") { showSetup = true }
-                                            .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
-                                    }
-                                }
-                            Button(action: {
-                                Log.shared.logdata.copyToClipBoard()
-                                showToast.toggle()
-                            }) {
-                                Text("Copy logs")
-                            }.controlSize(.large)
-                            if !update.updateLink.isEmpty {
-                                Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
-                                    HStack {
-                                        Image(systemName: "arrow.down.square.fill")
-                                        Text("Update app")
-                                    }
-                                }.buttonStyle(UpdateButton()).controlSize(.large)
-                            }
                         }.frame(maxWidth: .infinity)
 						#if DEBUG
 						Divider()
