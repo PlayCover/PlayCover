@@ -38,7 +38,7 @@ struct AppsView : View {
                 }.padding(.leading, 30)
                     .help("Untick this option to show installed apps only")
                 Spacer()
-                SearchView().padding(.leading, 20).padding(.trailing, 25).padding(.vertical, 8)
+                SearchView().padding(.leading, 20).padding(.trailing, 10).padding(.vertical, 8)
                 ExportView().environmentObject(InstallVM.shared)
                 Button(NSLocalizedString("Download more apps", comment: "")) {
                     if let url = URL(string: "https://armconverter.com/decryptedappstore") {
