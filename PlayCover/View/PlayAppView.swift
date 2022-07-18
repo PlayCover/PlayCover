@@ -105,11 +105,6 @@ struct PlayAppView : View {
             }
             .onHover(perform: { hovering in
                 isHover = hovering
-                if hovering {
-                    NSCursor.pointingHand.push()
-                } else {
-                    NSCursor.pop()
-                }
             }).sheet(isPresented: $showSettings) {
                 AppSettingsView(settings: app.settings, adaptiveDisplay: app.settings.adaptiveDisplay, keymapping: app.settings.keymapping, gamingMode: app.settings.gamingMode, bypass: app.settings.bypass, selectedRefreshRate: app.settings.refreshRate == 60 ? 0 : 1, sensivity: app.settings.sensivity).frame(minWidth: 500)
             }.sheet(isPresented: $showSetup) {

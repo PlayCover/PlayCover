@@ -51,11 +51,6 @@ struct StoreAppView : View {
             }
             .onHover(perform: { hovering in
                 isHover = hovering
-                if hovering {
-                    NSCursor.pointingHand.push()
-                } else {
-                    NSCursor.pop()
-                }
             })
     }
 }

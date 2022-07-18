@@ -45,13 +45,6 @@ struct AppsView : View {
                     }
                 }.buttonStyle(OutlineButton()).controlSize(.large).help(NSLocalizedString("Use this site to decrypt and download any global app", comment:""))
                     .padding(.trailing, 30)
-                    .onHover { hovering in
-                        if hovering {
-                            NSCursor.pointingHand.push()
-                        } else {
-                            NSCursor.pop()
-                        }
-                    }
             }
 
             HStack(alignment: .center){
@@ -272,13 +265,6 @@ struct ExportView : View {
                 showWrongfileTypeAlert = true
             }
         }.help("Drag or open an app file to install. IPAs from Configurator or iMazing won't work! You should get decrypted IPAs, either from the top right button, Discord, AppDb, or a jailbroken device.")
-        .onHover { hovering in
-            if hovering {
-                NSCursor.pointingHand.push()
-            } else {
-                NSCursor.pop()
-            }
-        }
     }
     
     private func exportIPA(){

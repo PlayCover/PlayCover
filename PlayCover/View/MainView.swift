@@ -127,13 +127,6 @@ struct MainView: View {
                                     Text("Having problems logging into apps?").font(.title3)
                                     Button("Enable PlaySign") { showSetup = true }
                                         .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
-                                        .onHover { hovering in
-                                            if hovering {
-                                                NSCursor.pointingHand.push()
-                                            } else {
-                                                NSCursor.pop()
-                                            }
-                                        }
                                     Spacer()
                                 }
                             Button(action: {
@@ -142,13 +135,6 @@ struct MainView: View {
                             }) {
                                 Text("Copy logs")
                             }.controlSize(.large)
-                            .onHover { hovering in
-                                if hovering {
-                                    NSCursor.pointingHand.push()
-                                } else {
-                                    NSCursor.pop()
-                                }
-                            }
                             if !update.updateLink.isEmpty {
                                 Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
                                     HStack {
@@ -156,13 +142,6 @@ struct MainView: View {
                                         Text("Update app")
                                     }
                                 }.buttonStyle(UpdateButton()).controlSize(.large)
-                                .onHover { hovering in
-                                    if hovering {
-                                        NSCursor.pointingHand.push()
-                                    } else {
-                                        NSCursor.pop()
-                                    }
-                                }
                             }
                         }.frame(maxWidth: .infinity)
 						#if DEBUG
