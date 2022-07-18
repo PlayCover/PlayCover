@@ -9,16 +9,17 @@ import SwiftUI
 import Sparkle
 
 struct PlayCoverSettingsView: View {
-    @Binding var updater: UpdaterViewModel
+    @AppStorage("SUEnableAutomaticChecks") var autoUpdate = false
+    @AppStorage("betaUpdates") var betaUpdates = false
     
     var body: some View {
         Form {
-            Toggle("Check for updates on app launch", isOn: updater.$canCheckForUpdates)
-            Toggle("Check for Pre-release updates", isOn: $prereleaseUpdates)
-                .disabled(!updater.canCheckForUpdates)
-                .onChange(of: updater.canCheckForUpdates, perform: { checkUpdates in
-                    if !checkUpdates {
-                        prereleaseUpdates = false
+            Toggle("Automatically check for updates", isOn: $autoUpdate)
+            Toggle("Check for beta updates", isOn: $betaUpdates)
+                .disabled(!autoUpdate)
+                .onChange(of: autoUpdate, perform: { autoUpdate in
+                    if !autoUpdate {
+                        betaUpdates = false
                     }
                 })
         }
@@ -29,6 +30,6 @@ struct PlayCoverSettingsView: View {
 
 struct PlayCoverSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayCoverSettingsView(updater: UpdaterViewModel())
+        PlayCoverSettingsView()
     }
 }

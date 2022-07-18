@@ -14,8 +14,6 @@ final class UpdaterViewModel: ObservableObject {
     private let updaterController: SPUStandardUpdaterController
     
     @Published var canCheckForUpdates = false
-    @Published var checkForBetaUpdates = false
-    @Published var allowedChannels = []
     
     init() {
         // If you want to start the updater manually, pass false to startingUpdater and call .startUpdater() later
@@ -24,8 +22,6 @@ final class UpdaterViewModel: ObservableObject {
         
         updaterController.updater.publisher(for: \.canCheckForUpdates)
             .assign(to: &$canCheckForUpdates)
-        
-        
     }
     
     func checkForUpdates() {
@@ -44,4 +40,14 @@ struct CheckForUpdatesView: View {
     }
 }
 
-
+class UpdaterDelegate: NSObject, SPUUpdaterDelegate {
+    @AppStorage("betaUpdates")var betaUpdates = false
+    
+    func allowedChannels(for updater: SPUUpdater) -> Set<String> {
+        if betaUpdates {
+            return Set(["beta"])
+        } else {
+            return Set([])
+        }
+    }
+}
