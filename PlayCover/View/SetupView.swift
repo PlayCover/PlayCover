@@ -56,10 +56,10 @@ struct SetupView : View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             if !SystemConfig.isSIPDisabled() {
-                Text("A one-time setup is required to enable PlaySign")
+                Text("One more thing...")
                     .padding([.horizontal, .top])
                     .font(.title)
-                Text("Please follow the following instructions:")
+                Text("Follow the instructions below to start enjoying PlayCover!")
                     .padding(.horizontal)
                     .padding(.top, -4)
 

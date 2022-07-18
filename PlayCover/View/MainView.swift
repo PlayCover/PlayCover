@@ -115,10 +115,8 @@ struct MainView: View {
                                 .foregroundColor(.accentColor)
                             Spacer()
                                 if !SystemConfig.isPlaySignActive {
-                                    Text("Having problems logging into apps?").font(.title3)
-                                    Button("Enable PlaySign") { showSetup = true }
+                                    Button("Finish Setup") { showSetup = true }
                                         .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
-                                    Spacer()
                                 }
                             Button(action: {
                                 Log.shared.logdata.copyToClipBoard()
