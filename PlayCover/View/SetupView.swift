@@ -112,7 +112,6 @@ struct SetupView : View {
                                     .fill(Color(NSColor.unemphasizedSelectedContentBackgroundColor))
                             )
                         }
-                        .frame(maxWidth: .infinity)
                         .padding(4)
                     }.padding(.top, 8)
                     
