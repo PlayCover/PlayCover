@@ -58,7 +58,7 @@ struct SetupView : View {
             if !SystemConfig.isSIPDisabled() {
                 Text("Apps not allowing you to login?")
                     .padding([.horizontal, .top])
-                    .font(.title)
+                    .font(.title.weight(.heavy))
                 Text("Follow the instructions below to fix exactly that!")
                     .padding(.horizontal)
                     .padding(.top, -4)
