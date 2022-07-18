@@ -94,12 +94,6 @@ struct MainView: View {
                         VStack(alignment: .leading, spacing: 0) {
                             HStack {
                                 Text("Notices").font(.headline).help("Important news and announcements")
-                                Button {
-                                    withAnimation { noticesExpanded.toggle() }
-                                } label: {
-                                    Image(systemName: "chevron.down")
-                                        .rotationEffect(Angle(degrees: noticesExpanded ? 180 : 0))
-                                }
                             }
                             Text(StoreApp.notice)
                                 .font(.body)
@@ -110,9 +104,12 @@ struct MainView: View {
                         }
                         
                         HStack(spacing: 12) {
-                            Link("Join Discord Server", destination: URL(string: "https://discord.gg/rMv5qxGTGC")!)
-                                .help("If you have some problem you always can visit our friendly community.")
-                                .foregroundColor(.accentColor)
+                            Button {
+                                withAnimation { noticesExpanded.toggle() }
+                            } label: {
+                                Image(systemName: "chevron.up")
+                                    .rotationEffect(Angle(degrees: noticesExpanded ? 180 : 0))
+                            }
                             Spacer()
                                 if !SystemConfig.isPlaySignActive {
                                     HStack {
