@@ -80,11 +80,13 @@ struct SetupView : View {
                                 Image(systemName: "terminal")
                             }
                             .padding(.horizontal, 10)
-                            .padding(.vertical, 8)
+                            .padding(.vertical, 6)
                             .background(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1).foregroundColor(Colr.highlighted(Colr.isDarkMode())))
                         }
                         Text("7) Press Return or Enter on your keyboard. Input your Mac screen password (it is invisible)")
                         Text("8) Click the Apple symbol in the Menu bar and Restart")
+                        
+                        Spacer()
                         
                         Text("If you encounter any errors, restart and repeat the whole process again").font(.callout)
                     }
