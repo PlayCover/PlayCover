@@ -56,7 +56,7 @@ struct SetupView : View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             if !SystemConfig.isSIPDisabled() {
-                Text("Apps not allowing you to login?")
+                Text("Are apps not allowing you to login?")
                     .padding([.horizontal, .top])
                     .font(.title.weight(.heavy))
                 Text("Follow the instructions below to fix exactly that!")
