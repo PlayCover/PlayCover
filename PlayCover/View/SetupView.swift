@@ -63,7 +63,7 @@ struct SetupView : View {
                     .padding(.horizontal)
                     .padding(.top, -4)
 
-                Divider()
+                Spacer()
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Group {
@@ -74,14 +74,11 @@ struct SetupView : View {
                         Text("5) In Recovery, open Terminal (Utilities -> Terminal)")
                         HStack(spacing: 4) {
                             Text("6) Type: ")
-                            Label {
-                                Text("csrutil disable").textSelection(.enabled).font(.monospaced(.body)())
-                            } icon: {
-                                Image(systemName: "terminal")
-                            }
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 6)
-                            .background(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1).foregroundColor(Colr.highlighted(Colr.isDarkMode())))
+                            Text("csrutil disable").textSelection(.enabled).font(.monospaced(.body)())
+                                .padding(.horizontal, 4)
+                                .padding(.vertical, 2)
+                                .background(Color(red: 0.25, green: 0.25, blue: 0.25))
+                                .cornerRadius(5)
                         }
                         Text("7) Press Return or Enter on your keyboard. Input your Mac screen password (it is invisible)")
                         Text("8) Click the Apple symbol in the Menu bar and Restart")
@@ -96,7 +93,7 @@ struct SetupView : View {
                             ZStack{
                                 Link("YouTube", destination: URL(string: "https://www.youtube.com/watch?v=H3CoI84s_FI")!)
                                     .font(.title3)
-                                    .padding(.vertical, 8).padding(.horizontal, 12)
+                                    .padding(.vertical, 4).padding(.horizontal, 10)
                             }
                             .background(
                                 RoundedRectangle(cornerRadius: 8)
@@ -105,17 +102,17 @@ struct SetupView : View {
                             ZStack{
                                 Link("Bilibili", destination: URL(string: "https://www.bilibili.com/video/BV1Th411q7Lt")!)
                                     .font(.title3)
-                                    .padding(.vertical, 8).padding(.horizontal, 12)
+                                    .padding(.vertical, 4).padding(.horizontal, 10)
                             }
                             .background(
                                 RoundedRectangle(cornerRadius: 8)
                                     .fill(Color(NSColor.unemphasizedSelectedContentBackgroundColor))
                             )
                         }
-                        .padding(4)
+                        .padding(2)
                     }.padding(.top, 8)
                     
-                    Button("OK") { presentationMode.wrappedValue.dismiss() }
+                    Button("Dismiss") { presentationMode.wrappedValue.dismiss() }
                         .padding([.top, .bottom])
                         .buttonStyle(.borderedProminent)
                         .controlSize(.large)
