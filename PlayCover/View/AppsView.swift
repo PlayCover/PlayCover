@@ -38,6 +38,7 @@ struct AppsView : View {
                 }.padding(.leading, 30)
                     .help("Untick this option to show installed apps only")
                 Spacer()
+                SearchView().padding(.leading, 20).padding(.trailing, 25).padding(.vertical, 8)
                 ExportView().environmentObject(InstallVM.shared)
                 Button(NSLocalizedString("Download more apps", comment: "")) {
                     if let url = URL(string: "https://armconverter.com/decryptedappstore") {
@@ -46,12 +47,6 @@ struct AppsView : View {
                 }.buttonStyle(OutlineButton()).controlSize(.large).help(NSLocalizedString("Use this site to decrypt and download any global app", comment:""))
                     .padding(.trailing, 30)
             }
-
-            HStack(alignment: .center){
-                Spacer()
-                SearchView().padding(.leading, 20).padding(.trailing, 25).padding(.vertical, 8)
-//                Image("Happy").resizable().frame(width: 64, height: 64).padding(.bottom, 0).padding(.trailing, 16) // "remove the damm cat" - Perseque
-            }.padding(.top, 0)
             Divider().padding(.top, 0).padding(.horizontal, 36)
 			if !sh.isXcodeCliToolsInstalled {
 				VStack(spacing: 12) {
