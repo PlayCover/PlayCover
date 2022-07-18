@@ -110,7 +110,6 @@ struct MainView: View {
                                 .padding(.top, noticesExpanded ? 8 : 0)
                         }
                         
-                        Divider()
                         HStack(spacing: 12) {
                             Link("Join Discord Server", destination: URL(string: "https://discord.gg/rMv5qxGTGC")!)
                                 .help("If you have some problem you always can visit our friendly community.")

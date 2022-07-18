@@ -47,7 +47,6 @@ struct AppsView : View {
                 }.buttonStyle(OutlineButton()).controlSize(.large).help(NSLocalizedString("Use this site to decrypt and download any global app", comment:""))
                     .padding(.trailing, 30)
             }
-            Divider().padding(.top, 0).padding(.horizontal, 36)
 			if !sh.isXcodeCliToolsInstalled {
 				VStack(spacing: 12) {
 					Text("You need to install Xcode Commandline tools and restart this App.")
