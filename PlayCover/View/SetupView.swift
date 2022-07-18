@@ -56,10 +56,10 @@ struct SetupView : View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             if !SystemConfig.isSIPDisabled() {
-                Text("One more thing...")
+                Text("Apps not allowing you to login?")
                     .padding([.horizontal, .top])
                     .font(.title)
-                Text("Follow the instructions below to start enjoying PlayCover!")
+                Text("Follow the instructions below to fix exactly that!")
                     .padding(.horizontal)
                     .padding(.top, -4)
 
