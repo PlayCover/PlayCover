@@ -41,7 +41,7 @@ struct AppsView : View {
                 SearchView().padding(.leading, 20).padding(.trailing, 10).padding(.vertical, 8)
                 ExportView().environmentObject(InstallVM.shared)
                 Button(NSLocalizedString("Download more apps", comment: "")) {
-                    if let url = URL(string: "https://armconverter.com/decryptedappstore") {
+                    if let url = URL(string: "https://ipa.playcover.workers.dev/0:/") {
                         NSWorkspace.shared.open(url)
                     }
                 }.buttonStyle(OutlineButton()).controlSize(.large).help(NSLocalizedString("Use this site to decrypt and download any global app", comment:""))
