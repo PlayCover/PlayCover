@@ -77,6 +77,11 @@ struct PlayCoverApp: App {
                         NSWorkspace.shared.open(URL(string: "https://discord.gg/PlayCover")!)
                     }
                 }
+                CommandGroup(after: .systemServices) {
+                    Button("Copy log") {
+                        Log.shared.logdata.copyToClipBoard()
+                    }
+                }
             }
     }
     
