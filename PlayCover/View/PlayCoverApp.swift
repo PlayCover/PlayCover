@@ -60,6 +60,26 @@ struct PlayCoverApp: App {
                 EmptyView()
             }
         }.handlesExternalEvents(matching: Set(arrayLiteral: "{same path of URL?}")) // create new window if doesn't exist
+            .commands {
+                CommandGroup(after: .help) {
+                    Divider()
+                    Button("Website") {
+                        NSWorkspace.shared.open(URL(string: "https://playcover.io")!)
+
+                    }
+                    Button("GitHub") {
+                        NSWorkspace.shared.open(URL(string:"https://github.com/PlayCover/PlayCover/")!)
+                    }
+                    Button("Documentation") {
+                        NSWorkspace.shared.open(URL(string:"https://github.com/PlayCover/PlayCover/wiki")!)
+                    }
+                    Button("Discord") {
+                        NSWorkspace.shared.open(URL(string: "https://discord.gg/PlayCover")!)
+                    }
+
+                }
+            }
+        
     }
     
 }
