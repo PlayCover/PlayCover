@@ -55,7 +55,7 @@ struct PlayCoverApp: App {
                     NotifyService.shared.allowNotify()
                 }
                 .padding(-15)
-        }.windowStyle(HiddenTitleBarWindowStyle()).commands {
+        }.windowStyle(.titleBar).commands {
             CommandGroup(replacing: CommandGroupPlacement.newItem) {
                 EmptyView()
             }
@@ -83,6 +83,7 @@ struct PlayCoverApp: App {
                     }
                 }
             }
+            .windowToolbarStyle(.unified)
     }
     
 }
