@@ -90,7 +90,7 @@ struct OutlineButton: ButtonStyle {
         configuration
             .label
             .foregroundColor(configuration.isPressed ? .gray : .accentColor)
-            .padding(.vertical, 10.0).padding(.horizontal, 10.0)
+            .padding(.vertical, 8.0).padding(.horizontal, 10.0)
             .background(
                 RoundedRectangle(
                     cornerRadius: 8,

@@ -1,0 +1,60 @@
+name: Build nightly release
+on:
+  schedule:
+    - cron: "30 19 * * *"
+env:
+  CI: true
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          brew install graphicsmagick imagemagick
+          bundle install
+          npm install --global create-dmg
+
+      - name: Set build number
+        shell: bash
+        run: |
+          fastlane run increment_build_number build_number:${{ github.run_number }}
+
+      - name: Fastlane Release
+        shell: bash
+        run: fastlane release
+        env:
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 120 # x86 is slooooooow
+
+      - name: Exract API_KEY
+        shell: bash
+        run: 'echo "$API_KEY" > apikey.json'
+        env:
+          API_KEY: ${{secrets.APPLE_API_KEY_JSON}}
+
+      - name: Create DMG
+        shell: bash
+        run: |
+          create-dmg ./output/PlayCover.app ./output
+          mv ./output/*.dmg ./output/PlayCover_nightly_${{ github.run_number }}.dmg
+
+      - name: Notarize DMG
+        continue-on-error: true
+        shell: bash
+        run: |
+          fastlane notarize_dmg package:output/PlayCover_nightly_${{ github.run_number }}.dmg
+
+      - name: Clean Up
+        shell: bash
+        run: rm apikey.json
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: PlayCover_nightly_${{ github.run_number }}.dmg
+          path: output/PlayCover_nightly_${{ github.run_number }}.dmg
