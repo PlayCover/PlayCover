@@ -88,7 +88,7 @@ struct PlayCoverApp: App {
             }
 
         Settings {
-            PlayCoverSettingsView()
+            PlayCoverSettingsView(updaterViewModel: updaterViewModel)
         }
     }
 }

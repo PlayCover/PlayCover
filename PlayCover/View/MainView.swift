@@ -107,14 +107,6 @@ struct MainView: View {
                                             .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
                                     }
                                 }
-                                if !update.updateLink.isEmpty {
-                                    Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
-                                        HStack {
-                                            Image(systemName: "arrow.down.square.fill")
-                                            Text("Update app")
-                                        }
-                                    }.buttonStyle(UpdateButton()).controlSize(.large)
-                                }
                             }
                             Text(StoreApp.notice)
                                 .font(.body)
