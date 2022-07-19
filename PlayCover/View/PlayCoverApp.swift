@@ -38,11 +38,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 @main
 struct PlayCoverApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @State var showToast = false
     
     var body: some Scene {
         WindowGroup {
-            MainView(showToast: $showToast)
+            MainView()
                 .padding()
                 .environmentObject(UpdateService.shared)
                 .environmentObject(InstallVM.shared)
@@ -62,8 +61,27 @@ struct PlayCoverApp: App {
             }
         }.handlesExternalEvents(matching: Set(arrayLiteral: "{same path of URL?}")) // create new window if doesn't exist
             .commands {
-                PlayCoverMenuView(showToast: $showToast)
-                PlayCoverHelpMenuView()
+                CommandGroup(after: .help) {
+                    Divider()
+                    Button("Website") {
+                        NSWorkspace.shared.open(URL(string: "https://playcover.io")!)
+
+                    }
+                    Button("GitHub") {
+                        NSWorkspace.shared.open(URL(string:"https://github.com/PlayCover/PlayCover/")!)
+                    }
+                    Button("Documentation") {
+                        NSWorkspace.shared.open(URL(string:"https://github.com/PlayCover/PlayCover/wiki")!)
+                    }
+                    Button("Discord") {
+                        NSWorkspace.shared.open(URL(string: "https://discord.gg/PlayCover")!)
+                    }
+                }
+                CommandGroup(after: .systemServices) {
+                    Button("Copy log") {
+                        Log.shared.logdata.copyToClipBoard()
+                    }
+                }
             }
     }
     
