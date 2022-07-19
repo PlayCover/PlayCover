@@ -69,7 +69,6 @@ struct MainView: View {
     @State var bottomHeight: CGFloat = 0
     
     @State private var showToast = false
-    @State private var showChangelog = false
     
     var body: some View {
         if apps.updatingApps { ProgressView() }
@@ -95,12 +94,26 @@ struct MainView: View {
                         VStack(alignment: .leading, spacing: 0) {
                             HStack {
                                 Text("Notices").font(.headline).help("Important news and announcements")
-                                Spacer()
                                 Button {
                                     withAnimation { noticesExpanded.toggle() }
                                 } label: {
-                                    Image(systemName: "chevron.down")
+                                    Image(systemName: "chevron.up")
                                         .rotationEffect(Angle(degrees: noticesExpanded ? 180 : 0))
+                                }
+                                Spacer()
+                                if !SystemConfig.isPlaySignActive {
+                                    HStack {
+                                        Button("Problems logging in?") { showSetup = true }
+                                            .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
+                                    }
+                                }
+                                if !update.updateLink.isEmpty {
+                                    Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
+                                        HStack {
+                                            Image(systemName: "arrow.down.square.fill")
+                                            Text("Update app")
+                                        }
+                                    }.buttonStyle(UpdateButton()).controlSize(.large)
                                 }
                             }
                             Text(StoreApp.notice)
@@ -111,54 +124,8 @@ struct MainView: View {
                                 .padding(.top, noticesExpanded ? 8 : 0)
                         }
                         
-                        Divider()
                         HStack(spacing: 12) {
-                            Link("Join Discord Server", destination: URL(string: "https://discord.gg/rMv5qxGTGC")!)
-                                .help("If you have some problem you always can visit our friendly community.")
-                                .foregroundColor(.accentColor)
                             Spacer()
-                                if !SystemConfig.isPlaySignActive {
-                                    Text("Having problems logging into apps?").font(.title3)
-                                    Button("Enable PlaySign") { showSetup = true }
-                                        .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
-                                    Spacer()
-                                }
-                            Button(action: {
-                                Log.shared.logdata.copyToClipBoard()
-                                showToast.toggle()
-                            }) {
-                                Text("Copy logs")
-                            }.controlSize(.large)
-//                            if !update.updateLink.isEmpty {
-//                                Button(action: {
-//                                    self.showChangelog.toggle()
-//                                }) {
-//                                    Text("Show Changelog")
-//                                }.sheet(isPresented: $showChangelog) {
-//                                    VStack {
-//                                        Text("Version \(update.updateVersion) Changelog")
-//                                            .padding(.top)
-//                                            .font(.title)
-//                                        ScrollView {
-//                                            Text((try? AttributedString(markdown: update.updateChangelog, options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? AttributedString(update.updateChangelog))
-//                                                .multilineTextAlignment(.leading)
-//                                        }
-//                                        .padding(20)
-//                                        Button("Dismiss") { showChangelog.toggle() }
-//                                            .buttonStyle(.borderedProminent)
-//                                            .padding(.top, 0)
-//                                            .padding(.bottom, 20)
-//                                    }
-//                                    .frame(minWidth: 300, maxWidth: 750, minHeight: 150, maxHeight: 550, alignment: .center)
-//                                }.controlSize(.large)
-//
-//                                Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
-//                                    HStack {
-//                                        Image(systemName: "arrow.down.square.fill")
-//                                        Text("Update app to \(update.updateVersion)")
-//                                    }
-//                                }.buttonStyle(UpdateButton()).controlSize(.large)
-//                            }
                         }.frame(maxWidth: .infinity)
 						#if DEBUG
 						Divider()
