@@ -50,6 +50,7 @@ struct PlayCoverApp: App {
                 .environmentObject(AppIntegrity())
                 .frame(minWidth: 720, minHeight: 650)
                 .onAppear {
+                    NSWindow.allowsAutomaticWindowTabbing = false
                     UserDefaults.standard.register(defaults: ["ShowLinks" : true])
                     SoundDeviceService.shared.prepareSoundDevice()
                     UpdateService.shared.checkUpdate()
