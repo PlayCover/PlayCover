@@ -68,7 +68,7 @@ struct MainView: View {
     @State var noticesExpanded = false
     @State var bottomHeight: CGFloat = 0
     
-    @State private var showToast = false
+    @Binding var showToast: Bool
     
     var body: some View {
         if apps.updatingApps { ProgressView() }
@@ -162,8 +162,9 @@ struct MainView: View {
 }
 
 struct Previews_MainView_Previews: PreviewProvider {
+    @State static var showToast = false
 	static var previews: some View {
-		MainView()
+		MainView(showToast: $showToast)
 			.padding()
 			.environmentObject(UpdateService.shared)
 			.environmentObject(InstallVM.shared)
