@@ -2,7 +2,6 @@ name: Build nightly release
 on:
   schedule:
     - cron: "30 19 * * *"
-  workflow_dispatch:
 env:
   CI: true
 jobs:
@@ -28,8 +27,8 @@ jobs:
         shell: bash
         run: fastlane release
         env:
-          #MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
-          #MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 120 # x86 is slooooooow
 
       - name: Exract API_KEY
@@ -59,24 +58,3 @@ jobs:
         with:
           name: PlayCover_nightly_${{ github.run_number }}.dmg
           path: output/PlayCover_nightly_${{ github.run_number }}.dmg
-          
-  sparkle:
-    runs-on: macos-latest
-    needs: build
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with: 
-          repository: Candygoblen123/playcover.github.io
-          token: ${{ secrets.WEBSITE_PAT }}
-      - name: Download a Build Artifact
-        uses: actions/download-artifact@v3.0.0
-        with:
-          # Destination path
-          path: updates/
-      - name: Install Dependencies 
-        run: |
-            curl -L "https://github.com/sparkle-project/Sparkle/releases/download/2.2.1/Sparkle-2.2.1.tar.xz" -o sparkle.tar.xz
-            mkdir sparkle
-            tar -xf sparkle.tar.xz -C sparkle
-            ls sparkle/
