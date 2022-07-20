@@ -65,6 +65,7 @@ struct PlayCoverApp: App {
             .commands {
                 PlayCoverMenuView(showToast: $showToast)
                 PlayCoverHelpMenuView()
+                PlayCoverViewMenuView()
             }
     }
     
