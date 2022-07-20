@@ -60,10 +60,10 @@ struct CheckForUpdatesView: View {
 }
 
 class UpdaterDelegate: NSObject, SPUUpdaterDelegate {
-    @AppStorage("betaUpdates")var betaUpdates = false
+    @AppStorage("nightlyUpdates")var nightlyUpdates = false
     
     func allowedChannels(for updater: SPUUpdater) -> Set<String> {
-            let allowedChannels = Set(betaUpdates ? ["beta"] : [])
+            let allowedChannels = Set(nightlyUpdates ? ["nightly"] : [])
             return allowedChannels
         }
 }
