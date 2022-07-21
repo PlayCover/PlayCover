@@ -37,16 +37,19 @@ struct PlayCoverApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject var updaterViewModel = UpdaterViewModel()
 
+    @State var showToast = false
+
     var body: some Scene {
         WindowGroup {
-            MainView()
+            MainView(showToast: $showToast)
                 .padding()
                 .environmentObject(InstallVM.shared)
                 .environmentObject(AppsVM.shared)
                 .environmentObject(AppIntegrity())
                 .frame(minWidth: 720, minHeight: 650)
                 .onAppear {
-                    UserDefaults.standard.register(defaults: ["ShowLinks": true])
+                    NSWindow.allowsAutomaticWindowTabbing = false
+                    UserDefaults.standard.register(defaults: ["ShowLinks" : true])
                     SoundDeviceService.shared.prepareSoundDevice()
                     NotifyService.shared.allowNotify()
                 }
@@ -56,34 +59,10 @@ struct PlayCoverApp: App {
                 EmptyView()
             }
         }.handlesExternalEvents(matching: Set(arrayLiteral: "{same path of URL?}")) // create new window if doesn't exist
-            .commands {
-                CommandGroup(after: .appInfo) {
-                    CheckForUpdatesView(updaterViewModel: updaterViewModel)
-                }
-                
-                CommandGroup(after: .help) {
-                    Divider()
-                    Button("Website") {
-                        NSWorkspace.shared.open(URL(string: "https://playcover.io")!)
-
-                    }
-                    Button("GitHub") {
-                        NSWorkspace.shared.open(URL(string:"https://github.com/PlayCover/PlayCover/")!)
-                    }
-                    Button("Documentation") {
-                        NSWorkspace.shared.open(URL(string:"https://github.com/PlayCover/PlayCover/wiki")!)
-                    }
-                    Button("Discord") {
-                        NSWorkspace.shared.open(URL(string: "https://discord.gg/PlayCover")!)
-                    }
-
-                }
-                CommandGroup(after: .systemServices) {
-                    Button("Copy log") {
-                        Log.shared.logdata.copyToClipBoard()
-                    }
-                }
-            }
+        .commands {
+            PlayCoverMenuView(showToast: $showToast, updaterViewModel: updaterViewModel)
+            PlayCoverHelpMenuView()
+        }
 
         Settings {
             PlayCoverSettingsView(updaterViewModel: updaterViewModel)

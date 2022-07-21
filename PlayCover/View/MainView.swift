@@ -16,11 +16,11 @@ extension NSTextField {
 }
 
 struct SearchView : View {
-    
+
     @State private var search : String = ""
     @State private var isEditing = false
     @Environment(\.colorScheme) var colorScheme
-    
+
     var body : some View {
         TextField("Search...", text: $search)
             .padding(7)
@@ -66,27 +66,26 @@ struct MainView: View {
     @State var showSetup = false
     @State var noticesExpanded = false
     @State var bottomHeight: CGFloat = 0
-    
-    @State private var showToast = false
-    
+
+    @Binding var showToast: Bool
+
     var body: some View {
         if apps.updatingApps { ProgressView() }
         else {
             ZStack(alignment: .bottom) {
                 AppsView(bottomPadding: $bottomHeight)
                     .frame(maxWidth: .infinity, maxHeight: .infinity).environmentObject(AppsVM.shared)
-                
+
                 VStack(alignment: .leading, spacing: 0) {
                     if install.installing {
                         VStack(alignment: .leading, spacing: 8) {
                             HStack(spacing: 8) {
-                                
                                     InstallProgress().environmentObject(install).padding(.bottom)
                             }.padding().frame(maxWidth : .infinity)
-                            
+
                         }
                     }
-                    
+
                     Divider()
 
                     VStack(alignment: .leading, spacing: 16) {
@@ -114,7 +113,7 @@ struct MainView: View {
                                 .clipped()
                                 .padding(.top, noticesExpanded ? 8 : 0)
                         }
-                        
+
                         HStack(spacing: 12) {
                             Spacer()
                         }.frame(maxWidth: .infinity)
@@ -153,8 +152,9 @@ struct MainView: View {
 }
 
 struct Previews_MainView_Previews: PreviewProvider {
+    @State static var showToast = false
 	static var previews: some View {
-		MainView()
+		MainView(showToast: $showToast)
 			.padding()
 			.environmentObject(InstallVM.shared)
 			.environmentObject(AppsVM.shared)
