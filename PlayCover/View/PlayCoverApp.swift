@@ -61,8 +61,8 @@ struct PlayCoverApp: App {
             }
         }.handlesExternalEvents(matching: Set(arrayLiteral: "{same path of URL?}")) // create new window if doesn't exist
         .commands {
-            PlayCoverMenuView(showToast: $showToast, updaterViewModel: updaterViewModel)
-            PlayCoverHelpMenuView()
+            PlayCoverMenuView(showToast: $showToast)
+            PlayCoverHelpMenuView(updaterViewModel: updaterViewModel)
         }
 
         Settings {

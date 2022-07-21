@@ -7,7 +7,6 @@ import SwiftUI
 
 struct PlayCoverMenuView: Commands{
     @Binding var showToast: Bool
-    @Binding var updaterViewModel: UpdaterViewModel
     
     var body: some Commands {
         CommandGroup(after: .systemServices) {
@@ -21,6 +20,8 @@ struct PlayCoverMenuView: Commands{
 }
 
 struct PlayCoverHelpMenuView: Commands {
+    @ObservedObject var updaterViewModel: UpdaterViewModel
+    
     var body: some Commands{
         CommandGroup(after: .appInfo) {
             CheckForUpdatesView(updaterViewModel: updaterViewModel)
