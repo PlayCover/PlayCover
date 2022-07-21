@@ -18,6 +18,7 @@ class AppsVM : ObservableObject {
     
     @Published var apps : [BaseApp] = []
     @Published var updatingApps : Bool = false
+    @Published var showAppLinks = UserDefaults.standard.bool(forKey: "ShowLinks")
     
     func fetchApps(){
         DispatchQueue.global(qos: .background).async {
