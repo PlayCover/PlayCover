@@ -85,7 +85,6 @@
 		538ED92826F40BAF002D73E8 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		53D9DAF226C1849D0071959E /* PlayCoverError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverError.swift; sourceTree = "<group>"; };
 		53E3311126F574B600217197 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
-		53E3311726F6014D00217197 /* UpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateService.swift; sourceTree = "<group>"; };
 		53E908E626E51FFC0077B466 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		53F3802526EB6CEA00D6B525 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		53F3802726EB6F6B00D6B525 /* NotifyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyService.swift; sourceTree = "<group>"; };
@@ -205,7 +204,6 @@
 			isa = PBXGroup;
 			children = (
 				53F3802726EB6F6B00D6B525 /* NotifyService.swift */,
-				53E3311726F6014D00217197 /* UpdateService.swift */,
 				9280871A2824A8D20034C510 /* SoundDeviceService.swift */,
 			);
 			path = Services;

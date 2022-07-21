@@ -41,7 +41,6 @@ struct PlayCoverApp: App {
         WindowGroup {
             MainView()
                 .padding()
-                //.environmentObject(UpdateService.shared)
                 .environmentObject(InstallVM.shared)
                 .environmentObject(AppsVM.shared)
                 .environmentObject(AppIntegrity())
@@ -49,7 +48,6 @@ struct PlayCoverApp: App {
                 .onAppear {
                     UserDefaults.standard.register(defaults: ["ShowLinks": true])
                     SoundDeviceService.shared.prepareSoundDevice()
-                    // UpdateService.shared.checkUpdate()
                     NotifyService.shared.allowNotify()
                 }
                 .padding(-15)

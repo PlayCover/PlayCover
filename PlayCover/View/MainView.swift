@@ -59,7 +59,6 @@ struct SearchView : View {
 
 struct MainView: View {
 	@Environment(\.openURL) var openURL
-    //@EnvironmentObject var update : UpdateService
     @EnvironmentObject var install : InstallVM
     @EnvironmentObject var apps : AppsVM
     @EnvironmentObject var integrity : AppIntegrity
@@ -157,7 +156,6 @@ struct Previews_MainView_Previews: PreviewProvider {
 	static var previews: some View {
 		MainView()
 			.padding()
-			//.environmentObject(UpdateService.shared)
 			.environmentObject(InstallVM.shared)
 			.environmentObject(AppsVM.shared)
 			.environmentObject(AppIntegrity())
@@ -165,7 +163,6 @@ struct Previews_MainView_Previews: PreviewProvider {
 			.onAppear {
 				UserDefaults.standard.register(defaults: ["ShowLinks" : true])
 				SoundDeviceService.shared.prepareSoundDevice()
-				// UpdateService.shared.checkUpdate()
 				NotifyService.shared.allowNotify()
 			}
 			.padding(-15)
