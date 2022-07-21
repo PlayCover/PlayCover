@@ -40,19 +40,16 @@ struct PlayCoverHelpMenuView: Commands {
 }
 
 struct PlayCoverViewMenuView: Commands {
-    @State private var isToggle : Bool = AppsVM.shared.showAppLinks
-    
     var body: some Commands {
         CommandGroup(before: .sidebar)
         {
-            ShowAppLinksCommand() // Can you already tell that I love Swift? /s
+            ShowAppLinksCommand()
             Divider()
         }
     }
 }
 
 struct ShowAppLinksCommand: View{
-    // Must be its own struct because SwiftUI does not update Command when ObservedState changes
     @ObservedObject var apps = AppsVM.shared
     
     var body: some View {
