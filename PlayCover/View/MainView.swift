@@ -137,12 +137,12 @@ struct MainView: View {
                     }.padding()
                 }
                 .background(.regularMaterial)
-                .overlay(GeometryReader { geomatry in
+                .overlay(GeometryReader { geometry in
                     Text("")
-                        .onChange(of: geomatry.size.height) { v in bottomHeight = v }
+                        .onChange(of: geometry.size.height) { v in bottomHeight = v }
                         .onAppear {
-                            print("Bottom height: \(geomatry.size.height)")
-                            bottomHeight = geomatry.size.height
+                            print("Bottom height: \(geometry.size.height)")
+                            bottomHeight = geometry.size.height
                         }
                 })
             }
