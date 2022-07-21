@@ -38,3 +38,28 @@ struct PlayCoverHelpMenuView: Commands {
         }
     }
 }
+
+struct PlayCoverViewMenuView: Commands {
+    var body: some Commands {
+        CommandGroup(before: .sidebar)
+        {
+            ShowAppLinksCommand()
+            Divider()
+        }
+    }
+}
+
+struct ShowAppLinksCommand: View{
+    @ObservedObject var apps = AppsVM.shared
+    
+    var body: some View {
+        Toggle(isOn: $apps.showAppLinks)
+        {
+            Text("Show app links")
+        }.onChange(of: apps.showAppLinks){ value in
+            UserDefaults.standard.set(value, forKey: "ShowLinks")
+            apps.fetchApps()
+        }
+        .keyboardShortcut("A", modifiers: [.command, .option])
+    }
+}
