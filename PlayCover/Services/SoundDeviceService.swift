@@ -30,6 +30,6 @@ class SoundDeviceService {
             }
         }
         
-        Log.shared.msg("No device with sample rate of 48 / 44.1 ghz found! Please, lower sample rate in Audio settings or connect another output audio device. Otherwise crashes possible!")
+        Log.shared.msg("No device with sample rate of 48 / 44.1 ghz found! Please lower sample rate in Audio settings or connect another output audio device. Otherwise crashes are possible!")
     }
 }

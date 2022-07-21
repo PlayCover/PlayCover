@@ -13,7 +13,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 Installer.install(ipaUrl: uif.ipaUrl!, returnCompletion: { _ in
                     DispatchQueue.main.async {
                         AppsVM.shared.fetchApps()
-                        NotifyService.shared.notify("App is installed!", "Please, check it out in 'My Apps'")
+                        NotifyService.shared.notify(NSLocalizedString("App is installed!", comment: ""),
+                                                    NSLocalizedString("Please, check it out in 'My Apps'", comment: ""))
                     }
                 })
             }

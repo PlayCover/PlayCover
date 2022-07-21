@@ -44,7 +44,7 @@ struct AppsView : View {
                     if let url = URL(string: "https://ipa.playcover.workers.dev/0:/") {
                         NSWorkspace.shared.open(url)
                     }
-                }.buttonStyle(OutlineButton()).controlSize(.large).help(NSLocalizedString("Use this site to decrypt and download any global app", comment:""))
+                }.buttonStyle(OutlineButton()).controlSize(.large).help("Use this site to decrypt and download any global app")
                     .padding(.trailing, 30)
             }
 			if !sh.isXcodeCliToolsInstalled {
@@ -54,16 +54,16 @@ struct AppsView : View {
 					Button("Install") {
 						do {
 							_ = try sh.sh("xcode-select --install")
-							alertTitle = "Xcode tools installation succeeded"
-							alertBtn = "Close"
-							alertText = "Please follow the given instructions, and restart the App."
+							alertTitle = NSLocalizedString("Xcode tools installation succeeded", comment: "")
+							alertBtn = NSLocalizedString("Close", comment: "")
+							alertText = NSLocalizedString("Please follow the given instructions, and restart the App.", comment: "")
 							alertAction = {
 								exit(0)
 							}
 							showAlert = true
 						} catch {
-							alertTitle = "Xcode tools intallation failed"
-							alertBtn = "OK"
+							alertTitle = NSLocalizedString("Xcode tools intallation failed", comment: "")
+							alertBtn = NSLocalizedString("OK", comment: "")
 							alertText = error.localizedDescription
 							alertAction = {}
 							showAlert = true
@@ -178,7 +178,7 @@ struct AppAddView : View {
         Installer.install(ipaUrl : uif.ipaUrl! , returnCompletion: { (app) in
             DispatchQueue.main.async {
                 AppsVM.shared.fetchApps()
-                NotifyService.shared.notify("App installed!", "Check it out in 'My Apps'")
+                NotifyService.shared.notify(NSLocalizedString("App installed!", comment: ""), NSLocalizedString("Check it out in 'My Apps'", comment: ""))
             }
         })
     }
