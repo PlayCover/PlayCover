@@ -74,8 +74,8 @@ struct AppSettingsView : View {
                 Button("Reset settings and keymapping"){
                     resetedAlert.toggle()
                     settings.reset()
-                }.buttonStyle(CancelButton()).padding()
-                Button("Ok"){
+                }.buttonStyle(.bordered).padding()
+                Button("Done"){
                     settings.keymapping = keymapping
                     settings.adaptiveDisplay = adaptiveDisplay
                     settings.sensivity = sensivity
@@ -90,7 +90,7 @@ struct AppSettingsView : View {
                     
                     presentationMode.wrappedValue.dismiss()
                     
-                }.buttonStyle(GrowingButton()).padding().frame(height: 80)
+                }.buttonStyle(.borderless).foregroundColor(Color(NSColor.systemBlue)).padding().frame(height: 80)
                 Spacer()
             }
         }.toast(isPresenting: $resetedAlert){

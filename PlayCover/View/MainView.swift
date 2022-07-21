@@ -157,6 +157,14 @@ struct MainView: View {
                     integrity.moveToApps()
                 }
             }
+            .toolbar {
+                Button(action: {
+                    
+                }, label: {
+                    EmptyView()
+                })
+                .disabled(true)
+            }
         }
     }
 }
