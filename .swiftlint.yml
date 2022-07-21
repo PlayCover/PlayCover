@@ -1,0 +1,8 @@
+disabled_rules:
+  - inclusive_language
+
+identifier_name:
+  allowed_symbols: ['_']
+
+type_name:
+  allowed_symbols: ['_']
