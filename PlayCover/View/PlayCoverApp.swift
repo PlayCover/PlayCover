@@ -31,7 +31,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		UserDefaults.standard.register(
 			defaults: ["NSApplicationCrashOnExceptions" : true]
 		)
-        LaunchServicesWrapper.setMyselfAsDefaultApplicationForFileExtension("ipa")
     }
     
 }
