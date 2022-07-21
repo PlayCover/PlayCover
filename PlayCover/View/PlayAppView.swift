@@ -24,7 +24,7 @@ struct PlayAppView : View {
     @State var showImportFail : Bool = false
     
     func elementColor(_ dark : Bool) -> Color {
-        return isHover ? Colr.controlSelect().opacity(0.3) : Color.black.opacity(0.0)
+        return isHover ? Color.gray.opacity(0.3) : Color.black.opacity(0.0)
     }
     
     init(app: PlayApp) {

@@ -11,7 +11,7 @@ struct UpdateButton: ButtonStyle {
         configuration.label
             .padding(.horizontal, 24)
             .padding(.vertical, 16)
-            .background(Colr.success)
+            .background(Color.init(hex: 0x2ECC71))
             .foregroundColor(.white)
             .clipShape(Capsule())
     }

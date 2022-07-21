@@ -109,7 +109,7 @@ struct AppAddView : View {
     @EnvironmentObject var install : InstallVM
     
     func elementColor(_ dark : Bool) -> Color {
-        return isHover ? Colr.controlSelect().opacity(0.3) : Color.black.opacity(0.0)
+        return isHover ? Color.gray.opacity(0.3) : Color.black.opacity(0.0)
     }
     
     var body: some View {
@@ -203,7 +203,7 @@ struct ExportView : View {
     @EnvironmentObject var install : InstallVM
     
     func elementColor(_ dark : Bool) -> Color {
-        return isHover ? Colr.controlSelect().opacity(0.3) : Color.black.opacity(0.0)
+        return isHover ? Color.gray.opacity(0.3) : Color.black.opacity(0.0)
     }
     
     var body: some View {
