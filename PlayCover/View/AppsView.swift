@@ -14,8 +14,6 @@ struct AppsView : View {
     @EnvironmentObject var vm : AppsVM
     
     @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150), spacing: 10)]
-    
-    @State private var showAppLinks = UserDefaults.standard.bool(forKey: "ShowLinks")
 
 	@State private var alertTitle = ""
 
@@ -30,14 +28,6 @@ struct AppsView : View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Toggle(isOn: $showAppLinks) {
-                    Text("Show app links")
-                }.onChange(of: showAppLinks) { value in
-                    UserDefaults.standard.set(showAppLinks, forKey: "ShowLinks")
-                    vm.fetchApps()
-                }.padding(.leading, 30)
-                    .help("Untick this option to show installed apps only")
-                Spacer()
                 SearchView().padding(.leading, 20).padding(.trailing, 10).padding(.vertical, 8)
                 ExportView().environmentObject(InstallVM.shared)
                 Button(NSLocalizedString("Download more apps", comment: "")) {
