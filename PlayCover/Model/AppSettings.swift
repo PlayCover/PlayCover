@@ -19,7 +19,7 @@ extension NSScreen {
     }
     
     private static func getMacModel() -> String? {
-        let service = IOServiceGetMatchingService(kIOMasterPortDefault,
+        let service = IOServiceGetMatchingService(kIOMainPortDefault,
                                                   IOServiceMatching("IOPlatformExpertDevice"))
         var modelIdentifier: String?
 
