@@ -60,10 +60,6 @@ class Colr {
         return Color.init(hex: 0x000000)
     }
     
-    static let accent : Color = Color.init(hex: 0xB02AF5)
-    
-    static let primary : Color = Color.init(hex: 0xFF0066)
-    
     static let get : Color = Color.init(hex: 0xff4d94)
     
     static func isDarkMode() -> Bool {

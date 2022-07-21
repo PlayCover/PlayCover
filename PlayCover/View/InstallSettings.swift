@@ -23,10 +23,10 @@ struct ProgressBar: View {
             ZStack(alignment: .leading) {
                 Rectangle().frame(width: geometry.size.width , height: geometry.size.height)
                     .opacity(0.3)
-                    .foregroundColor(Colr.primary)
+                    .foregroundColor(.accentColor)
                 
                 Rectangle().frame(width: min(CGFloat(install.progress)*geometry.size.width, geometry.size.width), height: geometry.size.height)
-                    .foregroundColor(Colr.primary)
+                    .foregroundColor(.accentColor)
                     .animation(.linear)
             }.cornerRadius(45.0)
         }

@@ -31,7 +31,7 @@ struct AppSettingsView : View {
                     Toggle(NSLocalizedString("Gaming Mode", comment:""), isOn: $gamingMode).padding()
                 }
                 HStack{
-                    Image(systemName: "keyboard").font(.system(size: 96)).foregroundColor(Colr.primary).padding(.leading)
+                    Image(systemName: "keyboard").font(.system(size: 96)).foregroundColor(.accentColor).padding(.leading)
                     Text("With this you can bind touch layout to bind touch controls to mouse and keyboard. Use Control + P to open editor menu.").frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
@@ -39,7 +39,7 @@ struct AppSettingsView : View {
             VStack(alignment: .leading, spacing: 0){
                 Toggle(NSLocalizedString("Adaptive display", comment:""), isOn: $adaptiveDisplay).padding()
                 HStack{
-                    Image(systemName: "display").font(.system(size: 96)).foregroundColor(Colr.primary).padding(.leading)
+                    Image(systemName: "display").font(.system(size: 96)).foregroundColor(.accentColor).padding(.leading)
                     Text("Use this feature to play games in fullscreen and adapt app window to another dimensions.").frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
@@ -49,7 +49,7 @@ struct AppSettingsView : View {
                     Text("Enable Jailbreak Bypass (Alpha)")
                 }.padding()
                 HStack{
-                    Image(systemName: "terminal.fill").font(.system(size: 96)).foregroundColor(Colr.primary).padding(.leading)
+                    Image(systemName: "terminal.fill").font(.system(size: 96)).foregroundColor(.accentColor).padding(.leading)
                     Text("ATTENTION: Don't enable for some games yet! This allows you to bypass bans that don't let you login").frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
@@ -74,7 +74,7 @@ struct AppSettingsView : View {
                 Button("Reset settings and keymapping"){
                     resetedAlert.toggle()
                     settings.reset()
-                }.buttonStyle(CancelButton()).padding()
+                }.buttonStyle(GrowingButton()).padding()
                 Button("Ok"){
                     settings.keymapping = keymapping
                     settings.adaptiveDisplay = adaptiveDisplay
