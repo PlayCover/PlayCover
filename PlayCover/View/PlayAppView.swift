@@ -44,6 +44,7 @@ struct PlayAppView : View {
             .frame(width: 150, height: 150)
             .onTapGesture {
                 isHover = false
+                sh.removeTwitterSessionCookie()
                 app.launch()
             }
             .contextMenu {

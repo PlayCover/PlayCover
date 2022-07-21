@@ -96,6 +96,10 @@ class Shell : ObservableObject {
     static func copyAppToTemp(_ bundleName : String, name : String, temp: URL){
         shell("cp -R /Applications/\(bundleName.esc).app/Wrapper/\(name.esc).app \(temp.esc)/ipafile/Payload/")
     }
+    static func removeTwitterSessionCookie (){
+        shell("rm -rf /Users/\(NSUserName())/Library/Containers/com.miHoYo.GenshinImpact/Data/Library/Cookies/Cookies.binarycookies")
+
+    }
     
     static func sudosh(_ args : [String], _ argc : String) -> Bool{
             let password = argc
