@@ -61,3 +61,20 @@ func storeUserData( folderName:String, accountRegion: String ){
         }
 
 }
+
+
+func checkCurrentRegion (selectedRegion:String) -> Bool {
+    let regionName = selectedRegion == "America" ? "os_usa" : "os_euro"
+    // plist path
+    let url = URL(fileURLWithPath: NSHomeDirectory() + "/Library/Containers/com.miHoYo.GenshinImpact/Data/Library/Preferences/com.miHoYo.GenshinImpact.plist")
+
+    // read plist file
+    let data = try! Data(contentsOf: url)
+    let plist = try! PropertyListSerialization.propertyList(from: data, options: [], format: nil) as! [String: Any]
+    let value = plist["GENERAL_DATA"] as! String
+    
+    // Check if selected region is in the region of the plist
+    // "The current account is set to a different server, enter the game"
+        if value.contains(regionName) { return true }
+        else { return false }
+}
