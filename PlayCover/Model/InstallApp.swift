@@ -68,7 +68,7 @@ private extension URL {
     }
 }
 
-// You know, it'd be cool if Swift supported associated values. Unfortunately, fuck you.
+// You know, it'd be cool if Swift supported associated values. Unfortunately, f##k you.
 public extension InstallApp {
     /// Returns an array of URLs to MachO files within the app
     func resolveValidMachOs() throws -> [URL] {
