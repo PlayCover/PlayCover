@@ -9,7 +9,7 @@
 "app.delete" = "Delete app";
 "alert.appCacheCleared" = "App data has been cleared!";
 "alert.kmImported" = "Keymapping imported!";
-"alert.errorImportKm" = "Error during import!";
+"alert.errorImportKm" = "Error occured when importing!";
 "alert.app.delete" = "All app data will be erased. You may need to download app files again. Do you wish to continue?";
 "alert.wrongFileType" = "Wrong file type";
 "button.OK" = "OK";
@@ -17,10 +17,9 @@
 "button.Cancel" = "Cancel";
 "button.Close" = "Close";
 "button.Dismiss" = "Dismiss";
-"error.corruptedIPA" = "This .IPA is courrupted. It doesn't contains Info.plist.";
+"error.corruptedIPA" = "This IPA file is broken. It does not contains Info.plist.";
 "error.waitInstallation" = "Please wait for the current installation to finish!";
-"error.reinstallApp" = "Please reinstall the PlayCover app";
-"This .IPA is courrupted.Try to use another .ipa" = "This .IPA is courrupted. Try using another .ipa";
+"error.reinstallApp" = "Please reinstall PlayCover";
 "topBar.downloadMoreApps" = "Download more apps";
 "topBar.downloadMoreApps.help" = "Use this site to download apps for installation";
 "topBar.exportToSideloady" = "Export to Sideloadly";
