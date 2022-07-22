@@ -16,12 +16,12 @@ let BOMHandle = dlopen("/System/Library/PrivateFrameworks/Bom.framework/Bom", RT
     unsafeBitCast(dlsym(BOMHandle, name), to: T.self)
 }
 
-let BomSys_default: @convention(c) () -> BOMSys = BOMFunction("BomSys_default")
+let bomSys_default: @convention(c) () -> BOMSys = BOMFunction("BomSys_default")
 let BOMCopierNewWithSys: (
     @convention(c) (BOMSys) -> BOMCopier
 ) = BOMFunction("BOMCopierNewWithSys")
 let BOMCopierFree: (
-    @convention(c) (BOMCopier) -> ()
+    @convention(c) (BOMCopier) -> Void
 ) = BOMFunction("BOMCopierFree")
 
 let kBOMCopierOptionExtractPKZipKey = "extractPKZip"
@@ -31,7 +31,8 @@ let BOMCopierCopy: (
 ) = BOMFunction("BOMCopierCopy")
 
 let BOMCopierCopyWithOptions: (
-    @convention(c) (_ copier: BOMCopier, _ fromObj: UnsafePointer<CChar>, _ toObj: UnsafePointer<CChar>, _  options: CFDictionary) -> CInt
+    @convention(c) (_ copier: BOMCopier, _ fromObj: UnsafePointer<CChar>,
+                    _ toObj: UnsafePointer<CChar>, _  options: CFDictionary) -> CInt
 ) = BOMFunction("BOMCopierCopyWithOptions")
 
 enum BOMCopierReturn: CInt, Error {
@@ -45,12 +46,12 @@ enum BOMCopierReturn: CInt, Error {
 }
 
 func unzip_to_destination(_ source: UnsafePointer<CChar>, _ destination: UnsafePointer<CChar>) -> BOMCopierReturn {
-    let copier = BOMCopierNewWithSys(BomSys_default())
+    let copier = BOMCopierNewWithSys(bomSys_default())
     defer { BOMCopierFree(copier) }
-    
+
     let rawBomCopierReturn = BOMCopierCopyWithOptions(copier, source, destination, [
         "extractPKZip": kCFBooleanTrue
     ] as CFDictionary)
-    
+
     return BOMCopierReturn(rawValue: rawBomCopierReturn)!
 }
