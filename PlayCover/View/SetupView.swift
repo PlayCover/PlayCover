@@ -83,6 +83,7 @@ struct SetupView: View {
                                 .padding(.vertical, 2)
                                 .background(Color(red: 0.25, green: 0.25, blue: 0.25))
                                 .cornerRadius(5)
+                                .foregroundColor(Color(hex: 0xFFFFFF))
                         }
                         Text("7) Press Return or Enter on your keyboard. " +
                              "Input your Mac screen password (it is invisible)")
