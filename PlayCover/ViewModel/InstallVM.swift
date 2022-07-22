@@ -6,13 +6,13 @@
 import Foundation
 
 enum InstallStepsNative: String {
-    case unzip = "Unzipping app",
-         wrapper = "Creating app wrapper",
-         playtools = "Installing PlayTools",
-         sign = "Signing app",
-         library = "Adding app to library",
-         begin = "Copying app",
-         finish = "Finished"
+    case unzip = "app.install.unzip",
+         wrapper = "app.install.createWrapper",
+         playtools = "app.install.installPlayTools",
+         sign = "app.install.signing",
+         library = "app.install.addToLib",
+         begin = "app.install.copy",
+         finish = "app.install.finished"
 }
 
 class InstallVM: ObservableObject {

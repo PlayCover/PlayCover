@@ -16,8 +16,8 @@ struct SetupView: View {
     func promptForReply(_ strMsg: String, _ strInformative: String, completion: PromptResponseClosure) {
         let alert: NSAlert = NSAlert()
 
-        alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))      // 1st button
-        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))  // 2nd button
+        alert.addButton(withTitle: NSLocalizedString("button.OK", comment: ""))      // 1st button
+        alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))  // 2nd button
         alert.messageText = strMsg
         alert.informativeText = strInformative
 
@@ -38,15 +38,15 @@ struct SetupView: View {
     }
 
     func playSignPromt(_ firstTime: Bool) {
-        let text = firstTime ? NSLocalizedString("Please, input your login password", comment: "") :
-            NSLocalizedString("You have typed an incorrect password.", comment: "")
+        let text = firstTime ? NSLocalizedString("setup.enterLoginPassword", comment: "") :
+            NSLocalizedString("setup.incorrectPassword", comment: "")
 
         promptForReply(text,
-                       NSLocalizedString("It is the one you use to unlock your Mac", comment: "")) { strResponse, _ in
+                       NSLocalizedString("setup.enterLoginPassword.info", comment: "")) { strResponse, _ in
             if SystemConfig.enablePlaySign(strResponse) {
                 if SystemConfig.isPRAMValid() {
                     presentationMode.wrappedValue.dismiss()
-                    Log.shared.msg("Now, restart the Mac and all is done!")
+                    Log.shared.msg("setup.enterLoginPassword")
                 } else {
                     playSignPromt(false)
                 }
@@ -59,10 +59,10 @@ struct SetupView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             if !SystemConfig.isSIPDisabled() {
-                Text("Are apps not allowing you to login?")
+                Text("setupView.header")
                     .padding([.horizontal, .top])
                     .font(.title.weight(.heavy))
-                Text("Follow the instructions below to fix exactly that!")
+                Text("setupView.subheader")
                     .padding(.horizontal)
                     .padding(.top, -4)
 
@@ -70,34 +70,32 @@ struct SetupView: View {
 
                 VStack(alignment: .leading, spacing: 5) {
                     Group {
-                        Text("1) Shutdown your Mac")
-                        Text("2) Hold down the power button 10 seconds after the screen turns black")
-                        Text("3) When \"Loading Startup Options\" appears below the Apple logo," +
-                             " release the power button")
-                        Text("4) Click the Recovery Mode boot option")
-                        Text("5) In Recovery, open Terminal (Utilities -> Terminal)")
+                        Text("setupView.1")
+                        Text("setupView.2")
+                        Text("setupView.3")
+                        Text("setupView.4")
+                        Text("setupView.5")
                         HStack(spacing: 4) {
-                            Text("6) Type: ")
+                            Text("setupView.6")
                             Text("csrutil disable").textSelection(.enabled).font(.monospaced(.body)())
                                 .padding(.horizontal, 4)
                                 .padding(.vertical, 2)
                                 .background(Color(red: 0.25, green: 0.25, blue: 0.25))
                                 .cornerRadius(5)
                         }
-                        Text("7) Press Return or Enter on your keyboard. " +
-                             "Input your Mac screen password (it is invisible)")
-                        Text("8) Click the Apple symbol in the Menu bar and Restart")
+                        Text("setupView.7")
+                        Text("setupView.8")
 
                         Spacer()
 
-                        Text("If you encounter any errors, restart and repeat the whole process again").font(.callout)
+                        Text("setupView.9").font(.callout)
                     }
 
-                    GroupBox(label: Label(NSLocalizedString("Video Tutorials", comment: ""),
+                    GroupBox(label: Label(NSLocalizedString("setupView.vidTutorials", comment: ""),
                                           systemImage: "play.rectangle")) {
                         HStack {
                             ZStack {
-                                Link("YouTube", destination:
+                                Link("setupView.youtube", destination:
                                         URL(string: "https://www.youtube.com/watch?v=H3CoI84s_FI")!)
                                     .font(.title3)
                                     .padding(.vertical, 4).padding(.horizontal, 10)
@@ -107,7 +105,7 @@ struct SetupView: View {
                                     .fill(Color(NSColor.unemphasizedSelectedContentBackgroundColor))
                             )
                             ZStack {
-                                Link("Bilibili", destination:
+                                Link("setupView.bilibili", destination:
                                         URL(string: "https://www.bilibili.com/video/BV1Th411q7Lt")!)
                                     .font(.title3)
                                     .padding(.vertical, 4).padding(.horizontal, 10)
@@ -120,18 +118,18 @@ struct SetupView: View {
                         .padding(2)
                     }.padding(.top, 8)
 
-                    Button("Dismiss") { presentationMode.wrappedValue.dismiss() }
+                    Button("button.Dismiss") { presentationMode.wrappedValue.dismiss() }
                         .padding([.top, .bottom])
                         .buttonStyle(.borderedProminent)
                         .controlSize(.large)
                         .accentColor(.accentColor)
                 }.padding(.horizontal)
             } else if !SystemConfig.isPRAMValid() {
-                Text("Please, press below button and input your Mac unlock screen password.")
+                Text("setupView.pressButtonAndEnterPassword")
                     .padding()
                     .font(.system(size: 18.0, weight: .thin))
                     .padding()
-                Button("Enable PlaySign") {
+                Button("setupView.pressButtonAndEnterPassword.button") {
                     playSignPromt(true)
                 }.padding()
             }

@@ -22,7 +22,7 @@ struct SearchView: View {
     @Environment(\.colorScheme) var colorScheme
 
     var body : some View {
-        TextField(NSLocalizedString("Search...", comment: ""), text: $search)
+        TextField(NSLocalizedString("search.search", comment: ""), text: $search)
             .padding(7)
             .padding(.horizontal, 25)
             .background(Color(NSColor.textBackgroundColor))
@@ -92,7 +92,7 @@ struct MainView: View {
                     VStack(alignment: .leading, spacing: 16) {
                         VStack(alignment: .leading, spacing: 0) {
                             HStack {
-                                Text("Notices").font(.headline).help("Important news and announcements")
+                                Text("bottomBar.notices").font(.headline).help("bottomBar.notices.help")
                                 Button {
                                     withAnimation { noticesExpanded.toggle() }
                                 } label: {
@@ -102,7 +102,7 @@ struct MainView: View {
                                 Spacer()
                                 if !SystemConfig.isPlaySignActive {
                                     HStack {
-                                        Button("Problems logging in?") { showSetup = true }
+                                        Button("bottomBar.setupViewButton") { showSetup = true }
                                             .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
                                     }
                                 }
@@ -111,7 +111,7 @@ struct MainView: View {
                                            label: {
                                         HStack {
                                             Image(systemName: "arrow.down.square.fill")
-                                            Text("Update app")
+                                            Text("app.update")
                                         }
                                     }).buttonStyle(UpdateButton()).controlSize(.large)
                                 }
@@ -130,7 +130,7 @@ struct MainView: View {
 						#if DEBUG
 						Divider()
 						HStack(spacing: 12) {
-							Button("Crash") { fatalError("Crash was triggered") }
+							Button("debug.crash") { fatalError("Crash was triggered") }
 								.buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
 						}.frame(maxWidth: .infinity)
 						#endif
@@ -147,15 +147,14 @@ struct MainView: View {
                 })
             }
             .toast(isPresenting: $showToast) {
-                AlertToast(type: .regular, title: NSLocalizedString("Logs copied!", comment: ""))
+                AlertToast(type: .regular, title: NSLocalizedString("logs.copied", comment: ""))
             }
             .sheet(isPresented: $showSetup) {
                 SetupView()
             }
-            .alert(NSLocalizedString("PlayCover must be in the Applications folder. " +
-                                     "Press the button below to let PlayCover move itself to /Applications.",
+            .alert(NSLocalizedString("alert.moveAppToApplications",
                                      comment: ""), isPresented: $integrity.integrityOff) {
-                Button("Move to /Applications", role: .cancel) {
+                Button("alert.moveAppToApplications.move", role: .cancel) {
                     integrity.moveToApps()
                 }
             }
