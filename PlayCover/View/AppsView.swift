@@ -7,6 +7,7 @@ import Foundation
 
 import SwiftUI
 import Cocoa
+import AppKit
 
 struct AppsView: View {
     @Binding public var bottomPadding: CGFloat
@@ -270,9 +271,14 @@ struct ExportView: View {
         Installer.exportForSideloadly(ipaUrl: uif.ipaUrl!, returnCompletion: { (ipa) in
             DispatchQueue.main.async {
                 ipa?.showInFinder()
-                NSWorkspace.shared.open([ipa!], withAppBundleIdentifier: "com.sideloadly.sideloadly",
-                                        options: NSWorkspace.LaunchOptions.withErrorPresentation,
-                                        additionalEventParamDescriptor: nil, launchIdentifiers: nil)
+                let configuration = NSWorkspace.OpenConfiguration()
+                configuration.promptsUserIfNeeded = true
+                let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.sideloadly.sideloadly")
+                if url != nil {
+                    NSWorkspace.shared.open([ipa!], withApplicationAt: url.unsafelyUnwrapped, configuration: configuration)
+                } else {
+                    Log.shared.error("Could not find Sideloadly!")
+                }
             }
         })
     }

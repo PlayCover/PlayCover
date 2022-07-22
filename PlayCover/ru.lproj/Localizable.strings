@@ -39,3 +39,6 @@
 "You have not performed all instructions! Please, perform all instructions in 'Settings' or watch video in pinned messages." = "Вы не выполнили все инструкции! Пожалуйста, выполните все инструкции в “Настройках” или посмотрите видео в закрепленных сообщениях.";
 "Get" = "Скачать";
 "To do this you need to reboot, enter into Recovery mode, open Terminal and type" = "Чтобы это сделать, перейдите в режим восстановления, откройте Терминал и введите";
+"soundAlert.messageText" = "";
+"soundAlert.informativeText" = "";
+"soundAlert.successText" = "";

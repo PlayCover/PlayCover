@@ -41,4 +41,6 @@
 "To do this you need to reboot, enter into Recovery mode, open Terminal and type" = "Để thực hiện bước này, khởi động máy Mac của bạn vào chế độ Phục hồi, mở Terminal và gõ";
 "App is installed!" = "Ứng dụng đã được cài đặt!";
 "Please, check it out in 'My Apps'" = "Vui lòng kiểm tra tại 'Ứng dụng của tôi'";
-
+"soundAlert.messageText" = "";
+"soundAlert.informativeText" = "";
+"soundAlert.successText" = "";
