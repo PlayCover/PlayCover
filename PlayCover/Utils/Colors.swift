@@ -7,7 +7,7 @@ import Foundation
 import SwiftUI
 
 extension Color {
-    
+
     init(hex: UInt, alpha: Double = 1) {
            self.init(
                .sRGB,
@@ -18,4 +18,3 @@ extension Color {
            )
        }
 }
-

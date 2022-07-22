@@ -7,16 +7,14 @@ import UserNotifications
 import Foundation
 import SwiftUI
 
-class NotifyService : NSObject, UNUserNotificationCenterDelegate {
-    
+class NotifyService: NSObject, UNUserNotificationCenterDelegate {
+
     static let shared = NotifyService()
-    
+
     func allowNotify() {
         UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options:
-          [.badge,.alert,.sound])
-            {
-                (sucess,error) in
+          [.badge, .alert, .sound]) { (_, error) in
                 if error != nil {
                     print("Error Found, \(error?.localizedDescription ?? "")")
                 } else {
@@ -24,8 +22,8 @@ class NotifyService : NSObject, UNUserNotificationCenterDelegate {
                 }
             }
     }
-    
-    func notify(_ title : String, _ message : String) {
+
+    func notify(_ title: String, _ message: String) {
         let center = UNUserNotificationCenter.current()
 
         let content = UNMutableNotificationContent()
