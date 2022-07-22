@@ -30,6 +30,7 @@ public class AppInfo {
     }
 
     public func retargeted(toURL url: URL) -> AppInfo {
+        // swiftlint:disable todo
         // TODO: remove use of force cast
         // swiftlint:disable force_cast
         AppInfo(url: url, rawStorage: rawStorage.mutableCopy() as! NSMutableDictionary)
