@@ -82,7 +82,6 @@
 "Screen refresh rate" = "Tasa de refresco de la pantalla";
 "Mouse sensivity: %.f" = "Sensibilidad del ratón: %.f";
 "Settings reseted to default!" = "¡Se han restablecido los ajustes por defecto!";
-"No device with sample rate of 48 / 44.1 ghz found! Please, lower sample rate in Audio settings or connect another output audio device. Otherwise crashes possible!" = "¡No se ha encontrado ningún dispositivo con una frecuencia de muestreo de 48 / 44.1 ghz! Por favor, baje la frecuencia de muestreo en la configuración de audio o conecte otro dispositivo de salida de audio. De lo contrario, puede que se produzcan errores!";
 "Copy logs" = "Copiar logs";
 "Notices" = "Notificaciones";
 "Having problems logging into apps?" = "¿Tienes problemas para iniciar sesión en las aplicaciones?";
