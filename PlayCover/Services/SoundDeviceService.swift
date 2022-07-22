@@ -3,8 +3,8 @@
 //  PlayCover
 //
 
-import Foundation
 import SimplyCoreAudio
+import SwiftUI
 
 class SoundDeviceService {
 
@@ -20,18 +20,18 @@ class SoundDeviceService {
         if let sampleRate = device?.nominalSampleRate {
             if sampleRate == 48000.0 || sampleRate == 44100.0 { return }
         }
-
-        for device in simplyCA.allOutputDevices {
-            if let sampleRate = device.nominalSampleRate {
-                if sampleRate == 48000.0 || sampleRate == 44100.0 {
-                    device.isDefaultOutputDevice = true
-                    return
-                }
+        DispatchQueue.main.async {
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString("soundAlert.messageText", comment: "")
+            alert.informativeText = NSLocalizedString("soundAlert.informativeText", comment: "")
+            alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
+            alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+            alert.alertStyle = .critical
+            let response: NSApplication.ModalResponse = alert.runModal()
+            if response == NSApplication.ModalResponse.alertFirstButtonReturn {
+                device?.setNominalSampleRate(48000.0)
+                Log.shared.msg(NSLocalizedString("soundAlert.successText", comment: ""))
             }
         }
-
-        Log.shared.msg("No device with sample rate of 48 / 44.1 ghz found! " +
-                       "Please lower sample rate in Audio settings or connect another output audio device." +
-                       " Otherwise crashes are possible!")
     }
 }

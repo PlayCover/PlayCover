@@ -41,4 +41,6 @@
 "To do this you need to reboot, enter into Recovery mode, open Terminal and type" = "Per fare questo hai bisogno di riavviare, entrare in Recovery mode, aprire il Terminale e scrivere";
 "App is installed!" = "App installata!";
 "Please, check it out in 'My Apps'" = "Per favore, controlla in 'Le mie Apps'";
-
+"soundAlert.messageText" = "";
+"soundAlert.informativeText" = "";
+"soundAlert.successText" = "";

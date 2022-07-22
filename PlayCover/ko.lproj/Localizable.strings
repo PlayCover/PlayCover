@@ -38,3 +38,6 @@
 "Make sure you don't disallowed PlayCover to access files in Settings - Secuirity & Privacy" = "설정 - 보안 및 개인 정보 보호 에서 PlayCover의 파일 엑세스 권한을 막지 않았는지 확인해주세요.";
 "This .IPA is courrupted.Try to use another .ipa" = "이 .ipa 파일은 손상되었습니다. 다른 .ipa 파일을 사용해 주세요.";
 "You not performed all instructions! Please, perform all instructions in 'Settings' or watch video in pinned messages." = "이 시스템은 설치 가이드를 모두 수행하지 않았습니다! '설정' 탭에 있는 가이드를 보거나, 고정된 메세지의 비디오를 확인 후 모두 수행해 주세요.";
+"soundAlert.messageText" = "";
+"soundAlert.informativeText" = "";
+"soundAlert.successText" = "";

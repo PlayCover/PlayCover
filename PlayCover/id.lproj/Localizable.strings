@@ -38,3 +38,6 @@
 "Make sure you don't disallowed PlayCover to access files in Settings - Secuirity & Privacy" = "Pastikan sudah memberikan ijin akses file untuk Playcover pada Settings - Security & Privacy";
 "This .IPA is courrupted.Try to use another .ipa" = ".IPA rusak. Coba gunakan .ipa lain";
 "You have not performed all instructions! Please, perform all instructions in 'Settings' or watch video in pinned messages." = "Kamu belum mengikuti semua instruksi, tolong ikuti semua instruksi dengan benar pada 'Settings' atau tonton video tutorial yang kami pin";
+"soundAlert.messageText" = "";
+"soundAlert.informativeText" = "";
+"soundAlert.successText" = "";
