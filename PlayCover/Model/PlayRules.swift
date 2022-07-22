@@ -11,11 +11,11 @@ struct PlayRules: Decodable {
 	var blacklist: [String]?
 	var whitelist: [String]?
 	var allow: [String]?
-	var bypass : [String]?
+	var bypass: [String]?
 
-	public static func buildRules(rules : [String], bundleID : String) -> [String] {
-		var result : [String] = []
-		let template = RuleTemplate(data: ["NSUserName" : "\(NSUserName())", "BundleID" : bundleID])
+	public static func buildRules(rules: [String], bundleID: String) -> [String] {
+		var result: [String] = []
+		let template = RuleTemplate(data: ["NSUserName": "\(NSUserName())", "BundleID": bundleID])
 		for rule in rules {
 			result.append(template.render(template: rule))
 		}
@@ -23,13 +23,11 @@ struct PlayRules: Decodable {
 	}
 }
 
-
-
 @dynamicMemberLookup
 struct RuleTemplate {
-	private var data : [String:String]
+	private var data: [String: String]
 
-	init(data: [String:String] = [:]) {
+	init(data: [String: String] = [:]) {
 		self.data = data
 	}
 
@@ -47,7 +45,7 @@ struct RuleTemplate {
 		set { data[member] = dateFormatter.string(from: newValue) }
 	}
 
-	let dateFormatter : DateFormatter = {
+	let dateFormatter: DateFormatter = {
 		let formatter = DateFormatter()
 		formatter.locale = Locale(identifier: "en_US_POSIX")
 		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"

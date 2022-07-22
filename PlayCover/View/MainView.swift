@@ -15,12 +15,12 @@ extension NSTextField {
         }
 }
 
-struct SearchView : View {
-    
-    @State private var search : String = ""
+struct SearchView: View {
+
+    @State private var search: String = ""
     @State private var isEditing = false
     @Environment(\.colorScheme) var colorScheme
-    
+
     var body : some View {
         TextField(NSLocalizedString("Search...", comment: ""), text: $search)
             .padding(7)
@@ -34,7 +34,7 @@ struct SearchView : View {
                 AppsVM.shared.fetchApps()
                 if value.isEmpty {
                     isEditing = false
-                } else{
+                } else {
                     isEditing = true
                 }
             })
@@ -47,10 +47,10 @@ struct SearchView : View {
                     if isEditing {
                             Button(action: {
                             self.search = ""
-                        }) {
+                            }, label: {
                             Image(systemName: "multiply.circle.fill")
                                 .padding(.trailing, 16)
-                        }.buttonStyle(PlainButtonStyle())
+                        }).buttonStyle(PlainButtonStyle())
                     }
                 }
             )
@@ -59,35 +59,34 @@ struct SearchView : View {
 
 struct MainView: View {
 	@Environment(\.openURL) var openURL
-    @EnvironmentObject var update : UpdateService
-    @EnvironmentObject var install : InstallVM
-    @EnvironmentObject var apps : AppsVM
-    @EnvironmentObject var integrity : AppIntegrity
+    @EnvironmentObject var update: UpdateService
+    @EnvironmentObject var install: InstallVM
+    @EnvironmentObject var apps: AppsVM
+    @EnvironmentObject var integrity: AppIntegrity
 
     @State var showSetup = false
     @State var noticesExpanded = false
     @State var bottomHeight: CGFloat = 0
-    
+
     @Binding var showToast: Bool
-    
+
     var body: some View {
-        if apps.updatingApps { ProgressView() }
-        else {
+        if apps.updatingApps { ProgressView() } else {
             ZStack(alignment: .bottom) {
                 AppsView(bottomPadding: $bottomHeight)
                     .frame(maxWidth: .infinity, maxHeight: .infinity).environmentObject(AppsVM.shared)
-                
+
                 VStack(alignment: .leading, spacing: 0) {
                     if install.installing {
                         VStack(alignment: .leading, spacing: 8) {
                             HStack(spacing: 8) {
-                                
+
                                     InstallProgress().environmentObject(install).padding(.bottom)
-                            }.padding().frame(maxWidth : .infinity)
-                            
+                            }.padding().frame(maxWidth: .infinity)
+
                         }
                     }
-                    
+
                     Divider()
 
                     VStack(alignment: .leading, spacing: 16) {
@@ -108,12 +107,13 @@ struct MainView: View {
                                     }
                                 }
                                 if !update.updateLink.isEmpty {
-                                    Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
+                                    Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) },
+                                           label: {
                                         HStack {
                                             Image(systemName: "arrow.down.square.fill")
                                             Text("Update app")
                                         }
-                                    }.buttonStyle(UpdateButton()).controlSize(.large)
+                                    }).buttonStyle(UpdateButton()).controlSize(.large)
                                 }
                             }
                             Text(StoreApp.notice)
@@ -123,7 +123,7 @@ struct MainView: View {
                                 .clipped()
                                 .padding(.top, noticesExpanded ? 8 : 0)
                         }
-                        
+
                         HStack(spacing: 12) {
                             Spacer()
                         }.frame(maxWidth: .infinity)
@@ -139,7 +139,7 @@ struct MainView: View {
                 .background(.regularMaterial)
                 .overlay(GeometryReader { geometry in
                     Text("")
-                        .onChange(of: geometry.size.height) { v in bottomHeight = v }
+                        .onChange(of: geometry.size.height) { height in bottomHeight = height }
                         .onAppear {
                             print("Bottom height: \(geometry.size.height)")
                             bottomHeight = geometry.size.height
@@ -152,7 +152,9 @@ struct MainView: View {
             .sheet(isPresented: $showSetup) {
                 SetupView()
             }
-            .alert(NSLocalizedString("PlayCover must be in the Applications folder. Press the button below to let PlayCover move itself to /Applications.", comment: ""), isPresented: $integrity.integrityOff) {
+            .alert(NSLocalizedString("PlayCover must be in the Applications folder. " +
+                                     "Press the button below to let PlayCover move itself to /Applications.",
+                                     comment: ""), isPresented: $integrity.integrityOff) {
                 Button("Move to /Applications", role: .cancel) {
                     integrity.moveToApps()
                 }
@@ -172,7 +174,7 @@ struct Previews_MainView_Previews: PreviewProvider {
 			.environmentObject(AppIntegrity())
 			.frame(minWidth: 600, minHeight: 650)
 			.onAppear {
-				UserDefaults.standard.register(defaults: ["ShowLinks" : true])
+				UserDefaults.standard.register(defaults: ["ShowLinks": true])
 				SoundDeviceService.shared.prepareSoundDevice()
 				UpdateService.shared.checkUpdate()
 				NotifyService.shared.allowNotify()
