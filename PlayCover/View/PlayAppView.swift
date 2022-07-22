@@ -23,6 +23,9 @@ struct PlayAppView : View {
     @State var showImportSuccess : Bool = false
     @State var showImportFail : Bool = false
     
+    @State private var showChangeGenshinAccount:Bool = false
+    @State private var showStoreGenshinAccount:Bool = false
+    
     func elementColor(_ dark : Bool) -> Color {
         return isHover ? Colr.controlSelect().opacity(0.3) : Color.black.opacity(0.0)
     }
@@ -61,7 +64,22 @@ struct PlayAppView : View {
                     Text("Show in Finder")
                     Image(systemName: "folder")
                 }
-                
+                if app.name == "Genshin Impact"{
+                Button(action: {
+                        showStoreGenshinAccount.toggle()
+                }) {
+                    Text("Store current account")
+                    Image(systemName: "pencil")
+                }
+            
+                Button(action: {
+                    
+                        showChangeGenshinAccount.toggle()
+                }) {
+                    Text("restore an account")
+                    Image(systemName: "pencil")
+                }
+                }
                 Button(action: {
                     app.openAppCache()
                 }) {
@@ -108,7 +126,12 @@ struct PlayAppView : View {
                 isHover = hovering
             }).sheet(isPresented: $showSettings) {
                 AppSettingsView(settings: app.settings, adaptiveDisplay: app.settings.adaptiveDisplay, keymapping: app.settings.keymapping, gamingMode: app.settings.gamingMode, bypass: app.settings.bypass, selectedRefreshRate: app.settings.refreshRate == 60 ? 0 : 1, sensivity: app.settings.sensivity).frame(minWidth: 500)
-            }.sheet(isPresented: $showSetup) {
+            }.sheet(isPresented: $showChangeGenshinAccount) {
+                ChangeGenshinAccountView()
+            }.sheet(isPresented: $showStoreGenshinAccount) {
+                StoreGenshinAccountView()
+            }
+            .sheet(isPresented: $showSetup) {
                 SetupView()
             }.alert("All app data will be erased. You may need to redownload app files again. Do you wish to continue?", isPresented: $showClearCacheAlert) {
                 Button("OK", role: .cancel) {

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2814F26C2888F12D0010A105 /* SaveGenshinUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2814F26B2888F12D0010A105 /* SaveGenshinUserData.swift */; };
+		2814F27028891CD50010A105 /* RestoreGenshinUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2814F26F28891CD50010A105 /* RestoreGenshinUserData.swift */; };
+		2814F2722889243C0010A105 /* ChangeGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2814F2712889243C0010A105 /* ChangeGenshinAccountView.swift */; };
+		2814F2742889296A0010A105 /* StoreGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2814F2732889296A0010A105 /* StoreGenshinAccountView.swift */; };
 		5314D1EE26C402EC00A0A727 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5314D1ED26C402EC00A0A727 /* Shell.swift */; };
 		532644DE26E79E56002EA34D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 532644E026E79E56002EA34D /* Localizable.strings */; };
 		538AAE7B26CD41E60009C7AC /* ProcessExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538AAE7A26CD41E60009C7AC /* ProcessExtension.swift */; };
@@ -67,6 +71,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2814F26B2888F12D0010A105 /* SaveGenshinUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveGenshinUserData.swift; sourceTree = "<group>"; };
+		2814F26F28891CD50010A105 /* RestoreGenshinUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreGenshinUserData.swift; sourceTree = "<group>"; };
+		2814F2712889243C0010A105 /* ChangeGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeGenshinAccountView.swift; sourceTree = "<group>"; };
+		2814F2732889296A0010A105 /* StoreGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreGenshinAccountView.swift; sourceTree = "<group>"; };
 		5314D1ED26C402EC00A0A727 /* Shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
 		531D717926E8313100F4A7AB /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		532644E126E79E5C002EA34D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -181,6 +189,8 @@
 				92EE06D3274EA604002C907B /* PlayAppView.swift */,
 				92EE06DB274EB19A002C907B /* StoreAppView.swift */,
 				92279BBE27610433009F28BF /* AppSettingsView.swift */,
+				2814F2712889243C0010A105 /* ChangeGenshinAccountView.swift */,
+				2814F2732889296A0010A105 /* StoreGenshinAccountView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -267,6 +277,8 @@
 				92037246280F27A50064A1EF /* LoginKitWrapper.m */,
 				92037248280F27CB0064A1EF /* LoginKitWrapper.h */,
 				92037249280F288C0064A1EF /* LoginServiceKit.swift */,
+				2814F26B2888F12D0010A105 /* SaveGenshinUserData.swift */,
+				2814F26F28891CD50010A105 /* RestoreGenshinUserData.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -531,6 +543,7 @@
 				53F3802826EB6F6B00D6B525 /* NotifyService.swift in Sources */,
 				92ECD8AA274E76FD00DB7AC6 /* TempAllocator.swift in Sources */,
 				9221730A27623DA100C8A3A2 /* StoreApp.swift in Sources */,
+				2814F27028891CD50010A105 /* RestoreGenshinUserData.swift in Sources */,
 				538ED92926F40BAF002D73E8 /* Style.swift in Sources */,
 				53F4D29E26C43C040020167C /* UserIntentFlow.swift in Sources */,
 				AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */,
@@ -540,12 +553,15 @@
 				8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */,
 				5314D1EE26C402EC00A0A727 /* Shell.swift in Sources */,
 				8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */,
+				2814F2722889243C0010A105 /* ChangeGenshinAccountView.swift in Sources */,
 				ABED59832887A32F004D782B /* MenuBarView.swift in Sources */,
 				538AAE7B26CD41E60009C7AC /* ProcessExtension.swift in Sources */,
 				92EE06D4274EA604002C907B /* PlayAppView.swift in Sources */,
+				2814F26C2888F12D0010A105 /* SaveGenshinUserData.swift in Sources */,
 				9280871D2824AD360034C510 /* Unarchiver.swift in Sources */,
 				92279BBF27610433009F28BF /* AppSettingsView.swift in Sources */,
 				9256220327491E4700728698 /* operations.m in Sources */,
+				2814F2742889296A0010A105 /* StoreGenshinAccountView.swift in Sources */,
 				92EE06D8274EA98B002C907B /* PhysicialApp.swift in Sources */,
 				92037247280F27A50064A1EF /* LoginKitWrapper.m in Sources */,
 				92EE06D2274EA596002C907B /* InstallApp.swift in Sources */,
