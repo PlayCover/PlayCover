@@ -9,48 +9,57 @@ import Foundation
 import SwiftUI
 import AlertToast
 
-struct AppSettingsView : View {
-    @State var settings : AppSettings
-    
-    @State var adaptiveDisplay : Bool
-    @State var keymapping : Bool
-    @State var gamingMode : Bool
-    @State var bypass : Bool
-    @State var selectedRefreshRate : Int
-    @State var sensivity : Float
-    
-    @State var resetedAlert : Bool = false
-    
+struct AppSettingsView: View {
+    @State var settings: AppSettings
+
+    @State var adaptiveDisplay: Bool
+    @State var keymapping: Bool
+    @State var gamingMode: Bool
+    @State var bypass: Bool
+    @State var selectedRefreshRate: Int
+    @State var sensivity: Float
+
+    @State var resetedAlert: Bool = false
+
     @Environment(\.presentationMode) var presentationMode
-    
+
     var body: some View {
-        VStack(alignment: .leading){
-            VStack(alignment: .leading){
+        VStack(alignment: .leading) {
+            VStack(alignment: .leading) {
                 HStack {
-                    Toggle(NSLocalizedString("Enable Keymapping", comment:""), isOn: $keymapping).padding()
-                    Toggle(NSLocalizedString("Gaming Mode", comment:""), isOn: $gamingMode).padding()
+                    Toggle(NSLocalizedString("Enable Keymapping", comment: ""), isOn: $keymapping).padding()
+                    Toggle(NSLocalizedString("Gaming Mode", comment: ""), isOn: $gamingMode).padding()
                 }
-                HStack{
-                    Image(systemName: "keyboard").font(.system(size: 96)).foregroundColor(.accentColor).padding(.leading)
-                    Text("With this you can bind touch layout to bind touch controls to mouse and keyboard. Use Control + P to open editor menu.").frame(maxWidth: 200).padding().frame(minHeight: 100)
+                HStack {
+                    Image(systemName: "keyboard")
+                        .font(.system(size: 96))
+                        .foregroundColor(.accentColor)
+                        .padding(.leading)
+                    Text("With this you can bind touch layout to bind touch controls to mouse and keyboard." +
+                         " Use Control + P to open editor menu.")
+                        .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
-            VStack(alignment: .leading, spacing: 0){
-                Toggle(NSLocalizedString("Adaptive display", comment:""), isOn: $adaptiveDisplay).padding()
-                HStack{
+            VStack(alignment: .leading, spacing: 0) {
+                Toggle(NSLocalizedString("Adaptive display", comment: ""), isOn: $adaptiveDisplay).padding()
+                HStack {
                     Image(systemName: "display").font(.system(size: 96)).foregroundColor(.accentColor).padding(.leading)
-                    Text("Use this feature to play games in fullscreen and adapt app window to another dimensions.").frame(maxWidth: 200).padding().frame(minHeight: 100)
+                    Text("Use this feature to play games in fullscreen and adapt app window to another dimensions.")
+                        .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
-            VStack(alignment: .leading){
+            VStack(alignment: .leading) {
                 Toggle(isOn: $bypass) {
                     Text("Enable Jailbreak Bypass (Alpha)")
                 }.padding()
-                HStack{
-                    Image(systemName: "terminal.fill").font(.system(size: 96)).foregroundColor(.accentColor).padding(.leading)
-                    Text("ATTENTION: Don't enable for some games yet! This allows you to bypass bans that don't let you login").frame(maxWidth: 200).padding().frame(minHeight: 100)
+                HStack {
+                    Image(systemName: "terminal.fill").font(.system(size: 96))
+                        .foregroundColor(.accentColor).padding(.leading)
+                    Text("ATTENTION: Don't enable for some games yet!" +
+                         " This allows you to bypass bans that don't let you login")
+                        .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
@@ -64,14 +73,14 @@ struct AppSettingsView : View {
             }
             VStack {
                 Divider().padding(.leading, 36).padding(.trailing, 36)
-                Text(NSLocalizedString("Mouse sensitivity: ", comment:"") + String(format: "%.f", sensivity))
+                Text(NSLocalizedString("Mouse sensitivity: ", comment: "") + String(format: "%.f", sensivity))
                 Slider(value: $sensivity, in: 1...100).frame(maxWidth: 400)
             }
-            
+
             Divider().padding(.leading, 36).padding(.trailing, 36)
-            HStack{
+            HStack {
                 Spacer()
-                Button("Reset settings and keymapping"){
+                Button("Reset settings and keymapping") {
                     resetedAlert.toggle()
                     settings.reset()
                 }.buttonStyle(GrowingButton()).padding()
@@ -81,20 +90,20 @@ struct AppSettingsView : View {
                     settings.sensivity = sensivity
                     settings.bypass = bypass
                     settings.gamingMode = gamingMode
-                    
+
                     if selectedRefreshRate == 1 {
                         settings.refreshRate = 120
                     } else {
                         settings.refreshRate = 60
                     }
-                    
+
                     presentationMode.wrappedValue.dismiss()
-                    
+
                 }.buttonStyle(GrowingButton()).padding().frame(height: 80)
                 Spacer()
             }
-        }.toast(isPresenting: $resetedAlert){
-            AlertToast(type: .regular, title: NSLocalizedString("Settings reseted to default!", comment:""))
+        }.toast(isPresenting: $resetedAlert) {
+            AlertToast(type: .regular, title: NSLocalizedString("Settings reseted to default!", comment: ""))
         }
     }
 }

@@ -109,3 +109,6 @@
 "It is the one you use to unlock your Mac" = "It is the one you use to unlock your Mac";
 "Now, restart the Mac and all is done!" = "Now, restart the Mac and all is done!";
 "Important news and announcements" = "Important news and announcements";
+"soundAlert.messageText" = "Incorrect Audio Settings Detected!";
+"soundAlert.informativeText" = "Your current output device does not have a sample rate of 48 or 44.1 KHz! Crashes may occur. Would you like to change your current output device's sample rate to 48 KHz?";
+"soundAlert.successText" = "Current output device sample rate set to 48 KHz";

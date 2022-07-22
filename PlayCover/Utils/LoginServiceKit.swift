@@ -9,7 +9,8 @@ import Foundation
 
 public final class LoginServiceKit: NSObject {
     private static var snapshot: (list: LSSharedFileList, items: [LSSharedFileListItem])? {
-        guard let list = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil)?.takeRetainedValue() else {
+        guard let list = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems
+            .takeRetainedValue(), nil)?.takeRetainedValue() else {
             return nil
         }
         return (list, (LSSharedFileListCopySnapshot(list, nil)?.takeRetainedValue() as? [LSSharedFileListItem]) ?? [])
@@ -40,7 +41,8 @@ public final class LoginServiceKit: NSObject {
             return false
         }
         return items.filter({
-            LSSharedFileListItemCopyResolvedURL($0, 0, nil)?.takeRetainedValue() == (URL(fileURLWithPath: path) as CFURL) }
+            LSSharedFileListItemCopyResolvedURL($0, 0, nil)?
+                .takeRetainedValue() == (URL(fileURLWithPath: path) as CFURL) }
         ).allSatisfy {
             LSSharedFileListItemRemove(list, $0) == noErr
         }

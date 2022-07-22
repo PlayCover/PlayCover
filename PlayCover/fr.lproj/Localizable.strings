@@ -91,3 +91,6 @@
 "If you encounter any errors, restart and repeat the whole process again" = "Si vous avez des erreurs, redémarrez et répétez le processus encore une fois.";
 "Please, wait current install to finish!" = "Veuillez attendre que l'installation se termine!";
 "You'll receive ban on this PlayCover version! Call of Duty supported on 0.9.2-0.9.4. PUBG requires higher PlayCover version. Free Fire status is not confirmed. There is one message of ban." = "Vous risquez d'être banni sur cette version de PlayCover! Call of Duty est supporté sur les versions 0.9.2-0.9.4. PUBG requiert une version plus récente. Free Fire n'est pas encore confirmé. Il y a un message de ban.";
+"soundAlert.messageText" = "Paramètres Audio Incorrects Détectés!";
+"soundAlert.informativeText" = "Votre sortie audio actuelle n'a pas un taux d'échantillonnage de 48 ou 44.1 KHz! Des erreurs peuvent survenir. Voulez-vous changer le taux d'échantillonnage de votre sortie audio actuelle à 48 KHz?";
+"soundAlert.successText" = "Définir le taux d'échantillonnage de votre sortie audio à 48 KHz";
