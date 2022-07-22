@@ -3,10 +3,7 @@
 //  PlayCover
 //
 
-import Foundation
-
 import SwiftUI
-import Cocoa
 
 struct AppsView : View {
     @Binding public var bottomPadding: CGFloat
