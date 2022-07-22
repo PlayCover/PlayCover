@@ -38,3 +38,6 @@
 "Make sure you don't disallowed PlayCover to access files in Settings - Security & Privacy" = "PlayCoverにファイルのアクセスが許可されているか　設定ーセキュリティとプライバシーで確認してください";
 "This .IPA is courrupted.Try to use another .ipa" = "この.ipaファイルは壊れています。他の.ipaファイルを使ってみてください。";
 "You not performed all instructions! Please, perform all instructions in 'Settings' or watch video in pinned messages." = "マニュアルのすべてのステップが実行されていません。設定にある説明ステップをすべて実行してください。またはディスコードの固定メッセージの動画を観てください。";
+"soundAlert.messageText" = "";
+"soundAlert.informativeText" = "";
+"soundAlert.successText" = "";
