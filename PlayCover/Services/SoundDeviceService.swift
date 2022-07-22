@@ -21,15 +21,8 @@ class SoundDeviceService {
             if sampleRate == 48000.0 || sampleRate == 44100.0 { return }
         }
         
-        for device in simplyCA.allOutputDevices {
-            if let sampleRate = device.nominalSampleRate {
-                if sampleRate == 48000.0 || sampleRate == 44100.0 {
-                    device.isDefaultOutputDevice = true
-                    return
-                }
-            }
-        }
+        device?.setNominalSampleRate(48000.0)
         
-        Log.shared.msg("No device with sample rate of 48 / 44.1 ghz found! Please lower sample rate in Audio settings or connect another output audio device. Otherwise crashes are possible!")
+        Log.shared.error("No device with sample rate of 48 or 44.1 KHz was found! PlayCover will attempt to set your current output device's sample rate to 48 KHz. Check Audio MIDI Settings if crashes occur!")
     }
 }

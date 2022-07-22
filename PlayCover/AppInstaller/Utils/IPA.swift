@@ -43,7 +43,8 @@ public class IPA {
         switch unzip_to_destination(url.path, workDir.path) {
         case .success:
             return try InstallApp.fromIPA(detectingAppNameInFolder: workDir.appendingPathComponent("Payload"))
-        case let bomError: throw PlayCoverError.appCorrupted
+        default:
+            throw PlayCoverError.appCorrupted
         }
     }
 
