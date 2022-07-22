@@ -223,7 +223,7 @@ struct ExportView: View {
         .help("topBar.exportToSideloady.help")
         .background(colorScheme == .dark ? elementColor(true) : elementColor(false))
         .alert(isPresented: $showWrongfileTypeAlert) {
-            Alert(title: Text"alert.wrongFileType", message: Text("alert.wrongFileType.message"),
+            Alert(title: Text("alert.wrongFileType"), message: Text("alert.wrongFileType.message"),
                   dismissButton: .default(Text("button.OK")))
         }.onDrop(of: ["public.url", "public.file-url"], isTargeted: nil) { (items) -> Bool in
             if install.installing {

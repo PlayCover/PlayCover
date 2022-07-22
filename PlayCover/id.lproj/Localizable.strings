@@ -32,7 +32,7 @@
 "xcode.installFailed" = "Xcode Command Line Tools intallation failed";
 "bottomBar.setupViewButton" = "Problems logging in?";
 "logs.copied" = "Logs copied";
-"alert.moveAppToApplications" = "PlayCover must be in the Applications folder. " + "Press the button below to let PlayCover move itself to /Applications.";
+"alert.moveAppToApplications" = "PlayCover must be in the Applications folder. Press the button below to let PlayCover move itself to /Applications.";
 "alert.moveAppToApplications.move" = "Move to /Applications";
 "km.enable" = "Enable keymapping";
 "gaming.enable" = "Gaming Mode";
@@ -42,7 +42,7 @@
 "jbBypass.enable" = "Enable Jailbreak Bypass (Alpha)";
 "jbBypass.enable.info" = "Attempts to bypass Jailbreak Detection in some games (No guarentee to work all the time)";
 "displayRefreshRate" = "Screen refresh rate";
-"mouseSensitivity" = "Mouse sensitivity: "; // Do add spacing after the ":" mark
+"mouseSensitivity" = "Mouse sensitivity: ";
 "settings.reset" = "Reset settings and keymapping";
 "settings.resetted" = "Settings have been reverted back to default!";
 "setupView.header" = "Are apps not allowing you to login?";
