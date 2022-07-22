@@ -1,4 +1,3 @@
-
 import Foundation
 import SwiftUI
 import AudioToolbox
@@ -22,12 +21,15 @@ extension PlayCoverError: LocalizedError {
         case .playcoverReinstall:
             return NSLocalizedString("Please reinstall the PlayCover app", comment: "")
         case .appEncrypted:
-            return NSLocalizedString("This app is encrypted! Please use a decrypted IPA from AppDb or download one from the internal store. iMazing IPA are not currently supported!", comment: "")
+            return NSLocalizedString("This app is encrypted! Please use a decrypted IPA from AppDb or download " +
+                                     "one from the internal store. iMazing IPA are not currently supported!",
+                                     comment: "")
         case .appCorrupted:
-            return NSLocalizedString("Something went wrong with this IPA. Please try to use another IPA file.", comment: "")
+            return NSLocalizedString("Something went wrong with this IPA. Please try to use another IPA file.",
+                                     comment: "")
         case .appProhibited:
-            return NSLocalizedString("You may receive a ban on this PlayCover version! Call of Duty is supported on PlayCover versions 0.9.2-0.9.4. PUBG requires a higher PlayCover version. Free Fire's status is not confirmed. There have been instances of bans.", comment: "")
+            return NSLocalizedString("You may receive a ban! There have been reports of" +
+                                     " bans when playing this game using PlayCover.", comment: "")
     }
     }
 }
-

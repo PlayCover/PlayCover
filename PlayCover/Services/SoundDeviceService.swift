@@ -7,16 +7,16 @@ import Foundation
 import SimplyCoreAudio
 
 class SoundDeviceService {
-    
+
     static let shared = SoundDeviceService()
-    
+
     private init() { }
-    
+
     func prepareSoundDevice() {
         let simplyCA = SimplyCoreAudio()
-        
+
         let device = simplyCA.defaultOutputDevice
-                
+
         if let sampleRate = device?.nominalSampleRate {
             if sampleRate == 48000.0 || sampleRate == 44100.0 { return }
         }
