@@ -123,4 +123,4 @@
 "xcode.needToInstall" = "You need to install Xcode Commandline tools and restart this App.";
 "button.Install" = "Install";
 "alert.xcodeToolsInstallSucceeded" = "Xcode tools installation succeeded";
-
+"failedToFetchNotices" = "Failed to find notices. Are we not online?";

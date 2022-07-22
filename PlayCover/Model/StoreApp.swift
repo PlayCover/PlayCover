@@ -67,7 +67,7 @@ class StoreApp : BaseApp {
 				print(error)
 			}
 		}
-		return "To Genshin Impact players: if you see <Data error, please login again> you need to enable SIP (csrutil enable in Recovery Mode). If you have problems with captcha login, press the <Enable PlaySign> button below."
+        return NSLocalizedString("failedToFetchNotices", comment: "")
 	}()
 }
 
