@@ -1,14 +1,14 @@
 //
-//  SettingsView.swift
+//  UpdateSettings.swift
 //  PlayCover
 //
-//  Created by Andrew Glaze on 7/16/22.
+//  Created by Andrew Glaze on 7/23/22.
 //
 
 import SwiftUI
 import Sparkle
 
-struct PlayCoverSettingsView: View {
+struct UpdateSettings: View {
     @ObservedObject var updaterViewModel: UpdaterViewModel
     @AppStorage("SUEnableAutomaticChecks") var autoUpdate = false
     @AppStorage("nightlyUpdates") var nightlyUpdates = false
@@ -17,6 +17,9 @@ struct PlayCoverSettingsView: View {
         Form {
             Toggle("Automatically check for updates", isOn: $autoUpdate)
             Toggle("Check for nightly updates", isOn: $nightlyUpdates)
+            Button("Check for updates now…") {
+                updaterViewModel.checkForUpdates()
+            }
         }
         .padding(20)
         .frame(width: 350, height: 100, alignment: .center)

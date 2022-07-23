@@ -10,6 +10,7 @@
 		365AFB0628847B2E008B3542 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 365AFB0528847B2E008B3542 /* Sparkle */; };
 		365AFB0828847B75008B3542 /* Sparkle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365AFB0728847B75008B3542 /* Sparkle.swift */; };
 		3665EF8928832400007CF915 /* PlayCoverSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */; };
+		36B26B97288C724600859EFD /* UpdateSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B26B96288C724600859EFD /* UpdateSettings.swift */; };
 		5314D1EE26C402EC00A0A727 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5314D1ED26C402EC00A0A727 /* Shell.swift */; };
 		532644DE26E79E56002EA34D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 532644E026E79E56002EA34D /* Localizable.strings */; };
 		538AAE7B26CD41E60009C7AC /* ProcessExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538AAE7A26CD41E60009C7AC /* ProcessExtension.swift */; };
@@ -70,7 +71,8 @@
 
 /* Begin PBXFileReference section */
 		365AFB0728847B75008B3542 /* Sparkle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sparkle.swift; sourceTree = "<group>"; };
-		3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverSettingsView.swift; sourceTree = "<group>"; };
+		3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverSettingsView.swift; sourceTree = "<group>"; usesTabs = 0; };
+		36B26B96288C724600859EFD /* UpdateSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSettings.swift; sourceTree = "<group>"; };
 		5314D1ED26C402EC00A0A727 /* Shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
 		531D717926E8313100F4A7AB /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		532644E126E79E5C002EA34D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -172,13 +174,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		36B26B95288C722500859EFD /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */,
+				36B26B96288C724600859EFD /* UpdateSettings.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		533F664B26C06A500051CB3E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				36B26B95288C722500859EFD /* Settings */,
 				ABED59822887A32F004D782B /* MenuBarView.swift */,
 				922ED9B9272DEEDB008CA401 /* MainView.swift */,
 				8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */,
-				3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */,
 				8783D00C26B8D32700171041 /* InstallSettings.swift */,
 				53F50C4826E3CA42007AD2D3 /* AppsView.swift */,
 				538ED92826F40BAF002D73E8 /* Style.swift */,
@@ -563,6 +574,7 @@
 				53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */,
 				92EE06D0274EA433002C907B /* BaseApp.swift in Sources */,
 				92F8500A27675124005CE6BE /* AppIntegrity.swift in Sources */,
+				36B26B97288C724600859EFD /* UpdateSettings.swift in Sources */,
 				8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */,
 				5314D1EE26C402EC00A0A727 /* Shell.swift in Sources */,
 				8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */,
