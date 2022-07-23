@@ -66,6 +66,7 @@ struct AppsView: View {
 			} else {
 				ScrollView {
 					LazyVGrid(columns: gridLayout, spacing: 10) {
+                        // swiftlint:disable todo
                         // TODO: Remove use of force cast
                         // swiftlint:disable force_cast
 						ForEach(appVm.apps, id: \.id) { app in
