@@ -15,9 +15,9 @@ extension NSTextField {
         }
 }
 
-struct SearchView : View {
+struct SearchView: View {
 
-    @State private var search : String = ""
+    @State private var search: String = ""
     @State private var isEditing = false
     @Environment(\.colorScheme) var colorScheme
 
@@ -34,7 +34,7 @@ struct SearchView : View {
                 AppsVM.shared.fetchApps()
                 if value.isEmpty {
                     isEditing = false
-                } else{
+                } else {
                     isEditing = true
                 }
             })
@@ -47,10 +47,10 @@ struct SearchView : View {
                     if isEditing {
                             Button(action: {
                             self.search = ""
-                        }) {
+                            }, label: {
                             Image(systemName: "multiply.circle.fill")
                                 .padding(.trailing, 16)
-                        }.buttonStyle(PlainButtonStyle())
+                        }).buttonStyle(PlainButtonStyle())
                     }
                 }
             )
@@ -59,9 +59,9 @@ struct SearchView : View {
 
 struct MainView: View {
 	@Environment(\.openURL) var openURL
-    @EnvironmentObject var install : InstallVM
-    @EnvironmentObject var apps : AppsVM
-    @EnvironmentObject var integrity : AppIntegrity
+    @EnvironmentObject var install: InstallVM
+    @EnvironmentObject var apps: AppsVM
+    @EnvironmentObject var integrity: AppIntegrity
 
     @State var showSetup = false
     @State var noticesExpanded = false
@@ -70,8 +70,7 @@ struct MainView: View {
     @Binding var showToast: Bool
 
     var body: some View {
-        if apps.updatingApps { ProgressView() }
-        else {
+        if apps.updatingApps { ProgressView() } else {
             ZStack(alignment: .bottom) {
                 AppsView(bottomPadding: $bottomHeight)
                     .frame(maxWidth: .infinity, maxHeight: .infinity).environmentObject(AppsVM.shared)
@@ -80,8 +79,9 @@ struct MainView: View {
                     if install.installing {
                         VStack(alignment: .leading, spacing: 8) {
                             HStack(spacing: 8) {
+
                                     InstallProgress().environmentObject(install).padding(.bottom)
-                            }.padding().frame(maxWidth : .infinity)
+                            }.padding().frame(maxWidth: .infinity)
 
                         }
                     }
@@ -127,12 +127,12 @@ struct MainView: View {
                     }.padding()
                 }
                 .background(.regularMaterial)
-                .overlay(GeometryReader { geomatry in
+                .overlay(GeometryReader { geometry in
                     Text("")
-                        .onChange(of: geomatry.size.height) { v in bottomHeight = v }
+                        .onChange(of: geometry.size.height) { height in bottomHeight = height }
                         .onAppear {
-                            print("Bottom height: \(geomatry.size.height)")
-                            bottomHeight = geomatry.size.height
+                            print("Bottom height: \(geometry.size.height)")
+                            bottomHeight = geometry.size.height
                         }
                 })
             }
@@ -142,7 +142,9 @@ struct MainView: View {
             .sheet(isPresented: $showSetup) {
                 SetupView()
             }
-            .alert(NSLocalizedString("PlayCover must be in the Applications folder. Press the button below to let PlayCover move itself to /Applications.", comment: ""), isPresented: $integrity.integrityOff) {
+            .alert(NSLocalizedString("PlayCover must be in the Applications folder. " +
+                                     "Press the button below to let PlayCover move itself to /Applications.",
+                                     comment: ""), isPresented: $integrity.integrityOff) {
                 Button("Move to /Applications", role: .cancel) {
                     integrity.moveToApps()
                 }
@@ -161,7 +163,7 @@ struct Previews_MainView_Previews: PreviewProvider {
 			.environmentObject(AppIntegrity())
 			.frame(minWidth: 600, minHeight: 650)
 			.onAppear {
-				UserDefaults.standard.register(defaults: ["ShowLinks" : true])
+				UserDefaults.standard.register(defaults: ["ShowLinks": true])
 				SoundDeviceService.shared.prepareSoundDevice()
 				NotifyService.shared.allowNotify()
 			}

@@ -7,15 +7,14 @@ import Foundation
 
 import SwiftUI
 import Cocoa
+import AppKit
 
-struct AppsView : View {
+struct AppsView: View {
     @Binding public var bottomPadding: CGFloat
-    
-    @EnvironmentObject var vm : AppsVM
-    
+
+    @EnvironmentObject var appVm: AppsVM
+
     @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150), spacing: 10)]
-    
-    @State private var showAppLinks = UserDefaults.standard.bool(forKey: "ShowLinks")
 
 	@State private var alertTitle = ""
 
@@ -30,30 +29,24 @@ struct AppsView : View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Toggle(isOn: $showAppLinks) {
-                    Text("Show app links")
-                }.onChange(of: showAppLinks) { value in
-                    UserDefaults.standard.set(showAppLinks, forKey: "ShowLinks")
-                    vm.fetchApps()
-                }.padding(.leading, 30)
-                    .help("Untick this option to show installed apps only")
-                Spacer()
                 SearchView().padding(.leading, 20).padding(.trailing, 10).padding(.vertical, 8)
                 ExportView().environmentObject(InstallVM.shared)
                 Button(NSLocalizedString("Download more apps", comment: "")) {
                     if let url = URL(string: "https://ipa.playcover.workers.dev/0:/") {
                         NSWorkspace.shared.open(url)
                     }
-                }.buttonStyle(OutlineButton()).controlSize(.large).help("Use this site to decrypt and download any global app")
+                }.buttonStyle(OutlineButton())
+                    .controlSize(.large)
+                    .help("Use this site to decrypt and download any global app")
                     .padding(.trailing, 30)
             }
-			if !sh.isXcodeCliToolsInstalled {
+			if !shell.isXcodeCliToolsInstalled {
 				VStack(spacing: 12) {
 					Text("You need to install Xcode Commandline tools and restart this App.")
 						.font(.title3)
 					Button("Install") {
 						do {
-							_ = try sh.sh("xcode-select --install")
+							_ = try shell.sh("xcode-select --install")
 							alertTitle = NSLocalizedString("Xcode tools installation succeeded", comment: "")
 							alertBtn = NSLocalizedString("Close", comment: "")
 							alertText = NSLocalizedString("Please follow the given instructions, and restart the App.", comment: "")
@@ -80,12 +73,15 @@ struct AppsView : View {
 				.frame(maxWidth: .infinity, maxHeight: .infinity)
 				.padding(.top, 16).padding(.bottom, bottomPadding + 16)
 			} else {
-				ScrollView() {
+				ScrollView {
 					LazyVGrid(columns: gridLayout, spacing: 10) {
-						ForEach(vm.apps, id:\.id) { app in
+                        // swiftlint:disable todo
+                        // TODO: Remove use of force cast
+                        // swiftlint:disable force_cast
+						ForEach(appVm.apps, id: \.id) { app in
 							if app.type == BaseApp.AppType.add {
 								AppAddView().environmentObject(InstallVM.shared)
-							} else if app.type == .app{
+							} else if app.type == .app {
 								PlayAppView(app: app as! PlayApp)
 							} else if app.type == .store {
 								StoreAppView(app: app as! StoreApp)
@@ -100,57 +96,64 @@ struct AppsView : View {
     }
 }
 
-struct AppAddView : View {
-    
-    @State var isHover : Bool = false
-    @State var showWrongfileTypeAlert : Bool = false
+struct AppAddView: View {
+
+    @State var isHover: Bool = false
+    @State var showWrongfileTypeAlert: Bool = false
     @Environment(\.colorScheme) var colorScheme
-    
-    @EnvironmentObject var install : InstallVM
-    
-    func elementColor(_ dark : Bool) -> Color {
-        return isHover ? Colr.controlSelect().opacity(0.3) : Color.black.opacity(0.0)
+
+    @EnvironmentObject var install: InstallVM
+
+    func elementColor(_ dark: Bool) -> Color {
+        return isHover ? Color.gray.opacity(0.3) : Color.black.opacity(0.0)
     }
-    
+
     var body: some View {
-        
+
         VStack(alignment: .center, spacing: 0) {
             Image(systemName: "plus.square")
                 .font(.system(size: 38.0, weight: .thin))
                 .frame(width: 64, height: 68).padding(.top).foregroundColor(
                     install.installing ? Color.gray : Color.accentColor)
-            Text("Add app").padding(.horizontal).frame(width: 150, height: 50).padding(.bottom).lineLimit(nil).foregroundColor( install.installing ? Color.gray : Color.accentColor).minimumScaleFactor(0.8).multilineTextAlignment(.center)
+            Text("Add app").padding(.horizontal)
+                            .frame(width: 150, height: 50)
+                            .padding(.bottom)
+                            .lineLimit(nil)
+                            .foregroundColor( install.installing ? Color.gray : Color.accentColor)
+                            .minimumScaleFactor(0.8).multilineTextAlignment(.center)
         }.background(colorScheme == .dark ? elementColor(true) : elementColor(false))
             .cornerRadius(16.0)
             .frame(width: 150, height: 150).onHover(perform: { hovering in
                 isHover = hovering
             }).alert(isPresented: $showWrongfileTypeAlert) {
-                Alert(title: Text("Wrong file type"), message: Text("Choose an .ipa file"), dismissButton: .default(Text("OK")))
+                Alert(title: Text("Wrong file type"),
+                      message: Text("Choose an .ipa file"), dismissButton: .default(Text("OK")))
             }
             .onTapGesture {
-                if install.installing{
+                if install.installing {
                     isHover = false
                     Log.shared.error(PlayCoverError.waitInstallation)
-                } else{
+                } else {
                     isHover = false
                     selectFile()
                 }
-                
-            }.onDrop(of: ["public.url","public.file-url"], isTargeted: nil) { (items) -> Bool in
-                if install.installing{
+
+            }.onDrop(of: ["public.url", "public.file-url"], isTargeted: nil) { (items) -> Bool in
+                if install.installing {
                     Log.shared.error(PlayCoverError.waitInstallation)
                     return false
                 } else if let item = items.first {
                     if let identifier = item.registeredTypeIdentifiers.first {
                         if identifier == "public.url" || identifier == "public.file-url" {
-                            item.loadItem(forTypeIdentifier: identifier, options: nil) { (urlData, error) in
+                            item.loadItem(forTypeIdentifier: identifier, options: nil) { (urlData, _) in
                                 DispatchQueue.main.async {
                                     if let urlData = urlData as? Data {
-                                        let urll = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
+                                        let urll = NSURL(absoluteURLWithDataRepresentation:
+                                                            urlData, relativeTo: nil) as URL
                                         if urll.pathExtension == "ipa"{
                                             uif.ipaUrl = urll
                                             installApp()
-                                        } else{
+                                        } else {
                                             showWrongfileTypeAlert = true
                                         }
                                     }
@@ -163,26 +166,28 @@ struct AppAddView : View {
                     return false
                 }
             }
-            .handlesExternalEvents(preferring: Set(arrayLiteral: "{path of URL?}"), allowing: Set(arrayLiteral: "*")) // // activate existing window if exists
-            .onOpenURL{url in
+            .onOpenURL {url in
                 if url.pathExtension == "ipa"{
                     uif.ipaUrl = url
                     installApp()
-                } else{
+                } else {
                     showWrongfileTypeAlert = true
                 }
-            }.help("Drag or open an app file to install. IPAs from Configurator or iMazing won't work! You should get decrypted IPAs, either from the top right button, Discord, AppDb, or a jailbroken device.")
+            }.help("Drag or open an app file to install. IPAs from Configurator or iMazing won't work! " +
+                   "You should get decrypted IPAs, either from the top right button, Discord, AppDb," +
+                   " or a jailbroken device.")
     }
-    
-    private func installApp(){
-        Installer.install(ipaUrl : uif.ipaUrl! , returnCompletion: { (app) in
+
+    private func installApp() {
+        Installer.install(ipaUrl: uif.ipaUrl!, returnCompletion: { (_) in
             DispatchQueue.main.async {
                 AppsVM.shared.fetchApps()
-                NotifyService.shared.notify(NSLocalizedString("App installed!", comment: ""), NSLocalizedString("Check it out in 'My Apps'", comment: ""))
+                NotifyService.shared.notify(NSLocalizedString("App installed!", comment: ""),
+                                            NSLocalizedString("Check it out in 'My Apps'", comment: ""))
             }
         })
     }
-    
+
     private func selectFile() {
         NSOpenPanel.selectIPA { (result) in
             if case let .success(url) = result {
@@ -191,52 +196,54 @@ struct AppAddView : View {
             }
         }
     }
-    
+
 }
 
-struct ExportView : View {
-    
-    @State var isHover : Bool = false
-    @State var showWrongfileTypeAlert : Bool = false
+struct ExportView: View {
+
+    @State var isHover: Bool = false
+    @State var showWrongfileTypeAlert: Bool = false
     @Environment(\.colorScheme) var colorScheme
-    
-    @EnvironmentObject var install : InstallVM
-    
-    func elementColor(_ dark : Bool) -> Color {
-        return isHover ? Colr.controlSelect().opacity(0.3) : Color.black.opacity(0.0)
+
+    @EnvironmentObject var install: InstallVM
+
+    func elementColor(_ dark: Bool) -> Color {
+        return isHover ? Color.gray.opacity(0.3) : Color.black.opacity(0.0)
     }
-    
+
     var body: some View {
-        
+
         Button("Export to Sideloadly") {
             if install.installing {
                 isHover = false
                 Log.shared.error(PlayCoverError.waitInstallation)
-            } else{
+            } else {
                 isHover = false
                 selectFile()
             }
         }
         .buttonStyle(OutlineButton())
         .controlSize(.large)
-        .help("If you want to play without disabling SIP. You need to download this software from iosgods.com").background(colorScheme == .dark ? elementColor(true) : elementColor(false))
+        .help("If you want to play without disabling SIP. You need to download this software from iosgods.com")
+        .background(colorScheme == .dark ? elementColor(true) : elementColor(false))
         .alert(isPresented: $showWrongfileTypeAlert) {
-            Alert(title: Text("Wrong file type"), message: Text("Choose an .ipa file"), dismissButton: .default(Text("OK")))
-        }.onDrop(of: ["public.url","public.file-url"], isTargeted: nil) { (items) -> Bool in
-            if install.installing{
+            Alert(title: Text("Wrong file type"), message: Text("Choose an .ipa file"),
+                  dismissButton: .default(Text("OK")))
+        }.onDrop(of: ["public.url", "public.file-url"], isTargeted: nil) { (items) -> Bool in
+            if install.installing {
                 Log.shared.error(PlayCoverError.waitInstallation)
                 return false
             } else if let item = items.first {
                 if let identifier = item.registeredTypeIdentifiers.first {
                     if identifier == "public.url" || identifier == "public.file-url" {
-                        item.loadItem(forTypeIdentifier: identifier, options: nil) { (urlData, error) in
+                        item.loadItem(forTypeIdentifier: identifier, options: nil) { (urlData, _) in
                             DispatchQueue.main.async {
                                 if let urlData = urlData as? Data {
                                     let urll = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
                                     if urll.pathExtension == "ipa"{
                                         uif.ipaUrl = urll
                                         exportIPA()
-                                    } else{
+                                    } else {
                                         showWrongfileTypeAlert = true
                                     }
                                 }
@@ -249,26 +256,35 @@ struct ExportView : View {
                 return false
             }
         }
-        .handlesExternalEvents(preferring: Set(arrayLiteral: "{path of URL?}"), allowing: Set(arrayLiteral: "*")) // // activate existing window if exists
-        .onOpenURL{url in
+        .onOpenURL {url in
             if url.pathExtension == "ipa"{
                 uif.ipaUrl = url
                 exportIPA()
-            } else{
+            } else {
                 showWrongfileTypeAlert = true
             }
-        }.help("Drag or open an app file to install. IPAs from Configurator or iMazing won't work! You should get decrypted IPAs, either from the top right button, Discord, AppDb, or a jailbroken device.")
+        }.help("Drag or open an app file to install. IPAs from Configurator or iMazing won't work! " +
+               "You should get decrypted IPAs, either from the top right button, Discord, AppDb, " +
+               "or a jailbroken device.")
     }
-    
-    private func exportIPA(){
-        Installer.exportForSideloadly(ipaUrl : uif.ipaUrl! , returnCompletion: { (ipa) in
+
+    private func exportIPA() {
+        Installer.exportForSideloadly(ipaUrl: uif.ipaUrl!, returnCompletion: { (ipa) in
             DispatchQueue.main.async {
                 ipa?.showInFinder()
-                NSWorkspace.shared.open([ipa!], withAppBundleIdentifier: "com.sideloadly.sideloadly", options: NSWorkspace.LaunchOptions.withErrorPresentation, additionalEventParamDescriptor: nil, launchIdentifiers: nil)
+                let configuration = NSWorkspace.OpenConfiguration()
+                configuration.promptsUserIfNeeded = true
+                let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.sideloadly.sideloadly")
+                if url != nil {
+                    NSWorkspace.shared.open([ipa!], withApplicationAt: url.unsafelyUnwrapped,
+                                            configuration: configuration)
+                } else {
+                    Log.shared.error("Could not find Sideloadly!")
+                }
             }
         })
     }
-    
+
     private func selectFile() {
         NSOpenPanel.selectIPA { (result) in
             if case let .success(url) = result {
@@ -277,7 +293,5 @@ struct ExportView : View {
             }
         }
     }
-    
+
 }
-
-

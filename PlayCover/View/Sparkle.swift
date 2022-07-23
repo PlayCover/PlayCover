@@ -13,9 +13,9 @@ import Sparkle
 final class UpdaterViewModel: ObservableObject {
     private let updaterController: SPUStandardUpdaterController
     private let updateDelegate = UpdaterDelegate()
-    
+
     @Published var canCheckForUpdates = false
-    
+
     var automaticallyCheckForUpdates: Bool {
         get {
             return updaterController.updater.automaticallyChecksForUpdates
@@ -24,24 +24,25 @@ final class UpdaterViewModel: ObservableObject {
             updaterController.updater.automaticallyChecksForUpdates = newValue
         }
     }
-    
+
     init() {
         // If you want to start the updater manually, pass false to startingUpdater and call .startUpdater() later
         // This is where you can also pass an updater delegate if you need one
-        updaterController = SPUStandardUpdaterController(startingUpdater: true, updaterDelegate: updateDelegate, userDriverDelegate: nil)
-        
+        updaterController = SPUStandardUpdaterController(startingUpdater: true,
+                                                         updaterDelegate: updateDelegate, userDriverDelegate: nil)
+
         updaterController.updater.publisher(for: \.canCheckForUpdates)
             .assign(to: &$canCheckForUpdates)
-        
+
         if automaticallyCheckForUpdates {
             updaterController.updater.checkForUpdatesInBackground()
         }
     }
-    
+
     func checkForUpdates() {
         updaterController.checkForUpdates(nil)
     }
-    
+
     @discardableResult
     func toggleAllowedChannels() -> Set<String> {
         return updateDelegate.allowedChannels(for: updaterController.updater)
@@ -52,7 +53,7 @@ final class UpdaterViewModel: ObservableObject {
 // See https://stackoverflow.com/questions/68553092/menu-not-updating-swiftui-bug for more information
 struct CheckForUpdatesView: View {
     @ObservedObject var updaterViewModel: UpdaterViewModel
-    
+
     var body: some View {
         Button("Check for Updates…", action: updaterViewModel.checkForUpdates)
             .disabled(!updaterViewModel.canCheckForUpdates)
@@ -61,7 +62,7 @@ struct CheckForUpdatesView: View {
 
 class UpdaterDelegate: NSObject, SPUUpdaterDelegate {
     @AppStorage("nightlyUpdates")var nightlyUpdates = false
-    
+
     func allowedChannels(for updater: SPUUpdater) -> Set<String> {
             let allowedChannels = Set(nightlyUpdates ? ["nightly"] : [])
             return allowedChannels

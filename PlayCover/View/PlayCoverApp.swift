@@ -6,11 +6,12 @@
 import SwiftUI
 
 class AppDelegate: NSObject, NSApplicationDelegate {
+
     func application(_ application: NSApplication, open urls: [URL]) {
         if let url = urls.first {
             if url.pathExtension == "ipa" {
                 uif.ipaUrl = url
-                Installer.install(ipaUrl: uif.ipaUrl!, returnCompletion: { _ in
+                Installer.install(ipaUrl: uif.ipaUrl!, returnCompletion: { (_) in
                     DispatchQueue.main.async {
                         AppsVM.shared.fetchApps()
                         NotifyService.shared.notify(NSLocalizedString("App is installed!", comment: ""),
@@ -19,6 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 })
             }
         }
+
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -26,11 +28,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        UserDefaults.standard.register(
-            defaults: ["NSApplicationCrashOnExceptions": true]
-        )
+		UserDefaults.standard.register(
+			defaults: ["NSApplicationCrashOnExceptions": true]
+		)
         LaunchServicesWrapper.setMyselfAsDefaultApplicationForFileExtension("ipa")
     }
+
 }
 
 @main
@@ -50,7 +53,7 @@ struct PlayCoverApp: App {
                 .frame(minWidth: 720, minHeight: 650)
                 .onAppear {
                     NSWindow.allowsAutomaticWindowTabbing = false
-                    UserDefaults.standard.register(defaults: ["ShowLinks" : true])
+                    UserDefaults.standard.register(defaults: ["ShowLinks": true])
                     SoundDeviceService.shared.prepareSoundDevice()
                     NotifyService.shared.allowNotify()
                 }
@@ -59,10 +62,10 @@ struct PlayCoverApp: App {
             CommandGroup(replacing: CommandGroupPlacement.newItem) {
                 EmptyView()
             }
-        }.handlesExternalEvents(matching: Set(arrayLiteral: "{same path of URL?}")) // create new window if doesn't exist
-        .commands {
+        }.commands {
             PlayCoverMenuView(showToast: $showToast)
             PlayCoverHelpMenuView(updaterViewModel: updaterViewModel)
+            PlayCoverViewMenuView()
         }
 
         Settings {

@@ -12,7 +12,7 @@ struct PlayCoverSettingsView: View {
     @ObservedObject var updaterViewModel: UpdaterViewModel
     @AppStorage("SUEnableAutomaticChecks") var autoUpdate = false
     @AppStorage("nightlyUpdates") var nightlyUpdates = false
-    
+
     var body: some View {
         Form {
             Toggle("Automatically check for updates", isOn: $autoUpdate)

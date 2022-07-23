@@ -386,6 +386,7 @@
 				8783CFF426B8C52D00171041 /* Frameworks */,
 				8783CFF526B8C52D00171041 /* Resources */,
 				AA818CBC287AC1C6000BEE9D /* Copy Carthage frameworks */,
+				36E7AB27288A0B64004C0C3A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -469,6 +470,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		36E7AB27288A0B64004C0C3A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ -z \"$FASTLANE\" ]]; then\n    export PATH=\"$PATH:/opt/homebrew/bin\"\n    if which swiftlint > /dev/null; then\n        swiftlint\n    else\n        echo \"error: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n        exit -1\n    fi\nfi\n";
+		};
 		AA818CBC287AC1C6000BEE9D /* Copy Carthage frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
