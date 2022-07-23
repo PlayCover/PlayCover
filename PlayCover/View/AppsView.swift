@@ -75,6 +75,7 @@ struct AppsView: View {
 			} else {
 				ScrollView {
 					LazyVGrid(columns: gridLayout, spacing: 10) {
+                        // swiftlint:disable todo
                         // TODO: Remove use of force cast
                         // swiftlint:disable force_cast
 						ForEach(appVm.apps, id: \.id) { app in
@@ -271,7 +272,8 @@ struct ExportView: View {
                 configuration.promptsUserIfNeeded = true
                 let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.sideloadly.sideloadly")
                 if url != nil {
-                    NSWorkspace.shared.open([ipa!], withApplicationAt: url.unsafelyUnwrapped, configuration: configuration)
+                    NSWorkspace.shared.open([ipa!], withApplicationAt: url.unsafelyUnwrapped,
+                                            configuration: configuration)
                 } else {
                     Log.shared.error("Could not find Sideloadly!")
                 }
