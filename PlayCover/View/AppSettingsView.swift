@@ -84,7 +84,7 @@ struct AppSettingsView: View {
                     resetedAlert.toggle()
                     settings.reset()
                 }.buttonStyle(GrowingButton()).padding()
-                Button("Ok"){
+                Button("Ok") {
                     settings.keymapping = keymapping
                     settings.adaptiveDisplay = adaptiveDisplay
                     settings.sensivity = sensivity
