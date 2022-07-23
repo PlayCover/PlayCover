@@ -19,7 +19,7 @@ struct PlayCoverMenuView: Commands {
     }
 }
 
-struct PlayCoverHelpMenuView: Commands {    
+struct PlayCoverHelpMenuView: Commands {
     var body: some Commands {
         CommandGroup(replacing: .help) {
             Button("Documentation") {
@@ -56,11 +56,14 @@ struct PlayCoverViewMenuView: Commands {
                             Installer.exportForSideloadly(ipaUrl: uif.ipaUrl!, returnCompletion: { (ipa) in
                                 DispatchQueue.main.async {
                                     ipa?.showInFinder()
-                                    let configuration = NSWorkspace.OpenConfiguration()
-                                    configuration.promptsUserIfNeeded = true
-                                    let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.sideloadly.sideloadly")
+                                    let config = NSWorkspace.OpenConfiguration()
+                                    config.promptsUserIfNeeded = true
+                                    let url = NSWorkspace.shared
+                                        .urlForApplication(withBundleIdentifier: "com.sideloadly.sideloadly")
                                     if url != nil {
-                                        NSWorkspace.shared.open([ipa!], withApplicationAt: url.unsafelyUnwrapped, configuration: configuration)
+                                        let unwrap = url.unsafelyUnwrapped
+                                        NSWorkspace.shared
+                                            .open([ipa!], withApplicationAt: unwrap, configuration: config)
                                     } else {
                                         Log.shared.error("Could not find Sideloadly!")
                                     }
