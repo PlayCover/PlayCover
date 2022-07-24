@@ -61,7 +61,9 @@ struct PlayCoverApp: App {
             CommandGroup(replacing: CommandGroupPlacement.newItem) {
                 EmptyView()
             }
-        }.commands {
+        }
+        .handlesExternalEvents(matching: ["{same path of URL?}"]) // create new window if doesn't exist
+        .commands {
             PlayCoverMenuView(showToast: $showToast)
             PlayCoverHelpMenuView()
             PlayCoverViewMenuView()

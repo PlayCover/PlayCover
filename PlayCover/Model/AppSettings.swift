@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import UniformTypeIdentifiers
 import AppKit
 
 let notchModels = [ "MacBookPro18,3", "MacBookPro18,4", "MacBookPro18,1", "MacBookPro18,2", "Mac14,2"]
@@ -229,7 +230,7 @@ class AppSettings {
         openPanel.allowsMultipleSelection = false
         openPanel.canChooseDirectories = false
         openPanel.canCreateDirectories = true
-        openPanel.allowedFileTypes = ["playmap"]
+        openPanel.allowedContentTypes = [UTType(exportedAs: "io.playcover.PlayCover-playmap")]
         openPanel.title = "Select a valid file ending in .playmap"
 
         openPanel.begin { (result) in

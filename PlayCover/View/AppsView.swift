@@ -14,7 +14,7 @@ struct AppsView: View {
 
     @EnvironmentObject var appVm: AppsVM
 
-    @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150), spacing: 10)]
+    @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150), spacing: 0)]
 
 	@State private var alertTitle = ""
 
@@ -64,24 +64,26 @@ struct AppsView: View {
 				.frame(maxWidth: .infinity, maxHeight: .infinity)
 				.padding(.top, 16).padding(.bottom, bottomPadding + 16)
 			} else {
-				ScrollView {
-					LazyVGrid(columns: gridLayout, spacing: 10) {
-                        // swiftlint:disable todo
-                        // TODO: Remove use of force cast
-                        // swiftlint:disable force_cast
-						ForEach(appVm.apps, id: \.id) { app in
-							if app.type == BaseApp.AppType.add {
-								AppAddView().environmentObject(InstallVM.shared)
-							} else if app.type == .app {
-								PlayAppView(app: app as! PlayApp)
-							} else if app.type == .store {
-								StoreAppView(app: app as! StoreApp)
-							}
-						}
-					}
-					.padding(.top, 16).padding(.bottom, bottomPadding + 16)
-                    .animation(.spring())
-				}
+                GeometryReader { geom in
+                    ScrollView {
+                        LazyVGrid(columns: gridLayout, alignment: .leading, spacing: 10) {
+                            // swiftlint:disable todo
+                            // TODO: Remove use of force cast
+                            // swiftlint:disable force_cast
+                            ForEach(appVm.apps, id: \.id) { app in
+                                if app.type == BaseApp.AppType.add {
+                                    AppAddView().environmentObject(InstallVM.shared)
+                                } else if app.type == .app {
+                                    PlayAppView(app: app as! PlayApp)
+                                } else if app.type == .store {
+                                    StoreAppView(app: app as! StoreApp)
+                                }
+                            }
+                        }
+                        .padding([.top, .leading], 16).padding(.bottom, bottomPadding + 16)
+                        .animation(.spring(blendDuration: 0.1), value: geom.size.width)
+                    }
+                }
 			}
         }
     }
