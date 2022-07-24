@@ -5,6 +5,8 @@
 
 import Foundation
 import Cocoa
+import IOKit
+import IOKit.pwr_mgt // swiftlint:disable duplicate_imports
 
 class PlayApp: PhysicialApp {
 
@@ -36,13 +38,41 @@ class PlayApp: PhysicialApp {
             } else if try !isCodesigned() {
                 Log.shared.msg("The app is not codesigned! Please open Xcode and accept license agreement.")
             } else {
-                URL(fileURLWithPath: url.path).openInFinder()
+                runAppExec() // Splitting to reduce complexity
             }
             AppsVM.shared.updatingApps = false
         } catch {
             AppsVM.shared.updatingApps = false
             Log.shared.error(error)
         }
+    }
+    func runAppExec() {
+        NSWorkspace.shared.openApplication(at: url,
+                                           configuration: NSWorkspace.OpenConfiguration(),
+                                           completionHandler: {runningApp, error in
+            guard error == nil else {return}
+            if self.settings.disableTimeout {
+                // Yeet into a thread
+                DispatchQueue.global().async {
+                    debugPrint("Disabling timeout...")
+                    let reason = "PlayCover: " + self.name + " disabled screen timeout" as CFString
+                    var assertionID: IOPMAssertionID = 0
+                    var success = IOPMAssertionCreateWithName( kIOPMAssertionTypeNoDisplaySleep as CFString,
+                                                               IOPMAssertionLevel(kIOPMAssertionLevelOn),
+                                                               reason,
+                                                               &assertionID )
+                    if success == kIOReturnSuccess {
+                        while true { // Run a loop until the app closes
+                            Thread.sleep(forTimeInterval: 10) // Wait 10s
+                            guard let isFinish = runningApp?.isTerminated,
+                                  !isFinish else { break }
+                        }
+                        success = IOPMAssertionRelease(assertionID)
+                        debugPrint("Enabling timeout...")
+                    }
+                }
+            }
+        })
     }
 
     var icon: NSImage? {
