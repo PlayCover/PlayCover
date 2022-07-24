@@ -9,7 +9,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func application(_ application: NSApplication, open urls: [URL]) {
         if let url = urls.first {
-            if url.pathExtension == "ipa"{
+            if url.pathExtension == "ipa" {
                 uif.ipaUrl = url
                 Installer.install(ipaUrl: uif.ipaUrl!, returnCompletion: { (_) in
                     DispatchQueue.main.async {
@@ -39,13 +39,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 @main
 struct PlayCoverApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @StateObject var updaterViewModel = UpdaterViewModel()
+
     @State var showToast = false
 
     var body: some Scene {
         WindowGroup {
             MainView(showToast: $showToast)
                 .padding()
-                .environmentObject(UpdateService.shared)
                 .environmentObject(InstallVM.shared)
                 .environmentObject(AppsVM.shared)
                 .environmentObject(AppIntegrity())
@@ -54,7 +55,6 @@ struct PlayCoverApp: App {
                     NSWindow.allowsAutomaticWindowTabbing = false
                     UserDefaults.standard.register(defaults: ["ShowLinks": true])
                     SoundDeviceService.shared.prepareSoundDevice()
-                    UpdateService.shared.checkUpdate()
                     NotifyService.shared.allowNotify()
                 }
                 .padding(-15)
@@ -64,9 +64,12 @@ struct PlayCoverApp: App {
             }
         }.commands {
             PlayCoverMenuView(showToast: $showToast)
-            PlayCoverHelpMenuView()
+            PlayCoverHelpMenuView(updaterViewModel: updaterViewModel)
             PlayCoverViewMenuView()
         }
-    }
 
+        Settings {
+            PlayCoverSettingsView(updaterViewModel: updaterViewModel)
+        }
+    }
 }
