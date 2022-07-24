@@ -64,7 +64,12 @@ struct PlayAppView: View {
                     Text("Show in Finder")
                     Image(systemName: "folder")
                 })
-
+                Button(action: {
+                    app.settings.disableTimeout.toggle()
+                }, label: {
+                    Text(app.settings.disableTimeout ? "Enable Display Sleep" : "Disable Display Sleep")
+                    Image(systemName: "display")
+                })
                 Button(action: {
                     app.openAppCache()
                 }, label: {
