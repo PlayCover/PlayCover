@@ -20,10 +20,10 @@
 "error.corruptedIPA" = "This IPA file is broken. It does not contains Info.plist.";
 "error.waitInstallation" = "Please wait for the current installation to finish!";
 "error.reinstallApp" = "Please reinstall PlayCover";
-"topBar.downloadMoreApps" = "Download more apps";
-"topBar.downloadMoreApps.help" = "Use this site to download apps for installation";
-"topBar.exportToSideloady" = "Export to Sideloadly";
-"topBar.exportToSideloady.help" = "Export IPAs for Sideloady from sideloady.io which does not need SIP to be disabled for apps and games to work.";
+"menubar.downloadMoreApps" = "Download more apps";
+"menubar.downloadMoreApps.help" = "Use this site to download apps for installation";
+"menubar.exportToSideloady" = "Export to Sideloadly";
+"menubar.exportToSideloady.help" = "Export IPAs for Sideloady from sideloady.io which does not need SIP to be disabled for apps and games to work.";
 "alert.wrongFileType.message" = "Choose an .ipa file";
 "app.add.help" = "Drag or open an app file to install. IPAs from Configurator or iMazing won't work! You should get decrypted IPAs, either from the top right button, Discord, AppDb, or a jailbroken device.";
 "app.update" = "Update app";

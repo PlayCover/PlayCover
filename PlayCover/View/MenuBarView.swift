@@ -35,12 +35,49 @@ struct PlayCoverHelpMenuView: Commands {
             Button("menubar.discord") {
                 NSWorkspace.shared.open(URL(string: "https://discord.gg/PlayCover")!)
             }
+            Divider()
+            Button("menubar.downloadMoreApps") {
+                NSWorkspace.shared.open(URL(string: "https://ipa.playcover.workers.dev/0:/")!)
+            }
         }
     }
 }
 
 struct PlayCoverViewMenuView: Commands {
     var body: some Commands {
+        CommandGroup(replacing: .importExport) {
+            Button("menubar.exportToSideloady") {
+                if InstallVM.shared.installing {
+                    Log.shared.error(PlayCoverError.waitInstallation)
+                } else {
+                    NSOpenPanel.selectIPA { (result) in
+                        if case let .success(url) = result {
+                            uif.ipaUrl = url
+                            Installer.exportForSideloadly(ipaUrl: uif.ipaUrl!, returnCompletion: { (ipa) in
+                                DispatchQueue.main.async {
+                                    if let ipa = ipa {
+                                        ipa.showInFinder()
+                                        let config = NSWorkspace.OpenConfiguration()
+                                        config.promptsUserIfNeeded = true
+                                        let url = NSWorkspace.shared
+                                            .urlForApplication(withBundleIdentifier: "com.sideloadly.sideloadly")
+                                        if url != nil {
+                                            let unwrap = url.unsafelyUnwrapped
+                                            NSWorkspace.shared
+                                                .open([ipa], withApplicationAt: unwrap, configuration: config)
+                                        } else {
+                                            Log.shared.error("Could not find Sideloadly!")
+                                        }
+                                    } else {
+                                        Log.shared.error("Could not find file!")
+                                    }
+                                }
+                            })
+                        }
+                    }
+                }
+            }
+        }
         CommandGroup(before: .sidebar) {
             ShowAppLinksCommand()
             Divider()
