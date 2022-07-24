@@ -168,6 +168,7 @@ struct AppAddView: View {
                     return false
                 }
             }
+            .handlesExternalEvents(preferring: ["{path of URL?}"], allowing: ["*"])
             .onOpenURL {url in
                 if url.pathExtension == "ipa"{
                     uif.ipaUrl = url
@@ -258,6 +259,7 @@ struct ExportView: View {
                 return false
             }
         }
+        .handlesExternalEvents(preferring: ["{path of URL?}"], allowing: ["*"]) // activate existing window if exists
         .onOpenURL {url in
             if url.pathExtension == "ipa"{
                 uif.ipaUrl = url
@@ -273,15 +275,19 @@ struct ExportView: View {
     private func exportIPA() {
         Installer.exportForSideloadly(ipaUrl: uif.ipaUrl!, returnCompletion: { (ipa) in
             DispatchQueue.main.async {
-                ipa?.showInFinder()
-                let configuration = NSWorkspace.OpenConfiguration()
-                configuration.promptsUserIfNeeded = true
-                let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.sideloadly.sideloadly")
-                if url != nil {
-                    NSWorkspace.shared.open([ipa!], withApplicationAt: url.unsafelyUnwrapped,
-                                            configuration: configuration)
+                if let ipa = ipa {
+                    ipa.showInFinder()
+                    let configuration = NSWorkspace.OpenConfiguration()
+                    configuration.promptsUserIfNeeded = true
+                    let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.sideloadly.sideloadly")
+                    if url != nil {
+                        NSWorkspace.shared.open([ipa], withApplicationAt: url.unsafelyUnwrapped,
+                                                configuration: configuration)
+                    } else {
+                        Log.shared.error("Could not find Sideloadly!")
+                    }
                 } else {
-                    Log.shared.error("Could not find Sideloadly!")
+                    print("WHOOPS YOU FORGOT TO PUT THE WRAPPED APPLICATION IN YOUR DOCUMENTS DIR")
                 }
             }
         })
