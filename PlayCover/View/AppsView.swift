@@ -29,16 +29,7 @@ struct AppsView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                SearchView().padding(.leading, 20).padding(.trailing, 10).padding(.vertical, 8)
-                ExportView().environmentObject(InstallVM.shared)
-                Button(NSLocalizedString("Download more apps", comment: "")) {
-                    if let url = URL(string: "https://ipa.playcover.workers.dev/0:/") {
-                        NSWorkspace.shared.open(url)
-                    }
-                }.buttonStyle(OutlineButton())
-                    .controlSize(.large)
-                    .help("Use this site to decrypt and download any global app")
-                    .padding(.trailing, 30)
+                SearchView().padding(.horizontal, 20).padding(.vertical, 8)
             }
 			if !shell.isXcodeCliToolsInstalled {
 				VStack(spacing: 12) {
@@ -168,7 +159,6 @@ struct AppAddView: View {
                     return false
                 }
             }
-            .handlesExternalEvents(preferring: ["{path of URL?}"], allowing: ["*"])
             .onOpenURL {url in
                 if url.pathExtension == "ipa"{
                     uif.ipaUrl = url
@@ -196,108 +186,6 @@ struct AppAddView: View {
             if case let .success(url) = result {
                 uif.ipaUrl = url
                 installApp()
-            }
-        }
-    }
-
-}
-
-struct ExportView: View {
-
-    @State var isHover: Bool = false
-    @State var showWrongfileTypeAlert: Bool = false
-    @Environment(\.colorScheme) var colorScheme
-
-    @EnvironmentObject var install: InstallVM
-
-    func elementColor(_ dark: Bool) -> Color {
-        return isHover ? Color.gray.opacity(0.3) : Color.black.opacity(0.0)
-    }
-
-    var body: some View {
-
-        Button("Export to Sideloadly") {
-            if install.installing {
-                isHover = false
-                Log.shared.error(PlayCoverError.waitInstallation)
-            } else {
-                isHover = false
-                selectFile()
-            }
-        }
-        .buttonStyle(OutlineButton())
-        .controlSize(.large)
-        .help("If you want to play without disabling SIP. You need to download this software from iosgods.com")
-        .background(colorScheme == .dark ? elementColor(true) : elementColor(false))
-        .alert(isPresented: $showWrongfileTypeAlert) {
-            Alert(title: Text("Wrong file type"), message: Text("Choose an .ipa file"),
-                  dismissButton: .default(Text("OK")))
-        }.onDrop(of: ["public.url", "public.file-url"], isTargeted: nil) { (items) -> Bool in
-            if install.installing {
-                Log.shared.error(PlayCoverError.waitInstallation)
-                return false
-            } else if let item = items.first {
-                if let identifier = item.registeredTypeIdentifiers.first {
-                    if identifier == "public.url" || identifier == "public.file-url" {
-                        item.loadItem(forTypeIdentifier: identifier, options: nil) { (urlData, _) in
-                            DispatchQueue.main.async {
-                                if let urlData = urlData as? Data {
-                                    let urll = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
-                                    if urll.pathExtension == "ipa"{
-                                        uif.ipaUrl = urll
-                                        exportIPA()
-                                    } else {
-                                        showWrongfileTypeAlert = true
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                return true
-            } else {
-                return false
-            }
-        }
-        .handlesExternalEvents(preferring: ["{path of URL?}"], allowing: ["*"]) // activate existing window if exists
-        .onOpenURL {url in
-            if url.pathExtension == "ipa"{
-                uif.ipaUrl = url
-                exportIPA()
-            } else {
-                showWrongfileTypeAlert = true
-            }
-        }.help("Drag or open an app file to install. IPAs from Configurator or iMazing won't work! " +
-               "You should get decrypted IPAs, either from the top right button, Discord, AppDb, " +
-               "or a jailbroken device.")
-    }
-
-    private func exportIPA() {
-        Installer.exportForSideloadly(ipaUrl: uif.ipaUrl!, returnCompletion: { (ipa) in
-            DispatchQueue.main.async {
-                if let ipa = ipa {
-                    ipa.showInFinder()
-                    let configuration = NSWorkspace.OpenConfiguration()
-                    configuration.promptsUserIfNeeded = true
-                    let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.sideloadly.sideloadly")
-                    if url != nil {
-                        NSWorkspace.shared.open([ipa], withApplicationAt: url.unsafelyUnwrapped,
-                                                configuration: configuration)
-                    } else {
-                        Log.shared.error("Could not find Sideloadly!")
-                    }
-                } else {
-                    print("WHOOPS YOU FORGOT TO PUT THE WRAPPED APPLICATION IN YOUR DOCUMENTS DIR")
-                }
-            }
-        })
-    }
-
-    private func selectFile() {
-        NSOpenPanel.selectIPA { (result) in
-            if case let .success(url) = result {
-                uif.ipaUrl = url
-                exportIPA()
             }
         }
     }
