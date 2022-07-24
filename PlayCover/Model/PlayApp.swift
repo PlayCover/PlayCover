@@ -5,8 +5,7 @@
 
 import Foundation
 import Cocoa
-import IOKit
-import IOKit.pwr_mgt // swiftlint:disable duplicate_imports
+import IOKit.pwr_mgt
 
 class PlayApp: PhysicialApp {
 
