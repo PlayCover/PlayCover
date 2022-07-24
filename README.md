@@ -32,7 +32,7 @@
 
 ## About the fork & Disclaimer
 
-This fork have been created by the community to support the development of PlayCover, since the original project became non-free and non-open-source.
+This fork has been created by the community to support the development of PlayCover, since the original project became non-free and non-open-source.
 
 This fork is not affiliated with the original project, nor the original author.
 
@@ -63,11 +63,11 @@ Some promises:
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Welcome to PlayCover! This software is all about allowing you to run apps & games on your M1 device runnnig macOS 12.0 or newer. 
+Welcome to PlayCover! This software is all about allowing you to run apps & games on your M1 device running macOS 12.0 or newer.
 
-It does this by putting the applications through a wrapper which imitates an iPad. This allows the apps to perform very well and run natively, because the M1 chip is essentially a glorified mobile chip. Another advantage to the software is that you can insert and manipulate custom controls with your keyboard, which is not possible in alternative sideloading methods such as Sideloadly. These controls include all the essentials, from WASD, Camera movement, Left and Right clicks, and individual keymapping, similar to a popular Android emulator’s keymapping system called Bluestacks. 
+It does this by putting the applications through a wrapper which imitates an iPad. This allows the apps to perform very well and run natively because the M1 chip is essentially a glorified mobile chip. Another advantage to the software is that you can insert and manipulate custom controls with your keyboard, which is not possible in alternative sideloading methods such as Sideloadly. These controls include all the essentials, from WASD, Camera movement, Left and Right clicks, and individual keymapping, similar to a popular Android emulator’s keymapping system called Bluestacks.
 
-While this software was originally created to allow you to run Genshin Impact on your M1 device, it grew to allow many more applications to run. Although support for all games is not promised and bugs with games are expected.
+This software was originally designed to run Genshin Impact on your M1 device, but it can now run a wide range of applications. However, not all games are supported, and there may be bugs in games.
 
 ![Fancy logo](./images/dark.png#gh-dark-mode-only)
 ![Fancy logo](./images/light.png#gh-light-mode-only)
@@ -91,9 +91,20 @@ At the moment, PlayCover can only be installed and executed on M1 MacBooks. Devi
 * M1 Max
 * M1 Ultra
 
- Unfortunately, it cannot run on any Intel chips, so you are forced to use Bootcamp or other emulators.
+ Unfortunately it cannot run on any Intel chips, so you are forced to use Bootcamp or other emulators.
 
-### Build from source
+### Homebrew Cask
+We host a [Homebrew](https://brew.sh) tap with the [PlayCover cask](https://github.com/PlayCover/homebrew-playcover/blob/master/Casks/playcover-community.rb). To install from it:
+
+1. Tap `PlayCover/playcover` with `brew tap PlayCover/playcover`;
+2. Install PlayCover with `brew install --cask playcover-community`.
+
+To uninstall:
+1. Remove PlayCover using `brew uninstall --cask playcover-community`;
+2. Untap `PlayCover/playcover` with `brew untap PlayCover/playcover`.
+
+
+### Build from Source
 
 You will need:
 
@@ -115,9 +126,9 @@ just follow the instructions.
     - After this, you should be in a terminal window
     - Type `csrutil disable` in that terminal window
     - Put your password and everything, then restart your mac
-    
+
 2. Modify nvram boot-args
-    - When you have SIP disabled, type the following: 
+    - When you have SIP disabled, type the following:
         - `Command + Space`, type `Terminal` in the search box
     - It should open a normal terminal window
     - Type the following in this window (or copy paste it)
@@ -127,7 +138,7 @@ just follow the instructions.
 
 3. Login to Genshin
     - Open Genshin Impact with PlayCover, and you should be greeted with a Login button
-    - Login to your account, then wait until the door appears and quit the game with `Command + Q`
+    - Login to your account, then wait until the door appears and quit the game with `Command + Q`. **DO NOT CLICK/ENTER THE DOOR.**
     - Thats all which is required in Genshin for now
 
 4. Enable SIP
@@ -152,7 +163,6 @@ The above steps are shown in the following video:
 <p align="right"><a href="#top">⬆️ Back to top️</a></p>
 
 
-
 <!-- USAGE EXAMPLES -->
 ## Keymapping
 
@@ -169,9 +179,9 @@ The above steps are shown in the following video:
 * Bind middle mouse button
     * Clicking on **'🖱️'**
 * Adds a W/A/S/D joystick
-    * Clicking on the **'➕'** 
+    * Clicking on the **'➕'**
 * Adds a mouse area for mouse control
-    * Clicking on the **'🔁'** 
+    * Clicking on the **'🔁'**
 
 ### Flow Control
 
@@ -192,7 +202,7 @@ The above steps are shown in the following video:
 
 3. Click on `Import Keymapping`
 
-4. Select the previously downloaded `.playmap` file 
+4. Select the previously downloaded `.playmap` file
 
 5. Quit and reopen the app
     - This step is required for the newly imported keymapping to work

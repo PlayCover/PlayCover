@@ -6,24 +6,25 @@
 import Foundation
 import AppKit
 
-let notchModels = [ "MacBookPro18,3", "MacBookPro18,4", "MacBookPro18,1", "MacBookPro18,2"]
+let notchModels = [ "MacBookPro18,3", "MacBookPro18,4", "MacBookPro18,1", "MacBookPro18,2", "Mac14,2"]
 
 extension NSScreen {
-    
+
     public static func hasNotch() -> Bool {
-        if let model = NSScreen.getMacModel(){
+        if let model = NSScreen.getMacModel() {
             return notchModels.contains(model)
-        } else{
+        } else {
             return false
         }
     }
-    
+
     private static func getMacModel() -> String? {
-        let service = IOServiceGetMatchingService(kIOMasterPortDefault,
+        let service = IOServiceGetMatchingService(kIOMainPortDefault,
                                                   IOServiceMatching("IOPlatformExpertDevice"))
         var modelIdentifier: String?
 
-        if let modelData = IORegistryEntryCreateCFProperty(service, "model" as CFString, kCFAllocatorDefault, 0).takeRetainedValue() as? Data {
+        if let modelData = IORegistryEntryCreateCFProperty(service, "model" as CFString, kCFAllocatorDefault, 0)
+            .takeRetainedValue() as? Data {
             if let modelIdentifierCString = String(data: modelData, encoding: .utf8)?.cString(using: .utf8) {
                 modelIdentifier = String(cString: modelIdentifierCString)
             }
@@ -32,22 +33,22 @@ extension NSScreen {
         IOObjectRelease(service)
         return modelIdentifier
     }
-    
+
 }
 
 class AppSettings {
 
-    let info : AppInfo
-    var container : AppContainer?
-    
+    let info: AppInfo
+    var container: AppContainer?
+
     public static let settingsUrl = URL(fileURLWithPath: "/Users/\(NSUserName())/Library/Preferences/playcover.plist")
-    
-    public func sync(){
+
+    public func sync() {
         notch = NSScreen.hasNotch()
     }
-    
+
     private static let gamingMode = "pc.gamingMode"
-    var gamingMode : Bool {
+    var gamingMode: Bool {
         get {
             return dictionary[AppSettings.gamingMode] as? Bool ?? info.isGame
         }
@@ -57,9 +58,9 @@ class AppSettings {
             dictionary = dict
         }
     }
-    
+
     private static let notch = "pc.hasNotch"
-    var notch : Bool {
+    var notch: Bool {
         get {
             return NSScreen.hasNotch()
         }
@@ -69,9 +70,9 @@ class AppSettings {
             dictionary = dict
         }
     }
-    
+
     private static let layout = "pc.layout"
-    var layout : Array<Array<CGFloat>> {
+    var layout: [[CGFloat]] {
         get {
             return dictionary[AppSettings.layout] as? Array ?? []
         }
@@ -81,9 +82,9 @@ class AppSettings {
             dictionary = dict
         }
     }
-    
+
     private static let sensivity = "pc.sensivity"
-    var sensivity : Float {
+    var sensivity: Float {
         get {
             return dictionary[AppSettings.sensivity] as? Float ?? 50
         }
@@ -93,9 +94,9 @@ class AppSettings {
             dictionary = dict
         }
     }
-    
+
     private static let refreshRate = "pc.refreshRate"
-    var refreshRate : Int {
+    var refreshRate: Int {
         get {
             return dictionary[AppSettings.refreshRate] as? Int ?? 60
         }
@@ -105,9 +106,9 @@ class AppSettings {
             dictionary = dict
         }
     }
-    
+
     private static let bypass = "pc.bypass"
-    var bypass : Bool {
+    var bypass: Bool {
         get {
             return dictionary[AppSettings.bypass] as? Bool ?? false
         }
@@ -118,7 +119,7 @@ class AppSettings {
         }
     }
     private static let keymapping = "pc.keymapping"
-    var keymapping : Bool {
+    var keymapping: Bool {
         get {
             return dictionary[AppSettings.keymapping] as? Bool ?? info.isGame
         }
@@ -128,9 +129,9 @@ class AppSettings {
             dictionary = dict
         }
     }
-    
+
     private static let adaptiveDisplay = "pc.adaptiveDisplay"
-    var adaptiveDisplay : Bool {
+    var adaptiveDisplay: Bool {
         get {
             dictionary[AppSettings.adaptiveDisplay] as? Bool ?? info.isGame
         }
@@ -140,16 +141,16 @@ class AppSettings {
             dictionary = dict
         }
     }
-    
-    private var allPrefs : [String : Any] {
+
+    private var allPrefs: [String: Any] {
         get {
             do {
-                if let all = try Dictionary<String, Any>.read(AppSettings.settingsUrl) {
+                if let all = try [String: Any].read(AppSettings.settingsUrl) {
                     if !all.isEmpty {
                         return all
                     }
                 }
-            } catch{
+            } catch {
                 Log.shared.error(error)
             }
             return [:]
@@ -157,18 +158,18 @@ class AppSettings {
         set {
             do {
                 try newValue.store(AppSettings.settingsUrl)
-            } catch{
+            } catch {
                 Log.shared.error(error)
             }
         }
     }
-        
-    private var dictionary : [String : Any] {
+
+    private var dictionary: [String: Any] {
         get {
-            if let prefs = allPrefs[info.bundleIdentifier] as? [String : Any] {
+            if let prefs = allPrefs[info.bundleIdentifier] as? [String: Any] {
                 return prefs
-            } else{
-                return [AppSettings.keymapping : info.isGame, AppSettings.adaptiveDisplay : info.isGame]
+            } else {
+                return [AppSettings.keymapping: info.isGame, AppSettings.adaptiveDisplay: info.isGame]
             }
         }
         set {
@@ -177,40 +178,43 @@ class AppSettings {
             allPrefs = prefs
         }
     }
-    
-    func reset(){
+
+    func reset() {
         adaptiveDisplay = info.isGame
         keymapping = info.isGame
         layout = []
     }
- 
-    init(_ info : AppInfo, container : AppContainer?){
+
+    init(_ info: AppInfo, container: AppContainer?) {
         self.info = info
         self.container = container
         createSettingsIfNotExists()
     }
-    
-    private func createSettingsIfNotExists(){
-        if !fm.fileExists(atPath: AppSettings.settingsUrl.path) || allPrefs[info.bundleIdentifier] == nil {
-            dictionary = [AppSettings.keymapping : info.isGame, AppSettings.adaptiveDisplay : info.isGame, AppSettings.refreshRate : 60, AppSettings.sensivity : 50]
+
+    private func createSettingsIfNotExists() {
+        if !fileMgr.fileExists(atPath: AppSettings.settingsUrl.path) || allPrefs[info.bundleIdentifier] == nil {
+            dictionary = [AppSettings.keymapping: info.isGame, AppSettings.adaptiveDisplay: info.isGame,
+                          AppSettings.refreshRate: 60, AppSettings.sensivity: 50]
         }
     }
-    
+
     public func export() {
                     let openPanel = NSOpenPanel()
                     openPanel.canChooseFiles = false
                     openPanel.allowsMultipleSelection = false
                     openPanel.canChooseDirectories = true
                     openPanel.canCreateDirectories = true
-                    openPanel.title = "Choose place to export keymapping"
-                    
+                    openPanel.title = "Choose a place to export keymapping to"
+
                     openPanel.begin { (result) in
                         if result == .OK {
                             do {
-                                let selectedPath = openPanel.url!.appendingPathComponent(self.info.bundleIdentifier).appendingPathExtension("playmap")
+                                let selectedPath = openPanel.url!
+                                    .appendingPathComponent(self.info.bundleIdentifier)
+                                    .appendingPathExtension("playmap")
                                 try self.dictionary.store(selectedPath)
                                 selectedPath.openInFinder()
-                            } catch{
+                            } catch {
                                 openPanel.close()
                                 Log.shared.error(error)
                             }
@@ -218,30 +222,30 @@ class AppSettings {
                         }
                     }
         }
-    
-    public func importOf(returnCompletion: @escaping (URL?) -> ()) {
+
+    public func importOf(returnCompletion: @escaping (URL?) -> Void) {
         let openPanel = NSOpenPanel()
         openPanel.canChooseFiles = true
         openPanel.allowsMultipleSelection = false
         openPanel.canChooseDirectories = false
         openPanel.canCreateDirectories = true
         openPanel.allowedFileTypes = ["playmap"]
-        openPanel.title = "Select .playmap file"
-        
+        openPanel.title = "Select a valid file ending in .playmap"
+
         openPanel.begin { (result) in
             if result == .OK {
                 do {
                     if let selectedPath = openPanel.url {
-                        if let newPrefs = try Dictionary<String, Any>.read(selectedPath) {
+                        if let newPrefs = try [String: Any].read(selectedPath) {
                             if !newPrefs.isEmpty {
                                 self.dictionary = newPrefs
                                 returnCompletion(selectedPath)
-                            } else{
+                            } else {
                                 returnCompletion(nil)
                             }
                         }
                     }
-                } catch{
+                } catch {
                     returnCompletion(nil)
                     openPanel.close()
                     Log.shared.error(error)
@@ -250,17 +254,17 @@ class AppSettings {
             }
         }
     }
-    
+
 }
 
 extension Dictionary {
-    
-    func store(_ to : URL) throws {
+
+    func store(_ toUrl: URL) throws {
         let data = try PropertyListSerialization.data(fromPropertyList: self, format: .xml, options: 0)
-        try data.write(to: to)
+        try data.write(to: toUrl)
     }
-    
-    static func read( _ from : URL) throws -> Dictionary? {
+
+    static func read( _ from: URL) throws -> Dictionary? {
         var format = PropertyListSerialization.PropertyListFormat.xml
         if let data = FileManager.default.contents(atPath: from.path) {
             return try PropertyListSerialization
@@ -270,8 +274,8 @@ extension Dictionary {
         }
         return nil
     }
-    
-    static func read( _ from : String) throws -> Dictionary? {
+
+    static func read( _ from: String) throws -> Dictionary? {
         var format = PropertyListSerialization.PropertyListFormat.xml
         if let data = from.data(using: .utf8) {
             return try PropertyListSerialization
@@ -281,5 +285,5 @@ extension Dictionary {
         }
         return nil
     }
-    
+
 }

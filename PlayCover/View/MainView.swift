@@ -15,14 +15,14 @@ extension NSTextField {
         }
 }
 
-struct SearchView : View {
-    
-    @State private var search : String = ""
+struct SearchView: View {
+
+    @State private var search: String = ""
     @State private var isEditing = false
     @Environment(\.colorScheme) var colorScheme
-    
+
     var body : some View {
-        TextField("Search...", text: $search)
+        TextField(NSLocalizedString("Search...", comment: ""), text: $search)
             .padding(7)
             .padding(.horizontal, 25)
             .background(Color(NSColor.textBackgroundColor))
@@ -34,7 +34,7 @@ struct SearchView : View {
                 AppsVM.shared.fetchApps()
                 if value.isEmpty {
                     isEditing = false
-                } else{
+                } else {
                     isEditing = true
                 }
             })
@@ -47,10 +47,10 @@ struct SearchView : View {
                     if isEditing {
                             Button(action: {
                             self.search = ""
-                        }) {
+                            }, label: {
                             Image(systemName: "multiply.circle.fill")
                                 .padding(.trailing, 16)
-                        }.buttonStyle(PlainButtonStyle())
+                        }).buttonStyle(PlainButtonStyle())
                     }
                 }
             )
@@ -59,68 +59,61 @@ struct SearchView : View {
 
 struct MainView: View {
 	@Environment(\.openURL) var openURL
-    @EnvironmentObject var update : UpdateService
-    @EnvironmentObject var install : InstallVM
-    @EnvironmentObject var apps : AppsVM
-    @EnvironmentObject var integrity : AppIntegrity
-
-	@State private var xcodeSelectError = ""
-	@State private var xcodeSelectFailed = false
-
+    @EnvironmentObject var update: UpdateService
+    @EnvironmentObject var install: InstallVM
+    @EnvironmentObject var apps: AppsVM
+    @EnvironmentObject var integrity: AppIntegrity
 
     @State var showSetup = false
     @State var noticesExpanded = false
     @State var bottomHeight: CGFloat = 0
-    
-    @State private var showToast = false
-    
+
+    @Binding var showToast: Bool
+
     var body: some View {
-        if apps.updatingApps { ProgressView() }
-        else {
+        if apps.updatingApps { ProgressView() } else {
             ZStack(alignment: .bottom) {
                 AppsView(bottomPadding: $bottomHeight)
                     .frame(maxWidth: .infinity, maxHeight: .infinity).environmentObject(AppsVM.shared)
-                
+
                 VStack(alignment: .leading, spacing: 0) {
-                    VStack(alignment: .leading, spacing: 8) {
-                        HStack(spacing: 8) {
-                            Link("Join Discord Server", destination: URL(string: "https://discord.gg/rMv5qxGTGC")!)
-                                .help("If you have some problem you always can visit our friendly community.")
-                            Spacer()
-                            if install.installing {
-                                InstallProgress().environmentObject(install).padding(.bottom)
-                            }
-                            Spacer()
-                            Button(action: {
-                                Log.shared.logdata.copyToClipBoard()
-                                showToast.toggle()
-                            }) {
-                                Text("Copy logs")
-                            }
-                            if !update.updateLink.isEmpty {
-                                Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) }) {
-                                    HStack {
-                                        Image(systemName: "arrow.down.square.fill")
-                                        Text("Update app")
-                                    }
-                                }.buttonStyle(UpdateButton())
-                            }
-                        }.padding().frame(maxWidth : .infinity)
-                        
+                    if install.installing {
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack(spacing: 8) {
+
+                                    InstallProgress().environmentObject(install).padding(.bottom)
+                            }.padding().frame(maxWidth: .infinity)
+
+                        }
                     }
-                    
+
                     Divider()
 
                     VStack(alignment: .leading, spacing: 16) {
                         VStack(alignment: .leading, spacing: 0) {
                             HStack {
                                 Text("Notices").font(.headline).help("Important news and announcements")
-                                Spacer()
                                 Button {
                                     withAnimation { noticesExpanded.toggle() }
                                 } label: {
-                                    Image(systemName: "chevron.down")
+                                    Image(systemName: "chevron.up")
                                         .rotationEffect(Angle(degrees: noticesExpanded ? 180 : 0))
+                                }
+                                Spacer()
+                                if !SystemConfig.isPlaySignActive {
+                                    HStack {
+                                        Button("Problems logging in?") { showSetup = true }
+                                            .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
+                                    }
+                                }
+                                if !update.updateLink.isEmpty {
+                                    Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) },
+                                           label: {
+                                        HStack {
+                                            Image(systemName: "arrow.down.square.fill")
+                                            Text("Update app")
+                                        }
+                                    }).buttonStyle(UpdateButton()).controlSize(.large)
                                 }
                             }
                             Text(StoreApp.notice)
@@ -131,77 +124,61 @@ struct MainView: View {
                                 .padding(.top, noticesExpanded ? 8 : 0)
                         }
 
-						if !FileManager().isExecutableFile(atPath: "/usr/bin/otool") {
-							Divider()
-							HStack(spacing: 12) {
-								Text("You need to install Command line tools for Xcode").font(.title3)
-								Button("Install") {
-									do {
-										_ = try sh.shello("/usr/bin/xcode-select","--install")
-									} catch {
-										print("failed \(error)")
-										xcodeSelectError = error.localizedDescription
-										xcodeSelectFailed = true
-									}
-								}
-								.buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
-							}.frame(maxWidth: .infinity).alert(isPresented: $xcodeSelectFailed) {
-								Alert(title: Text("xcode-select --install failed"), message: Text(xcodeSelectError), dismissButton: .default(Text("OK"), action: {
-									xcodeSelectError = ""
-									xcodeSelectFailed = false
-								}))
-							}
-						}
-
-						if !FileManager().isExecutableFile(atPath: "/opt/homebrew/bin/ldid") {
-							Divider()
-							HStack(spacing: 12) {
-								Text("You need to install ldid before using PlayCover").font(.title3)
-								Button("Install") {
-									openURL(URL(string: "https://formulae.brew.sh/formula/ldid")!)
-								}
-								.buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
-							}.frame(maxWidth: .infinity)
-						}
-
-                        if !SystemConfig.isPlaySignActive() {
-                            Divider()
-                            HStack(spacing: 12) {
-                                Text("Having problems logging into apps?").font(.title3)
-                                Button("Enable PlaySign") { showSetup = true }
-                                    .buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
-                            }.frame(maxWidth: .infinity)
-                        }
+                        HStack(spacing: 12) {
+                            Spacer()
+                        }.frame(maxWidth: .infinity)
 						#if DEBUG
 						Divider()
 						HStack(spacing: 12) {
 							Button("Crash") { fatalError("Crash was triggered") }
-								.buttonStyle(.borderedProminent).accentColor(.accentColor).controlSize(.large)
+								.buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
 						}.frame(maxWidth: .infinity)
 						#endif
                     }.padding()
                 }
                 .background(.regularMaterial)
-                .overlay(GeometryReader { geomatry in
+                .overlay(GeometryReader { geometry in
                     Text("")
-                        .onChange(of: geomatry.size.height) { v in bottomHeight = v }
+                        .onChange(of: geometry.size.height) { height in bottomHeight = height }
                         .onAppear {
-                            print("Bottom height: \(geomatry.size.height)")
-                            bottomHeight = geomatry.size.height
+                            print("Bottom height: \(geometry.size.height)")
+                            bottomHeight = geometry.size.height
                         }
                 })
             }
             .toast(isPresenting: $showToast) {
-                AlertToast(type: .regular, title: "Logs copied!")
+                AlertToast(type: .regular, title: NSLocalizedString("Logs copied!", comment: ""))
             }
             .sheet(isPresented: $showSetup) {
                 SetupView()
             }
-            .alert("PlayCover must be in the Applications folder. Press the button below to let PlayCover move itself to /Applications.", isPresented: $integrity.integrityOff) {
+            .alert(NSLocalizedString("PlayCover must be in the Applications folder. " +
+                                     "Press the button below to let PlayCover move itself to /Applications.",
+                                     comment: ""), isPresented: $integrity.integrityOff) {
                 Button("Move to /Applications", role: .cancel) {
                     integrity.moveToApps()
                 }
             }
         }
     }
+}
+
+struct Previews_MainView_Previews: PreviewProvider {
+    @State static var showToast = false
+	static var previews: some View {
+		MainView(showToast: $showToast)
+			.padding()
+			.environmentObject(UpdateService.shared)
+			.environmentObject(InstallVM.shared)
+			.environmentObject(AppsVM.shared)
+			.environmentObject(AppIntegrity())
+			.frame(minWidth: 600, minHeight: 650)
+			.onAppear {
+				UserDefaults.standard.register(defaults: ["ShowLinks": true])
+				SoundDeviceService.shared.prepareSoundDevice()
+				UpdateService.shared.checkUpdate()
+				NotifyService.shared.allowNotify()
+			}
+			.padding(-15)
+	}
 }

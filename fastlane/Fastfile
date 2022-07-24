@@ -28,7 +28,6 @@ end
 lane :release do
   setup_ci if ENV['CI']
   match(type: "developer_id", readonly: true)
-  carthage(use_xcframeworks: true)
   build_mac_app(
     scheme: "PlayCover",
     output_directory: "output",
@@ -36,6 +35,7 @@ lane :release do
     export_method: "developer-id",
     destination: "generic/platform=macOS",
     skip_package_pkg: true,
+    xcargs: "FASTLANE=1",
     )
 end
 

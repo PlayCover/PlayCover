@@ -88,3 +88,6 @@
 "PlayCover must be inside Applications folder. Press button to move it." = "PlayCover 必须被放入“应用程序”文件夹中。按下按钮以移动。";
 "Please, wait current install to finish!" = "请等待当前应用安装完成！";
 "You'll receive ban on this PlayCover version! Call of Duty supported on 0.9.2-0.9.4. PUBG requires higher PlayCover version. Free Fire status is not confirmed. There is one message of ban." = "在此 PlayCover 版本你将会被禁止使用！0.9.2 到 0.9.4 版本支持使命召唤。PUBG 需要更高的 PlayCover 版本。Free Fire 的状态尚未经确认，已有一条被封禁的信息。";
+"soundAlert.messageText" = "";
+"soundAlert.informativeText" = "";
+"soundAlert.successText" = "";

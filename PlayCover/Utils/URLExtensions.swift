@@ -8,10 +8,10 @@ import AppKit
 import SwiftUI
 
 extension String {
-    var esc : String {
+    var esc: String {
         return self.replacingOccurrences(of: " ", with: "\\ ")
     }
-    
+
     func copyToClipBoard() {
         let pasteBoard = NSPasteboard.general
         pasteBoard.clearContents()
@@ -23,28 +23,29 @@ extension URL {
     func subDirectories() throws -> [URL] {
         // @available(macOS 10.11, iOS 9.0, *)
         guard hasDirectoryPath else { return [] }
-        return try FileManager.default.contentsOfDirectory(at: self, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles]).filter(\.hasDirectoryPath)
+        return try FileManager.default
+            .contentsOfDirectory(at: self, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
+            .filter(\.hasDirectoryPath)
     }
-    
-    var esc : String {
+
+    var esc: String {
         return self.path.esc
     }
-    
+
     var isDirectory: Bool {
        return (try? resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory == true
     }
-    
+
     func openInFinder() {
         do {
             if self.isDirectory {
                 NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: self.path)
-            }
-            else {
+            } else {
                 self.showInFinderAndSelectLastComponent()
             }
         }
     }
-    
+
     func showInFinder() {
         if self.isDirectory {
             NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: self.path)
@@ -56,7 +57,7 @@ extension URL {
     func showInFinderAndSelectLastComponent() {
         NSWorkspace.shared.activateFileViewerSelecting([self])
     }
-    
+
     func bytesFromFile() -> [UInt8]? {
 
         guard let data = NSData(contentsOfFile: self.path) else { return nil }
@@ -66,10 +67,10 @@ extension URL {
 
         return buffer
     }
-    
+
     func fixExecutable() throws {
-        var attributes = [FileAttributeKey : Any]()
+        var attributes = [FileAttributeKey: Any]()
         attributes[.posixPermissions] = 0o777
-        try fm.setAttributes(attributes, ofItemAtPath: self.path)
+        try fileMgr.setAttributes(attributes, ofItemAtPath: self.path)
     }
 }

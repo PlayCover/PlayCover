@@ -35,14 +35,14 @@ extension StringProtocol {
     }
 }
 
-class UpdateService : ObservableObject {
-    
+class UpdateService: ObservableObject {
+
     static let shared = UpdateService()
-    
-    static let baseUrl = "https://github.com/PlayCover/PlayCover/releases/download/$/PlayCover.$.zip"
-    
-    @Published var updateLink : String = ""
-    
+
+    static let baseUrl = "https://github.com/PlayCover/PlayCover/releases/download/$/PlayCover_$.dmg"
+
+    @Published var updateLink: String = ""
+
      func checkUpdate() {
         if let url = URL(string: "https://github.com/PlayCover/PlayCover/releases") {
             do {
@@ -51,12 +51,12 @@ class UpdateService : ObservableObject {
                     let end = contents.index(index, offsetBy: 19)
                     let start = contents.index(index, offsetBy: 14)
                     let version = contents[start..<end]
-                    if version.compare(Bundle.main.releaseVersionNumber! , options: .numeric) == .orderedDescending{
+                    if version.compare(Bundle.main.releaseVersionNumber!, options: .numeric) == .orderedDescending {
                         updateLink = UpdateService.baseUrl.replacingOccurrences(of: "$", with: version)
                     }
                 }
-            } catch{
-                
+            } catch {
+
             }
         }
     }

@@ -39,3 +39,6 @@
 "This .IPA is courrupted.Try to use another .ipa" = "Diese .IPA ist beschädigt.Versuch, eine andere .ipa . zu verwenden";
 "You have not performed all instructions! Please, perform all instructions in 'Settings' or watch video in pinned messages." = "Du hast nicht alle Anweisungen ausgeführt! Bitte führe alle Anweisungen unter 'Einstellungen' aus oder schau Dir das Video in den angepinnten Nachrichten an..";
 "Get" = "Herunterladen";
+"soundAlert.messageText" = "";
+"soundAlert.informativeText" = "";
+"soundAlert.successText" = "";
