@@ -55,17 +55,21 @@ struct PlayCoverViewMenuView: Commands {
                             uif.ipaUrl = url
                             Installer.exportForSideloadly(ipaUrl: uif.ipaUrl!, returnCompletion: { (ipa) in
                                 DispatchQueue.main.async {
-                                    ipa?.showInFinder()
-                                    let config = NSWorkspace.OpenConfiguration()
-                                    config.promptsUserIfNeeded = true
-                                    let url = NSWorkspace.shared
-                                        .urlForApplication(withBundleIdentifier: "com.sideloadly.sideloadly")
-                                    if url != nil {
-                                        let unwrap = url.unsafelyUnwrapped
-                                        NSWorkspace.shared
-                                            .open([ipa!], withApplicationAt: unwrap, configuration: config)
+                                    if let ipa = ipa {
+                                        ipa.showInFinder()
+                                        let config = NSWorkspace.OpenConfiguration()
+                                        config.promptsUserIfNeeded = true
+                                        let url = NSWorkspace.shared
+                                            .urlForApplication(withBundleIdentifier: "com.sideloadly.sideloadly")
+                                        if url != nil {
+                                            let unwrap = url.unsafelyUnwrapped
+                                            NSWorkspace.shared
+                                                .open([ipa], withApplicationAt: unwrap, configuration: config)
+                                        } else {
+                                            Log.shared.error("Could not find Sideloadly!")
+                                        }
                                     } else {
-                                        Log.shared.error("Could not find Sideloadly!")
+                                        Log.shared.error("Could not find file!")
                                     }
                                 }
                             })
