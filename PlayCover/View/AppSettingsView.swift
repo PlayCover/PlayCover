@@ -81,7 +81,7 @@ struct AppSettingsView: View {
                 Button("settings.reset") {
                     resetedAlert.toggle()
                     settings.reset()
-                }.buttonStyle(CancelButton()).padding()
+                }.buttonStyle(GrowingButton()).padding()
                 Button("Button.OK") {
                     settings.keymapping = keymapping
                     settings.adaptiveDisplay = adaptiveDisplay
