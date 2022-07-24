@@ -25,6 +25,7 @@ struct PlayAppView : View {
     
     @State private var showChangeGenshinAccount:Bool = false
     @State private var showStoreGenshinAccount:Bool = false
+    @State private var showDeleteGenshinAccount:Bool = false
     
     func elementColor(_ dark : Bool) -> Color {
         return isHover ? Colr.controlSelect().opacity(0.3) : Color.black.opacity(0.0)
@@ -63,22 +64,6 @@ struct PlayAppView : View {
                 }) {
                     Text("Show in Finder")
                     Image(systemName: "folder")
-                }
-                if app.name == "Genshin Impact"{
-                Button(action: {
-                        showStoreGenshinAccount.toggle()
-                }) {
-                    Text("Store current account")
-                    Image(systemName: "pencil")
-                }
-            
-                Button(action: {
-                    
-                        showChangeGenshinAccount.toggle()
-                }) {
-                    Text("restore an account")
-                    Image(systemName: "pencil")
-                }
                 }
                 Button(action: {
                     app.openAppCache()
@@ -121,6 +106,30 @@ struct PlayAppView : View {
                     Text("Delete app")
                     Image(systemName: "trash")
                 }
+                if app.name == "Genshin Impact" {
+                    Divider().padding(.leading, 36).padding(.trailing, 36)
+                    Button(action: {
+                            showStoreGenshinAccount.toggle()
+                    }) {
+                        Text("Store current account")
+                        Image(systemName: "folder.badge.person.crop")
+                    }
+                
+                    Button(action: {
+                            showChangeGenshinAccount.toggle()
+                    }) {
+                        Text("Restore an account")
+                        Image(systemName: "folder.badge.gearshape")
+                    }
+                        
+                    Button(action: {
+                            showDeleteGenshinAccount.toggle()
+                        }) {
+                            Text("Delete an account")
+                            Image(systemName: "folder.badge.minus")
+                        }
+                    Divider().padding(.leading, 36).padding(.trailing, 36)
+                }
             }
             .onHover(perform: { hovering in
                 isHover = hovering
@@ -130,6 +139,8 @@ struct PlayAppView : View {
                 ChangeGenshinAccountView()
             }.sheet(isPresented: $showStoreGenshinAccount) {
                 StoreGenshinAccountView()
+            }.sheet(isPresented: $showDeleteGenshinAccount) {
+                DeleteGenshinStoredAccountView()
             }
             .sheet(isPresented: $showSetup) {
                 SetupView()

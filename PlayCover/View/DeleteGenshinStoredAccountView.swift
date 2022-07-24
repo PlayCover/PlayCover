@@ -1,25 +1,25 @@
 //
-//  ChangeGenshinAccountView.swift
+//  DeleteGenshinStoredAccount.swift
 //  PlayCover
 //
-//  Created by José Elias Moreno villegas on 21/07/22.
+//  Created by José Elias Moreno villegas on 23/07/22.
 //
+
 import SwiftUI
 
-
-struct ChangeGenshinAccountView: View {
+struct DeleteGenshinStoredAccountView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var FolderName : String = ""
     @State var AccountList : [String] = getAccountList()
-
     var body: some View {
         VStack (alignment: .center, spacing: 16){
             Spacer()
             ForEach(AccountList, id: \.self) { account in
                 if account != ".DS_Store"{
+                    
                     Button(action: {
                         self.FolderName = account
-                        restoreUserData(folderName: account)
+                        deleteStoredAccount(folderName: account)
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
                         Image(systemName: "person.fill").foregroundColor(Color(.systemCyan))
