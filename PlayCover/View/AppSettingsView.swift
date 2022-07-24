@@ -16,6 +16,9 @@ struct AppSettingsView: View {
     @State var keymapping: Bool
     @State var gamingMode: Bool
     @State var bypass: Bool
+    @State var discordActivity: Bool
+    @State var customActivity: DiscordActivity
+    @State var popover = false
     @State var selectedRefreshRate: Int
     @State var sensivity: Float
 
@@ -62,7 +65,54 @@ struct AppSettingsView: View {
                         .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
-            Divider().padding(.leading, 36).padding(.trailing, 36)
+            Group {
+                Divider().padding(.horizontal, 36)
+                HStack {
+                    Spacer()
+                    Toggle("Enable Discord Activity", isOn: $discordActivity).padding(.horizontal)
+                    Button("Set Custom Activity"){ popover = true }
+                        .padding(.horizontal)
+                        .disabled(!discordActivity)
+                        .popover(isPresented: $popover, arrowEdge: .trailing) {
+                            VStack {
+                                Text("Leave these field empty if you want default activity")
+                                HStack {
+                                    Text("ClientID").frame(maxWidth: 60)
+                                        .help("Discord application(client) ID")
+                                    TextField("", text: $customActivity.cliendID)
+                                        .frame(maxWidth: 200)
+                                }.padding(.horizontal)
+                                HStack {
+                                    Text("Details").frame(maxWidth: 60)
+                                        .help("First row below title")
+                                    TextField("", text: $customActivity.details)
+                                        .frame(maxWidth: 200)
+                                }.padding(.horizontal)
+                                HStack {
+                                    Text("State").frame(maxWidth: 60)
+                                        .help("Second row below title")
+                                    TextField("", text: $customActivity.state)
+                                        .frame(maxWidth: 200)
+                                }.padding(.horizontal)
+                                HStack {
+                                    Text("Image").frame(maxWidth: 60)
+                                        .help("Large image at the left")
+                                    TextField("", text: $customActivity.image)
+                                        .frame(maxWidth: 200)
+                                }.padding(.horizontal)
+                                HStack {
+                                    Button("Clear") {
+                                        customActivity = DiscordActivity()
+                                        popover = false
+                                    }
+                                    Button("Done") { popover = false }
+                                }
+                            }.padding()
+                        }
+                    Spacer()
+                }
+                Divider().padding(.horizontal, 36)
+            }
             HStack(spacing: 0) {
                 Spacer()
                 Picker(selection: $selectedRefreshRate, label: Text("Screen refresh rate"), content: {
@@ -89,8 +139,9 @@ struct AppSettingsView: View {
                     settings.adaptiveDisplay = adaptiveDisplay
                     settings.sensivity = sensivity
                     settings.bypass = bypass
+                    settings.discordActivity = discordActivity
+                    settings.customActivity = customActivity
                     settings.gamingMode = gamingMode
-
                     if selectedRefreshRate == 1 {
                         settings.refreshRate = 120
                     } else {

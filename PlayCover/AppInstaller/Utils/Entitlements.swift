@@ -78,6 +78,10 @@ class Entitlements {
 				rules.bypass = bundleRules.bypass
 			}
 		}
+        
+        if app.settings.discordActivity {
+            rules.allow?.append("(allow network* ipc-posix*)")
+        }
 
         sandboxProfile.append(contentsOf: PlayRules.buildRules(rules: rules.allow ?? [], bundleID: bundleID))
 
