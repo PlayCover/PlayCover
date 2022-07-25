@@ -88,6 +88,6 @@
 "button.Install" = "Install";
 "alert.xcodeToolsInstallSucceeded" = "Xcode tools installation succeeded";
 "failedToFetchNotices" = "Failed to find notices. Are we not online?";
-"soundAlert.messageText" = "Incorrect Audio Settings Detected!";
-"soundAlert.informativeText" = "Your current output device does not have a sample rate of 48 or 44.1 KHz! Crashes may occur. Would you like to change your current output device's sample rate to 48 KHz?";
-"soundAlert.successText" = "Current output device sample rate set to 48 KHz";
+"soundAlert.messageText" = "Paramètres Audio Incorrects Détectés!";
+ "soundAlert.informativeText" = "Votre sortie audio actuelle n'a pas un taux d'échantillonnage de 48 ou 44.1 KHz! Des erreurs peuvent survenir. Voulez-vous changer le taux d'échantillonnage de votre sortie audio actuelle à 48 KHz?";
+ "soundAlert.successText" = "Définir le taux d'échantillonnage de votre sortie audio à 48 KHz";
