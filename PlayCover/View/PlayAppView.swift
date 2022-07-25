@@ -54,28 +54,28 @@ struct PlayAppView: View {
                 Button(action: {
                     showSettings.toggle()
                 }, label: {
-                    Text("App settings")
+                    Text("app.settings")
                     Image(systemName: "gear")
                 })
 
                 Button(action: {
                     app.showInFinder()
                 }, label: {
-                    Text("Show in Finder")
+                    Text("app.showInFinder")
                     Image(systemName: "folder")
                 })
 
                 Button(action: {
                     app.openAppCache()
                 }, label: {
-                    Text("Open app cache")
+                    Text("app.openCache")
                     Image(systemName: "folder")
                 })
 
                 Button(action: {
                     showClearCacheAlert.toggle()
                 }, label: {
-                    Text("Clear app cache")
+                    Text("app.clearCache")
                     Image(systemName: "xmark.bin")
                 })
 
@@ -88,21 +88,21 @@ struct PlayAppView: View {
                         }
                     }
                 }, label: {
-                    Text("Import keymapping")
+                    Text("app.importkm")
                     Image(systemName: "square.and.arrow.down.on.square.fill")
                 })
 
                 Button(action: {
                     app.settings.export()
                 }, label: {
-                    Text("Export keymapping")
+                    Text("app.exportkm")
                     Image(systemName: "arrowshape.turn.up.left")
                 })
 
                 Button(action: {
                     app.deleteApp()
                 }, label: {
-                    Text("Delete app")
+                    Text("app.delete")
                     Image(systemName: "trash")
                 })
             }
@@ -116,19 +116,18 @@ struct PlayAppView: View {
                                 sensivity: app.settings.sensivity).frame(minWidth: 500)
             }.sheet(isPresented: $showSetup) {
                 SetupView()
-            }.alert("All app data will be erased. You may need to redownload app files again. " +
-                    "Do you wish to continue?", isPresented: $showClearCacheAlert) {
-                Button("OK", role: .cancel) {
+            }.alert("alert.app.delete", isPresented: $showClearCacheAlert) {
+                Button("button.Proceed", role: .cancel) {
                     app.container?.clear()
                     showClearCacheToast.toggle()
                 }
-                Button("Cancel", role: .cancel) {}
+                Button("button.Cancel", role: .cancel) {}
             }.toast(isPresenting: $showClearCacheToast) {
-                AlertToast(type: .regular, title: "App cache was cleared!")
+                AlertToast(type: .regular, title: "alert.appCacheCleared")
             }.toast(isPresenting: $showImportSuccess) {
-                AlertToast(type: .regular, title: "Keymapping imported!")
+                AlertToast(type: .regular, title: "alert.kmImported")
             }.toast(isPresenting: $showImportFail) {
-                AlertToast(type: .regular, title: "Error during import!")
+                AlertToast(type: .regular, title: "alert.errorImportKm")
             }
     }
 }

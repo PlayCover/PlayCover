@@ -24,8 +24,8 @@ class SoundDeviceService {
             let alert = NSAlert()
             alert.messageText = NSLocalizedString("soundAlert.messageText", comment: "")
             alert.informativeText = NSLocalizedString("soundAlert.informativeText", comment: "")
-            alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
-            alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+            alert.addButton(withTitle: NSLocalizedString("button.OK", comment: ""))
+            alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
             alert.alertStyle = .critical
             let response: NSApplication.ModalResponse = alert.runModal()
             if response == NSApplication.ModalResponse.alertFirstButtonReturn {
