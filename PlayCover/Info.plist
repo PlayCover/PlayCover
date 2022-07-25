@@ -84,6 +84,29 @@
 	<string>https://playcover.io/updates/appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>u08aYwJaZ3F/qAs2NauIA5DGKhS4nRDccvBDNW8sbi4=</string>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>com.apple.property-list</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Keyboard mappings</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>io.playcover.PlayCover-playmap</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>playmap</string>
+				</array>
+			</dict>
+		</dict>
+		<dict/>
+	</array>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>

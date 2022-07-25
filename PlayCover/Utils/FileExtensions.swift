@@ -3,6 +3,7 @@
 //  PlayCover
 
 import Foundation
+import UniformTypeIdentifiers
 import AppKit
 
 let fileMgr = FileManager.default
@@ -41,7 +42,7 @@ extension NSOpenPanel {
         panel.allowsMultipleSelection = false
         panel.canChooseFiles = true
         panel.canChooseDirectories = false
-        panel.allowedFileTypes = ["ipa"]
+        panel.allowedContentTypes = [UTType(importedAs: "com.apple.itunes.ipa")]
         panel.canChooseFiles = true
         panel.begin { (result) in
             if result == .OK {
