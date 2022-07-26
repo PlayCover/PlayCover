@@ -81,8 +81,12 @@ struct AppSettingsView: View {
                 Button("settings.reset") {
                     resetedAlert.toggle()
                     settings.reset()
-                }.buttonStyle(GrowingButton()).padding()
-                Button("Button.OK") {
+                }
+                .padding([.top, .bottom])
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .tint(.accentColor)
+                Button("button.OK") {
                     settings.keymapping = keymapping
                     settings.adaptiveDisplay = adaptiveDisplay
                     settings.sensivity = sensivity
@@ -97,7 +101,11 @@ struct AppSettingsView: View {
 
                     presentationMode.wrappedValue.dismiss()
 
-                }.buttonStyle(GrowingButton()).padding().frame(height: 80)
+                }
+                .padding([.top, .bottom])
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .tint(.accentColor)
                 Spacer()
             }
         }.toast(isPresenting: $resetedAlert) {

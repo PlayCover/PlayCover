@@ -28,7 +28,7 @@ struct AppsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            SearchView().padding(.horizontal, 20).padding(.vertical, 8)
+            SearchView().padding(.horizontal, 150).padding(.vertical, 8)
 			if !shell.isXcodeCliToolsInstalled {
 				VStack(spacing: 12) {
 					Text("xcode.needToInstall")

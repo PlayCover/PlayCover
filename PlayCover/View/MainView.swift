@@ -19,6 +19,8 @@ struct SearchView: View {
 
     @State private var search: String = ""
     @State private var isEditing = false
+    @State private var darkSearchStroke = Color(red: 0.2, green: 0.2, blue: 0.2)
+    @State private var lightSearchStroke = Color(red: 0.8, green: 0.8, blue: 0.8)
     @Environment(\.colorScheme) var colorScheme
 
     var body : some View {
@@ -26,9 +28,8 @@ struct SearchView: View {
             .padding(7)
             .padding(.horizontal, 25)
             .background(Color(NSColor.textBackgroundColor))
-            .cornerRadius(8)
             .font(Font.system(size: 16))
-            .padding(.horizontal, 10)
+            .cornerRadius(8)
             .onChange(of: search, perform: { value in
                 uif.searchText = value
                 AppsVM.shared.fetchApps()
@@ -40,20 +41,25 @@ struct SearchView: View {
             })
             .textFieldStyle(PlainTextFieldStyle())
             .frame(maxWidth: .infinity).overlay(
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading, 16)
-                    if isEditing {
-                            Button(action: {
-                            self.search = ""
-                            }, label: {
-                            Image(systemName: "multiply.circle.fill")
-                                .padding(.trailing, 16)
-                        }).buttonStyle(PlainButtonStyle())
+                ZStack {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                            .padding(.leading, 16)
+                        if isEditing {
+                                Button(action: {
+                                self.search = ""
+                                }, label: {
+                                Image(systemName: "multiply.circle.fill")
+                                    .padding(.trailing, 16)
+                            }).buttonStyle(PlainButtonStyle())
+                        }
                     }
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(colorScheme == .dark ? darkSearchStroke : lightSearchStroke)
                 }
             )
+            .padding(.horizontal, 10)
     }
 }
 
@@ -134,7 +140,9 @@ struct MainView: View {
 								.buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
 						}.frame(maxWidth: .infinity)
 						#endif
-                    }.padding()
+                    }
+                    .padding(.horizontal)
+                    .padding(.top)
                 }
                 .background(.regularMaterial)
                 .overlay(GeometryReader { geometry in
