@@ -36,7 +36,7 @@ struct AppsView: View {
 					Button("button.Install") {
 						do {
 							_ = try shell.sh("xcode-select --install")
-							alertTitle = NSLocalizedString("alert.xcodeToolsInstallSucceeded", comment: "")
+							alertTitle = NSLocalizedString("xcode.xcodeToolsInstallSucceeded", comment: "")
 							alertBtn = NSLocalizedString("button.Close", comment: "")
 							alertText = NSLocalizedString("alert.followInstructionAndRestartApp", comment: "")
 							alertAction = {

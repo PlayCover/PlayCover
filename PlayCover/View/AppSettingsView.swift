@@ -27,36 +27,36 @@ struct AppSettingsView: View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
                 HStack {
-                    Toggle(NSLocalizedString("km.enable", comment: ""), isOn: $keymapping).padding()
-                    Toggle(NSLocalizedString("gaming.enable", comment: ""), isOn: $gamingMode).padding()
+                    Toggle(NSLocalizedString("enable.km", comment: ""), isOn: $keymapping).padding()
+                    Toggle(NSLocalizedString("enable.gaming", comment: ""), isOn: $gamingMode).padding()
                 }
                 HStack {
                     Image(systemName: "keyboard")
                         .font(.system(size: 96))
                         .foregroundColor(.accentColor)
                         .padding(.leading)
-                    Text("km.enable.info")
+                    Text("enable.km.info")
                         .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
             VStack(alignment: .leading, spacing: 0) {
-                Toggle(NSLocalizedString("adaptiveDisplay", comment: ""), isOn: $adaptiveDisplay).padding()
+                Toggle(NSLocalizedString("enable.adaptiveDisplay", comment: ""), isOn: $adaptiveDisplay).padding()
                 HStack {
                     Image(systemName: "display").font(.system(size: 96)).foregroundColor(.accentColor).padding(.leading)
-                    Text("adaptiveDisplay.info")
+                    Text("enable.adaptiveDisplay.info")
                         .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
             VStack(alignment: .leading) {
                 Toggle(isOn: $bypass) {
-                    Text("jbBypass.enable")
+                    Text("enable.jbBypass")
                 }.padding()
                 HStack {
                     Image(systemName: "terminal.fill").font(.system(size: 96))
                         .foregroundColor(.accentColor).padding(.leading)
-                    Text("jbBypass.enable.info")
+                    Text("enable.jbBypass.info")
                         .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
