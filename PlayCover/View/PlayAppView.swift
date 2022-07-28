@@ -52,7 +52,7 @@ struct PlayAppView: View {
             .frame(width: 150, height: 150)
             .onTapGesture {
                 isHover = false
-                sh.removeTwitterSessionCookie()
+                shell.removeTwitterSessionCookie()
                 if app.settings.enableWindowAutoSize {
                     app.settings.gameWindowSizeWidth = Float(NSScreen.main?.visibleFrame.width ?? 1920)
                     app.settings.gameWindowSizeHeight = Float(NSScreen.main?.visibleFrame.height ?? 1080)
