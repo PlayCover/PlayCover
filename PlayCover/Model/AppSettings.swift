@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import UniformTypeIdentifiers
 import AppKit
 
 let notchModels = [ "MacBookPro18,3", "MacBookPro18,4", "MacBookPro18,1", "MacBookPro18,2", "Mac14,2"]
@@ -108,6 +107,43 @@ class AppSettings {
         }
     }
 
+    private static let gameWindowSizeHeight = "pc.gameWindowSizeHeight"
+    private static let gameWindowSizeWidth = "pc.gameWindowSizeWidth"
+    private static var enableWindowAutoSize = "pc.enableWindowAutoSize"
+
+    var enableWindowAutoSize: Bool {
+        get{
+            return (dictionary[AppSettings.enableWindowAutoSize] as? Bool ?? true)
+        }
+        set{
+            var dict = dictionary
+            print("newValue", newValue)
+            dict[AppSettings.enableWindowAutoSize] = newValue
+            dictionary = dict
+        }
+    }
+
+    var gameWindowSizeHeight : Float {
+        get {
+            return dictionary[AppSettings.gameWindowSizeHeight] as? Float ?? 1080
+        }
+        set {
+            var dict = dictionary
+            dict[AppSettings.gameWindowSizeHeight] = newValue
+            dictionary = dict
+        }
+    }
+
+    var gameWindowSizeWidth : Float {
+        get {
+            return dictionary[AppSettings.gameWindowSizeWidth] as? Float ?? 1920
+        }
+        set {
+            var dict = dictionary
+            dict[AppSettings.gameWindowSizeWidth] = newValue
+            dictionary = dict
+        }
+    }
     private static let bypass = "pc.bypass"
     var bypass: Bool {
         get {
@@ -191,11 +227,17 @@ class AppSettings {
         self.container = container
         createSettingsIfNotExists()
     }
-
-    private func createSettingsIfNotExists() {
-        if !fileMgr.fileExists(atPath: AppSettings.settingsUrl.path) || allPrefs[info.bundleIdentifier] == nil {
-            dictionary = [AppSettings.keymapping: info.isGame, AppSettings.adaptiveDisplay: info.isGame,
-                          AppSettings.refreshRate: 60, AppSettings.sensivity: 50]
+    
+    private func createSettingsIfNotExists(){
+        if !fm.fileExists(atPath: AppSettings.settingsUrl.path) || allPrefs[info.bundleIdentifier] == nil {
+            dictionary = [AppSettings.keymapping : info.isGame,
+                          AppSettings.adaptiveDisplay : info.isGame,
+                          AppSettings.refreshRate : 60,
+                          AppSettings.sensivity : 50,
+                          AppSettings.gameWindowSizeHeight : 1080,
+                          AppSettings.gameWindowSizeWidth : 1920,
+                          AppSettings.enableWindowAutoSize: false
+                          ]
         }
     }
 
