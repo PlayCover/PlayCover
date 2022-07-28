@@ -1,16 +1,15 @@
 //
-//  StoreGenshinAccount.swift
+//  StoreGenshinAccountView.swift
 //  PlayCover
 //
 //  Created by José Elias Moreno villegas on 21/07/22.
 //
-
 import SwiftUI
 import AlertToast
 
 struct StoreGenshinAccountView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var FolderName : String = ""
+    @State var folderName : String = ""
     @State var selectedRegion : String = ""
     @State var regionIsNotValid: Bool = false
     var body: some View {
@@ -28,18 +27,18 @@ struct StoreGenshinAccountView: View {
             }
             HStack{
                 Text("Name of your account").font(.headline).lineLimit(1).fixedSize()
-                TextField(NSLocalizedString("Name of account...", comment: ""), text: $FolderName)
+                TextField(NSLocalizedString("Name of account...", comment: ""), text: $folderName)
             }
             Spacer()
             Button(action:{
-                if !FolderName.isEmpty && !selectedRegion.isEmpty {
+                if !folderName.isEmpty && !selectedRegion.isEmpty {
                     if checkCurrentRegion(selectedRegion: selectedRegion){
                         regionIsNotValid = false
                         if selectedRegion == "America" {
-                            storeUserData(folderName: $FolderName.wrappedValue.lowercased(),
+                            storeUserData(folderName: $folderName.wrappedValue.lowercased(),
                                           accountRegion: "os_usa")
                         } else {
-                            storeUserData(folderName: $FolderName.wrappedValue.lowercased(),
+                            storeUserData(folderName: $folderName.wrappedValue.lowercased(),
                                           accountRegion: "os_euro")
                         }
                         presentationMode.wrappedValue.dismiss()
@@ -50,7 +49,7 @@ struct StoreGenshinAccountView: View {
                 }
             }){
                 Text("Store!").frame(minWidth: 300, alignment: .center)
-                }.controlSize(.large).buttonStyle(UpdateButton()).font(.title3)
+                }.controlSize(.large).buttonStyle(GrowingButton()).font(.title3)
 
             Spacer()
         }.padding()
@@ -68,9 +67,8 @@ struct StoreGenshinAccountView: View {
 
 //"The current account is set to a different server. enter the game, change region and pass through the gates and try again"
 
-
-struct genshinView_preview: PreviewProvider {
-    static var previews: some View{
+struct GenshinView_preview: PreviewProvider {
+    static var previews: some View {
         StoreGenshinAccountView()
     }
 }
