@@ -16,19 +16,22 @@ struct StoreGenshinAccountView: View {
     var body: some View {
         VStack (alignment: .center, spacing: 16){
             Spacer()
+            Text("Store an account").font(.largeTitle).lineLimit(1).fixedSize()
+            Spacer()
             HStack(spacing: 0) {
-                Spacer()
-                Picker(selection: $selectedRegion, label: Text("Select account region"),
+                Picker(selection: $selectedRegion, label: Text("Select account region").font(.headline).lineLimit(1).fixedSize(),
                        content: {
                             Text("America").tag("America").frame(minWidth: 150, maxWidth: 150, minHeight: 350)
                             Text("Europe").tag("Europe").frame(minWidth: 150, maxWidth: 150, minHeight: 350)
                 }).pickerStyle(SegmentedPickerStyle())
                 Spacer()
             }
+            HStack{
+                Text("Name of your account").font(.headline).lineLimit(1).fixedSize()
+                TextField(NSLocalizedString("Name of account...", comment: ""), text: $FolderName)
+            }
             Spacer()
-            TextField(NSLocalizedString("Name of account...", comment: ""), text: $FolderName)
-            Spacer()
-            Button("Ok"){
+            Button(action:{
                 if !FolderName.isEmpty && !selectedRegion.isEmpty {
                     if checkCurrentRegion(selectedRegion: selectedRegion){
                         regionIsNotValid = false
@@ -43,8 +46,14 @@ struct StoreGenshinAccountView: View {
                     } else{
                         regionIsNotValid = true
                     }
-                } else { presentationMode.wrappedValue.dismiss() }
-            }.buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
+                } else { presentationMode.wrappedValue.dismiss()
+                }
+            }){
+                Text("Store!").frame(minWidth: 300, alignment: .center)
+                }.controlSize(.large).buttonStyle(UpdateButton()).font(.title3)
+                
+            Spacer()
+        }.padding()
                 .alert(NSLocalizedString("The current account is set to a different Region. Launch the game, Change the region, and pass through the gates to save. Then try again",
                                          comment: ""), isPresented: $regionIsNotValid) {
                     Button("Close",
@@ -54,7 +63,14 @@ struct StoreGenshinAccountView: View {
                     }
                 }
             Spacer()
-        }.padding(20)
+        }
+    }
+
+//"The current account is set to a different server. enter the game, change region and pass through the gates and try again"
+
+
+struct genshinView_preview: PreviewProvider {
+    static var previews: some View{
+        StoreGenshinAccountView()
     }
 }
-//"The current account is set to a different server. enter the game, change region and pass through the gates and try again"

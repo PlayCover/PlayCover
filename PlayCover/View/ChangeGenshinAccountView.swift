@@ -15,6 +15,8 @@ struct ChangeGenshinAccountView: View {
     var body: some View {
         VStack (alignment: .center, spacing: 16){
             Spacer()
+            Text("Select an Account").font(.largeTitle).lineLimit(1).fixedSize()
+            Spacer()
             ForEach(AccountList, id: \.self) { account in
                 if account != ".DS_Store"{
                     Button(action: {
@@ -22,16 +24,28 @@ struct ChangeGenshinAccountView: View {
                         restoreUserData(folderName: account)
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
-                        Image(systemName: "person.fill").foregroundColor(Color(.systemCyan))
-                        Text(account).frame(minWidth: 300, maxWidth: 400, minHeight: 350)
-                    }.controlSize(.large).padding(15)
+                        HStack{
+                            Image(systemName: "person.fill")
+                            Text(account)
+                        }.frame(minWidth: 300, alignment: .center)
+                    }.controlSize(.large).buttonStyle(UpdateButton()).font(.title3)
+                        .frame(width: 300, alignment: .center)
                 }
             }.frame(width: 450)
             Spacer()
-            Button("exit") {
+            Button(action: {
                 presentationMode.wrappedValue.dismiss()
-            }.buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
+            }) {
+                Text("Exit").frame(minWidth: 300, alignment: .center)
+            }.buttonStyle(CancelButtonPink())
+                .frame(height: 50)
             Spacer()
-        }.padding(20)
+        }
+    }
+}
+
+struct ChangeGenshinAccountView_preview: PreviewProvider {
+    static var previews: some View{
+        ChangeGenshinAccountView()
     }
 }
