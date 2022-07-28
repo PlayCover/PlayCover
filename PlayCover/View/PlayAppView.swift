@@ -16,16 +16,14 @@ struct PlayAppView: View {
     @State private var showClearCacheToast = false
 
     @Environment(\.colorScheme) var colorScheme
+<<<<<<< HEAD
+<<<<<<< HEAD
 
     @State var isHover: Bool = false
 
     @State var showSetup: Bool = false
     @State var showImportSuccess: Bool = false
     @State var showImportFail: Bool = false
-
-    @State private var showChangeGenshinAccount:Bool = false
-    @State private var showStoreGenshinAccount:Bool = false
-    @State private var showDeleteGenshinAccount:Bool = false
 
     func elementColor(_ dark: Bool) -> Color {
         return isHover ? Color.gray.opacity(0.3) : Color.black.opacity(0.0)
@@ -52,11 +50,8 @@ struct PlayAppView: View {
             .frame(width: 150, height: 150)
             .onTapGesture {
                 isHover = false
-                shell.removeTwitterSessionCookie()
-                if app.settings.enableWindowAutoSize {
-                    app.settings.gameWindowSizeWidth = Float(NSScreen.main?.visibleFrame.width ?? 1920)
-                    app.settings.gameWindowSizeHeight = Float(NSScreen.main?.visibleFrame.height ?? 1080)
-                }
+<<<<<<< HEAD
+<<<<<<< HEAD
                 app.launch()
             }
             .contextMenu {
@@ -72,7 +67,10 @@ struct PlayAppView: View {
                 }, label: {
                     Text("Show in Finder")
                     Image(systemName: "folder")
+<<<<<<< HEAD
+<<<<<<< HEAD
                 })
+
                 Button(action: {
                     app.openAppCache()
                 }, label: {
@@ -112,51 +110,21 @@ struct PlayAppView: View {
                 }, label: {
                     Text("Delete app")
                     Image(systemName: "trash")
+<<<<<<< HEAD
                 })
-                if app.name == "Genshin Impact" {
-                    Divider().padding(.leading, 36).padding(.trailing, 36)
-                    Button(action: {
-                            showStoreGenshinAccount.toggle()
-                    }) {
-                        Text("Store current account")
-                        Image(systemName: "folder.badge.person.crop")
-                    }
-
-                    Button(action: {
-                            showChangeGenshinAccount.toggle()
-                    }) {
-                        Text("Restore an account")
-                        Image(systemName: "folder.badge.gearshape")
-                    }
-
-                    Button(action: {
-                            showDeleteGenshinAccount.toggle()
-                        }) {
-                            Text("Delete an account")
-                            Image(systemName: "folder.badge.minus")
-                        }
-                    Divider().padding(.leading, 36).padding(.trailing, 36)
-                }
             }
             .onHover(perform: { hovering in
                 isHover = hovering
             }).sheet(isPresented: $showSettings) {
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
                 AppSettingsView(settings: app.settings, adaptiveDisplay: app.settings.adaptiveDisplay,
                                 keymapping: app.settings.keymapping, gamingMode: app.settings.gamingMode,
                                 bypass: app.settings.bypass, selectedRefreshRate:
                                     app.settings.refreshRate == 60 ? 0 : 1,
-                               selectedWindowSize: app.settings.gameWindowSizeHeight == 1080 ? 0 : app.settings.gameWindowSizeHeight == 1440 ? 1 : 2,
-                                enableWindowAutoSize: app.settings.enableWindowAutoSize,
-                                sensivity: app.settings.sensivity
-                ).frame(minWidth: 500)
-            }.sheet(isPresented: $showChangeGenshinAccount) {
-                ChangeGenshinAccountView()
-            }.sheet(isPresented: $showStoreGenshinAccount) {
-                StoreGenshinAccountView()
-            }.sheet(isPresented: $showDeleteGenshinAccount) {
-                DeleteGenshinStoredAccountView()
-            }
-            .sheet(isPresented: $showSetup) {
+                                sensivity: app.settings.sensivity).frame(minWidth: 500)
+            }.sheet(isPresented: $showSetup) {
                 SetupView()
             }.alert("All app data will be erased. You may need to redownload app files again. " +
                     "Do you wish to continue?", isPresented: $showClearCacheAlert) {
