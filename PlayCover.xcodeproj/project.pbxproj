@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-<<<<<<< HEAD
-<<<<<<< HEAD
 		5314D1EE26C402EC00A0A727 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5314D1ED26C402EC00A0A727 /* Shell.swift */; };
 		532644DE26E79E56002EA34D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 532644E026E79E56002EA34D /* Localizable.strings */; };
 		538AAE7B26CD41E60009C7AC /* ProcessExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538AAE7A26CD41E60009C7AC /* ProcessExtension.swift */; };
@@ -175,8 +173,6 @@
 				92EE06D3274EA604002C907B /* PlayAppView.swift */,
 				92EE06DB274EB19A002C907B /* StoreAppView.swift */,
 				92279BBE27610433009F28BF /* AppSettingsView.swift */,
-<<<<<<< HEAD
-<<<<<<< HEAD
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -258,8 +254,6 @@
 				92B4D38E2737CF3D0001D7BB /* PlayTools.swift */,
 				92A8AAC8275EFEA800D89B50 /* SystemConfig.swift */,
 				92F8500927675124005CE6BE /* AppIntegrity.swift */,
-<<<<<<< HEAD
-<<<<<<< HEAD
 			);
 			path = Utils;
 			sourceTree = "<group>";

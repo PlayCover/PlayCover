@@ -16,8 +16,6 @@ struct PlayAppView: View {
     @State private var showClearCacheToast = false
 
     @Environment(\.colorScheme) var colorScheme
-<<<<<<< HEAD
-<<<<<<< HEAD
 
     @State var isHover: Bool = false
 
@@ -50,8 +48,6 @@ struct PlayAppView: View {
             .frame(width: 150, height: 150)
             .onTapGesture {
                 isHover = false
-<<<<<<< HEAD
-<<<<<<< HEAD
                 app.launch()
             }
             .contextMenu {
@@ -67,8 +63,6 @@ struct PlayAppView: View {
                 }, label: {
                     Text("Show in Finder")
                     Image(systemName: "folder")
-<<<<<<< HEAD
-<<<<<<< HEAD
                 })
 
                 Button(action: {
@@ -110,15 +104,11 @@ struct PlayAppView: View {
                 }, label: {
                     Text("Delete app")
                     Image(systemName: "trash")
-<<<<<<< HEAD
                 })
             }
             .onHover(perform: { hovering in
                 isHover = hovering
             }).sheet(isPresented: $showSettings) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                 AppSettingsView(settings: app.settings, adaptiveDisplay: app.settings.adaptiveDisplay,
                                 keymapping: app.settings.keymapping, gamingMode: app.settings.gamingMode,
                                 bypass: app.settings.bypass, selectedRefreshRate:

@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import UniformTypeIdentifiers
 import AppKit
 
 let notchModels = [ "MacBookPro18,3", "MacBookPro18,4", "MacBookPro18,1", "MacBookPro18,2", "Mac14,2"]
@@ -107,7 +106,6 @@ class AppSettings {
             dictionary = dict
         }
     }
-<<<<<<< HEAD
 
     private static let bypass = "pc.bypass"
     var bypass: Bool {
@@ -192,7 +190,6 @@ class AppSettings {
         self.container = container
         createSettingsIfNotExists()
     }
-<<<<<<< HEAD
 
     private func createSettingsIfNotExists() {
         if !fileMgr.fileExists(atPath: AppSettings.settingsUrl.path) || allPrefs[info.bundleIdentifier] == nil {

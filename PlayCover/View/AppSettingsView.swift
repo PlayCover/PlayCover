@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 import AlertToast
 
-<<<<<<< HEAD
 struct AppSettingsView: View {
     @State var settings: AppSettings
 
@@ -28,7 +27,6 @@ struct AppSettingsView: View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
                 HStack {
-<<<<<<< HEAD
                     Toggle(NSLocalizedString("Enable Keymapping", comment: ""), isOn: $keymapping).padding()
                     Toggle(NSLocalizedString("Gaming Mode", comment: ""), isOn: $gamingMode).padding()
                 }
@@ -43,7 +41,6 @@ struct AppSettingsView: View {
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
-<<<<<<< HEAD
             VStack(alignment: .leading, spacing: 0) {
                 Toggle(NSLocalizedString("Adaptive display", comment: ""), isOn: $adaptiveDisplay).padding()
                 HStack {
@@ -79,7 +76,6 @@ struct AppSettingsView: View {
                 Text(NSLocalizedString("Mouse sensitivity: ", comment: "") + String(format: "%.f", sensivity))
                 Slider(value: $sensivity, in: 1...100).frame(maxWidth: 400)
             }
-<<<<<<< HEAD
 
             Divider().padding(.leading, 36).padding(.trailing, 36)
             HStack {
@@ -94,7 +90,6 @@ struct AppSettingsView: View {
                     settings.sensivity = sensivity
                     settings.bypass = bypass
                     settings.gamingMode = gamingMode
-<<<<<<< HEAD
 
                     if selectedRefreshRate == 1 {
                         settings.refreshRate = 120
