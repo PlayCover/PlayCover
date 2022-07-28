@@ -55,3 +55,15 @@ struct OutlineButton: ButtonStyle {
             )
     }
 }
+
+struct CancelButtonPink: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding(.vertical, 12)
+            .padding(.horizontal, 16)
+            .background((Color(.systemPink)))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .scaleEffect(configuration.isPressed ? 1.1 : 1)
+            .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
+    }
+}
