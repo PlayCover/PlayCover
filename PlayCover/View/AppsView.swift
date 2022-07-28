@@ -3,10 +3,7 @@
 //  PlayCover
 //
 
-import Foundation
-
 import SwiftUI
-import Cocoa
 import AppKit
 
 struct AppsView: View {

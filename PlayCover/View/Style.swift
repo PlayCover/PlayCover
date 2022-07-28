@@ -3,7 +3,6 @@
 //  PlayCover
 //
 
-import Foundation
 import SwiftUI
 
 struct UpdateButton: ButtonStyle {

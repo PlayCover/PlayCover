@@ -3,7 +3,6 @@
 //  PlayCover
 //
 
-import Foundation
 import SwiftUI
 
 class Log: ObservableObject {

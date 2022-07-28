@@ -3,7 +3,6 @@
 //  PlayCover
 //
 
-import Foundation
 import Cocoa
 
 class AppsVM: ObservableObject {
