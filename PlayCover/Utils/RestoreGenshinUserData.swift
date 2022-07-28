@@ -4,6 +4,7 @@
 //
 //  Created by José Elias Moreno villegas on 20/07/22.
 //
+// swiftlint:disable all
 import Foundation
 
 func restoreUserData(folderName: String) {

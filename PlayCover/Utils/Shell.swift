@@ -97,8 +97,8 @@ class Shell: ObservableObject {
     static func copyAppToTemp(_ bundleName: String, name: String, temp: URL) {
         shell("cp -R /Applications/\(bundleName.esc).app/Wrapper/\(name.esc).app \(temp.esc)/ipafile/Payload/")
     }
-    
-    static func removeTwitterSessionCookie (){
+    static func removeTwitterSessionCookie () {
+        // swiftlint:disable:next line_length
         shell("rm -rf /Users/\(NSUserName())/Library/Containers/com.miHoYo.GenshinImpact/Data/Library/Cookies/Cookies.binarycookies")
 
     }

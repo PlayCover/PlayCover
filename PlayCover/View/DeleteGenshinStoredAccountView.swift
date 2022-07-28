@@ -8,10 +8,11 @@ import SwiftUI
 
 struct DeleteGenshinStoredAccountView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var folderName : String = ""
-    @State var accountList : [String] = getAccountList()
+    @State var folderName: String = ""
+    @State var accountList: [String] = getAccountList()
+    // swiftlint:disable multiple_closures_with_trailing_closure
     var body: some View {
-        VStack (alignment: .center, spacing: 16){
+        VStack(alignment: .center, spacing: 16) {
             Spacer()
             Text("Delete an Account").font(.largeTitle).lineLimit(1).fixedSize()
             Spacer()
@@ -22,7 +23,7 @@ struct DeleteGenshinStoredAccountView: View {
                         deleteStoredAccount(folderName: account)
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
-                        HStack{
+                        HStack {
                             Image(systemName: "person.fill")
                             Text(account)
                         }.frame(minWidth: 300, alignment: .center)
@@ -42,7 +43,7 @@ struct DeleteGenshinStoredAccountView: View {
 }
 
 struct DeleteGenshinStoredAccountView_preview: PreviewProvider {
-    static var previews: some View{
+    static var previews: some View {
         DeleteGenshinStoredAccountView()
     }
 }

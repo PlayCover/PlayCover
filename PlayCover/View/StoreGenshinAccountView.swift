@@ -4,35 +4,40 @@
 //
 //  Created by José Elias Moreno villegas on 21/07/22.
 //
+// swiftlint:disable line_length
+// swiftlint:disable multiple_closures_with_trailing_closure
 import SwiftUI
 import AlertToast
 
 struct StoreGenshinAccountView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var folderName : String = ""
-    @State var selectedRegion : String = ""
+    @State var folderName: String = ""
+    @State var selectedRegion: String = ""
     @State var regionIsNotValid: Bool = false
     var body: some View {
-        VStack (alignment: .center, spacing: 16){
+        VStack(alignment: .center, spacing: 16) {
             Spacer()
             Text("Store an account").font(.largeTitle).lineLimit(1).fixedSize()
             Spacer()
             HStack(spacing: 0) {
-                Picker(selection: $selectedRegion, label: Text("Select account region").font(.headline).lineLimit(1).fixedSize(),
+                Picker(selection: $selectedRegion,
+                       label: Text("Select account region")
+                    .font(.headline).lineLimit(1).fixedSize(),
                        content: {
                             Text("America").tag("America").frame(minWidth: 150, maxWidth: 150, minHeight: 350)
                             Text("Europe").tag("Europe").frame(minWidth: 150, maxWidth: 150, minHeight: 350)
                 }).pickerStyle(SegmentedPickerStyle())
                 Spacer()
             }
-            HStack{
-                Text("Name of your account").font(.headline).lineLimit(1).fixedSize()
+            HStack {
+                Text("Name of your account")
+                    .font(.headline).lineLimit(1).fixedSize()
                 TextField(NSLocalizedString("Name of account...", comment: ""), text: $folderName)
             }
             Spacer()
-            Button(action:{
+            Button(action: {
                 if !folderName.isEmpty && !selectedRegion.isEmpty {
-                    if checkCurrentRegion(selectedRegion: selectedRegion){
+                    if checkCurrentRegion(selectedRegion: selectedRegion) {
                         regionIsNotValid = false
                         if selectedRegion == "America" {
                             storeUserData(folderName: $folderName.wrappedValue.lowercased(),
@@ -42,12 +47,12 @@ struct StoreGenshinAccountView: View {
                                           accountRegion: "os_euro")
                         }
                         presentationMode.wrappedValue.dismiss()
-                    } else{
+                    } else {
                         regionIsNotValid = true
                     }
                 } else { presentationMode.wrappedValue.dismiss()
                 }
-            }){
+            }) {
                 Text("Store!").frame(minWidth: 300, alignment: .center)
                 }.controlSize(.large).buttonStyle(GrowingButton()).font(.title3)
 
@@ -64,8 +69,6 @@ struct StoreGenshinAccountView: View {
             Spacer()
         }
     }
-
-//"The current account is set to a different server. enter the game, change region and pass through the gates and try again"
 
 struct GenshinView_preview: PreviewProvider {
     static var previews: some View {

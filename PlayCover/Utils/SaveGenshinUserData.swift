@@ -4,10 +4,12 @@
 //
 //  Created by José Elias Moreno villegas on 20/07/22.
 //
+// swiftlint:disable all
+
 import Foundation
 import SwiftUI
 
-func storeUserData( folderName:String, accountRegion: String ){
+func storeUserData( folderName: String, accountRegion: String ){
         let MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption = "MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption"
         let MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption = "MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption"
         let MIHOYO_LAST_ACCOUNT_MODEL_Encryption = "MIHOYO_LAST_ACCOUNT_MODEL_Encryption"
@@ -34,8 +36,8 @@ func storeUserData( folderName:String, accountRegion: String ){
             } catch {
                 print("Error creating store directory: \(error)")
             }
-        } else{
-            do{
+        } else {
+            do {
                 try fileManager.createDirectory(atPath: storePath, withIntermediateDirectories: false, attributes: nil)
             } catch {
                 print("Error creating game directory: \(error)")
@@ -76,6 +78,9 @@ func checkCurrentRegion (selectedRegion:String) -> Bool {
 
     // Check if selected region is in the region of the plist
     // "The current account is set to a different server, enter the game"
-        if value.contains(regionName) { return true }
-        else { return false }
+        if value.contains(regionName) {
+            return true
+        } else {
+            return false
+        }
 }

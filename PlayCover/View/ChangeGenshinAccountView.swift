@@ -6,14 +6,14 @@
 //
 import SwiftUI
 
-
 struct ChangeGenshinAccountView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var folderName : String = ""
-    @State var accountList : [String] = getAccountList()
-
+    @State var folderName: String = ""
+    @State var accountList: [String] = getAccountList()
+    // swiftlint:disable multiple_closures_with_trailing_closure
+    // swiftlint:disable opening_brace
     var body: some View {
-        VStack (alignment: .center, spacing: 16){
+        VStack(alignment: .center, spacing: 16) {
             Spacer()
             Text("Select an Account").font(.largeTitle).lineLimit(1).fixedSize()
             Spacer()
@@ -23,8 +23,9 @@ struct ChangeGenshinAccountView: View {
                         self.folderName = account
                         restoreUserData(folderName: account)
                         self.presentationMode.wrappedValue.dismiss()
-                    }) {
-                        HStack{
+                    })
+                    {
+                        HStack {
                             Image(systemName: "person.fill")
                             Text(account)
                         }.frame(minWidth: 300, alignment: .center)
@@ -35,7 +36,8 @@ struct ChangeGenshinAccountView: View {
             Spacer()
             Button(action: {
                 presentationMode.wrappedValue.dismiss()
-            }) {
+            })
+            {
                 Text("Exit").frame(minWidth: 300, alignment: .center)
             }.buttonStyle(CancelButtonPink())
                 .frame(height: 50)
@@ -45,7 +47,7 @@ struct ChangeGenshinAccountView: View {
 }
 
 struct ChangeGenshinAccountView_preview: PreviewProvider {
-    static var previews: some View{
+    static var previews: some View {
         ChangeGenshinAccountView()
     }
 }

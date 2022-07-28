@@ -20,9 +20,8 @@ struct AppSettingsView: View {
     @State var sensivity: Float
 
     @State var resetedAlert: Bool = false
-    
-    @State var selectedWindowSize : Int
-    @State var enableWindowAutoSize : Bool
+    @State var selectedWindowSize: Int
+    @State var enableWindowAutoSize: Bool
 
     @Environment(\.presentationMode) var presentationMode
 
@@ -32,8 +31,9 @@ struct AppSettingsView: View {
                 HStack {
                     Toggle(NSLocalizedString("Enable Keymapping", comment: ""), isOn: $keymapping).padding()
                     Toggle(NSLocalizedString("Gaming Mode", comment: ""), isOn: $gamingMode).padding()
-                    if adaptiveDisplay{
-                        Toggle(NSLocalizedString("Enable Auto Window Size", comment:""), isOn: $enableWindowAutoSize).padding()
+                    if adaptiveDisplay {
+                        Toggle(NSLocalizedString("Enable Auto Window Size", comment: ""),
+                               isOn: $enableWindowAutoSize).padding()
                     }
                 }
                 HStack {
@@ -105,7 +105,6 @@ struct AppSettingsView: View {
                     settings.bypass = bypass
                     settings.gamingMode = gamingMode
                     settings.enableWindowAutoSize = adaptiveDisplay ? enableWindowAutoSize : false
-                    
                     if enableWindowAutoSize {
                         settings.gameWindowSizeHeight = Float(NSScreen.main?.visibleFrame.height ?? 1080)
                         settings.gameWindowSizeWidth = Float(NSScreen.main?.visibleFrame.width ?? 1920)
@@ -113,7 +112,7 @@ struct AppSettingsView: View {
                         if selectedWindowSize == 0 {
                             settings.gameWindowSizeHeight = 1080
                             settings.gameWindowSizeWidth = (1080 * 1.77777777777778) + 100
-                        } else if (selectedWindowSize == 1) {
+                        } else if selectedWindowSize == 1 {
                             settings.gameWindowSizeHeight = 1440
                             settings.gameWindowSizeWidth = (1400 * 1.77777777777778) + 100
                         } else {

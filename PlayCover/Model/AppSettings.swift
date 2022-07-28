@@ -107,16 +107,15 @@ class AppSettings {
             dictionary = dict
         }
     }
-    
     private static let gameWindowSizeHeight = "pc.gameWindowSizeHeight"
         private static let gameWindowSizeWidth = "pc.gameWindowSizeWidth"
         private static var enableWindowAutoSize = "pc.enableWindowAutoSize"
 
         var enableWindowAutoSize: Bool {
-            get{
+            get {
                 return (dictionary[AppSettings.enableWindowAutoSize] as? Bool ?? true)
             }
-            set{
+            set {
                 var dict = dictionary
                 print("newValue", newValue)
                 dict[AppSettings.enableWindowAutoSize] = newValue
@@ -124,7 +123,7 @@ class AppSettings {
             }
         }
 
-        var gameWindowSizeHeight : Float {
+        var gameWindowSizeHeight: Float {
             get {
                 return dictionary[AppSettings.gameWindowSizeHeight] as? Float ?? 1080
             }
@@ -135,7 +134,7 @@ class AppSettings {
             }
         }
 
-        var gameWindowSizeWidth : Float {
+        var gameWindowSizeWidth: Float {
             get {
                 return dictionary[AppSettings.gameWindowSizeWidth] as? Float ?? 1920
             }
@@ -232,12 +231,12 @@ class AppSettings {
 
     private func createSettingsIfNotExists() {
         if !fileMgr.fileExists(atPath: AppSettings.settingsUrl.path) || allPrefs[info.bundleIdentifier] == nil {
-            dictionary = [AppSettings.keymapping : info.isGame,
-                                      AppSettings.adaptiveDisplay : info.isGame,
-                                      AppSettings.refreshRate : 60,
-                                      AppSettings.sensivity : 50,
-                                      AppSettings.gameWindowSizeHeight : 1080,
-                                      AppSettings.gameWindowSizeWidth : 1920,
+            dictionary = [AppSettings.keymapping: info.isGame,
+                                      AppSettings.adaptiveDisplay: info.isGame,
+                                      AppSettings.refreshRate: 60,
+                                      AppSettings.sensivity: 50,
+                                      AppSettings.gameWindowSizeHeight: 1080,
+                                      AppSettings.gameWindowSizeWidth: 1920,
                                       AppSettings.enableWindowAutoSize: false
                                       ]
         }

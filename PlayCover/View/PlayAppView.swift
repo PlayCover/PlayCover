@@ -22,11 +22,9 @@ struct PlayAppView: View {
     @State var showSetup: Bool = false
     @State var showImportSuccess: Bool = false
     @State var showImportFail: Bool = false
-    
-    @State private var showChangeGenshinAccount:Bool = false
-    @State private var showStoreGenshinAccount:Bool = false
-    @State private var showDeleteGenshinAccount:Bool = false
-    
+    @State private var showChangeGenshinAccount: Bool = false
+    @State private var showStoreGenshinAccount: Bool = false
+    @State private var showDeleteGenshinAccount: Bool = false
     func elementColor(_ dark: Bool) -> Color {
         return isHover ? Color.gray.opacity(0.3) : Color.black.opacity(0.0)
     }
@@ -117,20 +115,21 @@ struct PlayAppView: View {
                     Divider().padding(.leading, 36).padding(.trailing, 36)
                     Button(action: {
                         showStoreGenshinAccount.toggle()
+                        // swiftlint:disable:next multiple_closures_with_trailing_closure
                     }) {
                         Text("Store current account")
                         Image(systemName: "folder.badge.person.crop")
                     }
-                    
                     Button(action: {
                         showChangeGenshinAccount.toggle()
+                        // swiftlint:disable:next multiple_closures_with_trailing_closure
                     }) {
                         Text("Restore an account")
                         Image(systemName: "folder.badge.gearshape")
                     }
-                    
                     Button(action: {
                         showDeleteGenshinAccount.toggle()
+                        // swiftlint:disable:next multiple_closures_with_trailing_closure
                     }) {
                         Text("Delete an account")
                         Image(systemName: "folder.badge.minus")
@@ -148,7 +147,9 @@ struct PlayAppView: View {
                                 bypass: app.settings.bypass,
                                 selectedRefreshRate: app.settings.refreshRate == 60 ? 0 : 1,
                                 sensivity: app.settings.sensivity,
-                                selectedWindowSize: app.settings.gameWindowSizeHeight == 1080 ? 0 : app.settings.gameWindowSizeHeight == 1440 ? 1 : 2,
+                                selectedWindowSize: app.settings.gameWindowSizeHeight == 1080
+                                ? 0
+                                : app.settings.gameWindowSizeHeight == 1440 ? 1 : 2,
                                 enableWindowAutoSize: app.settings.enableWindowAutoSize
                 ).frame(minWidth: 500)
             }.sheet(isPresented: $showChangeGenshinAccount) {
