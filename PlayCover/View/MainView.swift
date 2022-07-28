@@ -73,7 +73,7 @@ struct MainView: View {
     @State var showSetup = false
     @State var noticesExpanded = false
     @State var bottomHeight: CGFloat = 0
-
+    @State private var redColor = Color(red: 0.9, green: 0, blue: 0)
     @Binding var showToast: Bool
 
     var body: some View {
@@ -106,6 +106,10 @@ struct MainView: View {
                                         .rotationEffect(Angle(degrees: noticesExpanded ? 180 : 0))
                                 }
                                 Spacer()
+                                #if DEBUG
+                                Button("debug.crash") { fatalError("Crash was triggered") }
+                                    .buttonStyle(.borderedProminent).tint(redColor).controlSize(.large)
+                                #endif
                                 if !SystemConfig.isPlaySignActive {
                                     HStack {
                                         Button("bottomBar.setupViewButton") { showSetup = true }
@@ -133,13 +137,6 @@ struct MainView: View {
                         HStack(spacing: 12) {
                             Spacer()
                         }.frame(maxWidth: .infinity)
-						#if DEBUG
-						Divider()
-						HStack(spacing: 12) {
-							Button("debug.crash") { fatalError("Crash was triggered") }
-								.buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
-						}.frame(maxWidth: .infinity)
-						#endif
                     }
                     .padding(.horizontal)
                     .padding(.top)

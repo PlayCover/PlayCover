@@ -112,4 +112,4 @@
 "xcode.xcodeToolsInstallSucceeded" = "Xcode 终端工具安装成功！";
 "xcode.installFailed" = "Xcode 终端工具安装失败";
 
-"debug.crash" = "崩溃应用";
+"debug.crash" = "【调试】崩溃应用";

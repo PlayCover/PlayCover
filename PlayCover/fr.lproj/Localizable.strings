@@ -112,4 +112,4 @@
 "xcode.xcodeToolsInstallSucceeded" = "Xcode tools installation succeeded";
 "xcode.installFailed" = "Xcode Command Line Tools intallation failed";
 
-"debug.crash" = "Crash app";
+"debug.crash" = "[DEBUG] Crash app";
