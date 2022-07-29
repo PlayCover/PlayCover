@@ -25,7 +25,7 @@
 "alert.app.delete" = "All app data will be erased. You may need to download app files again. Do you wish to continue?";
 "alert.wrongFileType" = "Wrong file type";
 "alert.wrongFileType.message" = "Choose an .ipa file";
-"alert.followInstructionAndRestartApp" = "Please follow the given instructions, and restart the App.";
+"alert.followInstructionsAndRestartApp" = "Please follow the given instructions, and restart the App.";
 "alert.error" = "Some error happened!";
 "alert.success" = "Success!";
 "alert.moveAppToApplications" = "PlayCover must be in the Applications folder. Press the button below to let PlayCover move itself to /Applications.";

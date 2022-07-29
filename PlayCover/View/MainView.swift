@@ -17,8 +17,8 @@ struct SearchView: View {
 
     @State private var search: String = ""
     @State private var isEditing = false
-    @State private var darkSearchStroke = Color(red: 0.2, green: 0.2, blue: 0.2)
-    @State private var lightSearchStroke = Color(red: 0.8, green: 0.8, blue: 0.8)
+    private var darkSearchStroke = Color(red: 0.2, green: 0.2, blue: 0.2)
+    private var lightSearchStroke = Color(red: 0.8, green: 0.8, blue: 0.8)
     @Environment(\.colorScheme) var colorScheme
 
     var body : some View {
