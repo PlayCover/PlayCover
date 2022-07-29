@@ -18,7 +18,7 @@ struct AppSettingsView: View {
     @State var selectedRefreshRate: Int
     @State var sensivity: Float
 
-    @State var resetedAlert: Bool = false
+    @State var resetCompletedAlert: Bool = false
 
     @Environment(\.presentationMode) var presentationMode
 
@@ -78,7 +78,7 @@ struct AppSettingsView: View {
             HStack {
                 Spacer()
                 Button("settings.reset") {
-                    resetedAlert.toggle()
+                    resetCompletedAlert.toggle()
                     settings.reset()
                 }
                 .padding([.top, .bottom])
@@ -107,8 +107,8 @@ struct AppSettingsView: View {
                 .tint(.accentColor)
                 Spacer()
             }
-        }.toast(isPresenting: $resetedAlert) {
-            AlertToast(type: .regular, title: NSLocalizedString("settings.resetted", comment: ""))
+        }.toast(isPresenting: $resetCompletedAlert) {
+            AlertToast(type: .regular, title: NSLocalizedString("settings.resetCompleted", comment: ""))
         }
     }
 }

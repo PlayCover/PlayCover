@@ -67,7 +67,7 @@
 "mouseSensitivity" = "鼠标灵敏度：";
 
 "settings.reset" = "重置设置与键盘映射布局";
-"settings.resetted" = "设置已被重置！";
+"settings.resetCompleted" = "设置已被重置！";
 
 "setupView.header" = "按照以下指示操作即可修复常见问题";
 "setupView.subheader" = "解决账号无法登录，应用闪退等问题";
