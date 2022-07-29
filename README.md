@@ -55,7 +55,7 @@ PlayCover also allows you to map custom touch controls to keyboard, which is not
 
 These controls include all the essentials, from WASD, camera movement, left and right clicks, and individual keymapping, similar to a popular Android emulator’s keymapping system called Bluestacks.
 
-This software was originally designed to run Genshin Impact on your Apple Silicon device, but it can now run a wide range of applications. Unfortunatley, not all games are supported, and some may have bugs.
+This software was originally designed to run Genshin Impact on your Apple Silicon device, but it can now run a wide range of applications. Unfortunately, not all games are supported, and some may have bugs.
 
 ![Fancy logo](./images/dark.png#gh-dark-mode-only)
 ![Fancy logo](./images/light.png#gh-light-mode-only)
@@ -65,7 +65,7 @@ This software was originally designed to run Genshin Impact on your Apple Silico
 <!-- GETTING STARTED -->
 ## Getting Started
 
-Following the instructions below to get Genshin Impact, and many other games, up and running in no time.
+Follow the instructions below to get Genshin Impact, and many other games, up and running in no time.
 
 ### Prerequisites
 
@@ -81,7 +81,7 @@ If you have an Intel Mac, you can explore alternatives like Bootcamp or emulator
 
 ### Download
 
-You can download finished releases [here](https://github.com/PlayCover/PlayCover/releases), or build from source by following the instructions below.
+You can download stable releases [here](https://github.com/PlayCover/PlayCover/releases), or build from source by following the instructions below.
 
 ### Homebrew Cask
 We host a [Homebrew](https://brew.sh) tap with the [PlayCover cask](https://github.com/PlayCover/homebrew-playcover/blob/master/Casks/playcover-community.rb). To install from it:
