@@ -19,7 +19,7 @@
   <h3 align="center">PlayCover</h3>
 
   <p align="center">
-    Run iOS apps & games on M1 Mac with mouse, keyboard and controller support.
+    Run iOS apps and games on Apple Silicon Macs with mouse, keyboard and controller support.
     <br />
     <br />
     <a href="https://www.youtube.com/watch?v=grY63FBJ6N4">Showcase</a>
@@ -30,68 +30,58 @@
   </p>
 </div>
 
-## About the fork & Disclaimer
+## Disclaimer
 
-This fork has been created by the community to support the development of PlayCover, since the original project became non-free and non-open-source.
-
-This fork is not affiliated with the original project, nor the original author.
-
-This fork is not affiliated with the website <https://playcover.me>.
-
-I am supporting this project in my spare time, so if you have any questions, please ask the community for help first.
-
-The original project is under GNU General Public License v3.0, so there is no legal issue to fork it and redistribute.
-
-Many things are under construction, so please be patient. Any contribution is welcome.
-
-If you want to compile it on your own computer, you may need to make a few changes to the source code:
-
-- Linking paths to the correct libraries
-- Auth0 integration
-- i18n resources
-
-CI and compilation fixes are coming soon.
+- This fork has been created by the community to support the development of PlayCover, since the original project became non-free and non-open-source.
+- This fork is not affiliated with the original project, nor the original author.
+- This fork is not affiliated with the website <https://playcover.me>.
+- If you have any questions, please ask the community for help first.
+- The original project is under GNU General Public License v3.0, so there is no legal issue to fork it and redistribute.
 
 If anyone feels like this fork somehow violates the copyright (e.g., the logo), please open an issue.
 
-Some promises:
+Many things are under construction, so please be patient. Any contribution is welcome.
 
-1. This fork will always stay open-source and will be maintained by the community.
-2. Even if I don't have time to maintain this fork, I will leave this fork to community to maintain.
-3. Ask for maintainer's role in the community if you would like to help.
+This fork will always stay open-source and maintained by the community.
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Welcome to PlayCover! This software is all about allowing you to run apps & games on your M1 device running macOS 12.0 or newer.
+Welcome to PlayCover! This software is all about allowing you to run iOS apps and games on Apple Silicon devices running macOS 12.0 or newer.
 
-It does this by putting the applications through a wrapper which imitates an iPad. This allows the apps to perform very well and run natively because the M1 chip is essentially a glorified mobile chip. Another advantage to the software is that you can insert and manipulate custom controls with your keyboard, which is not possible in alternative sideloading methods such as Sideloadly. These controls include all the essentials, from WASD, Camera movement, Left and Right clicks, and individual keymapping, similar to a popular Android emulator’s keymapping system called Bluestacks.
+PlayCover works by putting applications through a wrapper which imitates an iPad. This allows the apps to run natively and perform very well.
 
-This software was originally designed to run Genshin Impact on your M1 device, but it can now run a wide range of applications. However, not all games are supported, and there may be bugs in games.
+PlayCover also allows you to map custom touch controls to keyboard, which is not possible in alternative sideloading methods such as Sideloadly. 
+
+These controls include all the essentials, from WASD, camera movement, left and right clicks, and individual keymapping, similar to a popular Android emulator’s keymapping system called Bluestacks.
+
+This software was originally designed to run Genshin Impact on your Apple Silicon device, but it can now run a wide range of applications. Unfortunatley, not all games are supported, and some may have bugs.
 
 ![Fancy logo](./images/dark.png#gh-dark-mode-only)
 ![Fancy logo](./images/light.png#gh-light-mode-only)
 
 <p align="right"><a href="#top">⬆️ Back to top️</a></p>
 
-
-
-
 <!-- GETTING STARTED -->
 ## Getting Started
 
-Following the installation instructions will get Genshin Impact you up and running in no time. The steps can be repeated if you want to try out other games or apps.
+Following the instructions below to get Genshin Impact, and many other games, up and running in no time.
 
 ### Prerequisites
 
-At the moment, PlayCover can only be installed and executed on M1 MacBooks. Devices with the following chips are supported:
+At the moment, PlayCover can only run on Apple Silicon Macs. Devices with the following chips are supported:
 
 * M1
 * M1 Pro
 * M1 Max
 * M1 Ultra
+* M2
 
- Unfortunately it cannot run on any Intel chips, so you are forced to use Bootcamp or other emulators.
+If you have an Intel Mac, you can explore alternatives like Bootcamp or emulators.
+
+### Download
+
+You can download finished releases [here](https://github.com/PlayCover/PlayCover/releases), or build from source by following the instructions below.
 
 ### Homebrew Cask
 We host a [Homebrew](https://brew.sh) tap with the [PlayCover cask](https://github.com/PlayCover/homebrew-playcover/blob/master/Casks/playcover-community.rb). To install from it:
@@ -112,47 +102,40 @@ You will need:
 - Xcode
 - An Apple ID
 
-Just clone this project, open it in Xcode.
-
-You have to codesign it with your Apple ID in Xcode,
-just follow the instructions.
+Clone this repo, and open it in Xcode. You have to codesign it with your Apple ID in Xcode. You can do this by going to `Navigator > PlayCover > Signing & Capabilities` and setting the `Provising Profile` to None, and setting the `Team` to your personal Apple ID team.
 
 ### Extra Installation Steps For Genshin Impact
 
 1. Disable SIP
-    - This can be done by shutting down your mac, holding down power button
-    - After this, click on your username/ssd, then keep going until you can see `Utilities` at the top
-    - When you see this, click on it and click on `Terminal`
-    - After this, you should be in a terminal window
-    - Type `csrutil disable` in that terminal window
-    - Put your password and everything, then restart your mac
+    - First shut down your Mac completely so the screen is black and all other lights are off
+    - Press and hold the power button on your Mac until `Loading startup options` appears
+    - Select `Options` and continue
+    - If prompted, select the correct storage disk
+    - Log in with your administrator account 
+    - When `Utilities` appears in the menu bar, click on it and choose `Terminal`
+    - In the terminal window type `csrutil disable` and type your password when prompted
+    - Once `Successfully disabled System Integrity Protection` appears, restart your Mac
 
-2. Modify nvram boot-args
+2. Modify `nvram boot-args`
     - When you have SIP disabled, type the following:
         - `Command + Space`, type `Terminal` in the search box
-    - It should open a normal terminal window
-    - Type the following in this window (or copy paste it)
+    - Type or copy the following command in the terminal window that appears
         - `sudo nvram boot-args="amfi_get_out_of_my_way=1"`
     - If it appears that nothing has happened, this is correct.
-    - Now restart your mac once again
+    - Restart your Mac
 
 3. Login to Genshin
     - Open Genshin Impact with PlayCover, and you should be greeted with a Login button
     - Login to your account, then wait until the door appears and quit the game with `Command + Q`. **DO NOT CLICK/ENTER THE DOOR.**
-    - Thats all which is required in Genshin for now
 
 4. Enable SIP
-    - Shut down your mac again
-    - Hold down the power button until you get to recovery options
-    - Click on your username and your storage disk respectively like you did for step 1.
-    - You should see `Utilities` at the top
-    - Click on it, and Click on `Terminal`
-    - In terminal, type the following: `csrutil enable`
-        - `csrutil clear` should also work
-    - Reboot your mac by going to `Apple Logo` > `Restart`
+    - Follow the steps in Step 1 to re-enter startup options
+    - When `Utilities` appears in the menu bar, click on it and choose `Terminal`
+    - In the terminal window type `csrutil enable` and type your passowrd when prompted
+    - Once `Successfully enabled System Integrity Protection` appears, restart your Mac
 
 5. Open Genshin
-    - You're done! Enjoy playing genshin!
+    - You're done! Enjoy playing Genshin!
 
 ### Video Instructions
 
