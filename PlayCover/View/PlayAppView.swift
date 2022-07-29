@@ -87,14 +87,14 @@ struct PlayAppView: View {
                         }
                     }
                 }, label: {
-                    Text("app.importkm")
+                    Text("app.importKm")
                     Image(systemName: "square.and.arrow.down.on.square.fill")
                 })
 
                 Button(action: {
                     app.settings.export()
                 }, label: {
-                    Text("app.exportkm")
+                    Text("app.exportKm")
                     Image(systemName: "arrowshape.turn.up.left")
                 })
 
