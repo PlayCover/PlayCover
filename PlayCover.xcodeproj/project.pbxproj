@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+
+		28361D5E2892781200B35EDB /* RestoreGenshinUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28361D5D2892781200B35EDB /* RestoreGenshinUserData.swift */; };
+		28361D6028927CAC00B35EDB /* SaveGenshinUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28361D5F28927CAC00B35EDB /* SaveGenshinUserData.swift */; };
+		28361D6228927D6100B35EDB /* ChangeGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28361D6128927D6100B35EDB /* ChangeGenshinAccountView.swift */; };
+		28361D6428927E3300B35EDB /* StoreGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28361D6328927E3300B35EDB /* StoreGenshinAccountView.swift */; };
+		28361D662892800200B35EDB /* DeleteStoredGenshinUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28361D652892800200B35EDB /* DeleteStoredGenshinUserData.swift */; };
+		28361D68289280A300B35EDB /* DeleteGenshinStoredAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28361D67289280A300B35EDB /* DeleteGenshinStoredAccountView.swift */; };
 		365AFB0628847B2E008B3542 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 365AFB0528847B2E008B3542 /* Sparkle */; };
 		365AFB0828847B75008B3542 /* Sparkle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365AFB0728847B75008B3542 /* Sparkle.swift */; };
 		3665EF8928832400007CF915 /* PlayCoverSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */; };
@@ -67,6 +74,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		28361D5D2892781200B35EDB /* RestoreGenshinUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreGenshinUserData.swift; sourceTree = "<group>"; };
+		28361D5F28927CAC00B35EDB /* SaveGenshinUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveGenshinUserData.swift; sourceTree = "<group>"; };
+		28361D6128927D6100B35EDB /* ChangeGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeGenshinAccountView.swift; sourceTree = "<group>"; };
+		28361D6328927E3300B35EDB /* StoreGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreGenshinAccountView.swift; sourceTree = "<group>"; };
+		28361D652892800200B35EDB /* DeleteStoredGenshinUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteStoredGenshinUserData.swift; sourceTree = "<group>"; };
+		28361D67289280A300B35EDB /* DeleteGenshinStoredAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGenshinStoredAccountView.swift; sourceTree = "<group>"; };
 		365AFB0728847B75008B3542 /* Sparkle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sparkle.swift; sourceTree = "<group>"; };
 		3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverSettingsView.swift; sourceTree = "<group>"; usesTabs = 0; };
 		36B26B96288C724600859EFD /* UpdateSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSettings.swift; sourceTree = "<group>"; };
@@ -189,6 +202,9 @@
 				92EE06D3274EA604002C907B /* PlayAppView.swift */,
 				92EE06DB274EB19A002C907B /* StoreAppView.swift */,
 				92279BBE27610433009F28BF /* AppSettingsView.swift */,
+				28361D6128927D6100B35EDB /* ChangeGenshinAccountView.swift */,
+				28361D6328927E3300B35EDB /* StoreGenshinAccountView.swift */,
+				28361D67289280A300B35EDB /* DeleteGenshinStoredAccountView.swift */,
 				365AFB0728847B75008B3542 /* Sparkle.swift */,
 			);
 			path = View;
@@ -270,6 +286,9 @@
 				92B4D38E2737CF3D0001D7BB /* PlayTools.swift */,
 				92A8AAC8275EFEA800D89B50 /* SystemConfig.swift */,
 				92F8500927675124005CE6BE /* AppIntegrity.swift */,
+				28361D5D2892781200B35EDB /* RestoreGenshinUserData.swift */,
+				28361D5F28927CAC00B35EDB /* SaveGenshinUserData.swift */,
+				28361D652892800200B35EDB /* DeleteStoredGenshinUserData.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -550,16 +569,19 @@
 				92EE06DA274EB009002C907B /* PlayApp.swift in Sources */,
 				9256220427491E4700728698 /* headers.m in Sources */,
 				53F50C4926E3CA42007AD2D3 /* AppsView.swift in Sources */,
+				28361D6228927D6100B35EDB /* ChangeGenshinAccountView.swift in Sources */,
 				9256220627491E8200728698 /* patch.m in Sources */,
 				53F3802826EB6F6B00D6B525 /* NotifyService.swift in Sources */,
 				92ECD8AA274E76FD00DB7AC6 /* TempAllocator.swift in Sources */,
 				9221730A27623DA100C8A3A2 /* StoreApp.swift in Sources */,
+				28361D6028927CAC00B35EDB /* SaveGenshinUserData.swift in Sources */,
 				538ED92926F40BAF002D73E8 /* Style.swift in Sources */,
 				53F4D29E26C43C040020167C /* UserIntentFlow.swift in Sources */,
 				AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */,
 				53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */,
 				92EE06D0274EA433002C907B /* BaseApp.swift in Sources */,
 				92F8500A27675124005CE6BE /* AppIntegrity.swift in Sources */,
+				28361D5E2892781200B35EDB /* RestoreGenshinUserData.swift in Sources */,
 				36B26B97288C724600859EFD /* UpdateSettings.swift in Sources */,
 				8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */,
 				5314D1EE26C402EC00A0A727 /* Shell.swift in Sources */,
@@ -569,9 +591,12 @@
 				92EE06D4274EA604002C907B /* PlayAppView.swift in Sources */,
 				9280871D2824AD360034C510 /* Unarchiver.swift in Sources */,
 				92279BBF27610433009F28BF /* AppSettingsView.swift in Sources */,
+				28361D6428927E3300B35EDB /* StoreGenshinAccountView.swift in Sources */,
 				9256220327491E4700728698 /* operations.m in Sources */,
 				92EE06D8274EA98B002C907B /* PhysicialApp.swift in Sources */,
+				28361D662892800200B35EDB /* DeleteStoredGenshinUserData.swift in Sources */,
 				92EE06D2274EA596002C907B /* InstallApp.swift in Sources */,
+				28361D68289280A300B35EDB /* DeleteGenshinStoredAccountView.swift in Sources */,
 				53D9DAF326C1849D0071959E /* PlayCoverError.swift in Sources */,
 				9286D296273A7E4200958DD3 /* AppSettings.swift in Sources */,
 				9272F19E273B74C800DFBEF1 /* AppsVM.swift in Sources */,
