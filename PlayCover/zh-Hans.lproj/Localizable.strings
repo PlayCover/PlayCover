@@ -3,11 +3,27 @@
 "app.showInFinder" = "在访达中查看";
 "app.openCache" = "显示应用数据";
 "app.clearCache" = "清除应用数据";
-"app.importkm" = "导入键盘映射布局";
-"app.exportkm" = "导出键盘映射布局";
+"app.importKm" = "导入键盘映射布局";
+"app.exportKm" = "导出键盘映射布局";
 "app.delete" = "删除应用";
 "app.add.help" = "拖拽或打开 ipa 文件以安装。";
 "app.update" = "更新应用";
+"app.storeAccount" = "保存一个账号";
+"app.storeCurrentAccount" = "保存现有账号";
+"app.activateAccount" = "激活账号";
+"app.deleteAccount" = "删除账号";
+
+"storeAccount.selectAccRegion" = "选择账号地区服务器";
+"storeAccount.selectAccRegion.usa" = "美服";
+"storeAccount.selectAccRegion.euro" = "欧服";
+"storeAccount.selectAccRegion.tw" = "台服";
+"storeAccount.selectAccRegion.asia" = "亚服";
+"storeAccount.nameOfAcc" = "账号用户名";
+"storeAccount.nameOfAcc.textfieldPlaceholder" = "用户名...";
+"storeAccount.store" = "保存账号";
+"storeAccount.selectAcc" = "选择一个账号";
+"storeAccount.storeAcc" = "保存一个账号";
+"storeAccount.deleteAcc" = "删除一个账号";
 
 "app.install.unzip" = "正在从文件提取应用...";
 "app.install.createWrapper" = "正在包装应用...";
@@ -30,6 +46,7 @@
 "alert.success" = "成功!";
 "alert.moveAppToApplications" = "PlayCover 必须位于应用程序文件夹。 单击以下按钮让 PlayCover 将自己移进应用程序文件夹";
 "alert.moveAppToApplications.move" = "移进应用程序文件夹";
+"alert.storeAccount.regionIsNotValid" = "此账号现所在的服务器与选项不符。 打开游戏，更改服区并进入大门后保存，然后再试。";
 
 "button.OK" = "好";
 "button.Proceed" = "继续";
@@ -62,6 +79,7 @@
 "enable.adaptiveDisplay.info" = "为 Mac 的内置显示器适配应用窗口";
 "enable.jbBypass" = "启用绕过越狱检测（预览）";
 "enable.jbBypass.info" = "尝试绕过游戏的防越狱系统（不一定总是有效）";
+"enable.autoWindowResize" = "启用自动窗口大小调整";
 
 "displayRefreshRate" = "屏幕刷新率";
 "mouseSensitivity" = "鼠标灵敏度：";
@@ -103,6 +121,7 @@
 "menubar.github" = "GitHub（源代码发行网站）";
 "menubar.discord" = "Discord（社区交流平台）";
 "menubar.showAppLinks" = "显示未安装的应用";
+"menubar.checkForUpdates" = "检查更新";
 
 "soundAlert.messageText" = "监测到声音设置有问题";
 "soundAlert.informativeText" = "现有的音响设备并无 48 或者 44.1 KHz 采样率! 应用可能会崩溃。你希望把现有的音响设备设置成 48 KHz 采样率吗?";

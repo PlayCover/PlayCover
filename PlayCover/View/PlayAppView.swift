@@ -116,21 +116,21 @@ struct PlayAppView: View {
                         showStoreGenshinAccount.toggle()
                         // swiftlint:disable:next multiple_closures_with_trailing_closure
                     }) {
-                        Text("Store current account")
+                        Text("app.storeCurrentAccount")
                         Image(systemName: "folder.badge.person.crop")
                     }
                     Button(action: {
                         showChangeGenshinAccount.toggle()
                         // swiftlint:disable:next multiple_closures_with_trailing_closure
                     }) {
-                        Text("Restore an account")
+                        Text("app.activateAccount")
                         Image(systemName: "folder.badge.gearshape")
                     }
                     Button(action: {
                         showDeleteGenshinAccount.toggle()
                         // swiftlint:disable:next multiple_closures_with_trailing_closure
                     }) {
-                        Text("Delete an account")
+                        Text("app.deleteAccount")
                         Image(systemName: "folder.badge.minus")
                     }
                     Divider().padding(.leading, 36).padding(.trailing, 36)

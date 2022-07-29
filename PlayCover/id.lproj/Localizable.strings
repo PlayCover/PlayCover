@@ -3,11 +3,26 @@
 "app.showInFinder" = "Show in Finder";
 "app.openCache" = "Open app data";
 "app.clearCache" = "Clear app data";
-"app.importkm" = "Import keymapping";
-"app.exportkm" = "Export keymapping";
+"app.importKm" = "Import keymapping";
+"app.exportKm" = "Export keymapping";
 "app.delete" = "Delete app";
 "app.add.help" = "Drag or open an app file to install.";
 "app.update" = "Update app";
+"app.storeCurrentAccount" = "Store current account";
+"app.activateAccount" = "Activate an account";
+"app.deleteAccount" = "Delete an account";
+
+"storeAccount.selectAccRegion" = "Select account region";
+"storeAccount.selectAccRegion.usa" = "America";
+"storeAccount.selectAccRegion.euro" = "Europe";
+"storeAccount.selectAccRegion.tw" = "TW";
+"storeAccount.selectAccRegion.asia" = "Asia";
+"storeAccount.nameOfAcc" = "Name of your account";
+"storeAccount.nameOfAcc.textfieldPlaceholder" = "Name of account...";
+"storeAccount.store" = "Store account";
+"storeAccount.selectAcc" = "Select an account";
+"storeAccount.storeAcc" = "Store an account";
+"storeAccount.deleteAcc" = "Delete an account";
 
 "app.install.unzip" = "Extracting app from .ipa file...";
 "app.install.createWrapper" = "Creating app wrapper...";
@@ -30,6 +45,8 @@
 "alert.success" = "Success!";
 "alert.moveAppToApplications" = "PlayCover must be in the Applications folder. Press the button below to let PlayCover move itself to /Applications.";
 "alert.moveAppToApplications.move" = "Move to /Applications";
+"alert.storeAccount.regionIsNotValid" = "The current account is set to a different Region. Launch the game, Change the region, and pass through the gates to save. Then try again";
+
 
 "button.OK" = "OK";
 "button.Proceed" = "Proceed";
@@ -62,6 +79,7 @@
 "enable.adaptiveDisplay.info" ="Adapts and scales app window to fit the built-in Mac display.";
 "enable.jbBypass" = "Enable Jailbreak Bypass (Alpha)";
 "enable.jbBypass.info" = "Attempts to bypass Jailbreak Detection in some games (No guarentee to work all the time)";
+"enable.autoWindowResize" = "Enable auto window resize";
 
 "displayRefreshRate" = "Screen refresh rate";
 "mouseSensitivity" = "Mouse sensitivity: ";
@@ -103,6 +121,7 @@
 "menubar.github" = "GitHub";
 "menubar.discord" = "Discord";
 "menubar.showAppLinks" = "Show app links";
+"menubar.checkForUpdates" = "Check for updates";
 
 "soundAlert.messageText" = "Incorrect Audio Settings Detected!";
 "soundAlert.informativeText" = "Your current output device does not have a sample rate of 48 or 44.1 KHz! Crashes may occur. Would you like to change your current output device's sample rate to 48 KHz?";

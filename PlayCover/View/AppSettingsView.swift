@@ -30,7 +30,7 @@ struct AppSettingsView: View {
                     Toggle(NSLocalizedString("enable.km", comment: ""), isOn: $keymapping).padding()
                     Toggle(NSLocalizedString("enable.gaming", comment: ""), isOn: $gamingMode).padding()
                     if adaptiveDisplay {
-                        Toggle(NSLocalizedString("Enable Auto Window Size", comment: ""),
+                        Toggle(NSLocalizedString("enable.autoWindowResize", comment: ""),
                                isOn: $enableWindowAutoSize).padding()
                     }
                 }
