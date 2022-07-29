@@ -20,7 +20,13 @@ struct PlayCoverMenuView: Commands {
 }
 
 struct PlayCoverHelpMenuView: Commands {
+    @ObservedObject var updaterViewModel: UpdaterViewModel
+
     var body: some Commands {
+        CommandGroup(after: .appInfo) {
+            CheckForUpdatesView(updaterViewModel: updaterViewModel)
+        }
+
         CommandGroup(replacing: .help) {
             Button("Documentation") {
                 NSWorkspace.shared.open(URL(string: "https://github.com/PlayCover/PlayCover/wiki")!)
