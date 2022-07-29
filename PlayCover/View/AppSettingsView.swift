@@ -20,6 +20,8 @@ struct AppSettingsView: View {
     @State var sensivity: Float
 
     @State var resetedAlert: Bool = false
+    @State var selectedWindowSize: Int
+    @State var enableWindowAutoSize: Bool
 
     @Environment(\.presentationMode) var presentationMode
 
@@ -29,6 +31,10 @@ struct AppSettingsView: View {
                 HStack {
                     Toggle(NSLocalizedString("Enable Keymapping", comment: ""), isOn: $keymapping).padding()
                     Toggle(NSLocalizedString("Gaming Mode", comment: ""), isOn: $gamingMode).padding()
+                    if adaptiveDisplay {
+                        Toggle(NSLocalizedString("Enable Auto Window Size", comment: ""),
+                               isOn: $enableWindowAutoSize).padding()
+                    }
                 }
                 HStack {
                     Image(systemName: "keyboard")
@@ -63,13 +69,21 @@ struct AppSettingsView: View {
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
-            HStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 0) {
                 Spacer()
                 Picker(selection: $selectedRefreshRate, label: Text("Screen refresh rate"), content: {
                     Text("60 Hz").tag(0)
                     Text("120 Hz").tag(1)
-                }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300)
+                }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
+                if adaptiveDisplay && !enableWindowAutoSize {
+                    Spacer()
+                    Picker(selection: $selectedWindowSize, label: Text("Screen size"), content: {
+                        Text("1080p").tag(0)
+                        Text("1440p").tag(1)
+                        Text("4k").tag(2)
+                    }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
                 Spacer()
+                }
             }
             VStack {
                 Divider().padding(.leading, 36).padding(.trailing, 36)
@@ -90,6 +104,22 @@ struct AppSettingsView: View {
                     settings.sensivity = sensivity
                     settings.bypass = bypass
                     settings.gamingMode = gamingMode
+                    settings.enableWindowAutoSize = adaptiveDisplay ? enableWindowAutoSize : false
+                    if enableWindowAutoSize {
+                        settings.gameWindowSizeHeight = Float(NSScreen.main?.visibleFrame.height ?? 1080)
+                        settings.gameWindowSizeWidth = Float(NSScreen.main?.visibleFrame.width ?? 1920)
+                    } else {
+                        if selectedWindowSize == 0 {
+                            settings.gameWindowSizeHeight = 1080
+                            settings.gameWindowSizeWidth = (1080 * 1.77777777777778) + 100
+                        } else if selectedWindowSize == 1 {
+                            settings.gameWindowSizeHeight = 1440
+                            settings.gameWindowSizeWidth = (1400 * 1.77777777777778) + 100
+                        } else {
+                            settings.gameWindowSizeHeight = 2160
+                            settings.gameWindowSizeWidth = (2160 * 1.77777777777778) + 100
+                        }
+                    }
 
                     if selectedRefreshRate == 1 {
                         settings.refreshRate = 120
