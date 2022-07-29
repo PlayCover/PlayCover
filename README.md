@@ -27,6 +27,8 @@
     <a href="https://github.com/PlayCover/PlayCover/pulls">Contribute</a>
     ·
     <a href="https://discord.gg/rMv5qxGTGC">Discord</a>
+    ·
+    <a href="https://playcover.io/">Website</a>
   </p>
 </div>
 
