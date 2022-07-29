@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		365AFB0628847B2E008B3542 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 365AFB0528847B2E008B3542 /* Sparkle */; };
+		365AFB0828847B75008B3542 /* Sparkle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365AFB0728847B75008B3542 /* Sparkle.swift */; };
+		3665EF8928832400007CF915 /* PlayCoverSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */; };
+		36B26B97288C724600859EFD /* UpdateSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B26B96288C724600859EFD /* UpdateSettings.swift */; };
 		5314D1EE26C402EC00A0A727 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5314D1ED26C402EC00A0A727 /* Shell.swift */; };
 		532644DE26E79E56002EA34D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 532644E026E79E56002EA34D /* Localizable.strings */; };
 		538AAE7B26CD41E60009C7AC /* ProcessExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538AAE7A26CD41E60009C7AC /* ProcessExtension.swift */; };
 		538ED92926F40BAF002D73E8 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538ED92826F40BAF002D73E8 /* Style.swift */; };
 		53D9DAF326C1849D0071959E /* PlayCoverError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D9DAF226C1849D0071959E /* PlayCoverError.swift */; };
-		53E3311826F6014D00217197 /* UpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E3311726F6014D00217197 /* UpdateService.swift */; };
 		53E908E726E51FFC0077B466 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E908E626E51FFC0077B466 /* Colors.swift */; };
 		53F3802826EB6F6B00D6B525 /* NotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F3802726EB6F6B00D6B525 /* NotifyService.swift */; };
 		53F4D29E26C43C040020167C /* UserIntentFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29D26C43C040020167C /* UserIntentFlow.swift */; };
@@ -64,6 +67,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		365AFB0728847B75008B3542 /* Sparkle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sparkle.swift; sourceTree = "<group>"; };
+		3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverSettingsView.swift; sourceTree = "<group>"; usesTabs = 0; };
+		36B26B96288C724600859EFD /* UpdateSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSettings.swift; sourceTree = "<group>"; };
 		5314D1ED26C402EC00A0A727 /* Shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
 		531D717926E8313100F4A7AB /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		532644E126E79E5C002EA34D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -79,7 +85,6 @@
 		538ED92826F40BAF002D73E8 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		53D9DAF226C1849D0071959E /* PlayCoverError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverError.swift; sourceTree = "<group>"; };
 		53E3311126F574B600217197 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
-		53E3311726F6014D00217197 /* UpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateService.swift; sourceTree = "<group>"; };
 		53E908E626E51FFC0077B466 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		53F3802526EB6CEA00D6B525 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		53F3802726EB6F6B00D6B525 /* NotifyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyService.swift; sourceTree = "<group>"; };
@@ -152,6 +157,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92324086283FBA34006C46DE /* SimplyCoreAudio in Frameworks */,
+				365AFB0628847B2E008B3542 /* Sparkle in Frameworks */,
 				AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */,
 				AA818CB2287ABE9B000BEE9D /* AlertToast in Frameworks */,
 			);
@@ -160,9 +166,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		36B26B95288C722500859EFD /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */,
+				36B26B96288C724600859EFD /* UpdateSettings.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		533F664B26C06A500051CB3E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				36B26B95288C722500859EFD /* Settings */,
 				ABED59822887A32F004D782B /* MenuBarView.swift */,
 				922ED9B9272DEEDB008CA401 /* MainView.swift */,
 				8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */,
@@ -173,6 +189,7 @@
 				92EE06D3274EA604002C907B /* PlayAppView.swift */,
 				92EE06DB274EB19A002C907B /* StoreAppView.swift */,
 				92279BBE27610433009F28BF /* AppSettingsView.swift */,
+				365AFB0728847B75008B3542 /* Sparkle.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -193,7 +210,6 @@
 			isa = PBXGroup;
 			children = (
 				53F3802726EB6F6B00D6B525 /* NotifyService.swift */,
-				53E3311726F6014D00217197 /* UpdateService.swift */,
 				9280871A2824A8D20034C510 /* SoundDeviceService.swift */,
 			);
 			path = Services;
@@ -379,6 +395,7 @@
 				92324085283FBA34006C46DE /* SimplyCoreAudio */,
 				AA818CB1287ABE9B000BEE9D /* AlertToast */,
 				AA818CB4287ABEC3000BEE9D /* Yams */,
+				365AFB0528847B2E008B3542 /* Sparkle */,
 			);
 			productName = PlayCover;
 			productReference = 8783CFF726B8C52D00171041 /* PlayCover.app */;
@@ -423,6 +440,7 @@
 				92324084283FBA34006C46DE /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */,
 				AA818CB0287ABE9B000BEE9D /* XCRemoteSwiftPackageReference "AlertToast" */,
 				AA818CB3287ABEC3000BEE9D /* XCRemoteSwiftPackageReference "Yams" */,
+				365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
 			productRefGroup = 8783CFF826B8C52D00171041 /* Products */;
 			projectDirPath = "";
@@ -514,13 +532,14 @@
 			files = (
 				92ECD8A3274E75CD00DB7AC6 /* Installer.swift in Sources */,
 				92EE06DE274EC09F002C907B /* Entitlements.swift in Sources */,
-				53E3311826F6014D00217197 /* UpdateService.swift in Sources */,
 				92ECD8A5274E763700DB7AC6 /* IPA.swift in Sources */,
 				8783D00D26B8D32700171041 /* InstallSettings.swift in Sources */,
 				92EE06DC274EB19A002C907B /* StoreAppView.swift in Sources */,
+				365AFB0828847B75008B3542 /* Sparkle.swift in Sources */,
 				92B4D38F2737CF3D0001D7BB /* PlayTools.swift in Sources */,
 				92562209274921E500728698 /* main.m in Sources */,
 				53E908E726E51FFC0077B466 /* Colors.swift in Sources */,
+				3665EF8928832400007CF915 /* PlayCoverSettingsView.swift in Sources */,
 				9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */,
 				92ECD8AE274E787200DB7AC6 /* AppInfo.swift in Sources */,
 				928C01D9272E162C007EB2DF /* InstallVM.swift in Sources */,
@@ -541,6 +560,7 @@
 				53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */,
 				92EE06D0274EA433002C907B /* BaseApp.swift in Sources */,
 				92F8500A27675124005CE6BE /* AppIntegrity.swift in Sources */,
+				36B26B97288C724600859EFD /* UpdateSettings.swift in Sources */,
 				8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */,
 				5314D1EE26C402EC00A0A727 /* Shell.swift in Sources */,
 				8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */,
@@ -810,6 +830,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		92324084283FBA34006C46DE /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rnine/SimplyCoreAudio.git";
@@ -838,6 +866,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		365AFB0528847B2E008B3542 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
 		92324085283FBA34006C46DE /* SimplyCoreAudio */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 92324084283FBA34006C46DE /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */;

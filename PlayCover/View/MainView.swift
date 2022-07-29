@@ -63,7 +63,6 @@ struct SearchView: View {
 
 struct MainView: View {
 	@Environment(\.openURL) var openURL
-    @EnvironmentObject var update: UpdateService
     @EnvironmentObject var install: InstallVM
     @EnvironmentObject var apps: AppsVM
     @EnvironmentObject var integrity: AppIntegrity
@@ -114,15 +113,6 @@ struct MainView: View {
                                             .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
                                     }
                                 }
-                                if !update.updateLink.isEmpty {
-                                    Button(action: { NSWorkspace.shared.open(URL(string: update.updateLink)!) },
-                                           label: {
-                                        HStack {
-                                            Image(systemName: "arrow.down.square.fill")
-                                            Text("app.update")
-                                        }
-                                    }).buttonStyle(UpdateButton()).controlSize(.large)
-                                }
                             }
                             Text(StoreApp.notice)
                                 .font(.body)
@@ -170,7 +160,6 @@ struct Previews_MainView_Previews: PreviewProvider {
 	static var previews: some View {
 		MainView(showToast: $showToast)
 			.padding()
-			.environmentObject(UpdateService.shared)
 			.environmentObject(InstallVM.shared)
 			.environmentObject(AppsVM.shared)
 			.environmentObject(AppIntegrity())
@@ -178,7 +167,6 @@ struct Previews_MainView_Previews: PreviewProvider {
 			.onAppear {
 				UserDefaults.standard.register(defaults: ["ShowLinks": true])
 				SoundDeviceService.shared.prepareSoundDevice()
-				UpdateService.shared.checkUpdate()
 				NotifyService.shared.allowNotify()
 			}
 			.padding(-15)
