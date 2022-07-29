@@ -1,10 +1,10 @@
 # ``PlayCover``
 
-<!--@START_MENU_TOKEN@-->Summary<!--@END_MENU_TOKEN@-->
+An app for playing iOS games on Apple Silicon Macs.
 
 ## Overview
 
-<!--@START_MENU_TOKEN@-->Text<!--@END_MENU_TOKEN@-->
+PlayCover
 
 ## Topics
 
