@@ -21,7 +21,6 @@ struct AppSettingsView: View {
     @State var resetCompletedAlert: Bool = false
     @State var selectedWindowSize: Int
     @State var enableWindowAutoSize: Bool
-    
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {

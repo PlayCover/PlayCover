@@ -54,7 +54,11 @@ struct StoreGenshinAccountView: View {
                 }
             }) {
                 Text("Store!").frame(minWidth: 300, alignment: .center)
-                }.controlSize(.large).buttonStyle(GrowingButton()).font(.title3)
+                }
+                .padding([.top, .bottom])
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .tint(.accentColor)
 
             Spacer()
         }.padding()
