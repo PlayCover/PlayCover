@@ -97,11 +97,7 @@ struct AppSettingsView: View {
                 Button("settings.reset") {
                     resetCompletedAlert.toggle()
                     settings.reset()
-                }
-                .padding([.top, .bottom])
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
-                .tint(.accentColor)
+                }.buttonStyle(GrowingButton()).padding()
                 Button("button.OK") {
                     settings.keymapping = keymapping
                     settings.adaptiveDisplay = adaptiveDisplay
@@ -133,11 +129,7 @@ struct AppSettingsView: View {
 
                     presentationMode.wrappedValue.dismiss()
 
-                }
-                .padding([.top, .bottom])
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
-                .tint(.accentColor)
+                }.buttonStyle(GrowingButton()).padding()
                 Spacer()
             }
         }.toast(isPresenting: $resetCompletedAlert) {
