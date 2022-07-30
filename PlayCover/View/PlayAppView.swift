@@ -60,27 +60,27 @@ struct PlayAppView: View {
                 Button(action: {
                     showSettings.toggle()
                 }, label: {
-                    Text("app.settings")
+                    Text("playapp.settings")
                     Image(systemName: "gear")
                 })
 
                 Button(action: {
                     app.showInFinder()
                 }, label: {
-                    Text("app.showInFinder")
+                    Text("playapp.showInFinder")
                     Image(systemName: "folder")
                 })
                 Button(action: {
                     app.openAppCache()
                 }, label: {
-                    Text("app.openCache")
+                    Text("playapp.openCache")
                     Image(systemName: "folder")
                 })
 
                 Button(action: {
                     showClearCacheAlert.toggle()
                 }, label: {
-                    Text("app.clearCache")
+                    Text("playapp.clearCache")
                     Image(systemName: "xmark.bin")
                 })
 
@@ -93,21 +93,21 @@ struct PlayAppView: View {
                         }
                     }
                 }, label: {
-                    Text("app.importKm")
+                    Text("playapp.importKm")
                     Image(systemName: "square.and.arrow.down.on.square.fill")
                 })
 
                 Button(action: {
                     app.settings.export()
                 }, label: {
-                    Text("app.exportKm")
+                    Text("playapp.exportKm")
                     Image(systemName: "arrowshape.turn.up.left")
                 })
 
                 Button(action: {
                     app.deleteApp()
                 }, label: {
-                    Text("app.delete")
+                    Text("playapp.delete")
                     Image(systemName: "trash")
                 })
                 if app.name == "Genshin Impact" {
@@ -116,21 +116,21 @@ struct PlayAppView: View {
                         showStoreGenshinAccount.toggle()
                         // swiftlint:disable:next multiple_closures_with_trailing_closure
                     }) {
-                        Text("app.storeCurrentAccount")
+                        Text("playapp.storeCurrentAccount")
                         Image(systemName: "folder.badge.person.crop")
                     }
                     Button(action: {
                         showChangeGenshinAccount.toggle()
                         // swiftlint:disable:next multiple_closures_with_trailing_closure
                     }) {
-                        Text("app.activateAccount")
+                        Text("playapp.activateAccount")
                         Image(systemName: "folder.badge.gearshape")
                     }
                     Button(action: {
                         showDeleteGenshinAccount.toggle()
                         // swiftlint:disable:next multiple_closures_with_trailing_closure
                     }) {
-                        Text("app.deleteAccount")
+                        Text("playapp.deleteAccount")
                         Image(systemName: "folder.badge.minus")
                     }
                     Divider().padding(.leading, 36).padding(.trailing, 36)
