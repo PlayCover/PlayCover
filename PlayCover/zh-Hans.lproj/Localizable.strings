@@ -1,17 +1,17 @@
-"app.add" = "添加应用";
-"app.settings" = "应用偏好设置";
-"app.showInFinder" = "在访达中查看";
-"app.openCache" = "显示应用数据";
-"app.clearCache" = "清除应用数据";
-"app.importKm" = "导入键盘映射布局";
-"app.exportKm" = "导出键盘映射布局";
-"app.delete" = "删除应用";
-"app.add.help" = "拖拽或打开 ipa 文件以安装。";
-"app.update" = "更新应用";
-"app.storeAccount" = "保存一个账号";
-"app.storeCurrentAccount" = "保存现有账号";
-"app.activateAccount" = "激活账号";
-"app.deleteAccount" = "删除账号";
+"playapp.add" = "添加应用";
+"playapp.settings" = "应用偏好设置";
+"playapp.showInFinder" = "在访达中查看";
+"playapp.openCache" = "显示应用数据";
+"playapp.clearCache" = "清除应用数据";
+"playapp.importKm" = "导入键盘映射布局";
+"playapp.exportKm" = "导出键盘映射布局";
+"playapp.delete" = "删除应用";
+"playapp.add.help" = "拖拽或打开 ipa 文件以安装。";
+"playapp.update" = "更新应用";
+"playapp.storeAccount" = "保存一个账号";
+"playapp.storeCurrentAccount" = "保存现有账号";
+"playapp.activateAccount" = "激活账号";
+"playapp.deleteAccount" = "删除账号";
 
 "storeAccount.selectAccRegion" = "选择账号地区服务器";
 "storeAccount.selectAccRegion.usa" = "美服";
@@ -25,13 +25,13 @@
 "storeAccount.storeAcc" = "保存一个账号";
 "storeAccount.deleteAcc" = "删除一个账号";
 
-"app.install.unzip" = "正在从文件提取应用...";
-"app.install.createWrapper" = "正在包装应用...";
-"app.install.installPlayTools" = "正在安装 PlayTools...";
-"app.install.signing" = "正在为应用签名...";
-"app.install.addToLib" = "正在将应用移进软件库...";
-"app.install.copy" = "正在复制应用...";
-"app.install.finished" = "完成！";
+"playapp.install.unzip" = "正在从文件提取应用...";
+"playapp.install.createWrapper" = "正在包装应用...";
+"playapp.install.installPlayTools" = "正在安装 PlayTools...";
+"playapp.install.signing" = "正在为应用签名...";
+"playapp.install.addToLib" = "正在将应用移进软件库...";
+"playapp.install.copy" = "正在复制应用...";
+"playapp.install.finished" = "完成！";
 
 "search.search" = "搜索...";
 
@@ -55,7 +55,7 @@
 "button.Dismiss" = "隐藏";
 "button.Install" = "安装";
 
-"error.corruptedIPA" = "此 ipa 文件已损坏，因为找不到 Info.plist.";
+"error.corruptedIPA" = "此 ipa 文件已损坏，因为找不到 \"Info.plist\" 文件。";
 "error.waitInstallation" = "请等待安装过程结束！";
 "error.reinstallApp" = "请重新安装 PlayCover";
 
@@ -72,17 +72,19 @@
 
 "logs.copied" = "日志已复制";
 
-"enable.km" = "启用键盘映射布局";
-"enable.gaming" = "游戏模式";
-"enable.km.info" = "为触屏设计的游戏增添键鼠支持。使用 Command + K 启用键盘映射布局编辑器";
-"enable.adaptiveDisplay" = "适配显示器";
-"enable.adaptiveDisplay.info" = "为 Mac 的内置显示器适配应用窗口";
-"enable.jbBypass" = "启用绕过越狱检测（预览）";
-"enable.jbBypass.info" = "尝试绕过游戏的防越狱系统（不一定总是有效）";
-"enable.autoWindowResize" = "启用自动窗口大小调整";
+"settings.toggle.km" = "启用键盘映射布局";
+"settings.toggle.gaming" = "游戏模式";
+"settings.toggle.km.info" = "为触屏设计的游戏增添键鼠支持。使用 Command + K 启用键盘映射布局编辑器";
+"settings.toggle.adaptiveDisplay" = "适配显示器";
+"settings.toggle.adaptiveDisplay.info" = "为 Mac 的内置显示器适配应用窗口";
+"settings.toggle.jbBypass" = "启用绕过越狱检测（预览）";
+"settings.toggle.jbBypass.info" = "尝试绕过游戏的防越狱系统（不一定总是有效）";
+"settings.toggle.autoWindowResize" = "启用自动窗口大小调整";
 
-"displayRefreshRate" = "屏幕刷新率";
-"mouseSensitivity" = "鼠标灵敏度：";
+"settings.picker.displayRefreshRate" = "屏幕刷新率";
+"settings.picker.screenSize" = "屏幕分辨率";
+
+"settings.slider.mouseSensitivity" = "鼠标灵敏度：";
 
 "settings.reset" = "重置设置与键盘映射布局";
 "settings.resetCompleted" = "设置已被重置！";
@@ -127,8 +129,8 @@
 "soundAlert.informativeText" = "现有的音响设备并无 48 或者 44.1 KHz 采样率! 应用可能会崩溃。你希望把现有的音响设备设置成 48 KHz 采样率吗?";
 "soundAlert.successText" = "现有音响设备采样率已设为 48 KHz";
 
-"xcode.needToInstall" = "开始之前，你需要先安装 Xcode 终端工具并重启此应用";
-"xcode.xcodeToolsInstallSucceeded" = "Xcode 终端工具安装成功！";
-"xcode.installFailed" = "Xcode 终端工具安装失败";
+"xcode.install.message" = "开始之前，你需要先安装 Xcode 终端工具并重启此应用";
+"xcode.install.success" = "Xcode 终端工具安装成功！";
+"xcode.install.failed" = "Xcode 终端工具安装失败";
 
 "debug.crash" = "【调试】崩溃应用";

@@ -103,7 +103,7 @@ struct AppAddView: View {
                 .font(.system(size: 38.0, weight: .thin))
                 .frame(width: 64, height: 68).padding(.top).foregroundColor(
                     install.installing ? Color.gray : Color.accentColor)
-            Text("app.add").padding(.horizontal)
+            Text("playapp.add").padding(.horizontal)
                             .frame(width: 150, height: 50)
                             .padding(.bottom)
                             .lineLimit(nil)
@@ -161,7 +161,7 @@ struct AppAddView: View {
                 } else {
                     showWrongfileTypeAlert = true
                 }
-            }.help("app.add.help")
+            }.help("playapp.add.help")
     }
 
     private func installApp() {

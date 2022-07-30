@@ -27,10 +27,10 @@ struct AppSettingsView: View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
                 HStack {
-                    Toggle(NSLocalizedString("enable.km", comment: ""), isOn: $keymapping).padding()
-                    Toggle(NSLocalizedString("enable.gaming", comment: ""), isOn: $gamingMode).padding()
+                    Toggle(NSLocalizedString("settings.toggle.km", comment: ""), isOn: $keymapping).padding()
+                    Toggle(NSLocalizedString("settings.toggle.gaming", comment: ""), isOn: $gamingMode).padding()
                     if adaptiveDisplay {
-                        Toggle(NSLocalizedString("enable.autoWindowResize", comment: ""),
+                        Toggle(NSLocalizedString("settings.toggle.autoWindowResize", comment: ""),
                                isOn: $enableWindowAutoSize).padding()
                     }
                 }
@@ -39,41 +39,43 @@ struct AppSettingsView: View {
                         .font(.system(size: 96))
                         .foregroundColor(.accentColor)
                         .padding(.leading)
-                    Text("enable.km.info")
+                    Text("settings.toggle.km.info")
                         .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
             VStack(alignment: .leading, spacing: 0) {
-                Toggle(NSLocalizedString("enable.adaptiveDisplay", comment: ""), isOn: $adaptiveDisplay).padding()
+                Toggle(NSLocalizedString(
+                    "settings.toggle.adaptiveDisplay", comment: ""
+                ), isOn: $adaptiveDisplay).padding()
                 HStack {
                     Image(systemName: "display").font(.system(size: 96)).foregroundColor(.accentColor).padding(.leading)
-                    Text("enable.adaptiveDisplay.info")
+                    Text("settings.toggle.adaptiveDisplay.info")
                         .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
             VStack(alignment: .leading) {
                 Toggle(isOn: $bypass) {
-                    Text("enable.jbBypass")
+                    Text("settings.toggle.jbBypass")
                 }.padding()
                 HStack {
                     Image(systemName: "terminal.fill").font(.system(size: 96))
                         .foregroundColor(.accentColor).padding(.leading)
-                    Text("enable.jbBypass.info")
+                    Text("settings.toggle.jbBypass.info")
                         .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
             VStack(alignment: .leading, spacing: 0) {
                 Spacer()
-                Picker(selection: $selectedRefreshRate, label: Text("displayRefreshRate"), content: {
+                Picker(selection: $selectedRefreshRate, label: Text("settings.picker.displayRefreshRate"), content: {
                     Text("60 Hz").tag(0)
                     Text("120 Hz").tag(1)
                 }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
                 if adaptiveDisplay && !enableWindowAutoSize {
                     Spacer()
-                    Picker(selection: $selectedWindowSize, label: Text("Screen size"), content: {
+                    Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
                         Text("1080p").tag(0)
                         Text("1440p").tag(1)
                         Text("4k").tag(2)
@@ -83,7 +85,9 @@ struct AppSettingsView: View {
             }
             VStack {
                 Divider().padding(.leading, 36).padding(.trailing, 36)
-                Text(NSLocalizedString("mouseSensitivity", comment: "") + String(format: "%.f", sensivity))
+                Text(NSLocalizedString(
+                    "settings.slider.mouseSensitivity", comment: ""
+                ) + String(format: "%.f", sensivity))
                 Slider(value: $sensivity, in: 1...100).frame(maxWidth: 400)
             }
 
