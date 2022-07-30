@@ -11,19 +11,15 @@ import AppKit
 
 struct AppsView: View {
     @Binding public var bottomPadding: CGFloat
+    @Binding public var xcodeCliInstalled: Bool
 
     @EnvironmentObject var appVm: AppsVM
 
     @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150), spacing: 0)]
-
 	@State private var alertTitle = ""
-
 	@State private var alertText = ""
-
 	@State private var alertBtn = ""
-
 	@State private var alertAction : (() -> Void) = {}
-
 	@State private var showAlert = false
 
     var body: some View {
@@ -31,7 +27,7 @@ struct AppsView: View {
             HStack {
                 SearchView().padding(.horizontal, 20).padding(.vertical, 8)
             }
-			if !shell.isXcodeCliToolsInstalled {
+			if !xcodeCliInstalled {
 				VStack(spacing: 12) {
 					Text("You need to install Xcode Commandline tools and restart this App.")
 						.font(.title3)
