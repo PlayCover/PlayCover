@@ -70,7 +70,7 @@ struct MainView: View {
     @State var showSetup = false
     @State var noticesExpanded = false
     @State var bottomHeight: CGFloat = 0
-    private var redColor = Color(red: 0.9, green: 0, blue: 0)
+    var redColor = Color(red: 0.9, green: 0, blue: 0)
     @Binding var showToast: Bool
 
     var body: some View {
