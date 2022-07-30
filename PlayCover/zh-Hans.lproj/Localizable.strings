@@ -82,6 +82,8 @@
 "settings.toggle.autoWindowResize" = "启用自动窗口大小调整";
 
 "settings.picker.displayRefreshRate" = "屏幕刷新率";
+"settings.picker.screenSize" = "屏幕分辨率";
+
 "settings.slider.mouseSensitivity" = "鼠标灵敏度：";
 
 "settings.reset" = "重置设置与键盘映射布局";

@@ -75,7 +75,7 @@ struct AppSettingsView: View {
                 }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
                 if adaptiveDisplay && !enableWindowAutoSize {
                     Spacer()
-                    Picker(selection: $selectedWindowSize, label: Text("Screen size"), content: {
+                    Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
                         Text("1080p").tag(0)
                         Text("1440p").tag(1)
                         Text("4k").tag(2)

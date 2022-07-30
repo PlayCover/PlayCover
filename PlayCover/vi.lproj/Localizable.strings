@@ -82,6 +82,8 @@
 "settings.toggle.autoWindowResize" = "Enable auto window resize";
 
 "settings.picker.displayRefreshRate" = "Screen refresh rate";
+"settings.picker.screenSize" = "Display resolution";
+
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: ";
 
 "settings.reset" = "Reset settings and keymapping";
