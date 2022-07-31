@@ -92,15 +92,15 @@
 "setupView.header" = "Suivez les étapes ci-dessous pour résoudre des problèmes courants"; 
 "setupView.subheader" = "Ex: Ne pas pouvoir se connecter, certains applications ne marchent pas";
 
-"setupView.1" = "1) Éteignez votre Mac"; 
-"setupView.2" = "2) Attendez au moins 20 secondes pour que votre Mac se ferme et ensuite maintenir le bouton d'alimentation enfoncé";
-"setupView.3" = "3) Quand \"Loading Startup Options\" apparait, relachez le bouton d'alimentation"; 
-"setupView.4" = "4) Cliquez l'option Recovery Mode boot"; 
-"setupView.5" = "5) Ouvrez Terminal (Barre de menu -> Utilités -> Terminal)";
-"setupView.6" = "6) Entrez: "; 
-"setupView.7" = "7) Entrez la commande. Ensuite, entrez votre mot de passe (Le texte sera caché)"; 
-"setupView.8" = "8) Cliquez sur le symbole Apple dans la barre du menu et redémarrer."; 
-"setupView.9" = "Si vous rencontrez un erreur, recommencez le processus."; 
+"setupView.step1" = "1) Éteignez votre Mac"; 
+"setupView.step2" = "2) Attendez au moins 20 secondes pour que votre Mac se ferme et ensuite maintenir le bouton d'alimentation enfoncé";
+"setupView.step3" = "3) Quand \"Loading Startup Options\" apparait, relachez le bouton d'alimentation"; 
+"setupView.step4" = "4) Cliquez l'option Recovery Mode boot"; 
+"setupView.step5" = "5) Ouvrez Terminal (Barre de menu -> Utilités -> Terminal)";
+"setupView.step6" = "6) Entrez: "; 
+"setupView.step7" = "7) Entrez la commande. Ensuite, entrez votre mot de passe (Le texte sera caché)"; 
+"setupView.step8" = "8) Cliquez sur le symbole Apple dans la barre du menu et redémarrer."; 
+"setupView.step9" = "Si vous rencontrez un erreur, recommencez le processus."; 
 
 "setupView.vidTutorials" = "Tutoriels Vidéo";
 "setupView.youtube" = "YouTube";
