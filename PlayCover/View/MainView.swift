@@ -25,6 +25,7 @@ struct SearchView: View {
             .padding(.horizontal, 25)
             .background(Color(NSColor.textBackgroundColor))
             .font(Font.system(size: 16))
+            .padding(.horizontal, 10)
             .cornerRadius(8)
             .onChange(of: search, perform: { value in
                 uif.searchText = value
@@ -51,7 +52,6 @@ struct SearchView: View {
                     }
                 }
             )
-            .padding(.horizontal, 10)
     }
 }
 
@@ -64,7 +64,6 @@ struct MainView: View {
     @State var showSetup = false
     @State var noticesExpanded = false
     @State var bottomHeight: CGFloat = 0
-    var redColor = Color(red: 0.9, green: 0, blue: 0)
     @Binding var showToast: Bool
     @Binding public var xcodeCliInstalled: Bool
 

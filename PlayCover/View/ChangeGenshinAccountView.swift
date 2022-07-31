@@ -30,10 +30,7 @@ struct ChangeGenshinAccountView: View {
                             Text(account)
                         }.frame(minWidth: 300, alignment: .center)
                     }
-                    .padding([.top, .bottom])
-                    .buttonStyle(.borderedProminent)
-                    .controlSize(.large)
-                    .tint(.accentColor)
+                    .controlSize(.large).buttonStyle(GrowingButton()).font(.title3)
                     .frame(width: 300, alignment: .center)
                 }
             }.frame(width: 450)
