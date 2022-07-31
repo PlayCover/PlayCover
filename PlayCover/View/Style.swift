@@ -18,16 +18,16 @@ struct UpdateButton: ButtonStyle {
 }
 
 struct GrowingButton: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .padding()
-            .background(Color.accentColor)
-            .foregroundColor(.white)
-            .clipShape(Capsule())
-            .scaleEffect(configuration.isPressed ? 1.2 : 1)
-            .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
-    }
-}
+     func makeBody(configuration: Configuration) -> some View {
+         configuration.label
+             .padding()
+             .background(Color.accentColor)
+             .foregroundColor(.white)
+             .clipShape(Capsule())
+             .scaleEffect(configuration.isPressed ? 1.2 : 1)
+             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
+     }
+ }
 
 struct CancelButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
@@ -53,5 +53,17 @@ struct OutlineButton: ButtonStyle {
                     style: .continuous
                 ).stroke(Color.accentColor)
             )
+    }
+}
+
+struct CancelButtonPink: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding(.vertical, 12)
+            .padding(.horizontal, 16)
+            .background((Color(.systemPink)))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .scaleEffect(configuration.isPressed ? 1.1 : 1)
+            .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }
 }
