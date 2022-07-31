@@ -82,7 +82,7 @@ struct SetupView: View {
                                 .padding(.vertical, 2)
                                 .background(Color(red: 0.25, green: 0.25, blue: 0.25))
                                 .cornerRadius(5)
-                                .foregroundColor(Color(hex: 0xFFFFFF))
+                                .foregroundColor(Color(.white))
                         }
                         Text("setupView.step7")
                         Text("setupView.step8")

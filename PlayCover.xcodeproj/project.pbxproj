@@ -22,7 +22,6 @@
 		538AAE7B26CD41E60009C7AC /* ProcessExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538AAE7A26CD41E60009C7AC /* ProcessExtension.swift */; };
 		538ED92926F40BAF002D73E8 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538ED92826F40BAF002D73E8 /* Style.swift */; };
 		53D9DAF326C1849D0071959E /* PlayCoverError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D9DAF226C1849D0071959E /* PlayCoverError.swift */; };
-		53E908E726E51FFC0077B466 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E908E626E51FFC0077B466 /* Colors.swift */; };
 		53F3802826EB6F6B00D6B525 /* NotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F3802726EB6F6B00D6B525 /* NotifyService.swift */; };
 		53F4D29E26C43C040020167C /* UserIntentFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29D26C43C040020167C /* UserIntentFlow.swift */; };
 		53F4D2A026C43C690020167C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29F26C43C690020167C /* Log.swift */; };
@@ -98,7 +97,6 @@
 		538ED92826F40BAF002D73E8 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		53D9DAF226C1849D0071959E /* PlayCoverError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverError.swift; sourceTree = "<group>"; };
 		53E3311126F574B600217197 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
-		53E908E626E51FFC0077B466 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		53F3802526EB6CEA00D6B525 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		53F3802726EB6F6B00D6B525 /* NotifyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyService.swift; sourceTree = "<group>"; };
 		53F4D29D26C43C040020167C /* UserIntentFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIntentFlow.swift; sourceTree = "<group>"; };
@@ -283,7 +281,6 @@
 				53F5E74226C1D37E005AED1D /* FileExtensions.swift */,
 				5314D1ED26C402EC00A0A727 /* Shell.swift */,
 				538AAE7A26CD41E60009C7AC /* ProcessExtension.swift */,
-				53E908E626E51FFC0077B466 /* Colors.swift */,
 				92B4D38E2737CF3D0001D7BB /* PlayTools.swift */,
 				92A8AAC8275EFEA800D89B50 /* SystemConfig.swift */,
 				92F8500927675124005CE6BE /* AppIntegrity.swift */,
@@ -559,7 +556,6 @@
 				365AFB0828847B75008B3542 /* Sparkle.swift in Sources */,
 				92B4D38F2737CF3D0001D7BB /* PlayTools.swift in Sources */,
 				92562209274921E500728698 /* main.m in Sources */,
-				53E908E726E51FFC0077B466 /* Colors.swift in Sources */,
 				3665EF8928832400007CF915 /* PlayCoverSettingsView.swift in Sources */,
 				9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */,
 				92ECD8AE274E787200DB7AC6 /* AppInfo.swift in Sources */,
