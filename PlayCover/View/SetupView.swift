@@ -70,13 +70,13 @@ struct SetupView: View {
 
                 VStack(alignment: .leading, spacing: 5) {
                     Group {
-                        Text("setupView.1")
-                        Text("setupView.2")
-                        Text("setupView.3")
-                        Text("setupView.4")
-                        Text("setupView.5")
+                        Text("setupView.step1")
+                        Text("setupView.step2")
+                        Text("setupView.step3")
+                        Text("setupView.step4")
+                        Text("setupView.step5")
                         HStack(spacing: 4) {
-                            Text("setupView.6")
+                            Text("setupView.step6")
                             Text("csrutil disable").textSelection(.enabled).font(.monospaced(.body)())
                                 .padding(.horizontal, 4)
                                 .padding(.vertical, 2)
@@ -84,12 +84,12 @@ struct SetupView: View {
                                 .cornerRadius(5)
                                 .foregroundColor(Color(hex: 0xFFFFFF))
                         }
-                        Text("setupView.7")
-                        Text("setupView.8")
+                        Text("setupView.step7")
+                        Text("setupView.step8")
 
                         Spacer()
 
-                        Text("setupView.9").font(.callout)
+                        Text("setupView.step9").font(.callout)
                     }
 
                     GroupBox(label: Label(NSLocalizedString("setupView.vidTutorials", comment: ""),
