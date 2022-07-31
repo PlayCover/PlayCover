@@ -17,8 +17,6 @@ struct SearchView: View {
 
     @State private var search: String = ""
     @State private var isEditing = false
-    private var darkSearchStroke = Color(red: 0.2, green: 0.2, blue: 0.2)
-    private var lightSearchStroke = Color(red: 0.8, green: 0.8, blue: 0.8)
     @Environment(\.colorScheme) var colorScheme
 
     var body : some View {
@@ -39,22 +37,18 @@ struct SearchView: View {
             })
             .textFieldStyle(PlainTextFieldStyle())
             .frame(maxWidth: .infinity).overlay(
-                ZStack {
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading, 16)
-                        if isEditing {
-                                Button(action: {
-                                self.search = ""
-                                }, label: {
-                                Image(systemName: "multiply.circle.fill")
-                                    .padding(.trailing, 16)
-                            }).buttonStyle(PlainButtonStyle())
-                        }
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 16)
+                    if isEditing {
+                            Button(action: {
+                            self.search = ""
+                            }, label: {
+                            Image(systemName: "multiply.circle.fill")
+                                .padding(.trailing, 16)
+                        }).buttonStyle(PlainButtonStyle())
                     }
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(colorScheme == .dark ? darkSearchStroke : lightSearchStroke)
                 }
             )
             .padding(.horizontal, 10)
@@ -104,10 +98,6 @@ struct MainView: View {
                                         .rotationEffect(Angle(degrees: noticesExpanded ? 180 : 0))
                                 }
                                 Spacer()
-                                #if DEBUG
-                                Button("debug.crash") { fatalError("Crash was triggered") }
-                                    .buttonStyle(.borderedProminent).tint(redColor).controlSize(.large)
-                                #endif
                                 if !SystemConfig.isPlaySignActive {
                                     HStack {
                                         Button("bottomBar.setupViewButton") { showSetup = true }
@@ -126,9 +116,14 @@ struct MainView: View {
                         HStack(spacing: 12) {
                             Spacer()
                         }.frame(maxWidth: .infinity)
-                    }
-                    .padding(.horizontal)
-                    .padding(.top)
+                        #if DEBUG
+                        Divider()
+                        HStack(spacing: 12) {
+                            Button("debug.crash") { fatalError("Crash was triggered") }
+                                .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
+                        }.frame(maxWidth: .infinity)
+                        #endif
+                    }.padding()
                 }
                 .background(.regularMaterial)
                 .overlay(GeometryReader { geometry in

@@ -54,12 +54,7 @@ struct StoreGenshinAccountView: View {
                 }
             }) {
                 Text("storeAccount.store").frame(minWidth: 300, alignment: .center)
-                }
-                .padding([.top, .bottom])
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
-                .tint(.accentColor)
-
+                }.controlSize(.large).buttonStyle(GrowingButton()).font(.title3)
             Spacer()
         }.padding()
                 .alert(NSLocalizedString("alert.storeAccount.regionIsNotValid",

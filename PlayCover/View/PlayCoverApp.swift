@@ -50,7 +50,7 @@ struct PlayCoverApp: App {
                 .environmentObject(InstallVM.shared)
                 .environmentObject(AppsVM.shared)
                 .environmentObject(AppIntegrity())
-                .frame(minWidth: 660, minHeight: 650)
+                .frame(minWidth: 720, minHeight: 650)
                 .onAppear {
                     NSWindow.allowsAutomaticWindowTabbing = false
                     UserDefaults.standard.register(defaults: ["ShowLinks": true])
