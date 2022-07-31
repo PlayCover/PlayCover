@@ -7,55 +7,6 @@ import Foundation
 import SwiftUI
 import Cocoa
 
-extension NSTextField {
-        open override var focusRingType: NSFocusRingType {
-                get { .none }
-                set { }
-        }
-}
-
-struct SearchView: View {
-
-    @State private var search: String = ""
-    @State private var isEditing = false
-    @Environment(\.colorScheme) var colorScheme
-
-    var body : some View {
-        TextField(NSLocalizedString("search.search", comment: ""), text: $search)
-            .padding(7)
-            .padding(.horizontal, 25)
-            .background(Color(NSColor.textBackgroundColor))
-            .cornerRadius(8)
-            .font(Font.system(size: 16))
-            .padding(.horizontal, 10)
-            .onChange(of: search, perform: { value in
-                uif.searchText = value
-                AppsVM.shared.fetchApps()
-                if value.isEmpty {
-                    isEditing = false
-                } else {
-                    isEditing = true
-                }
-            })
-            .textFieldStyle(PlainTextFieldStyle())
-            .frame(maxWidth: .infinity).overlay(
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading, 16)
-                    if isEditing {
-                            Button(action: {
-                            self.search = ""
-                            }, label: {
-                            Image(systemName: "multiply.circle.fill")
-                                .padding(.trailing, 16)
-                        }).buttonStyle(PlainButtonStyle())
-                    }
-                }
-            )
-    }
-}
-
 struct MainView: View {
 	@Environment(\.openURL) var openURL
     @EnvironmentObject var install: InstallVM

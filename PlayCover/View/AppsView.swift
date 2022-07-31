@@ -24,9 +24,6 @@ struct AppsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                SearchView().padding(.horizontal, 20).padding(.vertical, 8)
-            }
 			if !xcodeCliInstalled {
 				VStack(spacing: 12) {
 					Text("xcode.install.message")
