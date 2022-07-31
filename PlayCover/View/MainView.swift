@@ -3,7 +3,9 @@
 //  PlayCover
 //
 
+import Foundation
 import SwiftUI
+import Cocoa
 import AlertToast
 
 extension NSTextField {

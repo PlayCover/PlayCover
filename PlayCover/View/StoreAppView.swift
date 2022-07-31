@@ -3,6 +3,7 @@
 //  PlayCover
 //
 
+import Foundation
 import SwiftUI
 
 struct StoreAppView: View {

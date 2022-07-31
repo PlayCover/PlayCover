@@ -1,4 +1,5 @@
 import SwiftUI
+import Cocoa
 
 struct InstallProgress: View {
 
