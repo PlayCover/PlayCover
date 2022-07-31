@@ -115,13 +115,6 @@ struct MainView: View {
                         HStack(spacing: 12) {
                             Spacer()
                         }.frame(maxWidth: .infinity)
-                        #if DEBUG
-                        Divider()
-                        HStack(spacing: 12) {
-                            Button("debug.crash") { fatalError("Crash was triggered") }
-                                .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
-                        }.frame(maxWidth: .infinity)
-                        #endif
                     }.padding()
                 }
                 .background(.regularMaterial)
