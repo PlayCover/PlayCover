@@ -10,7 +10,7 @@ struct DeleteGenshinStoredAccountView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var folderName: String = ""
     @State var accountList: [String] = getAccountList()
-    // swiftlint:disable multiple_closures_with_trailing_closure
+    @State var deleteAlert: Bool = false
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
             Spacer()
@@ -20,25 +20,33 @@ struct DeleteGenshinStoredAccountView: View {
                 if account != ".DS_Store"{
                     Button(action: {
                         self.folderName = account
-                        deleteStoredAccount(folderName: account)
-                        self.presentationMode.wrappedValue.dismiss()
-                    }) {
+                        self.deleteAlert = true
+                    }, label: {
                         HStack {
                             Image(systemName: "person.fill")
                             Text(account)
                         }.frame(minWidth: 300, alignment: .center)
-                    }.controlSize(.large).buttonStyle(GrowingButton()).font(.title3)
+                    }).controlSize(.large).buttonStyle(.automatic).font(.title3)
+                        .foregroundColor(.accentColor)
                         .frame(width: 300, alignment: .center)
+                        .alert("Really Delete Account?", isPresented: $deleteAlert) {
+                            Button("Delete \"\(folderName)\" Account", role: .destructive) {
+                                deleteStoredAccount(folderName: account)
+                                self.presentationMode.wrappedValue.dismiss()
+                            }.foregroundColor(.red)
+                            Button("Cancel", role: .cancel) {}
+                                .keyboardShortcut(.defaultAction)
+                        }
                 }
             }.frame(width: 450)
-            Spacer()
             Button(action: {
                 presentationMode.wrappedValue.dismiss()
-            }) {
-                Text("button.Cancel").frame(minWidth: 300, alignment: .center)
-            }.buttonStyle(CancelButtonPink()).frame(height: 50)
+            }, label: {
+                Text("Exit").frame(alignment: .center)
+            }).buttonStyle(.automatic).frame(height: 50)
             Spacer()
         }
+        .frame(minWidth: 300)
     }
 }
 

@@ -4,7 +4,8 @@
 //
 //  Created by José Elias Moreno villegas on 20/07/22.
 //
-// swiftlint:disable all
+// swiftlint:disable identifier_name
+
 import Foundation
 
 func restoreUserData(folderName: String) {
@@ -14,52 +15,56 @@ func restoreUserData(folderName: String) {
 
     let gameDataPath = NSHomeDirectory() + "/Library/Containers/com.miHoYo.GenshinImpact/Data/Documents/"
     let storePath = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/storage/" + folderName + "/"
-    
-    let MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption_URL = URL(fileURLWithPath: gameDataPath + MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption)
-    let MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption_URL = URL(fileURLWithPath: gameDataPath + MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption)
-    let MIHOYO_LAST_ACCOUNT_MODEL_Encryption_URL = URL(fileURLWithPath: gameDataPath + MIHOYO_LAST_ACCOUNT_MODEL_Encryption)
-    
+
+    let MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption_URL =
+        URL(fileURLWithPath: gameDataPath + MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption)
+    let MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption_URL =
+        URL(fileURLWithPath: gameDataPath + MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption)
+    let MIHOYO_LAST_ACCOUNT_MODEL_Encryption_URL =
+        URL(fileURLWithPath: gameDataPath + MIHOYO_LAST_ACCOUNT_MODEL_Encryption)
+
     let fileManager = FileManager.default
-    
-    //remove existent user data from genshin impact
-    
+
+    // remove existent user data from genshin impact
+
     do {
         try fileManager.removeItem(at: MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption_URL )
         try fileManager.removeItem(at: MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption_URL)
         try fileManager.removeItem(at: MIHOYO_LAST_ACCOUNT_MODEL_Encryption_URL)
-        }
-    catch {
-        print("Error removing file: \(error)")
+    } catch {
+        Log.shared.log("Error removing file: \(error)")
     }
-    
+
     // move data from StorePath to  GameDataPath
     do {
         try fileManager.copyItem(at: URL(fileURLWithPath: storePath + MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption),
                                  to: MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption_URL)
-        
+
         try fileManager.copyItem(at: URL(fileURLWithPath: storePath + MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption),
                                  to: MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption_URL)
-        
+
         try fileManager.copyItem(at: URL(fileURLWithPath: storePath + MIHOYO_LAST_ACCOUNT_MODEL_Encryption),
                                  to: MIHOYO_LAST_ACCOUNT_MODEL_Encryption_URL)
         let region = try String(contentsOf: URL(fileURLWithPath: storePath + "region.txt"), encoding: .utf8)
         modifyPlist(region: region)
     } catch {
-        print("Error moving file: \(error)")
+        Log.shared.log("Error moving file: \(error)")
     }
 }
 
 func modifyPlist(region: String) {
     do {
         // path of plist file
-        let staticUrl = "/Library/Containers/com.miHoYo.GenshinImpact/Data/Library/Preferences/com.miHoYo.GenshinImpact.plist"
+        let staticUrl = "/Library/Containers/com.miHoYo.GenshinImpact/" +
+            "Data/Library/Preferences/com.miHoYo.GenshinImpact.plist"
         let url = URL(fileURLWithPath: NSHomeDirectory() + staticUrl )
         // read plist file
         let data = try Data(contentsOf: url)
-        // swiftlint:disable:next force_cast
-        var plist = try PropertyListSerialization.propertyList(from: data, options: [], format: nil) as! [String: Any]
-        // swiftlint:disable:next force_cast
-        let GENERAL_DATA = plist["GENERAL_DATA"] as! String
+
+        guard var plist = try PropertyListSerialization.propertyList(from: data, options: [], format: nil)
+                as? [String: Any] else { throw PlayCoverError.noGenshinAccount }
+
+        guard let GENERAL_DATA = plist["GENERAL_DATA"] as? String else { throw PlayCoverError.noGenshinAccount }
         var modifiedValue: String
         // modified GENERAL_DATA
         if region == "os_usa" {
@@ -96,13 +101,13 @@ func modifyPlist(region: String) {
                                                            options: 0)
         try plistData.write(to: url, options: .atomic)
     } catch {
-        print("Error editing plist file: \(error)")
+        Log.shared.log("Error editing plist file: \(error)")
     }
 }
 
-func getAccountList () -> Array<String> {
+func getAccountList () -> [String] {
     let storePath = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/storage/"
-    var accountStored: Array<String>
+    var accountStored: [String]
     do {
         accountStored = try FileManager.default.contentsOfDirectory(atPath: storePath)
     } catch {

@@ -8,6 +8,7 @@ enum PlayCoverError: Error {
     case appEncrypted
     case appCorrupted
     case appProhibited
+    case noGenshinAccount
 }
 
 extension PlayCoverError: LocalizedError {
@@ -29,6 +30,9 @@ extension PlayCoverError: LocalizedError {
         case .appProhibited:
             return NSLocalizedString("You may receive a ban! There have been reports of" +
                                      " bans when playing this game using PlayCover.", comment: "")
+        case .noGenshinAccount:
+            return NSLocalizedString("We couldn't find a Genshin account! Are you signed into an account in-app?",
+                                     comment: "")
     }
     }
 }

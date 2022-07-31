@@ -114,25 +114,22 @@ struct PlayAppView: View {
                     Divider().padding(.leading, 36).padding(.trailing, 36)
                     Button(action: {
                         showStoreGenshinAccount.toggle()
-                        // swiftlint:disable:next multiple_closures_with_trailing_closure
-                    }) {
+                    }, label: {
                         Text("playapp.storeCurrentAccount")
                         Image(systemName: "folder.badge.person.crop")
-                    }
+                    })
                     Button(action: {
                         showChangeGenshinAccount.toggle()
-                        // swiftlint:disable:next multiple_closures_with_trailing_closure
-                    }) {
+                    }, label: {
                         Text("playapp.activateAccount")
                         Image(systemName: "folder.badge.gearshape")
-                    }
+                    })
                     Button(action: {
                         showDeleteGenshinAccount.toggle()
-                        // swiftlint:disable:next multiple_closures_with_trailing_closure
-                    }) {
+                    }, label: {
                         Text("playapp.deleteAccount")
                         Image(systemName: "folder.badge.minus")
-                    }
+                    })
                     Divider().padding(.leading, 36).padding(.trailing, 36)
                 }
             }

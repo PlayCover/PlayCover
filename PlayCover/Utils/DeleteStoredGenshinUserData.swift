@@ -13,6 +13,6 @@ func deleteStoredAccount(folderName: String) {
     do {
         try fileManager.removeItem(atPath: folderPath)
     } catch {
-        print("Error revoming stored folder: \(error)")
+        Log.shared.error("Error revoming stored folder: \(error)")
     }
 }
