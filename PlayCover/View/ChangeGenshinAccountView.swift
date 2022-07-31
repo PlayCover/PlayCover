@@ -10,8 +10,7 @@ struct ChangeGenshinAccountView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var folderName: String = ""
     @State var accountList: [String] = getAccountList()
-    // swiftlint:disable multiple_closures_with_trailing_closure
-    // swiftlint:disable opening_brace
+    @State var restoreAlert: Bool = false
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
             Spacer()
@@ -21,28 +20,34 @@ struct ChangeGenshinAccountView: View {
                 if account != ".DS_Store"{
                     Button(action: {
                         self.folderName = account
-                        restoreUserData(folderName: account)
-                        self.presentationMode.wrappedValue.dismiss()
-                    })
-                    {
+                        self.restoreAlert = true
+                    }, label: {
                         HStack {
                             Image(systemName: "person.fill")
                             Text(account)
                         }.frame(minWidth: 300, alignment: .center)
-                    }.controlSize(.large).buttonStyle(GrowingButton()).font(.title3)
+                    }).controlSize(.large).buttonStyle(.automatic).font(.title3)
+                        .foregroundColor(.accentColor)
                         .frame(width: 300, alignment: .center)
+                        .alert("Really Restore Account?", isPresented: $restoreAlert, actions: {
+                            Button("Restore Account") {
+                                restoreUserData(folderName: account)
+                                self.presentationMode.wrappedValue.dismiss()
+                            }
+                            Button("Cancel", role: .cancel) {}
+                        }, message: {
+                            Text("This will override your currently signed-in account.")
+                        })
                 }
             }.frame(width: 450)
-            Spacer()
             Button(action: {
                 presentationMode.wrappedValue.dismiss()
-            })
-            {
-                Text("Exit").frame(minWidth: 300, alignment: .center)
-            }.buttonStyle(CancelButtonPink())
+            }, label: {
+                Text("Exit").frame(alignment: .center)
+            }).buttonStyle(.automatic)
                 .frame(height: 50)
-            Spacer()
         }
+        .frame(minWidth: 300)
     }
 }
 
