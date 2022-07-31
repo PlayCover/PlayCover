@@ -41,10 +41,11 @@ struct PlayCoverApp: App {
     @StateObject var updaterViewModel = UpdaterViewModel()
 
     @State var showToast = false
+    @State var xcodeCliInstalled = shell.isXcodeCliToolsInstalled
 
     var body: some Scene {
         WindowGroup {
-            MainView(showToast: $showToast)
+            MainView(showToast: $showToast, xcodeCliInstalled: $xcodeCliInstalled)
                 .padding()
                 .environmentObject(InstallVM.shared)
                 .environmentObject(AppsVM.shared)

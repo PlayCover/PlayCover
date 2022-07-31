@@ -3,46 +3,47 @@
 //  PlayCover
 //
 
+import Foundation
+
 import SwiftUI
+import Cocoa
 import AppKit
 
 struct AppsView: View {
     @Binding public var bottomPadding: CGFloat
+    @Binding public var xcodeCliInstalled: Bool
 
     @EnvironmentObject var appVm: AppsVM
 
     @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150), spacing: 0)]
-
 	@State private var alertTitle = ""
-
 	@State private var alertText = ""
-
 	@State private var alertBtn = ""
-
 	@State private var alertAction : (() -> Void) = {}
-
 	@State private var showAlert = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            SearchView().padding(.horizontal, 150).padding(.vertical, 8)
-			if !shell.isXcodeCliToolsInstalled {
+            HStack {
+                SearchView().padding(.horizontal, 20).padding(.vertical, 8)
+            }
+			if !xcodeCliInstalled {
 				VStack(spacing: 12) {
-					Text("xcode.needToInstall")
+					Text("You need to install Xcode Commandline tools and restart this App.")
 						.font(.title3)
-					Button("button.Install") {
+					Button("Install") {
 						do {
 							_ = try shell.sh("xcode-select --install")
-							alertTitle = NSLocalizedString("xcode.xcodeToolsInstallSucceeded", comment: "")
-							alertBtn = NSLocalizedString("button.Close", comment: "")
-							alertText = NSLocalizedString("alert.followInstructionsAndRestartApp", comment: "")
+							alertTitle = NSLocalizedString("Xcode tools installation succeeded", comment: "")
+							alertBtn = NSLocalizedString("Close", comment: "")
+							alertText = NSLocalizedString("Please follow the given instructions, and restart the App.", comment: "")
 							alertAction = {
 								exit(0)
 							}
 							showAlert = true
 						} catch {
-							alertTitle = NSLocalizedString("xcode.installFailed", comment: "")
-							alertBtn = NSLocalizedString("button.OK", comment: "")
+							alertTitle = NSLocalizedString("Xcode tools intallation failed", comment: "")
+							alertBtn = NSLocalizedString("OK", comment: "")
 							alertText = error.localizedDescription
 							alertAction = {}
 							showAlert = true
@@ -103,7 +104,7 @@ struct AppAddView: View {
                 .font(.system(size: 38.0, weight: .thin))
                 .frame(width: 64, height: 68).padding(.top).foregroundColor(
                     install.installing ? Color.gray : Color.accentColor)
-            Text("playapp.add").padding(.horizontal)
+            Text("Add app").padding(.horizontal)
                             .frame(width: 150, height: 50)
                             .padding(.bottom)
                             .lineLimit(nil)
@@ -114,8 +115,8 @@ struct AppAddView: View {
             .frame(width: 150, height: 150).onHover(perform: { hovering in
                 isHover = hovering
             }).alert(isPresented: $showWrongfileTypeAlert) {
-                Alert(title: Text("alert.wrongFileType"),
-                      message: Text("alert.wrongFileType.message"), dismissButton: .default(Text("button.OK")))
+                Alert(title: Text("Wrong file type"),
+                      message: Text("Choose an .ipa file"), dismissButton: .default(Text("OK")))
             }
             .onTapGesture {
                 if install.installing {
@@ -161,15 +162,17 @@ struct AppAddView: View {
                 } else {
                     showWrongfileTypeAlert = true
                 }
-            }.help("playapp.add.help")
+            }.help("Drag or open an app file to install. IPAs from Configurator or iMazing won't work! " +
+                   "You should get decrypted IPAs, either from the top right button, Discord, AppDb," +
+                   " or a jailbroken device.")
     }
 
     private func installApp() {
         Installer.install(ipaUrl: uif.ipaUrl!, returnCompletion: { (_) in
             DispatchQueue.main.async {
                 AppsVM.shared.fetchApps()
-                NotifyService.shared.notify(NSLocalizedString("notification.appInstalled", comment: ""),
-                                            NSLocalizedString("notification.appInstalled.message", comment: ""))
+                NotifyService.shared.notify(NSLocalizedString("App installed!", comment: ""),
+                                            NSLocalizedString("Check it out in 'My Apps'", comment: ""))
             }
         })
     }

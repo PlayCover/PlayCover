@@ -72,11 +72,12 @@ struct MainView: View {
     @State var bottomHeight: CGFloat = 0
     var redColor = Color(red: 0.9, green: 0, blue: 0)
     @Binding var showToast: Bool
+    @Binding public var xcodeCliInstalled: Bool
 
     var body: some View {
         if apps.updatingApps { ProgressView() } else {
             ZStack(alignment: .bottom) {
-                AppsView(bottomPadding: $bottomHeight)
+                AppsView(bottomPadding: $bottomHeight, xcodeCliInstalled: $xcodeCliInstalled)
                     .frame(maxWidth: .infinity, maxHeight: .infinity).environmentObject(AppsVM.shared)
 
                 VStack(alignment: .leading, spacing: 0) {
@@ -157,8 +158,9 @@ struct MainView: View {
 
 struct Previews_MainView_Previews: PreviewProvider {
     @State static var showToast = false
+    @State static var xcodeCliInstalled = true
 	static var previews: some View {
-		MainView(showToast: $showToast)
+		MainView(showToast: $showToast, xcodeCliInstalled: $xcodeCliInstalled)
 			.padding()
 			.environmentObject(InstallVM.shared)
 			.environmentObject(AppsVM.shared)
