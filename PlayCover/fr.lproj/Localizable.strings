@@ -1,138 +1,136 @@
-"playapp.add" = "Add app";
-"playapp.settings" = "App preferences";
-"playapp.showInFinder" = "Show in Finder";
-"playapp.openCache" = "Open app data";
-"playapp.clearCache" = "Clear app data";
-"playapp.importKm" = "Import keymapping";
-"playapp.exportKm" = "Export keymapping";
-"playapp.delete" = "Delete app";
-"playapp.add.help" = "Drag or open an app file to install.";
-"playapp.update" = "Update app";
-"playapp.storeCurrentAccount" = "Store current account";
-"playapp.activateAccount" = "Activate an account";
-"playapp.deleteAccount" = "Delete an account";
+"playapp.add" = "Ajouter une app"
+"playapp.settings" = "Paramètres";
+"playapp.showInFinder" = "Afficher dans le Finder";
+"playapp.openCache" = "Ouvrir les caches de l'app";
+"playapp.clearCache" = "Effacer les caches de l'app";
+"playapp.importkm" = "Importer un keymap";
+"playapp.exportkm" = "Exporter le keymap";
+"playapp.delete" = "Supprimer l'app";
+"playapp.add.help" = "Glisser ou ouvrir un fichier IPA pour installer. Les IPA de Configurator ou de iMazing ne marcheront pas! Vous devez avoir des IPA déchiffrés, de soit le bouton en haut à droite, Discord, AppDb, ou un appareil Jailbreaké.";
+"playapp.update" = "Mettre à jour l'app";
+"playapp.storeCurrentAccount" = "Sauvegarder le compte actuel";
+"playapp.activateAccount" = "Activer un compte";
+"playapp.deleteAccount" = "Supprimer un compte";
 
-"storeAccount.selectAccRegion" = "Select account region";
-"storeAccount.selectAccRegion.usa" = "America";
+"storeAccount.selectAccRegion" = "Sélectionner la région du compte";
+"storeAccount.selectAccRegion.usa" = "Amérique";
 "storeAccount.selectAccRegion.euro" = "Europe";
 "storeAccount.selectAccRegion.tw" = "TW";
-"storeAccount.selectAccRegion.asia" = "Asia";
-"storeAccount.nameOfAcc" = "Name of your account";
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "Name of account...";
-"storeAccount.store" = "Store account";
-"storeAccount.selectAcc" = "Select an account";
-"storeAccount.storeAcc" = "Store an account";
-"storeAccount.deleteAcc" = "Delete an account";
+"storeAccount.selectAccRegion.asia" = "Asie";
+"storeAccount.nameOfAcc" = "Nom de votre compte";
+"storeAccount.nameOfAcc.textfieldPlaceholder" = "Nom du compte...";
+"storeAccount.store" = "Sauvegarder le compte";
+"storeAccount.selectAcc" = "Selectionner un compte";
+"storeAccount.storeAcc" = "Sauvegarder un compte";
+"storeAccount.deleteAcc" = "Supprimer un compte";
 
-"playapp.install.unzip" = "Extracting app from .ipa file...";
-"playapp.install.createWrapper" = "Creating app wrapper...";
-"playapp.install.installPlayTools" = "Installing PlayTools...";
-"playapp.install.signing" = "Signing app...";
-"playapp.install.addToLib" = "Adding app to library...";
-"playapp.install.copy" = "Copying app...";
-"playapp.install.finished" = "Finished";
+"playapp.install.unzip" = "Extraction de l'app...";
+"playapp.install.createWrapper" = "Création du conteneur de l'application...";
+"playapp.install.installPlayTools" = "Installation de PlayTools...";
+"playapp.install.signing" = "Signature de l'app...";
+"playapp.install.addToLib" = "Ajout de l'app dans la librairie...";
+"playapp.install.copy" = "Copie de l'app...";
+"playapp.install.finished" = "Fini";
 
-"search.search" = "Search...";
+"search.search" = "Recherche en cours...";
 
-"alert.appCacheCleared" = "App data has been cleared!";
-"alert.kmImported" = "Keymapping imported!";
-"alert.errorImportKm" = "Error occured when importing!";
-"alert.app.delete" = "All app data will be erased. You may need to download app files again. Do you wish to continue?";
-"alert.wrongFileType" = "Wrong file type";
-"alert.wrongFileType.message" = "Choose an .ipa file";
-"alert.followInstructionsAndRestartApp" = "Please follow the given instructions, and restart the App.";
-"alert.error" = "Some error happened!";
-"alert.success" = "Success!";
-"alert.moveAppToApplications" = "PlayCover must be in the Applications folder. Press the button below to let PlayCover move itself to /Applications.";
-"alert.moveAppToApplications.move" = "Move to /Applications";
-"alert.storeAccount.regionIsNotValid" = "The current account is set to a different Region. Launch the game, Change the region, and pass through the gates to save. Then try again";
+"alert.appCacheCleared" = "Les caches de l'app ont été effacés!";
+"alert.kmImported" = "Keymap importé!";
+"alert.errorImportKm" = "Erreur lors de l'import";
+"alert.app.delete" = "Toutes données de l'app vont être effacées. Vous aurez peut être besoin de retélécharger des fichiers de l'app. Voulez-vous continuer?";
+"alert.wrongFileType" = "Mauvais type de fichier";
+"alert.wrongFileType.message" = "Choisir un fichier ipa"; 
+"alert.followInstructionAndRestartApp" = "Veuillez suivre les instructions données, et redémarrer l'app.";
+"alert.error" = "Un erreur a occuré"; 
+"alert.success" = "Succès!"; 
+"alert.moveAppToApplications" = "PlayCover doit être dans le dossier Applications. Appuyer le bouton ci-dessous pour automatiquement déplacer PlayCover à /Applications.";
+"alert.moveAppToApplications.move" = "Déplacer vers /Applications";
+"alert.storeAccount.regionIsNotValid" = "Le compte actuel est défini d'une région différente. Lancez le jeu, changez de région et franchissez les portes pour sauvegarder. Puis réessayer. ";
 
 
 "button.OK" = "OK";
-"button.Proceed" = "Proceed";
-"button.Cancel" = "Cancel";
-"button.Close" = "Close";
-"button.Dismiss" = "Dismiss";
-"button.Install" = "Install";
+"button.Proceed" = "Continuer"; 
+"button.Cancel" = "Annuler";
+"button.Close" = "Fermer"; 
+"button.Dismiss" = "Fermer";
+"button.Install" = "Installer";
 
-"error.corruptedIPA" = "This .ipa file is corrupted. It does not contains \"Info.plist\" file.";
-"error.waitInstallation" = "Please wait for the current installation to finish!";
-"error.reinstallApp" = "Please reinstall PlayCover";
+"error.corruptedIPA" = "Ce fichier .ipa est corrompu. Il ne contient pas de fichier 'Info.plist'.";
+"error.waitInstallation" = "Veuiller attendre que l'installation actuelle termine."; 
+"error.reinstallApp" = "Veuillez réinstaller PlayCover";
 
-"menubar.downloadMoreApps" = "Download more apps";
-"menubar.downloadMoreApps.help" = "Use this site to download apps for installation";
-"menubar.exportToSideloady" = "Export to Sideloadly";
-"menubar.exportToSideloady.help" = "Export .ipa for Sideloady from sideloady.io which does not need SIP to be disabled for apps and games to work.";
+"menubar.downloadMoreApps" = "Télécharger plus d'apps"; 
+"menubar.downloadMoreApps.help" = "Utilisez ce site pour télécharger des apps"; 
+"menubar.exportToSideloady" = "Exporter pour Sideloadly";
+"menubar.exportToSideloady.help" = "Exporter des IPA pour Sideloady du site sideloady.io qui n'a pas besoin d'avoir SIP désactivé pour que certaines apps marchent."; 
 
-"bottomBar.notices" = "Notices";
-"bottomBar.notices.help" = "News and announcements from the developers";
-"bottomBar.setupViewButton" = "Experiencing issues?";
+"bottomBar.notices" = "Notes";
+"bottomBar.notices.help" = "Nouvelles et annonces des développers";
+"bottomBar.setupViewButton" = "Rencontrez-vous des problèmes?";
 
-"failedToFetchNotices" = "Failed to find notices. Please check your internet connection.";
+"failedToFetchNotices" = "Échec à trouver les avis. Veuiller vérifier votre connection."; 
 
-"logs.copied" = "Logs copied";
+"logs.copied" = "Registre copié"; 
 
-"settings.toggle.km" = "Enable keymapping";
-"settings.toggle.gaming" = "Gaming Mode";
-"settings.toggle.km.info" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
-"settings.toggle.adaptiveDisplay" = "Adaptive display";
-"settings.toggle.adaptiveDisplay.info" ="Adapts and scales app window to fit the built-in Mac display.";
-"settings.toggle.jbBypass" = "Enable Jailbreak Bypass (Alpha)";
-"settings.toggle.jbBypass.info" = "Attempts to bypass Jailbreak Detection in some games (No guarentee to work all the time)";
-"settings.toggle.autoWindowResize" = "Enable auto window resize";
-"settings.toggle.disableDisplaySleep" = "Disable display sleep";
-"settings.toggle.disableDisplaySleep.info" = "Prevent display from turning off while this app is running"
+"settings.toggle.km" = "Activer le mappage de touches"; 
+"settings.toggle.gaming" = "Mode de mappage de clavier amélioré";
+"settings.toggle.km.info" = "Permet d'utiliser la souris et le keymap en même temps."; 
+"settings.toggle.adaptiveDisplay" = "Affichage adaptatif"; 
+"settings.toggle.adaptiveDisplay.info" ="Adapte la fenêtre de l'app pour qu'elle rentre dans votre moniteur.";
+"settings.toggle.jbBypass" = "Activer l'évitement Jailbreak (Alpha)"; 
+"settings.toggle.jbBypass.info" = "Essaye d'éviter les détections de Jailbreak dans certains jeux (Aucune garantie de fonctionnement)";
+"settings.toggle.autoWindowResize" = "Activer le redimensionnement automatique de la fenêtre";
 
-"settings.picker.displayRefreshRate" = "Screen refresh rate";
-"settings.picker.screenSize" = "Display resolution";
+"settings.picker.displayRefreshRate" = "Taux de rafraîchissement de l'écran";
+"settings.picker.screenSize" = "Résolution de l'écran";
 
-"settings.slider.mouseSensitivity" = "Mouse sensitivity: ";
+"settings.slider.mouseSensitivity" = "Sensibilité de la souris : %.f";
 
-"settings.reset" = "Reset settings and keymapping";
-"settings.resetCompleted" = "Settings have been reverted back to default!";
+"settings.reset" = "Réinitialiser réglages et keymap";
+"settings.resetCompleted" = "Les réglages ont été réinitialisés";
 
-"setupView.header" = "Follow steps below for fixing common issues";
-"setupView.subheader" = "Resolves apps not allowing logins, crashes at start and more";
+"setupView.header" = "Suivez les étapes ci-dessous pour résoudre des problèmes courants"; 
+"setupView.subheader" = "Ex: Ne pas pouvoir se connecter, certains applications ne marchent pas";
 
-"setupView.step1" = "1) Shutdown your Mac";
-"setupView.step2" = "2) Wait for at least 20 seconds for Mac to fully shutdown, then hold the power button";
-"setupView.step3" = "3) When \"Loading Startup Options\" appears below the Apple logo, release the power button";
-"setupView.step4" = "4) Click the Recovery Mode boot option";
-"setupView.step5" = "5) In Recovery, open Terminal (Menu bar -> Utilities -> Terminal)";
-"setupView.step6" = "6) Type: ";
-"setupView.step7" = "7) Enter the command. Input your Mac login password (The text will be hidden)";
-"setupView.step8" = "8) Click the Apple symbol in the Menu bar and Restart";
-"setupView.step9" = "If you encountered any errors, repeat the whole process again";
+"setupView.1" = "1) Éteignez votre Mac"; 
+"setupView.2" = "2) Attendez au moins 20 secondes pour que votre Mac se ferme et ensuite maintenir le bouton d'alimentation enfoncé";
+"setupView.3" = "3) Quand \"Loading Startup Options\" apparait, relachez le bouton d'alimentation"; 
+"setupView.4" = "4) Cliquez l'option Recovery Mode boot"; 
+"setupView.5" = "5) Ouvrez Terminal (Barre de menu -> Utilités -> Terminal)";
+"setupView.6" = "6) Entrez: "; 
+"setupView.7" = "7) Entrez la commande. Ensuite, entrez votre mot de passe (Le texte sera caché)"; 
+"setupView.8" = "8) Cliquez sur le symbole Apple dans la barre du menu et redémarrer."; 
+"setupView.9" = "Si vous rencontrez un erreur, recommencez le processus."; 
 
-"setupView.vidTutorials" = "Video Tutorials";
+"setupView.vidTutorials" = "Tutoriels Vidéo";
 "setupView.youtube" = "YouTube";
 "setupView.bilibili" = "BiliBili";
 
-"setupView.pressButtonAndEnterPassword" = "Please disable SIP from below and enter your Mac login password.";
-"setupView.pressButtonAndEnterPassword.button" = "Disable SIP";
+"setupView.pressButtonAndEnterPassword" = "Veuillez désactiver SIP et entrez votre mot de passe.";
+"setupView.pressButtonAndEnterPassword.button" = "Désactiver SIP";
 
-"notification.appInstalled" = "App installed!";
-"notification.appInstalled.message" = "Check it out in PlayCover!";
+"notification.appInstalled" = "Application installé"; 
+"notification.appInstalled.message" = "Ouvrez-le"; 
 
-"setup.enterLoginPassword" = "Please enter your user password";
-"setup.incorrectPassword" = "Password incorrect. Please try again";
-"setup.enterLoginPassword.info" = "Enter the password used to unlock your Mac.";
-"setup.enterLoginPassword" = "Please restart your Mac for changes to take effect.";
+"setup.enterLoginPassword" = "Veuillez entrer votre mot de passe"; 
+"setup.incorrectPassword" = "Mot de passe incorrect. Veuillez réessayer."; 
+"setup.enterLoginPassword.info" = "Entrer le mot de passe utilisé pour déverrouiller votre Mac."; 
+"setup.enterLoginPassword" = "Veuillez redémarrer votre Mac pour que les changements prennent effet."; 
 
-"menubar.log.copy" = "Copy Logs";
-"menubar.documentation" = "Documentation";
-"menubar.website" = "Website";
+"menubar.log.copy" = "Copier le registre";
+"menubar.documentation" = "Documentation"; 
+"menubar.website" = "Site web"; 
 "menubar.github" = "GitHub";
 "menubar.discord" = "Discord";
-"menubar.showAppLinks" = "Show app links";
-"menubar.checkForUpdates" = "Check for updates";
+"menubar.showAppLinks" = "Afficher liens d'apps";
+"menubar.checkForUpdates" = "Rechercher les mises à jour";
 
-"soundAlert.messageText" = "Incorrect Audio Settings Detected!";
-"soundAlert.informativeText" = "Your current output device does not have a sample rate of 48 or 44.1 KHz! Crashes may occur. Would you like to change your current output device's sample rate to 48 KHz?";
-"soundAlert.successText" = "Current output device sample rate set to 48 KHz";
+"soundAlert.messageText" = "Paramètres Audio Incorrects Détectés!";
+"soundAlert.informativeText" = "Votre sortie audio actuelle n'a pas un taux d'échantillonnage de 48 ou 44.1 KHz! Des erreurs peuvent survenir. Voulez-vous changer le taux d'échantillonnage de votre sortie audio actuelle à 48 KHz?";
+"soundAlert.successText" = "Définir le taux d'échantillonnage de votre sortie audio à 48 KHz";
 
-"xcode.install.message" = "You need to install Xcode Commandline tools and restart this App.";
-"xcode.install.success" = "Xcode tools installation succeeded";
-"xcode.install.failed" = "Xcode Command Line Tools intallation failed";
+"xcode.install.message" = "Veuiller installer Xcode Commandline tools et redémarrer l'application.";
+"xcode.install.success" = "Succès de l'installation de Xcode tools";
+"xcode.install.failed" = "Échec de l'installation de Xcode Command Line Tools";
 
-"debug.crash" = "[DEBUG] Crash app";
+"debug.crash" = "[DEBUG] Planter l'app";
