@@ -30,7 +30,9 @@ struct StoreGenshinAccountView: View {
             HStack {
                 Text("storeAccount.nameOfAcc")
                     .font(.headline).lineLimit(1).fixedSize()
-                TextField(NSLocalizedString("storeAccount.nameOfAcc.textfieldPlaceholder", comment: ""), text: $folderName)
+                TextField(NSLocalizedString(
+                    "storeAccount.nameOfAcc.textfieldPlaceholder", comment: ""
+                ), text: $folderName)
             }
             Spacer()
             Button(action: {

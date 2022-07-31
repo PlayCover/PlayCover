@@ -129,7 +129,7 @@ struct AppSettingsView: View {
 
                     presentationMode.wrappedValue.dismiss()
 
-                }.buttonStyle(GrowingButton()).padding()
+                }.buttonStyle(GrowingButton()).padding().frame(height: 80)
                 Spacer()
             }
         }.toast(isPresenting: $resetCompletedAlert) {

@@ -24,9 +24,9 @@ struct SearchView: View {
             .padding(7)
             .padding(.horizontal, 25)
             .background(Color(NSColor.textBackgroundColor))
+            .cornerRadius(8)
             .font(Font.system(size: 16))
             .padding(.horizontal, 10)
-            .cornerRadius(8)
             .onChange(of: search, perform: { value in
                 uif.searchText = value
                 AppsVM.shared.fetchApps()
