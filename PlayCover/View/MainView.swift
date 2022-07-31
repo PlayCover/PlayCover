@@ -72,60 +72,6 @@ struct MainView: View {
             ZStack(alignment: .bottom) {
                 AppsView(bottomPadding: $bottomHeight, xcodeCliInstalled: $xcodeCliInstalled)
                     .frame(maxWidth: .infinity, maxHeight: .infinity).environmentObject(AppsVM.shared)
-
-                VStack(alignment: .leading, spacing: 0) {
-                    if install.installing {
-                        VStack(alignment: .leading, spacing: 8) {
-                            HStack(spacing: 8) {
-
-                                    InstallProgress().environmentObject(install).padding(.bottom)
-                            }.padding().frame(maxWidth: .infinity)
-
-                        }
-                    }
-
-                    Divider()
-
-                    VStack(alignment: .leading, spacing: 16) {
-                        VStack(alignment: .leading, spacing: 0) {
-                            HStack {
-                                Text("bottomBar.notices").font(.headline).help("bottomBar.notices.help")
-                                Button {
-                                    withAnimation { noticesExpanded.toggle() }
-                                } label: {
-                                    Image(systemName: "chevron.up")
-                                        .rotationEffect(Angle(degrees: noticesExpanded ? 180 : 0))
-                                }
-                                Spacer()
-                                if !SystemConfig.isPlaySignActive {
-                                    HStack {
-                                        Button("bottomBar.setupViewButton") { showSetup = true }
-                                            .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
-                                    }
-                                }
-                            }
-                            Text(StoreApp.notice)
-                                .font(.body)
-                                .frame(minHeight: 0, maxHeight: noticesExpanded ? nil : 0, alignment: .top)
-                                .animation(.spring(), value: noticesExpanded)
-                                .clipped()
-                                .padding(.top, noticesExpanded ? 8 : 0)
-                        }
-
-                        HStack(spacing: 12) {
-                            Spacer()
-                        }.frame(maxWidth: .infinity)
-                    }.padding()
-                }
-                .background(.regularMaterial)
-                .overlay(GeometryReader { geometry in
-                    Text("")
-                        .onChange(of: geometry.size.height) { height in bottomHeight = height }
-                        .onAppear {
-                            print("Bottom height: \(geometry.size.height)")
-                            bottomHeight = geometry.size.height
-                        }
-                })
             }
             // TODO: Toast
             /*.toast(isPresenting: $showToast) {

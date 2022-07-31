@@ -32,7 +32,6 @@
 		8783CFFF26B8C52E00171041 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783CFFE26B8C52E00171041 /* Assets.xcassets */; };
 		8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783D00126B8C52E00171041 /* Preview Assets.xcassets */; };
 		8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00A26B8C9E600171041 /* URLExtensions.swift */; };
-		8783D00D26B8D32700171041 /* InstallSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00C26B8D32700171041 /* InstallSettings.swift */; };
 		9221730A27623DA100C8A3A2 /* StoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9221730927623DA100C8A3A2 /* StoreApp.swift */; };
 		92279BBF27610433009F28BF /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92279BBE27610433009F28BF /* AppSettingsView.swift */; };
 		922ED9BA272DEEDB008CA401 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922ED9B9272DEEDB008CA401 /* MainView.swift */; };
@@ -110,7 +109,6 @@
 		8783D00326B8C52E00171041 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8783D00426B8C52E00171041 /* PlayCover.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayCover.entitlements; sourceTree = "<group>"; };
 		8783D00A26B8C9E600171041 /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
-		8783D00C26B8D32700171041 /* InstallSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallSettings.swift; sourceTree = "<group>"; };
 		8FBBE76B2826709500F4FE9F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9221730927623DA100C8A3A2 /* StoreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreApp.swift; sourceTree = "<group>"; };
 		92279BBE27610433009F28BF /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
@@ -192,7 +190,6 @@
 				ABED59822887A32F004D782B /* MenuBarView.swift */,
 				922ED9B9272DEEDB008CA401 /* MainView.swift */,
 				8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */,
-				8783D00C26B8D32700171041 /* InstallSettings.swift */,
 				53F50C4826E3CA42007AD2D3 /* AppsView.swift */,
 				538ED92826F40BAF002D73E8 /* Style.swift */,
 				9298512D2738E67E008F19DC /* SetupView.swift */,
@@ -547,7 +544,6 @@
 				92ECD8A3274E75CD00DB7AC6 /* Installer.swift in Sources */,
 				92EE06DE274EC09F002C907B /* Entitlements.swift in Sources */,
 				92ECD8A5274E763700DB7AC6 /* IPA.swift in Sources */,
-				8783D00D26B8D32700171041 /* InstallSettings.swift in Sources */,
 				92EE06DC274EB19A002C907B /* StoreAppView.swift in Sources */,
 				365AFB0828847B75008B3542 /* Sparkle.swift in Sources */,
 				92B4D38F2737CF3D0001D7BB /* PlayTools.swift in Sources */,
