@@ -45,11 +45,11 @@
 "menubar.downloadMoreApps" = "Télécharger plus d'apps"; 
 "menubar.downloadMoreApps.help" = "Utilisez ce site pour télécharger des apps"; 
 "menubar.exportToSideloady" = "Exporter pour Sideloadly";
-"menubar.exportToSideloady.help" = "Exporter des IPA pour Sideloady du site sideloady.io qui n'a pas besoin d'avoir SIP désactivé pour que certains apps marchent."; 
+"menubar.exportToSideloady.help" = "Exporter des IPA pour Sideloady du site sideloady.io qui n'a pas besoin d'avoir SIP désactivé pour que certaines apps marchent."; 
 
 "bottomBar.notices" = "Notes";
 "bottomBar.notices.help" = "Nouvelles et annonces des développers";
-"bottomBar.setupViewButton" = "Est-ce que vous rencontrez des problèmes?";
+"bottomBar.setupViewButton" = "Rencontrez-vous des problèmes?";
 
 "failedToFetchNotices" = "Échec à trouver les avis. Veuiller vérifier votre connection."; 
 
@@ -61,13 +61,13 @@
 "enable.adaptiveDisplay" = "Affichage adaptatif"; 
 "enable.adaptiveDisplay.info" ="Adapte la fenêtre de l'app pour qu'elle rentre dans votre moniteur.";
 "enable.jbBypass" = "Activer l'évitement Jailbreak (Alpha)"; 
-"enable.jbBypass.info" = "Essaye d'éviter les détections de Jailbreak dans certains jeux (No guarentee to work all the time)";
+"enable.jbBypass.info" = "Essaye d'éviter les détections de Jailbreak dans certains jeux (Aucune garantie de fonctionnement)";
 
 "displayRefreshRate" = "Taux de rafraîchissement de l'écran";
-"mouseSensitivity" = "Sensitivté de la souris : %.f";
+"mouseSensitivity" = "Sensibilité de la souris : %.f";
 
 "settings.reset" = "Réinitialiser réglages et keymap";
-"settings.resetted" = "Les réglages on été réinitialisés";
+"settings.resetted" = "Les réglages ont été réinitialisés";
 
 "setupView.header" = "Suivez les étapes ci-dessous pour résoudre des problèmes courants"; 
 "setupView.subheader" = "Ex: Ne pas pouvoir se connecter, certains applications ne marchent pas";
@@ -79,23 +79,23 @@
 "setupView.5" = "5) Ouvrez Terminal (Barre de menu -> Utilités -> Terminal)";
 "setupView.6" = "6) Entrez: "; 
 "setupView.7" = "7) Entrez la commande. Ensuite, entrez votre mot de passe (Le texte sera caché)"; 
-"setupView.8" = "8) Clickez sur le symbole Apple dans la barre du menu et redémarrer."; 
-"setupView.9" = "Si vous encontrez un erreur, recommencez le procès."; 
+"setupView.8" = "8) Cliquez sur le symbole Apple dans la barre du menu et redémarrer."; 
+"setupView.9" = "Si vous rencontrez un erreur, recommencez le processus."; 
 
 "setupView.vidTutorials" = "Tutoriels Vidéo";
 "setupView.youtube" = "YouTube";
 "setupView.bilibili" = "BiliBili";
 
-"setupView.pressButtonAndEnterPassword" = "Veuiller désactiver SIP et entrer votre mot de passe.";
+"setupView.pressButtonAndEnterPassword" = "Veuillez désactiver SIP et entrez votre mot de passe.";
 "setupView.pressButtonAndEnterPassword.button" = "Désactiver SIP";
 
 "notification.appInstalled" = "Application installé"; 
 "notification.appInstalled.message" = "Ouvrez-le"; 
 
-"setup.enterLoginPassword" = "Veuiller entrer votre mot de passe"; 
-"setup.incorrectPassword" = "Mot de passe incorrect. Veuiller réessayer."; 
+"setup.enterLoginPassword" = "Veuillez entrer votre mot de passe"; 
+"setup.incorrectPassword" = "Mot de passe incorrect. Veuillez réessayer."; 
 "setup.enterLoginPassword.info" = "Entrer le mot de passe utilisé pour déverrouiller votre Mac."; 
-"setup.enterLoginPassword" = "Veuiller redémarrer votre Mac pour que les changements prennent effet."; 
+"setup.enterLoginPassword" = "Veuillez redémarrer votre Mac pour que les changements prennent effet."; 
 
 "menubar.log.copy" = "Copier le registre";
 "menubar.documentation" = "Documentation"; 
