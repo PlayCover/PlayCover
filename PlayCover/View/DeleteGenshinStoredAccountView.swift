@@ -14,7 +14,7 @@ struct DeleteGenshinStoredAccountView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
             Spacer()
-            Text("Delete an Account").font(.largeTitle).lineLimit(1).fixedSize()
+            Text("storeAccount.deleteAcc").font(.largeTitle).lineLimit(1).fixedSize()
             Spacer()
             ForEach(accountList, id: \.self) { account in
                 if account != ".DS_Store"{

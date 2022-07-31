@@ -10,7 +10,7 @@ struct PlayCoverMenuView: Commands {
 
     var body: some Commands {
         CommandGroup(after: .systemServices) {
-            Button("Copy log") {
+            Button("menubar.log.copy") {
                 Log.shared.logdata.copyToClipBoard()
                 showToast.toggle()
             }
@@ -28,21 +28,21 @@ struct PlayCoverHelpMenuView: Commands {
         }
 
         CommandGroup(replacing: .help) {
-            Button("Documentation") {
+            Button("menubar.documentation") {
                 NSWorkspace.shared.open(URL(string: "https://github.com/PlayCover/PlayCover/wiki")!)
             }
             Divider()
-            Button("Website") {
+            Button("menubar.website") {
                 NSWorkspace.shared.open(URL(string: "https://playcover.io")!)
             }
-            Button("GitHub") {
+            Button("menubar.github") {
                 NSWorkspace.shared.open(URL(string: "https://github.com/PlayCover/PlayCover/")!)
             }
-            Button("Discord") {
+            Button("menubar.discord") {
                 NSWorkspace.shared.open(URL(string: "https://discord.gg/PlayCover")!)
             }
             Divider()
-            Button("Download more apps") {
+            Button("menubar.downloadMoreApps") {
                 NSWorkspace.shared.open(URL(string: "https://ipa.playcover.workers.dev/0:/")!)
             }
         }
@@ -52,7 +52,7 @@ struct PlayCoverHelpMenuView: Commands {
 struct PlayCoverViewMenuView: Commands {
     var body: some Commands {
         CommandGroup(replacing: .importExport) {
-            Button("Export to Sideloadly") {
+            Button("menubar.exportToSideloady") {
                 if InstallVM.shared.installing {
                     Log.shared.error(PlayCoverError.waitInstallation)
                 } else {
@@ -96,7 +96,7 @@ struct ShowAppLinksCommand: View {
 
     var body: some View {
         Toggle(isOn: $apps.showAppLinks) {
-            Text("Show app links")
+            Text("menubar.showAppLinks")
         }.onChange(of: apps.showAppLinks) { value in
             UserDefaults.standard.set(value, forKey: "ShowLinks")
             apps.fetchApps()

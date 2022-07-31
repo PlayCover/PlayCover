@@ -15,22 +15,24 @@ struct StoreGenshinAccountView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
             Spacer()
-            Text("Store an account").font(.largeTitle).lineLimit(1).fixedSize()
+            Text("storeAccount.storeAcc").font(.largeTitle).lineLimit(1).fixedSize()
             Spacer()
             HStack(spacing: 0) {
                 Picker(selection: $selectedRegion,
-                       label: Text("Select account region")
+                       label: Text("storeAccount.selectAccRegion")
                     .font(.headline).lineLimit(1).fixedSize(),
                        content: {
-                            Text("America").tag("America")
-                            Text("Europe").tag("Europe")
+                            Text("storeAccount.selectAccRegion.usa").tag("America")
+                            Text("storeAccount.selectAccRegion.euro").tag("Europe")
                 }).pickerStyle(.radioGroup)
                 Spacer()
             }
             HStack {
-                Text("Name of your account")
+                Text("storeAccount.nameOfAcc")
                     .font(.headline).lineLimit(1).fixedSize()
-                TextField(NSLocalizedString("Name of account...", comment: ""), text: $folderName)
+                TextField(NSLocalizedString(
+                    "storeAccount.nameOfAcc.textfieldPlaceholder", comment: ""
+                ), text: $folderName)
             }
             Spacer()
             Button(action: {
@@ -55,7 +57,7 @@ struct StoreGenshinAccountView: View {
                     }
                 } else { presentationMode.wrappedValue.dismiss() }
             }, label: {
-                Text("Store!").frame(minWidth: 300, alignment: .center)
+                Text("storeAccount.store").frame(minWidth: 300, alignment: .center)
             }).controlSize(.large).buttonStyle(.automatic).font(.title3)
                 .keyboardShortcut(.defaultAction)
                 .disabled(selectedRegion == "" || folderName == "")
@@ -67,11 +69,9 @@ struct StoreGenshinAccountView: View {
             })
             .keyboardShortcut(.cancelAction)
         }.padding()
-                .alert(NSLocalizedString("The current account is set to a different Region. " +
-                                         "Launch the game, Change the region, and pass through the gates to save. " +
-                                         "Then try again",
+                .alert(NSLocalizedString("alert.storeAccount.regionIsNotValid",
                                          comment: ""), isPresented: $regionIsNotValid) {
-                    Button("Close",
+                    Button("button.Close",
                            role: .cancel) {
                         regionIsNotValid.toggle()
                         presentationMode.wrappedValue.dismiss()

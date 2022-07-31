@@ -19,20 +19,19 @@ struct AppSettingsView: View {
     @State var selectedRefreshRate: Int
     @State var sensivity: Float
 
-    @State var resetedAlert: Bool = false
+    @State var resetCompletedAlert: Bool = false
     @State var selectedWindowSize: Int
     @State var enableWindowAutoSize: Bool
-
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
                 HStack {
-                    Toggle(NSLocalizedString("Enable Keymapping", comment: ""), isOn: $keymapping).padding()
-                    Toggle(NSLocalizedString("Gaming Mode", comment: ""), isOn: $gamingMode).padding()
+                    Toggle(NSLocalizedString("settings.toggle.km", comment: ""), isOn: $keymapping).padding()
+                    Toggle(NSLocalizedString("settings.toggle.gaming", comment: ""), isOn: $gamingMode).padding()
                     if adaptiveDisplay {
-                        Toggle(NSLocalizedString("Enable Auto Window Size", comment: ""),
+                        Toggle(NSLocalizedString("settings.toggle.autoWindowResize", comment: ""),
                                isOn: $enableWindowAutoSize).padding()
                     }
                 }
@@ -41,43 +40,43 @@ struct AppSettingsView: View {
                         .font(.system(size: 96))
                         .foregroundColor(.accentColor)
                         .padding(.leading)
-                    Text("With this you can bind touch layout to bind touch controls to mouse and keyboard." +
-                         " Use Control + P to open editor menu.")
+                    Text("settings.toggle.km.info")
                         .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
             VStack(alignment: .leading, spacing: 0) {
-                Toggle(NSLocalizedString("Adaptive display", comment: ""), isOn: $adaptiveDisplay).padding()
+                Toggle(NSLocalizedString(
+                    "settings.toggle.adaptiveDisplay", comment: ""
+                ), isOn: $adaptiveDisplay).padding()
                 HStack {
                     Image(systemName: "display").font(.system(size: 96)).foregroundColor(.accentColor).padding(.leading)
-                    Text("Use this feature to play games in fullscreen and adapt app window to another dimensions.")
+                    Text("settings.toggle.adaptiveDisplay.info")
                         .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
             VStack(alignment: .leading) {
                 Toggle(isOn: $bypass) {
-                    Text("Enable Jailbreak Bypass (Alpha)")
+                    Text("settings.toggle.jbBypass")
                 }.padding()
                 HStack {
                     Image(systemName: "terminal.fill").font(.system(size: 96))
                         .foregroundColor(.accentColor).padding(.leading)
-                    Text("ATTENTION: Don't enable for some games yet!" +
-                         " This allows you to bypass bans that don't let you login")
+                    Text("settings.toggle.jbBypass.info")
                         .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
             VStack(alignment: .leading, spacing: 0) {
                 Spacer()
-                Picker(selection: $selectedRefreshRate, label: Text("Screen refresh rate"), content: {
+                Picker(selection: $selectedRefreshRate, label: Text("settings.picker.displayRefreshRate"), content: {
                     Text("60 Hz").tag(0)
                     Text("120 Hz").tag(1)
                 }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
                 if adaptiveDisplay && !enableWindowAutoSize {
                     Spacer()
-                    Picker(selection: $selectedWindowSize, label: Text("Screen size"), content: {
+                    Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
                         Text("1080p").tag(0)
                         Text("1440p").tag(1)
                         Text("4k").tag(2)
@@ -87,18 +86,20 @@ struct AppSettingsView: View {
             }
             VStack {
                 Divider().padding(.leading, 36).padding(.trailing, 36)
-                Text(NSLocalizedString("Mouse sensitivity: ", comment: "") + String(format: "%.f", sensivity))
+                Text(NSLocalizedString(
+                    "settings.slider.mouseSensitivity", comment: ""
+                ) + String(format: "%.f", sensivity))
                 Slider(value: $sensivity, in: 1...100).frame(maxWidth: 400)
             }
 
             Divider().padding(.leading, 36).padding(.trailing, 36)
             HStack {
                 Spacer()
-                Button("Reset settings and keymapping") {
-                    resetedAlert.toggle()
+                Button("settings.reset") {
+                    resetCompletedAlert.toggle()
                     settings.reset()
                 }.buttonStyle(GrowingButton()).padding()
-                Button("Ok") {
+                Button("button.OK") {
                     settings.keymapping = keymapping
                     settings.adaptiveDisplay = adaptiveDisplay
                     settings.sensivity = sensivity
@@ -132,8 +133,8 @@ struct AppSettingsView: View {
                 }.buttonStyle(GrowingButton()).padding().frame(height: 80)
                 Spacer()
             }
-        }.toast(isPresenting: $resetedAlert) {
-            AlertToast(type: .regular, title: NSLocalizedString("Settings reseted to default!", comment: ""))
+        }.toast(isPresenting: $resetCompletedAlert) {
+            AlertToast(type: .regular, title: NSLocalizedString("settings.resetCompleted", comment: ""))
         }
     }
 }

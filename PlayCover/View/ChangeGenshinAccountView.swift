@@ -14,7 +14,7 @@ struct ChangeGenshinAccountView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
             Spacer()
-            Text("Select an Account").font(.largeTitle).lineLimit(1).fixedSize()
+            Text("storeAccount.selectAcc").font(.largeTitle).lineLimit(1).fixedSize()
             Spacer()
             ForEach(accountList, id: \.self) { account in
                 if account != ".DS_Store"{
@@ -43,7 +43,7 @@ struct ChangeGenshinAccountView: View {
             Button(action: {
                 presentationMode.wrappedValue.dismiss()
             }, label: {
-                Text("Exit").frame(alignment: .center)
+                Text("button.Cancel").frame(alignment: .center)
             }).buttonStyle(.automatic)
                 .frame(height: 50)
         }
