@@ -71,10 +71,10 @@ struct AppSettingsView: View {
             Divider().padding(.leading, 36).padding(.trailing, 36)
             VStack(alignment: .leading, spacing: 0) {
                 Toggle(isOn: $disableTimeout) {
-                    Text("Disable Display Sleep")
+                    Text("settings.toggle.disableDisplaySleep")
                 }
                 .padding()
-                .help("Prevent display from turning off while this app is running")
+                .help("settings.toggle.disableDisplaySleep.info")
                 Spacer()
                 Divider().padding(.leading, 36).padding(.trailing, 36)
                 Spacer()

@@ -80,6 +80,8 @@
 "settings.toggle.jbBypass" = "启用绕过越狱检测（预览）";
 "settings.toggle.jbBypass.info" = "尝试绕过游戏的防越狱系统（不一定总是有效）";
 "settings.toggle.autoWindowResize" = "启用自动窗口大小调整";
+"settings.toggle.disableDisplaySleep" = "禁用显示器息屏";
+"settings.toggle.disableDisplaySleep.info" = "防止显示器在此应用运行时息屏"
 
 "settings.picker.displayRefreshRate" = "屏幕刷新率";
 "settings.picker.screenSize" = "屏幕分辨率";
