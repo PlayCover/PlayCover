@@ -180,6 +180,18 @@ class AppSettings {
         }
     }
 
+    private static let disableTimeout = "pc.disableTimeout"
+    var disableTimeout: Bool {
+        get {
+            dictionary[AppSettings.disableTimeout] as? Bool ?? false
+        }
+        set {
+            var dict = dictionary
+            dict[AppSettings.disableTimeout] = newValue
+            dictionary = dict
+        }
+    }
+
     private var allPrefs: [String: Any] {
         get {
             do {
@@ -220,6 +232,7 @@ class AppSettings {
     func reset() {
         adaptiveDisplay = info.isGame
         keymapping = info.isGame
+        disableTimeout = false
         layout = []
     }
 

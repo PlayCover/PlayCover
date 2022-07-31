@@ -18,6 +18,7 @@ struct AppSettingsView: View {
     @State var bypass: Bool
     @State var selectedRefreshRate: Int
     @State var sensivity: Float
+    @State var disableTimeout: Bool
 
     @State var resetCompletedAlert: Bool = false
     @State var selectedWindowSize: Int
@@ -69,6 +70,13 @@ struct AppSettingsView: View {
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
             VStack(alignment: .leading, spacing: 0) {
+                Toggle(isOn: $disableTimeout) {
+                    Text("Disable Display Sleep")
+                }
+                .padding()
+                .help("Prevent display from turning off while this app is running")
+                Spacer()
+                Divider().padding(.leading, 36).padding(.trailing, 36)
                 Spacer()
                 Picker(selection: $selectedRefreshRate, label: Text("settings.picker.displayRefreshRate"), content: {
                     Text("60 Hz").tag(0)
@@ -127,7 +135,7 @@ struct AppSettingsView: View {
                     } else {
                         settings.refreshRate = 60
                     }
-
+                    settings.disableTimeout = disableTimeout
                     presentationMode.wrappedValue.dismiss()
 
                 }.buttonStyle(GrowingButton()).padding().frame(height: 80)
