@@ -4,8 +4,6 @@
 //
 //  Created by José Elias Moreno villegas on 21/07/22.
 //
-// swiftlint:disable line_length
-// swiftlint:disable multiple_closures_with_trailing_closure
 import SwiftUI
 import AlertToast
 
@@ -24,9 +22,9 @@ struct StoreGenshinAccountView: View {
                        label: Text("Select account region")
                     .font(.headline).lineLimit(1).fixedSize(),
                        content: {
-                            Text("America").tag("America").frame(minWidth: 150, maxWidth: 150, minHeight: 350)
-                            Text("Europe").tag("Europe").frame(minWidth: 150, maxWidth: 150, minHeight: 350)
-                }).pickerStyle(SegmentedPickerStyle())
+                            Text("America").tag("America")
+                            Text("Europe").tag("Europe")
+                }).pickerStyle(.radioGroup)
                 Spacer()
             }
             HStack {
@@ -37,28 +35,41 @@ struct StoreGenshinAccountView: View {
             Spacer()
             Button(action: {
                 if !folderName.isEmpty && !selectedRegion.isEmpty {
-                    if checkCurrentRegion(selectedRegion: selectedRegion) {
-                        regionIsNotValid = false
-                        if selectedRegion == "America" {
-                            storeUserData(folderName: $folderName.wrappedValue.lowercased(),
-                                          accountRegion: "os_usa")
+                    do {
+                        if try checkCurrentRegion(selectedRegion: selectedRegion) {
+                            regionIsNotValid = false
+                            if selectedRegion == "America" {
+                                storeUserData(folderName: $folderName.wrappedValue.lowercased(),
+                                              accountRegion: "os_usa")
+                            } else {
+                                storeUserData(folderName: $folderName.wrappedValue.lowercased(),
+                                              accountRegion: "os_euro")
+                            }
+                            presentationMode.wrappedValue.dismiss()
                         } else {
-                            storeUserData(folderName: $folderName.wrappedValue.lowercased(),
-                                          accountRegion: "os_euro")
+                            regionIsNotValid = true
                         }
-                        presentationMode.wrappedValue.dismiss()
-                    } else {
-                        regionIsNotValid = true
+                    } catch {
+                        Log.shared.error("An error occoured while trying to store your account: "
+                                         + error.localizedDescription)
                     }
-                } else { presentationMode.wrappedValue.dismiss()
-                }
-            }) {
+                } else { presentationMode.wrappedValue.dismiss() }
+            }, label: {
                 Text("Store!").frame(minWidth: 300, alignment: .center)
-                }.controlSize(.large).buttonStyle(GrowingButton()).font(.title3)
+            }).controlSize(.large).buttonStyle(.automatic).font(.title3)
+                .keyboardShortcut(.defaultAction)
+                .disabled(selectedRegion == "" || folderName == "")
 
-            Spacer()
+            Button(action: {
+                presentationMode.wrappedValue.dismiss()
+            }, label: {
+                Text("Exit").frame(alignment: .center)
+            })
+            .keyboardShortcut(.cancelAction)
         }.padding()
-                .alert(NSLocalizedString("The current account is set to a different Region. Launch the game, Change the region, and pass through the gates to save. Then try again",
+                .alert(NSLocalizedString("The current account is set to a different Region. " +
+                                         "Launch the game, Change the region, and pass through the gates to save. " +
+                                         "Then try again",
                                          comment: ""), isPresented: $regionIsNotValid) {
                     Button("Close",
                            role: .cancel) {
@@ -66,7 +77,6 @@ struct StoreGenshinAccountView: View {
                         presentationMode.wrappedValue.dismiss()
                     }
                 }
-            Spacer()
         }
     }
 
