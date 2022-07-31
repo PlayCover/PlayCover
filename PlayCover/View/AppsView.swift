@@ -29,21 +29,21 @@ struct AppsView: View {
             }
 			if !xcodeCliInstalled {
 				VStack(spacing: 12) {
-					Text("You need to install Xcode Commandline tools and restart this App.")
+					Text("xcode.install.message")
 						.font(.title3)
-					Button("Install") {
+					Button("button.Install") {
 						do {
 							_ = try shell.sh("xcode-select --install")
-							alertTitle = NSLocalizedString("Xcode tools installation succeeded", comment: "")
-							alertBtn = NSLocalizedString("Close", comment: "")
-							alertText = NSLocalizedString("Please follow the given instructions, and restart the App.", comment: "")
+							alertTitle = NSLocalizedString("xcode.install.success", comment: "")
+							alertBtn = NSLocalizedString("button.Close", comment: "")
+							alertText = NSLocalizedString("alert.followInstructionsAndRestartApp", comment: "")
 							alertAction = {
 								exit(0)
 							}
 							showAlert = true
 						} catch {
-							alertTitle = NSLocalizedString("Xcode tools intallation failed", comment: "")
-							alertBtn = NSLocalizedString("OK", comment: "")
+							alertTitle = NSLocalizedString("xcode.install.failed", comment: "")
+							alertBtn = NSLocalizedString("button.OK", comment: "")
 							alertText = error.localizedDescription
 							alertAction = {}
 							showAlert = true
@@ -104,7 +104,7 @@ struct AppAddView: View {
                 .font(.system(size: 38.0, weight: .thin))
                 .frame(width: 64, height: 68).padding(.top).foregroundColor(
                     install.installing ? Color.gray : Color.accentColor)
-            Text("Add app").padding(.horizontal)
+            Text("playapp.add").padding(.horizontal)
                             .frame(width: 150, height: 50)
                             .padding(.bottom)
                             .lineLimit(nil)
@@ -115,8 +115,8 @@ struct AppAddView: View {
             .frame(width: 150, height: 150).onHover(perform: { hovering in
                 isHover = hovering
             }).alert(isPresented: $showWrongfileTypeAlert) {
-                Alert(title: Text("Wrong file type"),
-                      message: Text("Choose an .ipa file"), dismissButton: .default(Text("OK")))
+                Alert(title: Text("alert.wrongFileType"),
+                      message: Text("alert.wrongFileType.message"), dismissButton: .default(Text("button.OK")))
             }
             .onTapGesture {
                 if install.installing {
@@ -162,17 +162,15 @@ struct AppAddView: View {
                 } else {
                     showWrongfileTypeAlert = true
                 }
-            }.help("Drag or open an app file to install. IPAs from Configurator or iMazing won't work! " +
-                   "You should get decrypted IPAs, either from the top right button, Discord, AppDb," +
-                   " or a jailbroken device.")
+            }.help("playapp.add.help")
     }
 
     private func installApp() {
         Installer.install(ipaUrl: uif.ipaUrl!, returnCompletion: { (_) in
             DispatchQueue.main.async {
                 AppsVM.shared.fetchApps()
-                NotifyService.shared.notify(NSLocalizedString("App installed!", comment: ""),
-                                            NSLocalizedString("Check it out in 'My Apps'", comment: ""))
+                NotifyService.shared.notify(NSLocalizedString("notification.appInstalled", comment: ""),
+                                            NSLocalizedString("notification.appInstalled.message", comment: ""))
             }
         })
     }
