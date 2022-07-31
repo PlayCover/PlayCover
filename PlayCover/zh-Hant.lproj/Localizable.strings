@@ -1,90 +1,136 @@
-"My Apps" = "我的應用程式";
-"Show app links" = "顯示應用程式下載連結";
-"Download any app" = "下載更多應用程式";
-"Settings" = "設定";
-"About" = "關於我們";
-"Show in Finder" = "在Finder中顯示";
-"Update PlayTools" = "更新 PlayTools";
-"Reset PlayTools settings" = "重置 PlayTools 設定";
-"Clear app cache" = "清理應用程式暫存";
-"Delete app" = "刪除應用程式";
-"Please, input your admin password" = "請輸入系統管理員密碼";
-"App needs it for xattr command" = "PlayCover 需要全線執行 xattr 命令";
-"Advanced settings" = "高級設定";
-"Cancel" = "取消";
-"Install app" = "安裝應用程式";
-"Installing..." = "安裝中……";
-"Error!" = "錯誤！";
-"Fix login in games" = "修復遊戲登入";
-"Alternative convert method" = "特殊轉換模式";
-"Alternative decrypt method" = "特殊解密模式";
-"Export for iOS, Mac (Sideloadly, AltStore)" = "為 iOS、Mac 輸出 (Sideloadly, AltStore)";
-"Install instruction" = "安裝指南";
-"(for Genshin login fix e.g.)" = "(修福原神登入等問題)";
-"You have enabled SIP. You must disable it to run the game." = "SIP 已經啟動，請關閉 SIP 方可運行遊戲";
-"Your nvram params are not valid. Execute following command in Terminal and restart Mac" = "您的 nvram 參數無效，在 Terminal 中執行以下命令並重新啟動電腦";
-"Your system is not ready to run games! Watch video for easy setup." = "您的系統暫時無法運行遊戲，觀看教學影片學習如何進行設定。";
-"Your system setup is correct." = "系統設定正確。";
-"About app" = "關於 PlayCover";
-"App is encrypted! Please, use decrypted .ipa from AppDb or download one from the internal store. iMazing .ipa are not currently supported!" = "當前 .IPA 檔案已加密，請至 AppDb.to 或群組中尋找適合的版本。";
-"This .IPA is courrupted. It doesn't contains Info.plist." = "當前 .IPA 檔案已經損壞，缺失 Info.plist 檔案";
-"It it impossible to decrypt .IPA with SIP disabled. Please, enable it." = "當 SIP 關閉時無法解密 .IPA 檔案，請啟動 SIP。";
-"Please, reinstall PlayCover app" = "請重新安裝 PlayCover 應用程式";
-"Make sure you don't disallowed PlayCover to access files in Settings - Secuirity & Privacy" = "請確保在“系統偏好設定” - “安全性與隱私權”中允許 PlayCover 存取檔案。";
-"Something went wrong with this .ipa. Please try to use another .ipa file." = "當前 .IPA 檔案已經損壞，請嘗試其他 .IPA 檔案。";
-"You have not performed all instructions! Please, perform all instructions in 'Settings' or watch video in pinned messages." = "您當前未完成所有安裝指南的步驟，請嘗試在“設定”中執行所有指示步驟或觀看教學影片。";
-"Get" = "獲取";
-"To do this you need to reboot, enter into Recovery mode, open Terminal and type" = "重新啟動並進入 Recovery Mode 後在終端機輸入“csrutil disable”關閉SIP";
-"App is installed!" = "應用程式已安裝！";
-"Please, check it out in 'My Apps'" = "請在“我的應用程式”中查看";
-"Have a problem with controller?" = "連接手把時遇到問題？";
-"Join Discord Server" = "加入 Discord 伺服器";
-"Get Pro version" = "取得高級版";
-"Update app" = "更新應用程式";
-"To Genshin players: if you see <Data error, please login again> you need to enable SIP (csrutil enable). If you have problems with captcha login, press <Enable PlaySign> button below." = "致原神玩家：如果遇到「Data error, please login again」，你需要重新啟動 SIP (csrutil enable)。如果遇到登入問題，請點擊下方「啟動 PlaySign」按鈕。";
-"Having problems logging into apps?" = "在應用程式中登入遇到問題？";
-"Enable PlaySign" = "啟動 PlaySign";
-"Add app" = "添加應用程式";
-"Wrong file type" = "檔案類型錯誤";
-"You should use .ipa file" = "請添加 .IPA 檔案";
-"OK" = "確認";
-"A one-time setup is required to enable PlaySign" = "要啟動 PlaySign 需要進行一次性設定";
-"Please follow the following instructions:" = "請按以下提示操作：";
-"1) Restart your Mac" = "1) 重新啟動電腦";
-"2) Hold the power button when the screen turns black" = "2) 當螢幕變黑後，按住電源鍵不放";
-"3) When \"Loading Startup Options\" appears below the Apple logo, release the power button" = "3) 當“”標誌下出現“Loading Startup Options”時，鬆開電源鍵";
-"4) Click the Recovery Mode boot option" = "4) 進入“恢復模式”";
-"5) In Recovery, open Terminal (Utilities -> Terminal)" = "5) 打開“常用工具” -> “終端機”";
-"6) Type: " = "6) 輸入：";
-"7) Press Return or Enter on your keyboard. Input your Mac screen password (it is invisible)" = "7) 按下Enter鍵並輸入您的登入密碼（終端機中不會顯示，請輸入完成後按下Enter）";
-"8) Click the Apple symbol in the Menu bar and Restart" = "8) 點擊菜單欄中“”並重新啟動電腦";
-"If you encounter any errors, restart and repeat the whole process again" = "如果遇到任何錯誤， 請重複以上操作";
-"Video Tutorials" = "教學影片";
-"Please, press below button and input your Mac unlock screen password." = "請點擊下方按鈕並輸入您的登錄密碼";
-"Please, input your login password" = "你輸入您的登入密碼";
-"You typed incorrect password." = "密碼錯誤";
-"It is one you use for Mac unlock" = "這是您解鎖電腦的密碼";
-"Now restart Mac and all is done!" = "現在請重新啟動您的電腦！";
-"App settings" = "更改應用程式設定";
-"Open app cache" = "在Finder中查看應用程式容器";
-"Import keymapping" = "導入鍵盤映射";
-"Export keymapping" = "導入鍵盤映射";
-"All app data will be erased. You may need to redownload app files again. Wish to continue?" = "所有應用程式數據都將被清除，您可能需要重新下載應用數據包。要繼續嗎？";
-"App cache was cleared!" = "已清空應用程式內存！";
-"Keymapping imported!" = "已導入鍵盤映射！";
-"Error during import" = "導入時發生錯誤";
-"With this you can bind touch layout to bind touch controls to mouse and keyboard. Use Control + P to open editor menu." = "您可以綁定觸摸佈局以將觸摸控件綁定到鼠標和鍵盤。使用 Control + P 打開編輯器菜單。";
-"Use this feature to play games in fullscreen and adapt app window to another dimensions." = "此功能可以全螢幕遊玩遊戲，並使應用程式窗口適應另一個尺寸。";
-"Enable Jailbreak Bypass (Alpha)" = "繞過越獄檢測（測試版）";
-"ATTENTION: Don't enable for some games yet! This allows you to bypass bans that don't let you login" = "警告：暫時不要為某些遊戲啟用！ 這使您可以繞過不允許您登錄的限制";
-"Screen refresh rate" = "螢幕刷新率";
-"Mouse sensivity: %.f" = "滑鼠靈敏度：%.f";
-"Reset settings and keymapping" = "恢復默認設置";
-"Settings reseted to default!" = "已重置設定到默認值！";
-"Ok" = "OK";
-"No device with sample rate of 48 / 44.1 ghz found! Please, lower sample rate in Audio settings or connect another output audio device. Otherwise crashes possible!" = "未找到採樣率為 48 / 44.1 ghz 的設備！ 請在聲音設置中降低採樣率或連接另一個輸出音訊設備。 否則可能導致崩潰！";
-"Copy logs" = "複製日誌";
-"Notices" = "注意事項";
-"PlayCover must be inside Applications folder. Press button to move it." = "PlayCover 必須被放入“Applications”資料夾中。按下按鈕以移動。";
-"Please, wait current install to finish!" = "請等待當前應用程式安裝完成！";
-"You'll receive ban on this PlayCover version! Call of Duty supported on 0.9.2-0.9.4. PUBG requires higher PlayCover version. Free Fire status is not confirmed. There is one message of ban." = "您將收到此 PlayCover 版本的禁令！ 0.9.2-0.9.4 支持使命召喚。 PUBG 需要更高的 PlayCover 版本。 Free Fire 狀態未知。目前有一條禁令信息。";
+"playapp.add" = "添加應用程式";
+"playapp.settings" = "應用程式偏好設定";
+"playapp.showInFinder" = "在Finder中查看";
+"playapp.openCache" = "顯示應用程式數據";
+"playapp.clearCache" = "清除應用程式數據";
+"playapp.importKm" = "導入鍵盤映射佈局";
+"playapp.exportKm" = "導出鍵盤映射佈局";
+"playapp.delete" = "刪除應用程式";
+"playapp.add.help" = "拖曳或或打開 ipa 文件以安裝。";
+"playapp.update" = "更新應用程式";
+"playapp.storeAccount" = "保存一個帳號";
+"playapp.storeCurrentAccount" = "保存現有帳號";
+"playapp.activateAccount" = "啟動帳號";
+"playapp.deleteAccount" = "刪除帳號";
+
+"storeAccount.selectAccRegion" = "選擇帳號地區伺服器";
+"storeAccount.selectAccRegion.usa" = "美服";
+"storeAccount.selectAccRegion.euro" = "歐福";
+"storeAccount.selectAccRegion.tw" = "台服";
+"storeAccount.selectAccRegion.asia" = "亞服";
+"storeAccount.nameOfAcc" = "帳號用戶名稱";
+"storeAccount.nameOfAcc.textfieldPlaceholder" = "用戶名...";
+"storeAccount.store" = "保存帳號";
+"storeAccount.selectAcc" = "選擇一個帳號";
+"storeAccount.storeAcc" = "保存一個帳號";
+"storeAccount.deleteAcc" = "刪除一個帳號";
+
+"playapp.install.unzip" = "正在從文件中提取應用程式...";
+"playapp.install.createWrapper" = "正在包裝應用程式...";
+"playapp.install.installPlayTools" = "正在安裝 PlayTools...";
+"playapp.install.signing" = "正在為應用程式簽名...";
+"playapp.install.addToLib" = "正在將應用程式移至軟體庫...";
+"playapp.install.copy" = "正在複製應用程式...";
+"playapp.install.finished" = "完成！";
+
+"search.search" = "搜尋...";
+
+"alert.appCacheCleared" = "應用程式數據應用已被清除！";
+"alert.kmImported" = "鍵盤映射佈局已導入！";
+"alert.errorImportKm" = "導入過程中出現問題！";
+"alert.app.delete" = "所有應用程式數據將被清除； 有些軟體可能需要重新下載數據。確定繼續？";
+"alert.wrongFileType" = "文件格式錯誤";
+"alert.wrongFileType.message" = "請選擇 ipa 文件";
+"alert.followInstructionsAndRestartApp" = "請根據指示操作後重啟此應用程式";
+"alert.error" = "遇到了問題";
+"alert.success" = "成功!";
+"alert.moveAppToApplications" = "PlayCover 必須位於應用程式文件夾。單擊以下按鈕讓 PlayCover 將自己移至應用程式文件夾";
+"alert.moveAppToApplications.move" = "移至應用程式文件夾";
+"alert.storeAccount.regionIsNotValid" = "此帳號現所在的服務器與選項不符。打開遊戲，更改服務器並進入大門後保存，然後再試。";
+
+"button.OK" = "好";
+"button.Proceed" = "繼續";
+"button.Cancel" = "取消";
+"button.Close" = "關閉";
+"button.Dismiss" = "隱藏";
+"button.Install" = "安裝";
+
+"error.corruptedIPA" = "此 ipa 文件已損壞，因為找不到 \"Info.plist\" 文件。";
+"error.waitInstallation" = "請等待安裝過程結束！";
+"error.reinstallApp" = "請重新安裝 PlayCover";
+
+"menubar.downloadMoreApps" = "下載更多應用程式";
+"menubar.downloadMoreApps.help" = "使用這個網站下載更多應用程式來安裝";
+"menubar.exportToSideloady" = "為 Sideloadly 導出";
+"menubar.exportToSideloady.help" = "為來自 sideloady.io 的 Sideloady 導出 ipa 文件即可無需禁用 SIP 也可暢玩遊戲";
+
+"bottomBar.notices" = "公告";
+"bottomBar.notices.help" = "來自開發者的通知";
+"bottomBar.setupViewButton" = "遇到了問題？";
+
+"failedToFetchNotices" = "找不到公告；請檢查網路連接狀態。";
+
+"logs.copied" = "日誌已複製";
+
+"settings.toggle.km" = "啟用鍵盤映射佈局";
+"settings.toggle.gaming" = "遊戲模式";
+"settings.toggle.km.info" = "為觸控螢幕設計的遊戲增添鍵鼠支持。使用 Command + K 啟用鍵盤映射佈局編輯器";
+"settings.toggle.adaptiveDisplay" = "適配顯示器";
+"settings.toggle.adaptiveDisplay.info" = "為 Mac 的內置顯示器適配應用程式窗口";
+"settings.toggle.jbBypass" = "啟用繞過越獄檢測（預覽）";
+"settings.toggle.jbBypass.info" = "嘗試繞過遊戲的防越獄系統（不一定總是有效）";
+"settings.toggle.autoWindowResize" = "啟用自動窗口大小調整";
+
+"settings.picker.displayRefreshRate" = "螢幕更新率";
+"settings.picker.screenSize" = "螢幕解析度";
+
+"settings.slider.mouseSensitivity" = "滑鼠敏感度：";
+
+"settings.reset" = "重置設定與鍵盤映射佈局";
+"settings.resetCompleted" = "設定已被重置！";
+
+"setupView.header" = "按照以下指示操作即可修復常見問題";
+"setupView.subheader" = "解決帳號無法登錄，應用程式閃退等問題";
+
+"setupView.1" = "1) 將 Mac 關機";
+"setupView.2" = "2) 等待20秒以讓 Mac 完全關機, 然後按住電源按鈕";
+"setupView.3" = "3) 當 \"正在加載啟動選項\" 在蘋果圖標底下出現時, 鬆開電源按鈕";
+"setupView.4" = "4) 點擊 恢復模式";
+"setupView.5" = "5) 在恢復模式下， 打開終端機 (菜單欄 -> 常用工具 -> 終端機)";
+"setupView.6" = "6) 輸入: ";
+"setupView.7" = "7) 輸入並執行上述命令後， 輸入 Mac 的用戶登錄密碼（密碼字樣不會顯示在螢幕上）";
+"setupView.8" = "8) 重啟 Mac";
+"setupView.9" = "如果遇到了任何錯誤或問題，重複上述操作";
+
+"setupView.vidTutorials" = "影片教程";
+"setupView.youtube" = "YouTube";
+"setupView.bilibili" = "BiliBili";
+
+"setupView.pressButtonAndEnterPassword" = "請從以下按鈕禁用SIP並輸入 Mac 登錄密碼";
+"setupView.pressButtonAndEnterPassword.button" = "禁用SIP";
+
+"notification.appInstalled" = "應用程式安裝成功！";
+"notification.appInstalled.message" = "馬上來看一看吧";
+
+"setup.enterLoginPassword" = "請輸入管理員登錄密碼";
+"setup.incorrectPassword" = "密碼錯誤，請重試";
+"setup.enterLoginPassword.info" = "輸入用來登錄這台 Mac 的密碼";
+"setup.enterLoginPassword" = "請重啟 Mac 讓修改生效";
+
+"menubar.log.copy" = "複製日誌";
+"menubar.documentation" = "使用手冊";
+"menubar.website" = "官網";
+"menubar.github" = "GitHub（源代碼發行網站）";
+"menubar.discord" = "Discord（社區交流平台）";
+"menubar.showAppLinks" = "顯示未安裝的應用";
+"menubar.checkForUpdates" = "檢查更新";
+
+"soundAlert.messageText" = "檢測到聲音設定有問題";
+"soundAlert.informativeText" = "現有的音訊設備並無 48 或者 44.1 KHz 取樣率! 程式可能會崩潰。你希望把現有的音響設備設定成 48 KHz 取樣率嗎?";
+"soundAlert.successText" = "現有音訊設備取樣率已設為 48 KHz";
+
+"xcode.install.message" = "開始之前，你需要先安裝 Xcode 終端工具並重啟此應用程式";
+"xcode.install.success" = "Xcode 終端工具安裝成功！";
+"xcode.install.failed" = "Xcode 終端工具安裝失敗";
+
+"debug.crash" = "【調試】崩潰應用程式";
