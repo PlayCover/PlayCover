@@ -29,7 +29,7 @@ struct PlayCoverHelpMenuView: Commands {
 
         CommandGroup(replacing: .help) {
             Button("menubar.documentation") {
-                NSWorkspace.shared.open(URL(string: "https://github.com/PlayCover/PlayCover/wiki")!)
+                NSWorkspace.shared.open(URL(string: "https://docs.playcover.io")!)
             }
             Divider()
             Button("menubar.website") {
