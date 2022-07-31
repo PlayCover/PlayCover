@@ -5,7 +5,6 @@
 
 import Foundation
 import SwiftUI
-import AlertToast
 
 struct PlayAppView: View {
 
@@ -13,7 +12,6 @@ struct PlayAppView: View {
 
     @State private var showSettings = false
     @State private var showClearCacheAlert = false
-    @State private var showClearCacheToast = false
 
     @Environment(\.colorScheme) var colorScheme
 
@@ -161,15 +159,16 @@ struct PlayAppView: View {
             }.alert("alert.app.delete", isPresented: $showClearCacheAlert) {
                 Button("button.Proceed", role: .cancel) {
                     app.container?.clear()
-                    showClearCacheToast.toggle()
                 }
                 Button("button.Cancel", role: .cancel) {}
-            }.toast(isPresenting: $showClearCacheToast) {
+            }
+            // TODO: Toast
+            /*.toast(isPresenting: $showClearCacheToast) {
                 AlertToast(type: .regular, title: "alert.appCacheCleared")
             }.toast(isPresenting: $showImportSuccess) {
                 AlertToast(type: .regular, title: "alert.kmImported")
             }.toast(isPresenting: $showImportFail) {
                 AlertToast(type: .regular, title: "alert.errorImportKm")
-            }
+            }*/
     }
 }

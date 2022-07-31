@@ -40,12 +40,11 @@ struct PlayCoverApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject var updaterViewModel = UpdaterViewModel()
 
-    @State var showToast = false
     @State var xcodeCliInstalled = shell.isXcodeCliToolsInstalled
 
     var body: some Scene {
         WindowGroup {
-            MainView(showToast: $showToast, xcodeCliInstalled: $xcodeCliInstalled)
+            MainView(xcodeCliInstalled: $xcodeCliInstalled)
                 .padding()
                 .environmentObject(InstallVM.shared)
                 .environmentObject(AppsVM.shared)
@@ -65,7 +64,7 @@ struct PlayCoverApp: App {
         }
         .handlesExternalEvents(matching: ["{same path of URL?}"]) // create new window if doesn't exist
         .commands {
-            PlayCoverMenuView(showToast: $showToast)
+            PlayCoverMenuView()
             PlayCoverHelpMenuView(updaterViewModel: updaterViewModel)
             PlayCoverViewMenuView()
         }

@@ -6,13 +6,10 @@
 import SwiftUI
 
 struct PlayCoverMenuView: Commands {
-    @Binding var showToast: Bool
-
     var body: some Commands {
         CommandGroup(after: .systemServices) {
             Button("menubar.log.copy") {
                 Log.shared.logdata.copyToClipBoard()
-                showToast.toggle()
             }
             .keyboardShortcut("L", modifiers: [.command, .option])
         }

@@ -6,7 +6,6 @@
 import Foundation
 import SwiftUI
 import Cocoa
-import AlertToast
 
 extension NSTextField {
         open override var focusRingType: NSFocusRingType {
@@ -66,7 +65,6 @@ struct MainView: View {
     @State var showSetup = false
     @State var noticesExpanded = false
     @State var bottomHeight: CGFloat = 0
-    @Binding var showToast: Bool
     @Binding public var xcodeCliInstalled: Bool
 
     var body: some View {
@@ -136,9 +134,10 @@ struct MainView: View {
                         }
                 })
             }
-            .toast(isPresenting: $showToast) {
+            // TODO: Toast
+            /*.toast(isPresenting: $showToast) {
                 AlertToast(type: .regular, title: NSLocalizedString("logs.copied", comment: ""))
-            }
+            }*/
             .sheet(isPresented: $showSetup) {
                 SetupView()
             }
@@ -153,10 +152,9 @@ struct MainView: View {
 }
 
 struct Previews_MainView_Previews: PreviewProvider {
-    @State static var showToast = false
     @State static var xcodeCliInstalled = true
 	static var previews: some View {
-		MainView(showToast: $showToast, xcodeCliInstalled: $xcodeCliInstalled)
+		MainView(xcodeCliInstalled: $xcodeCliInstalled)
 			.padding()
 			.environmentObject(InstallVM.shared)
 			.environmentObject(AppsVM.shared)

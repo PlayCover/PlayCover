@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import AlertToast
 
 struct AppSettingsView: View {
     @State var settings: AppSettings
@@ -141,8 +140,10 @@ struct AppSettingsView: View {
                 }.buttonStyle(GrowingButton()).padding().frame(height: 80)
                 Spacer()
             }
-        }.toast(isPresenting: $resetCompletedAlert) {
-            AlertToast(type: .regular, title: NSLocalizedString("settings.resetCompleted", comment: ""))
         }
+        // TODO: Toast
+        /*.toast(isPresenting: $resetCompletedAlert) {
+            AlertToast(type: .regular, title: NSLocalizedString("settings.resetCompleted", comment: ""))
+        }*/
     }
 }

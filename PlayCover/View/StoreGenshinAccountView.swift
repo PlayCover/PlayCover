@@ -5,7 +5,6 @@
 //  Created by José Elias Moreno villegas on 21/07/22.
 //
 import SwiftUI
-import AlertToast
 
 struct StoreGenshinAccountView: View {
     @Environment(\.presentationMode) var presentationMode

@@ -67,7 +67,6 @@
 		AA719649287A0E2500623C15 /* default.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA719647287A0E2500623C15 /* default.yaml */; };
 		AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA71964A287A0EA800623C15 /* PlayRules.swift */; };
 		AA71964D287A35F400623C15 /* com.nexon.bluearchive.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA71964C287A35F400623C15 /* com.nexon.bluearchive.yaml */; };
-		AA818CB2287ABE9B000BEE9D /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = AA818CB1287ABE9B000BEE9D /* AlertToast */; };
 		AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = AA818CB4287ABEC3000BEE9D /* Yams */; };
 		ABED59832887A32F004D782B /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABED59822887A32F004D782B /* MenuBarView.swift */; };
 /* End PBXBuildFile section */
@@ -171,7 +170,6 @@
 				92324086283FBA34006C46DE /* SimplyCoreAudio in Frameworks */,
 				365AFB0628847B2E008B3542 /* Sparkle in Frameworks */,
 				AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */,
-				AA818CB2287ABE9B000BEE9D /* AlertToast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,7 +409,6 @@
 			name = PlayCover;
 			packageProductDependencies = (
 				92324085283FBA34006C46DE /* SimplyCoreAudio */,
-				AA818CB1287ABE9B000BEE9D /* AlertToast */,
 				AA818CB4287ABEC3000BEE9D /* Yams */,
 				365AFB0528847B2E008B3542 /* Sparkle */,
 			);
@@ -456,7 +453,6 @@
 			mainGroup = 8783CFEE26B8C52D00171041;
 			packageReferences = (
 				92324084283FBA34006C46DE /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */,
-				AA818CB0287ABE9B000BEE9D /* XCRemoteSwiftPackageReference "AlertToast" */,
 				AA818CB3287ABEC3000BEE9D /* XCRemoteSwiftPackageReference "Yams" */,
 				365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
@@ -872,14 +868,6 @@
 				kind = branch;
 			};
 		};
-		AA818CB0287ABE9B000BEE9D /* XCRemoteSwiftPackageReference "AlertToast" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/elai950/AlertToast.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		AA818CB3287ABEC3000BEE9D /* XCRemoteSwiftPackageReference "Yams" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jpsim/Yams.git";
@@ -901,11 +889,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 92324084283FBA34006C46DE /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */;
 			productName = SimplyCoreAudio;
-		};
-		AA818CB1287ABE9B000BEE9D /* AlertToast */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AA818CB0287ABE9B000BEE9D /* XCRemoteSwiftPackageReference "AlertToast" */;
-			productName = AlertToast;
 		};
 		AA818CB4287ABEC3000BEE9D /* Yams */ = {
 			isa = XCSwiftPackageProductDependency;
