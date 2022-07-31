@@ -144,6 +144,7 @@ struct PlayAppView: View {
                                 bypass: app.settings.bypass,
                                 selectedRefreshRate: app.settings.refreshRate == 60 ? 0 : 1,
                                 sensivity: app.settings.sensivity,
+                                disableTimeout: app.settings.disableTimeout,
                                 selectedWindowSize: app.settings.gameWindowSizeHeight == 1080
                                 ? 0
                                 : app.settings.gameWindowSizeHeight == 1440 ? 1 : 2,
