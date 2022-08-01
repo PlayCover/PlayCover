@@ -29,7 +29,7 @@ class StoreApp: BaseApp {
 			}
 		} catch {
 			Log.shared.error(error)
-			Log.shared.msg("Unable to retrieve store!")
+			Log.shared.error("Unable to retrieve store!")
 			Log.shared.log("Unable to retrieve store!", isError: true)
 		}
 

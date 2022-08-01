@@ -17,7 +17,6 @@ struct PlayAppView: View {
 
     @State var isHover: Bool = false
 
-    @State var showSetup: Bool = false
     @State var showImportSuccess: Bool = false
     @State var showImportFail: Bool = false
     @State private var showChangeGenshinAccount: Bool = false
@@ -152,8 +151,6 @@ struct PlayAppView: View {
                 ChangeGenshinAccountView()
             }.sheet(isPresented: $showStoreGenshinAccount) {
                 StoreGenshinAccountView()
-            }.sheet(isPresented: $showSetup) {
-                SetupView()
             }.sheet(isPresented: $showDeleteGenshinAccount) {
                 DeleteGenshinStoredAccountView()
             }.alert("alert.app.delete", isPresented: $showClearCacheAlert) {

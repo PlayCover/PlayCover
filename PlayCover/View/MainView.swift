@@ -13,7 +13,6 @@ struct MainView: View {
     @EnvironmentObject var apps: AppsVM
     @EnvironmentObject var integrity: AppIntegrity
 
-    @State var showSetup = false
     @State var noticesExpanded = false
     @State var bottomHeight: CGFloat = 0
     @Binding public var xcodeCliInstalled: Bool
@@ -28,9 +27,6 @@ struct MainView: View {
             /*.toast(isPresenting: $showToast) {
                 AlertToast(type: .regular, title: NSLocalizedString("logs.copied", comment: ""))
             }*/
-            .sheet(isPresented: $showSetup) {
-                SetupView()
-            }
             .alert(NSLocalizedString("alert.moveAppToApplications",
                                      comment: ""), isPresented: $integrity.integrityOff) {
                 Button("alert.moveAppToApplications.move", role: .cancel) {

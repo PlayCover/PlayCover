@@ -31,11 +31,11 @@ class PlayApp: PhysicialApp {
                 sign()
             }
             if try !PlayTools.isInstalled() {
-                Log.shared.msg("PlayTools are not installed! Please move PlayCover.app into Applications!")
+                Log.shared.error("PlayTools are not installed! Please move PlayCover.app into Applications!")
             } else if try !PlayTools.isValidArch(executable.path) {
-                Log.shared.msg("The app threw an error during conversion.")
+                Log.shared.error("The app threw an error during conversion.")
             } else if try !isCodesigned() {
-                Log.shared.msg("The app is not codesigned! Please open Xcode and accept license agreement.")
+                Log.shared.error("The app is not codesigned! Please open Xcode and accept license agreement.")
             } else {
                 runAppExec() // Splitting to reduce complexity
             }
