@@ -128,6 +128,7 @@
 "soundAlert.messageText" = "Paramètres Audio Incorrects Détectés!";
 "soundAlert.informativeText" = "Votre sortie audio actuelle n'a pas un taux d'échantillonnage de 48 ou 44.1 KHz! Des erreurs peuvent survenir. Voulez-vous changer le taux d'échantillonnage de votre sortie audio actuelle à 48 KHz?";
 "soundAlert.successText" = "Définir le taux d'échantillonnage de votre sortie audio à 48 KHz";
+"soundAlert.failureText" = "Failed to set current output device's sample rate to 48 KHz. You can manually set sample rate in ‘Audio MIDI Setup’ app";
 
 "xcode.install.message" = "Veuiller installer Xcode Commandline tools et redémarrer l'application.";
 "xcode.install.success" = "Succès de l'installation de Xcode tools";

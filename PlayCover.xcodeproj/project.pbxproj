@@ -37,7 +37,6 @@
 		9221730A27623DA100C8A3A2 /* StoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9221730927623DA100C8A3A2 /* StoreApp.swift */; };
 		92279BBF27610433009F28BF /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92279BBE27610433009F28BF /* AppSettingsView.swift */; };
 		922ED9BA272DEEDB008CA401 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922ED9B9272DEEDB008CA401 /* MainView.swift */; };
-		92324086283FBA34006C46DE /* SimplyCoreAudio in Frameworks */ = {isa = PBXBuildFile; productRef = 92324085283FBA34006C46DE /* SimplyCoreAudio */; };
 		923421F7275F40300030CD7D /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923421F6275F40300030CD7D /* AppContainer.swift */; };
 		9256220127491E4700728698 /* NSData+Reading.m in Sources */ = {isa = PBXBuildFile; fileRef = 925621FD27491E4700728698 /* NSData+Reading.m */; };
 		9256220327491E4700728698 /* operations.m in Sources */ = {isa = PBXBuildFile; fileRef = 925621FF27491E4700728698 /* operations.m */; };
@@ -170,7 +169,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92324086283FBA34006C46DE /* SimplyCoreAudio in Frameworks */,
 				365AFB0628847B2E008B3542 /* Sparkle in Frameworks */,
 				AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */,
 				AA818CB2287ABE9B000BEE9D /* AlertToast in Frameworks */,
@@ -413,7 +411,6 @@
 			);
 			name = PlayCover;
 			packageProductDependencies = (
-				92324085283FBA34006C46DE /* SimplyCoreAudio */,
 				AA818CB1287ABE9B000BEE9D /* AlertToast */,
 				AA818CB4287ABEC3000BEE9D /* Yams */,
 				365AFB0528847B2E008B3542 /* Sparkle */,
@@ -458,7 +455,6 @@
 			);
 			mainGroup = 8783CFEE26B8C52D00171041;
 			packageReferences = (
-				92324084283FBA34006C46DE /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */,
 				AA818CB0287ABE9B000BEE9D /* XCRemoteSwiftPackageReference "AlertToast" */,
 				AA818CB3287ABEC3000BEE9D /* XCRemoteSwiftPackageReference "Yams" */,
 				365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */,
@@ -868,14 +864,6 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		92324084283FBA34006C46DE /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rnine/SimplyCoreAudio.git";
-			requirement = {
-				branch = develop;
-				kind = branch;
-			};
-		};
 		AA818CB0287ABE9B000BEE9D /* XCRemoteSwiftPackageReference "AlertToast" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/elai950/AlertToast.git";
@@ -900,11 +888,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */;
 			productName = Sparkle;
-		};
-		92324085283FBA34006C46DE /* SimplyCoreAudio */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 92324084283FBA34006C46DE /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */;
-			productName = SimplyCoreAudio;
 		};
 		AA818CB1287ABE9B000BEE9D /* AlertToast */ = {
 			isa = XCSwiftPackageProductDependency;
