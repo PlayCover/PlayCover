@@ -18,7 +18,6 @@ class AppsVM: ObservableObject {
 
     @Published var apps: [BaseApp] = []
     @Published var updatingApps: Bool = false
-    @Published var showAppLinks = UserDefaults.standard.bool(forKey: "ShowLinks")
 
     func fetchApps() {
         DispatchQueue.global(qos: .background).async {
@@ -49,15 +48,6 @@ class AppsVM: ObservableObject {
 
             DispatchQueue.main.async {
                 self.apps.removeAll()
-                self.apps.append(PlayApp.add)
-
-                if UserDefaults.standard.bool(forKey: "ShowLinks") {
-                    for app in StoreApp.storeApps {
-                        if !result.contains(where: { $0.id == app.id }) {
-                            result.append(app)
-                        }
-                    }
-                }
 
                 if !uif.searchText.isEmpty {
                     result = result.filter({ $0.searchText.contains(uif.searchText.lowercased()) })

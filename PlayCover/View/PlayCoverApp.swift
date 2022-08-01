@@ -45,22 +45,14 @@ struct PlayCoverApp: App {
     var body: some Scene {
         WindowGroup {
             MainView(xcodeCliInstalled: $xcodeCliInstalled)
-                .padding()
                 .environmentObject(InstallVM.shared)
                 .environmentObject(AppsVM.shared)
                 .environmentObject(AppIntegrity())
-                .frame(minWidth: 720, minHeight: 650)
                 .onAppear {
                     NSWindow.allowsAutomaticWindowTabbing = false
-                    UserDefaults.standard.register(defaults: ["ShowLinks": true])
                     SoundDeviceService.shared.prepareSoundDevice()
                     NotifyService.shared.allowNotify()
                 }
-                .padding(-15)
-        }.windowStyle(HiddenTitleBarWindowStyle()).commands {
-            CommandGroup(replacing: CommandGroupPlacement.newItem) {
-                EmptyView()
-            }
         }
         .handlesExternalEvents(matching: ["{same path of URL?}"]) // create new window if doesn't exist
         .commands {

@@ -19,9 +19,7 @@ public class BaseApp: Identifiable, Hashable, Equatable {
     }
 
     public enum AppType {
-        case add
         case app
-        case store
         case install
     }
 
@@ -33,7 +31,4 @@ public class BaseApp: Identifiable, Hashable, Equatable {
         self.id = id
         self.type = type
     }
-
-    static let add = BaseApp(id: "", type: .add)
-
 }

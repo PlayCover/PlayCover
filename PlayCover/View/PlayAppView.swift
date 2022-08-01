@@ -19,7 +19,7 @@ struct PlayAppView: View {
 
     @State var showImportSuccess: Bool = false
     @State var showImportFail: Bool = false
-    
+
     func elementColor(_ dark: Bool) -> Color {
         return isHover ? Color.gray.opacity(0.3) : Color.black.opacity(0.0)
     }
