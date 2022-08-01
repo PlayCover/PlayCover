@@ -66,6 +66,7 @@ struct MainView: View {
     @State var showSetup = false
     @State var noticesExpanded = false
     @State var bottomHeight: CGFloat = 0
+    @State var isPlaySignActive = SystemConfig.isPlaySignActive
     @Binding var showToast: Bool
     @Binding public var xcodeCliInstalled: Bool
 
@@ -99,7 +100,7 @@ struct MainView: View {
                                         .rotationEffect(Angle(degrees: noticesExpanded ? 180 : 0))
                                 }
                                 Spacer()
-                                if !SystemConfig.isPlaySignActive {
+                                if !isPlaySignActive {
                                     HStack {
                                         Button("bottomBar.setupViewButton") { showSetup = true }
                                             .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
@@ -140,7 +141,7 @@ struct MainView: View {
                 AlertToast(type: .regular, title: NSLocalizedString("logs.copied", comment: ""))
             }
             .sheet(isPresented: $showSetup) {
-                SetupView()
+                SetupView(isPlaySignActive: $isPlaySignActive)
             }
             .alert(NSLocalizedString("alert.moveAppToApplications",
                                      comment: ""), isPresented: $integrity.integrityOff) {
