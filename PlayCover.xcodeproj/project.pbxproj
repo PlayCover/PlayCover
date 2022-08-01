@@ -17,7 +17,6 @@
 		5314D1EE26C402EC00A0A727 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5314D1ED26C402EC00A0A727 /* Shell.swift */; };
 		532644DE26E79E56002EA34D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 532644E026E79E56002EA34D /* Localizable.strings */; };
 		538AAE7B26CD41E60009C7AC /* ProcessExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538AAE7A26CD41E60009C7AC /* ProcessExtension.swift */; };
-		538ED92926F40BAF002D73E8 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538ED92826F40BAF002D73E8 /* Style.swift */; };
 		53D9DAF326C1849D0071959E /* PlayCoverError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D9DAF226C1849D0071959E /* PlayCoverError.swift */; };
 		53F3802826EB6F6B00D6B525 /* NotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F3802726EB6F6B00D6B525 /* NotifyService.swift */; };
 		53F4D29E26C43C040020167C /* UserIntentFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29D26C43C040020167C /* UserIntentFlow.swift */; };
@@ -84,7 +83,6 @@
 		53468A4A2712917900887A08 /* libmis.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libmis.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libmis.tbd; sourceTree = DEVELOPER_DIR; };
 		53841CC926D9D7920021D27C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		538AAE7A26CD41E60009C7AC /* ProcessExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessExtension.swift; sourceTree = "<group>"; };
-		538ED92826F40BAF002D73E8 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		53D9DAF226C1849D0071959E /* PlayCoverError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverError.swift; sourceTree = "<group>"; };
 		53E3311126F574B600217197 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		53F3802526EB6CEA00D6B525 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -181,7 +179,6 @@
 				922ED9B9272DEEDB008CA401 /* MainView.swift */,
 				8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */,
 				53F50C4826E3CA42007AD2D3 /* AppsView.swift */,
-				538ED92826F40BAF002D73E8 /* Style.swift */,
 				92EE06D3274EA604002C907B /* PlayAppView.swift */,
 				92EE06DB274EB19A002C907B /* StoreAppView.swift */,
 				365AFB0728847B75008B3542 /* Sparkle.swift */,
@@ -549,7 +546,6 @@
 				92ECD8AA274E76FD00DB7AC6 /* TempAllocator.swift in Sources */,
 				9221730A27623DA100C8A3A2 /* StoreApp.swift in Sources */,
 				28361D6028927CAC00B35EDB /* SaveGenshinUserData.swift in Sources */,
-				538ED92926F40BAF002D73E8 /* Style.swift in Sources */,
 				53F4D29E26C43C040020167C /* UserIntentFlow.swift in Sources */,
 				AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */,
 				53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */,
