@@ -130,6 +130,7 @@
 "soundAlert.messageText" = "监测到声音设置有问题";
 "soundAlert.informativeText" = "现有的音响设备并无 48 或者 44.1 KHz 采样率! 应用可能会崩溃。你希望把现有的音响设备设置成 48 KHz 采样率吗?";
 "soundAlert.successText" = "现有音响设备采样率已设为 48 KHz";
+"soundAlert.failureText" = "Failed to set current output device's sample rate to 48 KHz. You can manually set sample rate in ‘Audio MIDI Setup’ app";
 
 "xcode.install.message" = "开始之前，你需要先安装 Xcode 终端工具并重启此应用";
 "xcode.install.success" = "Xcode 终端工具安装成功！";
