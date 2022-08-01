@@ -94,15 +94,15 @@
 "setupView.header" = "按照以下指示操作即可修复常见问题";
 "setupView.subheader" = "解决账号无法登录，应用闪退等问题";
 
-"setupView.1" = "1) 将 Mac 关机";
-"setupView.2" = "2) 等待20秒以让 Mac 完全关机, 然后按住电源按钮";
-"setupView.3" = "3) 当 \"正在加载启动选项\" 在苹果图标底下出现时, 松开电源按钮";
-"setupView.4" = "4) 单击 恢复模式";
-"setupView.5" = "5) 在恢复模式下， 打开终端 (菜单栏 -> 实用工具 -> 终端)";
-"setupView.6" = "6) 输入: ";
-"setupView.7" = "7) 输入并回车上述命令后， 键入 Mac 的用户登录密码（密码字样不会显示在屏幕上）";
-"setupView.8" = "8) 重启 Mac";
-"setupView.9" = "如果遇到了任何错误或问题，重复上述操作";
+"setupView.step1" = "1) 将 Mac 关机";
+"setupView.step2" = "2) 等待20秒以让 Mac 完全关机, 然后按住电源按钮";
+"setupView.step3" = "3) 当 \"正在加载启动选项\" 在苹果图标底下出现时, 松开电源按钮";
+"setupView.step4" = "4) 单击 恢复模式";
+"setupView.step5" = "5) 在恢复模式下， 打开终端 (菜单栏 -> 实用工具 -> 终端)";
+"setupView.step6" = "6) 输入: ";
+"setupView.step7" = "7) 输入并回车上述命令后， 键入 Mac 的用户登录密码（密码字样不会显示在屏幕上）";
+"setupView.step8" = "8) 重启 Mac";
+"setupView.step9" = "如果遇到了任何错误或问题，重复上述操作";
 
 "setupView.vidTutorials" = "视频教程";
 "setupView.youtube" = "油管";
