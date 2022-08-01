@@ -109,21 +109,7 @@ struct PlayAppView: View {
             }
             .onHover(perform: { hovering in
                 isHover = hovering
-            }).sheet(isPresented: $showSettings) {
-                AppSettingsView(settings: app.settings,
-                                adaptiveDisplay: app.settings.adaptiveDisplay,
-                                keymapping: app.settings.keymapping,
-                                gamingMode: app.settings.gamingMode,
-                                bypass: app.settings.bypass,
-                                selectedRefreshRate: app.settings.refreshRate == 60 ? 0 : 1,
-                                sensivity: app.settings.sensivity,
-                                disableTimeout: app.settings.disableTimeout,
-                                selectedWindowSize: app.settings.gameWindowSizeHeight == 1080
-                                ? 0
-                                : app.settings.gameWindowSizeHeight == 1440 ? 1 : 2,
-                                enableWindowAutoSize: app.settings.enableWindowAutoSize
-                ).frame(minWidth: 500)
-            }.alert("alert.app.delete", isPresented: $showClearCacheAlert) {
+            }).alert("alert.app.delete", isPresented: $showClearCacheAlert) {
                 Button("button.Proceed", role: .cancel) {
                     app.container?.clear()
                 }

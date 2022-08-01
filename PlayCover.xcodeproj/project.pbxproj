@@ -30,7 +30,6 @@
 		8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783D00126B8C52E00171041 /* Preview Assets.xcassets */; };
 		8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00A26B8C9E600171041 /* URLExtensions.swift */; };
 		9221730A27623DA100C8A3A2 /* StoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9221730927623DA100C8A3A2 /* StoreApp.swift */; };
-		92279BBF27610433009F28BF /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92279BBE27610433009F28BF /* AppSettingsView.swift */; };
 		922ED9BA272DEEDB008CA401 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922ED9B9272DEEDB008CA401 /* MainView.swift */; };
 		92324086283FBA34006C46DE /* SimplyCoreAudio in Frameworks */ = {isa = PBXBuildFile; productRef = 92324085283FBA34006C46DE /* SimplyCoreAudio */; };
 		923421F7275F40300030CD7D /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923421F6275F40300030CD7D /* AppContainer.swift */; };
@@ -104,7 +103,6 @@
 		8783D00A26B8C9E600171041 /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
 		8FBBE76B2826709500F4FE9F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9221730927623DA100C8A3A2 /* StoreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreApp.swift; sourceTree = "<group>"; };
-		92279BBE27610433009F28BF /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
 		922ED9B9272DEEDB008CA401 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		923421F6275F40300030CD7D /* AppContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
 		925621F927491E4700728698 /* NSData+Reading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Reading.h"; sourceTree = "<group>"; };
@@ -186,7 +184,6 @@
 				538ED92826F40BAF002D73E8 /* Style.swift */,
 				92EE06D3274EA604002C907B /* PlayAppView.swift */,
 				92EE06DB274EB19A002C907B /* StoreAppView.swift */,
-				92279BBE27610433009F28BF /* AppSettingsView.swift */,
 				365AFB0728847B75008B3542 /* Sparkle.swift */,
 			);
 			path = View;
@@ -567,7 +564,6 @@
 				538AAE7B26CD41E60009C7AC /* ProcessExtension.swift in Sources */,
 				92EE06D4274EA604002C907B /* PlayAppView.swift in Sources */,
 				9280871D2824AD360034C510 /* Unarchiver.swift in Sources */,
-				92279BBF27610433009F28BF /* AppSettingsView.swift in Sources */,
 				9256220327491E4700728698 /* operations.m in Sources */,
 				92EE06D8274EA98B002C907B /* PhysicialApp.swift in Sources */,
 				28361D662892800200B35EDB /* DeleteStoredGenshinUserData.swift in Sources */,
