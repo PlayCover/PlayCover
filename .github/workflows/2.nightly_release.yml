@@ -58,3 +58,49 @@ jobs:
         with:
           name: PlayCover_nightly_${{ github.run_number }}.dmg
           path: output/PlayCover_nightly_${{ github.run_number }}.dmg
+
+
+bump-sparkle:
+     runs-on: macos-latest
+     steps:
+       - name: Checkout
+         uses: actions/checkout@v2
+         with:
+           repository: Playcover/playcover-website
+           ref: gh-pages # let me know if i should push to another branch
+
+       - name: Download Artifact
+         uses: actions/download-artifact@v3.0.0
+         with:
+           path: ./updates/
+
+       - name: Download Sparkle Toolset
+         run: |
+           mkdir sparkle
+           curl -L "https://github.com/sparkle-project/Sparkle/releases/download/2.2.1/Sparkle-2.2.1.tar.xz" -o sparkle.tar.xz
+           tar -xf sparkle.tar.xz -C sparkle
+
+       - name: Update appcast.xml
+         run: |
+           echo ${{ secrets.SPARKLE_KEY }} | ./sparkle/bin/generate_appcast ./updates --channel nightly --ed-key-file -
+
+       - name: Cleanup tmp files
+         run: |
+         rm -rf sparkle/
+         rm sparkle.tar.xz
+
+       - name: Commit changes
+         run: |
+           git add .
+           git config --local user.email "$GITHUB_EMAIL"
+           git config --local user.name "$GITHUB_USERNAME"
+           git commit -m "chore: push update to sparkle" -a
+         env:
+           GITHUB_USERNAME: github-actions[bot]
+           GITHUB_EMAIL: actions@github.com
+
+       - name: Push changes on Website
+         uses: ad-m/github-push-action@master
+         with:
+           github_token: ${{ secrets.WEBSITE_PAT }}
+           branch: gh-pages # let me know if i should push to another branch
