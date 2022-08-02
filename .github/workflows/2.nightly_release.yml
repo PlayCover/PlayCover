@@ -64,6 +64,7 @@ jobs:
 
 
 bump-sparkle:
+     needs: build
      runs-on: macos-latest
      steps:
        - name: Checkout

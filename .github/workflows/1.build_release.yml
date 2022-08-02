@@ -78,6 +78,7 @@ jobs:
           TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
 
   bump-sparkle:
+     needs: build
      runs-on: macos-latest
      steps:
        - name: Checkout
