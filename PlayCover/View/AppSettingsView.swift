@@ -29,8 +29,20 @@ struct AppSettingsView: View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
                 HStack {
-                    Toggle(NSLocalizedString("settings.toggle.km", comment: ""), isOn: $keymapping).padding(5).padding(.leading, 10)
-                    Toggle(NSLocalizedString("settings.toggle.gaming", comment: ""), isOn: $gamingMode).padding(5).padding(.leading, 10)
+                    Toggle(
+                        NSLocalizedString(
+                            "settings.toggle.km", comment: ""
+                        ), isOn: $keymapping
+                    )
+                    .padding(5)
+                    .padding(.leading, 10)
+                    Toggle(
+                        NSLocalizedString(
+                            "settings.toggle.gaming", comment: ""
+                        ), isOn: $gamingMode
+                    )
+                    .padding(5)
+                    .padding(.leading, 10)
                     if adaptiveDisplay {
                         Toggle(NSLocalizedString("settings.toggle.autoWindowResize", comment: ""),
                                isOn: $enableWindowAutoSize).padding()
