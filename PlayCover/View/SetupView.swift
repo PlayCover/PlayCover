@@ -44,6 +44,7 @@ struct SetupView: View {
             if SystemConfig.enablePlaySign(strResponse) {
                 if SystemConfig.isPRAMValid() {
                     isPlaySignActive = true
+                    SystemConfig.isFirstTimePlaySign = true
                     presentationMode.wrappedValue.dismiss()
                     Log.shared.msg(NSLocalizedString("setup.requireReboot", comment: ""))
                 } else {

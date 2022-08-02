@@ -73,8 +73,11 @@ struct MainView: View {
     var body: some View {
         if apps.updatingApps { ProgressView() } else {
             ZStack(alignment: .bottom) {
-                AppsView(bottomPadding: $bottomHeight, xcodeCliInstalled: $xcodeCliInstalled)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity).environmentObject(AppsVM.shared)
+                AppsView(
+                    bottomPadding: $bottomHeight,
+                    xcodeCliInstalled: $xcodeCliInstalled,
+                    isPlaySignActive: $isPlaySignActive
+                ).frame(maxWidth: .infinity, maxHeight: .infinity).environmentObject(AppsVM.shared)
 
                 VStack(alignment: .leading, spacing: 0) {
                     if install.installing {
