@@ -28,7 +28,6 @@ struct SearchView: View {
             .background(Color(NSColor.textBackgroundColor))
             .cornerRadius(8)
             .font(Font.system(size: 16))
-            .padding(.horizontal, 10)
             .onChange(of: search, perform: { value in
                 uif.searchText = value
                 AppsVM.shared.fetchApps()
@@ -39,21 +38,33 @@ struct SearchView: View {
                 }
             })
             .textFieldStyle(PlainTextFieldStyle())
-            .frame(maxWidth: .infinity).overlay(
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading, 16)
-                    if isEditing {
-                            Button(action: {
-                            self.search = ""
-                            }, label: {
-                            Image(systemName: "multiply.circle.fill")
-                                .padding(.trailing, 16)
-                        }).buttonStyle(PlainButtonStyle())
+            .frame(maxWidth: 500)
+            .overlay(
+                ZStack {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                            .padding(.leading, 16)
+                        if isEditing {
+                                Button(action: {
+                                self.search = ""
+                                }, label: {
+                                Image(systemName: "multiply.circle.fill")
+                                    .padding(.trailing, 16)
+                            }).buttonStyle(PlainButtonStyle())
+                        }
                     }
-                }
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(
+                            colorScheme == .dark ? Color(
+                                red: 0.25, green: 0.25, blue: 0.25
+                            ) : Color(
+                                red: 0.85, green: 0.85, blue: 0.85
+                            )
+                        )
+                    }
             )
+            .padding(.horizontal, 160)
     }
 }
 

@@ -34,7 +34,8 @@ struct DeleteGenshinStoredAccountView: View {
                                 deleteStoredAccount(folderName: account)
                                 self.presentationMode.wrappedValue.dismiss()
                             }.foregroundColor(.red)
-                            Button("Cancel", role: .cancel) {}
+                            Button("button.Cancel", role: .cancel) {}
+                                .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large).padding()
                                 .keyboardShortcut(.defaultAction)
                         }
                 }
@@ -42,8 +43,8 @@ struct DeleteGenshinStoredAccountView: View {
             Button(action: {
                 presentationMode.wrappedValue.dismiss()
             }, label: {
-                Text("Exit").frame(alignment: .center)
-            }).buttonStyle(.automatic).frame(height: 50)
+                Text("button.Cancel").frame(alignment: .center)
+            }).buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large).padding()
             Spacer()
         }
         .frame(minWidth: 300)

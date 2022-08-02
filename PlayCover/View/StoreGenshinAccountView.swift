@@ -58,15 +58,16 @@ struct StoreGenshinAccountView: View {
                 } else { presentationMode.wrappedValue.dismiss() }
             }, label: {
                 Text("storeAccount.store").frame(minWidth: 300, alignment: .center)
-            }).controlSize(.large).buttonStyle(.automatic).font(.title3)
+            }).buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large).font(.title3).padding()
                 .keyboardShortcut(.defaultAction)
                 .disabled(selectedRegion == "" || folderName == "")
 
             Button(action: {
                 presentationMode.wrappedValue.dismiss()
             }, label: {
-                Text("Exit").frame(alignment: .center)
+                Text("button.Close").frame(alignment: .center)
             })
+            .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large).padding()
             .keyboardShortcut(.cancelAction)
         }.padding()
                 .alert(NSLocalizedString("alert.storeAccount.regionIsNotValid",
