@@ -38,7 +38,7 @@ struct SearchView: View {
                 }
             })
             .textFieldStyle(PlainTextFieldStyle())
-            .frame(maxWidth: 500)
+            .frame(minWidth: 100, maxWidth: 500)
             .overlay(
                 ZStack {
                     HStack {
@@ -64,7 +64,7 @@ struct SearchView: View {
                         )
                     }
             )
-            .padding(.horizontal, 160)
+            .padding(.horizontal, 140)
     }
 }
 
@@ -110,6 +110,12 @@ struct MainView: View {
                                         .rotationEffect(Angle(degrees: noticesExpanded ? 180 : 0))
                                 }
                                 Spacer()
+                                #if DEBUG
+                                Button("debug.crash") { fatalError("Crash was triggered") }
+                                    .buttonStyle(.borderedProminent)
+                                    .tint(Color(red: 0.8, green: 0, blue: 0))
+                                    .controlSize(.large)
+                                #endif
                                 if !SystemConfig.isPlaySignActive {
                                     HStack {
                                         Button("bottomBar.setupViewButton") { showSetup = true }
@@ -128,13 +134,6 @@ struct MainView: View {
                         HStack(spacing: 12) {
                             Spacer()
                         }.frame(maxWidth: .infinity)
-                        #if DEBUG
-                        Divider()
-                        HStack(spacing: 12) {
-                            Button("debug.crash") { fatalError("Crash was triggered") }
-                                .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
-                        }.frame(maxWidth: .infinity)
-                        #endif
                     }.padding()
                 }
                 .background(.regularMaterial)

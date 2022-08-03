@@ -50,7 +50,7 @@ struct PlayCoverApp: App {
                 .environmentObject(InstallVM.shared)
                 .environmentObject(AppsVM.shared)
                 .environmentObject(AppIntegrity())
-                .frame(minWidth: 695, minHeight: 650)
+                .frame(minWidth: 535, minHeight: 650)
                 .ignoresSafeArea()
                 .onAppear {
                     NSWindow.allowsAutomaticWindowTabbing = false

@@ -61,7 +61,7 @@ class StoreApp: BaseApp {
 				print(error)
 			}
 		}
-		return "failedToFetchNotices"
+		return NSLocalizedString("failedToFetchNotices", comment: "")
 	}()
 }
 
