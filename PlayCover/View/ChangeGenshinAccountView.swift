@@ -34,9 +34,9 @@ struct ChangeGenshinAccountView: View {
                                 restoreUserData(folderName: account)
                                 self.presentationMode.wrappedValue.dismiss()
                             }
-                            .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large).padding()
+                            .controlSize(.large).padding()
                             Button("Cancel", role: .cancel) {}
-                                .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large).padding()
+                                .controlSize(.large).padding()
                         }, message: {
                             Text("This will override your currently signed-in account.")
                         })
@@ -46,7 +46,7 @@ struct ChangeGenshinAccountView: View {
                 presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("button.Cancel").frame(alignment: .center)
-            }).buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large).padding()
+            }).controlSize(.large).padding()
         }
         .frame(minWidth: 300)
     }

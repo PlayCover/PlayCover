@@ -35,7 +35,7 @@ struct DeleteGenshinStoredAccountView: View {
                                 self.presentationMode.wrappedValue.dismiss()
                             }.foregroundColor(.red)
                             Button("button.Cancel", role: .cancel) {}
-                                .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large).padding()
+                                .controlSize(.large).padding()
                                 .keyboardShortcut(.defaultAction)
                         }
                 }
@@ -44,7 +44,7 @@ struct DeleteGenshinStoredAccountView: View {
                 presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("button.Cancel").frame(alignment: .center)
-            }).buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large).padding()
+            }).controlSize(.large).padding()
             Spacer()
         }
         .frame(minWidth: 300)
