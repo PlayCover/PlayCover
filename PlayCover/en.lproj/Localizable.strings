@@ -78,7 +78,7 @@
 "settings.toggle.adaptiveDisplay" = "Adaptive display";
 "settings.toggle.adaptiveDisplay.info" ="Adapts and scales app window to fit the built-in Mac display.";
 "settings.toggle.jbBypass" = "Enable Jailbreak Bypass (Alpha)";
-"settings.toggle.jbBypass.info" = "Attempts to bypass Jailbreak Detection in some games (No guarentee to work all the time)";
+"settings.toggle.jbBypass.info" = "Attempts to bypass Jailbreak Detection in some games (No guarantee to work all the time)";
 "settings.toggle.autoWindowResize" = "Enable auto window resize";
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
 "settings.toggle.disableDisplaySleep.info" = "Prevent display from turning off while this app is running";
@@ -130,7 +130,7 @@
 "soundAlert.messageText" = "Incorrect Audio Settings Detected!";
 "soundAlert.informativeText" = "Your current output device does not have a sample rate of 48 or 44.1 KHz! Crashes may occur. Would you like to change your current output device's sample rate to 48 KHz?";
 "soundAlert.successText" = "Current output device sample rate set to 48 KHz";
-"soundAlert.failureText" = "Failed to set current output device's sample rate to 48 KHz. You can manually set sample rate in ‘Audio MIDI Setup’ app";
+"soundAlert.failureText" = "Failed to set current output device's sample rate to 48 KHz. You can manually set sample rate in the ‘Audio MIDI Setup’ app";
 
 "xcode.install.message" = "You need to install Xcode Commandline tools and restart this App.";
 "xcode.install.success" = "Xcode tools installation succeeded";
