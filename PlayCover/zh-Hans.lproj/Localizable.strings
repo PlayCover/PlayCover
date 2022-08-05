@@ -65,7 +65,7 @@
 "menubar.exportToSideloady.help" = "为来自 sideloady.io 的 Sideloady 导出 ipa 文件即可无需禁用 SIP 也可畅玩游戏";
 
 "bottomBar.notices" = "公告";
-"bottomBar.notices.help" = "来自程序猿的通知";
+"bottomBar.notices.help" = "来自开发者的通知";
 "bottomBar.setupViewButton" = "遇到了问题？";
 
 "failedToFetchNotices" = "找不到公告；请检查网络连接状态。";
@@ -105,7 +105,7 @@
 "setupView.step9" = "如果遇到了任何错误或问题，重复上述操作";
 
 "setupView.vidTutorials" = "视频教程";
-"setupView.youtube" = "油管";
+"setupView.youtube" = "YouTube";
 "setupView.bilibili" = "哔哩哔哩";
 
 "setupView.pressButtonAndEnterPassword" = "请从以下按钮禁用SIP并输入 Mac 登录密码";
@@ -119,7 +119,7 @@
 "setup.enterLoginPassword.info" = "输入用来登录这台 Mac 的密码";
 "setup.enterLoginPassword" = "请重启 Mac 以使更改生效";
 
-"menubar.log.copy" = "复制日志";
+"menubar.log.copy" = "拷贝日志";
 "menubar.documentation" = "使用手册";
 "menubar.website" = "官网";
 "menubar.github" = "GitHub（源代码发行网站）";
