@@ -35,8 +35,8 @@
 "search.search" = "検索...";
 
 "alert.appCacheCleared" = "アプリのデータは削除されました！";
-"alert.kmImported" = "Keymapping imported!";
-"alert.errorImportKm" = "インポートに何らかのエラーが発生しました！";
+"alert.kmImported" = "キーマッピングをインポートしました！";
+"alert.errorImportKm" = "キーマッピングのインポートに何らかのエラーが発生しました！";
 "alert.app.delete" = "アプリの全てのデータが削除されます。もう一度ダウンロードする必要があるかもしれません。続けますか？";
 "alert.wrongFileType" = "ファイルのタイプを間違っています";
 "alert.wrongFileType.message" = ".ipaファイルを選択してください";
