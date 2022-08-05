@@ -182,7 +182,7 @@ class Entitlements {
 		}
 	}
 
-    public static func isAppRequireUnsandbox(_ app: PhysicialApp) -> Bool {
+    public static func isAppRequireUnsandbox(_ app: BaseApp) -> Bool {
         return unsandboxedApps.contains(app.info.bundleIdentifier)
     }
 

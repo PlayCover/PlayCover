@@ -16,13 +16,13 @@ class AppsVM: ObservableObject {
         TempAllocator.clearTemp()
     }
 
-    @Published var apps: [BaseApp] = []
+    @Published var apps: [PlayApp] = []
     @Published var updatingApps: Bool = false
     @Published var showAppLinks = UserDefaults.standard.bool(forKey: "ShowLinks")
 
     func fetchApps() {
         DispatchQueue.global(qos: .background).async {
-            var result: [BaseApp] = []
+            var result: [PlayApp] = []
             do {
 
                 let containers = try AppContainer.containers()
@@ -49,14 +49,14 @@ class AppsVM: ObservableObject {
 
             DispatchQueue.main.async {
                 self.apps.removeAll()
-                self.apps.append(PlayApp.add)
 
                 if UserDefaults.standard.bool(forKey: "ShowLinks") {
-                    for app in StoreApp.storeApps {
+                    // TODO: Fix getting store apps
+                    /*for app in StoreApp.storeApps {
                         if !result.contains(where: { $0.id == app.id }) {
                             result.append(app)
                         }
-                    }
+                    }*/
                 }
 
                 if !uif.searchText.isEmpty {

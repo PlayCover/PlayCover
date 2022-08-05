@@ -5,35 +5,24 @@
 
 import Foundation
 
-public class BaseApp: Identifiable, Hashable, Equatable {
+public class BaseApp {
+    /// All mach-o binaries within the app, including the executable itself.
+    /// Call resolveValidMachOs to ensure a non-nil value.
+    public var validMachOs: [URL]?
 
-    public static func == (lhs: BaseApp, rhs: BaseApp) -> Bool {
-        lhs.id == rhs.id
+    public let info: AppInfo
+    public var url: URL
+
+    public var executable: URL {
+        return url.appendingPathComponent(info.executableName)
     }
 
-    public let id: String
-    public let type: AppType
-
-    var searchText: String {
-        preconditionFailure("This method must be overridden")
+    public var entitlements: URL {
+        return Entitlements.playCoverEntitlementsDir.appendingPathComponent("\(info.bundleIdentifier).plist")
     }
 
-    public enum AppType {
-        case add
-        case app
-        case store
-        case install
+    init(appUrl: URL) {
+        self.url = appUrl
+        self.info = AppInfo(contentsOf: url.appendingPathComponent("Info.plist"))
     }
-
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-
-    init(id: String, type: AppType) {
-        self.id = id
-        self.type = type
-    }
-
-    static let add = BaseApp(id: "", type: .add)
-
 }
