@@ -115,7 +115,7 @@
 "setup.enterLoginPassword" = "Veuillez entrer votre mot de passe"; 
 "setup.incorrectPassword" = "Mot de passe incorrect. Veuillez réessayer."; 
 "setup.enterLoginPassword.info" = "Entrer le mot de passe utilisé pour déverrouiller votre Mac."; 
-"setup.enterLoginPassword" = "Veuillez redémarrer votre Mac pour que les changements prennent effet."; 
+"setup.requireReboot" = "Veuillez redémarrer votre Mac pour que les changements prennent effet."; 
 
 "menubar.log.copy" = "Copier le registre";
 "menubar.documentation" = "Documentation"; 

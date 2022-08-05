@@ -77,14 +77,18 @@ struct MainView: View {
     @State var showSetup = false
     @State var noticesExpanded = false
     @State var bottomHeight: CGFloat = 0
+    @State var isPlaySignActive = SystemConfig.isPlaySignActive
     @Binding var showToast: Bool
     @Binding public var xcodeCliInstalled: Bool
 
     var body: some View {
         if apps.updatingApps { ProgressView() } else {
             ZStack(alignment: .bottom) {
-                AppsView(bottomPadding: $bottomHeight, xcodeCliInstalled: $xcodeCliInstalled)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity).environmentObject(AppsVM.shared)
+                AppsView(
+                    bottomPadding: $bottomHeight,
+                    xcodeCliInstalled: $xcodeCliInstalled,
+                    isPlaySignActive: $isPlaySignActive
+                ).frame(maxWidth: .infinity, maxHeight: .infinity).environmentObject(AppsVM.shared)
 
                 VStack(alignment: .leading, spacing: 0) {
                     if install.installing {
@@ -110,7 +114,7 @@ struct MainView: View {
                                         .rotationEffect(Angle(degrees: noticesExpanded ? 180 : 0))
                                 }
                                 Spacer()
-                                if !SystemConfig.isPlaySignActive {
+                                if !isPlaySignActive {
                                     HStack {
                                         Button("bottomBar.setupViewButton") { showSetup = true }
                                             .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
@@ -144,7 +148,7 @@ struct MainView: View {
                 AlertToast(type: .regular, title: NSLocalizedString("logs.copied", comment: ""))
             }
             .sheet(isPresented: $showSetup) {
-                SetupView()
+                SetupView(isPlaySignActive: $isPlaySignActive)
             }
             .alert(NSLocalizedString("alert.moveAppToApplications",
                                      comment: ""), isPresented: $integrity.integrityOff) {

@@ -7,6 +7,8 @@ import Foundation
 
 class SystemConfig {
 
+    static var isFirstTimePlaySign = false
+
 	static let isPlaySignActive: Bool = {
         return isSIPDisabled() && isPRAMValid()
     }()
@@ -16,25 +18,16 @@ class SystemConfig {
                           "boot-args=amfi_get_out_of_my_way=0x1 ipc_control_port_options=0"], argc)
     }
 
-    static var firstTimeSIP = true
-    static var firstTimeBootArgs = true
-
     static func isSIPDisabled() -> Bool {
-        let check = shell.shell("csrutil status", print: firstTimeSIP)
-        firstTimeSIP = false
+        let check = shell.shell("csrutil status")
         return check.contains("unknown") || check.contains("disabled")
     }
 
     static func isPRAMValid() -> Bool {
-        let check = shell.shell("nvram boot-args", print: firstTimeBootArgs)
-        firstTimeBootArgs = false
-        for option in NVRAM_OPTIONS {
-            if check.contains(option) {
-                return true
-            }
+        let check = shell.shell("nvram boot-args")
+        for option in NVRAM_OPTIONS where check.contains(option) {
+            return true
         }
-
-        print(firstTimeBootArgs)
         return false
     }
 
