@@ -26,10 +26,9 @@ public class AppInfo {
     }
 
     public func retargeted(toURL url: URL) -> AppInfo {
-        // swiftlint:disable todo
-        // TODO: remove use of force cast
-        // swiftlint:disable force_cast
-        AppInfo(url: url, rawStorage: rawStorage.mutableCopy() as! NSMutableDictionary)
+        guard let copy = rawStorage.mutableCopy() as? NSMutableDictionary
+        else { fatalError("Failed to copy rawStorage")}
+        return AppInfo(url: url, rawStorage: copy)
     }
 
     /// Write an XML-serialized representation of this info to the given URL

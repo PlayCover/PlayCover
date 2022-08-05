@@ -32,14 +32,7 @@ class Entitlements {
         return new.hashValue == old.hashValue
     }
 
-    // swiftlint:disable function_body_length
-    static func composeEntitlements(_ app: PlayApp) throws -> [String: Any] {
-        var base = [String: Any]()
-		let bundleID = app.info.bundleIdentifier
-        if !bundleID.elementsEqual("com.devsisters.ck") {
-            base["com.apple.security.app-sandbox"] = true
-        }
-
+    private static func setBaseEntitlements(_ base: inout [String: Any]) {
         base["com.apple.security.assets.movies.read-write"] = true
         base["com.apple.security.assets.music.read-write"] = true
         base["com.apple.security.assets.pictures.read-write"] = true
@@ -57,6 +50,16 @@ class Entitlements {
         base["com.apple.security.personal-information.calendars"] = true
         base["com.apple.security.personal-information.location"] = true
         base["com.apple.security.print"] = true
+    }
+
+    static func composeEntitlements(_ app: PlayApp) throws -> [String: Any] {
+        var base = [String: Any]()
+		let bundleID = app.info.bundleIdentifier
+        if !bundleID.elementsEqual("com.devsisters.ck") {
+            base["com.apple.security.app-sandbox"] = true
+        }
+
+        setBaseEntitlements(&base)
 
         if SystemConfig.isPlaySignActive {
             base["com.apple.private.tcc.allow"] = TCC.split(whereSeparator: \.isNewline)
