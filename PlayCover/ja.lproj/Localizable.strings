@@ -43,7 +43,7 @@
 "alert.followInstructionsAndRestartApp" = "指示を読んでから、アプリを再起動してください";
 "alert.error" = "何らかのエラーが発生しました";
 "alert.success" = "成功！";
-"alert.moveAppToApplications" = "PlayCover must be in the Applications folder. Press the button below to let PlayCover move itself to /Applications.　PlayCoverは/Applicationsフォルダに居ないと問題が発生します。以下のボタンを押してPlayCoverを/Applicationsフォルダに移動させることができます。";
+"alert.moveAppToApplications" = "PlayCoverは/Applicationsフォルダに居ないと問題が発生します。以下のボタンを押してPlayCoverを/Applicationsフォルダに移動させることができます。";
 "alert.moveAppToApplications.move" = "/Applicationsに移動";
 "alert.storeAccount.regionIsNotValid" = "現在のアカウントは他の地域に設定されています。ゲームを起動して、地域を変更してから、ゲートを通過して保存してください。その後、再度試してください";
 
