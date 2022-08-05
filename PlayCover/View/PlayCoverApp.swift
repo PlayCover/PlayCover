@@ -59,6 +59,7 @@ struct PlayCoverApp: App {
             PlayCoverMenuView()
             PlayCoverHelpMenuView(updaterViewModel: updaterViewModel)
             PlayCoverViewMenuView()
+            SidebarCommands()
         }
 
         Settings {
