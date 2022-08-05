@@ -29,20 +29,8 @@ struct AppSettingsView: View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
                 HStack {
-                    Toggle(
-                        NSLocalizedString(
-                            "settings.toggle.km", comment: ""
-                        ), isOn: $keymapping
-                    )
-                    .padding(5)
-                    .padding(.leading, 10)
-                    Toggle(
-                        NSLocalizedString(
-                            "settings.toggle.gaming", comment: ""
-                        ), isOn: $gamingMode
-                    )
-                    .padding(5)
-                    .padding(.leading, 10)
+                    Toggle(NSLocalizedString("settings.toggle.km", comment: ""), isOn: $keymapping).padding()
+                    Toggle(NSLocalizedString("settings.toggle.gaming", comment: ""), isOn: $gamingMode).padding()
                     if adaptiveDisplay {
                         Toggle(NSLocalizedString("settings.toggle.autoWindowResize", comment: ""),
                                isOn: $enableWindowAutoSize).padding()
@@ -50,34 +38,34 @@ struct AppSettingsView: View {
                 }
                 HStack {
                     Image(systemName: "keyboard")
-                        .font(.system(size: 69))
+                        .font(.system(size: 96))
                         .foregroundColor(.accentColor)
-                        .padding(.leading).padding(.leading, 10)
+                        .padding(.leading)
                     Text("settings.toggle.km.info")
-                        .frame(maxWidth: 200).padding(5).frame(minHeight: 100)
+                        .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
             VStack(alignment: .leading, spacing: 0) {
                 Toggle(NSLocalizedString(
                     "settings.toggle.adaptiveDisplay", comment: ""
-                ), isOn: $adaptiveDisplay).padding(5).padding(.leading, 10)
+                ), isOn: $adaptiveDisplay).padding()
                 HStack {
-                    Image(systemName: "display").font(.system(size: 69)).foregroundColor(.accentColor).padding(.leading)
+                    Image(systemName: "display").font(.system(size: 96)).foregroundColor(.accentColor).padding(.leading)
                     Text("settings.toggle.adaptiveDisplay.info")
-                        .frame(maxWidth: 200).padding(5).frame(minHeight: 100).padding(.leading, 10)
+                        .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
             VStack(alignment: .leading) {
                 Toggle(isOn: $bypass) {
                     Text("settings.toggle.jbBypass")
-                }.padding(5).padding(.leading, 10)
+                }.padding()
                 HStack {
-                    Image(systemName: "terminal.fill").font(.system(size: 69))
+                    Image(systemName: "terminal.fill").font(.system(size: 96))
                         .foregroundColor(.accentColor).padding(.leading)
                     Text("settings.toggle.jbBypass.info")
-                        .frame(maxWidth: 200).padding(5).frame(minHeight: 100)
+                        .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
@@ -85,7 +73,7 @@ struct AppSettingsView: View {
                 Toggle(isOn: $disableTimeout) {
                     Text("settings.toggle.disableDisplaySleep")
                 }
-                .padding(5).padding(.leading, 10)
+                .padding()
                 .help("settings.toggle.disableDisplaySleep.info")
                 Spacer()
                 Divider().padding(.leading, 36).padding(.trailing, 36)
@@ -93,14 +81,14 @@ struct AppSettingsView: View {
                 Picker(selection: $selectedRefreshRate, label: Text("settings.picker.displayRefreshRate"), content: {
                     Text("60 Hz").tag(0)
                     Text("120 Hz").tag(1)
-                }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding(5).padding(.leading, 10)
+                }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
                 if adaptiveDisplay && !enableWindowAutoSize {
                     Spacer()
                     Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
                         Text("1080p").tag(0)
                         Text("1440p").tag(1)
-                        Text("4K").tag(2)
-                    }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding(5).padding(.leading, 10)
+                        Text("4k").tag(2)
+                    }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
                 Spacer()
                 }
             }
