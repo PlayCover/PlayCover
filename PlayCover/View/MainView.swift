@@ -110,12 +110,6 @@ struct MainView: View {
                                         .rotationEffect(Angle(degrees: noticesExpanded ? 180 : 0))
                                 }
                                 Spacer()
-                                #if DEBUG
-                                Button("debug.crash") { fatalError("Crash was triggered") }
-                                    .buttonStyle(.borderedProminent)
-                                    .tint(Color(red: 0.8, green: 0, blue: 0))
-                                    .controlSize(.large)
-                                #endif
                                 if !SystemConfig.isPlaySignActive {
                                     HStack {
                                         Button("bottomBar.setupViewButton") { showSetup = true }

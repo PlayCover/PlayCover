@@ -99,7 +99,7 @@ struct AppSettingsView: View {
                     Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
                         Text("1080p").tag(0)
                         Text("1440p").tag(1)
-                        Text("4k").tag(2)
+                        Text("4K").tag(2)
                     }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding(5).padding(.leading, 10)
                 Spacer()
                 }

@@ -69,13 +69,10 @@ struct AppsView: View {
                             ForEach(appVm.apps, id: \.id) { app in
                                 if app.type == BaseApp.AppType.add {
                                     AppAddView().environmentObject(InstallVM.shared)
-                                        .frame(maxWidth: 150)
                                 } else if app.type == .app {
                                     PlayAppView(app: app as! PlayApp)
-                                        .frame(maxWidth: 150)
                                 } else if app.type == .store {
                                     StoreAppView(app: app as! StoreApp)
-                                        .frame(maxWidth: 150)
                                 }
                             }
                         }

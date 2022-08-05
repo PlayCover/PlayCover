@@ -45,6 +45,9 @@ struct PlayCoverHelpMenuView: Commands {
             Button("menubar.downloadMoreApps") {
                 NSWorkspace.shared.open(URL(string: "https://ipa.playcover.workers.dev/0:/")!)
             }
+            #if DEBUG
+            Button("debug.crash") { fatalError("Crash was triggered") }
+            #endif
         }
     }
 }

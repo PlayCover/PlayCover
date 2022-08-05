@@ -35,40 +35,42 @@ struct StoreGenshinAccountView: View {
                 ), text: $folderName)
             }
             Spacer()
-            Button(action: {
-                if !folderName.isEmpty && !selectedRegion.isEmpty {
-                    do {
-                        if try checkCurrentRegion(selectedRegion: selectedRegion) {
-                            regionIsNotValid = false
-                            if selectedRegion == "America" {
-                                storeUserData(folderName: $folderName.wrappedValue.lowercased(),
-                                              accountRegion: "os_usa")
+            HStack {
+                Button(action: {
+                    if !folderName.isEmpty && !selectedRegion.isEmpty {
+                        do {
+                            if try checkCurrentRegion(selectedRegion: selectedRegion) {
+                                regionIsNotValid = false
+                                if selectedRegion == "America" {
+                                    storeUserData(folderName: $folderName.wrappedValue.lowercased(),
+                                                  accountRegion: "os_usa")
+                                } else {
+                                    storeUserData(folderName: $folderName.wrappedValue.lowercased(),
+                                                  accountRegion: "os_euro")
+                                }
+                                presentationMode.wrappedValue.dismiss()
                             } else {
-                                storeUserData(folderName: $folderName.wrappedValue.lowercased(),
-                                              accountRegion: "os_euro")
+                                regionIsNotValid = true
                             }
-                            presentationMode.wrappedValue.dismiss()
-                        } else {
-                            regionIsNotValid = true
+                        } catch {
+                            Log.shared.error("An error occoured while trying to store your account: "
+                                             + error.localizedDescription)
                         }
-                    } catch {
-                        Log.shared.error("An error occoured while trying to store your account: "
-                                         + error.localizedDescription)
-                    }
-                } else { presentationMode.wrappedValue.dismiss() }
-            }, label: {
-                Text("storeAccount.store").frame(minWidth: 300, alignment: .center)
-            }).controlSize(.large).font(.title3).padding()
-                .keyboardShortcut(.defaultAction)
-                .disabled(selectedRegion == "" || folderName == "")
+                    } else { presentationMode.wrappedValue.dismiss() }
+                    }, label: {
+                    Text("storeAccount.store").frame(minWidth: 300, alignment: .center)
+                }).controlSize(.large).font(.title3).padding()
+                    .keyboardShortcut(.defaultAction)
+                    .disabled(selectedRegion == "" || folderName == "")
 
-            Button(action: {
-                presentationMode.wrappedValue.dismiss()
-            }, label: {
-                Text("button.Close").frame(alignment: .center)
-            })
-            .controlSize(.large).padding()
-            .keyboardShortcut(.cancelAction)
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    Text("button.Close").frame(alignment: .center)
+                })
+                .controlSize(.large).padding()
+                .keyboardShortcut(.cancelAction)
+            }
         }.padding()
                 .alert(NSLocalizedString("alert.storeAccount.regionIsNotValid",
                                          comment: ""), isPresented: $regionIsNotValid) {
