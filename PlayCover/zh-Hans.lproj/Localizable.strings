@@ -117,7 +117,7 @@
 "setup.enterLoginPassword" = "请输入管理员登录密码";
 "setup.incorrectPassword" = "密码错误，请重试";
 "setup.enterLoginPassword.info" = "输入用来登录这台 Mac 的密码";
-"setup.enterLoginPassword" = "请重启 Mac 以使更改生效";
+"setup.requireReboot" = "请重启 Mac 以使更改生效";
 
 "menubar.log.copy" = "拷贝日志";
 "menubar.documentation" = "使用手册";

@@ -142,7 +142,7 @@ class Shell: ObservableObject {
         }
 
     @discardableResult
-    static func shell(_ command: String, print: Bool = true) -> String {
+    static func shell(_ command: String, print: Bool = false) -> String {
         let task = Process()
         let pipe = Pipe()
 
