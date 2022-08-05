@@ -24,9 +24,21 @@ struct MainView: View {
             }
             .listStyle(.sidebar)
         }
+        .navigationViewStyle(.columns)
         .onAppear {
             self.selectedView = 1
         }
+        .toolbar {
+            ToolbarItem(placement: .navigation) {
+                Button(action: toggleSidebar, label: {
+                    Image(systemName: "sidebar.leading")
+                })
+            }
+        }
+    }
+
+    private func toggleSidebar() {
+        NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
     }
 }
 
