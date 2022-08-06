@@ -71,16 +71,13 @@ struct AppsView: View {
                 GeometryReader { geom in
                     ScrollView {
                         LazyVGrid(columns: gridLayout, alignment: .leading, spacing: 10) {
-                            // swiftlint:disable todo
-                            // TODO: Remove use of force cast
-                            // swiftlint:disable force_cast
-                            ForEach(appVm.apps, id: \.id) { app in
-                                if app.type == BaseApp.AppType.add {
-                                    AppAddView().environmentObject(InstallVM.shared)
-                                } else if app.type == .app {
-                                    PlayAppView(app: app as! PlayApp)
-                                } else if app.type == .store {
-                                    StoreAppView(app: app as! StoreApp)
+                            AppAddView().environmentObject(InstallVM.shared)
+                            ForEach(appVm.apps, id: \.info.bundleIdentifier) { app in
+                                PlayAppView(app: app)
+                            }
+                            if appVm.showAppLinks {
+                                ForEach(Store.storeApps, id: \.id) { app in
+                                    StoreAppView(app: app)
                                 }
                             }
                         }
@@ -191,5 +188,4 @@ struct AppAddView: View {
             }
         }
     }
-
 }

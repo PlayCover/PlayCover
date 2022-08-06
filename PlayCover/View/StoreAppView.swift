@@ -8,7 +8,7 @@ import SwiftUI
 
 struct StoreAppView: View {
 
-    @State var app: StoreApp
+    @State var app: StoreAppData
 
     @Environment(\.colorScheme) var colorScheme
 
@@ -18,15 +18,11 @@ struct StoreAppView: View {
         return isHover ? Color.gray.opacity(0.3) : Color.black.opacity(0.0)
     }
 
-    init(app: StoreApp) {
-        _app = State(initialValue: app)
-    }
-
     var body: some View {
 
         VStack(alignment: .center, spacing: 0) {
             AsyncImage(
-                url: URL(string: app.data.icon),
+                url: URL(string: app.icon),
                 content: { image in
                     image.resizable().cornerRadius(16).shadow(radius: 1)
                 },
@@ -37,7 +33,7 @@ struct StoreAppView: View {
 
             HStack {
                 Image(systemName: "arrow.down.circle.fill").opacity(1.0).font(.system(size: 16))
-                Text(app.data.name).lineLimit(2).multilineTextAlignment(.center)
+                Text(app.name).lineLimit(2).multilineTextAlignment(.center)
             }.frame(width: 150, height: 70)
 
         }.background(colorScheme == .dark ? elementColor(true) : elementColor(false))
@@ -45,7 +41,7 @@ struct StoreAppView: View {
             .frame(width: 150, height: 150)
             .onTapGesture {
                 isHover = false
-                if let url = URL(string: app.data.link) {
+                if let url = URL(string: app.link) {
                     NSWorkspace.shared.open(url)
                 }
             }
