@@ -8,7 +8,7 @@ import SwiftUI
 
 struct StoreAppView: View {
 
-    @State var app: PlayApp
+    @State var app: StoreAppData
 
     @Environment(\.colorScheme) var colorScheme
 
@@ -22,8 +22,7 @@ struct StoreAppView: View {
 
         VStack(alignment: .center, spacing: 0) {
             AsyncImage(
-                // TODO: Fix store app icon
-                url: URL(string: ""),
+                url: URL(string: app.icon),
                 content: { image in
                     image.resizable().cornerRadius(16).shadow(radius: 1)
                 },
@@ -42,8 +41,7 @@ struct StoreAppView: View {
             .frame(width: 150, height: 150)
             .onTapGesture {
                 isHover = false
-                // TODO: Fix app link
-                if let url = URL(string: "") {
+                if let url = URL(string: app.link) {
                     NSWorkspace.shared.open(url)
                 }
             }

@@ -110,7 +110,7 @@ struct MainView: View {
                                 }
                             }
                             // TODO: Fix notices
-                            Text(getNotice())
+                            Text(Store.getNotice())
                                 .font(.body)
                                 .frame(minHeight: 0, maxHeight: noticesExpanded ? nil : 0, alignment: .top)
                                 .animation(.spring(), value: noticesExpanded)
@@ -153,44 +153,6 @@ struct MainView: View {
                 }
             }
         }
-    }
-
-    func checkAvaliability(url: URL) -> Bool {
-        var avaliable = true
-        var request = URLRequest(url: url)
-        request.httpMethod = "HEAD"
-        URLSession(configuration: .default)
-            .dataTask(with: request) { (_, response, error) -> Void in
-                guard error == nil else {
-                    print("Error:", error ?? "")
-                    avaliable = false
-                    return
-                }
-
-                guard (response as? HTTPURLResponse)?
-                    .statusCode == 200 else {
-                    print("down")
-                    avaliable = false
-                    return
-                }
-
-            }
-            .resume()
-        return avaliable
-    }
-
-    func getNotice() -> String {
-        if let url = URL(string: "https://playcover.io/store.notice.txt") {
-            do {
-                if checkAvaliability(url: url) {
-                    let contents = try String(contentsOf: url)
-                    return contents
-                }
-            } catch {
-                print(error)
-            }
-        }
-        return "failedToFetchNotices"
     }
 }
 

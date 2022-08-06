@@ -75,6 +75,11 @@ struct AppsView: View {
                             ForEach(appVm.apps, id: \.info.bundleIdentifier) { app in
                                 PlayAppView(app: app)
                             }
+                            if appVm.showAppLinks {
+                                ForEach(Store.storeApps, id: \.id) { app in
+                                    StoreAppView(app: app)
+                                }
+                            }
                         }
                         .padding([.top, .leading], 16).padding(.bottom, bottomPadding + 16)
                         .animation(.spring(blendDuration: 0.1), value: geom.size.width)
@@ -183,5 +188,4 @@ struct AppAddView: View {
             }
         }
     }
-
 }

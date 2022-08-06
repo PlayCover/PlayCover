@@ -50,15 +50,6 @@ class AppsVM: ObservableObject {
             DispatchQueue.main.async {
                 self.apps.removeAll()
 
-                if UserDefaults.standard.bool(forKey: "ShowLinks") {
-                    // TODO: Fix getting store apps
-                    /*for app in StoreApp.storeApps {
-                        if !result.contains(where: { $0.id == app.id }) {
-                            result.append(app)
-                        }
-                    }*/
-                }
-
                 if !uif.searchText.isEmpty {
                     result = result.filter({ $0.searchText.contains(uif.searchText.lowercased()) })
                 }
