@@ -567,7 +567,6 @@
 				9280871D2824AD360034C510 /* Unarchiver.swift in Sources */,
 				9256220327491E4700728698 /* operations.m in Sources */,
 				28361D662892800200B35EDB /* DeleteStoredGenshinUserData.swift in Sources */,
-				28361D68289280A300B35EDB /* DeleteGenshinStoredAccountView.swift in Sources */,
 				53D9DAF326C1849D0071959E /* PlayCoverError.swift in Sources */,
 				9286D296273A7E4200958DD3 /* AppSettings.swift in Sources */,
 				9272F19E273B74C800DFBEF1 /* AppsVM.swift in Sources */,

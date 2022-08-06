@@ -19,22 +19,16 @@ struct AppLibraryView: View {
                 ScrollView {
                     if gridViewLayout == 0 {
                         LazyVGrid(columns: gridLayout, alignment: .center, spacing: 10) {
-                            // TODO: Remove use of force cast
-                            // swiftlint:disable force_cast
-                            ForEach(appsVM.apps, id: \.id) { app in
-                                if app.type == .app {
-                                    PlayAppView(app: app as! PlayApp)
-                                }
+                            ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
+                                PlayAppView(app: app)
                             }
                         }
                         .padding(.all, 5)
                         .animation(.spring(blendDuration: 0.1), value: geom.size.width)
                     } else {
                         VStack {
-                            ForEach(appsVM.apps, id: \.id) { app in
-                                if app.type == .app {
-                                    PlayAppListView(app: app as! PlayApp)
-                                }
+                            ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
+                                PlayAppListView(app: app)
                             }
                         }
                         .padding(.all, 5)
