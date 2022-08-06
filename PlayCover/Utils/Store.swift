@@ -17,6 +17,9 @@ class Store {
             for elem in data {
                 apps.append(elem)
             }
+            if !uif.searchText.isEmpty {
+                apps = apps.filter({$0.name.lowercased().contains(uif.searchText.lowercased())})
+            }
         } catch {
             Log.shared.error(error)
             Log.shared.msg("Unable to retrieve store!")

@@ -21,7 +21,7 @@ class AppsVM: ObservableObject {
     @Published var showAppLinks = UserDefaults.standard.bool(forKey: "ShowLinks")
 
     func fetchApps() {
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .userInteractive).async {
             var result: [PlayApp] = []
             do {
 
@@ -53,6 +53,8 @@ class AppsVM: ObservableObject {
                 if !uif.searchText.isEmpty {
                     result = result.filter({ $0.searchText.contains(uif.searchText.lowercased()) })
                 }
+
+                _ = Store.storeApps
 
                 self.apps.append(contentsOf: result)
             }
