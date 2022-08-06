@@ -16,7 +16,6 @@ extension NSTextField {
 }
 
 struct SearchView: View {
-
     @State private var search: String = ""
     @State private var isEditing = false
     @Environment(\.colorScheme) var colorScheme
@@ -121,7 +120,7 @@ struct MainView: View {
                                     }
                                 }
                             }
-                            Text(StoreApp.notice)
+                            Text(Store.getNotice())
                                 .font(.body)
                                 .frame(minHeight: 0, maxHeight: noticesExpanded ? nil : 0, alignment: .top)
                                 .animation(.spring(), value: noticesExpanded)

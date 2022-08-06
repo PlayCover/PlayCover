@@ -8,7 +8,6 @@ import SwiftUI
 import AlertToast
 
 struct PlayAppView: View {
-
     @State var app: PlayApp
 
     @State private var showSettings = false
@@ -26,10 +25,6 @@ struct PlayAppView: View {
     @State private var showDeleteGenshinAccount: Bool = false
     func elementColor(_ dark: Bool) -> Color {
         return isHover ? Color.gray.opacity(0.3) : Color.black.opacity(0.0)
-    }
-
-    init(app: PlayApp) {
-        _app = State(initialValue: app)
     }
 
     var body: some View {

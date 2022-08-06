@@ -6,10 +6,6 @@
 import Foundation
 
 public class AppInfo {
-    public enum AppInfoError: Error {
-        case invalidRoot(Any)
-    }
-
     public let url: URL
     fileprivate var rawStorage: NSMutableDictionary
 
@@ -30,14 +26,11 @@ public class AppInfo {
     }
 
     public func retargeted(toURL url: URL) -> AppInfo {
-        // swiftlint:disable todo
-        // TODO: remove use of force cast
-        // swiftlint:disable force_cast
-        AppInfo(url: url, rawStorage: rawStorage.mutableCopy() as! NSMutableDictionary)
+        guard let copy = rawStorage.mutableCopy() as? NSMutableDictionary
+        else { fatalError("Failed to copy rawStorage")}
+        return AppInfo(url: url, rawStorage: copy)
     }
-}
 
-public extension AppInfo {
     /// Write an XML-serialized representation of this info to the given URL
     func write(toURL url: URL) throws {
         try rawStorage.write(to: url)
@@ -47,10 +40,7 @@ public extension AppInfo {
     func write() throws {
         try write(toURL: url)
     }
-}
 
-// MARK: - Subscripting
-public extension AppInfo {
     subscript (string index: String) -> String? {
         get {
             rawStorage[index] as? String
@@ -131,10 +121,6 @@ public extension AppInfo {
             rawStorage[index] = newValue
         }
     }
-}
-
-// MARK: - Frequent Fliers
-public extension AppInfo {
 
     var isGame: Bool {
         let words = rawStorage.description
@@ -184,10 +170,7 @@ public extension AppInfo {
     var executableName: String {
         self[string: "CFBundleExecutable"]!
     }
-}
 
-// MARK: - Patching
-public extension AppInfo {
     func assert(minimumVersion: Double) {
         if Double(minimumOSVersion)! > 11.0 {
             minimumOSVersion = Int(minimumVersion).description

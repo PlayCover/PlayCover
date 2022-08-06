@@ -7,13 +7,8 @@ import Foundation
 import Cocoa
 import IOKit.pwr_mgt
 
-class PlayApp: PhysicialApp {
-
-    init(appUrl: URL) {
-        super.init(appUrl: appUrl, type: AppType.app)
-    }
-
-    override var searchText: String {
+class PlayApp: BaseApp {
+    var searchText: String {
         return info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
     }
 
@@ -135,10 +130,6 @@ class PlayApp: PhysicialApp {
             Log.shared.error(error)
         }
     }
-
-}
-
-extension PlayApp {
 
     var prohibitedToPlay: Bool {
         return PlayApp.PROHIBITED_APPS.contains(info.bundleIdentifier)

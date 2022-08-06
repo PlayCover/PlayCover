@@ -28,12 +28,12 @@
 		53F4D2A026C43C690020167C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29F26C43C690020167C /* Log.swift */; };
 		53F50C4926E3CA42007AD2D3 /* AppsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F50C4826E3CA42007AD2D3 /* AppsView.swift */; };
 		53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F5E74226C1D37E005AED1D /* FileExtensions.swift */; };
+		6E66B0BF289DE6240099B907 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E66B0BE289DE6240099B907 /* Store.swift */; };
 		8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */; };
 		8783CFFF26B8C52E00171041 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783CFFE26B8C52E00171041 /* Assets.xcassets */; };
 		8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783D00126B8C52E00171041 /* Preview Assets.xcassets */; };
 		8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00A26B8C9E600171041 /* URLExtensions.swift */; };
 		8783D00D26B8D32700171041 /* InstallSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00C26B8D32700171041 /* InstallSettings.swift */; };
-		9221730A27623DA100C8A3A2 /* StoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9221730927623DA100C8A3A2 /* StoreApp.swift */; };
 		92279BBF27610433009F28BF /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92279BBE27610433009F28BF /* AppSettingsView.swift */; };
 		922ED9BA272DEEDB008CA401 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922ED9B9272DEEDB008CA401 /* MainView.swift */; };
 		923421F7275F40300030CD7D /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923421F6275F40300030CD7D /* AppContainer.swift */; };
@@ -55,9 +55,7 @@
 		92ECD8AA274E76FD00DB7AC6 /* TempAllocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ECD8A9274E76FD00DB7AC6 /* TempAllocator.swift */; };
 		92ECD8AE274E787200DB7AC6 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ECD8AD274E787200DB7AC6 /* AppInfo.swift */; };
 		92EE06D0274EA433002C907B /* BaseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06CF274EA433002C907B /* BaseApp.swift */; };
-		92EE06D2274EA596002C907B /* InstallApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06D1274EA596002C907B /* InstallApp.swift */; };
 		92EE06D4274EA604002C907B /* PlayAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06D3274EA604002C907B /* PlayAppView.swift */; };
-		92EE06D8274EA98B002C907B /* PhysicialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06D7274EA98B002C907B /* PhysicialApp.swift */; };
 		92EE06DA274EB009002C907B /* PlayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06D9274EB009002C907B /* PlayApp.swift */; };
 		92EE06DC274EB19A002C907B /* StoreAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06DB274EB19A002C907B /* StoreAppView.swift */; };
 		92EE06DE274EC09F002C907B /* Entitlements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06DD274EC09F002C907B /* Entitlements.swift */; };
@@ -103,6 +101,7 @@
 		53F4D29F26C43C690020167C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		53F50C4826E3CA42007AD2D3 /* AppsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsView.swift; sourceTree = "<group>"; };
 		53F5E74226C1D37E005AED1D /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
+		6E66B0BE289DE6240099B907 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		8783CFF726B8C52D00171041 /* PlayCover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayCover.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverApp.swift; sourceTree = "<group>"; };
 		8783CFFE26B8C52E00171041 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -112,7 +111,6 @@
 		8783D00A26B8C9E600171041 /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
 		8783D00C26B8D32700171041 /* InstallSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallSettings.swift; sourceTree = "<group>"; };
 		8FBBE76B2826709500F4FE9F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		9221730927623DA100C8A3A2 /* StoreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreApp.swift; sourceTree = "<group>"; };
 		92279BBE27610433009F28BF /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
 		922ED9B9272DEEDB008CA401 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		923421F6275F40300030CD7D /* AppContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
@@ -141,9 +139,7 @@
 		92ECD8A9274E76FD00DB7AC6 /* TempAllocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAllocator.swift; sourceTree = "<group>"; };
 		92ECD8AD274E787200DB7AC6 /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
 		92EE06CF274EA433002C907B /* BaseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseApp.swift; sourceTree = "<group>"; };
-		92EE06D1274EA596002C907B /* InstallApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallApp.swift; sourceTree = "<group>"; };
 		92EE06D3274EA604002C907B /* PlayAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAppView.swift; sourceTree = "<group>"; };
-		92EE06D7274EA98B002C907B /* PhysicialApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicialApp.swift; sourceTree = "<group>"; };
 		92EE06D9274EB009002C907B /* PlayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayApp.swift; sourceTree = "<group>"; };
 		92EE06DB274EB19A002C907B /* StoreAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAppView.swift; sourceTree = "<group>"; };
 		92EE06DD274EC09F002C907B /* Entitlements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entitlements.swift; sourceTree = "<group>"; };
@@ -231,15 +227,12 @@
 		53F4D29926C43A390020167C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				923421F6275F40300030CD7D /* AppContainer.swift */,
-				92EE06D7274EA98B002C907B /* PhysicialApp.swift */,
-				92EE06D1274EA596002C907B /* InstallApp.swift */,
-				92ECD8AD274E787200DB7AC6 /* AppInfo.swift */,
-				AA71964A287A0EA800623C15 /* PlayRules.swift */,
-				9286D295273A7E4200958DD3 /* AppSettings.swift */,
 				92EE06CF274EA433002C907B /* BaseApp.swift */,
 				92EE06D9274EB009002C907B /* PlayApp.swift */,
-				9221730927623DA100C8A3A2 /* StoreApp.swift */,
+				923421F6275F40300030CD7D /* AppContainer.swift */,
+				92ECD8AD274E787200DB7AC6 /* AppInfo.swift */,
+				9286D295273A7E4200958DD3 /* AppSettings.swift */,
+				AA71964A287A0EA800623C15 /* PlayRules.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -286,6 +279,7 @@
 				28361D5D2892781200B35EDB /* RestoreGenshinUserData.swift */,
 				28361D5F28927CAC00B35EDB /* SaveGenshinUserData.swift */,
 				28361D652892800200B35EDB /* DeleteStoredGenshinUserData.swift */,
+				6E66B0BE289DE6240099B907 /* Store.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -588,10 +582,10 @@
 				9256220627491E8200728698 /* patch.m in Sources */,
 				53F3802826EB6F6B00D6B525 /* NotifyService.swift in Sources */,
 				92ECD8AA274E76FD00DB7AC6 /* TempAllocator.swift in Sources */,
-				9221730A27623DA100C8A3A2 /* StoreApp.swift in Sources */,
 				28361D6028927CAC00B35EDB /* SaveGenshinUserData.swift in Sources */,
 				538ED92926F40BAF002D73E8 /* Style.swift in Sources */,
 				53F4D29E26C43C040020167C /* UserIntentFlow.swift in Sources */,
+				6E66B0BF289DE6240099B907 /* Store.swift in Sources */,
 				AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */,
 				53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */,
 				92EE06D0274EA433002C907B /* BaseApp.swift in Sources */,
@@ -608,9 +602,7 @@
 				92279BBF27610433009F28BF /* AppSettingsView.swift in Sources */,
 				28361D6428927E3300B35EDB /* StoreGenshinAccountView.swift in Sources */,
 				9256220327491E4700728698 /* operations.m in Sources */,
-				92EE06D8274EA98B002C907B /* PhysicialApp.swift in Sources */,
 				28361D662892800200B35EDB /* DeleteStoredGenshinUserData.swift in Sources */,
-				92EE06D2274EA596002C907B /* InstallApp.swift in Sources */,
 				28361D68289280A300B35EDB /* DeleteGenshinStoredAccountView.swift in Sources */,
 				53D9DAF326C1849D0071959E /* PlayCoverError.swift in Sources */,
 				9286D296273A7E4200958DD3 /* AppSettings.swift in Sources */,
