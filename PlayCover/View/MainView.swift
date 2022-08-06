@@ -109,7 +109,6 @@ struct MainView: View {
                                     }
                                 }
                             }
-                            // TODO: Fix notices
                             Text(Store.getNotice())
                                 .font(.body)
                                 .frame(minHeight: 0, maxHeight: noticesExpanded ? nil : 0, alignment: .top)
