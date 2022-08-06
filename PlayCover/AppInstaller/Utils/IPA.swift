@@ -37,12 +37,12 @@ public class IPA {
         self.tempDir = nil
     }
 
-    public func unzip() throws -> InstallApp {
+    public func unzip() throws -> BaseApp {
         let workDir = try allocateTempDir()
 
         switch unzip_to_destination(url.path, workDir.path) {
         case .success:
-            return try InstallApp.fromIPA(detectingAppNameInFolder: workDir.appendingPathComponent("Payload"))
+            return try Installer.fromIPA(detectingAppNameInFolder: workDir.appendingPathComponent("Payload"))
         default: throw PlayCoverError.appCorrupted
         }
     }

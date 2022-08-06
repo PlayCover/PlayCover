@@ -14,10 +14,6 @@ struct PlayAppView: View {
     @State var showImportSuccess: Bool = false
     @State var showImportFail: Bool = false
 
-    init(app: PlayApp) {
-        _app = State(initialValue: app)
-    }
-
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             if let img = app.icon {

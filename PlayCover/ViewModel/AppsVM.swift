@@ -16,12 +16,12 @@ class AppsVM: ObservableObject {
         TempAllocator.clearTemp()
     }
 
-    @Published var apps: [BaseApp] = []
+    @Published var apps: [PlayApp] = []
     @Published var updatingApps: Bool = false
 
     func fetchApps() {
-        DispatchQueue.global(qos: .background).async {
-            var result: [BaseApp] = []
+        DispatchQueue.global(qos: .userInteractive).async {
+            var result: [PlayApp] = []
             do {
 
                 let containers = try AppContainer.containers()
@@ -52,6 +52,8 @@ class AppsVM: ObservableObject {
                 if !uif.searchText.isEmpty {
                     result = result.filter({ $0.searchText.contains(uif.searchText.lowercased()) })
                 }
+
+                _ = Store.storeApps
 
                 self.apps.append(contentsOf: result)
             }
