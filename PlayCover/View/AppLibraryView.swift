@@ -22,12 +22,6 @@ struct AppLibraryView: View {
                             ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
                                 PlayAppView(app: app)
                             }
-                            ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
-                                PlayAppView(app: app)
-                            }
-                            ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
-                                PlayAppView(app: app)
-                            }
                         }
                         .padding()
                         .animation(.spring(blendDuration: 0.1), value: geom.size.width)
@@ -67,6 +61,12 @@ struct AppLibraryView: View {
             }
         }
         .searchable(text: $searchString, placement: .toolbar)
+        .onChange(of: searchString, perform: { value in
+            if !value.isEmpty {
+                uif.searchText = value
+                appsVM.fetchApps()
+            }
+        })
     }
 
     private func installApp() {

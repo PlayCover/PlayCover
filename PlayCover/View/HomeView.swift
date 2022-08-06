@@ -14,7 +14,7 @@ struct HomeView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading) {
+            /*VStack(alignment: .leading) {
                 LargeAppView(app: appsVM.apps[0])
                 Spacer()
                     .frame(height: 20)
@@ -55,7 +55,7 @@ struct HomeView: View {
                     }
                 }
             }
-            .padding(.all)
+            .padding(.all)*/
         }
         .navigationTitle("Home")
     }
