@@ -13,11 +13,15 @@ struct MainView: View {
 
     @Binding public var xcodeCliInstalled: Bool
 
-    @State private var selectedView: Int? = 0
+    @State private var selectedView: Int? = -1
 
     var body: some View {
         NavigationView {
             List {
+                NavigationLink(destination: HomeView(), tag: 0, selection: self.$selectedView) {
+                    Label("Home", systemImage: "house")
+                }
+                Divider()
                 NavigationLink(destination: AppLibraryView(), tag: 1, selection: self.$selectedView) {
                     Label("App Library", systemImage: "square.grid.2x2")
                 }
@@ -26,7 +30,7 @@ struct MainView: View {
         }
         .navigationViewStyle(.columns)
         .onAppear {
-            self.selectedView = 1
+            self.selectedView = 0
         }
         .toolbar {
             ToolbarItem(placement: .navigation) {
@@ -35,6 +39,7 @@ struct MainView: View {
                 })
             }
         }
+        .frame(minWidth: 650, minHeight: 400)
     }
 
     private func toggleSidebar() {

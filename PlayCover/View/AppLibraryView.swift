@@ -9,7 +9,7 @@ struct AppLibraryView: View {
     @EnvironmentObject var appsVM: AppsVM
     @EnvironmentObject var installVM: InstallVM
 
-    @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150), spacing: 0)]
+    @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150))]
     @State private var searchString = ""
     @State private var gridViewLayout = 0
 
@@ -18,12 +18,18 @@ struct AppLibraryView: View {
             GeometryReader { geom in
                 if gridViewLayout == 0 {
                     ScrollView {
-                        LazyVGrid(columns: gridLayout, alignment: .center, spacing: 10) {
+                        LazyVGrid(columns: gridLayout, alignment: .center) {
+                            ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
+                                PlayAppView(app: app)
+                            }
+                            ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
+                                PlayAppView(app: app)
+                            }
                             ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
                                 PlayAppView(app: app)
                             }
                         }
-                        .padding(.all, 5)
+                        .padding()
                         .animation(.spring(blendDuration: 0.1), value: geom.size.width)
                     }
                 } else {
@@ -31,11 +37,10 @@ struct AppLibraryView: View {
                         ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
                             PlayAppListView(app: app)
                         }
+                        .padding(.vertical, 2)
                     }
-                    .listStyle(.bordered(alternatesRowBackgrounds: true))
-                    .padding(.all, 5)
+                    .listStyle(.inset(alternatesRowBackgrounds: true))
                     .animation(.spring(blendDuration: 0.1), value: geom.size.height)
-                    //.frame(height: 100)
                 }
             }
         }

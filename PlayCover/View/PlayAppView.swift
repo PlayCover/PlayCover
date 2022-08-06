@@ -25,40 +25,43 @@ struct PlayAppView: View {
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 14)
             }
-        }.background(isHover ? .gray : .clear)
-            .cornerRadius(16.0)
-            .frame(width: 150, height: 150)
-            .onTapGesture {
-                isHover = false
-                shell.removeTwitterSessionCookie()
-                if app.settings.enableWindowAutoSize {
-                    app.settings.gameWindowSizeWidth = Float(NSScreen.main?.visibleFrame.width ?? 1920)
-                    app.settings.gameWindowSizeHeight = Float(NSScreen.main?.visibleFrame.height ?? 1080)
-                }
-                app.launch()
+        }
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(isHover ? Color.secondary : Color.clear, lineWidth: 1)
+        )
+        .frame(width: 150, height: 150)
+        .onTapGesture {
+            isHover = false
+            shell.removeTwitterSessionCookie()
+            if app.settings.enableWindowAutoSize {
+                app.settings.gameWindowSizeWidth = Float(NSScreen.main?.visibleFrame.width ?? 1920)
+                app.settings.gameWindowSizeHeight = Float(NSScreen.main?.visibleFrame.height ?? 1080)
             }
-            .contextMenu {
-                PlayAppContextMenuView(app: $app, showSettings: $showSettings,
-                                       showClearCacheAlert: $showClearCacheAlert,
-                                       showImportSuccess: $showImportSuccess,
-                                       showImportFail: $showImportFail)
+            app.launch()
+        }
+        .contextMenu {
+            PlayAppContextMenuView(app: $app, showSettings: $showSettings,
+                                    showClearCacheAlert: $showClearCacheAlert,
+                                    showImportSuccess: $showImportSuccess,
+                                    showImportFail: $showImportFail)
+        }
+        .onHover(perform: { hovering in
+            isHover = hovering
+        }).alert("alert.app.delete", isPresented: $showClearCacheAlert) {
+            Button("button.Proceed", role: .cancel) {
+                app.container?.clear()
             }
-            .onHover(perform: { hovering in
-                isHover = hovering
-            }).alert("alert.app.delete", isPresented: $showClearCacheAlert) {
-                Button("button.Proceed", role: .cancel) {
-                    app.container?.clear()
-                }
-                Button("button.Cancel", role: .cancel) {}
-            }
-            // TODO: Toast
-            /*.toast(isPresenting: $showClearCacheToast) {
-                AlertToast(type: .regular, title: "alert.appCacheCleared")
-            }.toast(isPresenting: $showImportSuccess) {
-                AlertToast(type: .regular, title: "alert.kmImported")
-            }.toast(isPresenting: $showImportFail) {
-                AlertToast(type: .regular, title: "alert.errorImportKm")
-            }*/
+            Button("button.Cancel", role: .cancel) {}
+        }
+        // TODO: Toast
+        /*.toast(isPresenting: $showClearCacheToast) {
+            AlertToast(type: .regular, title: "alert.appCacheCleared")
+        }.toast(isPresenting: $showImportSuccess) {
+            AlertToast(type: .regular, title: "alert.kmImported")
+        }.toast(isPresenting: $showImportFail) {
+            AlertToast(type: .regular, title: "alert.errorImportKm")
+        }*/
     }
 }
 
@@ -70,46 +73,47 @@ struct PlayAppListView: View {
     @State var showImportSuccess: Bool = false
     @State var showImportFail: Bool = false
 
-    init(app: PlayApp) {
-        _app = State(initialValue: app)
-    }
-
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
             if let img = app.icon {
                 Image(nsImage: img).resizable()
-                    .frame(width: 40, height: 40).cornerRadius(10).shadow(radius: 1)
+                    .frame(width: 40, height: 40)
+                    .cornerRadius(10)
+                    .shadow(radius: 1)
                 Spacer()
                     .frame(width: 20)
                 Text(app.name)
                 Spacer()
             }
-        }.background(isHover ? .gray : .clear)
-            .cornerRadius(16)
-            .frame(maxWidth: .infinity)
-            .onTapGesture {
-                isHover = false
-                shell.removeTwitterSessionCookie()
-                if app.settings.enableWindowAutoSize {
-                    app.settings.gameWindowSizeWidth = Float(NSScreen.main?.visibleFrame.width ?? 1920)
-                    app.settings.gameWindowSizeHeight = Float(NSScreen.main?.visibleFrame.height ?? 1080)
-                }
-                app.launch()
+        }
+        .frame(maxWidth: .infinity)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke((isHover ? Color.secondary : Color.clear), lineWidth: 1)
+        )
+        .onTapGesture {
+            isHover = false
+            shell.removeTwitterSessionCookie()
+            if app.settings.enableWindowAutoSize {
+                app.settings.gameWindowSizeWidth = Float(NSScreen.main?.visibleFrame.width ?? 1920)
+                app.settings.gameWindowSizeHeight = Float(NSScreen.main?.visibleFrame.height ?? 1080)
             }
-            .contextMenu {
-                PlayAppContextMenuView(app: $app, showSettings: $showSettings,
-                                       showClearCacheAlert: $showClearCacheAlert,
-                                       showImportSuccess: $showImportSuccess,
-                                       showImportFail: $showImportFail)
+            app.launch()
+        }
+        .contextMenu {
+            PlayAppContextMenuView(app: $app, showSettings: $showSettings,
+                                    showClearCacheAlert: $showClearCacheAlert,
+                                    showImportSuccess: $showImportSuccess,
+                                    showImportFail: $showImportFail)
+        }
+        .onHover(perform: { hovering in
+            isHover = hovering
+        }).alert("alert.app.delete", isPresented: $showClearCacheAlert) {
+            Button("button.Proceed", role: .cancel) {
+                app.container?.clear()
             }
-            .onHover(perform: { hovering in
-                isHover = hovering
-            }).alert("alert.app.delete", isPresented: $showClearCacheAlert) {
-                Button("button.Proceed", role: .cancel) {
-                    app.container?.clear()
-                }
-                Button("button.Cancel", role: .cancel) {}
-            }
+            Button("button.Cancel", role: .cancel) {}
+        }
     }
 }
 
