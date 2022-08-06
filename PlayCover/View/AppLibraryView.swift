@@ -16,8 +16,8 @@ struct AppLibraryView: View {
     var body: some View {
         VStack(alignment: .leading) {
             GeometryReader { geom in
-                ScrollView {
-                    if gridViewLayout == 0 {
+                if gridViewLayout == 0 {
+                    ScrollView {
                         LazyVGrid(columns: gridLayout, alignment: .center, spacing: 10) {
                             ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
                                 PlayAppView(app: app)
@@ -25,17 +25,19 @@ struct AppLibraryView: View {
                         }
                         .padding(.all, 5)
                         .animation(.spring(blendDuration: 0.1), value: geom.size.width)
-                    } else {
-                        VStack {
-                            ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
-                                PlayAppListView(app: app)
-                            }
-                        }
-                        .padding(.all, 5)
-                        .animation(.spring(blendDuration: 0.1), value: geom.size.width)
                     }
+                } else {
+                    List {
+                        ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
+                            PlayAppListView(app: app)
+                        }
+                    }
+                    .listStyle(.bordered(alternatesRowBackgrounds: true))
+                    .padding(.all, 5)
+                    .animation(.spring(blendDuration: 0.1), value: geom.size.height)
+                    //.frame(height: 100)
                 }
-			}
+            }
         }
         .navigationTitle("App Library")
         .toolbar {
@@ -81,5 +83,13 @@ struct AppLibraryView: View {
                 installApp()
             }
         }
+    }
+}
+
+struct AppLibraryView_Previews: PreviewProvider {
+    static var previews: some View {
+        AppLibraryView()
+            .environmentObject(AppsVM.shared)
+            .environmentObject(InstallVM.shared)
     }
 }

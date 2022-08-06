@@ -78,12 +78,11 @@ struct PlayAppListView: View {
         HStack(alignment: .center, spacing: 0) {
             if let img = app.icon {
                 Image(nsImage: img).resizable()
-                    .frame(width: 40, height: 40).cornerRadius(10).shadow(radius: 1).padding()
+                    .frame(width: 40, height: 40).cornerRadius(10).shadow(radius: 1)
+                Spacer()
+                    .frame(width: 20)
                 Text(app.name)
-                    .frame(maxWidth: .infinity)
-                    .lineLimit(1)
-                    .multilineTextAlignment(.leading)
-                    .padding()
+                Spacer()
             }
         }.background(isHover ? .gray : .clear)
             .cornerRadius(16)
