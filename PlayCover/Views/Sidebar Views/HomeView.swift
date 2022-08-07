@@ -14,7 +14,7 @@ struct HomeView: View {
 
     var body: some View {
         ScrollView {
-            /*VStack(alignment: .leading) {
+            VStack(alignment: .leading) {
                 LargeAppView(app: appsVM.apps[0])
                 Spacer()
                     .frame(height: 20)
@@ -55,7 +55,7 @@ struct HomeView: View {
                     }
                 }
             }
-            .padding(.all)*/
+            .padding(.all)
         }
         .navigationTitle("Home")
     }
@@ -114,7 +114,7 @@ struct HalfAppBannerView: View {
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-                Text(app.info.bundleName)
+                Text(app.info.bundleVersion)
                     .foregroundColor(.white)
                 Spacer()
                     .frame(height: 10)
@@ -159,7 +159,7 @@ struct SmallAppBannerView: View {
             }
             VStack(alignment: .leading) {
                 Text(app.name)
-                Text(app.info.bundleName)
+                Text(app.info.bundleVersion)
                     .foregroundColor(.gray)
             }
             Spacer()

@@ -8,15 +8,17 @@
 import SwiftUI
 
 struct IPALibraryView: View {
+    @EnvironmentObject var storeVM: StoreVM
+
     @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150))]
     @State private var searchString = ""
 
     var body: some View {
         VStack(alignment: .leading) {
             GeometryReader { geom in
-                ScrollView  {
+                ScrollView {
                     LazyVGrid(columns: gridLayout, alignment: .center) {
-                        ForEach(Store.storeApps, id: \.id) { app in
+                        ForEach(storeVM.apps, id: \.id) { app in
                             StoreAppGridView(app: app)
                         }
                     }
@@ -29,7 +31,7 @@ struct IPALibraryView: View {
         .searchable(text: $searchString, placement: .toolbar)
         .onChange(of: searchString, perform: { value in
             uif.searchText = value
-            AppsVM.shared.fetchApps()
+            storeVM.fetchApps()
         })
     }
 }
@@ -37,5 +39,6 @@ struct IPALibraryView: View {
 struct IPALibraryView_Previews: PreviewProvider {
     static var previews: some View {
         IPALibraryView()
+            .environmentObject(StoreVM.shared)
     }
 }

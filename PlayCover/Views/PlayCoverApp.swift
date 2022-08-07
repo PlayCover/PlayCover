@@ -47,6 +47,7 @@ struct PlayCoverApp: App {
             MainView(xcodeCliInstalled: $xcodeCliInstalled)
                 .environmentObject(InstallVM.shared)
                 .environmentObject(AppsVM.shared)
+                .environmentObject(StoreVM.shared)
                 .environmentObject(AppIntegrity())
                 .onAppear {
                     NSWindow.allowsAutomaticWindowTabbing = false

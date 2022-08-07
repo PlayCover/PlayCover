@@ -9,6 +9,7 @@ struct MainView: View {
     @Environment(\.openURL) var openURL
     @EnvironmentObject var install: InstallVM
     @EnvironmentObject var apps: AppsVM
+    @EnvironmentObject var store: StoreVM
     @EnvironmentObject var integrity: AppIntegrity
 
     @Binding public var xcodeCliInstalled: Bool
@@ -33,7 +34,7 @@ struct MainView: View {
         }
         .navigationViewStyle(.columns)
         .onAppear {
-            self.selectedView = 0
+            self.selectedView = 1
         }
         .toolbar {
             ToolbarItem(placement: .navigation) {
@@ -57,6 +58,7 @@ struct MainView_Previews: PreviewProvider {
         MainView(xcodeCliInstalled: $xcodeCliInstalled)
             .environmentObject(InstallVM.shared)
             .environmentObject(AppsVM.shared)
+            .environmentObject(StoreVM.shared)
             .environmentObject(AppIntegrity())
     }
 }

@@ -171,6 +171,10 @@ public class AppInfo {
         self[string: "CFBundleExecutable"]!
     }
 
+    var bundleVersion: String {
+        self[string: "CFBundleShortVersionString"]!
+    }
+
     func assert(minimumVersion: Double) {
         if Double(minimumOSVersion)! > 11.0 {
             minimumOSVersion = Int(minimumVersion).description

@@ -10,7 +10,7 @@ import SwiftUI
 struct StoreAppGridView: View {
     @State var app: StoreAppData
     @State var isHover: Bool = false
-    
+
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             AsyncImage(

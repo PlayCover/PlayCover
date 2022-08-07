@@ -38,10 +38,6 @@ struct PlayCoverHelpMenuView: Commands {
             Button("menubar.discord") {
                 NSWorkspace.shared.open(URL(string: "https://discord.gg/PlayCover")!)
             }
-            Divider()
-            Button("menubar.downloadMoreApps") {
-                NSWorkspace.shared.open(URL(string: "https://ipa.playcover.workers.dev/0:/")!)
-            }
             #if DEBUG
             Divider()
             Button("debug.crash") {

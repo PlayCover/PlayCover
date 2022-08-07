@@ -7,26 +7,41 @@
 
 import Foundation
 
-class Store {
-    static var storeApps: [StoreAppData] {
-        var apps = [StoreAppData]()
+class StoreVM: ObservableObject {
 
-        do {
-            let jsonData = getStoreJson().data(using: .utf8)!
-            let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self, from: jsonData)
-            for elem in data {
-                apps.append(elem)
+    static let shared = StoreVM()
+
+    private init() {
+        fetchApps()
+    }
+
+    @Published var apps: [StoreAppData] = []
+
+    func fetchApps() {
+        DispatchQueue.global(qos: .userInteractive).async {
+            var result: [StoreAppData] = []
+            do {
+                let jsonData = StoreVM.getStoreJson().data(using: .utf8)!
+                let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self, from: jsonData)
+                for elem in data {
+                    result.append(elem)
+                }
+            } catch {
+                Log.shared.error(error)
+                Log.shared.msg("Unable to retrieve store!")
+                Log.shared.log("Unable to retrieve store!", isError: true)
             }
-            if !uif.searchText.isEmpty {
-                apps = apps.filter({$0.name.lowercased().contains(uif.searchText.lowercased())})
+
+            DispatchQueue.main.async {
+                self.apps.removeAll()
+
+                if !uif.searchText.isEmpty {
+                    result = result.filter({$0.name.lowercased().contains(uif.searchText.lowercased())})
+                }
+
+                self.apps.append(contentsOf: result)
             }
-        } catch {
-            Log.shared.error(error)
-            Log.shared.msg("Unable to retrieve store!")
-            Log.shared.log("Unable to retrieve store!", isError: true)
         }
-
-        return apps
     }
 
     static func checkAvaliability(url: URL) -> Bool {
