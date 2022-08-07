@@ -20,7 +20,7 @@ struct AppLibraryView: View {
                     ScrollView {
                         LazyVGrid(columns: gridLayout, alignment: .center) {
                             ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
-                                PlayAppView(app: app)
+                                PlayAppGridView(app: app)
                             }
                         }
                         .padding()
@@ -62,10 +62,8 @@ struct AppLibraryView: View {
         }
         .searchable(text: $searchString, placement: .toolbar)
         .onChange(of: searchString, perform: { value in
-            if !value.isEmpty {
-                uif.searchText = value
-                appsVM.fetchApps()
-            }
+            uif.searchText = value
+            appsVM.fetchApps()
         })
     }
 
