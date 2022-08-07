@@ -48,7 +48,8 @@ class Downloader: NSObject, URLSessionDownloadDelegate {
                     totalBytesWritten: Int64,
                     totalBytesExpectedToWrite: Int64) {
         DispatchQueue.main.async {
-            self.delegate?.updateDownloadProgressWith(progress: Float(totalBytesWritten)/Float(totalBytesExpectedToWrite))
+            self.delegate?.updateDownloadProgressWith(
+                progress: Float(totalBytesWritten)/Float(totalBytesExpectedToWrite))
         }
     }
 

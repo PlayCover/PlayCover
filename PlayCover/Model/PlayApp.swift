@@ -86,7 +86,7 @@ class PlayApp: BaseApp {
             return info.displayName
         }
     }
-    
+
     lazy var settings: AppSettings = {
         AppSettings(info, container: container)
     }()
