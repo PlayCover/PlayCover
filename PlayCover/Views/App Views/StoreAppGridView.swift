@@ -32,7 +32,7 @@ struct StoreAppGridView: View {
             .padding(.bottom, -8)
             .padding(.top)
             HStack {
-                Image(systemName: "arrow.down.circle.fill")
+                Image(systemName: "arrow.down.circle")
                     .opacity(1.0)
                     .font(.system(size: 16))
                 Text(app.name)
