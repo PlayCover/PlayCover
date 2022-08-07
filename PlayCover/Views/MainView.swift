@@ -25,6 +25,9 @@ struct MainView: View {
                 NavigationLink(destination: AppLibraryView(), tag: 1, selection: self.$selectedView) {
                     Label("App Library", systemImage: "square.grid.2x2")
                 }
+                NavigationLink(destination: IPALibraryView(), tag: 2, selection: self.$selectedView) {
+                    Label("IPA Library", systemImage: "arrow.down.circle")
+                }
             }
             .listStyle(.sidebar)
         }

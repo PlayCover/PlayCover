@@ -30,6 +30,7 @@
 		6E66B0CC289F554B0099B907 /* PlayAppListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E66B0CB289F554B0099B907 /* PlayAppListView.swift */; };
 		6E66B0CE289F557E0099B907 /* PlayAppContextMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E66B0CD289F557E0099B907 /* PlayAppContextMenuView.swift */; };
 		6E66B0D1289F57B00099B907 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 6E66B0D0289F57B00099B907 /* Documentation.docc */; };
+		6E66B0D3289F5A010099B907 /* StoreAppGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E66B0D2289F5A010099B907 /* StoreAppGridView.swift */; };
 		8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */; };
 		8783CFFF26B8C52E00171041 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783CFFE26B8C52E00171041 /* Assets.xcassets */; };
 		8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783D00126B8C52E00171041 /* Preview Assets.xcassets */; };
@@ -98,6 +99,7 @@
 		6E66B0CB289F554B0099B907 /* PlayAppListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAppListView.swift; sourceTree = "<group>"; };
 		6E66B0CD289F557E0099B907 /* PlayAppContextMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAppContextMenuView.swift; sourceTree = "<group>"; };
 		6E66B0D0289F57B00099B907 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
+		6E66B0D2289F5A010099B907 /* StoreAppGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAppGridView.swift; sourceTree = "<group>"; };
 		8783CFF726B8C52D00171041 /* PlayCover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayCover.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverApp.swift; sourceTree = "<group>"; };
 		8783CFFE26B8C52E00171041 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 				92EE06D3274EA604002C907B /* PlayAppGridView.swift */,
 				6E66B0CB289F554B0099B907 /* PlayAppListView.swift */,
 				6E66B0CD289F557E0099B907 /* PlayAppContextMenuView.swift */,
+				6E66B0D2289F5A010099B907 /* StoreAppGridView.swift */,
 			);
 			path = "App Views";
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E66B0D3289F5A010099B907 /* StoreAppGridView.swift in Sources */,
 				92ECD8A3274E75CD00DB7AC6 /* Installer.swift in Sources */,
 				92EE06DE274EC09F002C907B /* Entitlements.swift in Sources */,
 				92ECD8A5274E763700DB7AC6 /* IPA.swift in Sources */,
