@@ -45,9 +45,9 @@ struct PlayAppContextMenuView: View {
         Button(action: {
             app.settings.importOf { result in
                 if result != nil {
-                    showImportSuccess = true
+                    showImportSuccess.toggle()
                 } else {
-                    showImportFail = true
+                    showImportFail.toggle()
                 }
             }
         }, label: {

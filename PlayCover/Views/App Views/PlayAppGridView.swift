@@ -9,6 +9,7 @@ struct PlayAppGridView: View {
     @State var app: PlayApp
     @State private var showSettings = false
     @State private var showClearCacheAlert = false
+    @State private var showClearCacheToast = false
     @State var isHover: Bool = false
     @State var showImportSuccess: Bool = false
     @State var showImportFail: Bool = false
@@ -41,25 +42,31 @@ struct PlayAppGridView: View {
         }
         .contextMenu {
             PlayAppContextMenuView(app: $app, showSettings: $showSettings,
-                                    showClearCacheAlert: $showClearCacheAlert,
-                                    showImportSuccess: $showImportSuccess,
-                                    showImportFail: $showImportFail)
+                showClearCacheAlert: $showClearCacheAlert,
+                showImportSuccess: $showImportSuccess,
+                showImportFail: $showImportFail)
         }
         .onHover(perform: { hovering in
             isHover = hovering
-        }).alert("alert.app.delete", isPresented: $showClearCacheAlert) {
+        })
+        .alert("alert.app.delete", isPresented: $showClearCacheAlert) {
             Button("button.Proceed", role: .cancel) {
                 app.container?.clear()
+                showClearCacheToast.toggle()
             }
             Button("button.Cancel", role: .cancel) {}
         }
-        // TODO: Toast
-        /*.toast(isPresenting: $showClearCacheToast) {
-            AlertToast(type: .regular, title: "alert.appCacheCleared")
-        }.toast(isPresenting: $showImportSuccess) {
-            AlertToast(type: .regular, title: "alert.kmImported")
-        }.toast(isPresenting: $showImportFail) {
-            AlertToast(type: .regular, title: "alert.errorImportKm")
-        }*/
+        .onChange(of: showClearCacheToast) { _ in
+            ToastVM.shared.showToast(toastType: .notice,
+                toastDetails: NSLocalizedString("alert.appCacheCleared", comment: ""))
+        }
+        .onChange(of: showImportSuccess) { _ in
+            ToastVM.shared.showToast(toastType: .notice,
+                toastDetails: NSLocalizedString("alert.kmImported", comment: ""))
+        }
+        .onChange(of: showImportFail) { _ in
+            ToastVM.shared.showToast(toastType: .error,
+                toastDetails: NSLocalizedString("alert.errorImportKm", comment: ""))
+        }
     }
 }

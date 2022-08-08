@@ -13,54 +13,51 @@ struct HomeView: View {
     // swiftlint: disable line_length
 
     var body: some View {
-        ZStack {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    LargeAppView(app: appsVM.apps[0])
+        ScrollView {
+            VStack(alignment: .leading) {
+                LargeAppView(app: appsVM.apps[0])
+                Spacer()
+                    .frame(height: 20)
+                HStack {
+                    HalfAppBannerView(app: appsVM.apps[0], gradient: LinearGradient(colors: [Color(hue: 50/360, saturation: 1, brightness: 0.8), Color(hue: 10/360, saturation: 1, brightness: 0.8)], startPoint: UnitPoint.topLeading, endPoint: UnitPoint.bottomTrailing))
                     Spacer()
-                        .frame(height: 20)
-                    HStack {
-                        HalfAppBannerView(app: appsVM.apps[0], gradient: LinearGradient(colors: [Color(hue: 50/360, saturation: 1, brightness: 0.8), Color(hue: 10/360, saturation: 1, brightness: 0.8)], startPoint: UnitPoint.topLeading, endPoint: UnitPoint.bottomTrailing))
-                        Spacer()
-                            .frame(width: 20)
-                        HalfAppBannerView(app: appsVM.apps[1], gradient: LinearGradient(colors: [Color(hue: 270/360, saturation: 1, brightness: 0.8), Color(hue: 290/360, saturation: 1, brightness: 0.8)], startPoint: UnitPoint.topLeading, endPoint: UnitPoint.bottomTrailing))
+                        .frame(width: 20)
+                    HalfAppBannerView(app: appsVM.apps[1], gradient: LinearGradient(colors: [Color(hue: 270/360, saturation: 1, brightness: 0.8), Color(hue: 290/360, saturation: 1, brightness: 0.8)], startPoint: UnitPoint.topLeading, endPoint: UnitPoint.bottomTrailing))
+                }
+                Divider()
+                    .padding(.vertical)
+                HStack {
+                    Text("Recently Opened Apps")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                    Spacer()
+                    Text("See All")
+                        .foregroundColor(.cyan)
+                }
+                HStack {
+                    VStack {
+                        SmallAppBannerView(app: appsVM.apps[0])
+                        SmallAppBannerView(app: appsVM.apps[0])
+                        SmallAppBannerView(app: appsVM.apps[0])
+                        SmallAppBannerView(app: appsVM.apps[0])
+                        SmallAppBannerView(app: appsVM.apps[0])
+                        SmallAppBannerView(app: appsVM.apps[0])
                     }
-                    Divider()
-                        .padding(.vertical)
-                    HStack {
-                        Text("Recently Opened Apps")
-                            .font(.title2)
-                            .fontWeight(.semibold)
-                        Spacer()
-                        Text("See All")
-                            .foregroundColor(.cyan)
-                    }
-                    HStack {
-                        VStack {
-                            SmallAppBannerView(app: appsVM.apps[0])
-                            SmallAppBannerView(app: appsVM.apps[0])
-                            SmallAppBannerView(app: appsVM.apps[0])
-                            SmallAppBannerView(app: appsVM.apps[0])
-                            SmallAppBannerView(app: appsVM.apps[0])
-                            SmallAppBannerView(app: appsVM.apps[0])
-                        }
-                        Spacer()
-                            .frame(width: 40)
-                        VStack {
-                            SmallAppBannerView(app: appsVM.apps[1])
-                            SmallAppBannerView(app: appsVM.apps[1])
-                            SmallAppBannerView(app: appsVM.apps[1])
-                            SmallAppBannerView(app: appsVM.apps[1])
-                            SmallAppBannerView(app: appsVM.apps[1])
-                            SmallAppBannerView(app: appsVM.apps[1])
-                        }
+                    Spacer()
+                        .frame(width: 40)
+                    VStack {
+                        SmallAppBannerView(app: appsVM.apps[1])
+                        SmallAppBannerView(app: appsVM.apps[1])
+                        SmallAppBannerView(app: appsVM.apps[1])
+                        SmallAppBannerView(app: appsVM.apps[1])
+                        SmallAppBannerView(app: appsVM.apps[1])
+                        SmallAppBannerView(app: appsVM.apps[1])
                     }
                 }
-                .padding(.all)
             }
-            .navigationTitle("Home")
-            ToastView()
+            .padding(.all)
         }
+        .navigationTitle("Home")
     }
 }
 
@@ -182,6 +179,5 @@ struct SmallAppBannerView: View {
 struct HomeView_Preview: PreviewProvider {
     static var previews: some View {
         HomeView()
-            .environmentObject(AppsVM.shared)
     }
 }
