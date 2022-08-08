@@ -21,38 +21,38 @@ struct MainView: View {
 
     var body: some View {
         GeometryReader { viewGeom in
-            ZStack {
-                NavigationView {
-                    GeometryReader { sidebarGeom in
-                        List {
-                            NavigationLink(destination: HomeView(), tag: 0, selection: self.$selectedView) {
-                                Label("Home", systemImage: "house")
-                            }
-                            Divider()
-                            NavigationLink(destination: AppLibraryView(), tag: 1, selection: self.$selectedView) {
-                                Label("App Library", systemImage: "square.grid.2x2")
-                            }
-                            NavigationLink(destination: IPALibraryView(), tag: 2, selection: self.$selectedView) {
-                                Label("IPA Library", systemImage: "arrow.down.circle")
-                            }
+            NavigationView {
+                GeometryReader { sidebarGeom in
+                    List {
+                        NavigationLink(destination: HomeView(), tag: 0, selection: self.$selectedView) {
+                            Label("Home", systemImage: "house")
                         }
-                        .listStyle(.sidebar)
-                        .onChange(of: sidebarGeom.size) { newSize in
-                            navWidth = newSize.width
+                        Divider()
+                        NavigationLink(destination: AppLibraryView(), tag: 1, selection: self.$selectedView) {
+                            Label("App Library", systemImage: "square.grid.2x2")
+                        }
+                        NavigationLink(destination: IPALibraryView(), tag: 2, selection: self.$selectedView) {
+                            Label("IPA Library", systemImage: "arrow.down.circle")
                         }
                     }
-                }
-                .navigationViewStyle(.columns)
-                .onAppear {
-                    self.selectedView = 1
-                }
-                .toolbar {
-                    ToolbarItem(placement: .navigation) {
-                        Button(action: toggleSidebar, label: {
-                            Image(systemName: "sidebar.leading")
-                        })
+                    .listStyle(.sidebar)
+                    .onChange(of: sidebarGeom.size) { newSize in
+                        navWidth = newSize.width
                     }
                 }
+            }
+            .navigationViewStyle(.columns)
+            .onAppear {
+                self.selectedView = 1
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigation) {
+                    Button(action: toggleSidebar, label: {
+                        Image(systemName: "sidebar.leading")
+                    })
+                }
+            }
+            .overlay {
                 HStack {
                     if sidebarVisible {
                         Spacer()
