@@ -10,8 +10,6 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var appsVM: AppsVM
 
-    // swiftlint: disable line_length
-
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -19,10 +17,24 @@ struct HomeView: View {
                 Spacer()
                     .frame(height: 20)
                 HStack {
-                    HalfAppBannerView(app: appsVM.apps[0], gradient: LinearGradient(colors: [Color(hue: 50/360, saturation: 1, brightness: 0.8), Color(hue: 10/360, saturation: 1, brightness: 0.8)], startPoint: UnitPoint.topLeading, endPoint: UnitPoint.bottomTrailing))
+                    HalfAppBannerView(app: appsVM.apps[0], gradient: LinearGradient(colors: [Color(hue: 50/360,
+                            saturation: 1,
+                            brightness: 0.8),
+                            Color(hue: 10/360,
+                            saturation: 1,
+                            brightness: 0.8)],
+                            startPoint: UnitPoint.topLeading,
+                            endPoint: UnitPoint.bottomTrailing))
                     Spacer()
                         .frame(width: 20)
-                    HalfAppBannerView(app: appsVM.apps[1], gradient: LinearGradient(colors: [Color(hue: 270/360, saturation: 1, brightness: 0.8), Color(hue: 290/360, saturation: 1, brightness: 0.8)], startPoint: UnitPoint.topLeading, endPoint: UnitPoint.bottomTrailing))
+                    HalfAppBannerView(app: appsVM.apps[1], gradient: LinearGradient(colors: [Color(hue: 270/360,
+                            saturation: 1,
+                            brightness: 0.8),
+                            Color(hue: 290/360,
+                            saturation: 1,
+                            brightness: 0.8)],
+                            startPoint: UnitPoint.topLeading,
+                            endPoint: UnitPoint.bottomTrailing))
                 }
                 Divider()
                     .padding(.vertical)
@@ -80,7 +92,9 @@ struct LargeAppView: View {
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-                Text("You've played a total of 31.2 hours of \(app.name) this week, beating last week's record of 12.2 hours!")
+                Text("You've played a total of 31.2 hours of" +
+                     app.name +
+                     "this week, beating last week's record of 12.2 hours!")
                     .foregroundColor(.white)
                 Spacer()
                     .frame(height: 20)
@@ -97,7 +111,13 @@ struct LargeAppView: View {
             .padding(.all)
             Spacer()
         }
-        .background(LinearGradient(colors: [Color(hue: 180/360, saturation: 1, brightness: 0.8), Color(hue: 200/360, saturation: 1, brightness: 0.8)], startPoint: UnitPoint.topLeading, endPoint: UnitPoint.bottomTrailing))
+        .background(LinearGradient(colors: [Color(hue: 180/360,
+            saturation: 1,
+            brightness: 0.8), Color(hue: 200/360,
+            saturation: 1,
+            brightness: 0.8)],
+            startPoint: UnitPoint.topLeading,
+            endPoint: UnitPoint.bottomTrailing))
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .shadow(radius: 5)
     }
@@ -179,5 +199,6 @@ struct SmallAppBannerView: View {
 struct HomeView_Preview: PreviewProvider {
     static var previews: some View {
         HomeView()
+            .environmentObject(AppsVM.shared)
     }
 }
