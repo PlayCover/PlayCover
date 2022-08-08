@@ -15,43 +15,64 @@ struct MainView: View {
     @Binding public var xcodeCliInstalled: Bool
 
     @State private var selectedView: Int? = -1
+    @State private var navWidth: CGFloat = 0
+    @State private var viewWidth: CGFloat = 0
+    @State private var sidebarVisible: Bool = true
 
     var body: some View {
-        ZStack {
-            NavigationView {
-                List {
-                    NavigationLink(destination: HomeView(), tag: 0, selection: self.$selectedView) {
-                        Label("Home", systemImage: "house")
-                    }
-                    Divider()
-                    NavigationLink(destination: AppLibraryView(), tag: 1, selection: self.$selectedView) {
-                        Label("App Library", systemImage: "square.grid.2x2")
-                    }
-                    NavigationLink(destination: IPALibraryView(), tag: 2, selection: self.$selectedView) {
-                        Label("IPA Library", systemImage: "arrow.down.circle")
+        GeometryReader { viewGeom in
+            ZStack {
+                NavigationView {
+                    GeometryReader { sidebarGeom in
+                        List {
+                            NavigationLink(destination: HomeView(), tag: 0, selection: self.$selectedView) {
+                                Label("Home", systemImage: "house")
+                            }
+                            Divider()
+                            NavigationLink(destination: AppLibraryView(), tag: 1, selection: self.$selectedView) {
+                                Label("App Library", systemImage: "square.grid.2x2")
+                            }
+                            NavigationLink(destination: IPALibraryView(), tag: 2, selection: self.$selectedView) {
+                                Label("IPA Library", systemImage: "arrow.down.circle")
+                            }
+                        }
+                        .listStyle(.sidebar)
+                        .onChange(of: sidebarGeom.size) { newSize in
+                            navWidth = newSize.width
+                        }
                     }
                 }
-                .listStyle(.sidebar)
-            }
-            .navigationViewStyle(.columns)
-            .onAppear {
-                self.selectedView = 1
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigation) {
-                    Button(action: toggleSidebar, label: {
-                        Image(systemName: "sidebar.leading")
-                    })
+                .navigationViewStyle(.columns)
+                .onAppear {
+                    self.selectedView = 1
+                }
+                .toolbar {
+                    ToolbarItem(placement: .navigation) {
+                        Button(action: toggleSidebar, label: {
+                            Image(systemName: "sidebar.leading")
+                        })
+                    }
+                }
+                HStack {
+                    if sidebarVisible {
+                        Spacer()
+                            .frame(width: navWidth)
+                    }
+                    ToastView()
+                        .environmentObject(ToastVM.shared)
+                        .frame(width: sidebarVisible ? (viewWidth - navWidth) : viewWidth)
+                        .animation(.spring(), value: sidebarVisible)
                 }
             }
-            .frame(minWidth: 650, minHeight: 400)
-            ToastView()
-                .environmentObject(ToastVM.shared)
+            .onChange(of: viewGeom.size) { newSize in
+                viewWidth = newSize.width
+            }
         }
     }
 
     private func toggleSidebar() {
         NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
+        sidebarVisible.toggle()
     }
 }
 

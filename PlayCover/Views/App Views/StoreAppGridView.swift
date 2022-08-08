@@ -22,8 +22,7 @@ struct StoreAppGridView: View {
                         .shadow(radius: 1)
                 },
                 placeholder: {
-                    // TODO: Placeholder
-                    Image(systemName: "plus")
+                    Image(systemName: "doc")
                 }
             )
             .frame(width: 72, height: 72)
