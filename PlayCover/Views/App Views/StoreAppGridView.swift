@@ -48,7 +48,6 @@ struct StoreAppGridView: View {
         .onTapGesture {
             isHover = false
             if let url = URL(string: app.link) {
-                // TODO: Change to download in-app
                 NSWorkspace.shared.open(url)
             }
         }
