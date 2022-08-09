@@ -60,6 +60,7 @@ struct MainView: View {
                     }
                     ToastView()
                         .environmentObject(ToastVM.shared)
+                        .environmentObject(InstallVM.shared)
                         .frame(width: sidebarVisible ? (viewWidth - navWidth) : viewWidth)
                         .animation(.spring(), value: sidebarVisible)
                 }

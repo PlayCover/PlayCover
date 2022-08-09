@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ToastView: View {
     @EnvironmentObject var toastVM: ToastVM
+    @EnvironmentObject var installVM: InstallVM
 
     var body: some View {
         VStack(spacing: -20) {
@@ -34,12 +35,20 @@ struct ToastView: View {
                     }
                 }
             }
+            if installVM.installing {
+                VStack {
+                    Text(installVM.status)
+                    ProgressView(value: installVM.progress)
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(.regularMaterial, in:
+                    RoundedRectangle(cornerRadius: 10))
+                .padding()
+            }
         }
         .animation(.easeInOut(duration: 0.25), value: toastVM.toasts.count)
-    }
-
-    func showProgressView() {
-
+        .animation(.easeInOut(duration: 0.25), value: installVM.installing)
     }
 }
 
@@ -47,5 +56,6 @@ struct ToastView_Preview: PreviewProvider {
     static var previews: some View {
         ToastView()
             .environmentObject(ToastVM.shared)
+            .environmentObject(InstallVM.shared)
     }
 }
