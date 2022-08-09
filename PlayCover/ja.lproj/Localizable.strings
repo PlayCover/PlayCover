@@ -1,139 +1,139 @@
-"playapp.add" = "Add app";
-"playapp.settings" = "App preferences";
-"playapp.showInFinder" = "Show in Finder";
-"playapp.openCache" = "Open app data";
-"playapp.clearCache" = "Clear app data";
-"playapp.importKm" = "Import keymapping";
-"playapp.exportKm" = "Export keymapping";
-"playapp.delete" = "Delete app";
-"playapp.add.help" = "Drag or open an app file to install.";
-"playapp.update" = "Update app";
-"playapp.storeCurrentAccount" = "Store current account";
-"playapp.activateAccount" = "Activate an account";
-"playapp.deleteAccount" = "Delete an account";
+"playapp.add" = "アプリを追加";
+"playapp.settings" = "設定";
+"playapp.showInFinder" = "Finderで表示";
+"playapp.openCache" = "アプリのデータフォルダーを表示";
+"playapp.clearCache" = "アプリのデータを削除";
+"playapp.importKm" = "キーマッピングをインポート";
+"playapp.exportKm" = "キーマッピングをエクスポート";
+"playapp.delete" = "アプリを削除";
+"playapp.add.help" = "アプリのファイルをここに入れてインストールする";
+"playapp.update" = "アプリを更新";
+"playapp.storeCurrentAccount" = "今のアカウントを保存";
+"playapp.activateAccount" = "アカウントを有効にする";
+"playapp.deleteAccount" = "アカウントを削除";
 
-"storeAccount.selectAccRegion" = "Select account region";
-"storeAccount.selectAccRegion.usa" = "America";
-"storeAccount.selectAccRegion.euro" = "Europe";
-"storeAccount.selectAccRegion.tw" = "TW";
-"storeAccount.selectAccRegion.asia" = "Asia";
-"storeAccount.nameOfAcc" = "Name of your account";
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "Name of account...";
-"storeAccount.store" = "Store account";
-"storeAccount.selectAcc" = "Select an account";
-"storeAccount.storeAcc" = "Store an account";
-"storeAccount.deleteAcc" = "Delete an account";
+"storeAccount.selectAccRegion" = "アカウントの地域を変更する";
+"storeAccount.selectAccRegion.usa" = "米国";
+"storeAccount.selectAccRegion.euro" = "ヨーロッパ";
+"storeAccount.selectAccRegion.tw" = "台湾";
+"storeAccount.selectAccRegion.asia" = "アジア";
+"storeAccount.nameOfAcc" = "アカウント名";
+"storeAccount.nameOfAcc.textfieldPlaceholder" = "アカウントの名前...";
+"storeAccount.store" = "アカウントを保存";
+"storeAccount.selectAcc" = "アカウントの選択";
+"storeAccount.storeAcc" = "アカウントを保存";
+"storeAccount.deleteAcc" = "アカウントを削除";
 
-"playapp.install.unzip" = "Extracting app from .ipa file...";
-"playapp.install.createWrapper" = "Creating app wrapper...";
-"playapp.install.installPlayTools" = "Installing PlayTools...";
-"playapp.install.signing" = "Signing app...";
-"playapp.install.addToLib" = "Adding app to library...";
-"playapp.install.copy" = "Copying app...";
-"playapp.install.finished" = "Finished";
+"playapp.install.unzip" = ".ipaファイルからアプリの書き出し中...";
+"playapp.install.createWrapper" = "アプリのコンテナーを作成中...";
+"playapp.install.installPlayTools" = "PlayToolsをインストール中...";
+"playapp.install.signing" = "アプリのコード署名を追加中...";
+"playapp.install.addToLib" = "ライブラリにアプリを追加中...";
+"playapp.install.copy" = "アプリをコピー中...";
+"playapp.install.finished" = "完成";
 
-"search.search" = "Search...";
+"search.search" = "検索...";
 
-"alert.appCacheCleared" = "App data has been cleared!";
-"alert.kmImported" = "Keymapping imported!";
-"alert.errorImportKm" = "Error occured when importing!";
-"alert.app.delete" = "All app data will be erased. You may need to download app files again. Do you wish to continue?";
-"alert.wrongFileType" = "Wrong file type";
-"alert.wrongFileType.message" = "Choose an .ipa file";
-"alert.followInstructionsAndRestartApp" = "Please follow the given instructions, and restart the App.";
-"alert.error" = "Some error happened!";
-"alert.success" = "Success!";
-"alert.moveAppToApplications" = "PlayCover must be in the Applications folder. Press the button below to let PlayCover move itself to /Applications.";
-"alert.moveAppToApplications.move" = "Move to /Applications";
-"alert.storeAccount.regionIsNotValid" = "The current account is set to a different Region. Launch the game, Change the region, and pass through the gates to save. Then try again";
+"alert.appCacheCleared" = "アプリのデータは削除されました！";
+"alert.kmImported" = "キーマッピングをインポートしました！";
+"alert.errorImportKm" = "キーマッピングのインポートに何らかのエラーが発生しました！";
+"alert.app.delete" = "アプリの全てのデータが削除されます。もう一度ダウンロードする必要があるかもしれません。続けますか？";
+"alert.wrongFileType" = "ファイルのタイプを間違っています";
+"alert.wrongFileType.message" = ".ipaファイルを選択してください";
+"alert.followInstructionsAndRestartApp" = "指示を読んでから、アプリを再起動してください";
+"alert.error" = "何らかのエラーが発生しました";
+"alert.success" = "成功！";
+"alert.moveAppToApplications" = "PlayCoverは/Applicationsフォルダに居ないと問題が発生します。以下のボタンを押してPlayCoverを/Applicationsフォルダに移動させることができます。";
+"alert.moveAppToApplications.move" = "/Applicationsに移動";
+"alert.storeAccount.regionIsNotValid" = "現在のアカウントは他の地域に設定されています。ゲームを起動して、地域を変更してから、ゲートを通過して保存してください。その後、再度試してください";
 
 
 "button.OK" = "OK";
-"button.Proceed" = "Proceed";
-"button.Cancel" = "Cancel";
-"button.Close" = "Close";
-"button.Dismiss" = "Dismiss";
-"button.Install" = "Install";
+"button.Proceed" = "実行";
+"button.Cancel" = "キャンセル";
+"button.Close" = "閉じる";
+"button.Dismiss" = "閉じる";
+"button.Install" = "インストール";
 
-"error.corruptedIPA" = "This .ipa file is corrupted. It does not contains \"Info.plist\" file.";
-"error.waitInstallation" = "Please wait for the current installation to finish!";
-"error.reinstallApp" = "Please reinstall PlayCover";
+"error.corruptedIPA" = "この.ipaファイルは破損しています。\"Info.plist\"ファイルが含まれていません。";
+"error.waitInstallation" = "今のインストールを完了するまでお待ちください！";
+"error.reinstallApp" = "PlayCoverを再インストールしてください";
 
-"menubar.downloadMoreApps" = "Download more apps";
-"menubar.downloadMoreApps.help" = "Use this site to download apps for installation";
-"menubar.exportToSideloady" = "Export to Sideloadly";
-"menubar.exportToSideloady.help" = "Export .ipa for Sideloady from sideloady.io which does not need SIP to be disabled for apps and games to work.";
+"menubar.downloadMoreApps" = "さらにアプリをダウンロード";
+"menubar.downloadMoreApps.help" = "このサイトを使ってアプリをインストールする";
+"menubar.exportToSideloady" = "Sideloadlyに書き出す";
+"menubar.exportToSideloady.help" = ".ipaファイルをSideloadyのために書き出す。Sideloady.ioでは、SIPを無効にしないでアプリやゲームが動作します。";
 
-"bottomBar.notices" = "Notices";
-"bottomBar.notices.help" = "News and announcements from the developers";
-"bottomBar.setupViewButton" = "Experiencing issues?";
+"bottomBar.notices" = "通知";
+"bottomBar.notices.help" = "デベロッパーからのニュースとお知らせ";
+"bottomBar.setupViewButton" = "問題が発生していますか？";
 
-"failedToFetchNotices" = "Failed to find notices. Please check your internet connection.";
+"failedToFetchNotices" = "通知を取得できませんでした。インターネット接続を確認してください。";
 
-"logs.copied" = "Logs copied";
+"logs.copied" = "ログをコピーしました";
 
-"settings.toggle.km" = "Enable keymapping";
-"settings.toggle.gaming" = "Gaming Mode";
-"settings.toggle.km.info" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
-"settings.toggle.adaptiveDisplay" = "Adaptive display";
-"settings.toggle.adaptiveDisplay.info" ="Adapts and scales app window to fit the built-in Mac display.";
-"settings.toggle.jbBypass" = "Enable Jailbreak Bypass (Alpha)";
-"settings.toggle.jbBypass.info" = "Attempts to bypass Jailbreak Detection in some games (No guarentee to work all the time)";
-"settings.toggle.autoWindowResize" = "Enable auto window resize";
-"settings.toggle.disableDisplaySleep" = "Disable display sleep";
-"settings.toggle.disableDisplaySleep.info" = "Prevent display from turning off while this app is running";
+"settings.toggle.km" = "キーマッピングを有効にする";
+"settings.toggle.gaming" = "ゲームモードを有効にする";
+"settings.toggle.km.info" = "タッチのみでゲームをプレイするためにキーボードの対応を追加する。Cmd+Kを押してエディターメニューを開くことができます。";
+"settings.toggle.adaptiveDisplay" = "ディスプレイに合わせる";
+"settings.toggle.adaptiveDisplay.info" ="アプリウィンドウを内蔵Macディスプレイに合わせて調整します。";
+"settings.toggle.jbBypass" = "ジェイルブレイクバイパスを有効にする（アルファ版）";
+"settings.toggle.jbBypass.info" = "ジェイルブレイクの検出をいくつかのゲームで避けることができます（常に動作する保証はありません）";
+"settings.toggle.autoWindowResize" = "ウィンドウの自動サイズ変更を有効にする";
+"settings.toggle.disableDisplaySleep" = "ディスプレイのスリープを無効にする";
+"settings.toggle.disableDisplaySleep.info" = "このアプリの実行中にディスプレイがオフにならないようにする";
 
-"settings.picker.displayRefreshRate" = "Screen refresh rate";
-"settings.picker.screenSize" = "Display resolution";
+"settings.picker.displayRefreshRate" = "画面のリフレッシュレート";
+"settings.picker.screenSize" = "ディスプレー解像度";
 
-"settings.slider.mouseSensitivity" = "Mouse sensitivity: ";
+"settings.slider.mouseSensitivity" = "マウス感度: ";
 
-"settings.reset" = "Reset settings and keymapping";
-"settings.resetCompleted" = "Settings have been reverted back to default!";
+"settings.reset" = "設定とキーマッピングをリセットする";
+"settings.resetCompleted" = "設定をデフォルトに戻しました！";
 
-"setupView.header" = "Follow steps below for fixing common issues";
-"setupView.subheader" = "Resolves apps not allowing logins, crashes at start and more";
+"setupView.header" = "問題が発生した場合は、以下の手順に従ってください";
+"setupView.subheader" = "ログインを許可しないアプリ、起動時のクラッシュなどを解決します";
 
-"setupView.step1" = "1) Shutdown your Mac";
-"setupView.step2" = "2) Wait for at least 20 seconds for Mac to fully shutdown, then hold the power button";
-"setupView.step3" = "3) When \"Loading Startup Options\" appears below the Apple logo, release the power button";
-"setupView.step4" = "4) Click the Recovery Mode boot option";
-"setupView.step5" = "5) In Recovery, open Terminal (Menu bar -> Utilities -> Terminal)";
-"setupView.step6" = "6) Type: ";
-"setupView.step7" = "7) Enter the command. Input your Mac login password (The text will be hidden)";
-"setupView.step8" = "8) Click the Apple symbol in the Menu bar and Restart";
-"setupView.step9" = "If you encountered any errors, repeat the whole process again";
+"setupView.step1" = "1) Macをシャットダウンする";
+"setupView.step2" = "2) Macが完全にシャットダウンするのを待ってから、電源ボタンを押してください";
+"setupView.step3" = "3) アップルロゴの下に\"起動オプションを読み込み中\"が表示されたら、電源ボタンを放してください";
+"setupView.step4" = "4) リカバリモードの起動オプションをクリックします";
+"setupView.step5" = "5) リカバリーモードの中で、ターミナルを開く（メニューバー → ユーティリティ → ターミナル）";
+"setupView.step6" = "6) 以下のコマンドを入力";
+"setupView.step7" = "7) コマンドを入力してEnterキーを押してください。パスワードを入力してEnterキーを押してください。（パスワードは入力しても表示されません）";
+"setupView.step8" = "8) アップルロゴをメニューバーにクリックして再起動する";
+"setupView.step9" = "問題が発生したら、再度全部をやり直してください";
 
-"setupView.vidTutorials" = "Video Tutorials";
+"setupView.vidTutorials" = "動画チュートリアル（英語）";
 "setupView.youtube" = "YouTube";
 "setupView.bilibili" = "BiliBili";
 
-"setupView.pressButtonAndEnterPassword" = "Please disable SIP from below and enter your Mac login password.";
-"setupView.pressButtonAndEnterPassword.button" = "Disable SIP";
+"setupView.pressButtonAndEnterPassword" = "以下からSIPを無効にして、Macログインパスワードを入力してください。";
+"setupView.pressButtonAndEnterPassword.button" = "SIPを無効にする";
 
-"notification.appInstalled" = "App installed!";
-"notification.appInstalled.message" = "Check it out in PlayCover!";
+"notification.appInstalled" = "アプリをインストールしました！";
+"notification.appInstalled.message" = "PlayCoverでチェックしてください！";
 
-"setup.enterLoginPassword" = "Please enter your user password";
-"setup.incorrectPassword" = "Password incorrect. Please try again";
-"setup.enterLoginPassword.info" = "Enter the password used to unlock your Mac.";
-"setup.requireReboot" = "Please restart your Mac for changes to take effect.";
+"setup.enterLoginPassword" = "ユーザーパスワードを入力してください";
+"setup.incorrectPassword" = "パスワードが正しくありません。もう一度やり直してください";
+"setup.enterLoginPassword.info" = "Macをロック解除するために使用されるパスワードを入力してください";
+"setup.requireReboot" = "変更を有効にするには、Macを再起動してください。";
 
-"menubar.log.copy" = "Copy Logs";
-"menubar.documentation" = "Documentation";
-"menubar.website" = "Website";
+"menubar.log.copy" = "ログをコピーする";
+"menubar.documentation" = "ドキュメント";
+"menubar.website" = "ホームページ";
 "menubar.github" = "GitHub";
 "menubar.discord" = "Discord";
-"menubar.showAppLinks" = "Show app links";
-"menubar.checkForUpdates" = "Check for updates";
+"menubar.showAppLinks" = "アプリのリンクを表示";
+"menubar.checkForUpdates" = "更新を確認する";
 
-"soundAlert.messageText" = "Incorrect Audio Settings Detected!";
-"soundAlert.informativeText" = "Your current output device does not have a sample rate of 48 or 44.1 KHz! Crashes may occur. Would you like to change your current output device's sample rate to 48 KHz?";
-"soundAlert.successText" = "Current output device sample rate set to 48 KHz";
-"soundAlert.failureText" = "Failed to set current output device's sample rate to 48 KHz. You can manually set sample rate in ‘Audio MIDI Setup’ app";
+"soundAlert.messageText" = "不適切なオーディオ設定が検出されました!";
+"soundAlert.informativeText" = "現在の出力デバイスのサンプルレートが48または44.1KHzではないため、問題が発生する可能性があります。現在のデバイスのサンプルレートを48KHzに変更しますか？";
+"soundAlert.successText" = "現在のデバイスのサンプルレートを48KHzに変更しました。";
+"soundAlert.failureText" = "サンプルレートの変更に失敗しました。「Audio MIDI設定」アプリから手動でサンプルレートを設定することができます。";
 
-"xcode.install.message" = "You need to install Xcode Commandline tools and restart this App.";
-"xcode.install.success" = "Xcode tools installation succeeded";
-"xcode.install.failed" = "Xcode Command Line Tools intallation failed";
+"xcode.install.message" = "Xcodeのコマンドラインツールをインストールして、アプリを再起動してください。";
+"xcode.install.success" = "Xcodeのコマンドラインツールをインストールしました。";
+"xcode.install.failed" = "Xcodeのコマンドラインツールのインストールに失敗しました。";
 
-"debug.crash" = "[DEBUG] Crash app";
+"debug.crash" = "[DEBUG] アプリのクラッシュ";
