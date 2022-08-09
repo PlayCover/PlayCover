@@ -35,8 +35,8 @@ struct PlayAppGridView: View {
             isHover = false
             shell.removeTwitterSessionCookie()
             if app.settings.enableWindowAutoSize {
-                app.settings.gameWindowSizeWidth = Float(NSScreen.main?.visibleFrame.width ?? 1920)
-                app.settings.gameWindowSizeHeight = Float(NSScreen.main?.visibleFrame.height ?? 1080)
+                app.settings.gameWindowSizeWidth = Float(NSScreen.main?.frame.width ?? 1920)
+                app.settings.gameWindowSizeHeight = Float(NSScreen.main?.frame.height ?? 1080)
             }
             app.launch()
         }
