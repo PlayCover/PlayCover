@@ -12,6 +12,7 @@ import AppKit
 struct AppsView: View {
     @Binding public var bottomPadding: CGFloat
     @Binding public var xcodeCliInstalled: Bool
+    @Binding var isPlaySignActive: Bool
 
     @EnvironmentObject var appVm: AppsVM
 
@@ -59,20 +60,24 @@ struct AppsView: View {
 				}
 				.frame(maxWidth: .infinity, maxHeight: .infinity)
 				.padding(.top, 16).padding(.bottom, bottomPadding + 16)
-			} else {
+            } else if SystemConfig.isFirstTimePlaySign && isPlaySignActive {
+                VStack(spacing: 12) {
+                    Text("setup.requireReboot")
+                        .font(.title2)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.top, 16).padding(.bottom, bottomPadding + 16)
+            } else {
                 GeometryReader { geom in
                     ScrollView {
                         LazyVGrid(columns: gridLayout, alignment: .leading, spacing: 10) {
-                            // swiftlint:disable todo
-                            // TODO: Remove use of force cast
-                            // swiftlint:disable force_cast
-                            ForEach(appVm.apps, id: \.id) { app in
-                                if app.type == BaseApp.AppType.add {
-                                    AppAddView().environmentObject(InstallVM.shared)
-                                } else if app.type == .app {
-                                    PlayAppView(app: app as! PlayApp)
-                                } else if app.type == .store {
-                                    StoreAppView(app: app as! StoreApp)
+                            AppAddView().environmentObject(InstallVM.shared)
+                            ForEach(appVm.apps, id: \.info.bundleIdentifier) { app in
+                                PlayAppView(app: app)
+                            }
+                            if appVm.showAppLinks {
+                                ForEach(Store.storeApps, id: \.id) { app in
+                                    StoreAppView(app: app)
                                 }
                             }
                         }
@@ -183,5 +188,4 @@ struct AppAddView: View {
             }
         }
     }
-
 }

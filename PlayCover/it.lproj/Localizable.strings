@@ -117,7 +117,7 @@
 "setup.enterLoginPassword" = "Please enter your user password";
 "setup.incorrectPassword" = "Password incorrect. Please try again";
 "setup.enterLoginPassword.info" = "Enter the password used to unlock your Mac.";
-"setup.enterLoginPassword" = "Please restart your Mac for changes to take effect.";
+"setup.requireReboot" = "Please restart your Mac for changes to take effect.";
 
 "menubar.log.copy" = "Copy Logs";
 "menubar.documentation" = "Documentation";

@@ -8,7 +8,6 @@ import SwiftUI
 import AlertToast
 
 struct PlayAppView: View {
-
     @State var app: PlayApp
 
     @State private var showSettings = false
@@ -19,7 +18,6 @@ struct PlayAppView: View {
 
     @State var isHover: Bool = false
 
-    @State var showSetup: Bool = false
     @State var showImportSuccess: Bool = false
     @State var showImportFail: Bool = false
     @State private var showChangeGenshinAccount: Bool = false
@@ -27,10 +25,6 @@ struct PlayAppView: View {
     @State private var showDeleteGenshinAccount: Bool = false
     func elementColor(_ dark: Bool) -> Color {
         return isHover ? Color.gray.opacity(0.3) : Color.black.opacity(0.0)
-    }
-
-    init(app: PlayApp) {
-        _app = State(initialValue: app)
     }
 
     var body: some View {
@@ -154,8 +148,6 @@ struct PlayAppView: View {
                 ChangeGenshinAccountView()
             }.sheet(isPresented: $showStoreGenshinAccount) {
                 StoreGenshinAccountView()
-            }.sheet(isPresented: $showSetup) {
-                SetupView()
             }.sheet(isPresented: $showDeleteGenshinAccount) {
                 DeleteGenshinStoredAccountView()
             }.alert("alert.app.delete", isPresented: $showClearCacheAlert) {

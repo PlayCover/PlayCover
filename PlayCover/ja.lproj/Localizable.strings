@@ -117,7 +117,7 @@
 "setup.enterLoginPassword" = "ユーザーパスワードを入力してください";
 "setup.incorrectPassword" = "パスワードが正しくありません。もう一度やり直してください";
 "setup.enterLoginPassword.info" = "Macをロック解除するために使用されるパスワードを入力してください";
-"setup.enterLoginPassword" = "変更を有効にするには、Macを再起動してください。";
+"setup.requireReboot" = "変更を有効にするには、Macを再起動してください。";
 
 "menubar.log.copy" = "ログをコピーする";
 "menubar.documentation" = "ドキュメント";
