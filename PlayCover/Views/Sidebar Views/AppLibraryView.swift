@@ -72,7 +72,7 @@ struct AppLibraryView: View {
             DispatchQueue.main.async {
                 appsVM.fetchApps()
                 NotifyService.shared.notify(
-                    NSLocalizedString("notifcation.appInstalled", comment: ""),
+                    NSLocalizedString("notification.appInstalled", comment: ""),
                     NSLocalizedString("notification.appInstalled.message", comment: "")
                 )
             }
