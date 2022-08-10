@@ -90,8 +90,8 @@ bump-sparkle:
 
        - name: Cleanup tmp files
          run: |
-         rm -rf sparkle/
-         rm sparkle.tar.xz
+           rm -rf sparkle/
+           rm sparkle.tar.xz
 
        - name: Commit changes
          run: |
