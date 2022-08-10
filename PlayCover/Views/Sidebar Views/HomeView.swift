@@ -92,9 +92,9 @@ struct LargeAppView: View {
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-                Text("You've played a total of 31.2 hours of" +
+                Text("You've played a total of 31.2 hours of " +
                      app.name +
-                     "this week, beating last week's record of 12.2 hours!")
+                     " this week, beating last week's record of 12.2 hours!")
                     .foregroundColor(.white)
                 Spacer()
                     .frame(height: 20)
