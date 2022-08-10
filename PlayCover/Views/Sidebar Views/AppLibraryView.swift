@@ -20,7 +20,7 @@ struct AppLibraryView: View {
                     ScrollView {
                         LazyVGrid(columns: gridLayout, alignment: .center) {
                             ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
-                                PlayAppGridView(app: app)
+                                PlayAppView(app: app, isList: false)
                             }
                         }
                         .padding()
@@ -29,7 +29,7 @@ struct AppLibraryView: View {
                 } else {
                     List {
                         ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
-                            PlayAppListView(app: app)
+                            PlayAppView(app: app, isList: true)
                         }
                         .padding(.vertical, 2)
                     }
