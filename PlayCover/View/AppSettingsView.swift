@@ -106,7 +106,7 @@ struct AppSettingsView: View {
                 Button("settings.reset") {
                     resetCompletedAlert.toggle()
                     settings.reset()
-                }.buttonStyle(GrowingButton()).padding()
+                }.controlSize(.large).padding()
                 Button("button.OK") {
                     settings.keymapping = keymapping
                     settings.adaptiveDisplay = adaptiveDisplay
@@ -138,7 +138,9 @@ struct AppSettingsView: View {
                     settings.disableTimeout = disableTimeout
                     presentationMode.wrappedValue.dismiss()
 
-                }.buttonStyle(GrowingButton()).padding().frame(height: 80)
+                }
+                .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large).padding()
+                .keyboardShortcut(.defaultAction)
                 Spacer()
             }
         }.toast(isPresenting: $resetCompletedAlert) {

@@ -16,7 +16,7 @@ struct AppsView: View {
 
     @EnvironmentObject var appVm: AppsVM
 
-    @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150), spacing: 0)]
+    @State private var gridLayout = [GridItem(.adaptive(minimum: 160, maximum: 160), spacing: 0)]
 	@State private var alertTitle = ""
 	@State private var alertText = ""
 	@State private var alertBtn = ""
@@ -24,7 +24,7 @@ struct AppsView: View {
 	@State private var showAlert = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .center, spacing: 0) {
             HStack {
                 SearchView().padding(.horizontal, 20).padding(.vertical, 8)
             }
