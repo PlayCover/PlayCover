@@ -144,7 +144,8 @@ struct PlayAppView: View {
                                 selectedWindowSize: app.settings.gameWindowSizeHeight == 1080
                                 ? 0
                                 : app.settings.gameWindowSizeHeight == 1440 ? 1 : 2,
-                                enableWindowAutoSize: app.settings.enableWindowAutoSize
+                                enableWindowAutoSize: app.settings.enableWindowAutoSize,
+                                ipadModel: app.settings.ipadModel
                 ).frame(minWidth: 500)
             }.sheet(isPresented: $showChangeGenshinAccount) {
                 ChangeGenshinAccountView()

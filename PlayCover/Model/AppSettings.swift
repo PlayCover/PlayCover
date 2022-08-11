@@ -191,6 +191,17 @@ class AppSettings {
             dictionary = dict
         }
     }
+    private static let ipadModel = "pc.ipadModel"
+    var ipadModel: String {
+        get {
+            dictionary[AppSettings.ipadModel] as? String ?? "iPad8,6"
+        }
+        set {
+            var dict = dictionary
+            dict[AppSettings.ipadModel] = newValue
+            dictionary = dict
+        }
+    }
 
     private var allPrefs: [String: Any] {
         get {
@@ -250,7 +261,8 @@ class AppSettings {
                                       AppSettings.sensivity: 50,
                                       AppSettings.gameWindowSizeHeight: 1080,
                                       AppSettings.gameWindowSizeWidth: 1920,
-                                      AppSettings.enableWindowAutoSize: false
+                                      AppSettings.enableWindowAutoSize: false,
+                                      AppSettings.ipadModel: "iPad8,6"
                                       ]
         }
     }

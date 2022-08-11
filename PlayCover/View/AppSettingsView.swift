@@ -23,6 +23,7 @@ struct AppSettingsView: View {
     @State var resetCompletedAlert: Bool = false
     @State var selectedWindowSize: Int
     @State var enableWindowAutoSize: Bool
+    @State var ipadModel: String
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
@@ -82,6 +83,11 @@ struct AppSettingsView: View {
                     Text("60 Hz").tag(0)
                     Text("120 Hz").tag(1)
                 }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
+                Picker(selection: $ipadModel, label: Text("settings.picker.ipadModel"), content: {
+                    Text("1st Gen").tag("iPad6,7")
+                    Text("3rd Gen").tag("iPad8,6")
+                    Text("5th Gen").tag("iPad13,8")
+                }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
                 if adaptiveDisplay && !enableWindowAutoSize {
                     Spacer()
                     Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
@@ -114,6 +120,7 @@ struct AppSettingsView: View {
                     settings.bypass = bypass
                     settings.gamingMode = gamingMode
                     settings.enableWindowAutoSize = adaptiveDisplay ? enableWindowAutoSize : false
+                    settings.ipadModel = ipadModel
                     if enableWindowAutoSize {
                         settings.gameWindowSizeHeight = Float(NSScreen.main?.visibleFrame.height ?? 1080)
                         settings.gameWindowSizeWidth = Float(NSScreen.main?.visibleFrame.width ?? 1920)
