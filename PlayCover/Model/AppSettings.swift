@@ -230,10 +230,8 @@ class AppSettings {
     }
 
     func reset() {
-        adaptiveDisplay = info.isGame
-        keymapping = info.isGame
-        disableTimeout = false
-        layout = []
+        allPrefs.removeValue(forKey: info.bundleIdentifier)
+        createSettingsIfNotExists()
     }
 
     init(_ info: AppInfo, container: AppContainer?) {
