@@ -106,6 +106,9 @@ struct AppSettingsView: View {
                 Button("settings.reset") {
                     resetCompletedAlert.toggle()
                     settings.reset()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 }.controlSize(.large).padding()
                 Button("button.OK") {
                     settings.keymapping = keymapping

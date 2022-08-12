@@ -230,10 +230,7 @@ class AppSettings {
     }
 
     func reset() {
-        adaptiveDisplay = info.isGame
-        keymapping = info.isGame
-        disableTimeout = false
-        layout = []
+        dictionary.removeAll()
     }
 
     init(_ info: AppInfo, container: AppContainer?) {
