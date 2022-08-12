@@ -230,7 +230,8 @@ class AppSettings {
     }
 
     func reset() {
-        dictionary.removeAll()
+        allPrefs.removeValue(forKey: info.bundleIdentifier)
+        createSettingsIfNotExists()
     }
 
     init(_ info: AppInfo, container: AppContainer?) {
