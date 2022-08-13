@@ -13,6 +13,7 @@ struct PlayAppView: View {
     @State private var showSettings = false
     @State private var showClearCacheAlert = false
     @State private var showClearCacheToast = false
+    @State private var showClearPreferencesAlert = false
 
     @Environment(\.colorScheme) var colorScheme
 
@@ -78,6 +79,12 @@ struct PlayAppView: View {
                     showClearCacheAlert.toggle()
                 }, label: {
                     Text("playapp.clearCache")
+                    Image(systemName: "xmark.bin")
+                })
+                Button(action: {
+                    showClearPreferencesAlert.toggle()
+                }, label: {
+                    Text("playapp.clearPreferences")
                     Image(systemName: "xmark.bin")
                 })
 
@@ -157,6 +164,12 @@ struct PlayAppView: View {
                 Button("button.Proceed", role: .cancel) {
                     app.container?.clear()
                     showClearCacheToast.toggle()
+                }
+                Button("button.Cancel", role: .cancel) {}
+            }.alert("alert.app.preferences", isPresented: $showClearPreferencesAlert) {
+                Button("button.Proceed", role: .cancel) {
+                    deletePreferences(app: app.info.bundleIdentifier)
+                    showClearPreferencesAlert.toggle()
                 }
                 Button("button.Cancel", role: .cancel) {}
             }.toast(isPresenting: $showClearCacheToast) {
