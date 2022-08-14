@@ -72,10 +72,8 @@ class Installer {
                 InstallVM.shared.next(.playtools)
                 try PlayTools.injectFor(app.executable, payload: app.url)
 
-                for macho in machos {
-                    if try PlayTools.isMachoEncrypted(atURL: macho) {
-                        throw PlayCoverError.appEncrypted
-                    }
+                for macho in machos where try PlayTools.isMachoEncrypted(atURL: macho) {
+                    throw PlayCoverError.appEncrypted
                 }
 
                 let info = app.info
