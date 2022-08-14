@@ -11,6 +11,7 @@
 "playapp.storeCurrentAccount" = "Store current account";
 "playapp.activateAccount" = "Activate an account";
 "playapp.deleteAccount" = "Delete an account";
+"playapp.clearPreferences" = "Clear app preferences";
 
 "storeAccount.selectAccRegion" = "Select account region";
 "storeAccount.selectAccRegion.usa" = "America";
@@ -90,6 +91,7 @@
 
 "settings.reset" = "Reset settings and keymapping";
 "settings.resetCompleted" = "Settings have been reverted back to default!";
+"settings.picker.iosDevice" = "Select iOS device";
 
 "setupView.header" = "Follow steps below for fixing common issues";
 "setupView.subheader" = "Resolves apps not allowing logins, crashes at start and more";
