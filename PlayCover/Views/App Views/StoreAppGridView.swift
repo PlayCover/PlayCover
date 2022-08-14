@@ -40,10 +40,10 @@ struct StoreAppGridView: View {
             }
             .frame(width: 150, height: 70)
         }
-        .overlay(
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(isHover ? Color.secondary : Color.clear, lineWidth: 1)
+        .background(
+            isHover ? Color.gray.opacity(0.3) : Color.clear
         )
+        .cornerRadius(10)
         .frame(width: 150, height: 150)
         .onTapGesture {
             isHover = false
