@@ -17,7 +17,7 @@ struct IPALibraryView: View {
         VStack(alignment: .leading) {
             GeometryReader { geom in
                 ScrollView {
-                    LazyVGrid(columns: gridLayout, alignment: .center) {
+                    LazyVGrid(columns: gridLayout, alignment: .leading) {
                         ForEach(storeVM.apps, id: \.id) { app in
                             StoreAppGridView(app: app)
                         }
