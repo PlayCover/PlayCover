@@ -18,10 +18,10 @@ struct PlayAppView: View {
 
     var body: some View {
         ConditionalView(app: app, isList: isList)
-        .overlay(
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(isHover ? Color.secondary : Color.clear, lineWidth: 1)
+        .background(
+            isHover ? Color.gray.opacity(0.3) : Color.clear
         )
+        .cornerRadius(10)
         .onTapGesture {
             isHover = false
             shell.removeTwitterSessionCookie()
