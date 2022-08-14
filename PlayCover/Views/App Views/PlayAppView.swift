@@ -104,7 +104,7 @@ struct PlayAppView: View {
                 toastDetails: NSLocalizedString("alert.errorImportKm", comment: ""))
         }
         .sheet(isPresented: $showSettings) {
-            AppSettingsView(settings: app.settings)
+            AppSettingsView(app: app)
         }
     }
 }

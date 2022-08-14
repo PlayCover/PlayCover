@@ -10,9 +10,8 @@ import SwiftUI
 struct AppSettingsView: View {
     @Environment(\.dismiss) var dismiss
 
-    @State var settings: AppSettings
+    @State var app: PlayApp
 
-    @State var selection: Int = 2
     @State var resetCompletedAlert: Bool = false
 
     // TODO: Remove hardcoded strings
@@ -20,15 +19,63 @@ struct AppSettingsView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("\(settings.info.displayName.isEmpty ? settings.info.bundleName : settings.info.displayName) Settings")
+                if let img = app.icon {
+                    Image(nsImage: img).resizable()
+                        .frame(width: 33, height: 33)
+                        .cornerRadius(10)
+                        .shadow(radius: 1)
+                }
+                Text("\(app.name) Settings")
                     .font(.title2).bold()
                     .multilineTextAlignment(.leading)
                 Spacer()
             }
+            TabView {
+                KeymappingView(settings: $app.settings)
+                    .tabItem {
+                        Text("Keymapping")
+                    }
+                GraphicsView(settings: $app.settings)
+                    .tabItem {
+                        Text("Graphics")
+                    }
+                InfoView(settings: $app.settings)
+                    .tabItem {
+                        Text("Info")
+                    }
+            }
+            .frame(minWidth: 450, minHeight: 200)
             HStack {
-                Toggle(NSLocalizedString("settings.toggle.km", comment: ""), isOn: $settings.keymapping)
+                Spacer()
+                Button("settings.reset") {
+                    resetCompletedAlert.toggle()
+                    app.settings.reset()
+                    dismiss()
+                }
+                Button("OK") {
+                    dismiss()
+                }
+                .tint(.accentColor)
+                .keyboardShortcut(.defaultAction)
+            }
+        }
+        .onChange(of: resetCompletedAlert) { _ in
+            ToastVM.shared.showToast(toastType: .notice,
+                toastDetails: NSLocalizedString("settings.resetCompleted", comment: ""))
+        }
+        .padding()
+    }
+}
+
+struct KeymappingView: View {
+    @Binding var settings: AppSettings
+
+    var body: some View {
+        VStack {
+            HStack {
+                Toggle("Keymapping", isOn: $settings.keymapping)
                     .help("settings.toggle.km.info")
-                Toggle("Enable mouse mapping", isOn: $settings.gamingMode)
+                Toggle("Mouse mapping", isOn: $settings.gamingMode)
                 Spacer()
             }
             HStack {
@@ -39,8 +86,27 @@ struct AppSettingsView: View {
                 .frame(maxWidth: 400)
                 Spacer()
             }
-            Divider()
-                .padding(.vertical)
+            Spacer()
+        }
+        .padding()
+    }
+}
+
+struct GraphicsView: View {
+    @Binding var settings: AppSettings
+    @State var selection: Int = 2
+
+    var body: some View {
+        VStack {
+            HStack {
+                Picker("iOS device:", selection: $settings.ipadModel) {
+                    Text("iPad Pro (12.9-inch) (1st gen) | A9X | 4GB").tag("iPad6,7")
+                    Text("iPad Pro (12.9-inch) (3rd gen) | A12Z | 4GB").tag("iPad8,6")
+                    Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
+                }
+                .frame(maxWidth: 300)
+                Spacer()
+            }
             HStack {
                 Picker("Adaptive resolution:", selection: $selection) {
                     Text("Off").tag(0)
@@ -64,23 +130,18 @@ struct AppSettingsView: View {
                 .frame(alignment: .leading)
                 Spacer()
             }
-            HStack {
-                Spacer()
-                Button("settings.reset") {
-                    resetCompletedAlert.toggle()
-                    settings.reset()
-                    dismiss()
-                }
-                Button("OK") {
-                    dismiss()
-                }
-                .tint(.accentColor)
-                .keyboardShortcut(.defaultAction)
-            }
+            Spacer()
         }
-        .onChange(of: resetCompletedAlert) { _ in
-            ToastVM.shared.showToast(toastType: .notice,
-                toastDetails: NSLocalizedString("settings.resetCompleted", comment: ""))
+        .padding()
+    }
+}
+
+struct InfoView: View {
+    @Binding var settings: AppSettings
+
+    var body: some View {
+        VStack {
+            Text("Info")
         }
         .padding()
     }
