@@ -85,6 +85,7 @@
 
 "settings.picker.displayRefreshRate" = "画面のリフレッシュレート";
 "settings.picker.screenSize" = "ディスプレー解像度";
+"settings.picker.ipadModel" = "Select iPad Pro model";
 
 "settings.slider.mouseSensitivity" = "マウス感度: ";
 
