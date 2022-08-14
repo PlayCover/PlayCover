@@ -99,6 +99,10 @@ struct GraphicsView: View {
     var body: some View {
         VStack {
             HStack {
+                Toggle("Disable display sleep", isOn: $settings.disableTimeout)
+                Spacer()
+            }.padding(.bottom)
+            HStack {
                 Picker("iOS device:", selection: $settings.ipadModel) {
                     Text("iPad Pro (12.9-inch) (1st gen) | A9X | 4GB").tag("iPad6,7")
                     Text("iPad Pro (12.9-inch) (3rd gen) | A12Z | 4GB").tag("iPad8,6")
