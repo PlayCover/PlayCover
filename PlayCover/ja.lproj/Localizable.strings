@@ -11,6 +11,7 @@
 "playapp.storeCurrentAccount" = "今のアカウントを保存";
 "playapp.activateAccount" = "アカウントを有効にする";
 "playapp.deleteAccount" = "アカウントを削除";
+"playapp.clearPreferences" = "Clear app preferences";
 
 "storeAccount.selectAccRegion" = "アカウントの地域を変更する";
 "storeAccount.selectAccRegion.usa" = "米国";
@@ -85,6 +86,7 @@
 
 "settings.picker.displayRefreshRate" = "画面のリフレッシュレート";
 "settings.picker.screenSize" = "ディスプレー解像度";
+"settings.picker.iosDevice" = "Select iOS device";
 
 "settings.slider.mouseSensitivity" = "マウス感度: ";
 

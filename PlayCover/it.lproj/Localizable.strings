@@ -11,6 +11,7 @@
 "playapp.storeCurrentAccount" = "Store current account";
 "playapp.activateAccount" = "Activate an account";
 "playapp.deleteAccount" = "Delete an account";
+"playapp.clearPreferences" = "Clear app preferences";
 
 "storeAccount.selectAccRegion" = "Select account region";
 "storeAccount.selectAccRegion.usa" = "America";
@@ -85,6 +86,7 @@
 
 "settings.picker.displayRefreshRate" = "Screen refresh rate";
 "settings.picker.screenSize" = "Display resolution";
+"settings.picker.iosDevice" = "Select iOS device";
 
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: ";
 
