@@ -87,13 +87,13 @@
 
 "settings.picker.displayRefreshRate" = "Screen refresh rate";
 "settings.picker.screenSize" = "Display resolution";
-"settings.picker.ipadModel" = "Seleciona un modelo de Ipad";
+"settings.picker.iosDevice" = "Seleciona un modelo de Ipad";
 
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: ";
 
 "settings.reset" = "Reset settings and keymapping";
 "settings.resetCompleted" = "Settings have been reverted back to default!";
-"settings.picker.ipadModel" = "Select iPad Pro model";
+"settings.picker.ipadModel" = "Select iOS device";
 
 "setupView.header" = "Follow steps below for fixing common issues";
 "setupView.subheader" = "Resolves apps not allowing logins, crashes at start and more";

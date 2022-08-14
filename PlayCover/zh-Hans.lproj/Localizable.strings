@@ -86,7 +86,7 @@
 
 "settings.picker.displayRefreshRate" = "屏幕刷新率";
 "settings.picker.screenSize" = "屏幕分辨率";
-"settings.picker.ipadModel" = "选择 iPad Pro 型号";
+"settings.picker.iosDevice" = "选择 iOS 机型";
 
 "settings.slider.mouseSensitivity" = "鼠标灵敏度：";
 

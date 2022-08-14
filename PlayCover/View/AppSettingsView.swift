@@ -83,11 +83,11 @@ struct AppSettingsView: View {
                     Text("60 Hz").tag(0)
                     Text("120 Hz").tag(1)
                 }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
-                Picker(selection: $ipadModel, label: Text("settings.picker.ipadModel"), content: {
-                    Text("1st Gen").tag("iPad6,7")
-                    Text("3rd Gen").tag("iPad8,6")
-                    Text("5th Gen").tag("iPad13,8")
-                }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
+                Picker(selection: $ipadModel, label: Text("settings.picker.iosDevice"), content: {
+                    Text("iPad Pro (12.9-inch) (1st gen) | A9X | 4GB").tag("iPad6,7")
+                    Text("iPad Pro (12.9-inch) (3rd gen) | A12Z | 4GB").tag("iPad8,6")
+                    Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
+                }).pickerStyle(MenuPickerStyle()).frame(maxWidth: 300).padding()
                 if adaptiveDisplay && !enableWindowAutoSize {
                     Spacer()
                     Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {

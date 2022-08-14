@@ -84,7 +84,7 @@
 
 "settings.picker.displayRefreshRate" = "Taux de rafraîchissement de l'écran";
 "settings.picker.screenSize" = "Résolution de l'écran";
-"settings.picker.ipadModel" = "Select iPad Pro model";
+"settings.picker.iosDevice" = "Select iOS device";
 
 "settings.slider.mouseSensitivity" = "Sensibilité de la souris : %.f";
 
