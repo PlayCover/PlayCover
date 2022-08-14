@@ -13,6 +13,7 @@ struct PlayAppView: View {
     @State private var showSettings = false
     @State private var showClearCacheAlert = false
     @State private var showClearCacheToast = false
+    @State private var showClearPreferencesAlert = false
 
     @Environment(\.colorScheme) var colorScheme
 
@@ -80,6 +81,12 @@ struct PlayAppView: View {
                     Text("playapp.clearCache")
                     Image(systemName: "xmark.bin")
                 })
+                Button(action: {
+                    showClearPreferencesAlert.toggle()
+                }, label: {
+                    Text("playapp.clearPreferences")
+                    Image(systemName: "xmark.bin")
+                })
 
                 Button(action: {
                     app.settings.importOf { result in
@@ -144,7 +151,8 @@ struct PlayAppView: View {
                                 selectedWindowSize: app.settings.gameWindowSizeHeight == 1080
                                 ? 0
                                 : app.settings.gameWindowSizeHeight == 1440 ? 1 : 2,
-                                enableWindowAutoSize: app.settings.enableWindowAutoSize
+                                enableWindowAutoSize: app.settings.enableWindowAutoSize,
+                                ipadModel: app.settings.ipadModel
                 ).frame(minWidth: 500)
             }.sheet(isPresented: $showChangeGenshinAccount) {
                 ChangeGenshinAccountView()
@@ -156,6 +164,12 @@ struct PlayAppView: View {
                 Button("button.Proceed", role: .cancel) {
                     app.container?.clear()
                     showClearCacheToast.toggle()
+                }
+                Button("button.Cancel", role: .cancel) {}
+            }.alert("alert.app.preferences", isPresented: $showClearPreferencesAlert) {
+                Button("button.Proceed", role: .cancel) {
+                    deletePreferences(app: app.info.bundleIdentifier)
+                    showClearPreferencesAlert.toggle()
                 }
                 Button("button.Cancel", role: .cancel) {}
             }.toast(isPresenting: $showClearCacheToast) {

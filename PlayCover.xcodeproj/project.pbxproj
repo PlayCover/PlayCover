@@ -13,6 +13,7 @@
 		28361D6428927E3300B35EDB /* StoreGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28361D6328927E3300B35EDB /* StoreGenshinAccountView.swift */; };
 		28361D662892800200B35EDB /* DeleteStoredGenshinUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28361D652892800200B35EDB /* DeleteStoredGenshinUserData.swift */; };
 		28361D68289280A300B35EDB /* DeleteGenshinStoredAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28361D67289280A300B35EDB /* DeleteGenshinStoredAccountView.swift */; };
+		2878234D28A73FA600E6C27F /* DeletePreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2878234C28A73FA600E6C27F /* DeletePreferences.swift */; };
 		365AFB0628847B2E008B3542 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 365AFB0528847B2E008B3542 /* Sparkle */; settings = {ATTRIBUTES = (Required, ); }; };
 		365AFB0828847B75008B3542 /* Sparkle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365AFB0728847B75008B3542 /* Sparkle.swift */; };
 		3665EF8928832400007CF915 /* PlayCoverSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */; };
@@ -76,6 +77,7 @@
 		28361D6328927E3300B35EDB /* StoreGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreGenshinAccountView.swift; sourceTree = "<group>"; };
 		28361D652892800200B35EDB /* DeleteStoredGenshinUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteStoredGenshinUserData.swift; sourceTree = "<group>"; };
 		28361D67289280A300B35EDB /* DeleteGenshinStoredAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGenshinStoredAccountView.swift; sourceTree = "<group>"; };
+		2878234C28A73FA600E6C27F /* DeletePreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePreferences.swift; sourceTree = "<group>"; };
 		365AFB0728847B75008B3542 /* Sparkle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sparkle.swift; sourceTree = "<group>"; };
 		3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverSettingsView.swift; sourceTree = "<group>"; usesTabs = 0; };
 		36B26B96288C724600859EFD /* UpdateSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSettings.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 				28361D5F28927CAC00B35EDB /* SaveGenshinUserData.swift */,
 				28361D652892800200B35EDB /* DeleteStoredGenshinUserData.swift */,
 				6E66B0BE289DE6240099B907 /* Store.swift */,
+				2878234C28A73FA600E6C27F /* DeletePreferences.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -597,6 +600,7 @@
 				8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */,
 				ABED59832887A32F004D782B /* MenuBarView.swift in Sources */,
 				538AAE7B26CD41E60009C7AC /* ProcessExtension.swift in Sources */,
+				2878234D28A73FA600E6C27F /* DeletePreferences.swift in Sources */,
 				92EE06D4274EA604002C907B /* PlayAppView.swift in Sources */,
 				9280871D2824AD360034C510 /* Unarchiver.swift in Sources */,
 				92279BBF27610433009F28BF /* AppSettingsView.swift in Sources */,
