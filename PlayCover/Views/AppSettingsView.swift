@@ -12,8 +12,18 @@ struct AppSettingsView: View {
 
     @State var app: PlayApp
 
+    @State var keymapping: Bool
+    @State var mouseMapping: Bool
+    @State var sensitivity: Float
+
+    @State var disableTimeout: Bool
+    @State var iosDeviceModel: String
+    @State var refreshRate: Int
+    @State var resolution: Int
+
     @State var resetCompletedAlert: Bool = false
 
+    // TODO: Fix endless @State vars with @ObserableObject and @Published
     // TODO: Remove hardcoded strings
     // TODO: Fix adapative display backend
     var body: some View {
@@ -31,15 +41,15 @@ struct AppSettingsView: View {
                 Spacer()
             }
             TabView {
-                KeymappingView(settings: $app.settings)
+                KeymappingView(keymapping: $keymapping, mouseMapping: $mouseMapping, sensitivity: $sensitivity)
                     .tabItem {
                         Text("Keymapping")
                     }
-                GraphicsView(settings: $app.settings)
+                GraphicsView(disableTimeout: $disableTimeout, iosDeviceModel: $iosDeviceModel, refreshRate: $refreshRate, resolution: $resolution)
                     .tabItem {
                         Text("Graphics")
                     }
-                InfoView(settings: $app.settings)
+                InfoView(info: app.info)
                     .tabItem {
                         Text("Info")
                     }
@@ -68,20 +78,22 @@ struct AppSettingsView: View {
 }
 
 struct KeymappingView: View {
-    @Binding var settings: AppSettings
+    @Binding var keymapping: Bool
+    @Binding var mouseMapping: Bool
+    @Binding var sensitivity: Float
 
     var body: some View {
         VStack {
             HStack {
-                Toggle("Keymapping", isOn: $settings.keymapping)
+                Toggle("Keymapping", isOn: $keymapping)
                     .help("settings.toggle.km.info")
-                Toggle("Mouse mapping", isOn: $settings.gamingMode)
+                Toggle("Mouse mapping", isOn: $mouseMapping)
                 Spacer()
             }
             HStack {
-                Slider(value: $settings.sensivity, in: 0...100, label: {
+                Slider(value: $sensitivity, in: 0...100, label: {
                     Text(NSLocalizedString("settings.slider.mouseSensitivity", comment: "")
-                         + String(format: "%.f", settings.sensivity))
+                         + String(format: "%.f", sensitivity))
                 })
                 .frame(maxWidth: 400)
                 Spacer()
@@ -93,17 +105,19 @@ struct KeymappingView: View {
 }
 
 struct GraphicsView: View {
-    @Binding var settings: AppSettings
-    @State var selection: Int = 2
+    @Binding var disableTimeout: Bool
+    @Binding var iosDeviceModel: String
+    @Binding var refreshRate: Int
+    @Binding var resolution: Int
 
     var body: some View {
         VStack {
             HStack {
-                Toggle("Disable display sleep", isOn: $settings.disableTimeout)
+                Toggle("Disable display sleep", isOn: $disableTimeout)
                 Spacer()
             }.padding(.bottom)
             HStack {
-                Picker("iOS device:", selection: $settings.ipadModel) {
+                Picker("iOS device:", selection: $iosDeviceModel) {
                     Text("iPad Pro (12.9-inch) (1st gen) | A9X | 4GB").tag("iPad6,7")
                     Text("iPad Pro (12.9-inch) (3rd gen) | A12Z | 4GB").tag("iPad8,6")
                     Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
@@ -112,7 +126,7 @@ struct GraphicsView: View {
                 Spacer()
             }
             HStack {
-                Picker("Adaptive resolution:", selection: $selection) {
+                Picker("Adaptive resolution:", selection: $resolution) {
                     Text("Off").tag(0)
                     Text("Auto").tag(1)
                     Text("1080p").tag(2)
@@ -125,9 +139,9 @@ struct GraphicsView: View {
                 Spacer()
             }
             HStack {
-                Picker("Refresh rate:", selection: $settings.refreshRate) {
-                    Text("60 Hz").tag(0)
-                    Text("120 Hz").tag(1)
+                Picker("Refresh rate:", selection: $refreshRate) {
+                    Text("60 Hz").tag(60)
+                    Text("120 Hz").tag(120)
                 }
                 .pickerStyle(.segmented)
                 .fixedSize()
@@ -141,7 +155,7 @@ struct GraphicsView: View {
 }
 
 struct InfoView: View {
-    @Binding var settings: AppSettings
+    @State var info: AppInfo
 
     var body: some View {
         VStack {

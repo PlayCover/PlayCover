@@ -25,10 +25,6 @@ struct PlayAppView: View {
         .onTapGesture {
             isHover = false
             shell.removeTwitterSessionCookie()
-            if app.settings.enableWindowAutoSize {
-                app.settings.gameWindowSizeWidth = Float(NSScreen.main?.frame.width ?? 1920)
-                app.settings.gameWindowSizeHeight = Float(NSScreen.main?.frame.height ?? 1080)
-            }
             app.launch()
         }
         .contextMenu {
@@ -104,7 +100,14 @@ struct PlayAppView: View {
                 toastDetails: NSLocalizedString("alert.errorImportKm", comment: ""))
         }
         .sheet(isPresented: $showSettings) {
-            AppSettingsView(app: app)
+            AppSettingsView(app: app,
+                            keymapping: app.settings.keymapping,
+                            mouseMapping: app.settings.mouseMapping,
+                            sensitivity: app.settings.sensitivity,
+                            disableTimeout: app.settings.disableTimeout,
+                            iosDeviceModel: app.settings.iosDeviceModel,
+                            refreshRate: app.settings.refreshRate,
+                            resolution: app.settings.resolution)
         }
     }
 }
