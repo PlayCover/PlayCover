@@ -38,7 +38,6 @@ struct PlayAppView: View {
                 Text("playapp.settings")
                 Image(systemName: "gear")
             })
-
             Button(action: {
                 app.showInFinder()
             }, label: {
@@ -51,14 +50,12 @@ struct PlayAppView: View {
                 Text("playapp.openCache")
                 Image(systemName: "folder")
             })
-
             Button(action: {
                 showClearCacheAlert.toggle()
             }, label: {
                 Text("playapp.clearCache")
                 Image(systemName: "xmark.bin")
             })
-
             Button(action: {
                 app.settings.importOf { result in
                     if result != nil {
@@ -71,14 +68,12 @@ struct PlayAppView: View {
                 Text("playapp.importKm")
                 Image(systemName: "square.and.arrow.down.on.square.fill")
             })
-
             Button(action: {
                 app.settings.export()
             }, label: {
                 Text("playapp.exportKm")
                 Image(systemName: "arrowshape.turn.up.left")
             })
-
             Button(action: {
                 app.deleteApp()
             }, label: {
@@ -107,6 +102,9 @@ struct PlayAppView: View {
         .onChange(of: showImportFail) { _ in
             ToastVM.shared.showToast(toastType: .error,
                 toastDetails: NSLocalizedString("alert.errorImportKm", comment: ""))
+        }
+        .sheet(isPresented: $showSettings) {
+            AppSettingsView(settings: app.settings)
         }
     }
 }
