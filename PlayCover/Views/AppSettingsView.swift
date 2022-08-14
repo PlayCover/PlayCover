@@ -10,22 +10,20 @@ import SwiftUI
 struct AppSettingsView: View {
     @Environment(\.dismiss) var dismiss
 
-    @State var app: PlayApp
+    @Binding var app: PlayApp
 
-    @State var keymapping: Bool
-    @State var mouseMapping: Bool
-    @State var sensitivity: Float
+    @Binding var keymapping: Bool
+    @Binding var mouseMapping: Bool
+    @Binding var sensitivity: Float
 
-    @State var disableTimeout: Bool
-    @State var iosDeviceModel: String
-    @State var refreshRate: Int
-    @State var resolution: Int
+    @Binding var disableTimeout: Bool
+    @Binding var iosDeviceModel: String
+    @Binding var refreshRate: Int
+    @Binding var resolution: Int
 
     @State var resetCompletedAlert: Bool = false
 
     // TODO: Fix endless @State vars with @ObserableObject and @Published
-    // TODO: Remove hardcoded strings
-    // TODO: Fix adapative display backend
     var body: some View {
         VStack {
             HStack {
@@ -35,23 +33,24 @@ struct AppSettingsView: View {
                         .cornerRadius(10)
                         .shadow(radius: 1)
                 }
-                Text("\(app.name) Settings")
+                Text("\(app.name) " + NSLocalizedString("settings.title", comment: ""))
                     .font(.title2).bold()
                     .multilineTextAlignment(.leading)
                 Spacer()
             }
             TabView {
-                KeymappingView(keymapping: $keymapping, mouseMapping: $mouseMapping, sensitivity: $sensitivity)
+                KeymappingView(keymapping: keymapping, mouseMapping: mouseMapping, sensitivity: sensitivity)
                     .tabItem {
-                        Text("Keymapping")
+                        Text("settings.tab.km")
                     }
-                GraphicsView(disableTimeout: $disableTimeout, iosDeviceModel: $iosDeviceModel, refreshRate: $refreshRate, resolution: $resolution)
+                GraphicsView(disableTimeout: disableTimeout, iosDeviceModel: iosDeviceModel,
+                             refreshRate: refreshRate, resolution: resolution)
                     .tabItem {
-                        Text("Graphics")
+                        Text("settings.tab.graphics")
                     }
                 InfoView(info: app.info)
                     .tabItem {
-                        Text("Info")
+                        Text("settings.tab.info")
                     }
             }
             .frame(minWidth: 450, minHeight: 200)
@@ -62,7 +61,7 @@ struct AppSettingsView: View {
                     app.settings.reset()
                     dismiss()
                 }
-                Button("OK") {
+                Button("button.OK") {
                     dismiss()
                 }
                 .tint(.accentColor)
@@ -78,16 +77,16 @@ struct AppSettingsView: View {
 }
 
 struct KeymappingView: View {
-    @Binding var keymapping: Bool
-    @Binding var mouseMapping: Bool
-    @Binding var sensitivity: Float
+    @State var keymapping: Bool
+    @State var mouseMapping: Bool
+    @State var sensitivity: Float
 
     var body: some View {
         VStack {
             HStack {
-                Toggle("Keymapping", isOn: $keymapping)
-                    .help("settings.toggle.km.info")
-                Toggle("Mouse mapping", isOn: $mouseMapping)
+                Toggle("settings.toggle.km", isOn: $keymapping)
+                    .help("settings.toggle.km.help")
+                Toggle("settings.toggle.mm", isOn: $mouseMapping)
                 Spacer()
             }
             HStack {
@@ -105,19 +104,19 @@ struct KeymappingView: View {
 }
 
 struct GraphicsView: View {
-    @Binding var disableTimeout: Bool
-    @Binding var iosDeviceModel: String
-    @Binding var refreshRate: Int
-    @Binding var resolution: Int
+    @State var disableTimeout: Bool
+    @State var iosDeviceModel: String
+    @State var refreshRate: Int
+    @State var resolution: Int
 
     var body: some View {
         VStack {
             HStack {
-                Toggle("Disable display sleep", isOn: $disableTimeout)
+                Toggle("settings.toggle.disableDisplaySleep", isOn: $disableTimeout)
                 Spacer()
             }.padding(.bottom)
             HStack {
-                Picker("iOS device:", selection: $iosDeviceModel) {
+                Picker("settings.picker.iosDevice", selection: $iosDeviceModel) {
                     Text("iPad Pro (12.9-inch) (1st gen) | A9X | 4GB").tag("iPad6,7")
                     Text("iPad Pro (12.9-inch) (3rd gen) | A12Z | 4GB").tag("iPad8,6")
                     Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
@@ -126,20 +125,20 @@ struct GraphicsView: View {
                 Spacer()
             }
             HStack {
-                Picker("Adaptive resolution:", selection: $resolution) {
-                    Text("Off").tag(0)
-                    Text("Auto").tag(1)
+                Picker("settings.picker.adaptiveRes", selection: $resolution) {
+                    Text("settings.picker.adaptiveRes.0").tag(0)
+                    Text("settings.picker.adaptiveRes.1").tag(1)
                     Text("1080p").tag(2)
                     Text("1440p").tag(3)
                     Text("4K").tag(4)
                 }
                 .fixedSize()
                 .frame(alignment: .leading)
-                .help("settings.toggle.adaptiveDisplay.info")
+                .help("settings.picker.adaptiveRes.help")
                 Spacer()
             }
             HStack {
-                Picker("Refresh rate:", selection: $refreshRate) {
+                Picker("settings.picker.refreshRate", selection: $refreshRate) {
                     Text("60 Hz").tag(60)
                     Text("120 Hz").tag(120)
                 }
