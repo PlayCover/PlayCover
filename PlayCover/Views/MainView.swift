@@ -61,6 +61,7 @@ struct MainView: View {
                     ToastView()
                         .environmentObject(ToastVM.shared)
                         .environmentObject(InstallVM.shared)
+                        // TODO: Sidebar Visible doesnt update if auto hidden or with menu bar
                         .frame(width: sidebarVisible ? (viewWidth - navWidth) : viewWidth)
                         .animation(.spring(), value: sidebarVisible)
                 }

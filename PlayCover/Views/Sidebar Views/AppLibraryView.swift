@@ -18,7 +18,7 @@ struct AppLibraryView: View {
             GeometryReader { geom in
                 if gridViewLayout == 0 {
                     ScrollView {
-                        LazyVGrid(columns: gridLayout, alignment: .center) {
+                        LazyVGrid(columns: gridLayout, alignment: .leading) {
                             ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
                                 PlayAppView(app: app, isList: false)
                             }
