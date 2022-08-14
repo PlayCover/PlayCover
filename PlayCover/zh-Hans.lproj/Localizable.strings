@@ -12,6 +12,7 @@
 "playapp.storeCurrentAccount" = "保存现有账号";
 "playapp.activateAccount" = "激活账号";
 "playapp.deleteAccount" = "删除账号";
+"playapp.clearPreferences" = "清除应用偏好设置";
 
 "storeAccount.selectAccRegion" = "选择账号地区服务器";
 "storeAccount.selectAccRegion.usa" = "美服";
@@ -85,7 +86,7 @@
 
 "settings.picker.displayRefreshRate" = "屏幕刷新率";
 "settings.picker.screenSize" = "屏幕分辨率";
-"settings.picker.ipadModel" = "Select iPad Pro model";
+"settings.picker.ipadModel" = "选择 iPad Pro 型号";
 
 "settings.slider.mouseSensitivity" = "鼠标灵敏度：";
 

@@ -11,6 +11,7 @@
 "playapp.storeCurrentAccount" = "Sauvegarder le compte actuel";
 "playapp.activateAccount" = "Activer un compte";
 "playapp.deleteAccount" = "Supprimer un compte";
+"playapp.clearPreferences" = "Clear app preferences";
 
 "storeAccount.selectAccRegion" = "Sélectionner la région du compte";
 "storeAccount.selectAccRegion.usa" = "Amérique";

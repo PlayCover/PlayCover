@@ -11,6 +11,7 @@
 "playapp.storeCurrentAccount" = "今のアカウントを保存";
 "playapp.activateAccount" = "アカウントを有効にする";
 "playapp.deleteAccount" = "アカウントを削除";
+"playapp.clearPreferences" = "Clear app preferences";
 
 "storeAccount.selectAccRegion" = "アカウントの地域を変更する";
 "storeAccount.selectAccRegion.usa" = "米国";
