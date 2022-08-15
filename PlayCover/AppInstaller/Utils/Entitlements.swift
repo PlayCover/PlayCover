@@ -154,8 +154,13 @@ class Entitlements {
     """
 
 	public static func getDefaultRules() throws -> PlayRules {
-		guard let path = Bundle.main.path(forResource: "default", ofType: "yaml") else {
-			throw "Resource not found: default.yaml"
+		var path: String
+		if FileManager.default.fileExists(atPath: "~/.config/PlayCover/default.yaml") {
+			path = "~/.config/PlayCover/default.yaml"
+		} else if let bpath = Bundle.main.path(forResource: "default", ofType: "yaml") {
+			path = bpath
+		} else {
+			throw "Default config not found: default.yaml"
 		}
 
 		do {
@@ -164,13 +169,18 @@ class Entitlements {
 			let decoded: PlayRules = try decoder.decode(PlayRules.self, from: data)
 			return decoded
 		} catch {
-			print("failed to get default rules: \(error)")
-			throw error
+			print("failed to get default rules at \(path): \(error)")
+			throw "failed to get default rules at \(path): \(error)"
 		}
 	}
 
 	public static func getBundleRules(_ bundleID: String) throws -> PlayRules? {
-		guard let path = Bundle.main.path(forResource: bundleID, ofType: "yaml") else {
+		var path : String
+		if FileManager.default.fileExists(atPath: "~/.config/PlayCover/\(bundleID).yaml") {
+			path = "~/.config/PlayCover/\(bundleID).yaml"
+		} else if let bpath = Bundle.main.path(forResource: bundleID, ofType: "yaml") {
+			path = bpath
+		} else {
 			return nil
 		}
 
@@ -180,7 +190,7 @@ class Entitlements {
 			let decoded: PlayRules = try decoder.decode(PlayRules.self, from: data)
 			return decoded
 		} catch {
-			print("failed to get bundle rules: \(error)")
+			print("failed to get bundle rules at \(path): \(error)")
 			throw error
 		}
 	}
