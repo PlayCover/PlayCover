@@ -29,7 +29,6 @@ class AppSettings {
         set {
             var dict = dictionary
             dict[AppSettings.keymapping] = newValue
-            print("Saving new value")
             dictionary = dict
         }
     }
@@ -165,7 +164,6 @@ class AppSettings {
             }
         }
         set {
-            print("set value")
             var prefs = allPrefs
             prefs[info.bundleIdentifier] = newValue
             allPrefs = prefs
