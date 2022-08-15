@@ -17,7 +17,7 @@ struct MainView: View {
     @State private var selectedView: Int? = -1
     @State private var navWidth: CGFloat = 0
     @State private var viewWidth: CGFloat = 0
-    @State private var sidebarVisible: Bool = true
+    @State private var collapsed: Bool = false
 
     var body: some View {
         GeometryReader { viewGeom in
@@ -35,13 +35,12 @@ struct MainView: View {
                             Label("IPA Library", systemImage: "arrow.down.circle")
                         }
                     }
-                    .listStyle(.sidebar)
                     .onChange(of: sidebarGeom.size) { newSize in
                         navWidth = newSize.width
                     }
                 }
+                .background(SplitViewAccessor(sideCollapsed: $collapsed))
             }
-            .navigationViewStyle(.columns)
             .onAppear {
                 self.selectedView = 1
             }
@@ -54,16 +53,15 @@ struct MainView: View {
             }
             .overlay {
                 HStack {
-                    if sidebarVisible {
+                    if !collapsed {
                         Spacer()
                             .frame(width: navWidth)
                     }
                     ToastView()
                         .environmentObject(ToastVM.shared)
                         .environmentObject(InstallVM.shared)
-                        // TODO: Sidebar Visible doesnt update if auto hidden or with menu bar
-                        .frame(width: sidebarVisible ? (viewWidth - navWidth) : viewWidth)
-                        .animation(.spring(), value: sidebarVisible)
+                        .frame(width: collapsed ? viewWidth : (viewWidth - navWidth))
+                        .animation(.spring(), value: collapsed)
                 }
             }
             .onChange(of: viewGeom.size) { newSize in
@@ -74,7 +72,45 @@ struct MainView: View {
 
     private func toggleSidebar() {
         NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
-        sidebarVisible.toggle()
+    }
+}
+
+struct SplitViewAccessor: NSViewRepresentable {
+    @Binding var sideCollapsed: Bool
+
+    func makeNSView(context: Context) -> some NSView {
+        let view = MyView()
+        view.sideCollapsed = _sideCollapsed
+        return view
+    }
+
+    func updateNSView(_ nsView: NSViewType, context: Context) {}
+
+    class MyView: NSView {
+        var sideCollapsed: Binding<Bool>?
+        weak private var controller: NSSplitViewController?
+        private var observer: Any?
+
+        override func viewDidMoveToWindow() {
+            super.viewDidMoveToWindow()
+            var sview = self.superview
+
+            // Find split view through hierarchy
+            while sview != nil, !sview!.isKind(of: NSSplitView.self) {
+                sview = sview?.superview
+            }
+            guard let sview = sview as? NSSplitView else { return }
+
+            controller = sview.delegate as? NSSplitViewController
+
+            if let sideBar = controller?.splitViewItems.first {
+                observer = sideBar.observe(\.isCollapsed, options: [.new]) { [weak self] _, change in
+                    if let value = change.newValue {
+                        self?.sideCollapsed?.wrappedValue = value
+                    }
+                }
+            }
+        }
     }
 }
 
