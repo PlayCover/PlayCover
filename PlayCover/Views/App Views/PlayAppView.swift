@@ -101,13 +101,13 @@ struct PlayAppView: View {
         }
         .sheet(isPresented: $showSettings) {
             AppSettingsView(app: app,
-                            keymapping: app.settings.keymapping,
-                            mouseMapping: app.settings.mouseMapping,
-                            sensitivity: app.settings.sensitivity,
-                            disableTimeout: app.settings.disableTimeout,
-                            iosDeviceModel: app.settings.iosDeviceModel,
-                            refreshRate: app.settings.refreshRate,
-                            resolution: app.settings.resolution)
+                            keymapping: $app.settings.keymapping,
+                            mouseMapping: $app.settings.mouseMapping,
+                            sensitivity: $app.settings.sensitivity,
+                            disableTimeout: $app.settings.disableTimeout,
+                            iosDeviceModel: $app.settings.iosDeviceModel,
+                            refreshRate: $app.settings.refreshRate,
+                            resolution: $app.settings.resolution)
         }
     }
 }

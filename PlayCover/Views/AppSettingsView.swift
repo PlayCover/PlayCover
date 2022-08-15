@@ -12,14 +12,14 @@ struct AppSettingsView: View {
 
     @State var app: PlayApp
 
-    @State var keymapping: Bool
-    @State var mouseMapping: Bool
-    @State var sensitivity: Float
+    @Binding var keymapping: Bool
+    @Binding var mouseMapping: Bool
+    @Binding var sensitivity: Float
 
-    @State var disableTimeout: Bool
-    @State var iosDeviceModel: String
-    @State var refreshRate: Int
-    @State var resolution: Int
+    @Binding var disableTimeout: Bool
+    @Binding var iosDeviceModel: String
+    @Binding var refreshRate: Int
+    @Binding var resolution: Int
 
     @State var resetCompletedAlert: Bool = false
 
