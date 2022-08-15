@@ -6,6 +6,8 @@
 import SwiftUI
 
 struct PlayAppView: View {
+    @StateObject var appSettingsVM: AppSettingsVM = AppSettingsVM()
+
     @State var app: PlayApp
     @State var isList: Bool
 
@@ -18,6 +20,9 @@ struct PlayAppView: View {
 
     var body: some View {
         ConditionalView(app: app, isList: isList)
+        .onAppear {
+            appSettingsVM.update(app.settings)
+        }
         .background(
             isHover ? Color.gray.opacity(0.3) : Color.clear
         )
@@ -100,14 +105,7 @@ struct PlayAppView: View {
                 toastDetails: NSLocalizedString("alert.errorImportKm", comment: ""))
         }
         .sheet(isPresented: $showSettings) {
-            AppSettingsView(app: app,
-                            keymapping: app.settings.keymapping,
-                            mouseMapping: app.settings.mouseMapping,
-                            sensitivity: app.settings.sensitivity,
-                            disableTimeout: app.settings.disableTimeout,
-                            iosDeviceModel: app.settings.iosDeviceModel,
-                            refreshRate: app.settings.refreshRate,
-                            resolution: app.settings.resolution)
+            AppSettingsView(settingsVM: appSettingsVM, app: app)
         }
     }
 }
