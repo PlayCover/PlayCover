@@ -250,12 +250,12 @@
 		53F5E73E26C1C654005AED1D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				B1084E1E28AA80F400E399FA /* AppSettingsVM.swift */,
 				9272F19C273B74C800DFBEF1 /* AppsVM.swift */,
 				928C01D8272E162C007EB2DF /* InstallVM.swift */,
 				6E66B0BE289DE6240099B907 /* StoreVM.swift */,
 				6E66B0D828A135360099B907 /* ToastVM.swift */,
 				53F4D29F26C43C690020167C /* Log.swift */,
-				B1084E1E28AA80F400E399FA /* AppSettingsVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
