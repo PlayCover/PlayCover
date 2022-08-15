@@ -154,7 +154,7 @@ class Entitlements {
     """
 
 	public static func getDefaultRules() throws -> PlayRules {
-		var path : String
+		var path: String
 		if FileManager.default.fileExists(atPath: "~/.config/PlayCover/default.yaml") {
 			path = "~/.config/PlayCover/default.yaml"
 		} else if let bpath = Bundle.main.path(forResource: "default", ofType: "yaml") {
