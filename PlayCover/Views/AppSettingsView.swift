@@ -24,7 +24,6 @@ struct AppSettingsView: View {
 
     @State var resetCompletedAlert: Bool = false
 
-    // TODO: Fix endless @State vars with @ObserableObject and @Published
     var body: some View {
         VStack {
             HStack {

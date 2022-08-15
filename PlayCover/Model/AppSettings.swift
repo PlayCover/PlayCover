@@ -17,8 +17,6 @@ class AppSettings {
     let info: AppInfo
     var container: AppContainer?
 
-    // TODO: Add back layout key (required by PlayTools)
-
     //
     // Keymapping settings
     //

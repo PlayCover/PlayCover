@@ -27,7 +27,6 @@ struct AppLibraryView: View {
                         .animation(.spring(blendDuration: 0.1), value: geom.size.width)
                     }
                 } else {
-                    // TODO: Fix uneven empty rows
                     List {
                         ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
                             PlayAppView(app: app, isList: true)
