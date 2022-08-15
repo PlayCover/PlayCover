@@ -11,15 +11,16 @@ struct AppSettingsView: View {
     @Environment(\.dismiss) var dismiss
 
     @State var app: PlayApp
+    @Binding var settings: AppSettings
 
-    @Binding var keymapping: Bool
-    @Binding var mouseMapping: Bool
-    @Binding var sensitivity: Float
+    @State var keymapping: Bool
+    @State var mouseMapping: Bool
+    @State var sensitivity: Float
 
-    @Binding var disableTimeout: Bool
-    @Binding var iosDeviceModel: String
-    @Binding var refreshRate: Int
-    @Binding var resolution: Int
+    @State var disableTimeout: Bool
+    @State var iosDeviceModel: String
+    @State var refreshRate: Int
+    @State var resolution: Int
 
     @State var resetCompletedAlert: Bool = false
 
@@ -43,8 +44,8 @@ struct AppSettingsView: View {
                     .tabItem {
                         Text("settings.tab.km")
                     }
-                GraphicsView(disableTimeout: disableTimeout, iosDeviceModel: iosDeviceModel,
-                             refreshRate: refreshRate, resolution: resolution)
+                GraphicsView(disableTimeout: $disableTimeout, iosDeviceModel: $iosDeviceModel,
+                             refreshRate: $refreshRate, resolution: $resolution)
                     .tabItem {
                         Text("settings.tab.graphics")
                     }
@@ -71,6 +72,27 @@ struct AppSettingsView: View {
                 .tint(.accentColor)
                 .keyboardShortcut(.defaultAction)
             }
+        }
+        .onChange(of: keymapping) { value in
+            settings.keymapping = value
+        }
+        .onChange(of: mouseMapping) { value in
+            settings.mouseMapping = value
+        }
+        .onChange(of: sensitivity) { value in
+            settings.sensitivity = value
+        }
+        .onChange(of: disableTimeout) { value in
+            settings.disableTimeout = value
+        }
+        .onChange(of: iosDeviceModel) { value in
+            settings.iosDeviceModel = value
+        }
+        .onChange(of: refreshRate) { value in
+            settings.refreshRate = value
+        }
+        .onChange(of: resolution) { value in
+            settings.resolution = value
         }
         .onChange(of: resetCompletedAlert) { _ in
             ToastVM.shared.showToast(toastType: .notice,
@@ -108,10 +130,10 @@ struct KeymappingView: View {
 }
 
 struct GraphicsView: View {
-    @State var disableTimeout: Bool
-    @State var iosDeviceModel: String
-    @State var refreshRate: Int
-    @State var resolution: Int
+    @Binding var disableTimeout: Bool
+    @Binding var iosDeviceModel: String
+    @Binding var refreshRate: Int
+    @Binding var resolution: Int
 
     var body: some View {
         VStack {
