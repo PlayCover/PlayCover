@@ -77,6 +77,7 @@
 "settings.title" = "Settings";
 "settings.tab.km" = "Keymapping";
 "settings.tab.graphics" = "Graphics";
+"settings.tab.jbBypass" = "Jailbreak Bypass";
 "settings.tab.info" = "Info";
 
 "settings.toggle.km" = "Keymapping";

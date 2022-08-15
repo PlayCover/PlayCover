@@ -10,16 +10,16 @@ import SwiftUI
 struct AppSettingsView: View {
     @Environment(\.dismiss) var dismiss
 
-    @Binding var app: PlayApp
+    @State var app: PlayApp
 
-    @Binding var keymapping: Bool
-    @Binding var mouseMapping: Bool
-    @Binding var sensitivity: Float
+    @State var keymapping: Bool
+    @State var mouseMapping: Bool
+    @State var sensitivity: Float
 
-    @Binding var disableTimeout: Bool
-    @Binding var iosDeviceModel: String
-    @Binding var refreshRate: Int
-    @Binding var resolution: Int
+    @State var disableTimeout: Bool
+    @State var iosDeviceModel: String
+    @State var refreshRate: Int
+    @State var resolution: Int
 
     @State var resetCompletedAlert: Bool = false
 
@@ -39,7 +39,7 @@ struct AppSettingsView: View {
                 Spacer()
             }
             TabView {
-                KeymappingView(keymapping: keymapping, mouseMapping: mouseMapping, sensitivity: sensitivity)
+                KeymappingView(keymapping: $keymapping, mouseMapping: $mouseMapping, sensitivity: $sensitivity)
                     .tabItem {
                         Text("settings.tab.km")
                     }
@@ -47,6 +47,10 @@ struct AppSettingsView: View {
                              refreshRate: refreshRate, resolution: resolution)
                     .tabItem {
                         Text("settings.tab.graphics")
+                    }
+                JBBypassView()
+                    .tabItem {
+                        Text("settings.tab.jbBypass")
                     }
                 InfoView(info: app.info)
                     .tabItem {
@@ -77,9 +81,9 @@ struct AppSettingsView: View {
 }
 
 struct KeymappingView: View {
-    @State var keymapping: Bool
-    @State var mouseMapping: Bool
-    @State var sensitivity: Float
+    @Binding var keymapping: Bool
+    @Binding var mouseMapping: Bool
+    @Binding var sensitivity: Float
 
     var body: some View {
         VStack {
@@ -153,13 +157,62 @@ struct GraphicsView: View {
     }
 }
 
+struct JBBypassView: View {
+    var body: some View {
+        VStack {
+            Text("Jailbreak Bypass")
+        }
+        .padding()
+    }
+}
+
 struct InfoView: View {
     @State var info: AppInfo
 
     var body: some View {
-        VStack {
-            Text("Info")
+        List {
+            HStack {
+                Text("Display name:")
+                Spacer()
+                Text("\(info.displayName)")
+            }
+            HStack {
+                Text("Bundle name:")
+                Spacer()
+                Text("\(info.bundleName)")
+            }
+            HStack {
+                Text("Bundle identifier:")
+                Spacer()
+                Text("\(info.bundleIdentifier)")
+            }
+            HStack {
+                Text("Bundle version:")
+                Spacer()
+                Text("\(info.bundleVersion)")
+            }
+            HStack {
+                Text("Executable name:")
+                Spacer()
+                Text("\(info.executableName)")
+            }
+            HStack {
+                Text("Minimum OS version:")
+                Spacer()
+                Text("\(info.minimumOSVersion)")
+            }
+            HStack {
+                Text("URL:")
+                Spacer()
+                Text("\(info.url)")
+            }
+            HStack {
+                Text("Is Game:")
+                Spacer()
+                Text("\(info.isGame ? "Yes" : "No")")
+            }
         }
+        .listStyle(.bordered(alternatesRowBackgrounds: true))
         .padding()
     }
 }
