@@ -12,6 +12,8 @@ struct PlayAppView: View {
     @State private var showSettings = false
     @State private var showClearCacheAlert = false
     @State private var showClearCacheToast = false
+    @State private var showClearPreferencesAlert = false
+
     @State var isHover: Bool = false
     @State var showImportSuccess: Bool = false
     @State var showImportFail: Bool = false
@@ -53,6 +55,12 @@ struct PlayAppView: View {
                 Image(systemName: "xmark.bin")
             })
             Button(action: {
+                showClearPreferencesAlert.toggle()
+            }, label: {
+                Text("playapp.clearPreferences")
+                Image(systemName: "xmark.bin")
+            })
+            Button(action: {
                 app.settings.importOf { result in
                     if result != nil {
                         showImportSuccess.toggle()
@@ -84,6 +92,13 @@ struct PlayAppView: View {
             Button("button.Proceed", role: .cancel) {
                 app.container?.clear()
                 showClearCacheToast.toggle()
+            }
+            Button("button.Cancel", role: .cancel) {}
+        }
+        .alert("alert.app.preferences", isPresented: $showClearPreferencesAlert) {
+            Button("button.Proceed", role: .cancel) {
+                deletePreferences(app: app.info.bundleIdentifier)
+                showClearPreferencesAlert.toggle()
             }
             Button("button.Cancel", role: .cancel) {}
         }
