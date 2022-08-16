@@ -175,7 +175,7 @@ class Entitlements {
 	}
 
 	public static func getBundleRules(_ bundleID: String) throws -> PlayRules? {
-		var path : String
+		var path: String
 		if FileManager.default.fileExists(atPath: "~/.config/PlayCover/\(bundleID).yaml") {
 			path = "~/.config/PlayCover/\(bundleID).yaml"
 		} else if let bpath = Bundle.main.path(forResource: bundleID, ofType: "yaml") {
