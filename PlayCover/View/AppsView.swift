@@ -22,6 +22,7 @@ struct AppsView: View {
 	@State private var alertBtn = ""
 	@State private var alertAction : (() -> Void) = {}
 	@State private var showAlert = false
+    @State private var isInstallingXcodeCli = false
 
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
@@ -30,43 +31,28 @@ struct AppsView: View {
             }
 			if !xcodeCliInstalled {
 				VStack(spacing: 12) {
-					Text("xcode.install.message")
-						.font(.title3)
-					Button("button.Install") {
-                        if let path = Bundle.main.url(forResource: "xcode_install", withExtension: "scpt") {
-                            let task = Process()
-                            task.launchPath = "/usr/bin/osascript"
-                            task.arguments = ["\(path.path)"]
-                            task.launch()
-                            task.waitUntilExit()
-                            Log.shared.msg("YEEEHAWW")
-                        } else {
-                            Log.shared.error("Could not find install script!")
+                    if !isInstallingXcodeCli {
+                        Text("xcode.install.message")
+                            .font(.title3)
+                        Button("button.Install") {
+                            installXcodeCli()
+                            isInstallingXcodeCli = true
                         }
-						/*do {
-							_ = try shell.sh("xcode-select --install")
-							alertTitle = NSLocalizedString("xcode.install.success", comment: "")
-							alertBtn = NSLocalizedString("button.Close", comment: "")
-							alertText = NSLocalizedString("alert.followInstructionsAndRestartApp", comment: "")
-							alertAction = {
-								exit(0)
-							}
-							showAlert = true
-						} catch {
-							alertTitle = NSLocalizedString("xcode.install.failed", comment: "")
-							alertBtn = NSLocalizedString("button.OK", comment: "")
-							alertText = error.localizedDescription
-							alertAction = {}
-							showAlert = true
-						}*/
-					}
-                    .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
-					.alert(isPresented: $showAlert) {
-						Alert(title: Text(alertTitle), message: Text(alertText), dismissButton: .default(Text(alertBtn), action: {
-							showAlert = false
-							alertAction()
-						}))
-					}
+                        .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
+                        .alert(isPresented: $showAlert) {
+                            Alert(title: Text(alertTitle), message: Text(alertText), dismissButton: .default(Text(alertBtn), action: {
+                                showAlert = false
+                                alertAction()
+                            }))
+                        }
+                    } else {
+                        VStack {
+                            ProgressView("Installing Xcode Command Line Tools")
+                                .progressViewStyle(.circular)
+                            Text("May take around 5-10 minutes depending on internet speed")
+                                .foregroundColor(.secondary)
+                        }
+                    }
 				}
 				.frame(maxWidth: .infinity, maxHeight: .infinity)
 				.padding(.top, 16).padding(.bottom, bottomPadding + 16)
@@ -96,6 +82,55 @@ struct AppsView: View {
                     }
                 }
 			}
+        }
+    }
+
+    func installXcodeCli() {
+        if let path = Bundle.main.url(forResource: "xcode_install", withExtension: "scpt") {
+            DispatchQueue.global(qos: .userInteractive).async {
+                let task = Process()
+                let taskOutput = Pipe()
+                task.launchPath = "/usr/bin/osascript"
+                task.arguments = ["\(path.path)"]
+                task.standardOutput = taskOutput
+                task.launch()
+                task.waitUntilExit()
+
+                DispatchQueue.main.async {
+                    let data = taskOutput.fileHandleForReading.readDataToEndOfFile()
+                    if let output = String(data: data, encoding: .utf8) {
+                        let trimmed = output.filter { !$0.isWhitespace }
+                        if trimmed.isEmpty {
+                            isInstallingXcodeCli = false
+                            alertTitle = NSLocalizedString("xcode.install.success", comment: "")
+                            alertBtn = NSLocalizedString("button.Close", comment: "")
+                            alertText = NSLocalizedString("alert.followInstructionsAndRestartApp", comment: "")
+                            alertAction = {
+                                exit(0)
+                            }
+                            showAlert = true
+                            xcodeCliInstalled = shell.isXcodeCliToolsInstalled
+                        } else {
+                            isInstallingXcodeCli = false
+                            alertTitle = NSLocalizedString("xcode.install.failed", comment: "")
+                            alertBtn = NSLocalizedString("button.OK", comment: "")
+                            alertText = output
+                            alertAction = {}
+                            showAlert = true
+                        }
+                    } else {
+                        isInstallingXcodeCli = false
+                        Log.shared.error("Failed to interpret console output")
+                    }
+                }
+            }
+        } else {
+            isInstallingXcodeCli = false
+            alertTitle = NSLocalizedString("xcode.install.failed", comment: "")
+            alertBtn = NSLocalizedString("button.OK", comment: "")
+            alertText = "Could not find install script!"
+            alertAction = {}
+            showAlert = true
         }
     }
 }
