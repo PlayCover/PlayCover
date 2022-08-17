@@ -62,7 +62,7 @@ jobs:
           name: PlayCover_nightly_${{ github.run_number }}.dmg
           path: output/PlayCover_nightly_${{ github.run_number }}.dmg
 
-  # TODO: Remove the enclosure tag for nightly build. Instead, use the link tag to direct users to download from the GitHub Actions workflow.
+  # manual release
   # bump-sparkle:
   #   needs: build
   #   runs-on: macos-latest
