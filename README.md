@@ -19,201 +19,69 @@
   <h3 align="center">PlayCover</h3>
 
   <p align="center">
-    Run iOS apps & games on M1 Mac with mouse, keyboard and controller support.
+    Run iOS apps and games on Apple Silicon Macs with mouse, keyboard and controller support.
     <br />
     <br />
-    <a href="https://www.youtube.com/watch?v=grY63FBJ6N4">Showcase</a>
-    ·
-    <a href="https://github.com/PlayCover/PlayCover/pulls">Contribute</a>
+    <a href="https://playcover.github.io/PlayBook">Documentation</a>
     ·
     <a href="https://discord.gg/rMv5qxGTGC">Discord</a>
+    ·
+    <a href="https://playcover.io/">Website</a>
   </p>
 </div>
-
-## About the fork & Disclaimer
-
-This fork has been created by the community to support the development of PlayCover, since the original project became non-free and non-open-source.
-
-This fork is not affiliated with the original project, nor the original author.
-
-This fork is not affiliated with the website <https://playcover.me>.
-
-I am supporting this project in my spare time, so if you have any questions, please ask the community for help first.
-
-The original project is under GNU General Public License v3.0, so there is no legal issue to fork it and redistribute.
-
-Many things are under construction, so please be patient. Any contribution is welcome.
-
-If you want to compile it on your own computer, you may need to make a few changes to the source code:
-
-- Linking paths to the correct libraries
-- Auth0 integration
-- i18n resources
-
-CI and compilation fixes are coming soon.
-
-If anyone feels like this fork somehow violates the copyright (e.g., the logo), please open an issue.
-
-Some promises:
-
-1. This fork will always stay open-source and will be maintained by the community.
-2. Even if I don't have time to maintain this fork, I will leave this fork to community to maintain.
-3. Ask for maintainer's role in the community if you would like to help.
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Welcome to PlayCover! This software is all about allowing you to run apps & games on your M1 device running macOS 12.0 or newer. 
+Welcome to PlayCover! This software is all about allowing you to run iOS apps and games on Apple Silicon devices running macOS 12.0 or newer.
 
-It does this by putting the applications through a wrapper which imitates an iPad. This allows the apps to perform very well and run natively because the M1 chip is essentially a glorified mobile chip. Another advantage to the software is that you can insert and manipulate custom controls with your keyboard, which is not possible in alternative sideloading methods such as Sideloadly. These controls include all the essentials, from WASD, Camera movement, Left and Right clicks, and individual keymapping, similar to a popular Android emulator’s keymapping system called Bluestacks. 
+PlayCover works by putting applications through a wrapper which imitates an iPad. This allows the apps to run natively and perform very well.
 
-This software was originally designed to run Genshin Impact on your M1 device, but it can now run a wide range of applications. However, not all games are supported, and there may be bugs in games.
+PlayCover also allows you to map custom touch controls to keyboard, which is not possible in alternative sideloading methods such as Sideloadly. 
+
+These controls include all the essentials, from WASD, camera movement, left and right clicks, and individual keymapping, similar to a popular Android emulator’s keymapping system called Bluestacks.
+
+This software was originally designed to run Genshin Impact on your Apple Silicon device, but it can now run a wide range of applications. Unfortunately, not all games are supported, and some may have bugs.
 
 ![Fancy logo](./images/dark.png#gh-dark-mode-only)
 ![Fancy logo](./images/light.png#gh-light-mode-only)
 
 <p align="right"><a href="#top">⬆️ Back to top️</a></p>
 
-
-
-
 <!-- GETTING STARTED -->
 ## Getting Started
 
-Following the installation instructions will get Genshin Impact you up and running in no time. The steps can be repeated if you want to try out other games or apps.
+Follow the instructions below to get Genshin Impact, and many other games, up and running in no time.
 
 ### Prerequisites
 
-At the moment, PlayCover can only be installed and executed on M1 MacBooks. Devices with the following chips are supported:
+At the moment, PlayCover can only run on Apple Silicon Macs. Devices with the following chips are supported:
 
 * M1
 * M1 Pro
 * M1 Max
 * M1 Ultra
+* M2
 
- Unfortunately, it cannot run on any Intel chips, so you are forced to use Bootcamp or other emulators.
+If you have an Intel Mac, you can explore alternatives like Bootcamp or emulators.
 
-### Build From Source
+### Download
 
-You will need:
+You can download stable releases [here](https://github.com/PlayCover/PlayCover/releases), or build from source by following the instructions in the Documentation.
 
-- [Carthage](https://formulae.brew.sh/formula/carthage)
-- Xcode
-- An Apple ID
+### Documentation
 
-Just clone this project, open it in Xcode.
+To learn how to setup and use PlayCover, visit the documentation [here](https://playcover.github.io/PlayBook).
 
-You have to codesign it with your Apple ID in Xcode,
-just follow the instructions.
+### Homebrew Cask
+We host a [Homebrew](https://brew.sh) tap with the [PlayCover cask](https://github.com/PlayCover/homebrew-playcover/blob/master/Casks/playcover-community.rb). To install from it:
 
-### Extra Installation Steps For Genshin Impact
+1. Tap `PlayCover/playcover` with `brew tap PlayCover/playcover`;
+2. Install PlayCover with `brew install --cask playcover-community`.
 
-1. Disable SIP
-    - This can be done by shutting down your mac, holding down power button
-    - After this, click on your username/ssd, then keep going until you can see `Utilities` at the top
-    - When you see this, click on it and click on `Terminal`
-    - After this, you should be in a terminal window
-    - Type `csrutil disable` in that terminal window
-    - Put your password and everything, then restart your mac
-    
-2. Modify nvram boot-args
-    - When you have SIP disabled, type the following: 
-        - `Command + Space`, type `Terminal` in the search box
-    - It should open a normal terminal window
-    - Type the following in this window (or copy paste it)
-        - `sudo nvram boot-args="amfi_get_out_of_my_way=1"`
-    - If it appears that nothing has happened, this is correct.
-    - Now restart your mac once again
-
-3. Login to Genshin
-    - Open Genshin Impact with PlayCover, and you should be greeted with a Login button
-    - Login to your account, then wait until the door appears and quit the game with `Command + Q`
-    - Thats all which is required in Genshin for now
-
-4. Enable SIP
-    - Shut down your mac again
-    - Hold down the power button until you get to recovery options
-    - Click on your username and your storage disk respectively like you did for step 1.
-    - You should see `Utilities` at the top
-    - Click on it, and Click on `Terminal`
-    - In terminal, type the following: `csrutil enable`
-        - `csrutil clear` should also work
-    - Reboot your mac by going to `Apple Logo` > `Restart`
-
-5. Open Genshin
-    - You're done! Enjoy playing genshin!
-
-### Video Instructions
-
-The above steps are shown in the following video:
-
-[How to play Genshin Impact using Playcover on your M1 Mac (2020 or newer)!](https://www.youtube.com/watch?v=ZRmCjkS3UZE)
-
-<p align="right"><a href="#top">⬆️ Back to top️</a></p>
-
-
-
-<!-- USAGE EXAMPLES -->
-## Keymapping
-
-### Button Events
-
-* Opens a menu to add a button element
-    * Clicking on the screen
-* Edit keymapping binding
-    * Click on a keymap and press the key you want binded
-* Bind left mouse button
-    * Clicking on **'LB'**
-* Bind right mouse button
-    * Clicking on **'RB'**
-* Bind middle mouse button
-    * Clicking on **'🖱️'**
-* Adds a W/A/S/D joystick
-    * Clicking on the **'➕'** 
-* Adds a mouse area for mouse control
-    * Clicking on the **'🔁'** 
-
-### Flow Control
-
-* Increase the selected buttons size
-    * Menu Bar > `Keymapping` > Upsize Selected Element OR `Cmd + '↑'`
-* Decrease the selected buttons size
-    * Menu Bar > `Keymapping` > Upsize Selected Element OR `Cmd + '↓'`
-* Delete the selected keymapping
-    * CMD + delete (backspace)
-* Toggle between show/hide cursor
-    * Press option (⌥)
-
-### Importing Keybinds
-
-1. Download the `.playmap` file from [#📝・keymap-showcase](https://discord.com/channels/871829896492642387/922068254569160745)
-
-2. Open PlayCover and right click the app you wish to import the keybinds to
-
-3. Click on `Import Keymapping`
-
-4. Select the previously downloaded `.playmap` file 
-
-5. Quit and reopen the app
-    - This step is required for the newly imported keymapping to work
-
-_For additional help, please join the [Discord server](https://discord.gg/rMv5qxGTGC)_
-
-<p align="right"><a href="#top">⬆️ Back to top️</a></p>
-
-
-
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+To uninstall:
+1. Remove PlayCover using `brew uninstall --cask playcover-community`;
+2. Untap `PlayCover/playcover` with `brew untap PlayCover/playcover`.
 
 <p align="right"><a href="#top">⬆️ Back to top️</a></p>
 
@@ -224,6 +92,20 @@ If you have a suggestion that would make this better, please fork the repo and c
 
 Distributed under the GPLv3 License. See `LICENSE` for more information.
 
+### Disclaimer
+
+- This fork has been created by the community to support the development of PlayCover, since the original project became non-free and non-open-source.
+- This fork is not affiliated with the original project, nor the original author.
+- This fork is not affiliated with the website <https://playcover.me>.
+- If you have any questions, please ask the community for help first.
+- The original project is under GNU General Public License v3.0, so there is no legal issue to fork it and redistribute.
+
+If anyone feels like this fork somehow violates the copyright (e.g., the logo), please open an issue.
+
+Many things are under construction, so please be patient. Any contribution is welcome.
+
+This fork will always stay open-source and maintained by the community.
+
 <p align="right"><a href="#top">⬆️ Back to top️</a></p>
 
 
@@ -232,8 +114,6 @@ Distributed under the GPLv3 License. See `LICENSE` for more information.
 ## Contact
 
 Lucas Lee - playcover@lucas.icu
-
-Project Link: [https://github.com/PlayCover/PlayCover](https://github.com/PlayCover/PlayCover)
 
 <p align="right"><a href="#top">⬆️ Back to top️</a></p>
 

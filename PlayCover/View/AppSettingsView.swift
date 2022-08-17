@@ -9,92 +9,152 @@ import Foundation
 import SwiftUI
 import AlertToast
 
-struct AppSettingsView : View {
-    @State var settings : AppSettings
-    
-    @State var adaptiveDisplay : Bool
-    @State var keymapping : Bool
-    @State var gamingMode : Bool
-    @State var bypass : Bool
-    @State var selectedRefreshRate : Int
-    @State var sensivity : Float
-    
-    @State var resetedAlert : Bool = false
-    
+struct AppSettingsView: View {
+    @State var settings: AppSettings
+
+    @State var adaptiveDisplay: Bool
+    @State var keymapping: Bool
+    @State var gamingMode: Bool
+    @State var bypass: Bool
+    @State var selectedRefreshRate: Int
+    @State var sensivity: Float
+    @State var disableTimeout: Bool
+
+    @State var resetCompletedAlert: Bool = false
+    @State var selectedWindowSize: Int
+    @State var enableWindowAutoSize: Bool
+    @State var ipadModel: String
     @Environment(\.presentationMode) var presentationMode
-    
+
     var body: some View {
-        VStack(alignment: .leading){
-            VStack(alignment: .leading){
+        VStack(alignment: .leading) {
+            VStack(alignment: .leading) {
                 HStack {
-                    Toggle("Enable Keymapping", isOn: $keymapping).padding()
-                    Toggle("Gaming Mode", isOn: $gamingMode).padding()
+                    Toggle(NSLocalizedString("settings.toggle.km", comment: ""), isOn: $keymapping).padding()
+                    Toggle(NSLocalizedString("settings.toggle.gaming", comment: ""), isOn: $gamingMode).padding()
+                    if adaptiveDisplay {
+                        Toggle(NSLocalizedString("settings.toggle.autoWindowResize", comment: ""),
+                               isOn: $enableWindowAutoSize).padding()
+                    }
                 }
-                HStack{
-                    Image(systemName: "keyboard").font(.system(size: 96)).foregroundColor(Colr.primary).padding(.leading)
-                    Text("With this you can bind touch layout to bind touch controls to mouse and keyboard. Use Control + P to open editor menu.").frame(maxWidth: 200).padding().frame(minHeight: 100)
+                HStack {
+                    Image(systemName: "keyboard")
+                        .font(.system(size: 96))
+                        .foregroundColor(.accentColor)
+                        .padding(.leading)
+                    Text("settings.toggle.km.info")
+                        .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
-            VStack(alignment: .leading, spacing: 0){
-                Toggle("Adaptive display", isOn: $adaptiveDisplay).padding()
-                HStack{
-                    Image(systemName: "display").font(.system(size: 96)).foregroundColor(Colr.primary).padding(.leading)
-                    Text("Use this feature to play games in fullscreen and adapt app window to another dimensions.").frame(maxWidth: 200).padding().frame(minHeight: 100)
+            VStack(alignment: .leading, spacing: 0) {
+                Toggle(NSLocalizedString(
+                    "settings.toggle.adaptiveDisplay", comment: ""
+                ), isOn: $adaptiveDisplay).padding()
+                HStack {
+                    Image(systemName: "display").font(.system(size: 96)).foregroundColor(.accentColor).padding(.leading)
+                    Text("settings.toggle.adaptiveDisplay.info")
+                        .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
-            VStack(alignment: .leading){
+            VStack(alignment: .leading) {
                 Toggle(isOn: $bypass) {
-                    Text("Enable Jailbreak Bypass (Alpha)")
+                    Text("settings.toggle.jbBypass")
                 }.padding()
-                HStack{
-                    Image(systemName: "terminal.fill").font(.system(size: 96)).foregroundColor(Colr.primary).padding(.leading)
-                    Text("ATTENTION: Don't enable for some games yet! This allows you to bypass bans that don't let you login").frame(maxWidth: 200).padding().frame(minHeight: 100)
+                HStack {
+                    Image(systemName: "terminal.fill").font(.system(size: 96))
+                        .foregroundColor(.accentColor).padding(.leading)
+                    Text("settings.toggle.jbBypass.info")
+                        .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
             }
             Divider().padding(.leading, 36).padding(.trailing, 36)
-            HStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 0) {
+                Toggle(isOn: $disableTimeout) {
+                    Text("settings.toggle.disableDisplaySleep")
+                }
+                .padding()
+                .help("settings.toggle.disableDisplaySleep.info")
                 Spacer()
-                Picker(selection: $selectedRefreshRate, label: Text("Screen refresh rate"), content: {
-                    Text("60hz").tag(0)
-                    Text("120hz").tag(1)
-                }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300)
+                Divider().padding(.leading, 36).padding(.trailing, 36)
                 Spacer()
+                Picker(selection: $selectedRefreshRate, label: Text("settings.picker.displayRefreshRate"), content: {
+                    Text("60 Hz").tag(0)
+                    Text("120 Hz").tag(1)
+                }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
+                Picker(selection: $ipadModel, label: Text("settings.picker.iosDevice"), content: {
+                    Text("iPad Pro (12.9-inch) (1st gen) | A9X | 4GB").tag("iPad6,7")
+                    Text("iPad Pro (12.9-inch) (3rd gen) | A12Z | 4GB").tag("iPad8,6")
+                    Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
+                }).pickerStyle(MenuPickerStyle()).frame(maxWidth: 300).padding()
+                if adaptiveDisplay && !enableWindowAutoSize {
+                    Spacer()
+                    Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
+                        Text("1080p").tag(0)
+                        Text("1440p").tag(1)
+                        Text("4k").tag(2)
+                    }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
+                Spacer()
+                }
             }
             VStack {
                 Divider().padding(.leading, 36).padding(.trailing, 36)
-                Text("Mouse sensivity: \(sensivity, specifier: "%.f")")
+                Text(NSLocalizedString(
+                    "settings.slider.mouseSensitivity", comment: ""
+                ) + String(format: "%.f", sensivity))
                 Slider(value: $sensivity, in: 1...100).frame(maxWidth: 400)
             }
-            
+
             Divider().padding(.leading, 36).padding(.trailing, 36)
-            HStack{
+            HStack {
                 Spacer()
-                Button("Reset settings and keymapping"){
-                    resetedAlert.toggle()
+                Button("settings.reset") {
+                    resetCompletedAlert.toggle()
                     settings.reset()
-                }.buttonStyle(CancelButton()).padding()
-                Button("Ok"){
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }.controlSize(.large).padding()
+                Button("button.OK") {
                     settings.keymapping = keymapping
                     settings.adaptiveDisplay = adaptiveDisplay
                     settings.sensivity = sensivity
                     settings.bypass = bypass
                     settings.gamingMode = gamingMode
-                    
+                    settings.enableWindowAutoSize = adaptiveDisplay ? enableWindowAutoSize : false
+                    settings.ipadModel = ipadModel
+                    if enableWindowAutoSize {
+                        settings.gameWindowSizeHeight = Float(NSScreen.main?.visibleFrame.height ?? 1080)
+                        settings.gameWindowSizeWidth = Float(NSScreen.main?.visibleFrame.width ?? 1920)
+                    } else {
+                        if selectedWindowSize == 0 {
+                            settings.gameWindowSizeHeight = 1080
+                            settings.gameWindowSizeWidth = (1080 * 1.77777777777778) + 100
+                        } else if selectedWindowSize == 1 {
+                            settings.gameWindowSizeHeight = 1440
+                            settings.gameWindowSizeWidth = (1400 * 1.77777777777778) + 100
+                        } else {
+                            settings.gameWindowSizeHeight = 2160
+                            settings.gameWindowSizeWidth = (2160 * 1.77777777777778) + 100
+                        }
+                    }
+
                     if selectedRefreshRate == 1 {
                         settings.refreshRate = 120
                     } else {
                         settings.refreshRate = 60
                     }
-                    
+                    settings.disableTimeout = disableTimeout
                     presentationMode.wrappedValue.dismiss()
-                    
-                }.buttonStyle(GrowingButton()).padding().frame(height: 80)
+
+                }
+                .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large).padding()
+                .keyboardShortcut(.defaultAction)
                 Spacer()
             }
-        }.toast(isPresenting: $resetedAlert){
-            AlertToast(type: .regular, title: "Settings reseted to default!")
+        }.toast(isPresenting: $resetCompletedAlert) {
+            AlertToast(type: .regular, title: NSLocalizedString("settings.resetCompleted", comment: ""))
         }
     }
 }

@@ -1,44 +1,141 @@
-"Add app" = "Aggiungi Applicazione";
-"My Apps" = "Le mie Apps";
-"Store" = "Store";
-"Settings" = "Impostazioni";
-"About" = "Informazioni";
-"Show in Finder" = "Mostra in Finder";
-"Update PlayTools" = "Aggiorna PlayTools";
-"Reset PlayTools settings" = "Resetta le impostazioni di PlayTools";
-"Clear app cache" = "Cancella la cache dell' app";
-"Delete app" = "Elimina app";
-"Wrong file type" = "Tipo di file errato";
-"You should use .ipa file" = "Devi utilizzare un file .ipa";
-"OK" = "OK";
-"Please, input your admin password" = "Per favore, inserisci la tua password";
-"App needs it for xattr command" = "L'app ne ha bisogno per il comando xattr";
-"Advanced settings" = "Impostazioni avanzate";
-"Cancel" = "Cancella";
-"Install app" = "Installa app";
-"Installing..." = "Installando...";
-"Error!" = "Errore!";
-"Install PlayTools" = "Installa PlayTools";
-"Fix login in games" = "Risolvi login nei giochi";
-"Alternative convert method" = "Metodo di conversione alternativo";
-"Alternative decrypt method" = "Metodo di decriptazione alternativo";
-"Export for iOS, Mac (Sideloadly, AltStore)" = "Esporta per iOS, Mac (Sideloadly, AltStore)";
-"Install instruction" = "Istruzioni di installazione";
-"(for Genshin login fix e.g.)" = "(per risolvere il login in Genshin etc.)";
-"You have enabled SIP. You must disable it to run the game." = "Hai attivato SIP. Devi disattivarlo per eseguire il gioco.";
-"Your nvram params are not valid. Execute following command in Terminal and restart Mac" = "I tuoi parametri nvram non sono validi. Esegui questo comando nel Terminale e riavvia il Mac.";
-"Your system is not ready to run games! Watch video for easy setup." = "Il tuo sistema non puo eseguire i giochi! Guarda il video per istruzioni.";
-"Your system setup is correct." = "La tua configurazione funziona.";
-"About app" = "Informazioni app";
-"This .IPA can't be decrypted on this Mac. Download .ipa from AppDb.to or our Discord. You can also try to use 'Alterntaive decrypt' checkbox" = "Questo file .IPA non viene decriptato sul Mac. Scarica un file .ipa da AppDb.to o il nostro Discord. Puoi inoltre provare ad utilizzare il checkbox 'alternative decrypt' ";
-"This .IPA is courrupted. It doesn't contains Info.plist." = "Questo file .IPA non risulta valido. Non contiene il file Info.plist.";
-"It it impossible to decrypt .IPA with SIP disabled. Please, enable it." = "Non puoi decriptare un file .IPA con SIP disattivato. Per favore, attivalo.";
-"Please reinstall PlayCoverApp" = "Per favore reinstalla Playcover";
-"Make sure you don't disallowed PlayCover to access files in Settings - Secuirity & Privacy" = "Assicurati di non aver negato l'accesso a Playcover in Impostazioni - Sicurezza e Privacy";
-"This .IPA is courrupted.Try to use another .ipa" = "Questo file .IPA risulta corrotto, utilizza un altro file .IPA";
-"You have not performed all instructions! Please, perform all instructions in 'Settings' or watch video in pinned messages." = "Non hai eseguito tutti i passaggi! Per favore, esegui tutte le istruzioni in 'Impostazioni' o guarda il video nei messaggi salvati.";
-"Get" = "Ottieni";
-"To do this you need to reboot, enter into Recovery mode, open Terminal and type" = "Per fare questo hai bisogno di riavviare, entrare in Recovery mode, aprire il Terminale e scrivere";
-"App is installed!" = "App installata!";
-"Please, check it out in 'My Apps'" = "Per favore, controlla in 'Le mie Apps'";
+"playapp.add" = "Add app";
+"playapp.settings" = "App preferences";
+"playapp.showInFinder" = "Show in Finder";
+"playapp.openCache" = "Open app data";
+"playapp.clearCache" = "Clear app data";
+"playapp.importKm" = "Import keymapping";
+"playapp.exportKm" = "Export keymapping";
+"playapp.delete" = "Delete app";
+"playapp.add.help" = "Drag or open an app file to install.";
+"playapp.update" = "Update app";
+"playapp.storeCurrentAccount" = "Store current account";
+"playapp.activateAccount" = "Activate an account";
+"playapp.deleteAccount" = "Delete an account";
+"playapp.clearPreferences" = "Clear app preferences";
 
+"storeAccount.selectAccRegion" = "Select account region";
+"storeAccount.selectAccRegion.usa" = "America";
+"storeAccount.selectAccRegion.euro" = "Europe";
+"storeAccount.selectAccRegion.tw" = "TW";
+"storeAccount.selectAccRegion.asia" = "Asia";
+"storeAccount.nameOfAcc" = "Name of your account";
+"storeAccount.nameOfAcc.textfieldPlaceholder" = "Name of account...";
+"storeAccount.store" = "Store account";
+"storeAccount.selectAcc" = "Select an account";
+"storeAccount.storeAcc" = "Store an account";
+"storeAccount.deleteAcc" = "Delete an account";
+
+"playapp.install.unzip" = "Extracting app from .ipa file...";
+"playapp.install.createWrapper" = "Creating app wrapper...";
+"playapp.install.installPlayTools" = "Installing PlayTools...";
+"playapp.install.signing" = "Signing app...";
+"playapp.install.addToLib" = "Adding app to library...";
+"playapp.install.copy" = "Copying app...";
+"playapp.install.finished" = "Finished";
+
+"search.search" = "Search...";
+
+"alert.appCacheCleared" = "App data has been cleared!";
+"alert.kmImported" = "Keymapping imported!";
+"alert.errorImportKm" = "Error occured when importing!";
+"alert.app.delete" = "All app data will be erased. You may need to download app files again. Do you wish to continue?";
+"alert.wrongFileType" = "Wrong file type";
+"alert.wrongFileType.message" = "Choose an .ipa file";
+"alert.followInstructionsAndRestartApp" = "Please follow the given instructions, and restart the App.";
+"alert.error" = "Some error happened!";
+"alert.success" = "Success!";
+"alert.moveAppToApplications" = "PlayCover must be in the Applications folder. Press the button below to let PlayCover move itself to /Applications.";
+"alert.moveAppToApplications.move" = "Move to /Applications";
+"alert.storeAccount.regionIsNotValid" = "The current account is set to a different Region. Launch the game, Change the region, and pass through the gates to save. Then try again";
+
+
+"button.OK" = "OK";
+"button.Proceed" = "Proceed";
+"button.Cancel" = "Cancel";
+"button.Close" = "Close";
+"button.Dismiss" = "Dismiss";
+"button.Install" = "Install";
+
+"error.corruptedIPA" = "This .ipa file is corrupted. It does not contains \"Info.plist\" file.";
+"error.waitInstallation" = "Please wait for the current installation to finish!";
+"error.reinstallApp" = "Please reinstall PlayCover";
+
+"menubar.downloadMoreApps" = "Download more apps";
+"menubar.downloadMoreApps.help" = "Use this site to download apps for installation";
+"menubar.exportToSideloady" = "Export to Sideloadly";
+"menubar.exportToSideloady.help" = "Export .ipa for Sideloady from sideloady.io which does not need SIP to be disabled for apps and games to work.";
+
+"bottomBar.notices" = "Notices";
+"bottomBar.notices.help" = "News and announcements from the developers";
+"bottomBar.setupViewButton" = "Experiencing issues?";
+
+"failedToFetchNotices" = "Failed to find notices. Please check your internet connection.";
+
+"logs.copied" = "Logs copied";
+
+"settings.toggle.km" = "Enable keymapping";
+"settings.toggle.gaming" = "Gaming Mode";
+"settings.toggle.km.info" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
+"settings.toggle.adaptiveDisplay" = "Adaptive display";
+"settings.toggle.adaptiveDisplay.info" ="Adapts and scales app window to fit the built-in Mac display.";
+"settings.toggle.jbBypass" = "Enable Jailbreak Bypass (Alpha)";
+"settings.toggle.jbBypass.info" = "Attempts to bypass Jailbreak Detection in some games (No guarentee to work all the time)";
+"settings.toggle.autoWindowResize" = "Enable auto window resize";
+"settings.toggle.disableDisplaySleep" = "Disable display sleep";
+"settings.toggle.disableDisplaySleep.info" = "Prevent display from turning off while this app is running";
+
+"settings.picker.displayRefreshRate" = "Screen refresh rate";
+"settings.picker.screenSize" = "Display resolution";
+"settings.picker.iosDevice" = "Select iOS device";
+
+"settings.slider.mouseSensitivity" = "Mouse sensitivity: ";
+
+"settings.reset" = "Reset settings and keymapping";
+"settings.resetCompleted" = "Settings have been reverted back to default!";
+
+"setupView.header" = "Follow steps below for fixing common issues";
+"setupView.subheader" = "Resolves apps not allowing logins, crashes at start and more";
+
+"setupView.step1" = "1) Shutdown your Mac";
+"setupView.step2" = "2) Wait for at least 20 seconds for Mac to fully shutdown, then hold the power button";
+"setupView.step3" = "3) When \"Loading Startup Options\" appears below the Apple logo, release the power button";
+"setupView.step4" = "4) Click the Recovery Mode boot option";
+"setupView.step5" = "5) In Recovery, open Terminal (Menu bar -> Utilities -> Terminal)";
+"setupView.step6" = "6) Type: ";
+"setupView.step7" = "7) Enter the command. Input your Mac login password (The text will be hidden)";
+"setupView.step8" = "8) Click the Apple symbol in the Menu bar and Restart";
+"setupView.step9" = "If you encountered any errors, repeat the whole process again";
+
+"setupView.vidTutorials" = "Video Tutorials";
+"setupView.youtube" = "YouTube";
+"setupView.bilibili" = "BiliBili";
+
+"setupView.pressButtonAndEnterPassword" = "Please disable SIP from below and enter your Mac login password.";
+"setupView.pressButtonAndEnterPassword.button" = "Disable SIP";
+
+"notification.appInstalled" = "App installed!";
+"notification.appInstalled.message" = "Check it out in PlayCover!";
+
+"setup.enterLoginPassword" = "Please enter your user password";
+"setup.incorrectPassword" = "Password incorrect. Please try again";
+"setup.enterLoginPassword.info" = "Enter the password used to unlock your Mac.";
+"setup.requireReboot" = "Please restart your Mac for changes to take effect.";
+
+"menubar.log.copy" = "Copy Logs";
+"menubar.documentation" = "Documentation";
+"menubar.website" = "Website";
+"menubar.github" = "GitHub";
+"menubar.discord" = "Discord";
+"menubar.showAppLinks" = "Show app links";
+"menubar.checkForUpdates" = "Check for updates";
+
+"soundAlert.messageText" = "Incorrect Audio Settings Detected!";
+"soundAlert.informativeText" = "Your current output device does not have a sample rate of 48 or 44.1 KHz! Crashes may occur. Would you like to change your current output device's sample rate to 48 KHz?";
+"soundAlert.successText" = "Current output device sample rate set to 48 KHz";
+"soundAlert.failureText" = "Failed to set current output device's sample rate to 48 KHz. You can manually set sample rate in ‘Audio MIDI Setup’ app";
+
+"xcode.install.message" = "You need to install Xcode Commandline tools and restart this App.";
+"xcode.install.success" = "Xcode tools installation succeeded";
+"xcode.install.failed" = "Xcode Command Line Tools intallation failed";
+
+"debug.crash" = "[DEBUG] Crash app";

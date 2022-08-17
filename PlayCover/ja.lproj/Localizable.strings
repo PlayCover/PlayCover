@@ -1,40 +1,141 @@
-"Add app" = "アプリの追加";
-"My Apps" = "私のアプリ";
-"Downloads" = "ダウンロード";
-"Settings" = "設定";
-"About" = "PlayCoverについて";
-"Show in Finder" = "Finderで表示";
-"Update PlayTools" = "PlayToolsを更新する";
-"Reset PlayTools settings" = "PlayToolsの設定をリセット";
-"Clear app cache" = "アプリのキャッシュをクリア";
-"Delete app" = "アプリを削除する";
-"Wrong file type" = "ファイルのタイプを間違っています";
-"You should use .ipa file" = ".ipaファイルを使用してください";
-"OK" = "OK";
-"Please, input your admin password" = "管理者パスワードを入力してください";
-"App needs it for xattr command" = "アプリがxattrコマンドを使用するために必要です";
-"Advanced settings" = "詳細設定";
-"Cancel" = "キャンセル";
-"Install app" = "アプリをインストール";
-"Installing..." = "インストール中です・・・";
-"Error!" = "エラーが発生しました！";
-"Install PlayTools" = "PlayToolsをインストール";
-"Fix login in games" = "ゲームの中のログインを修復する";
-"Alternative convert method" = "他の変換方法";
-"Alternative decrypt method" = "他の解読方法";
-"Export for iOS, Mac (Sideloadly, AltStore)" = "iOS、Mac（Sideloadly、Alt Store）の為に書き出す";
-"Install instruction" = "インストールマニュアル";
-"(for Genshin login fix e.g.)" = "（例えば、原神ログインの修復）";
-"You have enabled SIP. You must disable it to run the game." ="SIPが有効になっています。ゲームを実行するには無効化してください。";
-"To do this you need to reboot, enter into Recovery mode, open Terminal and type" = "インストールを実行するには再起動して、復帰モードに入り、以下のコマンドをTerminalに入力する必要があります。";
-"Your nvram params are not valid. Execute following command in Terminal and restart Mac" = "nvramの設定が間違っています。以下のコマンドをTerminalに入力して、Macを再起動してください。";
-"Your system is not ready to run games! Watch video for easy setup." = "あなたのシステムはまだゲームを実行する準備ができていません。簡単にインストールするため、マニュアル動画を観てください";
-"Your system setup is correct." = "システム設定に問題はありません。";
-"About app" = "アプリについて";
-"This .IPA can't be decrypted on this Mac. Download .ipa from AppDb.to or our Discord. You can also try to use 'Alterntaive decrypt' checkbox" = "この.ipaファイルはこのMacでは解読できません。AppDb.toまたはDiscordサーバーからもう一度アプリをダウンロードしてください。「他の解読方法」のボタンも試すことが出来ます。";
-"This .IPA is courrupted. It doesn't contains Info.plist." = "この.ipaファイルは壊れています。Info.plistが含まれていません。";
-"It it impossible to decrypt .IPA with SIP disabled. Please, enable it." = "SIPが無効されていると.ipaファイルは解読できません。有効にしてください。";
-"Please reinstall PlayCoverApp" = "PlayCoverAppを再インストールしてください";
-"Make sure you don't disallowed PlayCover to access files in Settings - Security & Privacy" = "PlayCoverにファイルのアクセスが許可されているか　設定ーセキュリティとプライバシーで確認してください";
-"This .IPA is courrupted.Try to use another .ipa" = "この.ipaファイルは壊れています。他の.ipaファイルを使ってみてください。";
-"You not performed all instructions! Please, perform all instructions in 'Settings' or watch video in pinned messages." = "マニュアルのすべてのステップが実行されていません。設定にある説明ステップをすべて実行してください。またはディスコードの固定メッセージの動画を観てください。";
+"playapp.add" = "アプリを追加";
+"playapp.settings" = "設定";
+"playapp.showInFinder" = "Finderで表示";
+"playapp.openCache" = "アプリのデータフォルダーを表示";
+"playapp.clearCache" = "アプリのデータを削除";
+"playapp.importKm" = "キーマッピングをインポート";
+"playapp.exportKm" = "キーマッピングをエクスポート";
+"playapp.delete" = "アプリを削除";
+"playapp.add.help" = "アプリのファイルをここに入れてインストールする";
+"playapp.update" = "アプリを更新";
+"playapp.storeCurrentAccount" = "今のアカウントを保存";
+"playapp.activateAccount" = "アカウントを有効にする";
+"playapp.deleteAccount" = "アカウントを削除";
+"playapp.clearPreferences" = "Clear app preferences";
+
+"storeAccount.selectAccRegion" = "アカウントの地域を変更する";
+"storeAccount.selectAccRegion.usa" = "米国";
+"storeAccount.selectAccRegion.euro" = "ヨーロッパ";
+"storeAccount.selectAccRegion.tw" = "台湾";
+"storeAccount.selectAccRegion.asia" = "アジア";
+"storeAccount.nameOfAcc" = "アカウント名";
+"storeAccount.nameOfAcc.textfieldPlaceholder" = "アカウントの名前...";
+"storeAccount.store" = "アカウントを保存";
+"storeAccount.selectAcc" = "アカウントの選択";
+"storeAccount.storeAcc" = "アカウントを保存";
+"storeAccount.deleteAcc" = "アカウントを削除";
+
+"playapp.install.unzip" = ".ipaファイルからアプリの書き出し中...";
+"playapp.install.createWrapper" = "アプリのコンテナーを作成中...";
+"playapp.install.installPlayTools" = "PlayToolsをインストール中...";
+"playapp.install.signing" = "アプリのコード署名を追加中...";
+"playapp.install.addToLib" = "ライブラリにアプリを追加中...";
+"playapp.install.copy" = "アプリをコピー中...";
+"playapp.install.finished" = "完成";
+
+"search.search" = "検索...";
+
+"alert.appCacheCleared" = "アプリのデータは削除されました！";
+"alert.kmImported" = "キーマッピングをインポートしました！";
+"alert.errorImportKm" = "キーマッピングのインポートに何らかのエラーが発生しました！";
+"alert.app.delete" = "アプリの全てのデータが削除されます。もう一度ダウンロードする必要があるかもしれません。続けますか？";
+"alert.wrongFileType" = "ファイルのタイプを間違っています";
+"alert.wrongFileType.message" = ".ipaファイルを選択してください";
+"alert.followInstructionsAndRestartApp" = "指示を読んでから、アプリを再起動してください";
+"alert.error" = "何らかのエラーが発生しました";
+"alert.success" = "成功！";
+"alert.moveAppToApplications" = "PlayCoverは/Applicationsフォルダに居ないと問題が発生します。以下のボタンを押してPlayCoverを/Applicationsフォルダに移動させることができます。";
+"alert.moveAppToApplications.move" = "/Applicationsに移動";
+"alert.storeAccount.regionIsNotValid" = "現在のアカウントは他の地域に設定されています。ゲームを起動して、地域を変更してから、ゲートを通過して保存してください。その後、再度試してください";
+
+
+"button.OK" = "OK";
+"button.Proceed" = "実行";
+"button.Cancel" = "キャンセル";
+"button.Close" = "閉じる";
+"button.Dismiss" = "閉じる";
+"button.Install" = "インストール";
+
+"error.corruptedIPA" = "この.ipaファイルは破損しています。\"Info.plist\"ファイルが含まれていません。";
+"error.waitInstallation" = "今のインストールを完了するまでお待ちください！";
+"error.reinstallApp" = "PlayCoverを再インストールしてください";
+
+"menubar.downloadMoreApps" = "さらにアプリをダウンロード";
+"menubar.downloadMoreApps.help" = "このサイトを使ってアプリをインストールする";
+"menubar.exportToSideloady" = "Sideloadlyに書き出す";
+"menubar.exportToSideloady.help" = ".ipaファイルをSideloadyのために書き出す。Sideloady.ioでは、SIPを無効にしないでアプリやゲームが動作します。";
+
+"bottomBar.notices" = "通知";
+"bottomBar.notices.help" = "デベロッパーからのニュースとお知らせ";
+"bottomBar.setupViewButton" = "問題が発生していますか？";
+
+"failedToFetchNotices" = "通知を取得できませんでした。インターネット接続を確認してください。";
+
+"logs.copied" = "ログをコピーしました";
+
+"settings.toggle.km" = "キーマッピングを有効にする";
+"settings.toggle.gaming" = "ゲームモードを有効にする";
+"settings.toggle.km.info" = "タッチのみでゲームをプレイするためにキーボードの対応を追加する。Cmd+Kを押してエディターメニューを開くことができます。";
+"settings.toggle.adaptiveDisplay" = "ディスプレイに合わせる";
+"settings.toggle.adaptiveDisplay.info" ="アプリウィンドウを内蔵Macディスプレイに合わせて調整します。";
+"settings.toggle.jbBypass" = "ジェイルブレイクバイパスを有効にする（アルファ版）";
+"settings.toggle.jbBypass.info" = "ジェイルブレイクの検出をいくつかのゲームで避けることができます（常に動作する保証はありません）";
+"settings.toggle.autoWindowResize" = "ウィンドウの自動サイズ変更を有効にする";
+"settings.toggle.disableDisplaySleep" = "ディスプレイのスリープを無効にする";
+"settings.toggle.disableDisplaySleep.info" = "このアプリの実行中にディスプレイがオフにならないようにする";
+
+"settings.picker.displayRefreshRate" = "画面のリフレッシュレート";
+"settings.picker.screenSize" = "ディスプレー解像度";
+"settings.picker.iosDevice" = "Select iOS device";
+
+"settings.slider.mouseSensitivity" = "マウス感度: ";
+
+"settings.reset" = "設定とキーマッピングをリセットする";
+"settings.resetCompleted" = "設定をデフォルトに戻しました！";
+
+"setupView.header" = "問題が発生した場合は、以下の手順に従ってください";
+"setupView.subheader" = "ログインを許可しないアプリ、起動時のクラッシュなどを解決します";
+
+"setupView.step1" = "1) Macをシャットダウンする";
+"setupView.step2" = "2) Macが完全にシャットダウンするのを待ってから、電源ボタンを押してください";
+"setupView.step3" = "3) アップルロゴの下に\"起動オプションを読み込み中\"が表示されたら、電源ボタンを放してください";
+"setupView.step4" = "4) リカバリモードの起動オプションをクリックします";
+"setupView.step5" = "5) リカバリーモードの中で、ターミナルを開く（メニューバー → ユーティリティ → ターミナル）";
+"setupView.step6" = "6) 以下のコマンドを入力";
+"setupView.step7" = "7) コマンドを入力してEnterキーを押してください。パスワードを入力してEnterキーを押してください。（パスワードは入力しても表示されません）";
+"setupView.step8" = "8) アップルロゴをメニューバーにクリックして再起動する";
+"setupView.step9" = "問題が発生したら、再度全部をやり直してください";
+
+"setupView.vidTutorials" = "動画チュートリアル（英語）";
+"setupView.youtube" = "YouTube";
+"setupView.bilibili" = "BiliBili";
+
+"setupView.pressButtonAndEnterPassword" = "以下からSIPを無効にして、Macログインパスワードを入力してください。";
+"setupView.pressButtonAndEnterPassword.button" = "SIPを無効にする";
+
+"notification.appInstalled" = "アプリをインストールしました！";
+"notification.appInstalled.message" = "PlayCoverでチェックしてください！";
+
+"setup.enterLoginPassword" = "ユーザーパスワードを入力してください";
+"setup.incorrectPassword" = "パスワードが正しくありません。もう一度やり直してください";
+"setup.enterLoginPassword.info" = "Macをロック解除するために使用されるパスワードを入力してください";
+"setup.requireReboot" = "変更を有効にするには、Macを再起動してください。";
+
+"menubar.log.copy" = "ログをコピーする";
+"menubar.documentation" = "ドキュメント";
+"menubar.website" = "ホームページ";
+"menubar.github" = "GitHub";
+"menubar.discord" = "Discord";
+"menubar.showAppLinks" = "アプリのリンクを表示";
+"menubar.checkForUpdates" = "更新を確認する";
+
+"soundAlert.messageText" = "不適切なオーディオ設定が検出されました!";
+"soundAlert.informativeText" = "現在の出力デバイスのサンプルレートが48または44.1KHzではないため、問題が発生する可能性があります。現在のデバイスのサンプルレートを48KHzに変更しますか？";
+"soundAlert.successText" = "現在のデバイスのサンプルレートを48KHzに変更しました。";
+"soundAlert.failureText" = "サンプルレートの変更に失敗しました。「Audio MIDI設定」アプリから手動でサンプルレートを設定することができます。";
+
+"xcode.install.message" = "Xcodeのコマンドラインツールをインストールして、アプリを再起動してください。";
+"xcode.install.success" = "Xcodeのコマンドラインツールをインストールしました。";
+"xcode.install.failed" = "Xcodeのコマンドラインツールのインストールに失敗しました。";
+
+"debug.crash" = "[DEBUG] アプリのクラッシュ";

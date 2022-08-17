@@ -3,48 +3,49 @@
 //  PlayCover
 
 import Foundation
+import UniformTypeIdentifiers
 import AppKit
 
-let fm = FileManager.default
+let fileMgr = FileManager.default
 
-extension FileManager{
-    
+extension FileManager {
+
     func delete(at url: URL) throws {
         if FileManager.default.fileExists(atPath: url.path) {
             do {
                 try FileManager.default.removeItem(atPath: url.path)
-            } catch{
+            } catch {
                 Log.shared.error(error)
             }
         }
     }
-    
-    func copy(at srcURL: URL, to dstURL: URL) throws{
-        if fm.fileExists(atPath: dstURL.path) {
-            try fm.removeItem(at: dstURL)
+
+    func copy(at srcURL: URL, to dstURL: URL) throws {
+        if fileMgr.fileExists(atPath: dstURL.path) {
+            try fileMgr.removeItem(at: dstURL)
         }
-        try fm.copyItem(at: srcURL, to: dstURL)
+        try fileMgr.copyItem(at: srcURL, to: dstURL)
     }
-    
-    func filesCount(inDir: URL) throws -> Int{
-        if fm.fileExists(atPath: inDir.path){
-            return try fm.contentsOfDirectory(atPath: inDir.path).count
+
+    func filesCount(inDir: URL) throws -> Int {
+        if fileMgr.fileExists(atPath: inDir.path) {
+            return try fileMgr.contentsOfDirectory(atPath: inDir.path).count
         }
         return 0
     }
 }
 
 extension NSOpenPanel {
-    
-    static func selectIPA(completion: @escaping (_ result: Result<URL, Error>) -> ()) {
+
+    static func selectIPA(completion: @escaping (_ result: Result<URL, Error>) -> Void) {
         let panel = NSOpenPanel()
         panel.allowsMultipleSelection = false
         panel.canChooseFiles = true
         panel.canChooseDirectories = false
-        panel.allowedFileTypes = ["ipa"]
+        panel.allowedContentTypes = [UTType(importedAs: "com.apple.itunes.ipa")]
         panel.canChooseFiles = true
         panel.begin { (result) in
-            if result == .OK{
+            if result == .OK {
                 let url = panel.urls.first
                 completion(.success(url!))
             }
