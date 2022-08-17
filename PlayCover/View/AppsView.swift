@@ -33,7 +33,17 @@ struct AppsView: View {
 					Text("xcode.install.message")
 						.font(.title3)
 					Button("button.Install") {
-						do {
+                        if let path = Bundle.main.url(forResource: "xcode_install", withExtension: "scpt") {
+                            let task = Process()
+                            task.launchPath = "/usr/bin/osascript"
+                            task.arguments = ["\(path.path)"]
+                            task.launch()
+                            task.waitUntilExit()
+                            Log.shared.msg("YEEEHAWW")
+                        } else {
+                            Log.shared.error("Could not find install script!")
+                        }
+						/*do {
 							_ = try shell.sh("xcode-select --install")
 							alertTitle = NSLocalizedString("xcode.install.success", comment: "")
 							alertBtn = NSLocalizedString("button.Close", comment: "")
@@ -48,7 +58,7 @@ struct AppsView: View {
 							alertText = error.localizedDescription
 							alertAction = {}
 							showAlert = true
-						}
+						}*/
 					}
                     .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
 					.alert(isPresented: $showAlert) {
