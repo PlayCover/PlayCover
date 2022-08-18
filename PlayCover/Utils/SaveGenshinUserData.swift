@@ -68,7 +68,7 @@ func storeUserData( folderName: String, accountRegion: String ) {
 
 func checkCurrentRegion (selectedRegion: String) throws -> Bool {
     let regionName: String
-    
+
     if selectedRegion == "America" {
         regionName = "os_usa"
     } else if selectedRegion == "Europe" {
