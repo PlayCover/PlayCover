@@ -47,9 +47,9 @@ struct AppsView: View {
                         }
                     } else {
                         VStack {
-                            ProgressView("Installing Xcode Command Line Tools")
+                            ProgressView("xcode.install.progress")
                                 .progressViewStyle(.circular)
-                            Text("May take around 5-10 minutes depending on internet speed")
+                            Text("xcode.install.progress.subtext")
                                 .foregroundColor(.secondary)
                         }
                     }
@@ -104,9 +104,9 @@ struct AppsView: View {
                             isInstallingXcodeCli = false
                             alertTitle = NSLocalizedString("xcode.install.success", comment: "")
                             alertBtn = NSLocalizedString("button.Close", comment: "")
-                            alertText = NSLocalizedString("alert.followInstructionsAndRestartApp", comment: "")
+                            alertText = NSLocalizedString("alert.restart", comment: "")
                             alertAction = {
-                                exit(0)
+                                NSApplication.shared.terminate(nil)
                             }
                             showAlert = true
                             xcodeCliInstalled = shell.isXcodeCliToolsInstalled
@@ -120,7 +120,7 @@ struct AppsView: View {
                         }
                     } else {
                         isInstallingXcodeCli = false
-                        Log.shared.error("Failed to interpret console output")
+                        Log.shared.error("Failed to interpret console output!")
                     }
                 }
             }
