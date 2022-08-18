@@ -40,7 +40,8 @@ struct AppsView: View {
                         }
                         .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
                         .alert(isPresented: $showAlert) {
-                            Alert(title: Text(alertTitle), message: Text(alertText), dismissButton: .default(Text(alertBtn), action: {
+                            Alert(title: Text(alertTitle), message: Text(alertText),
+                                  dismissButton: .default(Text(alertBtn), action: {
                                 showAlert = false
                                 alertAction()
                             }))
