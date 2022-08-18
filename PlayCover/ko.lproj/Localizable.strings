@@ -9,7 +9,7 @@
 "playapp.add.help" = "Drag or open an app file to install.";
 "playapp.update" = "Update app";
 "playapp.storeCurrentAccount" = "Store current account";
-"playapp.activateAccount" = "Activate an account";
+"playapp.activateAccount" = "Restore an account";
 "playapp.deleteAccount" = "Delete an account";
 "playapp.clearPreferences" = "Clear app preferences";
 
