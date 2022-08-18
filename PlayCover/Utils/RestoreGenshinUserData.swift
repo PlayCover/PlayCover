@@ -45,13 +45,13 @@ func restoreUserData(folderName: String) {
         try fileManager.copyItem(at: URL(fileURLWithPath: storePath + lastAccountModelEncrypt),
                                  to: lastAccountModelEncryptUrl)
         let region = try String(contentsOf: URL(fileURLWithPath: storePath + "region.txt"), encoding: .utf8)
-        modifyPlist(region: region)
+        modifyPlist(newRegion: region)
     } catch {
         Log.shared.log("Error moving file: \(error)")
     }
 }
 
-func modifyPlist(region: String) {
+func modifyPlist(newRegion: String) {
     do {
         // path of plist file
         let staticUrl = "/Library/Containers/com.miHoYo.GenshinImpact/" +
@@ -64,33 +64,17 @@ func modifyPlist(region: String) {
                 as? [String: Any] else { throw PlayCoverError.noGenshinAccount }
 
         guard let GENERAL_DATA = plist["GENERAL_DATA"] as? String else { throw PlayCoverError.noGenshinAccount }
-        var modifiedValue: String
+        var modifiedValue = GENERAL_DATA
         // modified GENERAL_DATA
-        if region == "os_usa" {
-            if GENERAL_DATA.contains("os_usa") {
-                modifiedValue = GENERAL_DATA.replacingOccurrences(of: "os_usa",
-                                                                  with: "\(region)",
-                                                                  options: .literal,
-                                                                  range: nil)
-            } else {
-                modifiedValue = GENERAL_DATA.replacingOccurrences(of: "os_euro",
-                                                                  with: "\(region)",
-                                                                  options: .literal,
-                                                                  range: nil)
-            }
-        } else { // euro
-            if GENERAL_DATA.contains("os_euro") {
-                modifiedValue = GENERAL_DATA.replacingOccurrences(of: "os_euro",
-                                                                  with: "\(region)",
-                                                                  options: .literal,
-                                                                  range: nil)
-            } else {
-                modifiedValue = GENERAL_DATA.replacingOccurrences(of: "os_usa",
-                                                                  with: "\(region)",
-                                                                  options: .literal,
-                                                                  range: nil)
-            }
+        let regions = ["os_usa", "os_euro", "os_asia", "os_cht"]
+
+        for region in regions {
+            modifiedValue = modifiedValue.replacingOccurrences(of: "\(region)",
+                                                              with: "\(newRegion)",
+                                                              options: .literal,
+                                                              range: nil)
         }
+
         // write modified value to GENERAL_DATA key of plist
         plist["GENERAL_DATA"] = modifiedValue
 
