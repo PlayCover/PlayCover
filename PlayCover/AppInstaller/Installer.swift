@@ -19,6 +19,7 @@ class Installer {
             InstallVM.shared.next(.library)
             try saveEntitlements(app)
             let machos = try resolveValidMachOs(app)
+            app.validMachOs = machos
 
             InstallVM.shared.next(.playtools)
             try PlayTools.installFor(app.executable, resign: true)
@@ -29,7 +30,7 @@ class Installer {
                 }
                 try PlayTools.replaceLibraries(atURL: macho)
                 try PlayTools.convertMacho(macho)
-                _ = try fakesign(macho, app)
+                try fakesign(macho)
             }
 
             // -rwxr-xr-x
@@ -68,14 +69,13 @@ class Installer {
                 InstallVM.shared.next(.library)
                 try saveEntitlements(app)
                 let machos = try resolveValidMachOs(app)
+                app.validMachOs = machos
 
                 InstallVM.shared.next(.playtools)
                 try PlayTools.injectFor(app.executable, payload: app.url)
 
-                for macho in machos {
-                    if try PlayTools.isMachoEncrypted(atURL: macho) {
-                        throw PlayCoverError.appEncrypted
-                    }
+                for macho in machos where try PlayTools.isMachoEncrypted(atURL: macho) {
+                    throw PlayCoverError.appEncrypted
                 }
 
                 let info = app.info
@@ -163,8 +163,6 @@ class Installer {
             }
         }
 
-        baseApp.validMachOs = resolved
-
         return resolved
     }
 
@@ -193,7 +191,7 @@ class Installer {
     }
 
     /// Regular codesign, does not accept entitlements. Used to re-seal an app after you've modified it.
-    static func fakesign(_ url: URL, _ baseApp: BaseApp) throws {
-        _ = try shell.shello("/usr/bin/codesign", "-fs-", baseApp.url.path)
+    static func fakesign(_ url: URL) throws {
+        try shell.shello("/usr/bin/codesign", "-fs-", url.path)
     }
 }
