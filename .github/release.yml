@@ -4,6 +4,7 @@ changelog:
   exclude:
     labels:
       - ignore-for-release
+      - release
     authors:
       - octocat
   categories:
@@ -15,6 +16,7 @@ changelog:
       labels:
         - Semver-Minor
         - enhancement
+        - feature
     - title: Other Changes
       labels:
         - "*"
