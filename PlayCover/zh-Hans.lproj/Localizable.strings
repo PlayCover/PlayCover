@@ -17,8 +17,8 @@
 "storeAccount.selectAccRegion" = "选择账号地区服务器";
 "storeAccount.selectAccRegion.usa" = "美服";
 "storeAccount.selectAccRegion.euro" = "欧服";
-"storeAccount.selectAccRegion.tw" = "台服";
 "storeAccount.selectAccRegion.asia" = "亚服";
+"storeAccount.selectAccRegion.cht" = "台服";
 "storeAccount.nameOfAcc" = "账号用户名";
 "storeAccount.nameOfAcc.textfieldPlaceholder" = "用户名...";
 "storeAccount.store" = "保存账号";

@@ -9,15 +9,15 @@
 "playapp.add.help" = "Drag or open an app file to install.";
 "playapp.update" = "Update app";
 "playapp.storeCurrentAccount" = "Store current account";
-"playapp.activateAccount" = "Activate an account";
+"playapp.activateAccount" = "Restore an account";
 "playapp.deleteAccount" = "Delete an account";
 "playapp.clearPreferences" = "Borrar preferencias";
 
 "storeAccount.selectAccRegion" = "Select account region";
 "storeAccount.selectAccRegion.usa" = "America";
 "storeAccount.selectAccRegion.euro" = "Europe";
-"storeAccount.selectAccRegion.tw" = "TW";
 "storeAccount.selectAccRegion.asia" = "Asia";
+"storeAccount.selectAccRegion.cht" = "TW, HK, MO";
 "storeAccount.nameOfAcc" = "Name of your account";
 "storeAccount.nameOfAcc.textfieldPlaceholder" = "Name of account...";
 "storeAccount.store" = "Store account";

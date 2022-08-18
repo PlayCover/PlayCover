@@ -24,7 +24,9 @@ struct StoreGenshinAccountView: View {
                        content: {
                             Text("storeAccount.selectAccRegion.usa").tag("America")
                             Text("storeAccount.selectAccRegion.euro").tag("Europe")
-                }).pickerStyle(.radioGroup)
+                            Text("storeAccount.selectAccRegion.asia").tag("Asia")
+                            Text("storeAccount.selectAccRegion.cht").tag("CHT")
+                }).pickerStyle(.segmented)
                 Spacer()
             }
             HStack {
@@ -44,9 +46,15 @@ struct StoreGenshinAccountView: View {
                                 if selectedRegion == "America" {
                                     storeUserData(folderName: $folderName.wrappedValue.lowercased(),
                                                   accountRegion: "os_usa")
-                                } else {
+                                } else if selectedRegion == "Europe" {
                                     storeUserData(folderName: $folderName.wrappedValue.lowercased(),
                                                   accountRegion: "os_euro")
+                                } else if selectedRegion == "Asia" {
+                                    storeUserData(folderName: $folderName.wrappedValue.lowercased(),
+                                                  accountRegion: "os_asia")
+                                } else {
+                                    storeUserData(folderName: $folderName.wrappedValue.lowercased(),
+                                                  accountRegion: "os_cht")
                                 }
                                 presentationMode.wrappedValue.dismiss()
                             } else {
