@@ -23,6 +23,7 @@
 		53F4D2A026C43C690020167C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29F26C43C690020167C /* Log.swift */; };
 		53F50C4926E3CA42007AD2D3 /* AppLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */; };
 		53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F5E74226C1D37E005AED1D /* FileExtensions.swift */; };
+		6E3C8E1128AE1F330020BCEA /* xcode_install.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 6E3C8E1028AE1F250020BCEA /* xcode_install.scpt */; };
 		6E5C68BA289865C8008EC11B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5C68B9289865C8008EC11B /* MainView.swift */; };
 		6E66B0BF289DE6240099B907 /* StoreVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E66B0BE289DE6240099B907 /* StoreVM.swift */; };
 		6E66B0C6289EC68D0099B907 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E66B0C5289EC68D0099B907 /* HomeView.swift */; };
@@ -95,6 +96,7 @@
 		53F4D29F26C43C690020167C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLibraryView.swift; sourceTree = "<group>"; };
 		53F5E74226C1D37E005AED1D /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
+		6E3C8E1028AE1F250020BCEA /* xcode_install.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = xcode_install.scpt; sourceTree = "<group>"; };
 		6E5C68B9289865C8008EC11B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		6E66B0BE289DE6240099B907 /* StoreVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreVM.swift; sourceTree = "<group>"; };
 		6E66B0C5289EC68D0099B907 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 		AAE8809D287ACE7D00FBB23C /* scripts */ = {
 			isa = PBXGroup;
 			children = (
+				6E3C8E1028AE1F250020BCEA /* xcode_install.scpt */,
 				AAE8809F287ACE9F00FBB23C /* bootstrap.sh */,
 				AAE8809E287ACE9F00FBB23C /* cp_frameworks.sh */,
 			);
@@ -477,6 +480,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E3C8E1128AE1F330020BCEA /* xcode_install.scpt in Resources */,
 				AA719649287A0E2500623C15 /* default.yaml in Resources */,
 				8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */,
 				532644DE26E79E56002EA34D /* Localizable.strings in Resources */,
