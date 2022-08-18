@@ -67,7 +67,18 @@ func storeUserData( folderName: String, accountRegion: String ) {
 }
 
 func checkCurrentRegion (selectedRegion: String) throws -> Bool {
-    let regionName = selectedRegion == "America" ? "os_usa" : "os_euro"
+    let regionName: String
+    
+    if selectedRegion == "America" {
+        regionName = "os_usa"
+    } else if selectedRegion == "Europe" {
+        regionName = "os_euro"
+    } else if selectedRegion == "Asia" {
+        regionName = "os_asia"
+    } else {
+        regionName = "os_cht"
+    }
+
     // plist path
     let url = URL(fileURLWithPath: NSHomeDirectory() + "/Library/Containers/com.miHoYo.GenshinImpact/" +
                   "Data/Library/Preferences/com.miHoYo.GenshinImpact.plist")

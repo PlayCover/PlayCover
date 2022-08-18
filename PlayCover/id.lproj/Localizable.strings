@@ -16,8 +16,8 @@
 "storeAccount.selectAccRegion" = "Select account region";
 "storeAccount.selectAccRegion.usa" = "America";
 "storeAccount.selectAccRegion.euro" = "Europe";
-"storeAccount.selectAccRegion.tw" = "TW";
 "storeAccount.selectAccRegion.asia" = "Asia";
+"storeAccount.selectAccRegion.cht" = "TW, HK, MO";
 "storeAccount.nameOfAcc" = "Name of your account";
 "storeAccount.nameOfAcc.textfieldPlaceholder" = "Name of account...";
 "storeAccount.store" = "Store account";
