@@ -4,17 +4,31 @@ title: "[Bug]: "
 labels: ["bug"]
 body:
   - type: textarea
-    id: what-happened
+    id: describe-bug
     attributes:
-      label: What happened?
-      description: What error occured and what was expected to occur?
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Step-by-step instructions to produce the unexpected behaviour.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behaviour
+    attributes:
+      label: Expected behaviour
+      description: A clear and concise description of what you expected to happen.
     validations:
       required: true
   - type: textarea
     id: logs
     attributes:
       label: Crash log
-      description: Please copy and paste in any relevant crash logs in plain text.
+      description: Copy and paste in any relevant crash logs in plain text.
       render: shell
   - type: dropdown
     id: pc-version
@@ -23,8 +37,6 @@ body:
       options:
         - Nightly/beta
         - 1.1.1
-        - 1.0.7
-        - <1.0.7
     validations:
         required: true
   - type: dropdown
