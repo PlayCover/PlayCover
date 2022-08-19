@@ -3,6 +3,16 @@
     <channel>
         <title>PlayCover</title>
         <item>
+            <title>1.1.1</title>
+            <pubDate>Thu, 18 Aug 2022 21:01:45 -0400</pubDate>
+            <link>https://github.com/PlayCover/PlayCover/releases/tag/1.1.1</link>
+            <sparkle:fullReleaseNotesLink>https://github.com/PlayCover/PlayCover/releases/tag/1.1.1</sparkle:fullReleaseNotesLink>
+            <sparkle:version>36</sparkle:version>
+            <sparkle:shortVersionString>1.1.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/PlayCover/PlayCover/releases/download/1.1.1/Playcover_1.1.1.dmg" length="5279088" type="application/octet-stream" sparkle:edSignature="0p5epnqMpNg4sdbv5bPP5SAxliOrtEiFT62+5ji1VFqNvXfV0y2+eK37iq4QVSSXK48BVjt/EFDdKrFL1FR7AQ=="/>
+        </item>
+        <item>
             <title>1.1.0</title>
             <pubDate>Thu, 18 Aug 2022 00:25:16 +0900</pubDate>
             <link>https://github.com/PlayCover/PlayCover/releases/tag/1.1.0</link>
@@ -10,7 +20,7 @@
             <sparkle:version>17</sparkle:version>
             <sparkle:shortVersionString>1.1.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
-            <enclosure url="https://github.com/PlayCover/PlayCover/releases/download/1.1.0/PlayCover_1.1.0.dmg" length="5346119" type="application/octet-stream" sparkle:edSignature="mPrx/xrT9SON2OOojJINwUNtz+p1PTU3W2x3bHLmEaiWmoan8Jycfeco+fxMsqwPGtKKKmIpS8i6gp6MvcTuAw==" />
+            <enclosure url="https://github.com/PlayCover/PlayCover/releases/download/1.1.0/PlayCover_1.1.0.dmg" length="5346119" type="application/octet-stream" sparkle:edSignature="mPrx/xrT9SON2OOojJINwUNtz+p1PTU3W2x3bHLmEaiWmoan8Jycfeco+fxMsqwPGtKKKmIpS8i6gp6MvcTuAw=="/>
         </item>
         <item>
             <title>1.0.7</title>
@@ -20,7 +30,7 @@
             <sparkle:version>1</sparkle:version>
             <sparkle:shortVersionString>1.0.7</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
-            <enclosure url="https://github.com/PlayCover/PlayCover/releases/download/1.0.7/PlayCover_1.0.7.dmg" length="4342923" type="application/octet-stream" />
+            <enclosure url="https://github.com/PlayCover/PlayCover/releases/download/1.0.7/PlayCover_1.0.7.dmg" length="4342923" type="application/octet-stream"/>
         </item>
     </channel>
 </rss>
