@@ -99,7 +99,7 @@ struct AppSettingsView: View {
                     Spacer()
                     Picker(selection: $selectedWindowSize, label: Text("Portrait Mode"), content: {
                         Text("720p").tag(4)
-                        Text("6.1'").tag(5)
+                        Text("6.1\"").tag(5)
                     }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
                 Spacer()
                 }
