@@ -10,6 +10,12 @@ body:
       description: What error occured and what was expected to occur?
     validations:
       required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Crash log
+      description: Please copy and paste in any relevant crash logs in plain text.
+      render: shell
   - type: dropdown
     id: pc-version
     attributes:
