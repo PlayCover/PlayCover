@@ -3,7 +3,7 @@
 //  PlayCover
 //
 
-import SimplyCoreAudio
+import CoreAudio
 import SwiftUI
 
 class SoundDeviceService {
@@ -12,12 +12,64 @@ class SoundDeviceService {
 
     private init() { }
 
+    private func getAudioPropertyAddress(
+        selector: AudioObjectPropertySelector
+    ) -> AudioObjectPropertyAddress {
+        return AudioObjectPropertyAddress(
+            mSelector: selector,
+            mScope: kAudioObjectPropertyScopeGlobal,
+            mElement: kAudioObjectPropertyElementMain)
+    }
+
+    private func getAudioPropertyData<T>(
+        _ objectID: AudioObjectID,
+        address: inout AudioObjectPropertyAddress,
+        result: inout T
+    ) -> OSStatus {
+        var size = UInt32(MemoryLayout<T>.size)
+        return AudioObjectGetPropertyData(objectID, &address, UInt32(0), nil, &size, &result)
+    }
+
+    private func setAudioPropertyData<T>(
+        _ objectID: AudioObjectID,
+        address: inout AudioObjectPropertyAddress,
+        value: inout T)
+    -> OSStatus {
+        let size = UInt32(MemoryLayout<T>.size)
+        return AudioObjectSetPropertyData(objectID, &address, UInt32(0), nil, size, &value)
+    }
+
+    private func getSoundDevice() -> AudioDeviceID? {
+        var address = getAudioPropertyAddress(selector: kAudioHardwarePropertyDefaultOutputDevice)
+        var deviceID = AudioDeviceID()
+        let objectID = AudioObjectID(kAudioObjectSystemObject)
+        if getAudioPropertyData(objectID, address: &address, result: &deviceID) != noErr {
+            return nil
+        } else {
+            return deviceID
+        }
+    }
+
+    private func getSampleRate(_ deviceID: AudioObjectID) -> Float64? {
+        var result = Float64(0.0)
+        var address = getAudioPropertyAddress(selector: kAudioDevicePropertyNominalSampleRate)
+        guard AudioObjectHasProperty(deviceID, &address) else { return nil }
+        if getAudioPropertyData(deviceID, address: &address, result: &result) != noErr {
+            return nil
+        } else {
+            return result
+        }
+    }
+
+    private func setSampleRate(_ deviceID: AudioObjectID, sampleRate: Float64) -> OSStatus {
+        var value = sampleRate
+        var address = getAudioPropertyAddress(selector: kAudioDevicePropertyNominalSampleRate)
+        return setAudioPropertyData(deviceID, address: &address, value: &value)
+    }
+
     func prepareSoundDevice() {
-        let simplyCA = SimplyCoreAudio()
-
-        let device = simplyCA.defaultOutputDevice
-
-        if let sampleRate = device?.nominalSampleRate {
+        guard let device = getSoundDevice() else { return }
+        if let sampleRate = getSampleRate(device) {
             if sampleRate == 48000.0 || sampleRate == 44100.0 { return }
         }
         DispatchQueue.main.async {
@@ -29,8 +81,11 @@ class SoundDeviceService {
             alert.alertStyle = .critical
             let response: NSApplication.ModalResponse = alert.runModal()
             if response == NSApplication.ModalResponse.alertFirstButtonReturn {
-                device?.setNominalSampleRate(48000.0)
-                Log.shared.msg(NSLocalizedString("soundAlert.successText", comment: ""))
+                if self.setSampleRate(device, sampleRate: 48000) == noErr {
+                    Log.shared.msg(NSLocalizedString("soundAlert.successText", comment: ""))
+                } else {
+                    Log.shared.error(NSLocalizedString("soundAlert.failureText", comment: ""))
+                }
             }
         }
     }

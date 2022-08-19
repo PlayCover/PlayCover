@@ -12,67 +12,69 @@ import AppKit
 struct AppsView: View {
     @Binding public var bottomPadding: CGFloat
     @Binding public var xcodeCliInstalled: Bool
+    @Binding var isPlaySignActive: Bool
 
     @EnvironmentObject var appVm: AppsVM
 
-    @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150), spacing: 0)]
+    @State private var gridLayout = [GridItem(.adaptive(minimum: 160, maximum: 160), spacing: 0)]
 	@State private var alertTitle = ""
 	@State private var alertText = ""
 	@State private var alertBtn = ""
 	@State private var alertAction : (() -> Void) = {}
 	@State private var showAlert = false
+    @State private var isInstallingXcodeCli = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .center, spacing: 0) {
             HStack {
                 SearchView().padding(.horizontal, 20).padding(.vertical, 8)
             }
 			if !xcodeCliInstalled {
 				VStack(spacing: 12) {
-					Text("xcode.install.message")
-						.font(.title3)
-					Button("button.Install") {
-						do {
-							_ = try shell.sh("xcode-select --install")
-							alertTitle = NSLocalizedString("xcode.install.success", comment: "")
-							alertBtn = NSLocalizedString("button.Close", comment: "")
-							alertText = NSLocalizedString("alert.followInstructionsAndRestartApp", comment: "")
-							alertAction = {
-								exit(0)
-							}
-							showAlert = true
-						} catch {
-							alertTitle = NSLocalizedString("xcode.install.failed", comment: "")
-							alertBtn = NSLocalizedString("button.OK", comment: "")
-							alertText = error.localizedDescription
-							alertAction = {}
-							showAlert = true
-						}
-					}
-                    .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
-					.alert(isPresented: $showAlert) {
-						Alert(title: Text(alertTitle), message: Text(alertText), dismissButton: .default(Text(alertBtn), action: {
-							showAlert = false
-							alertAction()
-						}))
-					}
+                    if !isInstallingXcodeCli {
+                        Text("xcode.install.message")
+                            .font(.title3)
+                        Button("button.Install") {
+                            installXcodeCli()
+                            isInstallingXcodeCli = true
+                        }
+                        .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
+                        .alert(isPresented: $showAlert) {
+                            Alert(title: Text(alertTitle), message: Text(alertText),
+                                  dismissButton: .default(Text(alertBtn), action: {
+                                showAlert = false
+                                alertAction()
+                            }))
+                        }
+                    } else {
+                        VStack {
+                            ProgressView("xcode.install.progress")
+                                .progressViewStyle(.circular)
+                            Text("xcode.install.progress.subtext")
+                                .foregroundColor(.secondary)
+                        }
+                    }
 				}
 				.frame(maxWidth: .infinity, maxHeight: .infinity)
 				.padding(.top, 16).padding(.bottom, bottomPadding + 16)
-			} else {
+            } else if SystemConfig.isFirstTimePlaySign && isPlaySignActive {
+                VStack(spacing: 12) {
+                    Text("setup.requireReboot")
+                        .font(.title2)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.top, 16).padding(.bottom, bottomPadding + 16)
+            } else {
                 GeometryReader { geom in
                     ScrollView {
                         LazyVGrid(columns: gridLayout, alignment: .leading, spacing: 10) {
-                            // swiftlint:disable todo
-                            // TODO: Remove use of force cast
-                            // swiftlint:disable force_cast
-                            ForEach(appVm.apps, id: \.id) { app in
-                                if app.type == BaseApp.AppType.add {
-                                    AppAddView().environmentObject(InstallVM.shared)
-                                } else if app.type == .app {
-                                    PlayAppView(app: app as! PlayApp)
-                                } else if app.type == .store {
-                                    StoreAppView(app: app as! StoreApp)
+                            AppAddView().environmentObject(InstallVM.shared)
+                            ForEach(appVm.apps, id: \.info.bundleIdentifier) { app in
+                                PlayAppView(app: app)
+                            }
+                            if appVm.showAppLinks {
+                                ForEach(Store.storeApps, id: \.id) { app in
+                                    StoreAppView(app: app)
                                 }
                             }
                         }
@@ -81,6 +83,55 @@ struct AppsView: View {
                     }
                 }
 			}
+        }
+    }
+
+    func installXcodeCli() {
+        if let path = Bundle.main.url(forResource: "xcode_install", withExtension: "scpt") {
+            DispatchQueue.global(qos: .userInteractive).async {
+                let task = Process()
+                let taskOutput = Pipe()
+                task.launchPath = "/usr/bin/osascript"
+                task.arguments = ["\(path.path)"]
+                task.standardOutput = taskOutput
+                task.launch()
+                task.waitUntilExit()
+
+                DispatchQueue.main.async {
+                    let data = taskOutput.fileHandleForReading.readDataToEndOfFile()
+                    if let output = String(data: data, encoding: .utf8) {
+                        let trimmed = output.filter { !$0.isWhitespace }
+                        if trimmed.isEmpty {
+                            isInstallingXcodeCli = false
+                            alertTitle = NSLocalizedString("xcode.install.success", comment: "")
+                            alertBtn = NSLocalizedString("button.Close", comment: "")
+                            alertText = NSLocalizedString("alert.restart", comment: "")
+                            alertAction = {
+                                NSApplication.shared.terminate(nil)
+                            }
+                            showAlert = true
+                            xcodeCliInstalled = shell.isXcodeCliToolsInstalled
+                        } else {
+                            isInstallingXcodeCli = false
+                            alertTitle = NSLocalizedString("xcode.install.failed", comment: "")
+                            alertBtn = NSLocalizedString("button.OK", comment: "")
+                            alertText = output
+                            alertAction = {}
+                            showAlert = true
+                        }
+                    } else {
+                        isInstallingXcodeCli = false
+                        Log.shared.error("Failed to interpret console output!")
+                    }
+                }
+            }
+        } else {
+            isInstallingXcodeCli = false
+            alertTitle = NSLocalizedString("xcode.install.failed", comment: "")
+            alertBtn = NSLocalizedString("button.OK", comment: "")
+            alertText = "Could not find install script!"
+            alertAction = {}
+            showAlert = true
         }
     }
 }
@@ -183,5 +234,4 @@ struct AppAddView: View {
             }
         }
     }
-
 }

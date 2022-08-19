@@ -4,15 +4,14 @@
 //
 //  Created by José Elias Moreno villegas on 20/07/22.
 //
-// swiftlint:disable identifier_name
 
 import Foundation
 import SwiftUI
 
 func storeUserData( folderName: String, accountRegion: String ) {
-        let MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption = "MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption"
-        let MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption = "MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption"
-        let MIHOYO_LAST_ACCOUNT_MODEL_Encryption = "MIHOYO_LAST_ACCOUNT_MODEL_Encryption"
+        let accountInfoPlistEncrypt = "MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption"
+        let kibanaReportArrayKeyEncrypt = "MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption"
+        let lastAccountModelEncrypt = "MIHOYO_LAST_ACCOUNT_MODEL_Encryption"
 
         // get Path URL and create a folder with the content of uidInfo.txt
         let gameDataPath = NSHomeDirectory() + "/Library/Containers/com.miHoYo.GenshinImpact/Data/Documents/"
@@ -22,12 +21,12 @@ func storeUserData( folderName: String, accountRegion: String ) {
         let storePath = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/storage/" + folderName + "/"
 
         // Data to move from GameDataPath to StorePath
-        let MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption_URL =
-            URL(fileURLWithPath: gameDataPath + MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption)
-        let MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption_URL =
-            URL(fileURLWithPath: gameDataPath + MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption)
-        let MIHOYO_LAST_ACCOUNT_MODEL_Encryption_URL =
-            URL(fileURLWithPath: gameDataPath + MIHOYO_LAST_ACCOUNT_MODEL_Encryption)
+        let accountInfoPlistEncryptUrl =
+            URL(fileURLWithPath: gameDataPath + accountInfoPlistEncrypt)
+        let kibanaReportArrayKeyEncryptUrl =
+            URL(fileURLWithPath: gameDataPath + kibanaReportArrayKeyEncrypt)
+        let lastAccountModelEncryptUrl =
+            URL(fileURLWithPath: gameDataPath + lastAccountModelEncrypt)
 
         // create folder using StorePath
         let fileManager = FileManager.default
@@ -49,14 +48,14 @@ func storeUserData( folderName: String, accountRegion: String ) {
 
         // move data from GameDataPath to StorePath
         do {
-            try fileManager.copyItem(at: MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption_URL,
-                                     to: URL(fileURLWithPath: storePath + MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption))
+            try fileManager.copyItem(at: accountInfoPlistEncryptUrl,
+                                     to: URL(fileURLWithPath: storePath + accountInfoPlistEncrypt))
 
-            try fileManager.copyItem(at: MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption_URL,
-                                     to: URL(fileURLWithPath: storePath + MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption))
+            try fileManager.copyItem(at: kibanaReportArrayKeyEncryptUrl,
+                                     to: URL(fileURLWithPath: storePath + kibanaReportArrayKeyEncrypt))
 
-            try fileManager.copyItem(at: MIHOYO_LAST_ACCOUNT_MODEL_Encryption_URL,
-                                     to: URL(fileURLWithPath: storePath + MIHOYO_LAST_ACCOUNT_MODEL_Encryption))
+            try fileManager.copyItem(at: lastAccountModelEncryptUrl,
+                                     to: URL(fileURLWithPath: storePath + lastAccountModelEncrypt))
             fileManager.createFile(atPath: storePath + "region.txt", contents: nil, attributes: nil)
             try accountRegion.write(to: URL(fileURLWithPath: storePath + "region.txt"),
                                     atomically: false, encoding: .utf8)
@@ -68,7 +67,18 @@ func storeUserData( folderName: String, accountRegion: String ) {
 }
 
 func checkCurrentRegion (selectedRegion: String) throws -> Bool {
-    let regionName = selectedRegion == "America" ? "os_usa" : "os_euro"
+    let regionName: String
+
+    if selectedRegion == "America" {
+        regionName = "os_usa"
+    } else if selectedRegion == "Europe" {
+        regionName = "os_euro"
+    } else if selectedRegion == "Asia" {
+        regionName = "os_asia"
+    } else {
+        regionName = "os_cht"
+    }
+
     // plist path
     let url = URL(fileURLWithPath: NSHomeDirectory() + "/Library/Containers/com.miHoYo.GenshinImpact/" +
                   "Data/Library/Preferences/com.miHoYo.GenshinImpact.plist")

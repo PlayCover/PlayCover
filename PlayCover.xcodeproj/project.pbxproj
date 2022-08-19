@@ -13,7 +13,9 @@
 		28361D6428927E3300B35EDB /* StoreGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28361D6328927E3300B35EDB /* StoreGenshinAccountView.swift */; };
 		28361D662892800200B35EDB /* DeleteStoredGenshinUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28361D652892800200B35EDB /* DeleteStoredGenshinUserData.swift */; };
 		28361D68289280A300B35EDB /* DeleteGenshinStoredAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28361D67289280A300B35EDB /* DeleteGenshinStoredAccountView.swift */; };
-		365AFB0628847B2E008B3542 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 365AFB0528847B2E008B3542 /* Sparkle */; };
+		286C331028AEE62900F55009 /* getScreenSizeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286C330F28AEE62900F55009 /* getScreenSizeSelector.swift */; };
+		2878234D28A73FA600E6C27F /* DeletePreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2878234C28A73FA600E6C27F /* DeletePreferences.swift */; };
+		365AFB0628847B2E008B3542 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 365AFB0528847B2E008B3542 /* Sparkle */; settings = {ATTRIBUTES = (Required, ); }; };
 		365AFB0828847B75008B3542 /* Sparkle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365AFB0728847B75008B3542 /* Sparkle.swift */; };
 		3665EF8928832400007CF915 /* PlayCoverSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */; };
 		36B26B97288C724600859EFD /* UpdateSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B26B96288C724600859EFD /* UpdateSettings.swift */; };
@@ -28,16 +30,15 @@
 		53F4D2A026C43C690020167C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29F26C43C690020167C /* Log.swift */; };
 		53F50C4926E3CA42007AD2D3 /* AppsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F50C4826E3CA42007AD2D3 /* AppsView.swift */; };
 		53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F5E74226C1D37E005AED1D /* FileExtensions.swift */; };
-		6E2BCD5028945B52001474CF /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 6E2BCD4F28945B51001474CF /* Documentation.docc */; };
+		6E66B0BF289DE6240099B907 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E66B0BE289DE6240099B907 /* Store.swift */; };
+		6ED6ACB128AD3AE90040D234 /* xcode_install.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 6ED6ACB028AD3AE10040D234 /* xcode_install.scpt */; };
 		8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */; };
 		8783CFFF26B8C52E00171041 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783CFFE26B8C52E00171041 /* Assets.xcassets */; };
 		8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783D00126B8C52E00171041 /* Preview Assets.xcassets */; };
 		8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00A26B8C9E600171041 /* URLExtensions.swift */; };
 		8783D00D26B8D32700171041 /* InstallSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00C26B8D32700171041 /* InstallSettings.swift */; };
-		9221730A27623DA100C8A3A2 /* StoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9221730927623DA100C8A3A2 /* StoreApp.swift */; };
 		92279BBF27610433009F28BF /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92279BBE27610433009F28BF /* AppSettingsView.swift */; };
 		922ED9BA272DEEDB008CA401 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922ED9B9272DEEDB008CA401 /* MainView.swift */; };
-		92324086283FBA34006C46DE /* SimplyCoreAudio in Frameworks */ = {isa = PBXBuildFile; productRef = 92324085283FBA34006C46DE /* SimplyCoreAudio */; };
 		923421F7275F40300030CD7D /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923421F6275F40300030CD7D /* AppContainer.swift */; };
 		9256220127491E4700728698 /* NSData+Reading.m in Sources */ = {isa = PBXBuildFile; fileRef = 925621FD27491E4700728698 /* NSData+Reading.m */; };
 		9256220327491E4700728698 /* operations.m in Sources */ = {isa = PBXBuildFile; fileRef = 925621FF27491E4700728698 /* operations.m */; };
@@ -57,9 +58,7 @@
 		92ECD8AA274E76FD00DB7AC6 /* TempAllocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ECD8A9274E76FD00DB7AC6 /* TempAllocator.swift */; };
 		92ECD8AE274E787200DB7AC6 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ECD8AD274E787200DB7AC6 /* AppInfo.swift */; };
 		92EE06D0274EA433002C907B /* BaseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06CF274EA433002C907B /* BaseApp.swift */; };
-		92EE06D2274EA596002C907B /* InstallApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06D1274EA596002C907B /* InstallApp.swift */; };
 		92EE06D4274EA604002C907B /* PlayAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06D3274EA604002C907B /* PlayAppView.swift */; };
-		92EE06D8274EA98B002C907B /* PhysicialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06D7274EA98B002C907B /* PhysicialApp.swift */; };
 		92EE06DA274EB009002C907B /* PlayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06D9274EB009002C907B /* PlayApp.swift */; };
 		92EE06DC274EB19A002C907B /* StoreAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06DB274EB19A002C907B /* StoreAppView.swift */; };
 		92EE06DE274EC09F002C907B /* Entitlements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06DD274EC09F002C907B /* Entitlements.swift */; };
@@ -68,7 +67,7 @@
 		AA719649287A0E2500623C15 /* default.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA719647287A0E2500623C15 /* default.yaml */; };
 		AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA71964A287A0EA800623C15 /* PlayRules.swift */; };
 		AA71964D287A35F400623C15 /* com.nexon.bluearchive.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA71964C287A35F400623C15 /* com.nexon.bluearchive.yaml */; };
-		AA818CB2287ABE9B000BEE9D /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = AA818CB1287ABE9B000BEE9D /* AlertToast */; };
+		AA818CB2287ABE9B000BEE9D /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = AA818CB1287ABE9B000BEE9D /* AlertToast */; settings = {ATTRIBUTES = (Required, ); }; };
 		AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = AA818CB4287ABEC3000BEE9D /* Yams */; };
 		ABED59832887A32F004D782B /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABED59822887A32F004D782B /* MenuBarView.swift */; };
 /* End PBXBuildFile section */
@@ -80,6 +79,8 @@
 		28361D6328927E3300B35EDB /* StoreGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreGenshinAccountView.swift; sourceTree = "<group>"; };
 		28361D652892800200B35EDB /* DeleteStoredGenshinUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteStoredGenshinUserData.swift; sourceTree = "<group>"; };
 		28361D67289280A300B35EDB /* DeleteGenshinStoredAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGenshinStoredAccountView.swift; sourceTree = "<group>"; };
+		286C330F28AEE62900F55009 /* getScreenSizeSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getScreenSizeSelector.swift; sourceTree = "<group>"; };
+		2878234C28A73FA600E6C27F /* DeletePreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePreferences.swift; sourceTree = "<group>"; };
 		365AFB0728847B75008B3542 /* Sparkle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sparkle.swift; sourceTree = "<group>"; };
 		3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverSettingsView.swift; sourceTree = "<group>"; usesTabs = 0; };
 		36B26B96288C724600859EFD /* UpdateSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSettings.swift; sourceTree = "<group>"; };
@@ -105,7 +106,8 @@
 		53F4D29F26C43C690020167C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		53F50C4826E3CA42007AD2D3 /* AppsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsView.swift; sourceTree = "<group>"; };
 		53F5E74226C1D37E005AED1D /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
-		6E2BCD4F28945B51001474CF /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
+		6E66B0BE289DE6240099B907 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		6ED6ACB028AD3AE10040D234 /* xcode_install.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = xcode_install.scpt; sourceTree = "<group>"; };
 		8783CFF726B8C52D00171041 /* PlayCover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayCover.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverApp.swift; sourceTree = "<group>"; };
 		8783CFFE26B8C52E00171041 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -115,7 +117,6 @@
 		8783D00A26B8C9E600171041 /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
 		8783D00C26B8D32700171041 /* InstallSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallSettings.swift; sourceTree = "<group>"; };
 		8FBBE76B2826709500F4FE9F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		9221730927623DA100C8A3A2 /* StoreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreApp.swift; sourceTree = "<group>"; };
 		92279BBE27610433009F28BF /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
 		922ED9B9272DEEDB008CA401 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		923421F6275F40300030CD7D /* AppContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
@@ -144,9 +145,7 @@
 		92ECD8A9274E76FD00DB7AC6 /* TempAllocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAllocator.swift; sourceTree = "<group>"; };
 		92ECD8AD274E787200DB7AC6 /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
 		92EE06CF274EA433002C907B /* BaseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseApp.swift; sourceTree = "<group>"; };
-		92EE06D1274EA596002C907B /* InstallApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallApp.swift; sourceTree = "<group>"; };
 		92EE06D3274EA604002C907B /* PlayAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAppView.swift; sourceTree = "<group>"; };
-		92EE06D7274EA98B002C907B /* PhysicialApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicialApp.swift; sourceTree = "<group>"; };
 		92EE06D9274EB009002C907B /* PlayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayApp.swift; sourceTree = "<group>"; };
 		92EE06DB274EB19A002C907B /* StoreAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAppView.swift; sourceTree = "<group>"; };
 		92EE06DD274EC09F002C907B /* Entitlements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entitlements.swift; sourceTree = "<group>"; };
@@ -170,7 +169,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92324086283FBA34006C46DE /* SimplyCoreAudio in Frameworks */,
 				365AFB0628847B2E008B3542 /* Sparkle in Frameworks */,
 				AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */,
 				AA818CB2287ABE9B000BEE9D /* AlertToast in Frameworks */,
@@ -235,15 +233,12 @@
 		53F4D29926C43A390020167C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				923421F6275F40300030CD7D /* AppContainer.swift */,
-				92EE06D7274EA98B002C907B /* PhysicialApp.swift */,
-				92EE06D1274EA596002C907B /* InstallApp.swift */,
-				92ECD8AD274E787200DB7AC6 /* AppInfo.swift */,
-				AA71964A287A0EA800623C15 /* PlayRules.swift */,
-				9286D295273A7E4200958DD3 /* AppSettings.swift */,
 				92EE06CF274EA433002C907B /* BaseApp.swift */,
 				92EE06D9274EB009002C907B /* PlayApp.swift */,
-				9221730927623DA100C8A3A2 /* StoreApp.swift */,
+				923421F6275F40300030CD7D /* AppContainer.swift */,
+				92ECD8AD274E787200DB7AC6 /* AppInfo.swift */,
+				9286D295273A7E4200958DD3 /* AppSettings.swift */,
+				AA71964A287A0EA800623C15 /* PlayRules.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -290,6 +285,9 @@
 				28361D5D2892781200B35EDB /* RestoreGenshinUserData.swift */,
 				28361D5F28927CAC00B35EDB /* SaveGenshinUserData.swift */,
 				28361D652892800200B35EDB /* DeleteStoredGenshinUserData.swift */,
+				6E66B0BE289DE6240099B907 /* Store.swift */,
+				2878234C28A73FA600E6C27F /* DeletePreferences.swift */,
+				286C330F28AEE62900F55009 /* getScreenSizeSelector.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -315,7 +313,6 @@
 		8783CFF926B8C52D00171041 /* PlayCover */ = {
 			isa = PBXGroup;
 			children = (
-				6E2BCD4F28945B51001474CF /* Documentation.docc */,
 				AA719640287A085200623C15 /* Rules */,
 				AA970FD228793A310099A5D0 /* PlayCoverRelease.entitlements */,
 				53D9DAF226C1849D0071959E /* PlayCoverError.swift */,
@@ -387,6 +384,7 @@
 		AAE8809D287ACE7D00FBB23C /* scripts */ = {
 			isa = PBXGroup;
 			children = (
+				6ED6ACB028AD3AE10040D234 /* xcode_install.scpt */,
 				AAE8809F287ACE9F00FBB23C /* bootstrap.sh */,
 				AAE8809E287ACE9F00FBB23C /* cp_frameworks.sh */,
 			);
@@ -405,7 +403,8 @@
 				8783CFF426B8C52D00171041 /* Frameworks */,
 				8783CFF526B8C52D00171041 /* Resources */,
 				AA818CBC287AC1C6000BEE9D /* Copy Carthage frameworks */,
-				36E7AB27288A0B64004C0C3A /* ShellScript */,
+				AAC28F222899A05B005057FB /* Codesign sparkle */,
+				36E7AB27288A0B64004C0C3A /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -413,7 +412,6 @@
 			);
 			name = PlayCover;
 			packageProductDependencies = (
-				92324085283FBA34006C46DE /* SimplyCoreAudio */,
 				AA818CB1287ABE9B000BEE9D /* AlertToast */,
 				AA818CB4287ABEC3000BEE9D /* Yams */,
 				365AFB0528847B2E008B3542 /* Sparkle */,
@@ -458,7 +456,6 @@
 			);
 			mainGroup = 8783CFEE26B8C52D00171041;
 			packageReferences = (
-				92324084283FBA34006C46DE /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */,
 				AA818CB0287ABE9B000BEE9D /* XCRemoteSwiftPackageReference "AlertToast" */,
 				AA818CB3287ABEC3000BEE9D /* XCRemoteSwiftPackageReference "Yams" */,
 				365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */,
@@ -477,6 +474,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6ED6ACB128AD3AE90040D234 /* xcode_install.scpt in Resources */,
 				AA719649287A0E2500623C15 /* default.yaml in Resources */,
 				8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */,
 				532644DE26E79E56002EA34D /* Localizable.strings in Resources */,
@@ -489,7 +487,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		36E7AB27288A0B64004C0C3A /* ShellScript */ = {
+		36E7AB27288A0B64004C0C3A /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -498,6 +496,7 @@
 			);
 			inputPaths = (
 			);
+			name = SwiftLint;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -525,6 +524,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
 			shellScript = "set -euo pipefail\n\nif [ -x /usr/local/bin/carthage ]; then\n    carthage=/usr/local/bin/carthage\nelif [ -x /opt/homebrew/bin/carthage ]; then\n    carthage=/opt/homebrew/bin/carthage\nelse\n    echo \"Cannot find carthage\"\n    exit 1\nfi\n\necho \"Converting to maccatalyst\"\nvtool \\\n\t-set-build-version maccatalyst 11.0 14.0 \\\n\t-replace -output \\\n\t\"${SCRIPT_INPUT_FILE_0}/PlayTools\" \\\n\t\"${SCRIPT_INPUT_FILE_0}/PlayTools\"\n\necho \"Codesigning PlayTools\"\ncodesign -fs- \"${SCRIPT_INPUT_FILE_0}/PlayTools\"\n\n$carthage copy-frameworks\n";
+		};
+		AAC28F222899A05B005057FB /* Codesign sparkle */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Codesign sparkle";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nset -euo pipefail\nLOCATION=\"${BUILD_DIR%Build/*}SourcePackages/artifacts/sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework\"\nIDENTITY=${EXPANDED_CODE_SIGN_IDENTITY_NAME}\n\necho Signing location $LOCATION\necho Signing identity $IDENTITY\n# Apple Development: XIN LI (33X85HBRP6)\ncodesign --verbose --force --deep -o runtime --sign \"$IDENTITY\" \"$LOCATION/Autoupdate\"\ncodesign --verbose --force --deep -o runtime --sign \"$IDENTITY\" \"$LOCATION/Updater.app\"\ncodesign --verbose --force --deep -o runtime --sign \"$IDENTITY\" \"$LOCATION/XPCServices/Downloader.xpc\"\ncodesign --verbose --force --deep -o runtime --sign \"$IDENTITY\" \"$LOCATION/XPCServices/Installer.xpc\"\n";
 		};
 		AAE8809C287ACA4900FBB23C /* Carthage Bootstrap */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -561,10 +578,10 @@
 				92562209274921E500728698 /* main.m in Sources */,
 				53E908E726E51FFC0077B466 /* Colors.swift in Sources */,
 				3665EF8928832400007CF915 /* PlayCoverSettingsView.swift in Sources */,
+				286C331028AEE62900F55009 /* getScreenSizeSelector.swift in Sources */,
 				9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */,
 				92ECD8AE274E787200DB7AC6 /* AppInfo.swift in Sources */,
 				928C01D9272E162C007EB2DF /* InstallVM.swift in Sources */,
-				6E2BCD5028945B52001474CF /* Documentation.docc in Sources */,
 				9298512E2738E67E008F19DC /* SetupView.swift in Sources */,
 				922ED9BA272DEEDB008CA401 /* MainView.swift in Sources */,
 				53F4D2A026C43C690020167C /* Log.swift in Sources */,
@@ -576,10 +593,10 @@
 				9256220627491E8200728698 /* patch.m in Sources */,
 				53F3802826EB6F6B00D6B525 /* NotifyService.swift in Sources */,
 				92ECD8AA274E76FD00DB7AC6 /* TempAllocator.swift in Sources */,
-				9221730A27623DA100C8A3A2 /* StoreApp.swift in Sources */,
 				28361D6028927CAC00B35EDB /* SaveGenshinUserData.swift in Sources */,
 				538ED92926F40BAF002D73E8 /* Style.swift in Sources */,
 				53F4D29E26C43C040020167C /* UserIntentFlow.swift in Sources */,
+				6E66B0BF289DE6240099B907 /* Store.swift in Sources */,
 				AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */,
 				53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */,
 				92EE06D0274EA433002C907B /* BaseApp.swift in Sources */,
@@ -591,14 +608,13 @@
 				8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */,
 				ABED59832887A32F004D782B /* MenuBarView.swift in Sources */,
 				538AAE7B26CD41E60009C7AC /* ProcessExtension.swift in Sources */,
+				2878234D28A73FA600E6C27F /* DeletePreferences.swift in Sources */,
 				92EE06D4274EA604002C907B /* PlayAppView.swift in Sources */,
 				9280871D2824AD360034C510 /* Unarchiver.swift in Sources */,
 				92279BBF27610433009F28BF /* AppSettingsView.swift in Sources */,
 				28361D6428927E3300B35EDB /* StoreGenshinAccountView.swift in Sources */,
 				9256220327491E4700728698 /* operations.m in Sources */,
-				92EE06D8274EA98B002C907B /* PhysicialApp.swift in Sources */,
 				28361D662892800200B35EDB /* DeleteStoredGenshinUserData.swift in Sources */,
-				92EE06D2274EA596002C907B /* InstallApp.swift in Sources */,
 				28361D68289280A300B35EDB /* DeleteGenshinStoredAccountView.swift in Sources */,
 				53D9DAF326C1849D0071959E /* PlayCoverError.swift in Sources */,
 				9286D296273A7E4200958DD3 /* AppSettings.swift in Sources */,
@@ -768,7 +784,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 36;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "PlayCover/Preview\\ Content";
@@ -783,13 +799,13 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0.7;
+				MARKETING_VERSION = 1.1.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.playcover.PlayCover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.playcover.PlayCover macos";
-				RUN_DOCUMENTATION_COMPILER = YES;
+				RUN_DOCUMENTATION_COMPILER = NO;
 				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = off;
 				SWIFT_OBJC_BRIDGING_HEADER = "./PlayCover/PlayCover-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -807,7 +823,7 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 36;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "PlayCover/Preview\\ Content";
@@ -822,13 +838,13 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0.7;
+				MARKETING_VERSION = 1.1.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.playcover.PlayCover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Direct io.playcover.PlayCover macos";
-				RUN_DOCUMENTATION_COMPILER = YES;
+				RUN_DOCUMENTATION_COMPILER = NO;
 				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = off;
 				SWIFT_OBJC_BRIDGING_HEADER = "./PlayCover/PlayCover-Bridging-Header.h";
 				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "./PlayCover/PlayCover-Bridging-Header.h";
@@ -868,14 +884,6 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		92324084283FBA34006C46DE /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rnine/SimplyCoreAudio.git";
-			requirement = {
-				branch = develop;
-				kind = branch;
-			};
-		};
 		AA818CB0287ABE9B000BEE9D /* XCRemoteSwiftPackageReference "AlertToast" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/elai950/AlertToast.git";
@@ -900,11 +908,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */;
 			productName = Sparkle;
-		};
-		92324085283FBA34006C46DE /* SimplyCoreAudio */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 92324084283FBA34006C46DE /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */;
-			productName = SimplyCoreAudio;
 		};
 		AA818CB1287ABE9B000BEE9D /* AlertToast */ = {
 			isa = XCSwiftPackageProductDependency;

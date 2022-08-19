@@ -23,6 +23,7 @@ struct AppSettingsView: View {
     @State var resetCompletedAlert: Bool = false
     @State var selectedWindowSize: Int
     @State var enableWindowAutoSize: Bool
+    @State var ipadModel: String
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
@@ -82,12 +83,18 @@ struct AppSettingsView: View {
                     Text("60 Hz").tag(0)
                     Text("120 Hz").tag(1)
                 }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
+                Picker(selection: $ipadModel, label: Text("settings.picker.iosDevice"), content: {
+                    Text("iPad Pro (12.9-inch) (1st gen) | A9X | 4GB").tag("iPad6,7")
+                    Text("iPad Pro (12.9-inch) (3rd gen) | A12Z | 4GB").tag("iPad8,6")
+                    Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
+                }).pickerStyle(MenuPickerStyle()).frame(maxWidth: 300).padding()
                 if adaptiveDisplay && !enableWindowAutoSize {
                     Spacer()
                     Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
                         Text("1080p").tag(0)
                         Text("1440p").tag(1)
                         Text("4k").tag(2)
+                        Text("Vertical").tag(3)
                     }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
                 Spacer()
                 }
@@ -106,7 +113,10 @@ struct AppSettingsView: View {
                 Button("settings.reset") {
                     resetCompletedAlert.toggle()
                     settings.reset()
-                }.buttonStyle(GrowingButton()).padding()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }.controlSize(.large).padding()
                 Button("button.OK") {
                     settings.keymapping = keymapping
                     settings.adaptiveDisplay = adaptiveDisplay
@@ -114,6 +124,7 @@ struct AppSettingsView: View {
                     settings.bypass = bypass
                     settings.gamingMode = gamingMode
                     settings.enableWindowAutoSize = adaptiveDisplay ? enableWindowAutoSize : false
+                    settings.ipadModel = ipadModel
                     if enableWindowAutoSize {
                         settings.gameWindowSizeHeight = Float(NSScreen.main?.visibleFrame.height ?? 1080)
                         settings.gameWindowSizeWidth = Float(NSScreen.main?.visibleFrame.width ?? 1920)
@@ -124,9 +135,12 @@ struct AppSettingsView: View {
                         } else if selectedWindowSize == 1 {
                             settings.gameWindowSizeHeight = 1440
                             settings.gameWindowSizeWidth = (1400 * 1.77777777777778) + 100
-                        } else {
+                        } else if selectedWindowSize == 2 {
                             settings.gameWindowSizeHeight = 2160
                             settings.gameWindowSizeWidth = (2160 * 1.77777777777778) + 100
+                        } else if selectedWindowSize == 3 {
+                            settings.gameWindowSizeHeight = 1280
+                            settings.gameWindowSizeWidth = 720
                         }
                     }
 
@@ -138,7 +152,9 @@ struct AppSettingsView: View {
                     settings.disableTimeout = disableTimeout
                     presentationMode.wrappedValue.dismiss()
 
-                }.buttonStyle(GrowingButton()).padding().frame(height: 80)
+                }
+                .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large).padding()
+                .keyboardShortcut(.defaultAction)
                 Spacer()
             }
         }.toast(isPresenting: $resetCompletedAlert) {

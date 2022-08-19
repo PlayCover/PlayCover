@@ -50,14 +50,17 @@ struct PlayCoverApp: App {
                 .environmentObject(InstallVM.shared)
                 .environmentObject(AppsVM.shared)
                 .environmentObject(AppIntegrity())
-                .frame(minWidth: 720, minHeight: 650)
+                .frame(minWidth: 695, minHeight: 650)
+                .ignoresSafeArea()
                 .onAppear {
                     NSWindow.allowsAutomaticWindowTabbing = false
                     UserDefaults.standard.register(defaults: ["ShowLinks": true])
                     SoundDeviceService.shared.prepareSoundDevice()
                     NotifyService.shared.allowNotify()
                 }
-                .padding(-15)
+                .padding(.horizontal, -15)
+                .padding(.top, -15)
+                .padding(.bottom, -30)
         }.windowStyle(HiddenTitleBarWindowStyle()).commands {
             CommandGroup(replacing: CommandGroupPlacement.newItem) {
                 EmptyView()
