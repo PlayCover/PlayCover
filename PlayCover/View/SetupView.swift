@@ -11,7 +11,9 @@ import SwiftUI
 struct SetupView: View {
     @Environment(\.presentationMode) var presentationMode
 
-    typealias PromptResponseClosure = (_ strResponse: String, _ bResponse: Bool) -> Void
+    @Binding var isPlaySignActive: Bool
+
+    typealias PromptResponseClosure = (_ strResponse: String) -> Void
 
     func promptForReply(_ strMsg: String, _ strInformative: String, completion: PromptResponseClosure) {
         let alert: NSAlert = NSAlert()
@@ -22,31 +24,29 @@ struct SetupView: View {
         alert.informativeText = strInformative
 
         let txt = NSSecureTextField(frame: NSRect(x: 0, y: 0, width: 200, height: 24))
-
         txt.stringValue = ""
 
         alert.accessoryView = txt
         let response: NSApplication.ModalResponse = alert.runModal()
 
-        var bResponse = false
         if response == NSApplication.ModalResponse.alertFirstButtonReturn {
-            bResponse = true
+            completion(txt.stringValue)
+        } else {
+            presentationMode.wrappedValue.dismiss()
         }
-
-        completion(txt.stringValue, bResponse)
-
     }
 
     func playSignPromt(_ firstTime: Bool) {
         let text = firstTime ? NSLocalizedString("setup.enterLoginPassword", comment: "") :
             NSLocalizedString("setup.incorrectPassword", comment: "")
 
-        promptForReply(text,
-                       NSLocalizedString("setup.enterLoginPassword.info", comment: "")) { strResponse, _ in
+        promptForReply(text, NSLocalizedString("setup.enterLoginPassword.info", comment: "")) { strResponse in
             if SystemConfig.enablePlaySign(strResponse) {
                 if SystemConfig.isPRAMValid() {
+                    isPlaySignActive = true
+                    SystemConfig.isFirstTimePlaySign = true
                     presentationMode.wrappedValue.dismiss()
-                    Log.shared.msg("setup.enterLoginPassword")
+                    Log.shared.msg(NSLocalizedString("setup.requireReboot", comment: ""))
                 } else {
                     playSignPromt(false)
                 }
@@ -130,9 +130,16 @@ struct SetupView: View {
                     .padding()
                     .font(.system(size: 18.0, weight: .thin))
                     .padding()
-                Button("setupView.pressButtonAndEnterPassword.button") {
-                    playSignPromt(true)
-                }.padding()
+                HStack {
+                    Spacer()
+                    Button("setupView.pressButtonAndEnterPassword.button") {
+                        playSignPromt(true)
+                    }.padding()
+                    Button("button.Cancel") {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                    Spacer()
+                }
             }
         }.frame(maxWidth: 750)
     }
