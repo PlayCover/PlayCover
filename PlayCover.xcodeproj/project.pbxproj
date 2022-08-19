@@ -13,6 +13,7 @@
 		28361D6428927E3300B35EDB /* StoreGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28361D6328927E3300B35EDB /* StoreGenshinAccountView.swift */; };
 		28361D662892800200B35EDB /* DeleteStoredGenshinUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28361D652892800200B35EDB /* DeleteStoredGenshinUserData.swift */; };
 		28361D68289280A300B35EDB /* DeleteGenshinStoredAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28361D67289280A300B35EDB /* DeleteGenshinStoredAccountView.swift */; };
+		286C331028AEE62900F55009 /* getScreenSizeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286C330F28AEE62900F55009 /* getScreenSizeSelector.swift */; };
 		2878234D28A73FA600E6C27F /* DeletePreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2878234C28A73FA600E6C27F /* DeletePreferences.swift */; };
 		365AFB0628847B2E008B3542 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 365AFB0528847B2E008B3542 /* Sparkle */; settings = {ATTRIBUTES = (Required, ); }; };
 		365AFB0828847B75008B3542 /* Sparkle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365AFB0728847B75008B3542 /* Sparkle.swift */; };
@@ -78,6 +79,7 @@
 		28361D6328927E3300B35EDB /* StoreGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreGenshinAccountView.swift; sourceTree = "<group>"; };
 		28361D652892800200B35EDB /* DeleteStoredGenshinUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteStoredGenshinUserData.swift; sourceTree = "<group>"; };
 		28361D67289280A300B35EDB /* DeleteGenshinStoredAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGenshinStoredAccountView.swift; sourceTree = "<group>"; };
+		286C330F28AEE62900F55009 /* getScreenSizeSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getScreenSizeSelector.swift; sourceTree = "<group>"; };
 		2878234C28A73FA600E6C27F /* DeletePreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePreferences.swift; sourceTree = "<group>"; };
 		365AFB0728847B75008B3542 /* Sparkle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sparkle.swift; sourceTree = "<group>"; };
 		3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverSettingsView.swift; sourceTree = "<group>"; usesTabs = 0; };
@@ -285,6 +287,7 @@
 				28361D652892800200B35EDB /* DeleteStoredGenshinUserData.swift */,
 				6E66B0BE289DE6240099B907 /* Store.swift */,
 				2878234C28A73FA600E6C27F /* DeletePreferences.swift */,
+				286C330F28AEE62900F55009 /* getScreenSizeSelector.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -575,6 +578,7 @@
 				92562209274921E500728698 /* main.m in Sources */,
 				53E908E726E51FFC0077B466 /* Colors.swift in Sources */,
 				3665EF8928832400007CF915 /* PlayCoverSettingsView.swift in Sources */,
+				286C331028AEE62900F55009 /* getScreenSizeSelector.swift in Sources */,
 				9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */,
 				92ECD8AE274E787200DB7AC6 /* AppInfo.swift in Sources */,
 				928C01D9272E162C007EB2DF /* InstallVM.swift in Sources */,
