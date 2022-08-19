@@ -4,10 +4,10 @@ title: "[Bug]: "
 labels: ["bug"]
 body:
   - type: textarea
-    id: what-happened
+    id: describe-bug
     attributes:
-      label: What happened?
-      description: A clear and concise description of what went wrong.
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
     validations:
       required: true
   - type: textarea
@@ -20,7 +20,7 @@ body:
   - type: textarea
     id: expected-behaviour
     attributes:
-      label: What was meant to happen?
+      label: Expected behaviour
       description: A clear and concise description of what you expected to happen.
     validations:
       required: true
