@@ -25,7 +25,7 @@ body:
         - 1.1.1
         - 1.0.7
         - <1.0.7
-      validations:
+    validations:
         required: true
   - type: dropdown
     id: mac-version
@@ -34,8 +34,8 @@ body:
       options:
         - "Monterey (macOS 12)"
         - "Ventura (macOS 13)"
-      validations:
-        required: true
+    validations:
+      required: true
   - type: checkboxes
     attributes:
       label: Issue Language
