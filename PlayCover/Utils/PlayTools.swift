@@ -8,7 +8,7 @@ import Foundation
 class PlayTools {
     static func replaceLibraries(atURL url: URL) throws {
         Log.shared.log("Replacing libswiftUIKit.dylib")
-        _ = try shell.shello(
+        try shell.shello(
             install_name_tool.path ,
             "-change", "@rpath/libswiftUIKit.dylib", "/System/iOSSupport/usr/lib/swift/libswiftUIKit.dylib",
             url.path
@@ -34,7 +34,7 @@ class PlayTools {
 
     static func convertMacho(_ macho: URL) throws {
         Log.shared.log("Converting \(macho.lastPathComponent) binary")
-        _ = try shell.shello(
+        try shell.shello(
             vtool.path,
             "-set-build-version", "maccatalyst", "11.0", "14.0",
             "-replace", "-output",
@@ -63,7 +63,7 @@ class PlayTools {
                     try fileMgr.delete(at: URL(fileURLWithPath: PLAY_TOOLS_FRAMEWORKS_PATH))
                 }
                 Log.shared.log("Copying PlayTools to Frameworks")
-                _ = try shell.sh("cp -r \(tools.esc) \(PLAY_TOOLS_FRAMEWORKS_PATH)")
+                try shell.sh("cp -r \(tools.esc) \(PLAY_TOOLS_FRAMEWORKS_PATH)")
             } catch {
                 Log.shared.error(error)
             }
