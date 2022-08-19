@@ -17,8 +17,8 @@
 "storeAccount.selectAccRegion" = "选择账号地区服务器";
 "storeAccount.selectAccRegion.usa" = "美服";
 "storeAccount.selectAccRegion.euro" = "欧服";
-"storeAccount.selectAccRegion.tw" = "台服";
 "storeAccount.selectAccRegion.asia" = "亚服";
+"storeAccount.selectAccRegion.cht" = "台服";
 "storeAccount.nameOfAcc" = "账号用户名";
 "storeAccount.nameOfAcc.textfieldPlaceholder" = "用户名...";
 "storeAccount.store" = "保存账号";
@@ -42,7 +42,7 @@
 "alert.app.delete" = "所有应用数据将被清除；有些软件可能需要重新下载数据。确定继续？";
 "alert.wrongFileType" = "文件格式错误";
 "alert.wrongFileType.message" = "请选择 ipa 文件";
-"alert.followInstructionsAndRestartApp" = "请根据指示操作，然后重启此应用";
+"alert.restart" = "请重启 PlayCover.";
 "alert.error" = "遇到了问题";
 "alert.success" = "成功!";
 "alert.moveAppToApplications" = "PlayCover 必须位于应用程序文件夹。 单击以下按钮让 PlayCover 将自己移进应用程序文件夹";
@@ -130,12 +130,14 @@
 "menubar.checkForUpdates" = "检查更新";
 
 "soundAlert.messageText" = "监测到声音设置有问题";
-"soundAlert.informativeText" = "现有的音响设备并无 48 或者 44.1 KHz 采样率! 应用可能会崩溃。你希望把现有的音响设备设置成 48 KHz 采样率吗?";
+"soundAlert.informativeText" = "现有的音响设备并无 48 或者 44.1 KHz 采样率! 应用可能会崩溃。您希望把现有的音响设备设置成 48 KHz 采样率吗?";
 "soundAlert.successText" = "现有音响设备采样率已设为 48 KHz";
-"soundAlert.failureText" = "Failed to set current output device's sample rate to 48 KHz. You can manually set sample rate in ‘Audio MIDI Setup’ app";
+"soundAlert.failureText" = "现有音响设备设置采样率 48 KHz 失败。 您可以在 ”音频MIDI设置“ 应用里手动设置。";
 
-"xcode.install.message" = "开始之前，你需要先安装 Xcode 终端工具并重启此应用";
-"xcode.install.success" = "Xcode 终端工具安装成功！";
-"xcode.install.failed" = "Xcode 终端工具安装失败";
+"xcode.install.message" = "您需要安装 Xcode 命令行工具并重启 PlayCover";
+"xcode.install.success" = "Xcode 命令行工具安装成功";
+"xcode.install.failed" = "Xcode 命令行工具安装失败";
+"xcode.install.progress" = "正在安装 Xcode 命令行工具";
+"xcode.install.progress.subtext" = "根据网络速度，操作可能需要 5-10 分钟";
 
 "debug.crash" = "【调试】崩溃应用";

@@ -1,0 +1,45 @@
+name: Bug Report
+description: File a bug report
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What error occured and what was expected to occur?
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Crash log
+      description: Please copy and paste in any relevant crash logs in plain text.
+      render: shell
+  - type: dropdown
+    id: pc-version
+    attributes:
+      label: What version of PlayCover are you using?
+      options:
+        - Nightly/beta
+        - 1.1.1
+        - 1.0.7
+        - <1.0.7
+      validations:
+        required: true
+  - type: dropdown
+    id: mac-version
+    attributes:
+      label: What version of macOS are you using?
+      options:
+        - "Monterey (macOS 12)"
+        - "Ventura (macOS 13)"
+      validations:
+        required: true
+  - type: checkboxes
+    attributes:
+      label: Issue Language
+      description: All issues must be written in clear plain English so that all devs are able to read them.
+      options:
+        - label: Yes my issue is written in English
+          required: true
