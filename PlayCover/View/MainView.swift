@@ -16,7 +16,6 @@ extension NSTextField {
 }
 
 struct SearchView: View {
-
     @State private var search: String = ""
     @State private var isEditing = false
     @Environment(\.colorScheme) var colorScheme
@@ -28,7 +27,6 @@ struct SearchView: View {
             .background(Color(NSColor.textBackgroundColor))
             .cornerRadius(8)
             .font(Font.system(size: 16))
-            .padding(.horizontal, 10)
             .onChange(of: search, perform: { value in
                 uif.searchText = value
                 AppsVM.shared.fetchApps()
@@ -39,21 +37,33 @@ struct SearchView: View {
                 }
             })
             .textFieldStyle(PlainTextFieldStyle())
-            .frame(maxWidth: .infinity).overlay(
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading, 16)
-                    if isEditing {
-                            Button(action: {
-                            self.search = ""
-                            }, label: {
-                            Image(systemName: "multiply.circle.fill")
-                                .padding(.trailing, 16)
-                        }).buttonStyle(PlainButtonStyle())
+            .frame(minWidth: 100, maxWidth: 500)
+            .overlay(
+                ZStack {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                            .padding(.leading, 16)
+                        if isEditing {
+                                Button(action: {
+                                self.search = ""
+                                }, label: {
+                                Image(systemName: "multiply.circle.fill")
+                                    .padding(.trailing, 16)
+                            }).buttonStyle(PlainButtonStyle())
+                        }
                     }
-                }
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(
+                            colorScheme == .dark ? Color(
+                                red: 0.25, green: 0.25, blue: 0.25
+                            ) : Color(
+                                red: 0.85, green: 0.85, blue: 0.85
+                            )
+                        )
+                    }
             )
+            .padding(.horizontal, 140)
     }
 }
 
@@ -66,14 +76,18 @@ struct MainView: View {
     @State var showSetup = false
     @State var noticesExpanded = false
     @State var bottomHeight: CGFloat = 0
+    @State var isPlaySignActive = SystemConfig.isPlaySignActive
     @Binding var showToast: Bool
     @Binding public var xcodeCliInstalled: Bool
 
     var body: some View {
         if apps.updatingApps { ProgressView() } else {
             ZStack(alignment: .bottom) {
-                AppsView(bottomPadding: $bottomHeight, xcodeCliInstalled: $xcodeCliInstalled)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity).environmentObject(AppsVM.shared)
+                AppsView(
+                    bottomPadding: $bottomHeight,
+                    xcodeCliInstalled: $xcodeCliInstalled,
+                    isPlaySignActive: $isPlaySignActive
+                ).frame(maxWidth: .infinity, maxHeight: .infinity).environmentObject(AppsVM.shared)
 
                 VStack(alignment: .leading, spacing: 0) {
                     if install.installing {
@@ -99,14 +113,14 @@ struct MainView: View {
                                         .rotationEffect(Angle(degrees: noticesExpanded ? 180 : 0))
                                 }
                                 Spacer()
-                                if !SystemConfig.isPlaySignActive {
+                                if !isPlaySignActive {
                                     HStack {
                                         Button("bottomBar.setupViewButton") { showSetup = true }
                                             .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
                                     }
                                 }
                             }
-                            Text(StoreApp.notice)
+                            Text(Store.getNotice())
                                 .font(.body)
                                 .frame(minHeight: 0, maxHeight: noticesExpanded ? nil : 0, alignment: .top)
                                 .animation(.spring(), value: noticesExpanded)
@@ -117,13 +131,6 @@ struct MainView: View {
                         HStack(spacing: 12) {
                             Spacer()
                         }.frame(maxWidth: .infinity)
-                        #if DEBUG
-                        Divider()
-                        HStack(spacing: 12) {
-                            Button("debug.crash") { fatalError("Crash was triggered") }
-                                .buttonStyle(.borderedProminent).tint(.accentColor).controlSize(.large)
-                        }.frame(maxWidth: .infinity)
-                        #endif
                     }.padding()
                 }
                 .background(.regularMaterial)
@@ -140,7 +147,7 @@ struct MainView: View {
                 AlertToast(type: .regular, title: NSLocalizedString("logs.copied", comment: ""))
             }
             .sheet(isPresented: $showSetup) {
-                SetupView()
+                SetupView(isPlaySignActive: $isPlaySignActive)
             }
             .alert(NSLocalizedString("alert.moveAppToApplications",
                                      comment: ""), isPresented: $integrity.integrityOff) {

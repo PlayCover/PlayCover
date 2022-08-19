@@ -73,4 +73,19 @@ extension URL {
         attributes[.posixPermissions] = 0o777
         try fileMgr.setAttributes(attributes, ofItemAtPath: self.path)
     }
+
+    // Wraps NSFileEnumerator since the geniuses at corelibs-foundation decided it should be completely untyped
+    func enumerateContents(_ callback: (URL, URLResourceValues) throws -> Void) throws {
+        guard let enumerator = FileManager.default
+            .enumerator(at: self, includingPropertiesForKeys: [.isRegularFileKey],
+                        options: [.skipsHiddenFiles, .skipsPackageDescendants]) else {
+            return
+        }
+
+        for case let fileURL as URL in enumerator {
+            do {
+                try callback(fileURL, fileURL.resourceValues(forKeys: [.isRegularFileKey, .fileSizeKey]))
+            }
+        }
+    }
 }

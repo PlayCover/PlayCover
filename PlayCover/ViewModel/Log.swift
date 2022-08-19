@@ -41,7 +41,7 @@ class Log: ObservableObject {
         alert.messageText = question
         alert.informativeText = text
         alert.alertStyle = style
-        alert.addButton(withTitle: "button.OK")
+        alert.addButton(withTitle: NSLocalizedString("button.OK", comment: ""))
         alert.runModal()
     }
 
