@@ -8,6 +8,7 @@
 import SwiftUI
 
 // swiftlint:disable line_length
+// Test
 
 enum ConfigProgress { case applicationsFolder, xcodeCli, done }
 
