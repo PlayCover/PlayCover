@@ -91,10 +91,15 @@ struct AppSettingsView: View {
                 if adaptiveDisplay && !enableWindowAutoSize {
                     Spacer()
                     Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
-                        Text("1080p").tag(0)
-                        Text("1440p").tag(1)
-                        Text("4k").tag(2)
-                        Text("Vertical").tag(3)
+                        Text("720p").tag(0)
+                        Text("1080p").tag(1)
+                        Text("1440p").tag(2)
+                        Text("4K").tag(3)
+                    }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
+                    Spacer()
+                    Picker(selection: $selectedWindowSize, label: Text("Portrait Mode"), content: {
+                        Text("720p").tag(4)
+                        Text("6.1\"").tag(5)
                     }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
                 Spacer()
                 }
@@ -129,19 +134,7 @@ struct AppSettingsView: View {
                         settings.gameWindowSizeHeight = Float(NSScreen.main?.visibleFrame.height ?? 1080)
                         settings.gameWindowSizeWidth = Float(NSScreen.main?.visibleFrame.width ?? 1920)
                     } else {
-                        if selectedWindowSize == 0 {
-                            settings.gameWindowSizeHeight = 1080
-                            settings.gameWindowSizeWidth = (1080 * 1.77777777777778) + 100
-                        } else if selectedWindowSize == 1 {
-                            settings.gameWindowSizeHeight = 1440
-                            settings.gameWindowSizeWidth = (1400 * 1.77777777777778) + 100
-                        } else if selectedWindowSize == 2 {
-                            settings.gameWindowSizeHeight = 2160
-                            settings.gameWindowSizeWidth = (2160 * 1.77777777777778) + 100
-                        } else if selectedWindowSize == 3 {
-                            settings.gameWindowSizeHeight = 1280
-                            settings.gameWindowSizeWidth = 720
-                        }
+                        setScreenSize(tag: selectedWindowSize, settings: settings)
                     }
 
                     if selectedRefreshRate == 1 {
