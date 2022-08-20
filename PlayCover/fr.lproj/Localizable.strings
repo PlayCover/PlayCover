@@ -3,7 +3,6 @@
 "playapp.showInFinder" = "Afficher dans le Finder";
 "playapp.openCache" = "Ouvrir les caches de l'app";
 "playapp.clearCache" = "Effacer les caches de l'app";
-"playapp.exportkm" = "Exporter le keymap";
 "playapp.delete" = "Supprimer l'app";
 "playapp.add.help" = "Glisser ou ouvrir un fichier IPA pour installer. Les IPA de Configurator ou de iMazing ne marcheront pas! Vous devez avoir des IPA déchiffrés, de soit le bouton en haut à droite, Discord, AppDb, ou un appareil Jailbreaké.";
 "playapp.update" = "Mettre à jour l'app";
