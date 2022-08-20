@@ -84,7 +84,7 @@ class AppSettings {
         }
     }
 
-    private static let sensivity = "pc.sensivity"
+    private static let sensivity = "pc.sensivity", refreshRate = "pc.refreshRate"
     var sensivity: Float {
         get {
             return dictionary[AppSettings.sensivity] as? Float ?? 50
@@ -96,7 +96,6 @@ class AppSettings {
         }
     }
 
-    private static let refreshRate = "pc.refreshRate"
     var refreshRate: Int {
         get {
             return dictionary[AppSettings.refreshRate] as? Int ?? 60
@@ -109,8 +108,8 @@ class AppSettings {
     }
         private static let gameWindowSizeHeight = "pc.gameWindowSizeHeight"
         private static let gameWindowSizeWidth = "pc.gameWindowSizeWidth"
-        private static var enableWindowAutoSize = "pc.enableWindowAutoSize"
-        private static var enableCustomWindowSize = "pc.enableCustomWindowSize"
+        private static let enableWindowAutoSize = "pc.enableWindowAutoSize"
+        private static let enableCustomWindowSize = "pc.enableCustomWindowSize"
 
         var enableWindowAutoSize: Bool {
             get {
