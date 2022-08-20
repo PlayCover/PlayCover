@@ -84,7 +84,7 @@ class AppSettings {
         }
     }
 
-    private static let sensivity = "pc.sensivity"
+    private static let sensivity = "pc.sensivity", refreshRate = "pc.refreshRate"
     var sensivity: Float {
         get {
             return dictionary[AppSettings.sensivity] as? Float ?? 50
@@ -96,7 +96,6 @@ class AppSettings {
         }
     }
 
-    private static let refreshRate = "pc.refreshRate"
     var refreshRate: Int {
         get {
             return dictionary[AppSettings.refreshRate] as? Int ?? 60
@@ -107,9 +106,10 @@ class AppSettings {
             dictionary = dict
         }
     }
-    private static let gameWindowSizeHeight = "pc.gameWindowSizeHeight"
+        private static let gameWindowSizeHeight = "pc.gameWindowSizeHeight"
         private static let gameWindowSizeWidth = "pc.gameWindowSizeWidth"
-        private static var enableWindowAutoSize = "pc.enableWindowAutoSize"
+        private static let enableWindowAutoSize = "pc.enableWindowAutoSize"
+        private static let enableCustomWindowSize = "pc.enableCustomWindowSize"
 
         var enableWindowAutoSize: Bool {
             get {
@@ -117,8 +117,17 @@ class AppSettings {
             }
             set {
                 var dict = dictionary
-                print("newValue", newValue)
                 dict[AppSettings.enableWindowAutoSize] = newValue
+                dictionary = dict
+            }
+        }
+        var enableCustomWindowSize: Bool {
+            get {
+                return (dictionary[AppSettings.enableCustomWindowSize] as? Bool ?? false)
+            }
+            set {
+                var dict = dictionary
+                dict[AppSettings.enableCustomWindowSize] = newValue
                 dictionary = dict
             }
         }
@@ -260,6 +269,7 @@ class AppSettings {
                                       AppSettings.gameWindowSizeHeight: 1080,
                                       AppSettings.gameWindowSizeWidth: 1920,
                                       AppSettings.enableWindowAutoSize: false,
+                                      AppSettings.enableCustomWindowSize: false,
                                       AppSettings.ipadModel: "iPad8,6"
                                       ]
         }
