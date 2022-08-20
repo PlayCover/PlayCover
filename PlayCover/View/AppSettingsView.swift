@@ -43,7 +43,7 @@ struct AppSettingsView: View {
                             .padding()
                         }
                         if !enableWindowAutoSize {
-                            Toggle(NSLocalizedString("Custom size", comment: ""),
+                            Toggle(NSLocalizedString("settings.text.customSize", comment: ""),
                                    isOn: $enableCustomWindowSize)
                             .padding()
                         }
@@ -118,15 +118,19 @@ struct AppSettingsView: View {
                 if enableCustomWindowSize {
                     VStack {
                         HStack(spacing: 8) {
-                            Text("Width")
+                            Text(NSLocalizedString(
+                                "settings.text.customWidth", comment: ""
+                            ))
                             TextField(NSLocalizedString(
-                                "Width", comment: ""
+                                "settings.text.customWidth", comment: ""
                             ), text: $customWidth)
                         }.frame(maxWidth: 300).padding().textFieldStyle(RoundedBorderTextFieldStyle())
                         HStack(spacing: 8) {
-                            Text("Height")
+                            Text(NSLocalizedString(
+                                "settings.text.customHeight", comment: ""
+                            ))
                             TextField(NSLocalizedString(
-                                "Height", comment: ""
+                                "settings.text.customHeight", comment: ""
                             ), text: $customHeight)
                         }.frame(maxWidth: 300).padding() .textFieldStyle(RoundedBorderTextFieldStyle())
                     }

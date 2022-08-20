@@ -84,6 +84,7 @@
 "settings.toggle.autoWindowResize" = "Enable auto window resize";
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
 "settings.toggle.disableDisplaySleep.info" = "Prevent display from turning off while this app is running";
+"settings.toggle.customSize" = "Enable custom window size";
 
 "settings.picker.displayRefreshRate" = "Screen refresh rate";
 "settings.picker.screenSize" = "Display resolution";
@@ -94,6 +95,8 @@
 "settings.reset" = "Reset settings and keymapping";
 "settings.resetCompleted" = "Settings have been reverted back to default!";
 "settings.picker.ipadModel" = "Select iOS device";
+"settings.text.customHeight" = "Height";
+"settings.text.customWidth" = "Width";
 
 "setupView.header" = "Follow steps below for fixing common issues";
 "setupView.subheader" = "Resolves apps not allowing logins, crashes at start and more";
