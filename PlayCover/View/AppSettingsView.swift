@@ -163,6 +163,9 @@ struct AppSettingsView: View {
                     settings.enableWindowAutoSize = adaptiveDisplay && !enableCustomWindowSize
                                                     ? enableWindowAutoSize
                                                     : false
+                    settings.enableCustomWindowSize = adaptiveDisplay && !enableWindowAutoSize
+                                                      ? enableCustomWindowSize
+                                                      : false
                     settings.ipadModel = ipadModel
                     if enableCustomWindowSize {
                         settings.gameWindowSizeHeight = (customHeight as NSString).floatValue
