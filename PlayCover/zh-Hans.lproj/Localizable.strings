@@ -8,12 +8,10 @@
 "playapp.delete" = "删除应用";
 "playapp.add.help" = "拖拽或打开 ipa 文件以安装。";
 "playapp.update" = "更新应用";
-"playapp.storeAccount" = "保存一个账号";
 "playapp.storeCurrentAccount" = "保存现有账号";
 "playapp.activateAccount" = "激活账号";
 "playapp.deleteAccount" = "删除账号";
 "playapp.clearPreferences" = "清除应用偏好设置";
-
 "storeAccount.selectAccRegion" = "选择账号地区服务器";
 "storeAccount.selectAccRegion.usa" = "美服";
 "storeAccount.selectAccRegion.euro" = "欧服";
@@ -25,7 +23,6 @@
 "storeAccount.selectAcc" = "选择一个账号";
 "storeAccount.storeAcc" = "保存一个账号";
 "storeAccount.deleteAcc" = "删除一个账号";
-
 "playapp.install.unzip" = "正在从文件提取应用...";
 "playapp.install.createWrapper" = "正在包装应用...";
 "playapp.install.installPlayTools" = "正在安装 PlayTools...";
@@ -33,9 +30,7 @@
 "playapp.install.addToLib" = "正在将应用移进软件库...";
 "playapp.install.copy" = "正在复制应用...";
 "playapp.install.finished" = "完成！";
-
 "search.search" = "搜索...";
-
 "alert.appCacheCleared" = "应用数据已被清除！";
 "alert.kmImported" = "键盘映射布局已导入！";
 "alert.errorImportKm" = "导入过程中出现问题！";
@@ -48,31 +43,24 @@
 "alert.moveAppToApplications" = "PlayCover 必须位于应用程序文件夹。 单击以下按钮让 PlayCover 将自己移进应用程序文件夹";
 "alert.moveAppToApplications.move" = "移进应用程序文件夹";
 "alert.storeAccount.regionIsNotValid" = "此账号现所在的服务器与选项不符。 打开游戏，更改服区并进入大门后保存，然后再试。";
-
 "button.OK" = "好";
 "button.Proceed" = "继续";
 "button.Cancel" = "取消";
 "button.Close" = "关闭";
 "button.Dismiss" = "隐藏";
 "button.Install" = "安装";
-
 "error.corruptedIPA" = "此 ipa 文件已损坏，因为找不到 \"Info.plist\" 文件。";
 "error.waitInstallation" = "请等待安装过程结束！";
 "error.reinstallApp" = "请重新安装 PlayCover";
-
 "menubar.downloadMoreApps" = "下载更多应用";
 "menubar.downloadMoreApps.help" = "使用这个网站下载更多应用来安装";
 "menubar.exportToSideloady" = "为 Sideloadly 导出";
 "menubar.exportToSideloady.help" = "为来自 sideloady.io 的 Sideloady 导出 ipa 文件即可无需禁用 SIP 也可畅玩游戏";
-
 "bottomBar.notices" = "公告";
 "bottomBar.notices.help" = "来自开发者的通知";
 "bottomBar.setupViewButton" = "遇到了问题？";
-
 "failedToFetchNotices" = "找不到公告；请检查网络连接状态。";
-
 "logs.copied" = "日志已复制";
-
 "settings.toggle.km" = "启用键盘映射布局";
 "settings.toggle.gaming" = "游戏模式";
 "settings.toggle.km.info" = "为触屏设计的游戏增添键鼠支持。使用 Command + K 启用键盘映射布局编辑器";
@@ -83,23 +71,17 @@
 "settings.toggle.autoWindowResize" = "启用自动窗口大小调整";
 "settings.toggle.disableDisplaySleep" = "禁用显示器息屏";
 "settings.toggle.disableDisplaySleep.info" = "防止显示器在此应用运行时息屏";
-
 "settings.picker.displayRefreshRate" = "屏幕刷新率";
 "settings.picker.screenSize" = "屏幕分辨率";
 "settings.picker.iosDevice" = "选择 iOS 机型";
-
 "settings.slider.mouseSensitivity" = "鼠标灵敏度：";
-
 "settings.reset" = "重置设置与键盘映射布局";
 "settings.resetCompleted" = "设置已被重置！";
-
 "settings.text.customHeight" = "Height";
 "settings.text.customWidth" = "Width";
 "settings.toggle.customSize" = "Enable custom window size";
-
 "setupView.header" = "按照以下指示操作即可修复常见问题";
 "setupView.subheader" = "解决账号无法登录，应用闪退等问题";
-
 "setupView.step1" = "1) 将 Mac 关机";
 "setupView.step2" = "2) 等待20秒以让 Mac 完全关机, 然后按住电源按钮";
 "setupView.step3" = "3) 当 \"正在加载启动选项\" 在苹果图标底下出现时, 松开电源按钮";
@@ -109,22 +91,17 @@
 "setupView.step7" = "7) 输入并回车上述命令后， 键入 Mac 的用户登录密码（密码字样不会显示在屏幕上）";
 "setupView.step8" = "8) 重启 Mac";
 "setupView.step9" = "如果遇到了任何错误或问题，重复上述操作";
-
 "setupView.vidTutorials" = "视频教程";
 "setupView.youtube" = "YouTube";
 "setupView.bilibili" = "哔哩哔哩";
-
 "setupView.pressButtonAndEnterPassword" = "请从以下按钮禁用SIP并输入 Mac 登录密码";
 "setupView.pressButtonAndEnterPassword.button" = "禁用SIP";
-
 "notification.appInstalled" = "应用安装成功！";
 "notification.appInstalled.message" = "立即来看一看吧";
-
 "setup.enterLoginPassword" = "请输入管理员登录密码";
 "setup.incorrectPassword" = "密码错误，请重试";
 "setup.enterLoginPassword.info" = "输入用来登录这台 Mac 的密码";
 "setup.requireReboot" = "请重启 Mac 以使更改生效";
-
 "menubar.log.copy" = "拷贝日志";
 "menubar.documentation" = "使用手册";
 "menubar.website" = "官网";
@@ -132,16 +109,14 @@
 "menubar.discord" = "Discord（社区交流平台）";
 "menubar.showAppLinks" = "显示未安装的应用";
 "menubar.checkForUpdates" = "检查更新";
-
 "soundAlert.messageText" = "监测到声音设置有问题";
 "soundAlert.informativeText" = "现有的音响设备并无 48 或者 44.1 KHz 采样率! 应用可能会崩溃。您希望把现有的音响设备设置成 48 KHz 采样率吗?";
 "soundAlert.successText" = "现有音响设备采样率已设为 48 KHz";
 "soundAlert.failureText" = "现有音响设备设置采样率 48 KHz 失败。 您可以在 ”音频MIDI设置“ 应用里手动设置。";
-
 "xcode.install.message" = "您需要安装 Xcode 命令行工具并重启 PlayCover";
 "xcode.install.success" = "Xcode 命令行工具安装成功";
 "xcode.install.failed" = "Xcode 命令行工具安装失败";
 "xcode.install.progress" = "正在安装 Xcode 命令行工具";
 "xcode.install.progress.subtext" = "根据网络速度，操作可能需要 5-10 分钟";
-
 "debug.crash" = "【调试】崩溃应用";
+"alert.app.preferences" = "All game preferences will be deleted, You may need to configure your in-game settings(region) and wait a couple of seconds until game assets are located (They won't be downloaded the game will just verify them). Do you wish to continue?";
