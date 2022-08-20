@@ -82,6 +82,9 @@
 "settings.toggle.jbBypass" = "Activer l'évitement Jailbreak (Alpha)"; 
 "settings.toggle.jbBypass.info" = "Essaye d'éviter les détections de Jailbreak dans certains jeux (Aucune garantie de fonctionnement)";
 "settings.toggle.autoWindowResize" = "Activer le redimensionnement automatique de la fenêtre";
+"settings.toggle.disableDisplaySleep" = "Disable display sleep";
+"settings.toggle.disableDisplaySleep.info" = "Prevent display from turning off while this app is running";
+"settings.toggle.portraitMode" = "Portrait mode";
 
 "settings.picker.displayRefreshRate" = "Taux de rafraîchissement de l'écran";
 "settings.picker.screenSize" = "Résolution de l'écran";

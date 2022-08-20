@@ -84,6 +84,7 @@
 "settings.toggle.autoWindowResize" = "ウィンドウの自動サイズ変更を有効にする";
 "settings.toggle.disableDisplaySleep" = "ディスプレイのスリープを無効にする";
 "settings.toggle.disableDisplaySleep.info" = "このアプリの実行中にディスプレイがオフにならないようにする";
+"settings.toggle.portraitMode" = "Portrait mode";
 
 "settings.picker.displayRefreshRate" = "画面のリフレッシュレート";
 "settings.picker.screenSize" = "ディスプレー解像度";

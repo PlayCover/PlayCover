@@ -83,6 +83,7 @@
 "settings.toggle.autoWindowResize" = "Enable auto window resize";
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
 "settings.toggle.disableDisplaySleep.info" = "Prevent display from turning off while this app is running";
+"settings.toggle.portraitMode" = "Portrait mode";
 
 "settings.picker.displayRefreshRate" = "Screen refresh rate";
 "settings.picker.screenSize" = "Display resolution";
