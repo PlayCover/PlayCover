@@ -43,7 +43,7 @@ struct AppSettingsView: View {
                             .padding()
                         }
                         if !enableWindowAutoSize {
-                            Toggle(NSLocalizedString("settings.text.customSize", comment: ""),
+                            Toggle(NSLocalizedString("settings.toggle.customSize", comment: ""),
                                    isOn: $enableCustomWindowSize)
                             .padding()
                         }
