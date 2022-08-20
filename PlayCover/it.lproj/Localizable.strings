@@ -89,6 +89,10 @@
 "settings.picker.screenSize" = "Display resolution";
 "settings.picker.iosDevice" = "Select iOS device";
 
+"settings.text.customHeight" = "Height";
+"settings.text.customWidth" = "Width";
+"settings.toggle.customSize" = "Enable custom window size";
+
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: ";
 
 "settings.reset" = "Reset settings and keymapping";
