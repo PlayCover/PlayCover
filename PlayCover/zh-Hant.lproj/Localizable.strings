@@ -8,15 +8,12 @@
 "playapp.delete" = "刪除應用程式";
 "playapp.add.help" = "拖曳或或打開 ipa 文件以安裝。";
 "playapp.update" = "更新應用程式";
-"playapp.storeAccount" = "保存一個帳號";
 "playapp.storeCurrentAccount" = "保存現有帳號";
 "playapp.activateAccount" = "啟動帳號";
 "playapp.deleteAccount" = "刪除帳號";
-
 "storeAccount.selectAccRegion" = "選擇帳號地區伺服器";
 "storeAccount.selectAccRegion.usa" = "美服";
 "storeAccount.selectAccRegion.euro" = "歐福";
-"storeAccount.selectAccRegion.tw" = "台服";
 "storeAccount.selectAccRegion.asia" = "亞服";
 "storeAccount.nameOfAcc" = "帳號用戶名稱";
 "storeAccount.nameOfAcc.textfieldPlaceholder" = "用戶名...";
@@ -24,7 +21,6 @@
 "storeAccount.selectAcc" = "選擇一個帳號";
 "storeAccount.storeAcc" = "保存一個帳號";
 "storeAccount.deleteAcc" = "刪除一個帳號";
-
 "playapp.install.unzip" = "正在從文件中提取應用程式...";
 "playapp.install.createWrapper" = "正在包裝應用程式...";
 "playapp.install.installPlayTools" = "正在安裝 PlayTools...";
@@ -32,46 +28,36 @@
 "playapp.install.addToLib" = "正在將應用程式移至軟體庫...";
 "playapp.install.copy" = "正在複製應用程式...";
 "playapp.install.finished" = "完成！";
-
 "search.search" = "搜尋...";
-
 "alert.appCacheCleared" = "應用程式數據應用已被清除！";
 "alert.kmImported" = "鍵盤映射佈局已導入！";
 "alert.errorImportKm" = "導入過程中出現問題！";
 "alert.app.delete" = "所有應用程式數據將被清除； 有些軟體可能需要重新下載數據。確定繼續？";
 "alert.wrongFileType" = "文件格式錯誤";
 "alert.wrongFileType.message" = "請選擇 ipa 文件";
-"alert.followInstructionsAndRestartApp" = "請根據指示操作後重啟此應用程式";
 "alert.error" = "遇到了問題";
 "alert.success" = "成功!";
 "alert.moveAppToApplications" = "PlayCover 必須位於應用程式文件夾。單擊以下按鈕讓 PlayCover 將自己移至應用程式文件夾";
 "alert.moveAppToApplications.move" = "移至應用程式文件夾";
 "alert.storeAccount.regionIsNotValid" = "此帳號現所在的服務器與選項不符。打開遊戲，更改服務器並進入大門後保存，然後再試。";
-
 "button.OK" = "好";
 "button.Proceed" = "繼續";
 "button.Cancel" = "取消";
 "button.Close" = "關閉";
 "button.Dismiss" = "隱藏";
 "button.Install" = "安裝";
-
 "error.corruptedIPA" = "此 ipa 文件已損壞，因為找不到 \"Info.plist\" 文件。";
 "error.waitInstallation" = "請等待安裝過程結束！";
 "error.reinstallApp" = "請重新安裝 PlayCover";
-
 "menubar.downloadMoreApps" = "下載更多應用程式";
 "menubar.downloadMoreApps.help" = "使用這個網站下載更多應用程式來安裝";
 "menubar.exportToSideloady" = "為 Sideloadly 導出";
 "menubar.exportToSideloady.help" = "為來自 sideloady.io 的 Sideloady 導出 ipa 文件即可無需禁用 SIP 也可暢玩遊戲";
-
 "bottomBar.notices" = "公告";
 "bottomBar.notices.help" = "來自開發者的通知";
 "bottomBar.setupViewButton" = "遇到了問題？";
-
 "failedToFetchNotices" = "找不到公告；請檢查網路連接狀態。";
-
 "logs.copied" = "日誌已複製";
-
 "settings.toggle.km" = "啟用鍵盤映射佈局";
 "settings.toggle.gaming" = "遊戲模式";
 "settings.toggle.km.info" = "為觸控螢幕設計的遊戲增添鍵鼠支持。使用 Command + K 啟用鍵盤映射佈局編輯器";
@@ -80,43 +66,28 @@
 "settings.toggle.jbBypass" = "啟用繞過越獄檢測（預覽）";
 "settings.toggle.jbBypass.info" = "嘗試繞過遊戲的防越獄系統（不一定總是有效）";
 "settings.toggle.autoWindowResize" = "啟用自動窗口大小調整";
-
 "settings.picker.displayRefreshRate" = "螢幕更新率";
 "settings.picker.screenSize" = "螢幕解析度";
-
 "settings.slider.mouseSensitivity" = "滑鼠敏感度：";
-
 "settings.reset" = "重置設定與鍵盤映射佈局";
 "settings.resetCompleted" = "設定已被重置！";
-
 "setupView.header" = "按照以下指示操作即可修復常見問題";
 "setupView.subheader" = "解決帳號無法登錄，應用程式閃退等問題";
-
-"setupView.1" = "1) 將 Mac 關機";
 "setupView.2" = "2) 等待20秒以讓 Mac 完全關機, 然後按住電源按鈕";
-"setupView.3" = "3) 當 \"正在加載啟動選項\" 在蘋果圖標底下出現時, 鬆開電源按鈕";
 "setupView.4" = "4) 點擊 恢復模式";
-"setupView.5" = "5) 在恢復模式下， 打開終端機 (菜單欄 -> 常用工具 -> 終端機)";
 "setupView.6" = "6) 輸入: ";
-"setupView.7" = "7) 輸入並執行上述命令後， 輸入 Mac 的用戶登錄密碼（密碼字樣不會顯示在螢幕上）";
 "setupView.8" = "8) 重啟 Mac";
-"setupView.9" = "如果遇到了任何錯誤或問題，重複上述操作";
-
 "setupView.vidTutorials" = "影片教程";
 "setupView.youtube" = "YouTube";
 "setupView.bilibili" = "BiliBili";
-
 "setupView.pressButtonAndEnterPassword" = "請從以下按鈕禁用SIP並輸入 Mac 登錄密碼";
 "setupView.pressButtonAndEnterPassword.button" = "禁用SIP";
-
 "notification.appInstalled" = "應用程式安裝成功！";
 "notification.appInstalled.message" = "馬上來看一看吧";
-
 "setup.enterLoginPassword" = "請輸入管理員登錄密碼";
 "setup.incorrectPassword" = "密碼錯誤，請重試";
 "setup.enterLoginPassword.info" = "輸入用來登錄這台 Mac 的密碼";
 "setup.enterLoginPassword" = "請重啟 Mac 讓修改生效";
-
 "menubar.log.copy" = "複製日誌";
 "menubar.documentation" = "使用手冊";
 "menubar.website" = "官網";
@@ -124,13 +95,10 @@
 "menubar.discord" = "Discord（社區交流平台）";
 "menubar.showAppLinks" = "顯示未安裝的應用";
 "menubar.checkForUpdates" = "檢查更新";
-
 "soundAlert.messageText" = "檢測到聲音設定有問題";
 "soundAlert.informativeText" = "現有的音訊設備並無 48 或者 44.1 KHz 取樣率! 程式可能會崩潰。你希望把現有的音響設備設定成 48 KHz 取樣率嗎?";
 "soundAlert.successText" = "現有音訊設備取樣率已設為 48 KHz";
-
 "xcode.install.message" = "開始之前，你需要先安裝 Xcode 終端工具並重啟此應用程式";
 "xcode.install.success" = "Xcode 終端工具安裝成功！";
 "xcode.install.failed" = "Xcode 終端工具安裝失敗";
-
 "debug.crash" = "【調試】崩潰應用程式";
