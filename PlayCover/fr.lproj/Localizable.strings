@@ -3,7 +3,6 @@
 "playapp.showInFinder" = "Afficher dans le Finder";
 "playapp.openCache" = "Ouvrir les caches de l'app";
 "playapp.clearCache" = "Effacer les caches de l'app";
-"playapp.exportkm" = "Exporter le keymap";
 "playapp.delete" = "Supprimer l'app";
 "playapp.add.help" = "Glisser ou ouvrir un fichier IPA pour installer. Les IPA de Configurator ou de iMazing ne marcheront pas! Vous devez avoir des IPA déchiffrés, de soit le bouton en haut à droite, Discord, AppDb, ou un appareil Jailbreaké.";
 "playapp.update" = "Mettre à jour l'app";
@@ -116,3 +115,7 @@
 "xcode.install.progress" = "Installation de Xcode Command Line Tools";
 "xcode.install.progress.subtext" = "Peut prendre environ 5 à 10 minutes selon la vitesse d'Internet";
 "debug.crash" = "[DEBUG] Planter l'app";
+"playapp.importKm" = "Import keymapping";
+"playapp.exportKm" = "Export keymapping";
+"settings.toggle.disableDisplaySleep" = "Disable display sleep";
+"settings.toggle.disableDisplaySleep.info" = "Prevent display from turning off while this app is running";
