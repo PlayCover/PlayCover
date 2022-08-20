@@ -12,7 +12,6 @@
 "playapp.activateAccount" = "Restore an account";
 "playapp.deleteAccount" = "Delete an account";
 "playapp.clearPreferences" = "Clear app preferences";
-
 "storeAccount.selectAccRegion" = "Select account region";
 "storeAccount.selectAccRegion.usa" = "America";
 "storeAccount.selectAccRegion.euro" = "Europe";
@@ -24,7 +23,6 @@
 "storeAccount.selectAcc" = "Select an account";
 "storeAccount.storeAcc" = "Store an account";
 "storeAccount.deleteAcc" = "Delete an account";
-
 "playapp.install.unzip" = "Extracting app from .ipa file...";
 "playapp.install.createWrapper" = "Creating app wrapper...";
 "playapp.install.installPlayTools" = "Installing PlayTools...";
@@ -32,9 +30,7 @@
 "playapp.install.addToLib" = "Adding app to library...";
 "playapp.install.copy" = "Copying app...";
 "playapp.install.finished" = "Finished";
-
 "search.search" = "Search...";
-
 "alert.appCacheCleared" = "App data has been cleared!";
 "alert.kmImported" = "Keymapping imported!";
 "alert.errorImportKm" = "Error occured when importing!";
@@ -55,47 +51,36 @@
 "button.Close" = "Close";
 "button.Dismiss" = "Dismiss";
 "button.Install" = "Install";
-
 "error.corruptedIPA" = "This .ipa file is corrupted. It does not contains \"Info.plist\" file.";
 "error.waitInstallation" = "Please wait for the current installation to finish!";
 "error.reinstallApp" = "Please reinstall PlayCover";
-
 "menubar.downloadMoreApps" = "Download more apps";
 "menubar.downloadMoreApps.help" = "Use this site to download apps for installation";
 "menubar.exportToSideloady" = "Export to Sideloadly";
 "menubar.exportToSideloady.help" = "Export .ipa for Sideloady from sideloady.io which does not need SIP to be disabled for apps and games to work.";
-
 "bottomBar.notices" = "Notices";
 "bottomBar.notices.help" = "News and announcements from the developers";
 "bottomBar.setupViewButton" = "Experiencing issues?";
-
 "failedToFetchNotices" = "Failed to find notices. Please check your internet connection.";
-
 "logs.copied" = "Logs copied";
-
 "settings.toggle.km" = "Enable keymapping";
 "settings.toggle.gaming" = "Gaming Mode";
 "settings.toggle.km.info" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
 "settings.toggle.adaptiveDisplay" = "Adaptive display";
-"settings.toggle.adaptiveDisplay.info" ="Adapts and scales app window to fit the built-in Mac display.";
+"settings.toggle.adaptiveDisplay.info" = "Adapts and scales app window to fit the built-in Mac display.";
 "settings.toggle.jbBypass" = "Enable Jailbreak Bypass (Alpha)";
 "settings.toggle.jbBypass.info" = "Attempts to bypass Jailbreak Detection in some games (No guarentee to work all the time)";
 "settings.toggle.autoWindowResize" = "Enable auto window resize";
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
 "settings.toggle.disableDisplaySleep.info" = "Prevent display from turning off while this app is running";
-
 "settings.picker.displayRefreshRate" = "Screen refresh rate";
 "settings.picker.screenSize" = "Display resolution";
-
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: ";
-
 "settings.reset" = "Reset settings and keymapping";
 "settings.resetCompleted" = "Settings have been reverted back to default!";
 "settings.picker.iosDevice" = "Select iOS device";
-
 "setupView.header" = "Follow steps below for fixing common issues";
 "setupView.subheader" = "Resolves apps not allowing logins, crashes at start and more";
-
 "setupView.step1" = "1) Shutdown your Mac";
 "setupView.step2" = "2) Wait for at least 20 seconds for Mac to fully shutdown, then hold the power button";
 "setupView.step3" = "3) When \"Loading Startup Options\" appears below the Apple logo, release the power button";
@@ -105,22 +90,17 @@
 "setupView.step7" = "7) Enter the command. Input your Mac login password (The text will be hidden)";
 "setupView.step8" = "8) Click the Apple symbol in the Menu bar and Restart";
 "setupView.step9" = "If you encountered any errors, repeat the whole process again";
-
 "setupView.vidTutorials" = "Video Tutorials";
 "setupView.youtube" = "YouTube";
 "setupView.bilibili" = "BiliBili";
-
 "setupView.pressButtonAndEnterPassword" = "Please disable SIP from below and enter your Mac login password.";
 "setupView.pressButtonAndEnterPassword.button" = "Disable SIP";
-
 "notification.appInstalled" = "App installed!";
 "notification.appInstalled.message" = "Check it out in PlayCover!";
-
 "setup.enterLoginPassword" = "Please enter your user password";
 "setup.incorrectPassword" = "Password incorrect. Please try again";
 "setup.enterLoginPassword.info" = "Enter the password used to unlock your Mac.";
 "setup.requireReboot" = "Please restart your Mac for changes to take effect.";
-
 "menubar.log.copy" = "Copy Logs";
 "menubar.documentation" = "Documentation";
 "menubar.website" = "Website";
@@ -128,12 +108,10 @@
 "menubar.discord" = "Discord";
 "menubar.showAppLinks" = "Show app links";
 "menubar.checkForUpdates" = "Check for updates";
-
 "soundAlert.messageText" = "Incorrect Audio Settings Detected!";
 "soundAlert.informativeText" = "Your current output device does not have a sample rate of 48 or 44.1 KHz! Crashes may occur. Would you like to change your current output device's sample rate to 48 KHz?";
 "soundAlert.successText" = "Current output device sample rate set to 48 KHz";
 "soundAlert.failureText" = "Failed to set current output device's sample rate to 48 KHz. You can manually set sample rate in ‘Audio MIDI Setup’ app";
-
 "xcode.install.message" = "You need to install Xcode Command Line Tools and restart PlayCover";
 "xcode.install.success" = "Xcode Command Line Tools installation succeeded";
 "xcode.install.failed" = "Xcode Command Line Tools intallation failed";
@@ -142,3 +120,4 @@
 
 
 "debug.crash" = "[DEBUG] Crash app";
+"alert.app.preferences" = "All game preferences will be deleted, You may need to configure your in-game settings(region) and wait a couple of seconds until game assets are located (They won't be downloaded the game will just verify them). Do you wish to continue?";
