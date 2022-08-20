@@ -24,6 +24,10 @@ struct AppSettingsView: View {
     @State var selectedWindowSize: Int
     @State var enableWindowAutoSize: Bool
     @State var ipadModel: String
+    @State var enableCustomWindowSize: Bool
+    @State var customHeight: String
+    @State var customWidth: String
+
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
@@ -33,8 +37,16 @@ struct AppSettingsView: View {
                     Toggle(NSLocalizedString("settings.toggle.km", comment: ""), isOn: $keymapping).padding()
                     Toggle(NSLocalizedString("settings.toggle.gaming", comment: ""), isOn: $gamingMode).padding()
                     if adaptiveDisplay {
-                        Toggle(NSLocalizedString("settings.toggle.autoWindowResize", comment: ""),
-                               isOn: $enableWindowAutoSize).padding()
+                        if !enableCustomWindowSize {
+                            Toggle(NSLocalizedString("settings.toggle.autoWindowResize", comment: ""),
+                                   isOn: $enableWindowAutoSize)
+                            .padding()
+                        }
+                        if !enableWindowAutoSize {
+                            Toggle(NSLocalizedString("Custom size", comment: ""),
+                                   isOn: $enableCustomWindowSize)
+                            .padding()
+                        }
                     }
                 }
                 HStack {
@@ -88,7 +100,7 @@ struct AppSettingsView: View {
                     Text("iPad Pro (12.9-inch) (3rd gen) | A12Z | 4GB").tag("iPad8,6")
                     Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
                 }).pickerStyle(MenuPickerStyle()).frame(maxWidth: 300).padding()
-                if adaptiveDisplay && !enableWindowAutoSize {
+                if adaptiveDisplay && !enableWindowAutoSize && !enableCustomWindowSize {
                     Spacer()
                     Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
                         Text("720p").tag(0)
@@ -102,6 +114,22 @@ struct AppSettingsView: View {
                         Text("6.1\"").tag(5)
                     }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
                 Spacer()
+                }
+                if enableCustomWindowSize {
+                    VStack {
+                        HStack(spacing: 8) {
+                            Text("Width")
+                            TextField(NSLocalizedString(
+                                "Width", comment: ""
+                            ), text: $customWidth)
+                        }.frame(maxWidth: 300).padding().textFieldStyle(RoundedBorderTextFieldStyle())
+                        HStack(spacing: 8) {
+                            Text("Height")
+                            TextField(NSLocalizedString(
+                                "Height", comment: ""
+                            ), text: $customHeight)
+                        }.frame(maxWidth: 300).padding() .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }
                 }
             }
             VStack {
@@ -128,13 +156,21 @@ struct AppSettingsView: View {
                     settings.sensivity = sensivity
                     settings.bypass = bypass
                     settings.gamingMode = gamingMode
-                    settings.enableWindowAutoSize = adaptiveDisplay ? enableWindowAutoSize : false
+                    settings.enableWindowAutoSize = adaptiveDisplay && !enableCustomWindowSize
+                                                    ? enableWindowAutoSize
+                                                    : false
                     settings.ipadModel = ipadModel
-                    if enableWindowAutoSize {
+                    if enableCustomWindowSize {
+                        settings.gameWindowSizeHeight = (customHeight as NSString).floatValue
+                        settings.gameWindowSizeWidth = (customWidth as NSString).floatValue
+                    }
+                    if enableWindowAutoSize && !enableCustomWindowSize {
                         settings.gameWindowSizeHeight = Float(NSScreen.main?.visibleFrame.height ?? 1080)
                         settings.gameWindowSizeWidth = Float(NSScreen.main?.visibleFrame.width ?? 1920)
                     } else {
-                        setScreenSize(tag: selectedWindowSize, settings: settings)
+                        if !enableCustomWindowSize {
+                            setScreenSize(tag: selectedWindowSize, settings: settings)
+                        }
                     }
 
                     if selectedRefreshRate == 1 {

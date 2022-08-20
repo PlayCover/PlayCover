@@ -107,9 +107,10 @@ class AppSettings {
             dictionary = dict
         }
     }
-    private static let gameWindowSizeHeight = "pc.gameWindowSizeHeight"
+        private static let gameWindowSizeHeight = "pc.gameWindowSizeHeight"
         private static let gameWindowSizeWidth = "pc.gameWindowSizeWidth"
         private static var enableWindowAutoSize = "pc.enableWindowAutoSize"
+        private static var enableCustomWindowSize = "pc.enableCustomWindowSize"
 
         var enableWindowAutoSize: Bool {
             get {
@@ -117,8 +118,17 @@ class AppSettings {
             }
             set {
                 var dict = dictionary
-                print("newValue", newValue)
                 dict[AppSettings.enableWindowAutoSize] = newValue
+                dictionary = dict
+            }
+        }
+        var enableCustomWindowSize: Bool {
+            get {
+                return (dictionary[AppSettings.enableCustomWindowSize] as? Bool ?? false)
+            }
+            set {
+                var dict = dictionary
+                dict[AppSettings.enableCustomWindowSize] = newValue
                 dictionary = dict
             }
         }
@@ -260,6 +270,7 @@ class AppSettings {
                                       AppSettings.gameWindowSizeHeight: 1080,
                                       AppSettings.gameWindowSizeWidth: 1920,
                                       AppSettings.enableWindowAutoSize: false,
+                                      AppSettings.enableCustomWindowSize: false,
                                       AppSettings.ipadModel: "iPad8,6"
                                       ]
         }
