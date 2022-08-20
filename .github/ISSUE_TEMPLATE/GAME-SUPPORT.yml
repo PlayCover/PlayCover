@@ -1,5 +1,5 @@
 name: Game Support Request
-description: Request a support for a currently unsupported game
+description: Request support for a currently unsupported game.
 title: "[Game Support]: "
 labels: ["game-support"]
 body:
