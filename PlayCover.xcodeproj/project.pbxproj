@@ -110,6 +110,7 @@
 		53F5E74226C1D37E005AED1D /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
 		6E66B0BE289DE6240099B907 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		6EC228A028B14A0600D7D73A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		6EC228A128B1830F00D7D73A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6ED6ACB028AD3AE10040D234 /* xcode_install.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = xcode_install.scpt; sourceTree = "<group>"; };
 		8783CFF726B8C52D00171041 /* PlayCover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayCover.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverApp.swift; sourceTree = "<group>"; };
@@ -458,6 +459,7 @@
 				vi,
 				it,
 				"zh-Hant",
+				ar,
 			);
 			mainGroup = 8783CFEE26B8C52D00171041;
 			packageReferences = (
@@ -648,6 +650,7 @@
 				ABF0BA1A285F9ED200FC5259 /* vi */,
 				AA18F6C6287BA6E90092E378 /* it */,
 				6EC228A028B14A0600D7D73A /* zh-Hant */,
+				6EC228A128B1830F00D7D73A /* ar */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
