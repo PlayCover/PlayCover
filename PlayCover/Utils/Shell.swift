@@ -10,7 +10,8 @@ let shell = Shell.self
 class Shell: ObservableObject {
     static let shared = Shell()
 
-	static func sh(_ command: String, print: Bool = true, pipeStdErr: Bool = true) throws -> String {
+    @discardableResult
+    static func sh(_ command: String, print: Bool = true, pipeStdErr: Bool = true) throws -> String {
 		let task = Process()
 		let pipe = Pipe()
 
@@ -36,6 +37,7 @@ class Shell: ObservableObject {
 		return output
 	}
 
+    @discardableResult
     internal static func shello(print: Bool = true, _ binary: String, _ args: String...) throws -> String {
         let process = Process()
 		let pipe = Pipe()

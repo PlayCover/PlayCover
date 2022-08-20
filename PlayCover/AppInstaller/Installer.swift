@@ -30,7 +30,7 @@ class Installer {
                 }
                 try PlayTools.replaceLibraries(atURL: macho)
                 try PlayTools.convertMacho(macho)
-                _ = try fakesign(macho)
+                try fakesign(macho)
             }
 
             // -rwxr-xr-x
@@ -192,6 +192,6 @@ class Installer {
 
     /// Regular codesign, does not accept entitlements. Used to re-seal an app after you've modified it.
     static func fakesign(_ url: URL) throws {
-        _ = try shell.shello("/usr/bin/codesign", "-fs-", url.path)
+        try shell.shello("/usr/bin/codesign", "-fs-", url.path)
     }
 }

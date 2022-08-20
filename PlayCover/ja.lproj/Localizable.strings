@@ -16,8 +16,8 @@
 "storeAccount.selectAccRegion" = "アカウントの地域を変更する";
 "storeAccount.selectAccRegion.usa" = "米国";
 "storeAccount.selectAccRegion.euro" = "ヨーロッパ";
-"storeAccount.selectAccRegion.tw" = "台湾";
 "storeAccount.selectAccRegion.asia" = "アジア";
+"storeAccount.selectAccRegion.cht" = "台湾";
 "storeAccount.nameOfAcc" = "アカウント名";
 "storeAccount.nameOfAcc.textfieldPlaceholder" = "アカウントの名前...";
 "storeAccount.store" = "アカウントを保存";
