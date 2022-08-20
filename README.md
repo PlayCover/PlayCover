@@ -44,6 +44,8 @@ These controls include all the essentials, from WASD, camera movement, left and 
 
 This software was originally designed to run Genshin Impact on your Apple Silicon device, but it can now run a wide range of applications. Unfortunately, not all games are supported, and some may have bugs.
 
+Localisations handled in [Weblate](https://hosted.weblate.org/projects/playcover/).
+
 ![Fancy logo](./images/dark.png#gh-dark-mode-only)
 ![Fancy logo](./images/light.png#gh-light-mode-only)
 
