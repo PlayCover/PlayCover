@@ -19,7 +19,7 @@ struct PlayAppView: View {
     @State var showImportFail: Bool = false
 
     var body: some View {
-        ConditionalView(app: app, isList: isList)
+        PlayAppConditionalView(app: app, isList: isList)
         .background(
             isHover ? Color.gray.opacity(0.3) : Color.clear
         )
@@ -120,7 +120,7 @@ struct PlayAppView: View {
     }
 }
 
-struct ConditionalView: View {
+struct PlayAppConditionalView: View {
     @State var app: PlayApp
     @State var isList: Bool
 
@@ -141,12 +141,15 @@ struct ConditionalView: View {
                         .foregroundColor(.secondary)
                 }
             }
-            .frame(maxWidth: .infinity)
         } else {
             VStack(alignment: .center, spacing: 0) {
                 if let img = app.icon {
-                    Image(nsImage: img).resizable()
-                        .frame(width: 88, height: 88).cornerRadius(10).shadow(radius: 1).padding(.top, 8)
+                    Image(nsImage: img)
+                        .resizable()
+                        .frame(width: 88, height: 88)
+                        .cornerRadius(10)
+                        .shadow(radius: 1)
+                        .padding(.top, 8)
                     Text(app.name)
                         .frame(width: 150, height: 40)
                         .lineLimit(2)

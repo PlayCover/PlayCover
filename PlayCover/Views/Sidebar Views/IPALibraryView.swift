@@ -12,22 +12,44 @@ struct IPALibraryView: View {
 
     @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150))]
     @State private var searchString = ""
+    @State private var gridViewLayout = 0
 
     var body: some View {
         VStack(alignment: .leading) {
             GeometryReader { geom in
-                ScrollView {
-                    LazyVGrid(columns: gridLayout, alignment: .leading) {
-                        ForEach(storeVM.apps, id: \.id) { app in
-                            StoreAppGridView(app: app)
+                if gridViewLayout == 0 {
+                    ScrollView {
+                        LazyVGrid(columns: gridLayout, alignment: .leading) {
+                            ForEach(storeVM.apps, id: \.id) { app in
+                                StoreAppView(app: app, isList: false)
+                            }
                         }
+                        .padding()
+                        .animation(.spring(blendDuration: 0.1), value: geom.size.width)
                     }
-                    .padding()
-                    .animation(.spring(blendDuration: 0.1), value: geom.size.width)
+                } else {
+                    List {
+                        ForEach(storeVM.apps, id: \.id) { app in
+                            StoreAppView(app: app, isList: true)
+                        }
+                        .padding(.vertical, 2)
+                    }
+                    .listStyle(.inset)
+                    .animation(.spring(blendDuration: 0.1), value: geom.size.height)
                 }
             }
         }
         .navigationTitle("IPA Library")
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Picker("Grid View Layout", selection: $gridViewLayout) {
+                    Image(systemName: "square.grid.2x2")
+                        .tag(0)
+                    Image(systemName: "list.bullet")
+                        .tag(1)
+                }.pickerStyle(.segmented)
+            }
+        }
         .searchable(text: $searchString, placement: .toolbar)
         .onChange(of: searchString, perform: { value in
             uif.searchText = value

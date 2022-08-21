@@ -49,7 +49,12 @@ struct AppSettingsView: View {
             .frame(minWidth: 450, minHeight: 200)
             HStack {
                 Spacer()
-                Button("settings.reset") {
+                Button("Reset settings") {
+                    resetCompletedAlert.toggle()
+                    viewModel.app.settings.reset()
+                    dismiss()
+                }
+                Button("Reset keymapping") {
                     resetCompletedAlert.toggle()
                     viewModel.app.settings.reset()
                     dismiss()
@@ -78,16 +83,15 @@ struct KeymappingView: View {
                 HStack {
                     Toggle("settings.toggle.km", isOn: $settings.keymapping)
                         .help("settings.toggle.km.help")
-                    Toggle("settings.toggle.mm", isOn: $settings.mouseMapping)
                     Spacer()
+                    Toggle("settings.toggle.mm", isOn: $settings.mouseMapping)
                 }
                 HStack {
-                    Slider(value: $settings.sensitivity, in: 0...100, label: {
-                        Text(NSLocalizedString("settings.slider.mouseSensitivity", comment: "")
-                             + String(format: "%.f", settings.sensitivity))
-                    })
-                    .frame(maxWidth: 400)
+                    Text(NSLocalizedString("settings.slider.mouseSensitivity", comment: "")
+                         + String(format: "%.f", settings.sensitivity))
                     Spacer()
+                    Slider(value: $settings.sensitivity, in: 0...100, label: {EmptyView()})
+                    .frame(width: 250)
                 }
                 Spacer()
             }
@@ -112,20 +116,19 @@ struct GraphicsView: View {
         ScrollView {
             VStack {
                 HStack {
-                    Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.disableTimeout)
+                    Text("settings.picker.iosDevice")
                     Spacer()
-                }.padding(.bottom)
-                HStack {
-                    Picker("settings.picker.iosDevice", selection: $settings.iosDeviceModel) {
+                    Picker("", selection: $settings.iosDeviceModel) {
                         Text("iPad Pro (12.9-inch) (1st gen) | A9X | 4GB").tag("iPad6,7")
                         Text("iPad Pro (12.9-inch) (3rd gen) | A12Z | 4GB").tag("iPad8,6")
                         Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
                     }
-                    .frame(maxWidth: 300)
-                    Spacer()
+                    .frame(width: 250)
                 }
                 HStack {
-                    Picker("settings.picker.adaptiveRes", selection: $settings.resolution) {
+                    Text("settings.picker.adaptiveRes")
+                    Spacer()
+                    Picker("", selection: $settings.resolution) {
                         Text("settings.picker.adaptiveRes.0").tag(0)
                         Text("settings.picker.adaptiveRes.1").tag(1)
                         Text("1080p").tag(2)
@@ -133,10 +136,8 @@ struct GraphicsView: View {
                         Text("4K").tag(4)
                         Text("Custom").tag(5)
                     }
-                    .fixedSize()
-                    .frame(alignment: .leading)
+                    .frame(width: 250, alignment: .leading)
                     .help("settings.picker.adaptiveRes.help")
-                    Spacer()
                 }
                 HStack {
                     if settings.resolution == 5 {
@@ -149,12 +150,14 @@ struct GraphicsView: View {
                                             NSApp.keyWindow?.makeFirstResponder(nil)
                                         }
                                       })
+                            .frame(width: 125)
                         }
                         onIncrement: {
                             customWidth += 1
                         } onDecrement: {
                             customWidth -= 1
                         }
+                        Spacer()
                         Text("Height:")
                         Stepper {
                             TextField("Height", value: $customHeight,
@@ -164,13 +167,16 @@ struct GraphicsView: View {
                                             NSApp.keyWindow?.makeFirstResponder(nil)
                                         }
                                       })
+                            .frame(width: 125)
                         } onIncrement: {
                             customHeight += 1
                         } onDecrement: {
                             customHeight -= 1
                         }
                     } else if settings.resolution >= 2 && settings.resolution <= 4 {
-                        Picker("Aspect Ratio:", selection: $settings.aspectRatio) {
+                        Text("Aspect ratio:")
+                        Spacer()
+                        Picker("", selection: $settings.aspectRatio) {
                             Text("4:3").tag(0)
                             Text("16:9").tag(1)
                             Text("16:10").tag(2)
@@ -178,7 +184,6 @@ struct GraphicsView: View {
                         .pickerStyle(.radioGroup)
                         .horizontalRadioGroupLayout()
                     }
-                    Spacer()
                 }
                 HStack {
                     Picker("settings.picker.refreshRate", selection: $settings.refreshRate) {
@@ -189,6 +194,7 @@ struct GraphicsView: View {
                     .fixedSize()
                     .frame(alignment: .leading)
                     Spacer()
+                    Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.disableTimeout)
                 }
                 Spacer()
             }
