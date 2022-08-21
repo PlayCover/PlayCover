@@ -37,8 +37,14 @@ struct AppSettingsView: View {
                 VStack(alignment: .leading) {
                     VStack(alignment: .leading) {
                         HStack {
-                            Toggle(NSLocalizedString("settings.toggle.km", comment: ""), isOn: $keymapping).padding()
-                            Toggle(NSLocalizedString("settings.toggle.gaming", comment: ""), isOn: $gamingMode).padding()
+                            Toggle(
+                                NSLocalizedString("settings.toggle.km", comment: ""),
+                                isOn: $keymapping)
+                            .padding()
+                            Toggle(
+                                NSLocalizedString("settings.toggle.gaming", comment: ""),
+                                isOn: $gamingMode)
+                            .padding()
                         }
                         HStack {
                             Image(systemName: "keyboard")
@@ -55,7 +61,12 @@ struct AppSettingsView: View {
                             "settings.toggle.adaptiveDisplay", comment: ""
                         ), isOn: $enableWindowAutoSize).padding()
                         HStack {
-                            Image(systemName: "display").font(.system(size: 69)).foregroundColor(.accentColor).padding(.leading)
+                            Image(
+                                systemName: "display"
+                            )
+                            .font(.system(size: 69))
+                            .foregroundColor(.accentColor)
+                            .padding(.leading)
                             Text("settings.toggle.adaptiveDisplay.info")
                                 .frame(maxWidth: 200).padding().frame(minHeight: 100)
                         }
@@ -79,7 +90,10 @@ struct AppSettingsView: View {
                         }
                         .padding(.horizontal).padding(.vertical, 10)
                         .help("settings.toggle.disableDisplaySleep.info")
-                        Picker(selection: $selectedRefreshRate, label: Text("settings.picker.displayRefreshRate"), content: {
+                        Picker(
+                            selection: $selectedRefreshRate,
+                            label: Text("settings.picker.displayRefreshRate"),
+                            content: {
                             Text("60 Hz").tag(0)
                             Text("120 Hz").tag(1)
                         })
@@ -148,21 +162,29 @@ struct AppSettingsView: View {
                         } else {
                             if !enableWindowAutoSize {
                                 if !portraitMode {
-                                    Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
+                                    Picker(
+                                        selection: $selectedWindowSize,
+                                        label: Text("settings.picker.screenSize"),
+                                        content: {
                                         Text("720p").tag(0)
                                         Text("1080p").tag(1)
                                         Text("1440p").tag(2)
                                         Text("4K").tag(3)
-                                    })
+                                        }
+                                    )
                                     .pickerStyle(MenuPickerStyle())
                                     .frame(maxWidth: 300)
                                     .padding(.horizontal)
                                     .padding(.vertical, 10)
                                 } else if portraitMode {
-                                    Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
+                                    Picker(
+                                        selection: $selectedWindowSize,
+                                        label: Text("settings.picker.screenSize"),
+                                        content: {
                                         Text("720p").tag(4)
                                         Text("iPhone 13 Pro").tag(5)
-                                    })
+                                        }
+                                    )
                                     .pickerStyle(MenuPickerStyle())
                                     .frame(maxWidth: 300)
                                     .padding(.horizontal)
