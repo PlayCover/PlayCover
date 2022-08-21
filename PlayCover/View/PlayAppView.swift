@@ -154,7 +154,7 @@ struct PlayAppView: View {
                                 enableCustomWindowSize: app.settings.enableCustomWindowSize,
                                 customHeight: String(app.settings.gameWindowSizeHeight),
                                 customWidth: String(app.settings.gameWindowSizeWidth)
-                ).frame(minWidth: 500)
+                ).frame(minWidth: 400)
             }.sheet(isPresented: $showChangeGenshinAccount) {
                 ChangeGenshinAccountView()
             }.sheet(isPresented: $showStoreGenshinAccount) {

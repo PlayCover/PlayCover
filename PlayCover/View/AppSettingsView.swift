@@ -32,152 +32,157 @@ struct AppSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        VStack(alignment: .leading) {
-            VStack(alignment: .leading) {
-                HStack {
-                    Toggle(NSLocalizedString("settings.toggle.km", comment: ""), isOn: $keymapping).padding()
-                    Toggle(NSLocalizedString("settings.toggle.gaming", comment: ""), isOn: $gamingMode).padding()
-                }
-                HStack {
-                    Image(systemName: "keyboard")
-                        .font(.system(size: 69))
-                        .foregroundColor(.accentColor)
-                        .padding(.leading)
-                    Text("settings.toggle.km.info")
-                        .frame(maxWidth: 200).padding().frame(minHeight: 100)
-                }
-            }
-            Divider().padding(.leading, 36).padding(.trailing, 36)
-            VStack(alignment: .leading, spacing: 0) {
-                Toggle(NSLocalizedString(
-                    "settings.toggle.adaptiveDisplay", comment: ""
-                ), isOn: $enableWindowAutoSize).padding()
-                HStack {
-                    Image(systemName: "display").font(.system(size: 69)).foregroundColor(.accentColor).padding(.leading)
-                    Text("settings.toggle.adaptiveDisplay.info")
-                        .frame(maxWidth: 200).padding().frame(minHeight: 100)
-                }
-            }
-            Divider().padding(.leading, 36).padding(.trailing, 36)
-            VStack(alignment: .leading) {
-                Toggle(isOn: $bypass) {
-                    Text("settings.toggle.jbBypass")
-                }.padding()
-                HStack {
-                    Image(systemName: "terminal.fill").font(.system(size: 69))
-                        .foregroundColor(.accentColor).padding(.leading)
-                    Text("settings.toggle.jbBypass.info")
-                        .frame(maxWidth: 200).padding().frame(minHeight: 100)
-                }
-            }
-            Divider().padding(.leading, 36).padding(.trailing, 36)
-            VStack(alignment: .leading, spacing: 0) {
-                Toggle(isOn: $disableTimeout) {
-                    Text("settings.toggle.disableDisplaySleep")
-                }
-                .padding(.horizontal).padding(.vertical, 10)
-                .help("settings.toggle.disableDisplaySleep.info")
-                Picker(selection: $selectedRefreshRate, label: Text("settings.picker.displayRefreshRate"), content: {
-                    Text("60 Hz").tag(0)
-                    Text("120 Hz").tag(1)
-                })
-                .pickerStyle(SegmentedPickerStyle())
-                .frame(maxWidth: 300)
-                .padding(.horizontal)
-                .padding(.vertical, 10)
-                Picker(selection: $ipadModel, label: Text("settings.picker.iosDevice"), content: {
-                    Text("iPad Pro (12.9-inch) (1st gen) | A9X | 4GB").tag("iPad6,7")
-                    Text("iPad Pro (12.9-inch) (3rd gen) | A12Z | 4GB").tag("iPad8,6")
-                    Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
-                })
-                .pickerStyle(MenuPickerStyle())
-                .frame(maxWidth: 300)
-                .padding(.horizontal)
-                .padding(.vertical, 10)
-                if !enableWindowAutoSize {
-                    Toggle(NSLocalizedString("settings.toggle.customSize", comment: ""),
-                           isOn: $enableCustomWindowSize)
-                    .padding(.horizontal)
-                    .padding(.vertical, 10)
-                    if !enableCustomWindowSize {
-                        Toggle(isOn: $portraitMode) {
-                            Text("settings.toggle.portraitMode")
+        VStack {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Toggle(NSLocalizedString("settings.toggle.km", comment: ""), isOn: $keymapping).padding()
+                            Toggle(NSLocalizedString("settings.toggle.gaming", comment: ""), isOn: $gamingMode).padding()
                         }
-                        .onChange(of: portraitMode) { _ in
-                            if portraitMode {
-                                selectedWindowSize = 4
-                            } else if !portraitMode {
-                                selectedWindowSize = 1
-                            } else {
-                                selectedWindowSize = 0
-                            }
+                        HStack {
+                            Image(systemName: "keyboard")
+                                .font(.system(size: 69))
+                                .foregroundColor(.accentColor)
+                                .padding(.leading)
+                            Text("settings.toggle.km.info")
+                                .frame(maxWidth: 200).padding().frame(minHeight: 100)
                         }
+                    }
+                    Divider().padding(.leading, 36).padding(.trailing, 36)
+                    VStack(alignment: .leading, spacing: 0) {
+                        Toggle(NSLocalizedString(
+                            "settings.toggle.adaptiveDisplay", comment: ""
+                        ), isOn: $enableWindowAutoSize).padding()
+                        HStack {
+                            Image(systemName: "display").font(.system(size: 69)).foregroundColor(.accentColor).padding(.leading)
+                            Text("settings.toggle.adaptiveDisplay.info")
+                                .frame(maxWidth: 200).padding().frame(minHeight: 100)
+                        }
+                    }
+                    Divider().padding(.leading, 36).padding(.trailing, 36)
+                    VStack(alignment: .leading) {
+                        Toggle(isOn: $bypass) {
+                            Text("settings.toggle.jbBypass")
+                        }.padding()
+                        HStack {
+                            Image(systemName: "terminal.fill").font(.system(size: 69))
+                                .foregroundColor(.accentColor).padding(.leading)
+                            Text("settings.toggle.jbBypass.info")
+                                .frame(maxWidth: 200).padding().frame(minHeight: 100)
+                        }
+                    }
+                    Divider().padding(.leading, 36).padding(.trailing, 36)
+                    VStack(alignment: .leading, spacing: 0) {
+                        Toggle(isOn: $disableTimeout) {
+                            Text("settings.toggle.disableDisplaySleep")
+                        }
+                        .padding(.horizontal).padding(.vertical, 10)
+                        .help("settings.toggle.disableDisplaySleep.info")
+                        Picker(selection: $selectedRefreshRate, label: Text("settings.picker.displayRefreshRate"), content: {
+                            Text("60 Hz").tag(0)
+                            Text("120 Hz").tag(1)
+                        })
+                        .pickerStyle(SegmentedPickerStyle())
+                        .frame(maxWidth: 300)
                         .padding(.horizontal)
                         .padding(.vertical, 10)
+                        Picker(selection: $ipadModel, label: Text("settings.picker.iosDevice"), content: {
+                            Text("iPad Pro (12.9-inch) (1st gen) | A9X | 4GB").tag("iPad6,7")
+                            Text("iPad Pro (12.9-inch) (3rd gen) | A12Z | 4GB").tag("iPad8,6")
+                            Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
+                        })
+                        .pickerStyle(MenuPickerStyle())
+                        .frame(maxWidth: 300)
+                        .padding(.horizontal)
+                        .padding(.vertical, 10)
+                        if !enableWindowAutoSize {
+                            Toggle(NSLocalizedString("settings.toggle.customSize", comment: ""),
+                                   isOn: $enableCustomWindowSize)
+                            .padding(.horizontal)
+                            .padding(.vertical, 10)
+                            if !enableCustomWindowSize {
+                                Toggle(isOn: $portraitMode) {
+                                    Text("settings.toggle.portraitMode")
+                                }
+                                .onChange(of: portraitMode) { _ in
+                                    if portraitMode {
+                                        selectedWindowSize = 4
+                                    } else if !portraitMode {
+                                        selectedWindowSize = 1
+                                    } else {
+                                        selectedWindowSize = 0
+                                    }
+                                }
+                                .padding(.horizontal)
+                                .padding(.vertical, 10)
+                            }
+                        }
+                        if enableCustomWindowSize {
+                            VStack {
+                                HStack(spacing: 8) {
+                                    Text(NSLocalizedString(
+                                        "settings.text.customWidth", comment: ""
+                                    ))
+                                    TextField(NSLocalizedString(
+                                        "settings.text.customWidth", comment: ""
+                                    ), text: $customWidth)
+                                }
+                                .frame(maxWidth: 300)
+                                .padding(.horizontal)
+                                .padding(.vertical, 5)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                HStack(spacing: 8) {
+                                    Text(NSLocalizedString(
+                                        "settings.text.customHeight", comment: ""
+                                    ))
+                                    TextField(NSLocalizedString(
+                                        "settings.text.customHeight", comment: ""
+                                    ), text: $customHeight)
+                                }
+                                .frame(maxWidth: 300)
+                                .padding(.horizontal)
+                                .padding(.vertical, 5)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            }
+                        } else {
+                            if !enableWindowAutoSize {
+                                if !portraitMode {
+                                    Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
+                                        Text("720p").tag(0)
+                                        Text("1080p").tag(1)
+                                        Text("1440p").tag(2)
+                                        Text("4K").tag(3)
+                                    })
+                                    .pickerStyle(MenuPickerStyle())
+                                    .frame(maxWidth: 300)
+                                    .padding(.horizontal)
+                                    .padding(.vertical, 10)
+                                } else if portraitMode {
+                                    Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
+                                        Text("720p").tag(4)
+                                        Text("iPhone 13 Pro").tag(5)
+                                    })
+                                    .pickerStyle(MenuPickerStyle())
+                                    .frame(maxWidth: 300)
+                                    .padding(.horizontal)
+                                    .padding(.vertical, 10)
+                                }
+                            }
+                        }
                     }
-                }
-                if enableCustomWindowSize {
                     VStack {
-                        HStack(spacing: 8) {
-                            Text(NSLocalizedString(
-                                "settings.text.customWidth", comment: ""
-                            ))
-                            TextField(NSLocalizedString(
-                                "settings.text.customWidth", comment: ""
-                            ), text: $customWidth)
-                        }
-                        .frame(maxWidth: 300)
-                        .padding(.horizontal)
-                        .padding(.vertical, 5)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        HStack(spacing: 8) {
-                            Text(NSLocalizedString(
-                                "settings.text.customHeight", comment: ""
-                            ))
-                            TextField(NSLocalizedString(
-                                "settings.text.customHeight", comment: ""
-                            ), text: $customHeight)
-                        }
-                        .frame(maxWidth: 300)
-                        .padding(.horizontal)
-                        .padding(.vertical, 5)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        Divider().padding(.leading, 36).padding(.trailing, 36)
+                        Text(NSLocalizedString(
+                            "settings.slider.mouseSensitivity", comment: ""
+                        ) + String(format: "%.f", sensivity))
+                        Slider(value: $sensivity, in: 1...100).frame(maxWidth: 300)
                     }
-                } else {
-                    if !enableWindowAutoSize {
-                        if !portraitMode {
-                            Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
-                                Text("720p").tag(0)
-                                Text("1080p").tag(1)
-                                Text("1440p").tag(2)
-                                Text("4K").tag(3)
-                            })
-                            .pickerStyle(MenuPickerStyle())
-                            .frame(maxWidth: 300)
-                            .padding(.horizontal)
-                            .padding(.vertical, 10)
-                        } else if portraitMode {
-                            Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
-                                Text("720p").tag(4)
-                                Text("iPhone 13 Pro").tag(5)
-                            })
-                            .pickerStyle(MenuPickerStyle())
-                            .frame(maxWidth: 300)
-                            .padding(.horizontal)
-                            .padding(.vertical, 10)
-                        }
-                    }
+                }.toast(isPresenting: $resetCompletedAlert) {
+                AlertToast(type: .regular, title: NSLocalizedString("settings.resetCompleted", comment: ""))
                 }
             }
-            VStack {
-                Divider().padding(.leading, 36).padding(.trailing, 36)
-                Text(NSLocalizedString(
-                    "settings.slider.mouseSensitivity", comment: ""
-                ) + String(format: "%.f", sensivity))
-                Slider(value: $sensivity, in: 1...100).frame(maxWidth: 400)
-            }
-
-            Divider().padding(.leading, 36).padding(.trailing, 36)
+            .frame(maxHeight: 520)
             HStack {
                 Spacer()
                 Button("settings.reset") {
@@ -223,8 +228,7 @@ struct AppSettingsView: View {
                 .keyboardShortcut(.defaultAction)
                 Spacer()
             }
-        }.toast(isPresenting: $resetCompletedAlert) {
-            AlertToast(type: .regular, title: NSLocalizedString("settings.resetCompleted", comment: ""))
         }
+        .frame(maxWidth: 500)
     }
 }
