@@ -6,13 +6,12 @@
 "playapp.importKm" = "キーマッピングをインポート";
 "playapp.exportKm" = "キーマッピングをエクスポート";
 "playapp.delete" = "アプリを削除";
-"playapp.add.help" = "アプリのファイルをここに入れてインストールする";
+"playapp.add.help" = "アプリのファイルをここに入れてインストールする。";
 "playapp.update" = "アプリを更新";
 "playapp.storeCurrentAccount" = "今のアカウントを保存";
 "playapp.activateAccount" = "アカウントを有効にする";
 "playapp.deleteAccount" = "アカウントを削除";
 "playapp.clearPreferences" = "Clear app preferences";
-
 "storeAccount.selectAccRegion" = "アカウントの地域を変更する";
 "storeAccount.selectAccRegion.usa" = "米国";
 "storeAccount.selectAccRegion.euro" = "ヨーロッパ";
@@ -24,7 +23,6 @@
 "storeAccount.selectAcc" = "アカウントの選択";
 "storeAccount.storeAcc" = "アカウントを保存";
 "storeAccount.deleteAcc" = "アカウントを削除";
-
 "playapp.install.unzip" = ".ipaファイルからアプリの書き出し中...";
 "playapp.install.createWrapper" = "アプリのコンテナーを作成中...";
 "playapp.install.installPlayTools" = "PlayToolsをインストール中...";
@@ -32,9 +30,7 @@
 "playapp.install.addToLib" = "ライブラリにアプリを追加中...";
 "playapp.install.copy" = "アプリをコピー中...";
 "playapp.install.finished" = "完成";
-
 "search.search" = "検索...";
-
 "alert.appCacheCleared" = "アプリのデータは削除されました！";
 "alert.kmImported" = "キーマッピングをインポートしました！";
 "alert.errorImportKm" = "キーマッピングのインポートに何らかのエラーが発生しました！";
@@ -43,7 +39,7 @@
 "alert.wrongFileType" = "ファイルのタイプを間違っています";
 "alert.wrongFileType.message" = ".ipaファイルを選択してください";
 "alert.restart" = "Please restart PlayCover.";
-"alert.error" = "何らかのエラーが発生しました";
+"alert.error" = "何らかのエラーが発生しました!";
 "alert.success" = "成功！";
 "alert.moveAppToApplications" = "PlayCoverは/Applicationsフォルダに居ないと問題が発生します。以下のボタンを押してPlayCoverを/Applicationsフォルダに移動させることができます。";
 "alert.moveAppToApplications.move" = "/Applicationsに移動";
@@ -56,75 +52,59 @@
 "button.Close" = "閉じる";
 "button.Dismiss" = "閉じる";
 "button.Install" = "インストール";
-
 "error.corruptedIPA" = "この.ipaファイルは破損しています。\"Info.plist\"ファイルが含まれていません。";
 "error.waitInstallation" = "今のインストールを完了するまでお待ちください！";
 "error.reinstallApp" = "PlayCoverを再インストールしてください";
-
 "menubar.downloadMoreApps" = "さらにアプリをダウンロード";
 "menubar.downloadMoreApps.help" = "このサイトを使ってアプリをインストールする";
 "menubar.exportToSideloady" = "Sideloadlyに書き出す";
 "menubar.exportToSideloady.help" = ".ipaファイルをSideloadyのために書き出す。Sideloady.ioでは、SIPを無効にしないでアプリやゲームが動作します。";
-
 "bottomBar.notices" = "通知";
 "bottomBar.notices.help" = "デベロッパーからのニュースとお知らせ";
 "bottomBar.setupViewButton" = "問題が発生していますか？";
-
 "failedToFetchNotices" = "通知を取得できませんでした。インターネット接続を確認してください。";
-
 "logs.copied" = "ログをコピーしました";
-
 "settings.toggle.km" = "キーマッピングを有効にする";
 "settings.toggle.gaming" = "ゲームモードを有効にする";
 "settings.toggle.km.info" = "タッチのみでゲームをプレイするためにキーボードの対応を追加する。Cmd+Kを押してエディターメニューを開くことができます。";
 "settings.toggle.adaptiveDisplay" = "ディスプレイに合わせる";
-"settings.toggle.adaptiveDisplay.info" ="アプリウィンドウを内蔵Macディスプレイに合わせて調整します。";
+"settings.toggle.adaptiveDisplay.info" = "アプリウィンドウを内蔵Macディスプレイに合わせて調整します。";
 "settings.toggle.jbBypass" = "ジェイルブレイクバイパスを有効にする（アルファ版）";
 "settings.toggle.jbBypass.info" = "ジェイルブレイクの検出をいくつかのゲームで避けることができます（常に動作する保証はありません）";
 "settings.toggle.autoWindowResize" = "ウィンドウの自動サイズ変更を有効にする";
 "settings.toggle.disableDisplaySleep" = "ディスプレイのスリープを無効にする";
 "settings.toggle.disableDisplaySleep.info" = "このアプリの実行中にディスプレイがオフにならないようにする";
-
 "settings.picker.displayRefreshRate" = "画面のリフレッシュレート";
 "settings.picker.screenSize" = "ディスプレー解像度";
 "settings.picker.iosDevice" = "Select iOS device";
-
 "settings.slider.mouseSensitivity" = "マウス感度: ";
-
 "settings.reset" = "設定とキーマッピングをリセットする";
 "settings.resetCompleted" = "設定をデフォルトに戻しました！";
 "settings.text.customHeight" = "Height";
 "settings.text.customWidth" = "Width";
 "settings.toggle.customSize" = "Enable custom window size";
-
 "setupView.header" = "問題が発生した場合は、以下の手順に従ってください";
 "setupView.subheader" = "ログインを許可しないアプリ、起動時のクラッシュなどを解決します";
-
 "setupView.step1" = "1) Macをシャットダウンする";
 "setupView.step2" = "2) Macが完全にシャットダウンするのを待ってから、電源ボタンを押してください";
 "setupView.step3" = "3) アップルロゴの下に\"起動オプションを読み込み中\"が表示されたら、電源ボタンを放してください";
 "setupView.step4" = "4) リカバリモードの起動オプションをクリックします";
 "setupView.step5" = "5) リカバリーモードの中で、ターミナルを開く（メニューバー → ユーティリティ → ターミナル）";
-"setupView.step6" = "6) 以下のコマンドを入力";
+"setupView.step6" = "6) 以下のコマンドを入力 ";
 "setupView.step7" = "7) コマンドを入力してEnterキーを押してください。パスワードを入力してEnterキーを押してください。（パスワードは入力しても表示されません）";
 "setupView.step8" = "8) アップルロゴをメニューバーにクリックして再起動する";
 "setupView.step9" = "問題が発生したら、再度全部をやり直してください";
-
 "setupView.vidTutorials" = "動画チュートリアル（英語）";
 "setupView.youtube" = "YouTube";
 "setupView.bilibili" = "BiliBili";
-
 "setupView.pressButtonAndEnterPassword" = "以下からSIPを無効にして、Macログインパスワードを入力してください。";
 "setupView.pressButtonAndEnterPassword.button" = "SIPを無効にする";
-
 "notification.appInstalled" = "アプリをインストールしました！";
 "notification.appInstalled.message" = "PlayCoverでチェックしてください！";
-
 "setup.enterLoginPassword" = "ユーザーパスワードを入力してください";
 "setup.incorrectPassword" = "パスワードが正しくありません。もう一度やり直してください";
-"setup.enterLoginPassword.info" = "Macをロック解除するために使用されるパスワードを入力してください";
+"setup.enterLoginPassword.info" = "Macをロック解除するために使用されるパスワードを入力してください。";
 "setup.requireReboot" = "変更を有効にするには、Macを再起動してください。";
-
 "menubar.log.copy" = "ログをコピーする";
 "menubar.documentation" = "ドキュメント";
 "menubar.website" = "ホームページ";
@@ -132,16 +112,13 @@
 "menubar.discord" = "Discord";
 "menubar.showAppLinks" = "アプリのリンクを表示";
 "menubar.checkForUpdates" = "更新を確認する";
-
 "soundAlert.messageText" = "不適切なオーディオ設定が検出されました!";
 "soundAlert.informativeText" = "現在の出力デバイスのサンプルレートが48または44.1KHzではないため、問題が発生する可能性があります。現在のデバイスのサンプルレートを48KHzに変更しますか？";
-"soundAlert.successText" = "現在のデバイスのサンプルレートを48KHzに変更しました。";
-"soundAlert.failureText" = "サンプルレートの変更に失敗しました。「Audio MIDI設定」アプリから手動でサンプルレートを設定することができます。";
-
+"soundAlert.successText" = "現在のデバイスのサンプルレートを48KHzに変更しました";
+"soundAlert.failureText" = "サンプルレートの変更に失敗しました。「Audio MIDI設定」アプリから手動でサンプルレートを設定することができます";
 "xcode.install.message" = "You need to install Xcode Command Line Tools and restart PlayCover";
 "xcode.install.success" = "Xcode Command Line Tools installation succeeded";
 "xcode.install.failed" = "Xcode Command Line Tools intallation failed";
 "xcode.install.progress" = "Installing Xcode Command Line Tools";
 "xcode.install.progress.subtext" = "May take around 5-10 minutes depending on internet speed";
-
 "debug.crash" = "[DEBUG] アプリのクラッシュ";
