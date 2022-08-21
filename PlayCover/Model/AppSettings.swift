@@ -108,7 +108,7 @@ class AppSettings {
             dictionary = dict
         }
     }
-    
+
     private static let windowHeight = "pc.windowHeight"
     var windowHeight: Int {
         get {

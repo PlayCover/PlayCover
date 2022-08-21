@@ -104,7 +104,7 @@ struct GraphicsView: View {
 
     // Default aspect ratio at 16:9
     @State var aspectRatio: Int = 1
-    
+
     @State var customWidth: Int = 1920
     @State var customHeight: Int = 1080
 
@@ -186,8 +186,8 @@ struct GraphicsView: View {
             }
         }
     }
-    
-    func setResolution() -> Void {
+
+    func setResolution() {
         var width: Int
         var height: Int
 
@@ -221,7 +221,7 @@ struct GraphicsView: View {
         settings.windowWidth = width
         settings.windowHeight = height
     }
-    
+
     func getWidthFromAspectRatio(_ height: Int) -> Int {
         var widthRatio: Int
         var heightRatio: Int
