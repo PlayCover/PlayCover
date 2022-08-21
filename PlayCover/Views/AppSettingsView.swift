@@ -37,7 +37,7 @@ struct AppSettingsView: View {
                     .tabItem {
                         Text("settings.tab.graphics")
                     }
-                JBBypassView()
+                JBBypassView(settings: $viewModel.settings)
                     .tabItem {
                         Text("settings.tab.jbBypass")
                     }
@@ -73,24 +73,26 @@ struct KeymappingView: View {
     @Binding var settings: AppSettings
 
     var body: some View {
-        VStack {
-            HStack {
-                Toggle("settings.toggle.km", isOn: $settings.keymapping)
-                    .help("settings.toggle.km.help")
-                Toggle("settings.toggle.mm", isOn: $settings.mouseMapping)
+        ScrollView {
+            VStack {
+                HStack {
+                    Toggle("settings.toggle.km", isOn: $settings.keymapping)
+                        .help("settings.toggle.km.help")
+                    Toggle("settings.toggle.mm", isOn: $settings.mouseMapping)
+                    Spacer()
+                }
+                HStack {
+                    Slider(value: $settings.sensitivity, in: 0...100, label: {
+                        Text(NSLocalizedString("settings.slider.mouseSensitivity", comment: "")
+                             + String(format: "%.f", settings.sensitivity))
+                    })
+                    .frame(maxWidth: 400)
+                    Spacer()
+                }
                 Spacer()
             }
-            HStack {
-                Slider(value: $settings.sensitivity, in: 0...100, label: {
-                    Text(NSLocalizedString("settings.slider.mouseSensitivity", comment: "")
-                         + String(format: "%.f", settings.sensitivity))
-                })
-                .frame(maxWidth: 400)
-                Spacer()
-            }
-            Spacer()
+            .padding()
         }
-        .padding()
     }
 }
 
@@ -98,55 +100,64 @@ struct GraphicsView: View {
     @Binding var settings: AppSettings
 
     var body: some View {
-        VStack {
-            HStack {
-                Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.disableTimeout)
-                Spacer()
-            }.padding(.bottom)
-            HStack {
-                Picker("settings.picker.iosDevice", selection: $settings.iosDeviceModel) {
-                    Text("iPad Pro (12.9-inch) (1st gen) | A9X | 4GB").tag("iPad6,7")
-                    Text("iPad Pro (12.9-inch) (3rd gen) | A12Z | 4GB").tag("iPad8,6")
-                    Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
+        ScrollView {
+            VStack {
+                HStack {
+                    Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.disableTimeout)
+                    Spacer()
+                }.padding(.bottom)
+                HStack {
+                    Picker("settings.picker.iosDevice", selection: $settings.iosDeviceModel) {
+                        Text("iPad Pro (12.9-inch) (1st gen) | A9X | 4GB").tag("iPad6,7")
+                        Text("iPad Pro (12.9-inch) (3rd gen) | A12Z | 4GB").tag("iPad8,6")
+                        Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
+                    }
+                    .frame(maxWidth: 300)
+                    Spacer()
                 }
-                .frame(maxWidth: 300)
+                HStack {
+                    Picker("settings.picker.adaptiveRes", selection: $settings.resolution) {
+                        Text("settings.picker.adaptiveRes.0").tag(0)
+                        Text("settings.picker.adaptiveRes.1").tag(1)
+                        Text("1080p").tag(2)
+                        Text("1440p").tag(3)
+                        Text("4K").tag(4)
+                    }
+                    .fixedSize()
+                    .frame(alignment: .leading)
+                    .help("settings.picker.adaptiveRes.help")
+                    Spacer()
+                }
+                HStack {
+                    Picker("settings.picker.refreshRate", selection: $settings.refreshRate) {
+                        Text("60 Hz").tag(60)
+                        Text("120 Hz").tag(120)
+                    }
+                    .pickerStyle(.segmented)
+                    .fixedSize()
+                    .frame(alignment: .leading)
+                    Spacer()
+                }
                 Spacer()
             }
-            HStack {
-                Picker("settings.picker.adaptiveRes", selection: $settings.resolution) {
-                    Text("settings.picker.adaptiveRes.0").tag(0)
-                    Text("settings.picker.adaptiveRes.1").tag(1)
-                    Text("1080p").tag(2)
-                    Text("1440p").tag(3)
-                    Text("4K").tag(4)
-                }
-                .fixedSize()
-                .frame(alignment: .leading)
-                .help("settings.picker.adaptiveRes.help")
-                Spacer()
-            }
-            HStack {
-                Picker("settings.picker.refreshRate", selection: $settings.refreshRate) {
-                    Text("60 Hz").tag(60)
-                    Text("120 Hz").tag(120)
-                }
-                .pickerStyle(.segmented)
-                .fixedSize()
-                .frame(alignment: .leading)
-                Spacer()
-            }
-            Spacer()
+            .padding()
         }
-        .padding()
     }
 }
 
 struct JBBypassView: View {
+    @Binding var settings: AppSettings
+
     var body: some View {
-        VStack {
-            Text("Jailbreak Bypass")
+        ScrollView {
+            VStack {
+                HStack {
+                    Toggle("settings.toggle.jbBypass", isOn: $settings.bypass)
+                    Spacer()
+                }
+            }
+            .padding()
         }
-        .padding()
     }
 }
 
