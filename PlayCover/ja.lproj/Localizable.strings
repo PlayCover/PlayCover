@@ -94,6 +94,9 @@
 
 "settings.reset" = "設定とキーマッピングをリセットする";
 "settings.resetCompleted" = "設定をデフォルトに戻しました！";
+"settings.text.customHeight" = "Height";
+"settings.text.customWidth" = "Width";
+"settings.toggle.customSize" = "Enable custom window size";
 
 "setupView.header" = "問題が発生した場合は、以下の手順に従ってください";
 "setupView.subheader" = "ログインを許可しないアプリ、起動時のクラッシュなどを解決します";

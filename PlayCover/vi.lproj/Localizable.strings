@@ -94,6 +94,9 @@
 
 "settings.reset" = "Reset settings and keymapping";
 "settings.resetCompleted" = "Settings have been reverted back to default!";
+"settings.text.customHeight" = "Height";
+"settings.text.customWidth" = "Width";
+"settings.toggle.customSize" = "Enable custom window size";
 
 "setupView.header" = "Follow steps below for fixing common issues";
 "setupView.subheader" = "Resolves apps not allowing logins, crashes at start and more";

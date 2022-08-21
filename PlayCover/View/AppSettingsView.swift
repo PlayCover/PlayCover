@@ -25,6 +25,10 @@ struct AppSettingsView: View {
     @State var selectedWindowSize: Int
     @State var enableWindowAutoSize: Bool
     @State var ipadModel: String
+    @State var enableCustomWindowSize: Bool
+    @State var customHeight: String
+    @State var customWidth: String
+
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
@@ -33,10 +37,6 @@ struct AppSettingsView: View {
                 HStack {
                     Toggle(NSLocalizedString("settings.toggle.km", comment: ""), isOn: $keymapping).padding()
                     Toggle(NSLocalizedString("settings.toggle.gaming", comment: ""), isOn: $gamingMode).padding()
-                    if adaptiveDisplay {
-                        Toggle(NSLocalizedString("settings.toggle.autoWindowResize", comment: ""),
-                               isOn: $enableWindowAutoSize).padding()
-                    }
                 }
                 HStack {
                     Image(systemName: "keyboard")
@@ -51,7 +51,7 @@ struct AppSettingsView: View {
             VStack(alignment: .leading, spacing: 0) {
                 Toggle(NSLocalizedString(
                     "settings.toggle.adaptiveDisplay", comment: ""
-                ), isOn: $adaptiveDisplay).padding()
+                ), isOn: $enableWindowAutoSize).padding()
                 HStack {
                     Image(systemName: "display").font(.system(size: 69)).foregroundColor(.accentColor).padding(.leading)
                     Text("settings.toggle.adaptiveDisplay.info")
@@ -95,44 +95,78 @@ struct AppSettingsView: View {
                 .padding(.horizontal)
                 .padding(.vertical, 10)
                 if !enableWindowAutoSize {
-                    Toggle(isOn: $portraitMode) {
-                        Text("settings.toggle.portraitMode")
-                    }
-                    .onChange(of: portraitMode) { _ in
-                        if portraitMode {
-                            selectedWindowSize = 4
-                        } else if !portraitMode {
-                            selectedWindowSize = 1
-                        } else {
-                            selectedWindowSize = 0
-                        }
-                    }
+                    Toggle(NSLocalizedString("settings.toggle.customSize", comment: ""),
+                           isOn: $enableCustomWindowSize)
                     .padding(.horizontal)
                     .padding(.vertical, 10)
-                }
-                if adaptiveDisplay && !enableWindowAutoSize {
-                    if !portraitMode {
-                        Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
-                            Text("720p").tag(0)
-                            Text("1080p").tag(1)
-                            Text("1440p").tag(2)
-                            Text("4K").tag(3)
-                        })
-                        .pickerStyle(MenuPickerStyle())
-                        .frame(maxWidth: 300)
-                        .padding(.horizontal)
-                        .padding(.vertical, 10)
-                    } else if portraitMode {
-                        Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
-                            Text("720p").tag(4)
-                            Text("iPhone 13 Pro").tag(5)
-                        })
-                        .pickerStyle(MenuPickerStyle())
-                        .frame(maxWidth: 300)
+                    if !enableCustomWindowSize {
+                        Toggle(isOn: $portraitMode) {
+                            Text("settings.toggle.portraitMode")
+                        }
+                        .onChange(of: portraitMode) { _ in
+                            if portraitMode {
+                                selectedWindowSize = 4
+                            } else if !portraitMode {
+                                selectedWindowSize = 1
+                            } else {
+                                selectedWindowSize = 0
+                            }
+                        }
                         .padding(.horizontal)
                         .padding(.vertical, 10)
                     }
-                    Spacer()
+                }
+                if enableCustomWindowSize {
+                    VStack {
+                        HStack(spacing: 8) {
+                            Text(NSLocalizedString(
+                                "settings.text.customWidth", comment: ""
+                            ))
+                            TextField(NSLocalizedString(
+                                "settings.text.customWidth", comment: ""
+                            ), text: $customWidth)
+                        }
+                        .frame(maxWidth: 300)
+                        .padding(.horizontal)
+                        .padding(.vertical, 5)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        HStack(spacing: 8) {
+                            Text(NSLocalizedString(
+                                "settings.text.customHeight", comment: ""
+                            ))
+                            TextField(NSLocalizedString(
+                                "settings.text.customHeight", comment: ""
+                            ), text: $customHeight)
+                        }
+                        .frame(maxWidth: 300)
+                        .padding(.horizontal)
+                        .padding(.vertical, 5)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }
+                } else {
+                    if !enableWindowAutoSize {
+                        if !portraitMode {
+                            Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
+                                Text("720p").tag(0)
+                                Text("1080p").tag(1)
+                                Text("1440p").tag(2)
+                                Text("4K").tag(3)
+                            })
+                            .pickerStyle(MenuPickerStyle())
+                            .frame(maxWidth: 300)
+                            .padding(.horizontal)
+                            .padding(.vertical, 10)
+                        } else if portraitMode {
+                            Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
+                                Text("720p").tag(4)
+                                Text("iPhone 13 Pro").tag(5)
+                            })
+                            .pickerStyle(MenuPickerStyle())
+                            .frame(maxWidth: 300)
+                            .padding(.horizontal)
+                            .padding(.vertical, 10)
+                        }
+                    }
                 }
             }
             VStack {
@@ -159,13 +193,21 @@ struct AppSettingsView: View {
                     settings.sensivity = sensivity
                     settings.bypass = bypass
                     settings.gamingMode = gamingMode
-                    settings.enableWindowAutoSize = adaptiveDisplay ? enableWindowAutoSize : false
+                    settings.enableWindowAutoSize = adaptiveDisplay && !enableCustomWindowSize
+                                                    ? enableWindowAutoSize
+                                                    : false
                     settings.ipadModel = ipadModel
-                    if enableWindowAutoSize {
+                    if enableCustomWindowSize {
+                        settings.gameWindowSizeHeight = (customHeight as NSString).floatValue
+                        settings.gameWindowSizeWidth = (customWidth as NSString).floatValue
+                    }
+                    if enableWindowAutoSize && !enableCustomWindowSize {
                         settings.gameWindowSizeHeight = Float(NSScreen.main?.visibleFrame.height ?? 1080)
                         settings.gameWindowSizeWidth = Float(NSScreen.main?.visibleFrame.width ?? 1920)
                     } else {
-                        setScreenSize(tag: selectedWindowSize, settings: settings)
+                        if !enableCustomWindowSize {
+                            setScreenSize(tag: selectedWindowSize, settings: settings)
+                        }
                     }
 
                     if selectedRefreshRate == 1 {
