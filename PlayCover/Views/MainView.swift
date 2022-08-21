@@ -25,10 +25,6 @@ struct MainView: View {
             NavigationView {
                 GeometryReader { sidebarGeom in
                     List {
-                        NavigationLink(destination: HomeView(), tag: 0, selection: self.$selectedView) {
-                            Label("Home", systemImage: "house")
-                        }
-                        Divider()
                         NavigationLink(destination: AppLibraryView(), tag: 1, selection: self.$selectedView) {
                             Label("App Library", systemImage: "square.grid.2x2")
                         }

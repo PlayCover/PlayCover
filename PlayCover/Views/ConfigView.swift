@@ -56,7 +56,7 @@ struct StepBodyView: View {
     @State var description: String
     @State var buttonText: String
     var action: () -> Void
-    
+
     var body: some View {
         Text(title)
             .font(.system(.title))
