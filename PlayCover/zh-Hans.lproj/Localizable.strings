@@ -206,10 +206,10 @@
 "settings.slider.mouseSensitivity" = "鼠标灵敏度: ";
 
 /* (No Comment) */
-"settings.text.customHeight" = "Height";
+"settings.text.customHeight" = "高度";
 
 /* (No Comment) */
-"settings.text.customWidth" = "Width";
+"settings.text.customWidth" = "宽度";
 
 /* (No Comment) */
 "settings.toggle.adaptiveDisplay" = "适配显示器";
@@ -230,6 +230,9 @@
 "settings.toggle.disableDisplaySleep.info" = "防止显示器在此应用运行时息屏";
 
 /* (No Comment) */
+"settings.toggle.customSize" = "启用自定义窗口大小";
+
+/* (No Comment) */
 "settings.toggle.gaming" = "游戏模式";
 
 /* (No Comment) */
@@ -243,6 +246,9 @@
 
 /* (No Comment) */
 "settings.toggle.km.info" = "为触屏设计的游戏增添键鼠支持。使用 Command + K 启用键盘映射布局编辑器。";
+
+/* (No Comment) */
+"settings.toggle.portraitMode" = "竖屏模式";
 
 /* (No Comment) */
 "setup.enterLoginPassword" = "请输入管理员登录密码";
