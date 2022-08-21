@@ -18,7 +18,6 @@ struct MainView: View {
     @State private var navWidth: CGFloat = 0
     @State private var viewWidth: CGFloat = 0
     @State private var collapsed: Bool = false
-    @State private var showConfigSheet: Bool = false
 
     var body: some View {
         GeometryReader { viewGeom in
@@ -37,10 +36,6 @@ struct MainView: View {
                     }
                 }
                 .background(SplitViewAccessor(sideCollapsed: $collapsed))
-            }
-            .onAppear {
-                self.selectedView = 1
-                showConfigSheet = !checkConfig()
             }
             .toolbar {
                 ToolbarItem(placement: .navigation) {
@@ -65,15 +60,18 @@ struct MainView: View {
             .onChange(of: viewGeom.size) { newSize in
                 viewWidth = newSize.width
             }
-            .sheet(isPresented: $showConfigSheet, content: {
-                ConfigView()
-            })
+            .alert("alert.moveAppToApplications.title",
+                   isPresented: $integrity.integrityOff) {
+                Button("alert.moveAppToApplications.move", role: .cancel) {
+                    integrity.moveToApps()
+                }
+                .tint(.accentColor)
+                .keyboardShortcut(.defaultAction)
+            } message: {
+                Text("alert.moveAppToApplications.subtitle")
+            }
         }
         .frame(minWidth: 820, minHeight: 400)
-    }
-
-    public func checkConfig() -> Bool {
-        return false
     }
 
     private func toggleSidebar() {

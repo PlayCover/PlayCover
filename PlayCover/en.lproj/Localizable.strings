@@ -47,8 +47,9 @@
 "alert.restart" = "Please restart PlayCover.";
 "alert.error" = "Some error happened!";
 "alert.success" = "Success!";
-"alert.moveAppToApplications" = "PlayCover must be in the Applications folder. Press the button below to let PlayCover move itself to /Applications.";
-"alert.moveAppToApplications.move" = "Move to /Applications";
+"alert.moveAppToApplications.title" = "Move to Applications folder?";
+"alert.moveAppToApplications.subtitle" = "PlayCover must be in the Applications folder to run correctly. Press the button below to move PlayCover automatically.";
+"alert.moveAppToApplications.move" = "Move to Applications folder";
 "alert.storeAccount.regionIsNotValid" = "The current account is set to a different Region. Launch the game, Change the region, and pass through the gates to save. Then try again";
 
 "button.OK" = "OK";
