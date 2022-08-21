@@ -69,6 +69,7 @@ struct MainView: View {
                 ConfigView()
             })
         }
+        .frame(minWidth: 820, minHeight: 400)
     }
 
     public func checkConfig() -> Bool {
