@@ -1,124 +1,366 @@
-"playapp.add" = "앱 추가";
-"playapp.settings" = "앱 설정";
-"playapp.showInFinder" = "Finder 에서 열기";
-"playapp.openCache" = "앱 데이터 열기";
-"playapp.clearCache" = "앱 데이터 삭제";
-"playapp.importKm" = "키맵핑 불러오기";
-"playapp.exportKm" = "키맵핑 내보내기";
-"playapp.delete" = "앱 삭제";
-"playapp.add.help" = "앱 파일을 드래그하거나 열어 설치.";
-"playapp.update" = "앱 업데이트";
-"playapp.storeCurrentAccount" = "현재 계정 보관하기";
-"playapp.activateAccount" = "계정 불러오기";
-"playapp.deleteAccount" = "계정 삭제하기";
-"playapp.clearPreferences" = "앱 환경설정 초기화";
-"storeAccount.selectAccRegion" = "계정 지역 선택";
-"storeAccount.selectAccRegion.usa" = "America";
-"storeAccount.selectAccRegion.euro" = "Europe";
-"storeAccount.selectAccRegion.asia" = "Asia";
-"storeAccount.selectAccRegion.cht" = "TW, HK, MO";
-"storeAccount.nameOfAcc" = "계정 이름";
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "계정 이름...";
-"storeAccount.store" = "계정 보관하기";
-"storeAccount.selectAcc" = "계정을 선택하세요";
-"storeAccount.storeAcc" = "계정 보관하기";
-"storeAccount.deleteAcc" = "계정 삭제하기";
-"playapp.install.unzip" = ".ipa 파일에서 앱 추출하는중...";
-"playapp.install.createWrapper" = "앱 컨테이너 만드는중...";
-"playapp.install.installPlayTools" = "PlayTools 설치중...";
-"playapp.install.signing" = "앱 코드 서명중...";
-"playapp.install.addToLib" = "라이브러리에 앱을 추가하는중...";
-"playapp.install.copy" = "앱 복사중...";
-"playapp.install.finished" = "완료";
-"search.search" = "검색...";
-"alert.appCacheCleared" = "앱 데이터가 초기화 되었습니다!";
-"alert.kmImported" = "키맵핑을 불러왔습니다!";
-"alert.errorImportKm" = "키맵핑을 불러오는데 문제가 발생했습니다!";
+/* (No Comment) */
 "alert.app.delete" = "모든 앱 데이터가 삭제됩니다. 앱 내부 파일들을 다시 다운로드해야 할 수도 있습니다. 정말로 삭제하시겠습니까?";
+
+/* (No Comment) */
 "alert.app.preferences" = "모든 게임 설정이 삭제됩니다. 인게임 설정(지역 등)을 다시 설정해야 할 수도 있으며 게임 에셋들이 다시 위치하는 데 몇 초가 걸릴 수 있습니다 (게임이 다시 확인할 뿐 다시 다운로드하지는 않습니다). 진행하시겠습니까?";
-"alert.wrongFileType" = "잘못된 파일 타입";
-"alert.wrongFileType.message" = ".ipa 파일을 선택하세요";
-"alert.restart" = "PlayCover를 다시 시작하세요.";
+
+/* (No Comment) */
+"alert.appCacheCleared" = "앱 데이터가 초기화 되었습니다!";
+
+/* (No Comment) */
 "alert.error" = "오류가 발생했습니다!";
-"alert.success" = "성공!";
+
+/* (No Comment) */
+"alert.errorImportKm" = "키맵핑을 불러오는데 문제가 발생했습니다!";
+
+/* (No Comment) */
+"alert.kmImported" = "키맵핑을 불러왔습니다!";
+
+/* (No Comment) */
 "alert.moveAppToApplications" = "PlayCover는 응용 프로그램 폴더에 있어야 합니다. 아래 버튼을 눌러 PlayCover를 응용 프로그램 폴더로 옮길 수 있습니다.";
+
+/* (No Comment) */
 "alert.moveAppToApplications.move" = "/Applications로 옮기기";
+
+/* (No Comment) */
+"alert.restart" = "PlayCover를 다시 시작하세요.";
+
+/* (No Comment) */
 "alert.storeAccount.regionIsNotValid" = "현재 계정이 다른 지역으로 설정되었습니다. 게임 실행 후 지역을 변경하고 게이트를 통과해 저장하세요. 그리고 다시 시도하세요";
 
+/* (No Comment) */
+"alert.success" = "성공!";
 
-"button.OK" = "확인";
-"button.Proceed" = "진행";
-"button.Cancel" = "취소";
-"button.Close" = "닫기";
-"button.Dismiss" = "닫기";
-"button.Install" = "설치";
-"error.corruptedIPA" = "이 .ipa 파일은 손상되었습니다. \"Info.plist\" 파일을 포함하고 있지 않습니다.";
-"error.waitInstallation" = "현재 설치가 끝날 때까지 기다려 주세요!";
-"error.reinstallApp" = "PlayCover를 다시 설치하십시오";
-"menubar.downloadMoreApps" = "더 많은 앱 다운로드";
-"menubar.downloadMoreApps.help" = "이 사이트에서 설치에 필요한 앱을 다운로드 하십시오";
-"menubar.exportToSideloady" = "Sideloadly를 위해 내보내기";
-"menubar.exportToSideloady.help" = "앱과 게임이 작동하기 위해 SIP 비활성화가 필요하지 않은 Sideloady를 위해 .ipa를 내보내기.";
+/* (No Comment) */
+"alert.wrongFileType" = "잘못된 파일 타입";
+
+/* (No Comment) */
+"alert.wrongFileType.message" = ".ipa 파일을 선택하세요";
+
+/* (No Comment) */
 "bottomBar.notices" = "공지";
+
+/* (No Comment) */
 "bottomBar.notices.help" = "개발자들로 부터의 공지와 뉴스";
+
+/* (No Comment) */
 "bottomBar.setupViewButton" = "문제가 있나요?";
-"failedToFetchNotices" = "공지를 불러오는데 실패하였습니다. 인터넷 연결 상태를 확인하십시오.";
-"logs.copied" = "로그 복사됨";
-"settings.toggle.km" = "키맵핑 활성화";
-"settings.toggle.gaming" = "게이밍 모드";
-"settings.toggle.km.info" = "터치만을 지원하는 게임에 키보드 지원을 추가합니다. Command + K를 통해 에디터 메뉴를 여세요.";
-"settings.toggle.adaptiveDisplay" = "적응형 화면";
-"settings.toggle.adaptiveDisplay.info" = "맥의 내장 디스플레이에 맞게 앱 창을 조정합니다.";
-"settings.toggle.jbBypass" = "탈옥 우회 활성화 (Alpha)";
-"settings.toggle.jbBypass.info" = "몇몇 게임의 탈옥 감지 우회를 시도합니다 (항상 작동할거라는 보장은 없음)";
-"settings.toggle.autoWindowResize" = "자동 창 크기 변경 활성화";
-"settings.toggle.disableDisplaySleep" = "화면 잠자기 비활성화";
-"settings.toggle.disableDisplaySleep.info" = "앱이 실행되는 동안 화면이 꺼지는 것을 방지합니다";
-"settings.picker.displayRefreshRate" = "화면 주사율";
-"settings.picker.screenSize" = "화면 해상도";
-"settings.picker.iosDevice" = "iOS 기종 선택";
-"settings.text.customHeight" = "높이";
-"settings.text.customWidth" = "너비";
-"settings.toggle.customSize" = "사용자 지정 창 크기 활성화";
-"settings.slider.mouseSensitivity" = "마우스 감도: ";
-"settings.reset" = "설정과 키맵핑 초기화";
-"settings.resetCompleted" = "기본 설정으로 초기화 되었습니다!";
-"setupView.header" = "흔한 문제 해결을 위해 다음 단계를 따르십시오";
-"setupView.subheader" = "앱 실행시 충돌, 로그인 안됨 등의 문제 해결";
-"setupView.step1" = "1) 맥의 전원을 끕니다";
-"setupView.step2" = "2) 맥이 완전히 종료되길 20초간 기다린 후 전원 버튼을 누릅니다";
-"setupView.step3" = "3) 애플 로고 밑에 ‘시동 옵션 로드 중’이 나타날 때까지 전원 버튼을 길게 누르십시오";
-"setupView.step4" = "4) 옵션을 클릭한 다음 계속을 클릭하십시오";
-"setupView.step5" = "5) 복구모드에서 터미널을 여십시오 (메뉴 바 -> 유틸리티 -> 터미널)";
-"setupView.step6" = "6) 다음 명령어를 입력하세요: ";
-"setupView.step7" = "7) 위 명령어를 입력 후 맥 비밀번호를 입력하세요 (비밀번호는 입력해도 표시되지 않습니다)";
-"setupView.step8" = "8) 메뉴바에 애플 로고를 클릭 후 재시동을 선택하세요";
-"setupView.step9" = "만약 에러가 발생한다면 전체 과정을 다시 수행하세요";
-"setupView.vidTutorials" = "영상 튜토리얼 (영어)";
-"setupView.youtube" = "YouTube";
-"setupView.bilibili" = "BiliBili";
-"setupView.pressButtonAndEnterPassword" = "아래를 통해 SIP를 비활성화 한 후에 맥 비밀번호를 입력하세요.";
-"setupView.pressButtonAndEnterPassword.button" = "SIP 비활성화";
-"notification.appInstalled" = "앱이 설치되었습니다!";
-"notification.appInstalled.message" = "PlayCover에서 확인하세요!";
-"setup.enterLoginPassword" = "맥 비밀번호를 입력하세요";
-"setup.incorrectPassword" = "비밀번호가 일치하지 않습니다. 다시 입력하세요";
-"setup.enterLoginPassword.info" = "맥 잠금해제를 위한 비밀번호를 입력하세요.";
-"setup.requireReboot" = "변경사항이 적용되기 위해서는 맥을 재시동 해야 합니다.";
-"menubar.log.copy" = "로그 복사";
-"menubar.documentation" = "문서";
-"menubar.website" = "공식 홈페이지";
-"menubar.github" = "GitHub";
-"menubar.discord" = "Discord";
-"menubar.showAppLinks" = "앱 링크를 보기";
-"menubar.checkForUpdates" = "업데이트 확인";
-"soundAlert.messageText" = "올바르지 않은 오디오 설정이 감지되었습니다!";
-"soundAlert.informativeText" = "현재 출력 장치의 샘플 레이트가 44.1 또는 48 KHz가 아닙니다! 충돌이 발생할 수도 있습니다. 현재 출력장치의 샘플 레이트를 48 KHz로 설정하시겠어요?";
-"soundAlert.successText" = "현재 출력장치의 샘플 레이트를 48 KHz로 설정했습니다";
-"soundAlert.failureText" = "현재 출력 장치의 샘플 레이트를 48 KHz로 설정하는데 실패하였습니다. ‘오디오 MIDI 설정’ 앱에서 수동으로 샘플 레이트를 설정할 수 있습니다";
-"xcode.install.message" = "명령어 라인 개발자 도구(Xcode Command Line Tools)를 설치한 후 PlayCover를 재시작 해야합니다";
-"xcode.install.success" = "명령어 라인 개발자 도구(Xcode Command Line Tools)가 성공적으로 설치되었습니다";
-"xcode.install.failed" = "명령어 라인 개발자 도구(Xcode Command Line Tools) 설치에 실패하였습니다";
-"xcode.install.progress" = "명령어 라인 개발자 도구(Xcode Command Line Tools) 설치중";
-"xcode.install.progress.subtext" = "인터넷 속도에 따라 5~10분정도 소요됩니다";
+
+/* (No Comment) */
+"button.Cancel" = "취소";
+
+/* (No Comment) */
+"button.Close" = "닫기";
+
+/* (No Comment) */
+"button.Dismiss" = "닫기";
+
+/* (No Comment) */
+"button.Install" = "설치";
+
+/* (No Comment) */
+"button.OK" = "확인";
+
+/* (No Comment) */
+"button.Proceed" = "진행";
+
+/* (No Comment) */
 "debug.crash" = "[DEBUG] Crash app";
+
+/* (No Comment) */
+"error.corruptedIPA" = "이 .ipa 파일은 손상되었습니다. \"Info.plist\" 파일을 포함하고 있지 않습니다.";
+
+/* (No Comment) */
+"error.reinstallApp" = "PlayCover를 다시 설치하십시오";
+
+/* (No Comment) */
+"error.waitInstallation" = "현재 설치가 끝날 때까지 기다려 주세요!";
+
+/* (No Comment) */
+"failedToFetchNotices" = "공지를 불러오는데 실패하였습니다. 인터넷 연결 상태를 확인하십시오.";
+
+/* (No Comment) */
+"logs.copied" = "로그 복사됨";
+
+/* (No Comment) */
+"menubar.checkForUpdates" = "업데이트 확인";
+
+/* (No Comment) */
+"menubar.discord" = "Discord";
+
+/* (No Comment) */
+"menubar.documentation" = "문서";
+
+/* (No Comment) */
+"menubar.downloadMoreApps" = "더 많은 앱 다운로드";
+
+/* (No Comment) */
+"menubar.downloadMoreApps.help" = "이 사이트에서 설치에 필요한 앱을 다운로드 하십시오";
+
+/* (No Comment) */
+"menubar.exportToSideloady" = "Sideloadly를 위해 내보내기";
+
+/* (No Comment) */
+"menubar.exportToSideloady.help" = "앱과 게임이 작동하기 위해 SIP 비활성화가 필요하지 않은 Sideloady를 위해 .ipa를 내보내기.";
+
+/* (No Comment) */
+"menubar.github" = "GitHub";
+
+/* (No Comment) */
+"menubar.log.copy" = "로그 복사";
+
+/* (No Comment) */
+"menubar.showAppLinks" = "앱 링크를 보기";
+
+/* (No Comment) */
+"menubar.website" = "공식 홈페이지";
+
+/* (No Comment) */
+"notification.appInstalled" = "앱이 설치되었습니다!";
+
+/* (No Comment) */
+"notification.appInstalled.message" = "PlayCover에서 확인하세요!";
+
+/* (No Comment) */
+"playapp.activateAccount" = "계정 불러오기";
+
+/* (No Comment) */
+"playapp.add" = "앱 추가";
+
+/* (No Comment) */
+"playapp.add.help" = "앱 파일을 드래그하거나 열어 설치.";
+
+/* (No Comment) */
+"playapp.clearCache" = "앱 데이터 삭제";
+
+/* (No Comment) */
+"playapp.clearPreferences" = "앱 환경설정 초기화";
+
+/* (No Comment) */
+"playapp.delete" = "앱 삭제";
+
+/* (No Comment) */
+"playapp.deleteAccount" = "계정 삭제하기";
+
+/* (No Comment) */
+"playapp.exportKm" = "키맵핑 내보내기";
+
+/* (No Comment) */
+"playapp.importKm" = "키맵핑 불러오기";
+
+/* (No Comment) */
+"playapp.install.addToLib" = "라이브러리에 앱을 추가하는중...";
+
+/* (No Comment) */
+"playapp.install.copy" = "앱 복사중...";
+
+/* (No Comment) */
+"playapp.install.createWrapper" = "앱 컨테이너 만드는중...";
+
+/* (No Comment) */
+"playapp.install.finished" = "완료";
+
+/* (No Comment) */
+"playapp.install.installPlayTools" = "PlayTools 설치중...";
+
+/* (No Comment) */
+"playapp.install.signing" = "앱 코드 서명중...";
+
+/* (No Comment) */
+"playapp.install.unzip" = ".ipa 파일에서 앱 추출하는중...";
+
+/* (No Comment) */
+"playapp.openCache" = "앱 데이터 열기";
+
+/* (No Comment) */
+"playapp.settings" = "앱 설정";
+
+/* (No Comment) */
+"playapp.showInFinder" = "Finder 에서 열기";
+
+/* (No Comment) */
+"playapp.storeCurrentAccount" = "현재 계정 보관하기";
+
+/* (No Comment) */
+"playapp.update" = "앱 업데이트";
+
+/* (No Comment) */
+"search.search" = "검색...";
+
+/* (No Comment) */
+"settings.picker.displayRefreshRate" = "화면 주사율";
+
+/* (No Comment) */
+"settings.picker.iosDevice" = "iOS 기종 선택";
+
+/* (No Comment) */
+"settings.picker.screenSize" = "화면 해상도";
+
+/* (No Comment) */
+"settings.reset" = "설정과 키맵핑 초기화";
+
+/* (No Comment) */
+"settings.resetCompleted" = "기본 설정으로 초기화 되었습니다!";
+
+/* %.f */
+"settings.slider.mouseSensitivity" = "마우스 감도: ";
+
+/* (No Comment) */
+"settings.text.customHeight" = "높이";
+
+/* (No Comment) */
+"settings.text.customWidth" = "너비";
+
+/* (No Comment) */
+"settings.toggle.adaptiveDisplay" = "적응형 화면";
+
+/* (No Comment) */
+"settings.toggle.adaptiveDisplay.info" = "맥의 내장 디스플레이에 맞게 앱 창을 조정합니다.";
+
+/* (No Comment) */
+"settings.toggle.autoWindowResize" = "자동 창 크기 변경 활성화";
+
+/* (No Comment) */
+"settings.toggle.customSize" = "사용자 지정 창 크기 활성화";
+
+/* (No Comment) */
+"settings.toggle.disableDisplaySleep" = "화면 잠자기 비활성화";
+
+/* (No Comment) */
+"settings.toggle.disableDisplaySleep.info" = "앱이 실행되는 동안 화면이 꺼지는 것을 방지합니다";
+
+/* (No Comment) */
+"settings.toggle.gaming" = "게이밍 모드";
+
+/* (No Comment) */
+"settings.toggle.jbBypass" = "탈옥 우회 활성화 (Alpha)";
+
+/* (No Comment) */
+"settings.toggle.jbBypass.info" = "몇몇 게임의 탈옥 감지 우회를 시도합니다 (항상 작동할거라는 보장은 없음)";
+
+/* (No Comment) */
+"settings.toggle.km" = "키맵핑 활성화";
+
+/* (No Comment) */
+"settings.toggle.km.info" = "터치만을 지원하는 게임에 키보드 지원을 추가합니다. Command + K를 통해 에디터 메뉴를 여세요.";
+
+/* (No Comment) */
+"setup.enterLoginPassword" = "맥 비밀번호를 입력하세요";
+
+/* (No Comment) */
+"setup.enterLoginPassword.info" = "맥 잠금해제를 위한 비밀번호를 입력하세요.";
+
+/* (No Comment) */
+"setup.incorrectPassword" = "비밀번호가 일치하지 않습니다. 다시 입력하세요";
+
+/* (No Comment) */
+"setup.requireReboot" = "변경사항이 적용되기 위해서는 맥을 재시동 해야 합니다.";
+
+/* (No Comment) */
+"setupView.bilibili" = "BiliBili";
+
+/* (No Comment) */
+"setupView.header" = "흔한 문제 해결을 위해 다음 단계를 따르십시오";
+
+/* (No Comment) */
+"setupView.pressButtonAndEnterPassword" = "아래를 통해 SIP를 비활성화 한 후에 맥 비밀번호를 입력하세요.";
+
+/* (No Comment) */
+"setupView.pressButtonAndEnterPassword.button" = "SIP 비활성화";
+
+/* (No Comment) */
+"setupView.step1" = "1) 맥의 전원을 끕니다";
+
+/* (No Comment) */
+"setupView.step2" = "2) 맥이 완전히 종료되길 20초간 기다린 후 전원 버튼을 누릅니다";
+
+/* (No Comment) */
+"setupView.step3" = "3) 애플 로고 밑에 ‘시동 옵션 로드 중’이 나타날 때까지 전원 버튼을 길게 누르십시오";
+
+/* (No Comment) */
+"setupView.step4" = "4) 옵션을 클릭한 다음 계속을 클릭하십시오";
+
+/* (No Comment) */
+"setupView.step5" = "5) 복구모드에서 터미널을 여십시오 (메뉴 바 -> 유틸리티 -> 터미널)";
+
+/* (No Comment) */
+"setupView.step6" = "6) 다음 명령어를 입력하세요: ";
+
+/* (No Comment) */
+"setupView.step7" = "7) 위 명령어를 입력 후 맥 비밀번호를 입력하세요 (비밀번호는 입력해도 표시되지 않습니다)";
+
+/* (No Comment) */
+"setupView.step8" = "8) 메뉴바에 애플 로고를 클릭 후 재시동을 선택하세요";
+
+/* (No Comment) */
+"setupView.step9" = "만약 에러가 발생한다면 전체 과정을 다시 수행하세요";
+
+/* (No Comment) */
+"setupView.subheader" = "앱 실행시 충돌, 로그인 안됨 등의 문제 해결";
+
+/* (No Comment) */
+"setupView.vidTutorials" = "영상 튜토리얼 (영어)";
+
+/* (No Comment) */
+"setupView.youtube" = "YouTube";
+
+/* (No Comment) */
+"soundAlert.failureText" = "현재 출력 장치의 샘플 레이트를 48 KHz로 설정하는데 실패하였습니다. ‘오디오 MIDI 설정’ 앱에서 수동으로 샘플 레이트를 설정할 수 있습니다";
+
+/* (No Comment) */
+"soundAlert.informativeText" = "현재 출력 장치의 샘플 레이트가 44.1 또는 48 KHz가 아닙니다! 충돌이 발생할 수도 있습니다. 현재 출력장치의 샘플 레이트를 48 KHz로 설정하시겠어요?";
+
+/* (No Comment) */
+"soundAlert.messageText" = "올바르지 않은 오디오 설정이 감지되었습니다!";
+
+/* (No Comment) */
+"soundAlert.successText" = "현재 출력장치의 샘플 레이트를 48 KHz로 설정했습니다";
+
+/* (No Comment) */
+"storeAccount.deleteAcc" = "계정 삭제하기";
+
+/* (No Comment) */
+"storeAccount.nameOfAcc" = "계정 이름";
+
+/* (No Comment) */
+"storeAccount.nameOfAcc.textfieldPlaceholder" = "계정 이름...";
+
+/* (No Comment) */
+"storeAccount.selectAcc" = "계정을 선택하세요";
+
+/* (No Comment) */
+"storeAccount.selectAccRegion" = "계정 지역 선택";
+
+/* (No Comment) */
+"storeAccount.selectAccRegion.asia" = "Asia";
+
+/* (No Comment) */
+"storeAccount.selectAccRegion.cht" = "TW, HK, MO";
+
+/* (No Comment) */
+"storeAccount.selectAccRegion.euro" = "Europe";
+
+/* (No Comment) */
+"storeAccount.selectAccRegion.usa" = "America";
+
+/* (No Comment) */
+"storeAccount.store" = "계정 보관하기";
+
+/* (No Comment) */
+"storeAccount.storeAcc" = "계정 보관하기";
+
+/* (No Comment) */
+"xcode.install.failed" = "명령어 라인 개발자 도구(Xcode Command Line Tools) 설치에 실패하였습니다";
+
+/* (No Comment) */
+"xcode.install.message" = "명령어 라인 개발자 도구(Xcode Command Line Tools)를 설치한 후 PlayCover를 재시작 해야합니다";
+
+/* (No Comment) */
+"xcode.install.progress" = "명령어 라인 개발자 도구(Xcode Command Line Tools) 설치중";
+
+/* (No Comment) */
+"xcode.install.progress.subtext" = "인터넷 속도에 따라 5~10분정도 소요됩니다";
+
+/* (No Comment) */
+"xcode.install.success" = "명령어 라인 개발자 도구(Xcode Command Line Tools)가 성공적으로 설치되었습니다";
+
