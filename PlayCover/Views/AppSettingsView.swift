@@ -12,7 +12,8 @@ struct AppSettingsView: View {
 
     @ObservedObject var viewModel: AppSettingsVM
 
-    @State var resetCompletedAlert: Bool = false
+    @State var resetSettingsCompletedAlert: Bool = false
+    @State var resetKmCompletedAlert: Bool = false
 
     var body: some View {
         VStack {
@@ -49,13 +50,14 @@ struct AppSettingsView: View {
             .frame(minWidth: 450, minHeight: 200)
             HStack {
                 Spacer()
-                Button("Reset settings") {
-                    resetCompletedAlert.toggle()
+                Button("settings.resetSettings") {
+                    resetSettingsCompletedAlert.toggle()
                     viewModel.app.settings.reset()
                     dismiss()
                 }
-                Button("Reset keymapping") {
-                    resetCompletedAlert.toggle()
+                Button("settings.resetKm") {
+                    resetKmCompletedAlert.toggle()
+                    // TODO: Make these buttons do different things lol
                     viewModel.app.settings.reset()
                     dismiss()
                 }
@@ -66,9 +68,13 @@ struct AppSettingsView: View {
                 .keyboardShortcut(.defaultAction)
             }
         }
-        .onChange(of: resetCompletedAlert) { _ in
+        .onChange(of: resetSettingsCompletedAlert) { _ in
             ToastVM.shared.showToast(toastType: .notice,
-                toastDetails: NSLocalizedString("settings.resetCompleted", comment: ""))
+                toastDetails: NSLocalizedString("settings.resetSettingsCompleted", comment: ""))
+        }
+        .onChange(of: resetKmCompletedAlert) { _ in
+            ToastVM.shared.showToast(toastType: .notice,
+                toastDetails: NSLocalizedString("settings.resetKmCompleted", comment: ""))
         }
         .padding()
     }
@@ -85,6 +91,7 @@ struct KeymappingView: View {
                         .help("settings.toggle.km.help")
                     Spacer()
                     Toggle("settings.toggle.mm", isOn: $settings.mouseMapping)
+                        .help("settings.toggle.mm.help")
                 }
                 HStack {
                     Text(NSLocalizedString("settings.slider.mouseSensitivity", comment: "")
@@ -134,16 +141,16 @@ struct GraphicsView: View {
                         Text("1080p").tag(2)
                         Text("1440p").tag(3)
                         Text("4K").tag(4)
-                        Text("Custom").tag(5)
+                        Text("settings.picker.adaptiveRes.5").tag(5)
                     }
                     .frame(width: 250, alignment: .leading)
                     .help("settings.picker.adaptiveRes.help")
                 }
                 HStack {
                     if settings.resolution == 5 {
-                        Text("Width:")
+                        Text(NSLocalizedString("settings.text.customWidth", comment: "") + ":")
                         Stepper {
-                            TextField("Width", value: $customWidth,
+                            TextField("settings.text.customWidth", value: $customWidth,
                                       formatter: GraphicsView.number,
                                       onCommit: {
                                         DispatchQueue.main.async {
@@ -158,9 +165,9 @@ struct GraphicsView: View {
                             customWidth -= 1
                         }
                         Spacer()
-                        Text("Height:")
+                        Text(NSLocalizedString("settings.text.customHeight", comment: "") + ":")
                         Stepper {
-                            TextField("Height", value: $customHeight,
+                            TextField("settings.text.customHeight", value: $customHeight,
                                       formatter: GraphicsView.number,
                                       onCommit: {
                                         DispatchQueue.main.async {
@@ -174,7 +181,7 @@ struct GraphicsView: View {
                             customHeight -= 1
                         }
                     } else if settings.resolution >= 2 && settings.resolution <= 4 {
-                        Text("Aspect ratio:")
+                        Text("settings.picker.aspectRatio")
                         Spacer()
                         Picker("", selection: $settings.aspectRatio) {
                             Text("4:3").tag(0)
@@ -195,6 +202,7 @@ struct GraphicsView: View {
                     .frame(alignment: .leading)
                     Spacer()
                     Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.disableTimeout)
+                        .help("settings.toggle.disableDisplaySleep.help")
                 }
                 Spacer()
             }
@@ -283,6 +291,7 @@ struct JBBypassView: View {
             VStack {
                 HStack {
                     Toggle("settings.toggle.jbBypass", isOn: $settings.bypass)
+                        .help("settings.toggle.jbBypass.help")
                     Spacer()
                 }
             }

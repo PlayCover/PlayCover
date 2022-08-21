@@ -68,20 +68,6 @@ class StoreVM: ObservableObject {
         return avaliable
     }
 
-    static func getNotice() -> String {
-        if let url = URL(string: "https://playcover.io/store/notice.txt") {
-            do {
-                if checkAvaliability(url: url) {
-                    let contents = try String(contentsOf: url)
-                    return contents
-                }
-            } catch {
-                print(error)
-            }
-        }
-        return "failedToFetchNotices"
-    }
-
     static func getStoreJson() -> String {
         if let url = URL(string: "https://playcover.io/store/store.json") {
             do {

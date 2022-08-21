@@ -49,6 +49,7 @@ struct AppLibraryView: View {
                     }
                 }, label: {
                     Image(systemName: "plus")
+                        .help("playapp.add")
                 })
             }
             ToolbarItem(placement: .primaryAction) {
