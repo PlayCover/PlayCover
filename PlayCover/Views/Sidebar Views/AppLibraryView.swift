@@ -33,7 +33,7 @@ struct AppLibraryView: View {
                         }
                         .padding(.vertical, 2)
                     }
-                    .listStyle(.inset(alternatesRowBackgrounds: true))
+                    .listStyle(.inset)
                     .animation(.spring(blendDuration: 0.1), value: geom.size.height)
                 }
             }

@@ -136,6 +136,9 @@ struct ConditionalView: View {
                         .frame(width: 20)
                     Text(app.name)
                     Spacer()
+                    Text(app.settings.info.bundleVersion)
+                        .padding(.horizontal, 5)
+                        .foregroundColor(.secondary)
                 }
             }
             .frame(maxWidth: .infinity)
