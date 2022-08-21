@@ -99,6 +99,15 @@ struct KeymappingView: View {
 struct GraphicsView: View {
     @Binding var settings: AppSettings
 
+    // Default resolution at 1920x1080
+    @State var resolution: Int = 2
+
+    // Default aspect ratio at 16:9
+    @State var aspectRatio: Int = 1
+    
+    @State var customWidth: Int = 1920
+    @State var customHeight: Int = 1080
+
     var body: some View {
         ScrollView {
             VStack {
@@ -116,16 +125,44 @@ struct GraphicsView: View {
                     Spacer()
                 }
                 HStack {
-                    Picker("settings.picker.adaptiveRes", selection: $settings.resolution) {
+                    Picker("settings.picker.adaptiveRes", selection: $resolution) {
                         Text("settings.picker.adaptiveRes.0").tag(0)
                         Text("settings.picker.adaptiveRes.1").tag(1)
                         Text("1080p").tag(2)
                         Text("1440p").tag(3)
                         Text("4K").tag(4)
+                        Text("Custom").tag(5)
                     }
                     .fixedSize()
                     .frame(alignment: .leading)
                     .help("settings.picker.adaptiveRes.help")
+                    Spacer()
+                }
+                HStack {
+                    if resolution == 5 {
+                        Stepper {
+                            Text("Width: 1920")
+                        } onIncrement: {
+
+                        } onDecrement: {
+
+                        }
+                        Stepper {
+                            Text("Height: 1080")
+                        } onIncrement: {
+
+                        } onDecrement: {
+
+                        }
+                    } else if resolution >= 2 && resolution <= 4 {
+                        Picker("Aspect Ratio:", selection: $aspectRatio) {
+                            Text("4:3").tag(0)
+                            Text("16:9").tag(1)
+                            Text("16:10").tag(2)
+                        }
+                        .pickerStyle(.radioGroup)
+                        .horizontalRadioGroupLayout()
+                    }
                     Spacer()
                 }
                 HStack {
@@ -141,7 +178,69 @@ struct GraphicsView: View {
                 Spacer()
             }
             .padding()
+            .onChange(of: resolution) { _ in
+                setResolution()
+            }
+            .onChange(of: aspectRatio) { _ in
+                setResolution()
+            }
         }
+    }
+    
+    func setResolution() -> Void {
+        var width: Int
+        var height: Int
+
+        switch resolution {
+        // Adaptive resolution = Auto
+        case 1:
+            width = Int(NSScreen.main?.visibleFrame.width ?? 1920)
+            height = Int(NSScreen.main?.visibleFrame.width ?? 1080)
+        // Adaptive resolution = 1080p
+        case 2:
+            height = 1080
+            width = getWidthFromAspectRatio(height)
+        // Adaptive resolution = 1440p
+        case 3:
+            height = 1440
+            width = getWidthFromAspectRatio(height)
+        // Adaptive resolution = 4K
+        case 4:
+            height = 2160
+            width = getWidthFromAspectRatio(height)
+        // Adaptive resolution = Custom
+        case 5:
+            width = customWidth
+            height = customHeight
+        // Adaptive resolution = Off
+        default:
+            width = 1920
+            height = 1080
+        }
+
+        settings.windowWidth = width
+        settings.windowHeight = height
+    }
+    
+    func getWidthFromAspectRatio(_ height: Int) -> Int {
+        var widthRatio: Int
+        var heightRatio: Int
+
+        switch aspectRatio {
+        case 0:
+            widthRatio = 4
+            heightRatio = 3
+        case 1:
+            widthRatio = 16
+            heightRatio = 9
+        case 2:
+            widthRatio = 16
+            heightRatio = 10
+        default:
+            widthRatio = 16
+            heightRatio = 9
+        }
+        return (height / heightRatio) * widthRatio
     }
 }
 

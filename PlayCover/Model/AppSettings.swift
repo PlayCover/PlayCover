@@ -97,14 +97,26 @@ class AppSettings {
         }
     }
 
-    private static let resolution = "pc.resolution"
-    var resolution: Int {
+    private static let windowWidth = "pc.windowWidth"
+    var windowWidth: Int {
         get {
-            return dictionary[AppSettings.resolution] as? Int ?? 1
+            return dictionary[AppSettings.windowWidth] as? Int ?? 1920
         }
         set {
             var dict = dictionary
-            dict[AppSettings.resolution] = newValue
+            dict[AppSettings.windowWidth] = newValue
+            dictionary = dict
+        }
+    }
+    
+    private static let windowHeight = "pc.windowHeight"
+    var windowHeight: Int {
+        get {
+            return dictionary[AppSettings.windowHeight] as? Int ?? 1080
+        }
+        set {
+            var dict = dictionary
+            dict[AppSettings.windowHeight] = newValue
             dictionary = dict
         }
     }
@@ -160,7 +172,7 @@ class AppSettings {
             if let prefs = allPrefs[info.bundleIdentifier] as? [String: Any] {
                 return prefs
             } else {
-                return [AppSettings.keymapping: info.isGame, AppSettings.resolution: info.isGame]
+                return [AppSettings.keymapping: info.isGame]
             }
         }
         set {
@@ -190,7 +202,8 @@ class AppSettings {
                  AppSettings.disableTimeout: false,
                  AppSettings.iosDeviceModel: "iPad8,6",
                  AppSettings.refreshRate: 60,
-                 AppSettings.resolution: 1]
+                 AppSettings.windowWidth: 1920,
+                 AppSettings.windowHeight: 1080]
         }
     }
 
