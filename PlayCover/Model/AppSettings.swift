@@ -121,6 +121,30 @@ class AppSettings {
         }
     }
 
+    private static let resolution = "pc.resolution"
+    var resolution: Int {
+        get {
+            return dictionary[AppSettings.resolution] as? Int ?? 2
+        }
+        set {
+            var dict = dictionary
+            dict[AppSettings.resolution] = newValue
+            dictionary = dict
+        }
+    }
+
+    private static let aspectRatio = "pc.aspectRatio"
+    var aspectRatio: Int {
+        get {
+            return dictionary[AppSettings.aspectRatio] as? Int ?? 1
+        }
+        set {
+            var dict = dictionary
+            dict[AppSettings.aspectRatio] = newValue
+            dictionary = dict
+        }
+    }
+
     private static let notch = "pc.hasNotch"
     var notch: Bool {
         get {
@@ -203,7 +227,9 @@ class AppSettings {
                  AppSettings.iosDeviceModel: "iPad8,6",
                  AppSettings.refreshRate: 60,
                  AppSettings.windowWidth: 1920,
-                 AppSettings.windowHeight: 1080]
+                 AppSettings.windowHeight: 1080,
+                 AppSettings.resolution: 2,
+                 AppSettings.aspectRatio: 1]
         }
     }
 

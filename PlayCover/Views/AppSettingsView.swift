@@ -99,14 +99,14 @@ struct KeymappingView: View {
 struct GraphicsView: View {
     @Binding var settings: AppSettings
 
-    // Default resolution at 1920x1080
-    @State var resolution: Int = 2
-
-    // Default aspect ratio at 16:9
-    @State var aspectRatio: Int = 1
-
     @State var customWidth: Int = 1920
     @State var customHeight: Int = 1080
+
+    static var number: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .none
+        return formatter
+    }
 
     var body: some View {
         ScrollView {
@@ -125,7 +125,7 @@ struct GraphicsView: View {
                     Spacer()
                 }
                 HStack {
-                    Picker("settings.picker.adaptiveRes", selection: $resolution) {
+                    Picker("settings.picker.adaptiveRes", selection: $settings.resolution) {
                         Text("settings.picker.adaptiveRes.0").tag(0)
                         Text("settings.picker.adaptiveRes.1").tag(1)
                         Text("1080p").tag(2)
@@ -139,23 +139,38 @@ struct GraphicsView: View {
                     Spacer()
                 }
                 HStack {
-                    if resolution == 5 {
+                    if settings.resolution == 5 {
+                        Text("Width:")
                         Stepper {
-                            Text("Width: 1920")
-                        } onIncrement: {
-
-                        } onDecrement: {
-
+                            TextField("Width", value: $customWidth,
+                                      formatter: GraphicsView.number,
+                                      onCommit: {
+                                        DispatchQueue.main.async {
+                                            NSApp.keyWindow?.makeFirstResponder(nil)
+                                        }
+                                      })
                         }
+                        onIncrement: {
+                            customWidth += 1
+                        } onDecrement: {
+                            customWidth -= 1
+                        }
+                        Text("Height:")
                         Stepper {
-                            Text("Height: 1080")
+                            TextField("Height", value: $customHeight,
+                                      formatter: GraphicsView.number,
+                                      onCommit: {
+                                        DispatchQueue.main.async {
+                                            NSApp.keyWindow?.makeFirstResponder(nil)
+                                        }
+                                      })
                         } onIncrement: {
-
+                            customHeight += 1
                         } onDecrement: {
-
+                            customHeight -= 1
                         }
-                    } else if resolution >= 2 && resolution <= 4 {
-                        Picker("Aspect Ratio:", selection: $aspectRatio) {
+                    } else if settings.resolution >= 2 && settings.resolution <= 4 {
+                        Picker("Aspect Ratio:", selection: $settings.aspectRatio) {
                             Text("4:3").tag(0)
                             Text("16:9").tag(1)
                             Text("16:10").tag(2)
@@ -178,10 +193,20 @@ struct GraphicsView: View {
                 Spacer()
             }
             .padding()
-            .onChange(of: resolution) { _ in
+            .onAppear {
+                customWidth = settings.windowWidth
+                customHeight = settings.windowHeight
+            }
+            .onChange(of: settings.resolution) { _ in
                 setResolution()
             }
-            .onChange(of: aspectRatio) { _ in
+            .onChange(of: settings.aspectRatio) { _ in
+                setResolution()
+            }
+            .onChange(of: customWidth) { _ in
+                setResolution()
+            }
+            .onChange(of: customHeight) { _ in
                 setResolution()
             }
         }
@@ -191,7 +216,7 @@ struct GraphicsView: View {
         var width: Int
         var height: Int
 
-        switch resolution {
+        switch settings.resolution {
         // Adaptive resolution = Auto
         case 1:
             width = Int(NSScreen.main?.visibleFrame.width ?? 1920)
@@ -226,7 +251,7 @@ struct GraphicsView: View {
         var widthRatio: Int
         var heightRatio: Int
 
-        switch aspectRatio {
+        switch settings.aspectRatio {
         case 0:
             widthRatio = 4
             heightRatio = 3
