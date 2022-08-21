@@ -185,6 +185,15 @@
 "playapp.update" = "更新應用程式";
 
 /* (No Comment) */
+"preferences.button.checkForUpdates" = "Check for updates now...";
+
+/* (No Comment) */
+"preferences.tab.updates" = "Updates";
+
+/* (No Comment) */
+"preferences.toggle.automaticUpdates" = "Automatically check for updates";
+
+/* (No Comment) */
 "search.search" = "搜尋...";
 
 /* (No Comment) */

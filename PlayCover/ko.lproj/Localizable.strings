@@ -185,6 +185,15 @@
 "playapp.update" = "앱 업데이트";
 
 /* (No Comment) */
+"preferences.button.checkForUpdates" = "지금 업데이트 확인...";
+
+/* (No Comment) */
+"preferences.tab.updates" = "업데이트";
+
+/* (No Comment) */
+"preferences.toggle.automaticUpdates" = "자동으로 업데이트 확인";
+
+/* (No Comment) */
 "search.search" = "검색...";
 
 /* (No Comment) */
