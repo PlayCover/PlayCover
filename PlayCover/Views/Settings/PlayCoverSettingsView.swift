@@ -19,7 +19,7 @@ struct PlayCoverSettingsView: View {
         TabView {
             UpdateSettings(updaterViewModel: updaterViewModel)
                 .tabItem {
-                    Label("Updates", systemImage: "square.and.arrow.down")
+                    Label("preferences.tab.updates", systemImage: "square.and.arrow.down")
                 }
                 .tag(Tabs.updates)
         }
