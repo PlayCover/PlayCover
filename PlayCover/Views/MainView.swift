@@ -37,6 +37,9 @@ struct MainView: View {
                 }
                 .background(SplitViewAccessor(sideCollapsed: $collapsed))
             }
+            .onAppear {
+                self.selectedView = 1
+            }
             .toolbar {
                 ToolbarItem(placement: .navigation) {
                     Button(action: toggleSidebar, label: {
