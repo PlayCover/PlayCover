@@ -74,7 +74,7 @@ struct MainView: View {
                 Text("alert.moveAppToApplications.subtitle")
             }
         }
-        .frame(minWidth: 820, minHeight: 400)
+        .frame(minWidth: 650, minHeight: 330)
     }
 
     private func toggleSidebar() {

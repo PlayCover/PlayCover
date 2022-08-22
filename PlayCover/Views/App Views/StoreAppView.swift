@@ -16,7 +16,10 @@ struct StoreAppView: View {
     var body: some View {
         StoreAppConditionalView(app: app, isList: isList)
         .background(
-            isHover ? Color.gray.opacity(0.3) : Color.clear
+            withAnimation {
+                isHover ? Color.gray.opacity(0.3) : Color.clear
+            }
+                .animation(.easeInOut(duration: 0.15), value: isHover)
         )
         .cornerRadius(10)
         .onTapGesture {
