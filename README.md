@@ -5,7 +5,6 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![GPLv3 License][license-shield]][license-url]
-[![Weblate](https://img.shields.io/weblate/progress/playcover?style=for-the-badge)](https://hosted.weblate.org/projects/playcover/playcover/)
 </h1>
 
 
@@ -88,7 +87,14 @@ To uninstall:
 
 <p align="right"><a href="#top">⬆️ Back to top️</a></p>
 
+<!-- TRANSLATIONS -->
+## Translations
 
+This app is translated by the community. If you would like to help us with translations, click the graph to see more.
+
+[![Translation status](https://hosted.weblate.org/widgets/playcover/-/playcover/multi-auto.svg)](https://hosted.weblate.org/engage/playcover/)
+
+<p align="right"><a href="#top">⬆️ Back to top️</a></p>
 
 <!-- LICENSE -->
 ## License
