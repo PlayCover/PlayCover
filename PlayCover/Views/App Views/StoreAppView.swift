@@ -44,6 +44,7 @@ struct StoreAppConditionalView: View {
                 Image(systemName: "arrow.down.circle")
                 Spacer()
                     .frame(width: 20)
+                // TODO: Fix async image appearence
                 AsyncImage(
                     url: URL(string: app.icon),
                     content: { image in
