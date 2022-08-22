@@ -18,6 +18,10 @@ struct PlayAppView: View {
     @State var showImportSuccess: Bool = false
     @State var showImportFail: Bool = false
 
+    @State private var showChangeGenshinAccount: Bool = false
+    @State private var showStoreGenshinAccount: Bool = false
+    @State private var showDeleteGenshinAccount: Bool = false
+
     var body: some View {
         PlayAppConditionalView(app: app, isList: isList)
             .background(
@@ -87,10 +91,41 @@ struct PlayAppView: View {
                     Text("playapp.delete")
                     Image(systemName: "trash")
                 })
+                if app.name == "Genshin Impact" {
+                    Divider().padding(.leading, 36).padding(.trailing, 36)
+                    Button(action: {
+                        showStoreGenshinAccount.toggle()
+                    }, label: {
+                        Text("playapp.storeCurrentAccount")
+                        Image(systemName: "folder.badge.person.crop")
+                    })
+                    Button(action: {
+                        showChangeGenshinAccount.toggle()
+                    }, label: {
+                        Text("playapp.activateAccount")
+                        Image(systemName: "folder.badge.gearshape")
+                    })
+                    Button(action: {
+                        showDeleteGenshinAccount.toggle()
+                    }, label: {
+                        Text("playapp.deleteAccount")
+                    Image(systemName: "folder.badge.minus")
+                    })
+                    Divider().padding(.leading, 36).padding(.trailing, 36)
+                }
             }
             .onHover(perform: { hovering in
                 isHover = hovering
             })
+            .sheet(isPresented: $showChangeGenshinAccount) {
+                ChangeGenshinAccountView()
+            }
+            .sheet(isPresented: $showStoreGenshinAccount) {
+                StoreGenshinAccountView()
+            }
+            .sheet(isPresented: $showDeleteGenshinAccount) {
+                DeleteGenshinAccountView()
+            }
             .alert("alert.app.delete", isPresented: $showClearCacheAlert) {
                 Button("button.Proceed", role: .cancel) {
                     app.container?.clear()
