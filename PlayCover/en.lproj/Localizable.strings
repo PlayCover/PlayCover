@@ -126,6 +126,7 @@
 "xcode.install.message" = "You need to install Xcode Command Line Tools and restart PlayCover";
 "xcode.install.success" = "Xcode Command Line Tools installation succeeded";
 "xcode.install.failed" = "Xcode Command Line Tools intallation failed";
+"xcode.install.failed.subtext" = "Please install Xcode Command Line tools from Terminal with the command `xcode-select --install`, and restart PlayCover";
 "xcode.install.progress" = "Installing Xcode Command Line Tools";
 "xcode.install.progress.subtext" = "May take around 5-10 minutes depending on internet speed";
 

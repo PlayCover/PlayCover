@@ -5,6 +5,10 @@
 
 import SwiftUI
 
+enum XcodeInstallStatus {
+    case failed, success, installing
+}
+
 struct MainView: View {
     @Environment(\.openURL) var openURL
     @EnvironmentObject var install: InstallVM
@@ -18,6 +22,8 @@ struct MainView: View {
     @State private var navWidth: CGFloat = 0
     @State private var viewWidth: CGFloat = 0
     @State private var collapsed: Bool = false
+    @State private var isInstallingXcodeCli = false
+    @State private var xcodeInstallStatus: XcodeInstallStatus = .installing
 
     var body: some View {
         GeometryReader { viewGeom in
@@ -73,8 +79,87 @@ struct MainView: View {
             } message: {
                 Text("alert.moveAppToApplications.subtitle")
             }
+            .sheet(isPresented: Binding<Bool>(
+                get: {return !xcodeCliInstalled},
+                set: {value in xcodeCliInstalled = value})) {
+                VStack(spacing: 12) {
+                    switch xcodeInstallStatus {
+                    case .installing:
+                        if !isInstallingXcodeCli {
+                            Text("xcode.install.message")
+                            .font(.title3)
+                            Button("button.Install") {
+                                installXcodeCli()
+                                isInstallingXcodeCli = true
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .tint(.accentColor)
+                            .controlSize(.large)
+                        } else {
+                            VStack {
+                                ProgressView("xcode.install.progress")
+                                    .progressViewStyle(.circular)
+                                Text("xcode.install.progress.subtext")
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                    case .success:
+                        Text("xcode.install.success")
+                            .font(.title3)
+                        Text("alert.restart")
+                            .foregroundColor(.secondary)
+                        Button("button.Close") {
+                            NSApplication.shared.terminate(nil)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(.accentColor)
+                        .controlSize(.large)
+                    case .failed:
+                        Text("xcode.install.failed")
+                            .font(.title3)
+                        Text("")
+                            .foregroundColor(.secondary)
+                    }
+                }
+                .padding()
+                .frame(height: 150)
+            }
         }
         .frame(minWidth: 650, minHeight: 330)
+    }
+
+    func installXcodeCli() {
+        if let path = Bundle.main.url(forResource: "xcode_install", withExtension: "scpt") {
+            DispatchQueue.global(qos: .userInteractive).async {
+                let task = Process()
+                let taskOutput = Pipe()
+                task.launchPath = "/usr/bin/osascript"
+                task.arguments = ["\(path.path)"]
+                task.standardOutput = taskOutput
+                task.launch()
+                task.waitUntilExit()
+
+                DispatchQueue.main.async {
+                    let data = taskOutput.fileHandleForReading.readDataToEndOfFile()
+                    if let output = String(data: data, encoding: .utf8) {
+                        let trimmed = output.filter { !$0.isWhitespace }
+                        if trimmed.isEmpty {
+                            isInstallingXcodeCli = false
+                            xcodeInstallStatus = .success
+                        } else {
+                            isInstallingXcodeCli = false
+                            xcodeInstallStatus = .failed
+                        }
+                    } else {
+                        isInstallingXcodeCli = false
+                        Log.shared.error("Failed to interpret console output!")
+                    }
+                }
+            }
+        } else {
+            isInstallingXcodeCli = false
+            xcodeInstallStatus = .failed
+        }
     }
 
     private func toggleSidebar() {
