@@ -373,3 +373,5 @@
 /* (No Comment) */
 "xcode.install.success" = "Xcode 終端工具安裝成功";
 
+/* (No Comment) */
+"settings.toggle.portraitMode" = "Portrait mode";
