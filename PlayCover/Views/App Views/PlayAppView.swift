@@ -67,7 +67,8 @@ struct PlayAppView: View {
                     Text("playapp.clearPreferences")
                     Image(systemName: "xmark.bin")
                 })
-                Button(action: {
+                // TODO: Re-implement keymap import/export
+                /*Button(action: {
                     app.settings.importOf { result in
                         if result != nil {
                             showImportSuccess.toggle()
@@ -84,7 +85,7 @@ struct PlayAppView: View {
                 }, label: {
                     Text("playapp.exportKm")
                     Image(systemName: "arrowshape.turn.up.left")
-                })
+                })*/
                 Button(action: {
                     app.deleteApp()
                 }, label: {

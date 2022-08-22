@@ -9,16 +9,16 @@ import Yams
 class Entitlements {
 
     static var playCoverEntitlementsDir: URL {
-        let entFodler = PlayTools.playCoverContainer.appendingPathComponent("Entitlements")
-        if !fileMgr.fileExists(atPath: entFodler.path) {
+        let entFolder = PlayTools.playCoverContainer.appendingPathComponent("Entitlements")
+        if !fileMgr.fileExists(atPath: entFolder.path) {
             do {
-                try fileMgr.createDirectory(at: entFodler, withIntermediateDirectories: true, attributes: [:])
+                try fileMgr.createDirectory(at: entFolder, withIntermediateDirectories: true, attributes: [:])
             } catch {
                 Log.shared.error(error)
             }
 
         }
-        return entFodler
+        return entFolder
     }
 
     static func dumpEntitlements(exec: URL) throws -> [String: Any] {
@@ -84,7 +84,7 @@ class Entitlements {
 
         sandboxProfile.append(contentsOf: PlayRules.buildRules(rules: rules.allow ?? [], bundleID: bundleID))
 
-        if app.settings.bypass {
+        if app.settings.settings.bypass {
 			for file in PlayRules.buildRules(rules: rules.blacklist ?? [], bundleID: bundleID) {
                 sandboxProfile.append(
                     """
@@ -213,4 +213,33 @@ class Entitlements {
 
 public func ==<K, L: Hashable, R: Hashable>(lhs: [K: L], rhs: [K: R] ) -> Bool {
    (lhs as NSDictionary).isEqual(to: rhs)
+}
+
+extension Dictionary {
+    func store(_ toUrl: URL) throws {
+        let data = try PropertyListSerialization.data(fromPropertyList: self, format: .xml, options: 0)
+        try data.write(to: toUrl)
+    }
+
+    static func read( _ from: URL) throws -> Dictionary? {
+        var format = PropertyListSerialization.PropertyListFormat.xml
+        if let data = FileManager.default.contents(atPath: from.path) {
+            return try PropertyListSerialization
+                .propertyList(from: data,
+                              options: .mutableContainersAndLeaves,
+                              format: &format) as? Dictionary
+        }
+        return nil
+    }
+
+    static func read( _ from: String) throws -> Dictionary? {
+        var format = PropertyListSerialization.PropertyListFormat.xml
+        if let data = from.data(using: .utf8) {
+            return try PropertyListSerialization
+                .propertyList(from: data,
+                              options: .mutableContainersAndLeaves,
+                              format: &format) as? Dictionary
+        }
+        return nil
+    }
 }

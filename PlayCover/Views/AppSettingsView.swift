@@ -87,17 +87,17 @@ struct KeymappingView: View {
         ScrollView {
             VStack {
                 HStack {
-                    Toggle("settings.toggle.km", isOn: $settings.keymapping)
+                    Toggle("settings.toggle.km", isOn: $settings.settings.keymapping)
                         .help("settings.toggle.km.help")
                     Spacer()
-                    Toggle("settings.toggle.mm", isOn: $settings.mouseMapping)
+                    Toggle("settings.toggle.mm", isOn: $settings.settings.mouseMapping)
                         .help("settings.toggle.mm.help")
                 }
                 HStack {
                     Text(NSLocalizedString("settings.slider.mouseSensitivity", comment: "")
-                         + String(format: "%.f", settings.sensitivity))
+                         + String(format: "%.f", settings.settings.sensitivity))
                     Spacer()
-                    Slider(value: $settings.sensitivity, in: 0...100, label: {EmptyView()})
+                    Slider(value: $settings.settings.sensitivity, in: 0...100, label: {EmptyView()})
                     .frame(width: 250)
                 }
                 Spacer()
@@ -125,7 +125,7 @@ struct GraphicsView: View {
                 HStack {
                     Text("settings.picker.iosDevice")
                     Spacer()
-                    Picker("", selection: $settings.iosDeviceModel) {
+                    Picker("", selection: $settings.settings.iosDeviceModel) {
                         Text("iPad Pro (12.9-inch) (1st gen) | A9X | 4GB").tag("iPad6,7")
                         Text("iPad Pro (12.9-inch) (3rd gen) | A12Z | 4GB").tag("iPad8,6")
                         Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
@@ -135,7 +135,7 @@ struct GraphicsView: View {
                 HStack {
                     Text("settings.picker.adaptiveRes")
                     Spacer()
-                    Picker("", selection: $settings.resolution) {
+                    Picker("", selection: $settings.settings.resolution) {
                         Text("settings.picker.adaptiveRes.0").tag(0)
                         Text("settings.picker.adaptiveRes.1").tag(1)
                         Text("1080p").tag(2)
@@ -147,7 +147,7 @@ struct GraphicsView: View {
                     .help("settings.picker.adaptiveRes.help")
                 }
                 HStack {
-                    if settings.resolution == 5 {
+                    if settings.settings.resolution == 5 {
                         Text(NSLocalizedString("settings.text.customWidth", comment: "") + ":")
                         Stepper {
                             TextField("settings.text.customWidth", value: $customWidth,
@@ -180,10 +180,10 @@ struct GraphicsView: View {
                         } onDecrement: {
                             customHeight -= 1
                         }
-                    } else if settings.resolution >= 2 && settings.resolution <= 4 {
+                    } else if settings.settings.resolution >= 2 && settings.settings.resolution <= 4 {
                         Text("settings.picker.aspectRatio")
                         Spacer()
-                        Picker("", selection: $settings.aspectRatio) {
+                        Picker("", selection: $settings.settings.aspectRatio) {
                             Text("4:3").tag(0)
                             Text("16:9").tag(1)
                             Text("16:10").tag(2)
@@ -193,7 +193,7 @@ struct GraphicsView: View {
                     }
                 }
                 HStack {
-                    Picker("settings.picker.refreshRate", selection: $settings.refreshRate) {
+                    Picker("settings.picker.refreshRate", selection: $settings.settings.refreshRate) {
                         Text("60 Hz").tag(60)
                         Text("120 Hz").tag(120)
                     }
@@ -201,20 +201,20 @@ struct GraphicsView: View {
                     .fixedSize()
                     .frame(alignment: .leading)
                     Spacer()
-                    Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.disableTimeout)
+                    Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.settings.disableTimeout)
                         .help("settings.toggle.disableDisplaySleep.help")
                 }
                 Spacer()
             }
             .padding()
             .onAppear {
-                customWidth = settings.windowWidth
-                customHeight = settings.windowHeight
+                customWidth = settings.settings.windowWidth
+                customHeight = settings.settings.windowHeight
             }
-            .onChange(of: settings.resolution) { _ in
+            .onChange(of: settings.settings.resolution) { _ in
                 setResolution()
             }
-            .onChange(of: settings.aspectRatio) { _ in
+            .onChange(of: settings.settings.aspectRatio) { _ in
                 setResolution()
             }
             .onChange(of: customWidth) { _ in
@@ -230,7 +230,7 @@ struct GraphicsView: View {
         var width: Int
         var height: Int
 
-        switch settings.resolution {
+        switch settings.settings.resolution {
         // Adaptive resolution = Auto
         case 1:
             width = Int(NSScreen.main?.visibleFrame.width ?? 1920)
@@ -257,15 +257,15 @@ struct GraphicsView: View {
             height = 1080
         }
 
-        settings.windowWidth = width
-        settings.windowHeight = height
+        settings.settings.windowWidth = width
+        settings.settings.windowHeight = height
     }
 
     func getWidthFromAspectRatio(_ height: Int) -> Int {
         var widthRatio: Int
         var heightRatio: Int
 
-        switch settings.aspectRatio {
+        switch settings.settings.aspectRatio {
         case 0:
             widthRatio = 4
             heightRatio = 3
@@ -290,7 +290,7 @@ struct JBBypassView: View {
         ScrollView {
             VStack {
                 HStack {
-                    Toggle("settings.toggle.jbBypass", isOn: $settings.bypass)
+                    Toggle("settings.toggle.jbBypass", isOn: $settings.settings.bypass)
                         .help("settings.toggle.jbBypass.help")
                     Spacer()
                 }

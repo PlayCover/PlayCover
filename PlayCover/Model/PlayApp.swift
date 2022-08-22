@@ -45,7 +45,7 @@ class PlayApp: BaseApp {
                                            configuration: NSWorkspace.OpenConfiguration(),
                                            completionHandler: {runningApp, error in
             guard error == nil else {return}
-            if self.settings.disableTimeout {
+            if self.settings.settings.disableTimeout {
                 // Yeet into a thread
                 DispatchQueue.global().async {
                     debugPrint("Disabling timeout...")
