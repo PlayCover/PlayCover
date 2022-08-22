@@ -5,6 +5,7 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![GPLv3 License][license-shield]][license-url]
+[![Weblate](weblate-shield)](weblate-url)
 </h1>
 
 
@@ -154,3 +155,5 @@ These open source libraries were used to create this project.
 [issues-url]: https://github.com/PlayCover/PlayCover/issues
 [license-shield]: https://img.shields.io/github/license/PlayCover/PlayCover.svg?style=for-the-badge
 [license-url]: https://github.com/PlayCover/PlayCover/blob/master/LICENSE
+[weblate-shield]: https://img.shields.io/weblate/progress/playcover?style=for-the-badge
+[weblate-url]: https://hosted.weblate.org/projects/playcover/playcover/
