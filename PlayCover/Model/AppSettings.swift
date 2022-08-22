@@ -8,6 +8,7 @@ import UniformTypeIdentifiers
 import AppKit
 
 class AppSettings {
+    // TODO: Use per-app files instead of a monolithic file
     public static let settingsUrl = URL(fileURLWithPath: "/Users/\(NSUserName())/Library/Preferences/playcover.plist")
 
     public func sync() {
