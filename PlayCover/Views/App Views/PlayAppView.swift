@@ -91,7 +91,7 @@ struct PlayAppView: View {
                     Text("playapp.delete")
                     Image(systemName: "trash")
                 })
-                if app.name == "Genshin Impact" {
+                if app.info.bundleIdentifier == "com.miHoYo.GenshinImpact" {
                     Divider().padding(.leading, 36).padding(.trailing, 36)
                     Button(action: {
                         showStoreGenshinAccount.toggle()
