@@ -13,7 +13,7 @@ class ToastVM: ObservableObject {
     @Published var toasts: [ToastInfo] = []
 
     func showToast(toastType: ToastType, toastDetails: String) {
-        toasts.append(ToastInfo(toastType: toastType, toastDetails: toastDetails, timeRemaining: 5))
+        toasts.append(ToastInfo(toastType: toastType, toastDetails: toastDetails, timeRemaining: 2))
     }
 }
 
