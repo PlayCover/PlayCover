@@ -120,3 +120,15 @@
 "settings.text.customHeight" = "Height";
 "settings.text.customWidth" = "Width";
 "settings.toggle.customSize" = "Enable custom window size";
+
+/* (No Comment) */
+"preferences.button.checkForUpdates" = "Check for updates now...";
+
+/* (No Comment) */
+"settings.toggle.portraitMode" = "Portrait mode";
+
+/* (No Comment) */
+"preferences.tab.updates" = "Updates";
+
+/* (No Comment) */
+"preferences.toggle.automaticUpdates" = "Automatically check for updates";
