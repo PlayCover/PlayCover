@@ -1,26 +1,27 @@
 //
-//  ChangeGenshinAccountView.swift
+//  DeleteGenshinStoredAccountView.swift
 //  PlayCover
 //
-//  Created by José Elias Moreno villegas on 21/07/22.
+//  Created by José Elias Moreno villegas on 23/07/22.
 //
+
 import SwiftUI
 
-struct ChangeGenshinAccountView: View {
+struct DeleteGenshinAccountView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var folderName: String = ""
     @State var accountList: [String] = getAccountList()
-    @State var restoreAlert: Bool = false
+    @State var deleteAlert: Bool = false
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
             Spacer()
-            Text("storeAccount.selectAcc").font(.largeTitle).lineLimit(1).fixedSize()
+            Text("storeAccount.deleteAcc").font(.largeTitle).lineLimit(1).fixedSize()
             Spacer()
             ForEach(accountList, id: \.self) { account in
                 if account != ".DS_Store"{
                     Button(action: {
                         self.folderName = account
-                        self.restoreAlert = true
+                        self.deleteAlert = true
                     }, label: {
                         HStack {
                             Image(systemName: "person.fill")
@@ -29,17 +30,15 @@ struct ChangeGenshinAccountView: View {
                     }).controlSize(.large).buttonStyle(.automatic).font(.title3)
                         .foregroundColor(.accentColor)
                         .frame(width: 300, alignment: .center)
-                        .alert("Really Restore Account?", isPresented: $restoreAlert, actions: {
-                            Button("Restore Account") {
-                                restoreUserData(folderName: account)
+                        .alert("Really Delete Account?", isPresented: $deleteAlert) {
+                            Button("Delete \"\(folderName)\" Account", role: .destructive) {
+                                deleteStoredAccount(folderName: account)
                                 self.presentationMode.wrappedValue.dismiss()
-                            }
-                            .controlSize(.large).padding()
-                            Button("Cancel", role: .cancel) {}
+                            }.foregroundColor(.red)
+                            Button("button.Cancel", role: .cancel) {}
                                 .controlSize(.large).padding()
-                        }, message: {
-                            Text("This will override your currently signed-in account.")
-                        })
+                                .keyboardShortcut(.defaultAction)
+                        }
                 }
             }.frame(width: 450)
             Button(action: {
@@ -47,13 +46,14 @@ struct ChangeGenshinAccountView: View {
             }, label: {
                 Text("button.Cancel").frame(alignment: .center)
             }).controlSize(.large).padding()
+            Spacer()
         }
         .frame(minWidth: 300)
     }
 }
 
-struct ChangeGenshinAccountView_preview: PreviewProvider {
+struct DeleteGenshinAccountView_preview: PreviewProvider {
     static var previews: some View {
-        ChangeGenshinAccountView()
+        DeleteGenshinAccountView()
     }
 }

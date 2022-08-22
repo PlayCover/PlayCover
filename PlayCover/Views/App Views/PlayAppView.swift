@@ -3,55 +3,37 @@
 //  PlayCover
 //
 
-import Foundation
 import SwiftUI
-import AlertToast
 
 struct PlayAppView: View {
     @State var app: PlayApp
+    @State var isList: Bool
 
     @State private var showSettings = false
     @State private var showClearCacheAlert = false
     @State private var showClearCacheToast = false
     @State private var showClearPreferencesAlert = false
 
-    @Environment(\.colorScheme) var colorScheme
-
     @State var isHover: Bool = false
-
     @State var showImportSuccess: Bool = false
     @State var showImportFail: Bool = false
+
     @State private var showChangeGenshinAccount: Bool = false
     @State private var showStoreGenshinAccount: Bool = false
     @State private var showDeleteGenshinAccount: Bool = false
-    func elementColor(_ dark: Bool) -> Color {
-        return isHover ? Color.gray.opacity(0.3) : Color.black.opacity(0.0)
-    }
 
     var body: some View {
-
-        VStack(alignment: .center, spacing: 0) {
-            if let img = app.icon {
-                Image(nsImage: img).resizable()
-                    .frame(width: 88, height: 88).cornerRadius(10).shadow(radius: 1).padding(.top, 8)
-                Text(app.name)
-                    .frame(width: 150, height: 40)
-                    .lineLimit(2)
-                    .multilineTextAlignment(.center)
-                    .padding(.bottom, 14)
-            }
-        }.background(colorScheme == .dark ? elementColor(true) : elementColor(false))
-            .cornerRadius(16.0)
-            .frame(width: 150, height: 150)
+        PlayAppConditionalView(app: app, isList: isList)
+            .background(
+                withAnimation {
+                    isHover ? Color.gray.opacity(0.3) : Color.clear
+                }
+                    .animation(.easeInOut(duration: 0.15), value: isHover)
+            )
+            .cornerRadius(10)
             .onTapGesture {
                 isHover = false
                 shell.removeTwitterSessionCookie()
-                if app.settings.enableWindowAutoSize {
-                    // Float(NSScreen.main?.visibleFrame.width ?? 1920)
-                    app.settings.gameWindowSizeWidth = Float(NSScreen.main?.frame.width ?? 1920)
-                    // Float(NSScreen.main?.visibleFrame.height ?? 1080)
-                    app.settings.gameWindowSizeHeight = Float(NSScreen.main?.frame.height ?? 1080)
-                }
                 app.launch()
             }
             .contextMenu {
@@ -61,7 +43,6 @@ struct PlayAppView: View {
                     Text("playapp.settings")
                     Image(systemName: "gear")
                 })
-
                 Button(action: {
                     app.showInFinder()
                 }, label: {
@@ -74,7 +55,6 @@ struct PlayAppView: View {
                     Text("playapp.openCache")
                     Image(systemName: "folder")
                 })
-
                 Button(action: {
                     showClearCacheAlert.toggle()
                 }, label: {
@@ -87,34 +67,31 @@ struct PlayAppView: View {
                     Text("playapp.clearPreferences")
                     Image(systemName: "xmark.bin")
                 })
-
                 Button(action: {
                     app.settings.importOf { result in
                         if result != nil {
-                            showImportSuccess = true
+                            showImportSuccess.toggle()
                         } else {
-                            showImportFail = true
+                            showImportFail.toggle()
                         }
                     }
                 }, label: {
                     Text("playapp.importKm")
                     Image(systemName: "square.and.arrow.down.on.square.fill")
                 })
-
                 Button(action: {
                     app.settings.export()
                 }, label: {
                     Text("playapp.exportKm")
                     Image(systemName: "arrowshape.turn.up.left")
                 })
-
                 Button(action: {
                     app.deleteApp()
                 }, label: {
                     Text("playapp.delete")
                     Image(systemName: "trash")
                 })
-                if app.name == "Genshin Impact" {
+                if app.info.bundleIdentifier == "com.miHoYo.GenshinImpact" {
                     Divider().padding(.leading, 36).padding(.trailing, 36)
                     Button(action: {
                         showStoreGenshinAccount.toggle()
@@ -132,53 +109,93 @@ struct PlayAppView: View {
                         showDeleteGenshinAccount.toggle()
                     }, label: {
                         Text("playapp.deleteAccount")
-                        Image(systemName: "folder.badge.minus")
+                    Image(systemName: "folder.badge.minus")
                     })
                     Divider().padding(.leading, 36).padding(.trailing, 36)
                 }
             }
             .onHover(perform: { hovering in
                 isHover = hovering
-            }).sheet(isPresented: $showSettings) {
-                AppSettingsView(settings: app.settings,
-                                adaptiveDisplay: app.settings.adaptiveDisplay,
-                                keymapping: app.settings.keymapping,
-                                gamingMode: app.settings.gamingMode,
-                                bypass: app.settings.bypass,
-                                selectedRefreshRate: app.settings.refreshRate == 60 ? 0 : 1,
-                                sensivity: app.settings.sensivity,
-                                disableTimeout: app.settings.disableTimeout,
-                                selectedWindowSize: getScreenSizeSelector(app.settings.gameWindowSizeHeight) ?? 0,
-                                enableWindowAutoSize: app.settings.enableWindowAutoSize,
-                                ipadModel: app.settings.ipadModel,
-                                enableCustomWindowSize: app.settings.enableCustomWindowSize,
-                                customHeight: String(app.settings.gameWindowSizeHeight),
-                                customWidth: String(app.settings.gameWindowSizeWidth)
-                ).frame(minWidth: 500)
-            }.sheet(isPresented: $showChangeGenshinAccount) {
+            })
+            .sheet(isPresented: $showChangeGenshinAccount) {
                 ChangeGenshinAccountView()
-            }.sheet(isPresented: $showStoreGenshinAccount) {
+            }
+            .sheet(isPresented: $showStoreGenshinAccount) {
                 StoreGenshinAccountView()
-            }.sheet(isPresented: $showDeleteGenshinAccount) {
-                DeleteGenshinStoredAccountView()
-            }.alert("alert.app.delete", isPresented: $showClearCacheAlert) {
+            }
+            .sheet(isPresented: $showDeleteGenshinAccount) {
+                DeleteGenshinAccountView()
+            }
+            .alert("alert.app.delete", isPresented: $showClearCacheAlert) {
                 Button("button.Proceed", role: .cancel) {
                     app.container?.clear()
                     showClearCacheToast.toggle()
                 }
                 Button("button.Cancel", role: .cancel) {}
-            }.alert("alert.app.preferences", isPresented: $showClearPreferencesAlert) {
+            }
+            .alert("alert.app.preferences", isPresented: $showClearPreferencesAlert) {
                 Button("button.Proceed", role: .cancel) {
                     deletePreferences(app: app.info.bundleIdentifier)
                     showClearPreferencesAlert.toggle()
                 }
                 Button("button.Cancel", role: .cancel) {}
-            }.toast(isPresenting: $showClearCacheToast) {
-                AlertToast(type: .regular, title: "alert.appCacheCleared")
-            }.toast(isPresenting: $showImportSuccess) {
-                AlertToast(type: .regular, title: "alert.kmImported")
-            }.toast(isPresenting: $showImportFail) {
-                AlertToast(type: .regular, title: "alert.errorImportKm")
             }
+            .onChange(of: showClearCacheToast) { _ in
+                ToastVM.shared.showToast(toastType: .notice,
+                    toastDetails: NSLocalizedString("alert.appCacheCleared", comment: ""))
+            }
+            .onChange(of: showImportSuccess) { _ in
+                ToastVM.shared.showToast(toastType: .notice,
+                    toastDetails: NSLocalizedString("alert.kmImported", comment: ""))
+            }
+            .onChange(of: showImportFail) { _ in
+                ToastVM.shared.showToast(toastType: .error,
+                    toastDetails: NSLocalizedString("alert.errorImportKm", comment: ""))
+            }
+            .sheet(isPresented: $showSettings) {
+                AppSettingsView(viewModel: AppSettingsVM(app: app))
+            }
+    }
+}
+
+struct PlayAppConditionalView: View {
+    @State var app: PlayApp
+    @State var isList: Bool
+
+    var body: some View {
+        if isList {
+            HStack(alignment: .center, spacing: 0) {
+                if let img = app.icon {
+                    Image(nsImage: img).resizable()
+                        .frame(width: 40, height: 40)
+                        .cornerRadius(10)
+                        .shadow(radius: 1)
+                    Spacer()
+                        .frame(width: 20)
+                    Text(app.name)
+                    Spacer()
+                    Text(app.settings.info.bundleVersion)
+                        .padding(.horizontal, 5)
+                        .foregroundColor(.secondary)
+                }
+            }
+        } else {
+            VStack(alignment: .center, spacing: 0) {
+                if let img = app.icon {
+                    Image(nsImage: img)
+                        .resizable()
+                        .frame(width: 88, height: 88)
+                        .cornerRadius(10)
+                        .shadow(radius: 1)
+                        .padding(.top, 8)
+                    Text(app.name)
+                        .frame(width: 150, height: 40)
+                        .lineLimit(2)
+                        .multilineTextAlignment(.center)
+                        .padding(.bottom, 14)
+                }
+            }
+            .frame(width: 150, height: 150)
+        }
     }
 }

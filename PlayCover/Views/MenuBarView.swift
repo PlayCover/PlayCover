@@ -6,13 +6,10 @@
 import SwiftUI
 
 struct PlayCoverMenuView: Commands {
-    @Binding var showToast: Bool
-
     var body: some Commands {
         CommandGroup(after: .systemServices) {
             Button("menubar.log.copy") {
                 Log.shared.logdata.copyToClipBoard()
-                showToast.toggle()
             }
             .keyboardShortcut("L", modifiers: [.command, .option])
         }
@@ -41,12 +38,11 @@ struct PlayCoverHelpMenuView: Commands {
             Button("menubar.discord") {
                 NSWorkspace.shared.open(URL(string: "https://discord.gg/PlayCover")!)
             }
-            Divider()
-            Button("menubar.downloadMoreApps") {
-                NSWorkspace.shared.open(URL(string: "https://ipa.playcover.workers.dev/0:/")!)
-            }
             #if DEBUG
-            Button("debug.crash") { fatalError("Crash was triggered") }
+            Divider()
+            Button("debug.crash") {
+                fatalError("Crash was triggered")
+            }
             #endif
         }
     }
@@ -87,23 +83,5 @@ struct PlayCoverViewMenuView: Commands {
                 }
             }
         }
-        CommandGroup(before: .sidebar) {
-            ShowAppLinksCommand()
-            Divider()
-        }
-    }
-}
-
-struct ShowAppLinksCommand: View {
-    @ObservedObject var apps = AppsVM.shared
-
-    var body: some View {
-        Toggle(isOn: $apps.showAppLinks) {
-            Text("menubar.showAppLinks")
-        }.onChange(of: apps.showAppLinks) { value in
-            UserDefaults.standard.set(value, forKey: "ShowLinks")
-            apps.fetchApps()
-        }
-        .keyboardShortcut("A", modifiers: [.command, .option])
     }
 }

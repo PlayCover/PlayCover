@@ -102,7 +102,6 @@ class Shell: ObservableObject {
     static func removeTwitterSessionCookie () {
         shell("rm -rf /Users/\(NSUserName())/Library/Containers/com.miHoYo.GenshinImpact/" +
               "Data/Library/Cookies/Cookies.binarycookies")
-
     }
 
     static func sudosh(_ args: [String], _ argc: String) -> Bool {

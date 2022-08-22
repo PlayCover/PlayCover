@@ -4,8 +4,8 @@
 //
 //  Created by José Elias Moreno villegas on 21/07/22.
 //
+
 import SwiftUI
-import AlertToast
 
 struct StoreGenshinAccountView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -79,17 +79,16 @@ struct StoreGenshinAccountView: View {
                 .controlSize(.large).padding()
                 .keyboardShortcut(.cancelAction)
             }
-        }.padding()
-                .alert(NSLocalizedString("alert.storeAccount.regionIsNotValid",
-                                         comment: ""), isPresented: $regionIsNotValid) {
-                    Button("button.Close",
-                           role: .cancel) {
-                        regionIsNotValid.toggle()
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                }
+        }
+        .padding()
+        .alert(NSLocalizedString("alert.storeAccount.regionIsNotValid", comment: ""), isPresented: $regionIsNotValid) {
+            Button("button.Close", role: .cancel) {
+                regionIsNotValid.toggle()
+                presentationMode.wrappedValue.dismiss()
+            }
         }
     }
+}
 
 struct GenshinView_preview: PreviewProvider {
     static var previews: some View {

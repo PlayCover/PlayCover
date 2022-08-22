@@ -40,37 +40,27 @@ struct PlayCoverApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject var updaterViewModel = UpdaterViewModel()
 
-    @State var showToast = false
     @State var xcodeCliInstalled = shell.isXcodeCliToolsInstalled
 
     var body: some Scene {
         WindowGroup {
-            MainView(showToast: $showToast, xcodeCliInstalled: $xcodeCliInstalled)
-                .padding()
+            MainView(xcodeCliInstalled: $xcodeCliInstalled)
                 .environmentObject(InstallVM.shared)
                 .environmentObject(AppsVM.shared)
+                .environmentObject(StoreVM.shared)
                 .environmentObject(AppIntegrity())
-                .frame(minWidth: 695, minHeight: 650)
-                .ignoresSafeArea()
                 .onAppear {
                     NSWindow.allowsAutomaticWindowTabbing = false
-                    UserDefaults.standard.register(defaults: ["ShowLinks": true])
                     SoundDeviceService.shared.prepareSoundDevice()
                     NotifyService.shared.allowNotify()
                 }
-                .padding(.horizontal, -15)
-                .padding(.top, -15)
-                .padding(.bottom, -30)
-        }.windowStyle(HiddenTitleBarWindowStyle()).commands {
-            CommandGroup(replacing: CommandGroupPlacement.newItem) {
-                EmptyView()
-            }
         }
         .handlesExternalEvents(matching: ["{same path of URL?}"]) // create new window if doesn't exist
         .commands {
-            PlayCoverMenuView(showToast: $showToast)
+            PlayCoverMenuView()
             PlayCoverHelpMenuView(updaterViewModel: updaterViewModel)
             PlayCoverViewMenuView()
+            SidebarCommands()
         }
 
         Settings {
