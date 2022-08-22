@@ -29,6 +29,7 @@ struct MainView: View {
         GeometryReader { viewGeom in
             NavigationView {
                 GeometryReader { sidebarGeom in
+                    // TODO: Localise strings
                     List {
                         NavigationLink(destination: AppLibraryView(), tag: 1, selection: self.$selectedView) {
                             Label("App Library", systemImage: "square.grid.2x2")
