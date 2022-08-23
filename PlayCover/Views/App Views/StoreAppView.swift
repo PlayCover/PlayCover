@@ -88,7 +88,7 @@ struct StoreAppView: View {
 struct StoreAppConditionalView: View {
     @State var app: StoreAppData
     @State var isList: Bool
-    @State var iconUrl: URL = URL(string: "https://google.com")!
+    @State var iconUrl: URL?
 
     var body: some View {
         if isList {
@@ -117,10 +117,8 @@ struct StoreAppConditionalView: View {
                     .padding(.horizontal, 5)
                     .foregroundColor(.secondary)
             }
-            .onAppear {
-                getIconURLFromBundleIdentifier(app.id, app.region) { url in
-                    iconUrl = url
-                }
+            .task {
+                iconUrl = try? await getIconURLFromBundleIdentifier(app.id, app.region)
             }
         } else {
             VStack(alignment: .center, spacing: 0) {
@@ -148,17 +146,14 @@ struct StoreAppConditionalView: View {
                 .padding(.vertical, 5)
             }
             .frame(width: 150, height: 150)
-            .onAppear {
-                getIconURLFromBundleIdentifier(app.id, app.region) { url in
-                    iconUrl = url
-                }
+            .task {
+                iconUrl = try? await getIconURLFromBundleIdentifier(app.id, app.region)
             }
         }
     }
 
-    public func getIconURLFromBundleIdentifier(_ bundleIdentifier: String,
-                                               _ region: StoreAppData.Region,
-                                               completion: @escaping (URL) -> Void) {
+    func getIconURLFromBundleIdentifier(_ bundleIdentifier: String,
+                                        _ region: StoreAppData.Region) async throws -> URL? {
         let url: URL
 
         if region == .CN {
@@ -167,23 +162,19 @@ struct StoreAppConditionalView: View {
             url = URL(string: "http://itunes.apple.com/lookup?bundleId=\(bundleIdentifier)")!
         }
 
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data else { return }
+        let (data, _) = try await URLSession.shared.data(for: URLRequest(url: url))
 
-            do {
-                let decoder = JSONDecoder()
-                let jsonResult: ITunesResponse = try decoder.decode(ITunesResponse.self, from: data)
-                if jsonResult.resultCount > 0 {
-                    completion(URL(string: jsonResult.results[0].artworkUrl512)!)
-                } else {
-                    completion(URL(string: "https://google.com")!)
-                }
-            } catch {
-                Log.shared.error("error: \(error)")
-                completion(URL(string: "https://google.com")!)
+        do {
+            let decoder = JSONDecoder()
+            let jsonResult: ITunesResponse = try decoder.decode(ITunesResponse.self, from: data)
+            if jsonResult.resultCount > 0 {
+                return URL(string: jsonResult.results[0].artworkUrl512)!
+            } else {
+                return nil
             }
+        } catch {
+            Log.shared.error("error: \(error)")
+            return nil
         }
-
-        task.resume()
     }
 }
