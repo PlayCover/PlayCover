@@ -5,6 +5,7 @@
 "playapp.clearCache" = "Clear app data";
 "playapp.importKm" = "Import keymapping";
 "playapp.exportKm" = "Export keymapping";
+"playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
 "playapp.delete" = "Delete app";
 "playapp.storeCurrentAccount" = "Store current account";
 "playapp.activateAccount" = "Restore an account";

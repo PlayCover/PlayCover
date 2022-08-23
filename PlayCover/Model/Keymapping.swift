@@ -103,7 +103,6 @@ class Keymapping {
         }
     }
 
-    // TODO: Localise NSOpenPanel
     public func importKeymap(success: @escaping (Bool) -> Void) {
         let openPanel = NSOpenPanel()
         openPanel.canChooseFiles = true
@@ -111,7 +110,7 @@ class Keymapping {
         openPanel.canChooseDirectories = false
         openPanel.canCreateDirectories = true
         openPanel.allowedContentTypes = [UTType(exportedAs: "io.playcover.PlayCover-playmap")]
-        openPanel.title = "Import Keymapping"
+        openPanel.title = NSLocalizedString("playapp.importKm", comment: "")
 
         openPanel.begin { result in
             if result == .OK {
@@ -139,8 +138,8 @@ class Keymapping {
 
     public func exportKeymap() {
         let savePanel = NSSavePanel()
-        savePanel.title = "Export Keymapping"
-        savePanel.nameFieldLabel = "PlayMap Name:"
+        savePanel.title = NSLocalizedString("playapp.exportKm", comment: "")
+        savePanel.nameFieldLabel = NSLocalizedString("playapp.exportKmPanel.fieldLabel", comment: "")
         savePanel.nameFieldStringValue = self.info.displayName
         savePanel.allowedContentTypes = [UTType(exportedAs: "io.playcover.PlayCover-playmap")]
         savePanel.canCreateDirectories = true
