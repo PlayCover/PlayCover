@@ -68,8 +68,7 @@ class AppSettings {
     public func decode() -> Bool {
         do {
             let data = try Data(contentsOf: settingsUrl)
-            let decoder = PropertyListDecoder()
-            settings = try decoder.decode(AppSettingsData.self, from: data)
+            settings = try PropertyListDecoder().decode(AppSettingsData.self, from: data)
             return true
         } catch {
             print(error)

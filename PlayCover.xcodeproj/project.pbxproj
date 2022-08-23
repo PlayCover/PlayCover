@@ -35,6 +35,7 @@
 		6E66B0D528A0039D0099B907 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E66B0D428A0039D0099B907 /* ToastView.swift */; };
 		6E66B0D928A135360099B907 /* ToastVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E66B0D828A135360099B907 /* ToastVM.swift */; };
 		6E7CA16528B4D02900216CD8 /* ITunesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CA16428B4D02900216CD8 /* ITunesResponse.swift */; };
+		6E7CA16728B4EEAE00216CD8 /* Keymapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CA16628B4EEAE00216CD8 /* Keymapping.swift */; };
 		6ED6ACA428A949A30040D234 /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6ACA328A949A30040D234 /* AppSettingsView.swift */; };
 		6ED6ACA628A96E570040D234 /* DeletePreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6ACA528A96E570040D234 /* DeletePreferences.swift */; };
 		8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */; };
@@ -111,6 +112,7 @@
 		6E66B0D428A0039D0099B907 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		6E66B0D828A135360099B907 /* ToastVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastVM.swift; sourceTree = "<group>"; };
 		6E7CA16428B4D02900216CD8 /* ITunesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesResponse.swift; sourceTree = "<group>"; };
+		6E7CA16628B4EEAE00216CD8 /* Keymapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keymapping.swift; sourceTree = "<group>"; };
 		6ED6ACA328A949A30040D234 /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
 		6ED6ACA528A96E570040D234 /* DeletePreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeletePreferences.swift; sourceTree = "<group>"; };
 		8783CFF726B8C52D00171041 /* PlayCover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayCover.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -235,6 +237,7 @@
 				9286D295273A7E4200958DD3 /* AppSettings.swift */,
 				AA71964A287A0EA800623C15 /* PlayRules.swift */,
 				6E7CA16428B4D02900216CD8 /* ITunesResponse.swift */,
+				6E7CA16628B4EEAE00216CD8 /* Keymapping.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -609,6 +612,7 @@
 				92A8AAC9275EFEA800D89B50 /* SystemConfig.swift in Sources */,
 				6E66B0C9289F52800099B907 /* IPALibraryView.swift in Sources */,
 				B1084E1F28AA80F400E399FA /* AppSettingsVM.swift in Sources */,
+				6E7CA16728B4EEAE00216CD8 /* Keymapping.swift in Sources */,
 				6ED6ACA428A949A30040D234 /* AppSettingsView.swift in Sources */,
 				92EE06DA274EB009002C907B /* PlayApp.swift in Sources */,
 				9256220427491E4700728698 /* headers.m in Sources */,

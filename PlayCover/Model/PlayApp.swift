@@ -91,6 +91,10 @@ class PlayApp: BaseApp {
         AppSettings(info, container: container)
     }()
 
+    lazy var keymapping: Keymapping = {
+        Keymapping(info, container: container)
+    }()
+
     var container: AppContainer?
 
     func isCodesigned() throws -> Bool {
