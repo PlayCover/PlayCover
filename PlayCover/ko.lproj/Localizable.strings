@@ -2,7 +2,7 @@
 "alert.app.delete" = "모든 앱 데이터가 삭제됩니다. 앱 내부 파일들을 다시 다운로드해야 할 수도 있습니다. 정말로 삭제하시겠습니까?";
 
 /* (No Comment) */
-"alert.app.preferences" = "모든 게임 설정이 삭제됩니다. 인게임 설정(지역 등)을 다시 설정해야 할 수도 있으며 게임 에셋들이 다시 위치하는 데 몇 초가 걸릴 수 있습니다 (게임이 다시 확인할 뿐 다시 다운로드하지는 않습니다). 진행하시겠습니까?";
+"alert.app.preferences" = "모든 인앱 설정이 삭제됩니다. 설정을 다시 해야 할 수도 있습니다. 정말 진행하시겠습니까?";
 
 /* (No Comment) */
 "alert.appCacheCleared" = "앱 데이터가 초기화 되었습니다!";
@@ -373,3 +373,5 @@
 /* (No Comment) */
 "xcode.install.success" = "명령어 라인 개발자 도구(Xcode Command Line Tools)가 성공적으로 설치되었습니다";
 
+/* (No Comment) */
+"settings.toggle.portraitMode" = "세로 화면 모드";

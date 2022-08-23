@@ -33,9 +33,9 @@
 "search.search" = "جست‌وجو...";
 "alert.appCacheCleared" = "پاک‌سازی داده‌های برنامه انجام شد!";
 "alert.kmImported" = "درون‌ریزی Keymap انجام شد!";
-"alert.errorImportKm" = "خطایی در زمان درون‌ریزی رخ داد!";
+"alert.errorImportKm" = "خطائی در زمان درون‌ریزی رخ داد!";
 "alert.app.delete" = "تمامی داده‌های برنامه پاک خواهند شد. ممکن است که نیاز باشد دوباره آن‌ها را دریافت کنید. ادامه می‌دهید؟";
-"alert.app.preferences" = "تمامی پیکربندی‌های انجام‌شده پاک خواهند شد، ممکن است که نیاز باشد دوباره تنظیمات داخلی بازی را (مانند منطقه کاربری) پیکربندی کنید و چندین ثانیه صبر کنید تا که داده‌های بازی شناسایی شوند (دوباره دریافت نخواهند شد، بازی تنها نیاز به شناسایی دوباره آن‌ها خواهد داشت). آیا مایل به ادامه هستید؟";
+"alert.app.preferences" = "تمامی پیکربندی‌های درون برنامه‌ای انجام‌شده، پاک خواهند شد؛ ممکن است نیاز باشد که آن‌ها را از نو انجام دهید. آیا مایل به ادامه دادن هستید؟";
 "alert.wrongFileType" = "پرونده از نوع درستی نیست";
 "alert.wrongFileType.message" = "یک پرونده IPA انتخاب کنید";
 "alert.restart" = "لطفا PlayCover را از نو راه‌اندازی (Restart) کنید.";
@@ -43,7 +43,7 @@
 "alert.success" = "انجام شد!";
 "alert.moveAppToApplications" = "PlayCover می‌بایست در پوشه‌ی Applications مک قرار داشته باشد. با زدن دکمه زیر اجازه دهید که PlayCover خود را به پوشه‌ی /Applications انتقال دهد.";
 "alert.moveAppToApplications.move" = "انتقال به /Applications";
-"alert.storeAccount.regionIsNotValid" = "این حساب کاربری برای منطقه‌ی کاربری دیگری پیکربندی شده است. بازی را باز کرده، منطقه‌ی کاربری را تغییر داده و از دروازه عبور کنید تا پیکربندی آن ذخیره شوند. سپس دوباره تلاش کنید";
+"alert.storeAccount.regionIsNotValid" = "این حساب کاربری برای منطقه‌ی کاربری دیگری پیکربندی شده است. بازی را باز کرده، منطقه‌ی کاربری را تغییر داده و از دروازه عبور کنید تا پیکربندی آن ذخیره شود. سپس دوباره تلاش کنید";
 
 
 "button.OK" = "تأیید";
@@ -63,11 +63,11 @@
 "bottomBar.notices.help" = "اخبار و اطلاع‌رسانی‌هایی از طرف توسعه‌دهندگان";
 "bottomBar.setupViewButton" = "با مشکلی رو به رو شده‌اید؟";
 "failedToFetchNotices" = "بارگزاری اعلان‌ها با شکست رو به رو شد؛ لطفاً اتصال اینترنت خود را بررسی کنید.";
-"logs.copied" = "رونوشت‌گیری از گزارش عمل‌کرد انجام شد";
+"logs.copied" = "از گزارش عمل‌کرد رونوشت گرفته شد";
 "settings.toggle.km" = "فعال‌سازی Keymapping";
 "settings.toggle.gaming" = "حالت بازی";
 "settings.toggle.km.info" = "پشتیبانی از صفحه کلید را به بازی‌های لمسی اضافه می‌کند. از کلید‌های ترکیبی Command + K برای باز کردن ویرایشگر آن استفاده کنید.";
-"settings.toggle.adaptiveDisplay" = "حالت نمایشگر وفق‌پذیر";
+"settings.toggle.adaptiveDisplay" = "وفق‌پذیری با نمایشگر";
 "settings.toggle.adaptiveDisplay.info" = "پنجره‌ی برنامه را براساس نمایشگر داخلی مک، متناسب‌سازی و اندازه‌دهی می‌کند.";
 "settings.toggle.jbBypass" = "دور زدن شناساگر جیلبریک (آزمایشی)";
 "settings.toggle.jbBypass.info" = "با فعال‌سازی این گزینه تلاش می‌شود که از فعالیت شناساگر جیلبریک موجود در برخی بازی‌ها جلوگیری شود (اما همیشه نتیجه نمی‌دهد)";
@@ -107,7 +107,7 @@
 "menubar.website" = "وب‌گاه";
 "menubar.github" = "گیت‌هاب";
 "menubar.discord" = "دیسکورد";
-"menubar.showAppLinks" = "نمایش پیوند دریافت دیگر برنامه‌ها";
+"menubar.showAppLinks" = "نمایش پیوند دیگر برنامه‌ها";
 "menubar.checkForUpdates" = "بررسی وضعیت به‌روزرسانی";
 "soundAlert.messageText" = "پیکربندی صوتی نادرستی شناسایی شد!";
 "soundAlert.informativeText" = "نرخ نمونه‌برداری خروجی صوتی دستگاه شما ۴۸ و یا ۴۴/۱ کیلوهرتز نیست! ممکن است خرابی رخ دهد. آیا مایل هستید که آن را به ۴۸ کیلوهرتز تغییر دهید؟";
@@ -122,3 +122,15 @@
 "settings.text.customWidth" = "عرض";
 "settings.toggle.customSize" = "اندازه‌دهی دلخواه به پنجره تصویر";
 "settings.text.customHeight" = "ارتفاع";
+
+/* (No Comment) */
+"settings.toggle.portraitMode" = "حالت عمودی";
+
+/* (No Comment) */
+"preferences.button.checkForUpdates" = "بررسی برای به‌روزرسانی تازه…";
+
+/* (No Comment) */
+"preferences.tab.updates" = "به‌روزرسانی‌ها";
+
+/* (No Comment) */
+"preferences.toggle.automaticUpdates" = "بررسی خودکار برای به‌روزرسانی‌ها";

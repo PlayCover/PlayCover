@@ -2,7 +2,7 @@
 "alert.app.delete" = "Toutes données de l'app vont être effacées. Vous aurez peut être besoin de retélécharger des fichiers de l'app. Voulez-vous continuer ?";
 
 /* (No Comment) */
-"alert.app.preferences" = "Toutes les préférences de jeu seront réinitialisés. Vous devrez peut-être configurer vos paramètres de jeu (région) et attendre quelques secondes jusqu'à ce que les actifs du jeu soient localisés (ils ne seront pas téléchargés, le jeu va seulement les vérifier). Souhaitez-vous continuer ?";
+"alert.app.preferences" = "Toutes les préférences de l'app seront réinitialisés. Les paramètres peuvent avoir besoin d'être reconfigurés. Souhaitez-vous continuer ?";
 
 /* (No Comment) */
 "alert.appCacheCleared" = "Les caches de l'app ont été effacés !";
@@ -185,13 +185,13 @@
 "playapp.update" = "Mettre à jour l'app";
 
 /* (No Comment) */
-"preferences.button.checkForUpdates" = "Check for updates now...";
+"preferences.button.checkForUpdates" = "Vérifiez les mises à jour maintenant...";
 
 /* (No Comment) */
-"preferences.tab.updates" = "Updates";
+"preferences.tab.updates" = "Mises à jour";
 
 /* (No Comment) */
-"preferences.toggle.automaticUpdates" = "Automatically check for updates";
+"preferences.toggle.automaticUpdates" = "Vérifier automatiquement pour des mises à jour";
 
 /* (No Comment) */
 "search.search" = "Recherche en cours...";
@@ -373,3 +373,5 @@
 /* (No Comment) */
 "xcode.install.success" = "Succès de l'installation de Xcode Command Line Tools";
 
+/* (No Comment) */
+"settings.toggle.portraitMode" = "Mode portrait";
