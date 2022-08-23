@@ -19,6 +19,7 @@ struct AppSettingsView: View {
     @State var selectedRefreshRate: Int
     @State var sensivity: Float
     @State var disableTimeout: Bool
+    @State var portraitMode: Bool = false
 
     @State var resetCompletedAlert: Bool = false
     @State var selectedWindowSize: Int
@@ -36,22 +37,10 @@ struct AppSettingsView: View {
                 HStack {
                     Toggle(NSLocalizedString("settings.toggle.km", comment: ""), isOn: $keymapping).padding()
                     Toggle(NSLocalizedString("settings.toggle.gaming", comment: ""), isOn: $gamingMode).padding()
-                    if adaptiveDisplay {
-                        if !enableCustomWindowSize {
-                            Toggle(NSLocalizedString("settings.toggle.autoWindowResize", comment: ""),
-                                   isOn: $enableWindowAutoSize)
-                            .padding()
-                        }
-                        if !enableWindowAutoSize {
-                            Toggle(NSLocalizedString("settings.toggle.customSize", comment: ""),
-                                   isOn: $enableCustomWindowSize)
-                            .padding()
-                        }
-                    }
                 }
                 HStack {
                     Image(systemName: "keyboard")
-                        .font(.system(size: 96))
+                        .font(.system(size: 69))
                         .foregroundColor(.accentColor)
                         .padding(.leading)
                     Text("settings.toggle.km.info")
@@ -62,9 +51,9 @@ struct AppSettingsView: View {
             VStack(alignment: .leading, spacing: 0) {
                 Toggle(NSLocalizedString(
                     "settings.toggle.adaptiveDisplay", comment: ""
-                ), isOn: $adaptiveDisplay).padding()
+                ), isOn: $enableWindowAutoSize).padding()
                 HStack {
-                    Image(systemName: "display").font(.system(size: 96)).foregroundColor(.accentColor).padding(.leading)
+                    Image(systemName: "display").font(.system(size: 69)).foregroundColor(.accentColor).padding(.leading)
                     Text("settings.toggle.adaptiveDisplay.info")
                         .frame(maxWidth: 200).padding().frame(minHeight: 100)
                 }
@@ -75,7 +64,7 @@ struct AppSettingsView: View {
                     Text("settings.toggle.jbBypass")
                 }.padding()
                 HStack {
-                    Image(systemName: "terminal.fill").font(.system(size: 96))
+                    Image(systemName: "terminal.fill").font(.system(size: 69))
                         .foregroundColor(.accentColor).padding(.leading)
                     Text("settings.toggle.jbBypass.info")
                         .frame(maxWidth: 200).padding().frame(minHeight: 100)
@@ -86,34 +75,46 @@ struct AppSettingsView: View {
                 Toggle(isOn: $disableTimeout) {
                     Text("settings.toggle.disableDisplaySleep")
                 }
-                .padding()
+                .padding(.horizontal).padding(.vertical, 10)
                 .help("settings.toggle.disableDisplaySleep.info")
-                Spacer()
-                Divider().padding(.leading, 36).padding(.trailing, 36)
-                Spacer()
                 Picker(selection: $selectedRefreshRate, label: Text("settings.picker.displayRefreshRate"), content: {
                     Text("60 Hz").tag(0)
                     Text("120 Hz").tag(1)
-                }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
+                })
+                .pickerStyle(SegmentedPickerStyle())
+                .frame(maxWidth: 300)
+                .padding(.horizontal)
+                .padding(.vertical, 10)
                 Picker(selection: $ipadModel, label: Text("settings.picker.iosDevice"), content: {
                     Text("iPad Pro (12.9-inch) (1st gen) | A9X | 4GB").tag("iPad6,7")
                     Text("iPad Pro (12.9-inch) (3rd gen) | A12Z | 4GB").tag("iPad8,6")
                     Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
-                }).pickerStyle(MenuPickerStyle()).frame(maxWidth: 300).padding()
-                if adaptiveDisplay && !enableWindowAutoSize && !enableCustomWindowSize {
-                    Spacer()
-                    Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
-                        Text("720p").tag(0)
-                        Text("1080p").tag(1)
-                        Text("1440p").tag(2)
-                        Text("4K").tag(3)
-                    }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
-                    Spacer()
-                    Picker(selection: $selectedWindowSize, label: Text("Portrait Mode"), content: {
-                        Text("720p").tag(4)
-                        Text("6.1\"").tag(5)
-                    }).pickerStyle(SegmentedPickerStyle()).frame(maxWidth: 300).padding()
-                Spacer()
+                })
+                .pickerStyle(MenuPickerStyle())
+                .frame(maxWidth: 300)
+                .padding(.horizontal)
+                .padding(.vertical, 10)
+                if !enableWindowAutoSize {
+                    Toggle(NSLocalizedString("settings.toggle.customSize", comment: ""),
+                           isOn: $enableCustomWindowSize)
+                    .padding(.horizontal)
+                    .padding(.vertical, 10)
+                    if !enableCustomWindowSize {
+                        Toggle(isOn: $portraitMode) {
+                            Text("settings.toggle.portraitMode")
+                        }
+                        .onChange(of: portraitMode) { _ in
+                            if portraitMode {
+                                selectedWindowSize = 4
+                            } else if !portraitMode {
+                                selectedWindowSize = 1
+                            } else {
+                                selectedWindowSize = 0
+                            }
+                        }
+                        .padding(.horizontal)
+                        .padding(.vertical, 10)
+                    }
                 }
                 if enableCustomWindowSize {
                     VStack {
@@ -124,7 +125,11 @@ struct AppSettingsView: View {
                             TextField(NSLocalizedString(
                                 "settings.text.customWidth", comment: ""
                             ), text: $customWidth)
-                        }.frame(maxWidth: 300).padding().textFieldStyle(RoundedBorderTextFieldStyle())
+                        }
+                        .frame(maxWidth: 300)
+                        .padding(.horizontal)
+                        .padding(.vertical, 5)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                         HStack(spacing: 8) {
                             Text(NSLocalizedString(
                                 "settings.text.customHeight", comment: ""
@@ -132,7 +137,35 @@ struct AppSettingsView: View {
                             TextField(NSLocalizedString(
                                 "settings.text.customHeight", comment: ""
                             ), text: $customHeight)
-                        }.frame(maxWidth: 300).padding() .textFieldStyle(RoundedBorderTextFieldStyle())
+                        }
+                        .frame(maxWidth: 300)
+                        .padding(.horizontal)
+                        .padding(.vertical, 5)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }
+                } else {
+                    if !enableWindowAutoSize {
+                        if !portraitMode {
+                            Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
+                                Text("720p").tag(0)
+                                Text("1080p").tag(1)
+                                Text("1440p").tag(2)
+                                Text("4K").tag(3)
+                            })
+                            .pickerStyle(MenuPickerStyle())
+                            .frame(maxWidth: 300)
+                            .padding(.horizontal)
+                            .padding(.vertical, 10)
+                        } else if portraitMode {
+                            Picker(selection: $selectedWindowSize, label: Text("settings.picker.screenSize"), content: {
+                                Text("720p").tag(4)
+                                Text("iPhone 13 Pro").tag(5)
+                            })
+                            .pickerStyle(MenuPickerStyle())
+                            .frame(maxWidth: 300)
+                            .padding(.horizontal)
+                            .padding(.vertical, 10)
+                        }
                     }
                 }
             }
@@ -153,7 +186,7 @@ struct AppSettingsView: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         presentationMode.wrappedValue.dismiss()
                     }
-                }.controlSize(.large).padding()
+                }.controlSize(.large).padding(.vertical)
                 Button("button.OK") {
                     settings.keymapping = keymapping
                     settings.adaptiveDisplay = adaptiveDisplay

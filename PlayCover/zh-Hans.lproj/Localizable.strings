@@ -1,147 +1,381 @@
-"playapp.add" = "添加应用";
-"playapp.settings" = "应用偏好设置";
-"playapp.showInFinder" = "在访达中查看";
-"playapp.openCache" = "显示应用数据";
-"playapp.clearCache" = "清除应用数据";
-"playapp.importKm" = "导入键盘映射布局";
-"playapp.exportKm" = "导出键盘映射布局";
-"playapp.delete" = "删除应用";
-"playapp.add.help" = "拖拽或打开 ipa 文件以安装。";
-"playapp.update" = "更新应用";
-"playapp.storeAccount" = "保存一个账号";
-"playapp.storeCurrentAccount" = "保存现有账号";
-"playapp.activateAccount" = "激活账号";
-"playapp.deleteAccount" = "删除账号";
-"playapp.clearPreferences" = "清除应用偏好设置";
-
-"storeAccount.selectAccRegion" = "选择账号地区服务器";
-"storeAccount.selectAccRegion.usa" = "美服";
-"storeAccount.selectAccRegion.euro" = "欧服";
-"storeAccount.selectAccRegion.asia" = "亚服";
-"storeAccount.selectAccRegion.cht" = "台服";
-"storeAccount.nameOfAcc" = "账号用户名";
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "用户名...";
-"storeAccount.store" = "保存账号";
-"storeAccount.selectAcc" = "选择一个账号";
-"storeAccount.storeAcc" = "保存一个账号";
-"storeAccount.deleteAcc" = "删除一个账号";
-
-"playapp.install.unzip" = "正在从文件提取应用...";
-"playapp.install.createWrapper" = "正在包装应用...";
-"playapp.install.installPlayTools" = "正在安装 PlayTools...";
-"playapp.install.signing" = "正在为应用签名...";
-"playapp.install.addToLib" = "正在将应用移进软件库...";
-"playapp.install.copy" = "正在复制应用...";
-"playapp.install.finished" = "完成！";
-
-"search.search" = "搜索...";
-
-"alert.appCacheCleared" = "应用数据已被清除！";
-"alert.kmImported" = "键盘映射布局已导入！";
-"alert.errorImportKm" = "导入过程中出现问题！";
+/* (No Comment) */
 "alert.app.delete" = "所有应用数据将被清除；有些软件可能需要重新下载数据。确定继续？";
-"alert.wrongFileType" = "文件格式错误";
-"alert.wrongFileType.message" = "请选择 ipa 文件";
-"alert.restart" = "请重启 PlayCover.";
-"alert.error" = "遇到了问题";
-"alert.success" = "成功!";
-"alert.moveAppToApplications" = "PlayCover 必须位于应用程序文件夹。 单击以下按钮让 PlayCover 将自己移进应用程序文件夹";
+
+/* (No Comment) */
+"alert.app.preferences" = "All game preferences will be deleted, You may need to configure your in-game settings(region) and wait a couple of seconds until game assets are located (They won't be downloaded the game will just verify them). Do you wish to continue?";
+
+/* (No Comment) */
+"alert.appCacheCleared" = "应用数据已被清除！";
+
+/* (No Comment) */
+"alert.error" = "遇到了问题!";
+
+/* (No Comment) */
+"alert.errorImportKm" = "导入过程中出现问题！";
+
+/* (No Comment) */
+"alert.kmImported" = "键盘映射布局已导入！";
+
+/* (No Comment) */
+"alert.moveAppToApplications" = "PlayCover 必须位于应用程序文件夹。 单击以下按钮让 PlayCover 将自己移进应用程序文件夹。";
+
+/* (No Comment) */
 "alert.moveAppToApplications.move" = "移进应用程序文件夹";
-"alert.storeAccount.regionIsNotValid" = "此账号现所在的服务器与选项不符。 打开游戏，更改服区并进入大门后保存，然后再试。";
 
-"button.OK" = "好";
-"button.Proceed" = "继续";
-"button.Cancel" = "取消";
-"button.Close" = "关闭";
-"button.Dismiss" = "隐藏";
-"button.Install" = "安装";
+/* (No Comment) */
+"alert.restart" = "请重启 PlayCover.";
 
-"error.corruptedIPA" = "此 ipa 文件已损坏，因为找不到 \"Info.plist\" 文件。";
-"error.waitInstallation" = "请等待安装过程结束！";
-"error.reinstallApp" = "请重新安装 PlayCover";
+/* (No Comment) */
+"alert.storeAccount.regionIsNotValid" = "此账号现所在的服务器与选项不符。 打开游戏，更改服区并进入大门后保存，然后再试";
 
-"menubar.downloadMoreApps" = "下载更多应用";
-"menubar.downloadMoreApps.help" = "使用这个网站下载更多应用来安装";
-"menubar.exportToSideloady" = "为 Sideloadly 导出";
-"menubar.exportToSideloady.help" = "为来自 sideloady.io 的 Sideloady 导出 ipa 文件即可无需禁用 SIP 也可畅玩游戏";
+/* (No Comment) */
+"alert.success" = "成功!";
 
+/* (No Comment) */
+"alert.wrongFileType" = "文件格式错误";
+
+/* (No Comment) */
+"alert.wrongFileType.message" = "请选择 ipa 文件";
+
+/* (No Comment) */
 "bottomBar.notices" = "公告";
+
+/* (No Comment) */
 "bottomBar.notices.help" = "来自开发者的通知";
+
+/* (No Comment) */
 "bottomBar.setupViewButton" = "遇到了问题？";
 
+/* (No Comment) */
+"button.Cancel" = "取消";
+
+/* (No Comment) */
+"button.Close" = "关闭";
+
+/* (No Comment) */
+"button.Dismiss" = "隐藏";
+
+/* (No Comment) */
+"button.Install" = "安装";
+
+/* (No Comment) */
+"button.OK" = "好";
+
+/* (No Comment) */
+"button.Proceed" = "继续";
+
+/* (No Comment) */
+"debug.crash" = "【调试】崩溃应用";
+
+/* (No Comment) */
+"error.corruptedIPA" = "此 ipa 文件已损坏，因为找不到 \"Info.plist\" 文件。";
+
+/* (No Comment) */
+"error.reinstallApp" = "请重新安装 PlayCover";
+
+/* (No Comment) */
+"error.waitInstallation" = "请等待安装过程结束！";
+
+/* (No Comment) */
 "failedToFetchNotices" = "找不到公告；请检查网络连接状态。";
 
+/* (No Comment) */
 "logs.copied" = "日志已复制";
 
-"settings.toggle.km" = "启用键盘映射布局";
-"settings.toggle.gaming" = "游戏模式";
-"settings.toggle.km.info" = "为触屏设计的游戏增添键鼠支持。使用 Command + K 启用键盘映射布局编辑器";
-"settings.toggle.adaptiveDisplay" = "适配显示器";
-"settings.toggle.adaptiveDisplay.info" = "为 Mac 的内置显示器适配应用窗口";
-"settings.toggle.jbBypass" = "启用绕过越狱检测（预览）";
-"settings.toggle.jbBypass.info" = "尝试绕过游戏的防越狱系统（不一定总是有效）";
-"settings.toggle.autoWindowResize" = "启用自动窗口大小调整";
-"settings.toggle.disableDisplaySleep" = "禁用显示器息屏";
-"settings.toggle.disableDisplaySleep.info" = "防止显示器在此应用运行时息屏";
-
-"settings.picker.displayRefreshRate" = "屏幕刷新率";
-"settings.picker.screenSize" = "屏幕分辨率";
-"settings.picker.iosDevice" = "选择 iOS 机型";
-
-"settings.slider.mouseSensitivity" = "鼠标灵敏度：";
-
-"settings.reset" = "重置设置与键盘映射布局";
-"settings.resetCompleted" = "设置已被重置！";
-
-"settings.text.customHeight" = "Height";
-"settings.text.customWidth" = "Width";
-"settings.toggle.customSize" = "Enable custom window size";
-
-"setupView.header" = "按照以下指示操作即可修复常见问题";
-"setupView.subheader" = "解决账号无法登录，应用闪退等问题";
-
-"setupView.step1" = "1) 将 Mac 关机";
-"setupView.step2" = "2) 等待20秒以让 Mac 完全关机, 然后按住电源按钮";
-"setupView.step3" = "3) 当 \"正在加载启动选项\" 在苹果图标底下出现时, 松开电源按钮";
-"setupView.step4" = "4) 单击 恢复模式";
-"setupView.step5" = "5) 在恢复模式下， 打开终端 (菜单栏 -> 实用工具 -> 终端)";
-"setupView.step6" = "6) 输入: ";
-"setupView.step7" = "7) 输入并回车上述命令后， 键入 Mac 的用户登录密码（密码字样不会显示在屏幕上）";
-"setupView.step8" = "8) 重启 Mac";
-"setupView.step9" = "如果遇到了任何错误或问题，重复上述操作";
-
-"setupView.vidTutorials" = "视频教程";
-"setupView.youtube" = "YouTube";
-"setupView.bilibili" = "哔哩哔哩";
-
-"setupView.pressButtonAndEnterPassword" = "请从以下按钮禁用SIP并输入 Mac 登录密码";
-"setupView.pressButtonAndEnterPassword.button" = "禁用SIP";
-
-"notification.appInstalled" = "应用安装成功！";
-"notification.appInstalled.message" = "立即来看一看吧";
-
-"setup.enterLoginPassword" = "请输入管理员登录密码";
-"setup.incorrectPassword" = "密码错误，请重试";
-"setup.enterLoginPassword.info" = "输入用来登录这台 Mac 的密码";
-"setup.requireReboot" = "请重启 Mac 以使更改生效";
-
-"menubar.log.copy" = "拷贝日志";
-"menubar.documentation" = "使用手册";
-"menubar.website" = "官网";
-"menubar.github" = "GitHub（源代码发行网站）";
-"menubar.discord" = "Discord（社区交流平台）";
-"menubar.showAppLinks" = "显示未安装的应用";
+/* (No Comment) */
 "menubar.checkForUpdates" = "检查更新";
 
-"soundAlert.messageText" = "监测到声音设置有问题";
-"soundAlert.informativeText" = "现有的音响设备并无 48 或者 44.1 KHz 采样率! 应用可能会崩溃。您希望把现有的音响设备设置成 48 KHz 采样率吗?";
-"soundAlert.successText" = "现有音响设备采样率已设为 48 KHz";
-"soundAlert.failureText" = "现有音响设备设置采样率 48 KHz 失败。 您可以在 ”音频MIDI设置“ 应用里手动设置。";
+/* (No Comment) */
+"menubar.discord" = "Discord（社区交流平台）";
 
-"xcode.install.message" = "您需要安装 Xcode 命令行工具并重启 PlayCover";
-"xcode.install.success" = "Xcode 命令行工具安装成功";
+/* (No Comment) */
+"menubar.documentation" = "使用手册";
+
+/* (No Comment) */
+"menubar.downloadMoreApps" = "下载更多应用";
+
+/* (No Comment) */
+"menubar.downloadMoreApps.help" = "使用这个网站下载更多应用来安装";
+
+/* (No Comment) */
+"menubar.exportToSideloady" = "为 Sideloadly 导出";
+
+/* (No Comment) */
+"menubar.exportToSideloady.help" = "为来自 sideloady.io 的 Sideloady 导出 ipa 文件即可无需禁用 SIP 也可畅玩游戏。";
+
+/* (No Comment) */
+"menubar.github" = "GitHub（源代码发行网站）";
+
+/* (No Comment) */
+"menubar.log.copy" = "拷贝日志";
+
+/* (No Comment) */
+"menubar.showAppLinks" = "显示未安装的应用";
+
+/* (No Comment) */
+"menubar.website" = "官网";
+
+/* (No Comment) */
+"notification.appInstalled" = "应用安装成功！";
+
+/* (No Comment) */
+"notification.appInstalled.message" = "立即来看一看吧!";
+
+/* (No Comment) */
+"playapp.activateAccount" = "激活账号";
+
+/* (No Comment) */
+"playapp.add" = "添加应用";
+
+/* (No Comment) */
+"playapp.add.help" = "拖拽或打开 ipa 文件以安装。";
+
+/* (No Comment) */
+"playapp.clearCache" = "清除应用数据";
+
+/* (No Comment) */
+"playapp.clearPreferences" = "清除应用偏好设置";
+
+/* (No Comment) */
+"playapp.delete" = "删除应用";
+
+/* (No Comment) */
+"playapp.deleteAccount" = "删除账号";
+
+/* (No Comment) */
+"playapp.exportKm" = "导出键盘映射布局";
+
+/* (No Comment) */
+"playapp.importKm" = "导入键盘映射布局";
+
+/* (No Comment) */
+"playapp.install.addToLib" = "正在将应用移进软件库...";
+
+/* (No Comment) */
+"playapp.install.copy" = "正在复制应用...";
+
+/* (No Comment) */
+"playapp.install.createWrapper" = "正在包装应用...";
+
+/* (No Comment) */
+"playapp.install.finished" = "完成";
+
+/* (No Comment) */
+"playapp.install.installPlayTools" = "正在安装 PlayTools...";
+
+/* (No Comment) */
+"playapp.install.signing" = "正在为应用签名...";
+
+/* (No Comment) */
+"playapp.install.unzip" = "正在从文件提取应用...";
+
+/* (No Comment) */
+"playapp.openCache" = "显示应用数据";
+
+/* (No Comment) */
+"playapp.settings" = "应用偏好设置";
+
+/* (No Comment) */
+"playapp.showInFinder" = "在访达中查看";
+
+/* (No Comment) */
+"playapp.storeCurrentAccount" = "保存现有账号";
+
+/* (No Comment) */
+"playapp.update" = "更新应用";
+
+/* (No Comment) */
+"preferences.button.checkForUpdates" = "Check for updates now...";
+
+/* (No Comment) */
+"preferences.tab.updates" = "Updates";
+
+/* (No Comment) */
+"preferences.toggle.automaticUpdates" = "Automatically check for updates";
+
+/* (No Comment) */
+"search.search" = "搜索...";
+
+/* (No Comment) */
+"settings.picker.displayRefreshRate" = "屏幕刷新率";
+
+/* (No Comment) */
+"settings.picker.iosDevice" = "选择 iOS 机型";
+
+/* (No Comment) */
+"settings.picker.screenSize" = "屏幕分辨率";
+
+/* (No Comment) */
+"settings.reset" = "重置设置与键盘映射布局";
+
+/* (No Comment) */
+"settings.resetCompleted" = "设置已被重置！";
+
+/* %.f */
+"settings.slider.mouseSensitivity" = "鼠标灵敏度: ";
+
+/* (No Comment) */
+"settings.text.customHeight" = "高度";
+
+/* (No Comment) */
+"settings.text.customWidth" = "宽度";
+
+/* (No Comment) */
+"settings.toggle.adaptiveDisplay" = "适配显示器";
+
+/* (No Comment) */
+"settings.toggle.adaptiveDisplay.info" = "为 Mac 的内置显示器适配应用窗口。";
+
+/* (No Comment) */
+"settings.toggle.autoWindowResize" = "启用自动窗口大小调整";
+
+/* (No Comment) */
+"settings.toggle.customSize" = "Enable custom window size";
+
+/* (No Comment) */
+"settings.toggle.disableDisplaySleep" = "禁用显示器息屏";
+
+/* (No Comment) */
+"settings.toggle.disableDisplaySleep.info" = "防止显示器在此应用运行时息屏";
+
+/* (No Comment) */
+"settings.toggle.customSize" = "启用自定义窗口大小";
+
+/* (No Comment) */
+"settings.toggle.gaming" = "游戏模式";
+
+/* (No Comment) */
+"settings.toggle.jbBypass" = "启用绕过越狱检测（预览）";
+
+/* (No Comment) */
+"settings.toggle.jbBypass.info" = "尝试绕过游戏的防越狱系统（不一定总是有效）";
+
+/* (No Comment) */
+"settings.toggle.km" = "启用键盘映射布局";
+
+/* (No Comment) */
+"settings.toggle.km.info" = "为触屏设计的游戏增添键鼠支持。使用 Command + K 启用键盘映射布局编辑器。";
+
+/* (No Comment) */
+"settings.toggle.portraitMode" = "竖屏模式";
+
+/* (No Comment) */
+"setup.enterLoginPassword" = "请输入管理员登录密码";
+
+/* (No Comment) */
+"setup.enterLoginPassword.info" = "输入用来登录这台 Mac 的密码。";
+
+/* (No Comment) */
+"setup.incorrectPassword" = "密码错误，请重试";
+
+/* (No Comment) */
+"setup.requireReboot" = "请重启 Mac 以使更改生效。";
+
+/* (No Comment) */
+"setupView.bilibili" = "哔哩哔哩";
+
+/* (No Comment) */
+"setupView.header" = "按照以下指示操作即可修复常见问题";
+
+/* (No Comment) */
+"setupView.pressButtonAndEnterPassword" = "请从以下按钮禁用SIP并输入 Mac 登录密码。";
+
+/* (No Comment) */
+"setupView.pressButtonAndEnterPassword.button" = "禁用SIP";
+
+/* (No Comment) */
+"setupView.step1" = "1) 将 Mac 关机";
+
+/* (No Comment) */
+"setupView.step2" = "2) 等待20秒以让 Mac 完全关机, 然后按住电源按钮";
+
+/* (No Comment) */
+"setupView.step3" = "3) 当 \"正在加载启动选项\" 在苹果图标底下出现时, 松开电源按钮";
+
+/* (No Comment) */
+"setupView.step4" = "4) 单击 恢复模式";
+
+/* (No Comment) */
+"setupView.step5" = "5) 在恢复模式下， 打开终端 (菜单栏 -> 实用工具 -> 终端)";
+
+/* (No Comment) */
+"setupView.step6" = "6) 输入: ";
+
+/* (No Comment) */
+"setupView.step7" = "7) 输入并回车上述命令后， 键入 Mac 的用户登录密码（密码字样不会显示在屏幕上）";
+
+/* (No Comment) */
+"setupView.step8" = "8) 重启 Mac";
+
+/* (No Comment) */
+"setupView.step9" = "如果遇到了任何错误或问题，重复上述操作";
+
+/* (No Comment) */
+"setupView.subheader" = "解决账号无法登录，应用闪退等问题";
+
+/* (No Comment) */
+"setupView.vidTutorials" = "视频教程";
+
+/* (No Comment) */
+"setupView.youtube" = "YouTube";
+
+/* (No Comment) */
+"soundAlert.failureText" = "现有音响设备设置采样率 48 KHz 失败。 您可以在 ”音频MIDI设置“ 应用里手动设置";
+
+/* (No Comment) */
+"soundAlert.informativeText" = "现有的音响设备并无 48 或者 44.1 KHz 采样率! 应用可能会崩溃。您希望把现有的音响设备设置成 48 KHz 采样率吗?";
+
+/* (No Comment) */
+"soundAlert.messageText" = "监测到声音设置有问题!";
+
+/* (No Comment) */
+"soundAlert.successText" = "现有音响设备采样率已设为 48 KHz";
+
+/* (No Comment) */
+"storeAccount.deleteAcc" = "删除一个账号";
+
+/* (No Comment) */
+"storeAccount.nameOfAcc" = "账号用户名";
+
+/* (No Comment) */
+"storeAccount.nameOfAcc.textfieldPlaceholder" = "用户名...";
+
+/* (No Comment) */
+"storeAccount.selectAcc" = "选择一个账号";
+
+/* (No Comment) */
+"storeAccount.selectAccRegion" = "选择账号地区服务器";
+
+/* (No Comment) */
+"storeAccount.selectAccRegion.asia" = "亚服";
+
+/* (No Comment) */
+"storeAccount.selectAccRegion.cht" = "台服";
+
+/* (No Comment) */
+"storeAccount.selectAccRegion.euro" = "欧服";
+
+/* (No Comment) */
+"storeAccount.selectAccRegion.usa" = "美服";
+
+/* (No Comment) */
+"storeAccount.store" = "保存账号";
+
+/* (No Comment) */
+"storeAccount.storeAcc" = "保存一个账号";
+
+/* (No Comment) */
 "xcode.install.failed" = "Xcode 命令行工具安装失败";
+
+/* (No Comment) */
+"xcode.install.message" = "您需要安装 Xcode 命令行工具并重启 PlayCover";
+
+/* (No Comment) */
 "xcode.install.progress" = "正在安装 Xcode 命令行工具";
+
+/* (No Comment) */
 "xcode.install.progress.subtext" = "根据网络速度，操作可能需要 5-10 分钟";
 
-"debug.crash" = "【调试】崩溃应用";
+/* (No Comment) */
+"xcode.install.success" = "Xcode 命令行工具安装成功";
+

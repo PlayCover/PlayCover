@@ -14,8 +14,8 @@ struct UpdateSettings: View {
 
     var body: some View {
         Form {
-            Toggle("Automatically check for updates", isOn: $autoUpdate)
-            Button("Check for updates now…") {
+            Toggle("preferences.toggle.automaticUpdates", isOn: $autoUpdate)
+            Button("preferences.button.checkForUpdates") {
                 updaterViewModel.checkForUpdates()
             }
         }

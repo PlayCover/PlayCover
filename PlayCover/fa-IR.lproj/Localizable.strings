@@ -3,142 +3,122 @@
 "playapp.showInFinder" = "نمایش برنامه در فایندر";
 "playapp.openCache" = "نمایش داده‌ها در فایندر";
 "playapp.clearCache" = "پاک کردن داده‌ها";
-"playapp.importKm" = "درون‌ریزی انطباق‌ساز کلیدها";
-"playapp.exportKm" = "برون‌ریزی انطباق‌ساز کلیدها";
-"playapp.delete" = "پاک کردن برنامه";
+"playapp.importKm" = "درون‌ریزی Keymap";
+"playapp.exportKm" = "برون‌ریزی Keymap";
+"playapp.delete" = "حذف برنامه";
 "playapp.add.help" = "برای نصب کردن برنامه‌ها، فایل آن‌ها را به اینجا بکشید و یا آن را باز کنید.";
 "playapp.update" = "به‌روزرسانی برنامه";
 "playapp.storeCurrentAccount" = "ذخیره کردن حساب کاربری فعلی";
 "playapp.activateAccount" = "باز کردن یک حساب از فهرست";
 "playapp.deleteAccount" = "حذف کردن یک حساب از فهرست";
 "playapp.clearPreferences" = "بازنشانی پیکربندی‌های درون برنامه";
-
 "storeAccount.selectAccRegion" = "منطقه کاربری خود را انتخاب کنید";
 "storeAccount.selectAccRegion.usa" = "آمریکا";
 "storeAccount.selectAccRegion.euro" = "اروپا";
 "storeAccount.selectAccRegion.asia" = "آسیا";
 "storeAccount.selectAccRegion.cht" = "تایوان - هنگ کنگ - ماکائو";
-"storeAccount.nameOfAcc" = "این حساب را با چه نامی ذخیره می‌کنید؟";
+"storeAccount.nameOfAcc" = "نام حساب کاربری شما";
 "storeAccount.nameOfAcc.textfieldPlaceholder" = "اینجا بنویسید...";
 "storeAccount.store" = "ذخیره کردن حساب";
 "storeAccount.selectAcc" = "انتخاب یک حساب";
 "storeAccount.storeAcc" = "ذخیره کردن یک حساب جدید";
 "storeAccount.deleteAcc" = "حذف کردن یک حساب ذخیره‌شده";
-
-"playapp.install.unzip" = "در حال ایجاد برنامه بر اساس پرونده IPA";
+"playapp.install.unzip" = "در حال ایجاد برنامه بر اساس پرونده IPA...";
 "playapp.install.createWrapper" = "در حال بارپیچی پیش‌نیازهای اجرا شدن برنامه...";
 "playapp.install.installPlayTools" = "در حال نصب PlayTools...";
 "playapp.install.signing" = "در حال مهروموم کردن برنامه...";
 "playapp.install.addToLib" = "در حال انتقال برنامه به کتابخانه‌ی نصب‌شده‌ها...";
 "playapp.install.copy" = "در حال انتقال رونوشت برنامه...";
-"playapp.install.finished" = "پردازش با موفقیت پایان یافت.";
-
+"playapp.install.finished" = "پردازش با موفقیت پایان یافت";
 "search.search" = "جست‌وجو...";
-
 "alert.appCacheCleared" = "پاک‌سازی داده‌های برنامه انجام شد!";
-"alert.kmImported" = "درون‌ریزی انطباق‌ساز انجام شد!";
+"alert.kmImported" = "درون‌ریزی Keymap انجام شد!";
 "alert.errorImportKm" = "خطایی در زمان درون‌ریزی رخ داد!";
 "alert.app.delete" = "تمامی داده‌های برنامه پاک خواهند شد. ممکن است که نیاز باشد دوباره آن‌ها را دریافت کنید. ادامه می‌دهید؟";
 "alert.app.preferences" = "تمامی پیکربندی‌های انجام‌شده پاک خواهند شد، ممکن است که نیاز باشد دوباره تنظیمات داخلی بازی را (مانند منطقه کاربری) پیکربندی کنید و چندین ثانیه صبر کنید تا که داده‌های بازی شناسایی شوند (دوباره دریافت نخواهند شد، بازی تنها نیاز به شناسایی دوباره آن‌ها خواهد داشت). آیا مایل به ادامه هستید؟";
-"alert.wrongFileType" = "پرونده از نوع درستی نیست!";
+"alert.wrongFileType" = "پرونده از نوع درستی نیست";
 "alert.wrongFileType.message" = "یک پرونده IPA انتخاب کنید";
-"alert.restart" = "لطفا PlayCover را دوباره راه‌اندازی کنید.";
+"alert.restart" = "لطفا PlayCover را از نو راه‌اندازی (Restart) کنید.";
 "alert.error" = "خطائی رخ داد!";
 "alert.success" = "انجام شد!";
 "alert.moveAppToApplications" = "PlayCover می‌بایست در پوشه‌ی Applications مک قرار داشته باشد. با زدن دکمه زیر اجازه دهید که PlayCover خود را به پوشه‌ی /Applications انتقال دهد.";
 "alert.moveAppToApplications.move" = "انتقال به /Applications";
-"alert.storeAccount.regionIsNotValid" = "این حساب کاربری بر روی منطقه‌ی کاربری دیگری تنظیم شده است. بازی را باز کرده، منطقه‌ی کاربری را تغییر داده و از دروازه عبور کنید تا تنظیمات ذخیره شوند. سپس دوباره تلاش کنید";
+"alert.storeAccount.regionIsNotValid" = "این حساب کاربری برای منطقه‌ی کاربری دیگری پیکربندی شده است. بازی را باز کرده، منطقه‌ی کاربری را تغییر داده و از دروازه عبور کنید تا پیکربندی آن ذخیره شوند. سپس دوباره تلاش کنید";
 
 
 "button.OK" = "تأیید";
 "button.Proceed" = "ادامه دادن";
 "button.Cancel" = "لغو";
 "button.Close" = "بستن";
-"button.Dismiss" = "رد کردن";
+"button.Dismiss" = "بستن";
 "button.Install" = "نصب";
-
 "error.corruptedIPA" = "این پرونده IPA خراب شده است چرا که چرا که شامل اطلاعات \"Info.plist\" نیست.";
-"error.waitInstallation" = "لطفاً تا زمان پایان یافتن روند نصب کنونی، شکیبا باشید.";
-"error.reinstallApp" = "لطفاً PlayCover را از نو نصب کنید.";
-
+"error.waitInstallation" = "لطفاً تا زمان پایان یافتن روند نصب کنونی، شکیبا باشید!";
+"error.reinstallApp" = "لطفاً PlayCover را از نو نصب کنید";
 "menubar.downloadMoreApps" = "دریافت برنامه‌های دیگر";
-"menubar.downloadMoreApps.help" = "از این وب‌گاه برای دریافت پرونده برنامه‌ها برای نصب استفاده کنید";
+"menubar.downloadMoreApps.help" = "از این وب‌گاه برای دریافت پرونده IPA برنامه‌ها برای نصب استفاده کنید";
 "menubar.exportToSideloady" = "برون‌ریزی برای Sideloadly";
 "menubar.exportToSideloady.help" = "برون‌ریزی پرونده IPA برای استفاده در نرم‌افزار Sideloadly قابل دانلود از Sideloadly.io که به غیرفعال‌سازی SIP برای اجرای بازی‌ها و نرم‌افزارها نیازی ندارد.";
-
 "bottomBar.notices" = "اعلان‌ها";
-"bottomBar.notices.help" = "اخبار و اطلاع‌رسانی‌هایی از طرف توسعه‌دهنده‌ها";
-"bottomBar.setupViewButton" = "با مشکل رو به رو هستید؟";
-
-"failedToFetchNotices" = "بارگزاری ااعلان‌ها با شکست رو به رو شد؛ لطفاً اتصال اینترنت خود را بررسی کنید.";
-
+"bottomBar.notices.help" = "اخبار و اطلاع‌رسانی‌هایی از طرف توسعه‌دهندگان";
+"bottomBar.setupViewButton" = "با مشکلی رو به رو شده‌اید؟";
+"failedToFetchNotices" = "بارگزاری اعلان‌ها با شکست رو به رو شد؛ لطفاً اتصال اینترنت خود را بررسی کنید.";
 "logs.copied" = "رونوشت‌گیری از گزارش عمل‌کرد انجام شد";
-
-"settings.toggle.km" = "فعال‌سازی انطباق‌ساز کلیدها";
+"settings.toggle.km" = "فعال‌سازی Keymapping";
 "settings.toggle.gaming" = "حالت بازی";
-"settings.toggle.km.info" = "پشتیبانی از صفحه کلید را به بازی‌های لمسی اضافه می‌کند. از کلید‌های ترکیبی Command + K برای باز کردن ویرایشگر انطباق‌ساز استفاده کنید.";
-"settings.toggle.adaptiveDisplay" = "وفق‌پذیرسازی با نمایشگر";
-"settings.toggle.adaptiveDisplay.info" ="پنجره‌ی برنامه را براساس نمایشگر داخلی مک، وفق داده و به آن مقیاس می‌دهد.";
+"settings.toggle.km.info" = "پشتیبانی از صفحه کلید را به بازی‌های لمسی اضافه می‌کند. از کلید‌های ترکیبی Command + K برای باز کردن ویرایشگر آن استفاده کنید.";
+"settings.toggle.adaptiveDisplay" = "حالت نمایشگر وفق‌پذیر";
+"settings.toggle.adaptiveDisplay.info" = "پنجره‌ی برنامه را براساس نمایشگر داخلی مک، متناسب‌سازی و اندازه‌دهی می‌کند.";
 "settings.toggle.jbBypass" = "دور زدن شناساگر جیلبریک (آزمایشی)";
-"settings.toggle.jbBypass.info" = "با فعال‌سازی این گزینه تلاش می‌شود که از فعالیت شناساگر جیلبریک موجود در برخی بازی‌ها جلوگیری شود (اما همیشه نتیجه نمی‌دهد).";
-"settings.toggle.autoWindowResize" = "فعال‌سازی تغییر اندازه خودکار";
-"settings.toggle.disableDisplaySleep" = "غیرفعال‌سازی خواب نمایشگر";
-"settings.toggle.disableDisplaySleep.info" = "این گزینه از خاموش شدن نمایشگر در زمان اجرای این برنامه جلوگیری می‌کند.";
-
-"settings.picker.displayRefreshRate" = "نرخ تازه‌سازی نمایشگر";
-"settings.picker.screenSize" = "وضوح (رزولوشن) نمایشگر";
+"settings.toggle.jbBypass.info" = "با فعال‌سازی این گزینه تلاش می‌شود که از فعالیت شناساگر جیلبریک موجود در برخی بازی‌ها جلوگیری شود (اما همیشه نتیجه نمی‌دهد)";
+"settings.toggle.autoWindowResize" = "تغییر اندازه خودکار";
+"settings.toggle.disableDisplaySleep" = "جلوگیری از خاموش شدن نمایشگر";
+"settings.toggle.disableDisplaySleep.info" = "این گزینه از خاموش شدن نمایشگر در زمان اجرای این برنامه جلوگیری می‌کند";
+"settings.picker.displayRefreshRate" = "نرخ تازه‌سازی تصویر";
+"settings.picker.screenSize" = "وضوح تصویر";
 "settings.picker.iosDevice" = "نوع شبیه‌ساز دستگاه iOS";
-
-"settings.slider.mouseSensitivity" = "حساسیت موشواره: ";
-
-"settings.reset" = "بازنشانی پیکربندی و انطباق‌ساز کلید‌ها";
+"settings.slider.mouseSensitivity" = "میزان حساسیت موس: ";
+"settings.reset" = "بازنشانی پیکربندی‌ها و Keymapping";
 "settings.resetCompleted" = "پیکربندی‌ها به حالت پیش‌فرض بازنشانی شدند!";
-
 "setupView.header" = "برای رفع مشکلات رایج، از راه‌کار زیر پیروی کنید";
 "setupView.subheader" = "این راه‌کار، مشکلاتی از جمله وارد نشدن به حساب‌های کاربری، خرابی برخی برنامه‌ها و دیگر موارد رایج را به طور معمول حل می‌کند";
-
 "setupView.step1" = "۱) دستگاه مک خود را خاموش کنید";
-"setupView.step2" = "۲) حدود ۲۰ ثانیه منتظر بمانید که دستگاه به طور کامل خاموش شود. سپس دکمه Power دستگاه را فشرده و نگه دارید.";
-"setupView.step3" = "۳) زمانی که متن \"Loading Startup Options\" در زیر لوگوی اپل ظاهر شد، دکمه Power را رها کنید.";
+"setupView.step2" = "۲) حدود ۲۰ ثانیه منتظر بمانید که دستگاه به طور کامل خاموش شود. سپس دکمه Power دستگاه را فشرده و نگه دارید";
+"setupView.step3" = "۳) زمانی که متن \"Loading Startup Options\" در زیر لوگوی اپل ظاهر شد، دکمه Power را رها کنید";
 "setupView.step4" = "۴) گزینه‌ی Recovery Mode را انتخاب و باز کنید";
 "setupView.step5" = "۵) سپس ترمینال را از مسیر Menu bar -> Utilities -> Terminal باز کنید";
 "setupView.step6" = "۶) دستور روبرو را بنویسید: ";
-"setupView.step7" = "۷) کلید Return را بزنید. سپس از شما اطلاعات ورود دستگاه‌تان در ترمینال سؤال می‌شود، آن‌ها را وارد کنید (در زمان نوشتن گذرواژه، متن مخفی خواهد بود)";
+"setupView.step7" = "۷) کلید Return را بزنید. سپس از شما اطلاعات ورود حساب کاربری‌تان به مک در ترمینال سؤال می‌شود، آن‌ها را وارد کنید (در زمان نوشتن گذرواژه، متن مخفی خواهد بود)";
 "setupView.step8" = "۸) بر روی لوگوی اپل در منوی بالای صفحه کلیک کرده و دستگاه را راه‌اندازی مجدد (Restart) کنید";
 "setupView.step9" = "در صورتی که در زمان انجام موارد بالا با خطائی مواجه شدید، مراحل را از ابتدا آغاز کنید";
-
 "setupView.vidTutorials" = "آموزش‌های تصویری";
-"setupView.youtube" = "یوتوب";
+"setupView.youtube" = "یوتیوب";
 "setupView.bilibili" = "بیلی‌بیلی";
-
 "setupView.pressButtonAndEnterPassword" = "لطفاً SIP را با روش زیر غیرفعال کرده و گذرواژه ورود به حساب دستگاه مک خود را وارد کنید.";
 "setupView.pressButtonAndEnterPassword.button" = "غیرفعال‌سازی SIP";
-
 "notification.appInstalled" = "برنامه نصب شد!";
 "notification.appInstalled.message" = "آن را در PlayCover می‌توانید مشاهده کنید!";
-
 "setup.enterLoginPassword" = "لطفاً گذرواژه خود را وارد کنید";
 "setup.incorrectPassword" = "گذرواژه وارد شده اشتباه است، لطفاً دوباره تلاش کنید";
-"setup.enterLoginPassword.info" = "گذرواژه‌ای که با آن به حساب دستگاه مک خود را وارد می‌شوید، بنویسید.";
+"setup.enterLoginPassword.info" = "گذرواژه‌ای که با آن به حساب دستگاه مک خود را وارد می‌شوید، وارد کنید.";
 "setup.requireReboot" = "لطفاً برای تأثیرگذاری تغییرات انجام شده، دستگاه مک خود را راه‌اندازی مجدد (Restart) کنید.";
-
 "menubar.log.copy" = "رونوشت‌گیری از گزارش عمل‌کرد";
 "menubar.documentation" = "مستندات";
 "menubar.website" = "وب‌گاه";
 "menubar.github" = "گیت‌هاب";
 "menubar.discord" = "دیسکورد";
-"menubar.showAppLinks" = "نمایش پیوند برنامه‌ها برای دریافت";
+"menubar.showAppLinks" = "نمایش پیوند دریافت دیگر برنامه‌ها";
 "menubar.checkForUpdates" = "بررسی وضعیت به‌روزرسانی";
-
-"soundAlert.messageText" = "پیکربندی صوتی نادرست شناسائی شد!";
-"soundAlert.informativeText" = "نرخ نمونه‌برداری خروجی صوتی دستگاه شما ۴۸ و یا ۴۴/۱ کیلوهرتز نیست! ممکن است خرابی رخ دهد. آیا مایل هستید که آن را به ۴۸ کیلوهزتر تغییر دهید؟";
-"soundAlert.successText" = "نرخ نمونه‌برداری خروجی صوتی دستگاه شما بر روی ۴۸ کیلوهرتز تنظیم شد";
-"soundAlert.failureText" = "تنظیم نرخ نمونه‌برداری خروجی صوتی بر روی ۴۸ کیلوهرتز با شکست مواجه شد. شما می‌توانید آن را به صورت دستی در نرم‌افزار Audio MIDI Setup مک خود، تنظیم کنید.";
-
-"xcode.install.message" = "شما می‌بایست Xcode Command Line Tools را نصب کرده و سپس PlayCover را دوباره باز کنید";
+"soundAlert.messageText" = "پیکربندی صوتی نادرستی شناسایی شد!";
+"soundAlert.informativeText" = "نرخ نمونه‌برداری خروجی صوتی دستگاه شما ۴۸ و یا ۴۴/۱ کیلوهرتز نیست! ممکن است خرابی رخ دهد. آیا مایل هستید که آن را به ۴۸ کیلوهرتز تغییر دهید؟";
+"soundAlert.successText" = "نرخ نمونه‌برداری خروجی صوتی دستگاه شما بر روی ۴۸ کیلوهرتز قرار گرفت";
+"soundAlert.failureText" = "تغییر نرخ نمونه‌برداری خروجی صوتی به ۴۸ کیلوهرتز با شکست مواجه شد. شما می‌توانید آن را به صورت دستی در نرم‌افزار Audio MIDI Setup مک خود، تغییر دهید";
+"xcode.install.message" = "شما می‌بایست Xcode Command Line Tools را نصب کرده و سپس PlayCover را از نو راه‌اندازی (Restart) کنید";
 "xcode.install.success" = "نصب Xcode Command Line Tools با موفقیت انجام شد";
 "xcode.install.failed" = "نصب Xcode Command Line Tools با شکست مواجه شد";
 "xcode.install.progress" = "در حال نصب Xcode Command Line Tools";
 "xcode.install.progress.subtext" = "بسته به سرعت اینترنت ممکن است زمان دانلود و نصب متغیر باشد";
-
 "debug.crash" = "[DEBUG] خرابی برنامه";
+"settings.text.customWidth" = "عرض";
+"settings.toggle.customSize" = "اندازه‌دهی دلخواه به پنجره تصویر";
+"settings.text.customHeight" = "ارتفاع";
