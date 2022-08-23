@@ -122,7 +122,7 @@ struct StoreAppConditionalView: View {
         } catch {
             Log.shared.error("error: \(error)")
         }
-        
+
         return nil
     }
 }
