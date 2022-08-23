@@ -118,12 +118,11 @@ struct StoreAppConditionalView: View {
             let jsonResult: ITunesResponse = try decoder.decode(ITunesResponse.self, from: data)
             if jsonResult.resultCount > 0 {
                 return URL(string: jsonResult.results[0].artworkUrl512)!
-            } else {
-                return nil
             }
         } catch {
             Log.shared.error("error: \(error)")
-            return nil
         }
+        
+        return nil
     }
 }
