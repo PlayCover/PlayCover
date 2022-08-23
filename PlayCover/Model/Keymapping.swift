@@ -111,7 +111,7 @@ class Keymapping {
         openPanel.canChooseDirectories = false
         openPanel.canCreateDirectories = true
         openPanel.allowedContentTypes = [UTType(exportedAs: "io.playcover.PlayCover-playmap")]
-        openPanel.title = "Select a valid file ending in .playmap"
+        openPanel.title = "Import Keymapping"
 
         openPanel.begin { result in
             if result == .OK {
@@ -139,7 +139,7 @@ class Keymapping {
 
     public func exportKeymap() {
         let savePanel = NSSavePanel()
-        savePanel.title = "Choose a place to export keymapping to..."
+        savePanel.title = "Export Keymapping"
         savePanel.nameFieldLabel = "PlayMap Name:"
         savePanel.nameFieldStringValue = self.info.displayName
         savePanel.allowedContentTypes = [UTType(exportedAs: "io.playcover.PlayCover-playmap")]
