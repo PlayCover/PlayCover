@@ -42,7 +42,7 @@ class AppSettings {
     var container: AppContainer?
     var settings: AppSettingsData {
         didSet {
-            _ = encode()
+            encode()
         }
     }
 
@@ -52,7 +52,7 @@ class AppSettings {
         self.settingsUrl = AppSettings.appSettingsDir.appendingPathComponent("\(info.bundleIdentifier).plist")
         self.settings = AppSettingsData()
         if !decode() {
-            _ = encode()
+            encode()
         }
     }
 
@@ -64,6 +64,7 @@ class AppSettings {
         settings = AppSettingsData()
     }
 
+    @discardableResult
     public func decode() -> Bool {
         do {
             let data = try Data(contentsOf: settingsUrl)
@@ -76,6 +77,7 @@ class AppSettings {
         }
     }
 
+    @discardableResult
     public func encode() -> Bool {
         let encoder = PropertyListEncoder()
         encoder.outputFormat = .xml
