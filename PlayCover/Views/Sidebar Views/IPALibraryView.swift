@@ -39,10 +39,10 @@ struct IPALibraryView: View {
                 }
             }
         }
-        .navigationTitle("IPA Library")
+        .navigationTitle("sidebar.ipaLibrary")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                Picker("Grid View Layout", selection: $gridViewLayout) {
+                Picker("", selection: $gridViewLayout) {
                     Image(systemName: "square.grid.2x2")
                         .tag(0)
                     Image(systemName: "list.bullet")

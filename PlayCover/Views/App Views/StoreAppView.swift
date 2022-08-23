@@ -37,28 +37,27 @@ struct StoreAppView: View {
 struct StoreAppConditionalView: View {
     @State var app: StoreAppData
     @State var isList: Bool
+    @State var iconUrl: URL?
 
     var body: some View {
         if isList {
             HStack(alignment: .center, spacing: 0) {
                 Image(systemName: "arrow.down.circle")
+                    .padding(.horizontal, 5)
                 Spacer()
                     .frame(width: 20)
-                // TODO: Fix async image appearence
-                AsyncImage(
-                    url: URL(string: app.icon),
-                    content: { image in
-                        image
-                            .resizable()
-                    },
-                    placeholder: {
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                    }
-                )
+                AsyncImage(url: iconUrl) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                } placeholder: {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                }
                 .frame(width: 40, height: 40)
                 .cornerRadius(10)
                 .shadow(radius: 1)
+                .padding(.vertical, 5)
                 Spacer()
                     .frame(width: 20)
                 Text(app.name)
@@ -67,23 +66,25 @@ struct StoreAppConditionalView: View {
                     .padding(.horizontal, 5)
                     .foregroundColor(.secondary)
             }
+            .task {
+                iconUrl = await getIconURLFromBundleIdentifier(app.id, app.region)
+            }
         } else {
             VStack(alignment: .center, spacing: 0) {
-                AsyncImage(
-                    url: URL(string: app.icon),
-                    content: { image in
+                VStack {
+                    AsyncImage(url: iconUrl) { image in
                         image
                             .resizable()
-                    },
-                    placeholder: {
+                            .aspectRatio(contentMode: .fit)
+                    } placeholder: {
                         ProgressView()
                             .progressViewStyle(.circular)
                     }
-                )
-                .frame(width: 88, height: 88)
-                .cornerRadius(10)
+                }
+                .cornerRadius(15)
+                .frame(width: 70, height: 70)
                 .shadow(radius: 1)
-                .padding(.top, 8)
+                .padding(.vertical, 5)
                 HStack {
                     Image(systemName: "arrow.down.circle")
                         .font(.system(size: 16))
@@ -91,9 +92,36 @@ struct StoreAppConditionalView: View {
                         .lineLimit(2)
                         .multilineTextAlignment(.center)
                 }
-                .padding(.bottom, 14)
+                .padding(.vertical, 5)
             }
             .frame(width: 150, height: 150)
+            .task {
+                iconUrl = await getIconURLFromBundleIdentifier(app.id, app.region)
+            }
         }
+    }
+
+    func getIconURLFromBundleIdentifier(_ bundleIdentifier: String,
+                                        _ region: StoreAppData.Region) async -> URL? {
+        let url: URL
+
+        if region == .CN {
+            url = URL(string: "http://itunes.apple.com/lookup?bundleId=\(bundleIdentifier)" + "&country=cn")!
+        } else {
+            url = URL(string: "http://itunes.apple.com/lookup?bundleId=\(bundleIdentifier)")!
+        }
+
+        do {
+            let (data, _) = try await URLSession.shared.data(for: URLRequest(url: url))
+            let decoder = JSONDecoder()
+            let jsonResult: ITunesResponse = try decoder.decode(ITunesResponse.self, from: data)
+            if jsonResult.resultCount > 0 {
+                return URL(string: jsonResult.results[0].artworkUrl512)!
+            }
+        } catch {
+            Log.shared.error("error: \(error)")
+        }
+
+        return nil
     }
 }

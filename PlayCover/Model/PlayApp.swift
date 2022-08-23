@@ -45,7 +45,7 @@ class PlayApp: BaseApp {
                                            configuration: NSWorkspace.OpenConfiguration(),
                                            completionHandler: {runningApp, error in
             guard error == nil else {return}
-            if self.settings.disableTimeout {
+            if self.settings.settings.disableTimeout {
                 // Yeet into a thread
                 DispatchQueue.global().async {
                     debugPrint("Disabling timeout...")
@@ -71,7 +71,7 @@ class PlayApp: BaseApp {
 
     var icon: NSImage? {
         if let rep = NSWorkspace.shared.icon(forFile: url.path)
-            .bestRepresentation(for: NSRect(x: 0, y: 0, width: 128, height: 128), context: nil, hints: nil) {
+            .bestRepresentation(for: NSRect(x: 0, y: 0, width: 512, height: 512), context: nil, hints: nil) {
             let image = NSImage(size: rep.size)
             image.addRepresentation(rep)
             return image
@@ -89,6 +89,10 @@ class PlayApp: BaseApp {
 
     lazy var settings: AppSettings = {
         AppSettings(info, container: container)
+    }()
+
+    lazy var keymapping: Keymapping = {
+        Keymapping(info, container: container)
     }()
 
     var container: AppContainer?
