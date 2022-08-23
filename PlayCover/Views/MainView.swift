@@ -29,13 +29,12 @@ struct MainView: View {
         GeometryReader { viewGeom in
             NavigationView {
                 GeometryReader { sidebarGeom in
-                    // TODO: Localise strings
                     List {
                         NavigationLink(destination: AppLibraryView(), tag: 1, selection: self.$selectedView) {
-                            Label("App Library", systemImage: "square.grid.2x2")
+                            Label("sidebar.appLibrary", systemImage: "square.grid.2x2")
                         }
                         NavigationLink(destination: IPALibraryView(), tag: 2, selection: self.$selectedView) {
-                            Label("IPA Library", systemImage: "arrow.down.circle")
+                            Label("sidebar.ipaLibrary", systemImage: "arrow.down.circle")
                         }
                     }
                     .onChange(of: sidebarGeom.size) { newSize in

@@ -30,16 +30,16 @@ struct ChangeGenshinAccountView: View {
                     }).controlSize(.large).buttonStyle(.automatic).font(.title3)
                         .foregroundColor(.accentColor)
                         .frame(width: 300, alignment: .center)
-                        .alert("Really Restore Account?", isPresented: $restoreAlert, actions: {
-                            Button("Restore Account") {
+                        .alert("storeAccount.alert.restoreAccount", isPresented: $restoreAlert, actions: {
+                            Button("storeAccount.alert.restoreAccount.button") {
                                 restoreUserData(folderName: account)
                                 self.presentationMode.wrappedValue.dismiss()
                             }
                             .controlSize(.large).padding()
-                            Button("Cancel", role: .cancel) {}
+                            Button("button.Cancel", role: .cancel) {}
                                 .controlSize(.large).padding()
                         }, message: {
-                            Text("This will override your currently signed-in account.")
+                            Text("storeAccount.alert.restoreAccount.msg")
                         })
                 }
             }.frame(width: 450)

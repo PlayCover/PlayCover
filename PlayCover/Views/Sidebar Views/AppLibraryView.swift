@@ -38,7 +38,7 @@ struct AppLibraryView: View {
                 }
             }
         }
-        .navigationTitle("App Library")
+        .navigationTitle("sidebar.appLibrary")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button(action: {

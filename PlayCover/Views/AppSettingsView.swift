@@ -305,44 +305,48 @@ struct InfoView: View {
     var body: some View {
         List {
             HStack {
-                Text("Display name:")
+                Text("settings.info.displayName")
                 Spacer()
                 Text("\(info.displayName)")
             }
             HStack {
-                Text("Bundle name:")
+                Text("settings.info.bundleName")
                 Spacer()
                 Text("\(info.bundleName)")
             }
             HStack {
-                Text("Bundle identifier:")
+                Text("settings.info.bundleIdentifier")
                 Spacer()
                 Text("\(info.bundleIdentifier)")
             }
             HStack {
-                Text("Bundle version:")
+                Text("settings.info.bundleVersion")
                 Spacer()
                 Text("\(info.bundleVersion)")
             }
             HStack {
-                Text("Executable name:")
+                Text("settings.info.executableName")
                 Spacer()
                 Text("\(info.executableName)")
             }
             HStack {
-                Text("Minimum OS version:")
+                Text("settings.info.minimumOSVersion")
                 Spacer()
                 Text("\(info.minimumOSVersion)")
             }
             HStack {
-                Text("URL:")
+                Text("settings.info.url")
                 Spacer()
                 Text("\(info.url)")
             }
             HStack {
-                Text("Is Game:")
+                Text("settings.info.isGame")
                 Spacer()
-                Text("\(info.isGame ? "Yes" : "No")")
+                Text("""
+                        \(info.isGame ?
+                        NSLocalizedString("settings.info.isGame.yes", comment: "") :
+                        NSLocalizedString("settings.info.isGame.no", comment: ""))
+                """)
             }
         }
         .listStyle(.bordered(alternatesRowBackgrounds: true))
