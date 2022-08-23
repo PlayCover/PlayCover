@@ -71,7 +71,7 @@ class PlayApp: BaseApp {
 
     var icon: NSImage? {
         if let rep = NSWorkspace.shared.icon(forFile: url.path)
-            .bestRepresentation(for: NSRect(x: 0, y: 0, width: 128, height: 128), context: nil, hints: nil) {
+            .bestRepresentation(for: NSRect(x: 0, y: 0, width: 512, height: 512), context: nil, hints: nil) {
             let image = NSImage(size: rep.size)
             image.addRepresentation(rep)
             return image

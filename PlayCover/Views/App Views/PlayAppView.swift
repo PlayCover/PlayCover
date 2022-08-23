@@ -183,17 +183,20 @@ struct PlayAppConditionalView: View {
         } else {
             VStack(alignment: .center, spacing: 0) {
                 if let img = app.icon {
-                    Image(nsImage: img)
-                        .resizable()
-                        .frame(width: 88, height: 88)
-                        .cornerRadius(10)
-                        .shadow(radius: 1)
-                        .padding(.top, 8)
-                    Text(app.name)
-                        .frame(width: 150, height: 40)
-                        .lineLimit(2)
-                        .multilineTextAlignment(.center)
-                        .padding(.bottom, 14)
+                    VStack {
+                        Image(nsImage: img)
+                            .resizable()
+                    }
+                    .cornerRadius(10)
+                    .frame(width: 88, height: 88)
+                    .shadow(radius: 1)
+                    .padding(.vertical, 5)
+                    HStack {
+                        Text(app.name)
+                            .lineLimit(2)
+                            .multilineTextAlignment(.center)
+                    }
+                    .padding(.vertical, 5)
                 }
             }
             .frame(width: 150, height: 150)
