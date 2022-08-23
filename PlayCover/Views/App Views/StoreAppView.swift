@@ -67,7 +67,7 @@ struct StoreAppConditionalView: View {
                     .foregroundColor(.secondary)
             }
             .task {
-                iconUrl = try? await getIconURLFromBundleIdentifier(app.id, app.region)
+                iconUrl = await getIconURLFromBundleIdentifier(app.id, app.region)
             }
         } else {
             VStack(alignment: .center, spacing: 0) {
@@ -96,13 +96,13 @@ struct StoreAppConditionalView: View {
             }
             .frame(width: 150, height: 150)
             .task {
-                iconUrl = try? await getIconURLFromBundleIdentifier(app.id, app.region)
+                iconUrl = await getIconURLFromBundleIdentifier(app.id, app.region)
             }
         }
     }
 
     func getIconURLFromBundleIdentifier(_ bundleIdentifier: String,
-                                        _ region: StoreAppData.Region) async throws -> URL? {
+                                        _ region: StoreAppData.Region) async -> URL? {
         let url: URL
 
         if region == .CN {
@@ -111,9 +111,8 @@ struct StoreAppConditionalView: View {
             url = URL(string: "http://itunes.apple.com/lookup?bundleId=\(bundleIdentifier)")!
         }
 
-        let (data, _) = try await URLSession.shared.data(for: URLRequest(url: url))
-
         do {
+            let (data, _) = try await URLSession.shared.data(for: URLRequest(url: url))
             let decoder = JSONDecoder()
             let jsonResult: ITunesResponse = try decoder.decode(ITunesResponse.self, from: data)
             if jsonResult.resultCount > 0 {
