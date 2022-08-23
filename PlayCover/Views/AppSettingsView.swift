@@ -57,8 +57,7 @@ struct AppSettingsView: View {
                 }
                 Button("settings.resetKm") {
                     resetKmCompletedAlert.toggle()
-                    // TODO: Make these buttons do different things lol
-                    viewModel.app.settings.reset()
+                    viewModel.app.keymapping.reset()
                     dismiss()
                 }
                 Button("button.OK") {
