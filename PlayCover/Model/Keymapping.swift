@@ -38,6 +38,7 @@ struct Keymap: Codable {
     var mouseAreaMode: [MouseAreaModel] = []
     var bundleIdentifier: String
     var version: Float = 2
+    var version: String = "2.0.0"
 }
 
 class Keymapping {
