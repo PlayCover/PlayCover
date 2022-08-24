@@ -131,7 +131,7 @@ These open source libraries were used to create this project.
 * [optool](https://github.com/alexzielenski/optool)
 * [PTFakeTouch](https://github.com/Ret70/PTFakeTouch)
 
-* Thanks to @iVoider for creating such a great project!
+* Thanks to [@iVoider](https://github.com/iVoider) for creating such a great project!
 
 <p align="right"><a href="#top">⬆️ Back to top️</a></p>
 
