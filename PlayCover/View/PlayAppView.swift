@@ -150,7 +150,10 @@ struct PlayAppView: View {
                                 disableTimeout: app.settings.disableTimeout,
                                 selectedWindowSize: getScreenSizeSelector(app.settings.gameWindowSizeHeight) ?? 0,
                                 enableWindowAutoSize: app.settings.enableWindowAutoSize,
-                                ipadModel: app.settings.ipadModel
+                                ipadModel: app.settings.ipadModel,
+                                enableCustomWindowSize: app.settings.enableCustomWindowSize,
+                                customHeight: String(app.settings.gameWindowSizeHeight),
+                                customWidth: String(app.settings.gameWindowSizeWidth)
                 ).frame(minWidth: 500)
             }.sheet(isPresented: $showChangeGenshinAccount) {
                 ChangeGenshinAccountView()

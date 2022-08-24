@@ -1,0 +1,43 @@
+name: Game Support Request
+description: Request support for a currently unsupported game.
+title: "[Game Support]: "
+labels: ["game-support"]
+body:
+  - type: textarea
+    id: app-store
+    attributes:
+      label: App Store link
+      description: Provide a link to the game on the iOS App Store.
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: Current issues
+      description: Please check all relevant issues
+      options:
+        - label: Game fails to install
+        - label: Game fails to open
+        - label: Game crashes randomly during gameplay
+        - label: Game does not work with keymapping
+        - label: Game experiences graphical issues or broken UI
+        - label: Game fails to connect to servers or complete download
+  - type: textarea
+    id: more-info
+    attributes:
+      label: More details
+      description: A clear and concise description of the issues with a particular game.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Crash log
+      description: Copy and paste in any relevant crash logs in plain text.
+      render: shell
+  - type: checkboxes
+    attributes:
+      label: Issue Language
+      description: All issues must be written in clear plain English so that all devs are able to read them.
+      options:
+        - label: Yes my issue is written in English
+          required: true
