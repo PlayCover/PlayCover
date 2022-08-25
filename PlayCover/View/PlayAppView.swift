@@ -35,14 +35,14 @@ struct PlayAppView: View {
                 Image(nsImage: img).resizable()
                     .frame(width: 88, height: 88).cornerRadius(10).shadow(radius: 1).padding(.top, 8)
                 Text(app.name)
-                    .frame(width: 150, height: 40)
+                    .frame(width: Constants.appViewSize, height: 40)
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 14)
             }
         }.background(colorScheme == .dark ? elementColor(true) : elementColor(false))
             .cornerRadius(16.0)
-            .frame(width: 150, height: 150)
+            .frame(width: Constants.appViewSize, height: Constants.appViewSize)
             .onTapGesture {
                 isHover = false
                 shell.removeTwitterSessionCookie()
