@@ -14,13 +14,7 @@ struct StoreAppView: View {
     @State var isHover: Bool = false
 
     var body: some View {
-        StoreAppConditionalView(app: app, isList: isList)
-        .background(
-            withAnimation {
-                isHover ? Color.gray.opacity(0.3) : Color.clear
-            }
-                .animation(.easeInOut(duration: 0.15), value: isHover)
-        )
+        StoreAppConditionalView(app: app, isList: isList, isHover: $isHover)
         .cornerRadius(10)
         .onTapGesture {
             isHover = false
@@ -38,14 +32,15 @@ struct StoreAppConditionalView: View {
     @State var app: StoreAppData
     @State var isList: Bool
     @State var iconUrl: URL?
+    @Environment(\.colorScheme) var colorScheme
+
+    @Binding var isHover: Bool
 
     var body: some View {
         if isList {
             HStack(alignment: .center, spacing: 0) {
                 Image(systemName: "arrow.down.circle")
-                    .padding(.horizontal, 5)
-                Spacer()
-                    .frame(width: 20)
+                    .padding(.horizontal, 15)
                 AsyncImage(url: iconUrl) { image in
                     image
                         .resizable()
@@ -63,38 +58,59 @@ struct StoreAppConditionalView: View {
                 Text(app.name)
                 Spacer()
                 Text(app.version)
-                    .padding(.horizontal, 5)
+                    .padding(.horizontal, 15)
                     .foregroundColor(.secondary)
             }
+            .background(
+                        withAnimation {
+                            isHover ? Color.gray.opacity(0.3) : Color.clear
+                        }
+                            .animation(.easeInOut(duration: 0.15), value: isHover)
+                    )
             .task {
                 iconUrl = await getIconURLFromBundleIdentifier(app.id, app.region)
             }
         } else {
             VStack(alignment: .center, spacing: 0) {
-                VStack {
-                    AsyncImage(url: iconUrl) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                    } placeholder: {
-                        ProgressView()
-                            .progressViewStyle(.circular)
+                ZStack {
+                    VStack {
+                        AsyncImage(url: iconUrl) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        } placeholder: {
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                        }
+                    }
+                    .cornerRadius(15)
+                    .shadow(
+                        color: isHover ? Color.black.opacity(
+                            colorScheme == .dark ? 0.8 : 0.3
+                        ) : Color.clear, radius: 13, x: 0, y: 5
+                    ).animation(
+                        .interpolatingSpring(
+                            stiffness: 400, damping: 17
+                        ), value: isHover
+                    )
+                    .shadow(radius: 1)
+                    .frame(width: isHover ? 75 : 70, height: isHover ? 75 : 70)
+                    .padding(.vertical, 5)
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Image(systemName: "arrow.down.circle")
+                                .font(.system(size: 16))
+                            Text(app.name)
+                                .lineLimit(1)
+                                .multilineTextAlignment(.center)
+                                .padding(.trailing, 16)
+                        }
+                        .padding(.vertical, 5)
                     }
                 }
-                .cornerRadius(15)
-                .frame(width: 70, height: 70)
-                .shadow(radius: 1)
-                .padding(.vertical, 5)
-                HStack {
-                    Image(systemName: "arrow.down.circle")
-                        .font(.system(size: 16))
-                    Text(app.name)
-                        .lineLimit(2)
-                        .multilineTextAlignment(.center)
-                }
-                .padding(.vertical, 5)
             }
-            .frame(width: 150, height: 150)
+            .frame(width: 150, height: 130)
             .task {
                 iconUrl = await getIconURLFromBundleIdentifier(app.id, app.region)
             }

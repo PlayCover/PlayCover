@@ -31,7 +31,6 @@ struct AppLibraryView: View {
                         ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
                             PlayAppView(app: app, isList: true)
                         }
-                        .padding(.vertical, 2)
                     }
                     .listStyle(.inset)
                     .animation(.spring(blendDuration: 0.1), value: geom.size.height)
