@@ -27,6 +27,9 @@ func setScreenSize(tag: Int, settings: AppSettings) {
     case 5:
         settings.gameWindowSizeHeight = 844
         settings.gameWindowSizeWidth = 390
+    case 6:
+        settings.gameWindowSizeHeight = 1000
+        settings.gameWindowSizeWidth = 1600
     default:
         return
     }

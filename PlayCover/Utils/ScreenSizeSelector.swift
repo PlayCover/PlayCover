@@ -21,6 +21,8 @@ func getScreenSizeSelector(_ height: Float) -> Int? {
         return 4
     case 844: // Vertical screen
         return 5
+    case 1000:
+        return 6
     default:
         return nil
     }
