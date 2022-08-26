@@ -63,10 +63,15 @@ class Shell: ObservableObject {
     }
 
 	static let isXcodeCliToolsInstalled: Bool = {
-		if (try? sh("xcode-select -p")) == nil {
-			return false
-		}
-		return true
+        let toolsPath = try? sh("xcode-select -p")
+        if let toolsPath = toolsPath?.trimmingCharacters(in: .whitespacesAndNewlines) {
+            if FileManager.default.fileExists(atPath:
+                toolsPath.appending("/usr/bin/codesign_allocate")) {
+                return true
+            }
+        }
+
+		return false
 	}()
 
     static func isMachoSigned(_ exec: URL) -> Bool {
