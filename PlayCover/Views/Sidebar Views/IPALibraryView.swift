@@ -32,7 +32,6 @@ struct IPALibraryView: View {
                         ForEach(storeVM.apps, id: \.id) { app in
                             StoreAppView(app: app, isList: true)
                         }
-                        .padding(.vertical, 2)
                     }
                     .listStyle(.inset)
                     .animation(.spring(blendDuration: 0.1), value: geom.size.height)

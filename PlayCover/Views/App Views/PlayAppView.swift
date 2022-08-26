@@ -23,13 +23,7 @@ struct PlayAppView: View {
     @State private var showDeleteGenshinAccount: Bool = false
 
     var body: some View {
-        PlayAppConditionalView(app: app, isList: isList)
-            .background(
-                withAnimation {
-                    isHover ? Color.gray.opacity(0.3) : Color.clear
-                }
-                    .animation(.easeInOut(duration: 0.15), value: isHover)
-            )
+        PlayAppConditionalView(app: app, isList: isList, isHover: $isHover)
             .cornerRadius(10)
             .onTapGesture {
                 isHover = false
@@ -161,44 +155,65 @@ struct PlayAppView: View {
 struct PlayAppConditionalView: View {
     @State var app: PlayApp
     @State var isList: Bool
+    @Binding var isHover: Bool
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         if isList {
             HStack(alignment: .center, spacing: 0) {
                 if let img = app.icon {
                     Image(nsImage: img).resizable()
-                        .frame(width: 40, height: 40)
+                        .frame(width: 50, height: 50)
                         .cornerRadius(10)
                         .shadow(radius: 1)
-                    Spacer()
-                        .frame(width: 20)
+                        .padding(.horizontal, 15)
                     Text(app.name)
                     Spacer()
                     Text(app.settings.info.bundleVersion)
-                        .padding(.horizontal, 5)
+                        .padding(.horizontal, 15)
                         .foregroundColor(.secondary)
                 }
             }
+            .background(
+                        withAnimation {
+                            isHover ? Color.gray.opacity(0.3) : Color.clear
+                        }
+                            .animation(.easeInOut(duration: 0.15), value: isHover)
+                    )
         } else {
             VStack(alignment: .center, spacing: 0) {
                 if let img = app.icon {
-                    VStack {
-                        Image(nsImage: img)
-                            .resizable()
+                    ZStack {
+                        VStack {
+                            Image(nsImage: img)
+                                .resizable()
+                        }
+                        .cornerRadius(10)
+                        .shadow(
+                            color: isHover ? Color.black.opacity(
+                                colorScheme == .dark ? 1 : 0.2
+                            ) : Color.clear, radius: 13, x: 0, y: 5
+                        ).animation(
+                            .interpolatingSpring(
+                                stiffness: 400, damping: 17
+                            ), value: isHover
+                        )
+                        .frame(width: isHover ? 93 : 88, height: isHover ? 93 : 88)
+                        .shadow(radius: 1)
+                        .padding(.vertical, 5)
+                        VStack {
+                            Spacer()
+                            HStack {
+                                Text(app.name)
+                                    .lineLimit(2)
+                                    .multilineTextAlignment(.center)
+                            }
+                            .padding(.vertical, 5)
+                        }
                     }
-                    .cornerRadius(10)
-                    .frame(width: 88, height: 88)
-                    .shadow(radius: 1)
-                    .padding(.vertical, 5)
-                    HStack {
-                        Text(app.name)
-                            .lineLimit(2)
-                            .multilineTextAlignment(.center)
-                    }
-                    .padding(.vertical, 5)
                 }
             }
-            .frame(width: 150, height: 150)
+            .frame(width: 150, height: 130)
         }
     }
 }
