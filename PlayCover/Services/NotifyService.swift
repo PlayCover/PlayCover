@@ -3,9 +3,9 @@
 //  PlayCover
 //
 
-import UserNotifications
 import Foundation
 import SwiftUI
+import UserNotifications
 
 class NotifyService: NSObject, UNUserNotificationCenterDelegate {
 
@@ -13,14 +13,13 @@ class NotifyService: NSObject, UNUserNotificationCenterDelegate {
 
     func allowNotify() {
         UNUserNotificationCenter.current().delegate = self
-        UNUserNotificationCenter.current().requestAuthorization(options:
-          [.badge, .alert, .sound]) { (_, error) in
-                if error != nil {
-                    print("Error Found, \(error?.localizedDescription ?? "")")
-                } else {
-                    print("Authorized by the user")
-                }
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { _, error in
+            if error != nil {
+                print("Error Found, \(error?.localizedDescription ?? "")")
+            } else {
+                print("Authorized by the user")
             }
+        }
     }
 
     func notify(_ title: String, _ message: String) {

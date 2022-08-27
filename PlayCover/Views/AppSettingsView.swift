@@ -13,8 +13,8 @@ struct AppSettingsView: View {
 
     @ObservedObject var viewModel: AppSettingsVM
 
-    @State var resetSettingsCompletedAlert: Bool = false
-    @State var resetKmCompletedAlert: Bool = false
+    @State var resetSettingsCompletedAlert = false
+    @State var resetKmCompletedAlert = false
 
     var body: some View {
         VStack {
@@ -73,11 +73,13 @@ struct AppSettingsView: View {
             }
         }
         .onChange(of: resetSettingsCompletedAlert) { _ in
-            ToastVM.shared.showToast(toastType: .notice,
+            ToastVM.shared.showToast(
+                toastType: .notice,
                 toastDetails: NSLocalizedString("settings.resetSettingsCompleted", comment: ""))
         }
         .onChange(of: resetKmCompletedAlert) { _ in
-            ToastVM.shared.showToast(toastType: .notice,
+            ToastVM.shared.showToast(
+                toastType: .notice,
                 toastDetails: NSLocalizedString("settings.resetKmCompleted", comment: ""))
         }
         .padding()
@@ -102,8 +104,8 @@ struct KeymappingView: View {
                         format: NSLocalizedString("settings.slider.mouseSensitivity", comment: ""),
                         settings.settings.sensitivity))
                     Spacer()
-                    Slider(value: $settings.settings.sensitivity, in: 0...100, label: {EmptyView()})
-                    .frame(width: 250)
+                    Slider(value: $settings.settings.sensitivity, in: 0...100, label: { EmptyView() })
+                        .frame(width: 250)
                 }
                 Spacer()
             }
@@ -115,8 +117,8 @@ struct KeymappingView: View {
 struct GraphicsView: View {
     @Binding var settings: AppSettings
 
-    @State var customWidth: Int = 1920
-    @State var customHeight: Int = 1080
+    @State var customWidth = 1920
+    @State var customHeight = 1080
 
     static var number: NumberFormatter {
         let formatter = NumberFormatter()
@@ -155,14 +157,16 @@ struct GraphicsView: View {
                     if settings.settings.resolution == 5 {
                         Text(NSLocalizedString("settings.text.customWidth", comment: "") + ":")
                         Stepper {
-                            TextField("settings.text.customWidth", value: $customWidth,
-                                      formatter: GraphicsView.number,
-                                      onCommit: {
-                                        DispatchQueue.main.async {
-                                            NSApp.keyWindow?.makeFirstResponder(nil)
-                                        }
-                                      })
-                            .frame(width: 125)
+                            TextField(
+                                "settings.text.customWidth",
+                                value: $customWidth,
+                                formatter: GraphicsView.number,
+                                onCommit: {
+                                    DispatchQueue.main.async {
+                                        NSApp.keyWindow?.makeFirstResponder(nil)
+                                    }
+                                })
+                                .frame(width: 125)
                         }
                         onIncrement: {
                             customWidth += 1
@@ -172,14 +176,16 @@ struct GraphicsView: View {
                         Spacer()
                         Text(NSLocalizedString("settings.text.customHeight", comment: "") + ":")
                         Stepper {
-                            TextField("settings.text.customHeight", value: $customHeight,
-                                      formatter: GraphicsView.number,
-                                      onCommit: {
-                                        DispatchQueue.main.async {
-                                            NSApp.keyWindow?.makeFirstResponder(nil)
-                                        }
-                                      })
-                            .frame(width: 125)
+                            TextField(
+                                "settings.text.customHeight",
+                                value: $customHeight,
+                                formatter: GraphicsView.number,
+                                onCommit: {
+                                    DispatchQueue.main.async {
+                                        NSApp.keyWindow?.makeFirstResponder(nil)
+                                    }
+                                })
+                                .frame(width: 125)
                         } onIncrement: {
                             customHeight += 1
                         } onDecrement: {

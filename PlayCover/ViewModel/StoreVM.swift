@@ -36,7 +36,7 @@ class StoreVM: ObservableObject {
                 self.apps.removeAll()
 
                 if !uif.searchText.isEmpty {
-                    result = result.filter({$0.name.lowercased().contains(uif.searchText.lowercased())})
+                    result = result.filter({ $0.name.lowercased().contains(uif.searchText.lowercased()) })
                 }
 
                 self.apps.append(contentsOf: result)
@@ -49,20 +49,18 @@ class StoreVM: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "HEAD"
         URLSession(configuration: .default)
-            .dataTask(with: request) { (_, response, error) -> Void in
+            .dataTask(with: request) { _, response, error in
                 guard error == nil else {
                     print("Error:", error ?? "")
                     avaliable = false
                     return
                 }
 
-                guard (response as? HTTPURLResponse)?
-                    .statusCode == 200 else {
+                guard (response as? HTTPURLResponse)?.statusCode == 200 else {
                     print("down")
                     avaliable = false
                     return
                 }
-
             }
             .resume()
         return avaliable
@@ -88,6 +86,7 @@ struct StoreAppData: Decodable {
         // swiftlint:disable identifier_name
         case Global, CN
     }
+
     var id: String
     let name: String
     let version: String

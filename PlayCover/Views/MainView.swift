@@ -21,7 +21,7 @@ struct MainView: View {
     @State private var selectedView: Int? = -1
     @State private var navWidth: CGFloat = 0
     @State private var viewWidth: CGFloat = 0
-    @State private var collapsed: Bool = false
+    @State private var collapsed = false
     @State private var isInstallingXcodeCli = false
     @State private var xcodeInstallStatus: XcodeInstallStatus = .installing
 
@@ -69,60 +69,61 @@ struct MainView: View {
             .onChange(of: viewGeom.size) { newSize in
                 viewWidth = newSize.width
             }
-            .alert("alert.moveAppToApplications.title",
-                   isPresented: $integrity.integrityOff) {
-                Button("alert.moveAppToApplications.move", role: .cancel) {
-                    integrity.moveToApps()
-                }
-                .tint(.accentColor)
-                .keyboardShortcut(.defaultAction)
+            .alert(
+                "alert.moveAppToApplications.title",
+                isPresented: $integrity.integrityOff) {
+                    Button("alert.moveAppToApplications.move", role: .cancel) {
+                        integrity.moveToApps()
+                    }
+                    .tint(.accentColor)
+                    .keyboardShortcut(.defaultAction)
             } message: {
                 Text("alert.moveAppToApplications.subtitle")
             }
             .sheet(isPresented: Binding<Bool>(
-                get: {return !xcodeCliInstalled},
-                set: {value in xcodeCliInstalled = value})) {
-                VStack(spacing: 12) {
-                    switch xcodeInstallStatus {
-                    case .installing:
-                        if !isInstallingXcodeCli {
-                            Text("xcode.install.message")
-                            .font(.title3)
-                            Button("button.Install") {
-                                installXcodeCli()
-                                isInstallingXcodeCli = true
+                get: { !xcodeCliInstalled },
+                set: { value in xcodeCliInstalled = value })) {
+                    VStack(spacing: 12) {
+                        switch xcodeInstallStatus {
+                        case .installing:
+                            if !isInstallingXcodeCli {
+                                Text("xcode.install.message")
+                                    .font(.title3)
+                                Button("button.Install") {
+                                    installXcodeCli()
+                                    isInstallingXcodeCli = true
+                                }
+                                .buttonStyle(.borderedProminent)
+                                .tint(.accentColor)
+                                .controlSize(.large)
+                            } else {
+                                VStack {
+                                    ProgressView("xcode.install.progress")
+                                        .progressViewStyle(.circular)
+                                    Text("xcode.install.progress.subtext")
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                        case .success:
+                            Text("xcode.install.success")
+                                .font(.title3)
+                            Text("alert.restart")
+                                .foregroundColor(.secondary)
+                            Button("button.Close") {
+                                NSApplication.shared.terminate(nil)
                             }
                             .buttonStyle(.borderedProminent)
                             .tint(.accentColor)
                             .controlSize(.large)
-                        } else {
-                            VStack {
-                                ProgressView("xcode.install.progress")
-                                    .progressViewStyle(.circular)
-                                Text("xcode.install.progress.subtext")
-                                    .foregroundColor(.secondary)
-                            }
+                        case .failed:
+                            Text("xcode.install.failed")
+                                .font(.title3)
+                            Text("")
+                                .foregroundColor(.secondary)
                         }
-                    case .success:
-                        Text("xcode.install.success")
-                            .font(.title3)
-                        Text("alert.restart")
-                            .foregroundColor(.secondary)
-                        Button("button.Close") {
-                            NSApplication.shared.terminate(nil)
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .tint(.accentColor)
-                        .controlSize(.large)
-                    case .failed:
-                        Text("xcode.install.failed")
-                            .font(.title3)
-                        Text("")
-                            .foregroundColor(.secondary)
                     }
-                }
-                .padding()
-                .frame(height: 150)
+                    .padding()
+                    .frame(height: 150)
             }
         }
         .frame(minWidth: 650, minHeight: 330)
@@ -185,7 +186,7 @@ struct SplitViewAccessor: NSViewRepresentable {
 
         override func viewDidMoveToWindow() {
             super.viewDidMoveToWindow()
-            var sview = self.superview
+            var sview = superview
 
             // Find split view through hierarchy
             while sview != nil, !sview!.isKind(of: NSSplitView.self) {

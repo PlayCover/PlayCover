@@ -9,16 +9,16 @@ import SwiftUI
 
 struct ChangeGenshinAccountView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var folderName: String = ""
+    @State var folderName = ""
     @State var accountList: [String] = getAccountList()
-    @State var restoreAlert: Bool = false
+    @State var restoreAlert = false
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
             Spacer()
             Text("storeAccount.selectAcc").font(.largeTitle).lineLimit(1).fixedSize()
             Spacer()
             ForEach(accountList, id: \.self) { account in
-                if account != ".DS_Store"{
+                if account != ".DS_Store" {
                     Button(action: {
                         self.folderName = account
                         self.restoreAlert = true
@@ -36,7 +36,7 @@ struct ChangeGenshinAccountView: View {
                                 self.presentationMode.wrappedValue.dismiss()
                             }
                             .controlSize(.large).padding()
-                            Button("button.Cancel", role: .cancel) {}
+                            Button("button.Cancel", role: .cancel) { }
                                 .controlSize(.large).padding()
                         }, message: {
                             Text("storeAccount.alert.restoreAccount.msg")

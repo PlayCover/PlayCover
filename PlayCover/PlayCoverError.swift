@@ -1,6 +1,6 @@
+import AudioToolbox
 import Foundation
 import SwiftUI
-import AudioToolbox
 
 enum PlayCoverError: Error {
     case infoPlistNotFound
@@ -26,6 +26,6 @@ extension PlayCoverError: LocalizedError {
             return NSLocalizedString("error.appProhibited", comment: "")
         case .noGenshinAccount:
             return NSLocalizedString("error.noGenshinAccount", comment: "")
-    }
+        }
     }
 }

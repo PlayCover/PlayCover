@@ -9,16 +9,16 @@ import SwiftUI
 
 struct DeleteGenshinAccountView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var folderName: String = ""
+    @State var folderName = ""
     @State var accountList: [String] = getAccountList()
-    @State var deleteAlert: Bool = false
+    @State var deleteAlert = false
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
             Spacer()
             Text("storeAccount.deleteAcc").font(.largeTitle).lineLimit(1).fixedSize()
             Spacer()
             ForEach(accountList, id: \.self) { account in
-                if account != ".DS_Store"{
+                if account != ".DS_Store" {
                     Button(action: {
                         self.folderName = account
                         self.deleteAlert = true
@@ -35,7 +35,7 @@ struct DeleteGenshinAccountView: View {
                                 deleteStoredAccount(folderName: account)
                                 self.presentationMode.wrappedValue.dismiss()
                             }.foregroundColor(.red)
-                            Button("button.Cancel", role: .cancel) {}
+                            Button("button.Cancel", role: .cancel) { }
                                 .controlSize(.large).padding()
                                 .keyboardShortcut(.defaultAction)
                         }

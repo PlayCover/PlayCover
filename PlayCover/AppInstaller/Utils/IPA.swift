@@ -20,7 +20,7 @@ public class IPA {
         }
 
         let workDir = try TempAllocator.allocateTempDirectory()
-        self.tempDir = workDir
+        tempDir = workDir
 
         return workDir
     }
@@ -34,7 +34,7 @@ public class IPA {
             try FileManager.default.removeItem(at: workDir)
         }
 
-        self.tempDir = nil
+        tempDir = nil
     }
 
     public func unzip() throws -> BaseApp {
@@ -48,10 +48,12 @@ public class IPA {
     }
 
     func packIPABack(app: URL) throws -> URL {
-         let newIpa = getDocumentsDirectory()
+        let newIpa = getDocumentsDirectory()
             .appendingPathComponent(app.deletingPathExtension().lastPathComponent).appendingPathExtension("ipa")
-         try Shell.zip(ipa: newIpa, name: app.deletingPathExtension().lastPathComponent,
-                       payload: app.deletingLastPathComponent().deletingLastPathComponent())
+        try Shell.zip(
+            ipa: newIpa,
+            name: app.deletingPathExtension().lastPathComponent,
+            payload: app.deletingLastPathComponent().deletingLastPathComponent())
         return newIpa
     }
 

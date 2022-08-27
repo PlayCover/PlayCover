@@ -42,8 +42,7 @@ struct ToastView: View {
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
-                .background(.regularMaterial, in:
-                    RoundedRectangle(cornerRadius: 10))
+                .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
                 .padding()
             }
         }
