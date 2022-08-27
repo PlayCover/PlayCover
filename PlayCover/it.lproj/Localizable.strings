@@ -197,6 +197,12 @@
 "search.search" = "Search...";
 
 /* (No Comment) */
+"settings.button.discord" = "Custom Discord activity";
+
+/* (No Comment) */
+"settings.button.clearActivity" = "Clear custom activity";
+
+/* (No Comment) */
 "settings.picker.displayRefreshRate" = "Screen refresh rate";
 
 /* (No Comment) */
@@ -215,10 +221,34 @@
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: ";
 
 /* (No Comment) */
+"settings.tab.etc" = "Etc";
+
+/* (No Comment) */
+"settings.text.applicationID" = "Application ID";
+
+/* (No Comment) */
 "settings.text.customHeight" = "Height";
 
 /* (No Comment) */
 "settings.text.customWidth" = "Width";
+
+/* (No Comment) */
+"settings.text.details" = "Details";
+
+/* (No Comment) */
+"settings.text.details.help" = "First row below title";
+
+/* (No Comment) */
+"settings.text.image" = "Image";
+
+/* (No Comment) */
+"settings.text.image.help" = "Link to image or Dev portal asset name";
+
+/* (No Comment) */
+"settings.text.state" = "State";
+
+/* (No Comment) */
+"settings.text.state.help" = "Second row below title";
 
 /* (No Comment) */
 "settings.toggle.adaptiveDisplay" = "Adaptive display";
@@ -237,6 +267,9 @@
 
 /* (No Comment) */
 "settings.toggle.disableDisplaySleep.info" = "Prevent display from turning off while this app is running";
+
+/* (No Comment) */
+"settings.toggle.discord" = "Enable Discord activity";
 
 /* (No Comment) */
 "settings.toggle.gaming" = "Gaming Mode";

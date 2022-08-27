@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// swiftlint:disable file_length
 struct AppSettingsView: View {
     @Environment(\.dismiss) var dismiss
 
@@ -41,6 +42,10 @@ struct AppSettingsView: View {
                 JBBypassView(settings: $viewModel.settings)
                     .tabItem {
                         Text("settings.tab.jbBypass")
+                    }
+                EtcView(settings: $viewModel.settings)
+                    .tabItem {
+                        Text("settings.tab.etc")
                     }
                 InfoView(info: viewModel.app.info)
                     .tabItem {
@@ -291,6 +296,62 @@ struct JBBypassView: View {
                 HStack {
                     Toggle("settings.toggle.jbBypass", isOn: $settings.settings.bypass)
                         .help("settings.toggle.jbBypass.help")
+                    Spacer()
+                }
+            }
+            .padding()
+        }
+    }
+}
+
+struct EtcView: View {
+    @Binding var settings: AppSettings
+    @State var showPopover = false
+
+    var body: some View {
+        ScrollView {
+            VStack {
+                HStack {
+                    Toggle("settings.toggle.discord", isOn: $settings.settings.discordActivity.enable)
+                    Button("settings.button.discord") { showPopover = true }
+                        .popover(isPresented: $showPopover, arrowEdge: .bottom) {
+                            VStack {
+                                HStack {
+                                    Text("settings.text.applicationID")
+                                        .frame(width: 90)
+                                    TextField("", text: $settings.settings.discordActivity.applicationID)
+                                        .frame(minWidth: 200, maxWidth: 200)
+                                }.padding([.horizontal, .top])
+                                HStack {
+                                    Text("settings.text.details")
+                                        .frame(width: 90)
+                                        .help("settings.text.details.help")
+                                    TextField("", text: $settings.settings.discordActivity.details)
+                                        .frame(minWidth: 200, maxWidth: 200)
+                                }.padding(.horizontal)
+                                HStack {
+                                    Text("settings.text.state")
+                                        .frame(width: 90)
+                                        .help("settings.text.state.help")
+                                    TextField("", text: $settings.settings.discordActivity.state)
+                                        .frame(minWidth: 200, maxWidth: 200)
+                                }.padding(.horizontal)
+                                HStack {
+                                    Text("settings.text.image")
+                                        .help("settings.text.image.help")
+                                        .frame(width: 90)
+                                    TextField("", text: $settings.settings.discordActivity.image)
+                                        .frame(minWidth: 200, maxWidth: 200)
+                                }.padding(.horizontal)
+                                HStack {
+                                    Button("settings.button.clearActivity") {
+                                        settings.settings.discordActivity = DiscordActivity()
+                                        showPopover = false
+                                    }
+                                    Button("button.OK") { showPopover = false }
+                                }.padding(.bottom)
+                            }
+                        }
                     Spacer()
                 }
             }

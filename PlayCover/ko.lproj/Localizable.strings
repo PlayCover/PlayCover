@@ -197,6 +197,12 @@
 "search.search" = "검색...";
 
 /* (No Comment) */
+"settings.button.discord" = "Custom Discord activity";
+
+/* (No Comment) */
+"settings.button.clearActivity" = "Clear custom activity";
+
+/* (No Comment) */
 "settings.picker.displayRefreshRate" = "화면 주사율";
 
 /* (No Comment) */
@@ -215,10 +221,34 @@
 "settings.slider.mouseSensitivity" = "마우스 감도: ";
 
 /* (No Comment) */
+"settings.tab.etc" = "Etc";
+
+/* (No Comment) */
+"settings.text.applicationID" = "Application ID";
+
+/* (No Comment) */
 "settings.text.customHeight" = "높이";
 
 /* (No Comment) */
 "settings.text.customWidth" = "너비";
+
+/* (No Comment) */
+"settings.text.details" = "Details";
+
+/* (No Comment) */
+"settings.text.details.help" = "First row below title";
+
+/* (No Comment) */
+"settings.text.image" = "Image";
+
+/* (No Comment) */
+"settings.text.image.help" = "Link to image or Dev portal asset name";
+
+/* (No Comment) */
+"settings.text.state" = "State";
+
+/* (No Comment) */
+"settings.text.state.help" = "Second row below title";
 
 /* (No Comment) */
 "settings.toggle.adaptiveDisplay" = "적응형 화면";
@@ -237,6 +267,9 @@
 
 /* (No Comment) */
 "settings.toggle.disableDisplaySleep.info" = "앱이 실행되는 동안 화면이 꺼지는 것을 방지합니다";
+
+/* (No Comment) */
+"settings.toggle.discord" = "Enable Discord activity";
 
 /* (No Comment) */
 "settings.toggle.gaming" = "게이밍 모드";

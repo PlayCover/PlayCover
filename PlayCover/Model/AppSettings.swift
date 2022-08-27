@@ -21,6 +21,7 @@ struct AppSettingsData: Codable {
     var aspectRatio: Int = 1
     var notch: Bool = NSScreen.hasNotch()
     var bypass: Bool = false
+    var discordActivity = DiscordActivity()
     var version: String = "2.0.0"
 }
 

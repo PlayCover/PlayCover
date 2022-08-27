@@ -52,6 +52,7 @@ class Entitlements {
         base["com.apple.security.print"] = true
     }
 
+    // swiftlint:disable cyclomatic_complexity
     static func composeEntitlements(_ app: PlayApp) throws -> [String: Any] {
         var base = [String: Any]()
 		let bundleID = app.info.bundleIdentifier
@@ -81,6 +82,10 @@ class Entitlements {
 				rules.bypass = bundleRules.bypass
 			}
 		}
+
+        if app.settings.settings.discordActivity.enable {
+             rules.allow?.append("(allow network* ipc-posix*)")
+         }
 
         sandboxProfile.append(contentsOf: PlayRules.buildRules(rules: rules.allow ?? [], bundleID: bundleID))
 
