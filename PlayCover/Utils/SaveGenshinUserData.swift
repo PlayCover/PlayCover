@@ -96,9 +96,5 @@ func checkCurrentRegion(selectedRegion: String) throws -> Bool {
 
     // Check if selected region is in the region of the plist
     // "The current account is set to a different server, enter the game"
-    if value.contains(regionName) {
-        return true
-    } else {
-        return false
-    }
+    return value.contains(regionName)
 }
