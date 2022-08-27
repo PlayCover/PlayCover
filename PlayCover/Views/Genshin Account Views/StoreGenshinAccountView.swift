@@ -23,10 +23,10 @@ struct StoreGenshinAccountView: View {
                     label: Text("storeAccount.selectAccRegion")
                         .font(.headline).lineLimit(1).fixedSize(),
                     content: {
-                        Text("storeAccount.selectAccRegion.usa").tag("America")
-                        Text("storeAccount.selectAccRegion.euro").tag("Europe")
-                        Text("storeAccount.selectAccRegion.asia").tag("Asia")
-                        Text("storeAccount.selectAccRegion.cht").tag("CHT")
+                        Text("storeAccount.selectAccRegion.usa").tag("os_usa")
+                        Text("storeAccount.selectAccRegion.euro").tag("os_euro")
+                        Text("storeAccount.selectAccRegion.asia").tag("os_asia")
+                        Text("storeAccount.selectAccRegion.cht").tag("os_cht")
                     }).pickerStyle(.segmented)
                 Spacer()
             }
@@ -43,23 +43,7 @@ struct StoreGenshinAccountView: View {
                         do {
                             if try checkCurrentRegion(selectedRegion: selectedRegion) {
                                 regionIsNotValid = false
-                                if selectedRegion == "America" {
-                                    storeUserData(
-                                        folderName: $folderName.wrappedValue.lowercased(),
-                                        accountRegion: "os_usa")
-                                } else if selectedRegion == "Europe" {
-                                    storeUserData(
-                                        folderName: $folderName.wrappedValue.lowercased(),
-                                        accountRegion: "os_euro")
-                                } else if selectedRegion == "Asia" {
-                                    storeUserData(
-                                        folderName: $folderName.wrappedValue.lowercased(),
-                                        accountRegion: "os_asia")
-                                } else {
-                                    storeUserData(
-                                        folderName: $folderName.wrappedValue.lowercased(),
-                                        accountRegion: "os_cht")
-                                }
+                                storeUserData(folderName: folderName.lowercased(), accountRegion: selectedRegion)
                                 presentationMode.wrappedValue.dismiss()
                             } else {
                                 regionIsNotValid = true
