@@ -410,11 +410,11 @@ struct InfoView: View {
             HStack {
                 Text("settings.info.isGame")
                 Spacer()
-                Text("""
-                        \(info.isGame ?
-                        NSLocalizedString("settings.info.isGame.yes", comment: "") :
-                        NSLocalizedString("settings.info.isGame.no", comment: ""))
-                """)
+                if info.isGame {
+                    Text("settings.info.isGame.yes")
+                } else {
+                    Text("settings.info.isGame.no")
+                }
             }
         }
         .listStyle(.bordered(alternatesRowBackgrounds: true))
