@@ -212,7 +212,7 @@
 "settings.resetCompleted" = "기본 설정으로 초기화 되었습니다!";
 
 /* %.f */
-"settings.slider.mouseSensitivity" = "마우스 감도: ";
+"settings.slider.mouseSensitivity" = "마우스 감도: %.f";
 
 /* (No Comment) */
 "settings.text.customHeight" = "높이";

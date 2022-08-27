@@ -212,7 +212,7 @@
 "settings.resetCompleted" = "Settings have been reverted back to default!";
 
 /* %.f */
-"settings.slider.mouseSensitivity" = "Mouse sensitivity: ";
+"settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
 
 /* (No Comment) */
 "settings.text.customHeight" = "Height";
