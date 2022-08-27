@@ -125,7 +125,7 @@ struct MainView: View {
                 .frame(height: 150)
             }
         }
-        .frame(minWidth: 650, minHeight: 330)
+        .frame(minWidth: 675, minHeight: 330)
     }
 
     func installXcodeCli() {
