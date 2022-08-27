@@ -80,7 +80,7 @@
 "settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
 "settings.toggle.mm" = "Mouse mapping";
 "settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
-"settings.slider.mouseSensitivity" = "Mouse sensitivity: ";
+"settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
 
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";

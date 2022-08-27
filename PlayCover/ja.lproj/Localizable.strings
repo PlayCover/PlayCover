@@ -212,7 +212,7 @@
 "settings.resetCompleted" = "設定をデフォルトに戻しました！";
 
 /* %.f */
-"settings.slider.mouseSensitivity" = "マウス感度: ";
+"settings.slider.mouseSensitivity" = "マウス感度: %.f";
 
 /* (No Comment) */
 "settings.text.customHeight" = "Height";

@@ -93,8 +93,9 @@ struct KeymappingView: View {
                         .help("settings.toggle.mm.help")
                 }
                 HStack {
-                    Text(NSLocalizedString("settings.slider.mouseSensitivity", comment: "")
-                         + String(format: "%.f", settings.settings.sensitivity))
+                    Text(String(
+                        format: NSLocalizedString("settings.slider.mouseSensitivity", comment: ""),
+                        settings.settings.sensitivity))
                     Spacer()
                     Slider(value: $settings.settings.sensitivity, in: 0...100, label: {EmptyView()})
                     .frame(width: 250)

@@ -212,7 +212,7 @@
 "settings.resetCompleted" = "设置已被重置！";
 
 /* %.f */
-"settings.slider.mouseSensitivity" = "鼠标灵敏度: ";
+"settings.slider.mouseSensitivity" = "鼠标灵敏度: %.f";
 
 /* (No Comment) */
 "settings.text.customHeight" = "高度";

@@ -212,7 +212,7 @@
 "settings.resetCompleted" = "Les réglages ont été réinitialisés !";
 
 /* %.f */
-"settings.slider.mouseSensitivity" = "Sensibilité de la souris : ";
+"settings.slider.mouseSensitivity" = "Sensibilité de la souris : %.f";
 
 /* (No Comment) */
 "settings.text.customHeight" = "Hauteur";
