@@ -66,7 +66,8 @@ class Shell: ObservableObject {
         let toolsPath = try? sh("xcode-select -p")
         if let toolsPath = toolsPath?.trimmingCharacters(in: .whitespacesAndNewlines) {
             if FileManager.default.fileExists(atPath:
-                toolsPath.appending("/usr/bin/codesign_allocate")) {
+                toolsPath.appending("/usr/bin/notarytool")) { // This executable is gaurenteed
+                                                              // to exist weather it's the CLT or the full xcode
                 return true
             }
         }
