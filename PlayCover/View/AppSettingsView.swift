@@ -151,6 +151,7 @@ struct AppSettingsView: View {
                                 Text("1080p").tag(1)
                                 Text("1440p").tag(2)
                                 Text("4K").tag(3)
+                                Text("Fit with notch").tag(6)
                             })
                             .pickerStyle(MenuPickerStyle())
                             .frame(maxWidth: 300)
