@@ -10,6 +10,7 @@ import AppKit
 struct AppSettingsData: Codable {
     var keymapping: Bool = true
     var mouseMapping: Bool = true
+    var keymap: [[CGFloat]] = []
     var sensitivity: Float = 50
 
     var disableTimeout: Bool = false
