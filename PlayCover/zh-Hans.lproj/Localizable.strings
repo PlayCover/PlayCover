@@ -197,6 +197,12 @@
 "search.search" = "搜索...";
 
 /* (No Comment) */
+"settings.button.discord" = "Custom Discord activity";
+
+/* (No Comment) */
+"settings.button.clearActivity" = "Clear custom activity";
+
+/* (No Comment) */
 "settings.picker.displayRefreshRate" = "屏幕刷新率";
 
 /* (No Comment) */
@@ -215,10 +221,34 @@
 "settings.slider.mouseSensitivity" = "鼠标灵敏度: %.f";
 
 /* (No Comment) */
+"settings.tab.etc" = "Etc";
+
+/* (No Comment) */
+"settings.text.applicationID" = "Application ID";
+
+/* (No Comment) */
 "settings.text.customHeight" = "高度";
 
 /* (No Comment) */
 "settings.text.customWidth" = "宽度";
+
+/* (No Comment) */
+"settings.text.details" = "Details";
+
+/* (No Comment) */
+"settings.text.details.help" = "First row below title";
+
+/* (No Comment) */
+"settings.text.image" = "Image";
+
+/* (No Comment) */
+"settings.text.image.help" = "Link to image or Dev portal asset name";
+
+/* (No Comment) */
+"settings.text.state" = "State";
+
+/* (No Comment) */
+"settings.text.state.help" = "Second row below title";
 
 /* (No Comment) */
 "settings.toggle.adaptiveDisplay" = "适配显示器";
@@ -237,6 +267,9 @@
 
 /* (No Comment) */
 "settings.toggle.disableDisplaySleep.info" = "防止显示器在此应用运行时息屏";
+
+/* (No Comment) */
+"settings.toggle.discord" = "Enable Discord activity";
 
 /* (No Comment) */
 "settings.toggle.customSize" = "启用自定义窗口大小";
