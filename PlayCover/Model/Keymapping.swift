@@ -35,7 +35,7 @@ struct MouseAreaModel: Codable {
 struct Keymap: Codable {
     var buttonModels: [ButtonModel] = []
     var joystickModel: [JoystickModel] = []
-    var mouseAreaMode: [MouseAreaModel] = []
+    var mouseAreaModel: [MouseAreaModel] = []
     var bundleIdentifier: String
     var version: String = "2.0.0"
 }
