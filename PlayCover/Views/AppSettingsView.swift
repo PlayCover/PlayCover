@@ -206,6 +206,7 @@ struct GraphicsView: View {
                 HStack {
                     Picker("settings.picker.refreshRate", selection: $settings.settings.refreshRate) {
                         Text("60 Hz").tag(60)
+                        Text("75 HZ").tag(75)
                         Text("120 Hz").tag(120)
                     }
                     .pickerStyle(.segmented)
