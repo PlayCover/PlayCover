@@ -55,10 +55,10 @@ struct PlayCoverViewMenuView: Commands {
                 if InstallVM.shared.installing {
                     Log.shared.error(PlayCoverError.waitInstallation)
                 } else {
-                    NSOpenPanel.selectIPA { (result) in
-                        if case let .success(url) = result {
+                    NSOpenPanel.selectIPA { result in
+                        if case .success(let url) = result {
                             uif.ipaUrl = url
-                            Installer.exportForSideloadly(ipaUrl: uif.ipaUrl!, returnCompletion: { (ipa) in
+                            Installer.exportForSideloadly(ipaUrl: uif.ipaUrl!, returnCompletion: { ipa in
                                 DispatchQueue.main.async {
                                     if let ipa = ipa {
                                         ipa.showInFinder()

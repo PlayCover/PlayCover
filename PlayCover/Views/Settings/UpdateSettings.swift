@@ -5,8 +5,8 @@
 //  Created by Andrew Glaze on 7/23/22.
 //
 
-import SwiftUI
 import Sparkle
+import SwiftUI
 
 struct UpdateSettings: View {
     @ObservedObject var updaterViewModel: UpdaterViewModel

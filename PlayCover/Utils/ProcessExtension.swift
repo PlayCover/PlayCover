@@ -15,7 +15,7 @@ extension ProcessInfo {
     func isM1() -> Bool {
         var ret = Int32(0)
         var size = MemoryLayout.size(ofValue: ret)
-          let result = sysctlbyname("sysctl.proc_translated", &ret, &size, nil, 0)
+        let result = sysctlbyname("sysctl.proc_translated", &ret, &size, nil, 0)
         if result == -1 {
             if errno == ENOENT {
                 return false

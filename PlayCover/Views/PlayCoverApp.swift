@@ -11,16 +11,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let url = urls.first {
             if url.pathExtension == "ipa" {
                 uif.ipaUrl = url
-                Installer.install(ipaUrl: uif.ipaUrl!, returnCompletion: { (_) in
+                Installer.install(ipaUrl: uif.ipaUrl!, returnCompletion: { _ in
                     DispatchQueue.main.async {
                         AppsVM.shared.fetchApps()
-                        NotifyService.shared.notify(NSLocalizedString("notification.appInstalled", comment: ""),
-                                                    NSLocalizedString("notification.appInstalled.message", comment: ""))
+                        NotifyService.shared.notify(
+                            NSLocalizedString("notification.appInstalled", comment: ""),
+                            NSLocalizedString("notification.appInstalled.message", comment: ""))
                     }
                 })
             }
         }
-
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

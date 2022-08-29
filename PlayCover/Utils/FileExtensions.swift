@@ -2,9 +2,9 @@
 //  FileExtensions.swift
 //  PlayCover
 
+import AppKit
 import Foundation
 import UniformTypeIdentifiers
-import AppKit
 
 let fileMgr = FileManager.default
 
@@ -44,7 +44,7 @@ extension NSOpenPanel {
         panel.canChooseDirectories = false
         panel.allowedContentTypes = [UTType(importedAs: "com.apple.itunes.ipa")]
         panel.canChooseFiles = true
-        panel.begin { (result) in
+        panel.begin { result in
             if result == .OK {
                 let url = panel.urls.first
                 completion(.success(url!))

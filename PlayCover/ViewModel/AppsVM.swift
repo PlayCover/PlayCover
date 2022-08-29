@@ -3,8 +3,8 @@
 //  PlayCover
 //
 
-import Foundation
 import Cocoa
+import Foundation
 
 class AppsVM: ObservableObject {
 
@@ -17,7 +17,7 @@ class AppsVM: ObservableObject {
     }
 
     @Published var apps: [PlayApp] = []
-    @Published var updatingApps: Bool = false
+    @Published var updatingApps = false
 
     func fetchApps() {
         DispatchQueue.global(qos: .userInteractive).async {
@@ -54,9 +54,7 @@ class AppsVM: ObservableObject {
 
                 self.apps.append(contentsOf: result)
             }
-
         }
-
     }
 
 }

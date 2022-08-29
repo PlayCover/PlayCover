@@ -68,20 +68,19 @@ struct AppLibraryView: View {
     }
 
     private func installApp() {
-        Installer.install(ipaUrl: uif.ipaUrl!, returnCompletion: { (_) in
+        Installer.install(ipaUrl: uif.ipaUrl!, returnCompletion: { _ in
             DispatchQueue.main.async {
                 appsVM.fetchApps()
                 NotifyService.shared.notify(
                     NSLocalizedString("notification.appInstalled", comment: ""),
-                    NSLocalizedString("notification.appInstalled.message", comment: "")
-                )
+                    NSLocalizedString("notification.appInstalled.message", comment: ""))
             }
         })
     }
 
     private func selectFile() {
-        NSOpenPanel.selectIPA { (result) in
-            if case let .success(url) = result {
+        NSOpenPanel.selectIPA { result in
+            if case .success(let url) = result {
                 uif.ipaUrl = url
                 installApp()
             }

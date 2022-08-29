@@ -16,7 +16,6 @@ class Entitlements {
             } catch {
                 Log.shared.error(error)
             }
-
         }
         return entFolder
     }
@@ -55,7 +54,7 @@ class Entitlements {
     // swiftlint:disable cyclomatic_complexity
     static func composeEntitlements(_ app: PlayApp) throws -> [String: Any] {
         var base = [String: Any]()
-		let bundleID = app.info.bundleIdentifier
+        let bundleID = app.info.bundleIdentifier
         if !bundleID.elementsEqual("com.devsisters.ck") {
             base["com.apple.security.app-sandbox"] = true
         }
@@ -73,15 +72,15 @@ class Entitlements {
 
         var sandboxProfile = [String]()
 
-		var rules = try getDefaultRules()
-		if let bundleRules = try getBundleRules(bundleID) {
-			if !(bundleRules.allow?.isEmpty ?? true) {
-				rules.allow = bundleRules.allow
-			}
-			if !(bundleRules.bypass?.isEmpty ?? true) {
-				rules.bypass = bundleRules.bypass
-			}
-		}
+        var rules = try getDefaultRules()
+        if let bundleRules = try getBundleRules(bundleID) {
+            if !(bundleRules.allow?.isEmpty ?? true) {
+                rules.allow = bundleRules.allow
+            }
+            if !(bundleRules.bypass?.isEmpty ?? true) {
+                rules.bypass = bundleRules.bypass
+            }
+        }
 
         if app.settings.settings.discordActivity.enable {
              rules.allow?.append("(allow network* ipc-posix*)")
@@ -90,24 +89,21 @@ class Entitlements {
         sandboxProfile.append(contentsOf: PlayRules.buildRules(rules: rules.allow ?? [], bundleID: bundleID))
 
         if app.settings.settings.bypass {
-			for file in PlayRules.buildRules(rules: rules.blacklist ?? [], bundleID: bundleID) {
+            for file in PlayRules.buildRules(rules: rules.blacklist ?? [], bundleID: bundleID) {
                 sandboxProfile.append(
                     """
                      (deny file* file-read* file-read-metadata file-ioctl (literal "\(file)"))
-                    """
-                )
+                    """)
             }
 
-			for file in PlayRules.buildRules(rules: rules.whitelist ?? [], bundleID: bundleID) {
+            for file in PlayRules.buildRules(rules: rules.whitelist ?? [], bundleID: bundleID) {
                 sandboxProfile.append(
                     """
                      (allow file* file-read* file-read-metadata file-ioctl (literal "\(file)"))
-                    """
-                )
+                    """)
             }
 
             sandboxProfile.append(contentsOf: PlayRules.buildRules(rules: rules.bypass ?? [], bundleID: bundleID))
-
         }
 
         base["com.apple.security.temporary-exception.sbpl"] = sandboxProfile
@@ -133,91 +129,91 @@ class Entitlements {
     }
 
     private static let TCC =
-    """
-    kTCCService
-    kTCCServiceAll
-    kTCCServiceAddressBook
-    kTCCServiceCalendar
-    kTCCServiceReminders
-    kTCCServiceLiverpool
-    kTCCServiceUbiquity
-    kTCCServiceShareKit
-    kTCCServicePhotos
-    kTCCServicePhotosAdd
-    kTCCServiceMicrophone
-    kTCCServiceCamera
-    kTCCServiceMediaLibrary
-    kTCCServiceSiri
-    kTCCServiceAppleEvents
-    kTCCServiceAccessibility
-    kTCCServicePostEvent
-    kTCCServiceLocation
-    kTCCServiceSystemPolicyAllFiles
-    kTCCServiceSystemPolicySysAdminFiles
-    kTCCServiceSystemPolicyDeveloperFile
-    kTCCServiceSystemPolicyDocumentsFolder
-    """
+        """
+        kTCCService
+        kTCCServiceAll
+        kTCCServiceAddressBook
+        kTCCServiceCalendar
+        kTCCServiceReminders
+        kTCCServiceLiverpool
+        kTCCServiceUbiquity
+        kTCCServiceShareKit
+        kTCCServicePhotos
+        kTCCServicePhotosAdd
+        kTCCServiceMicrophone
+        kTCCServiceCamera
+        kTCCServiceMediaLibrary
+        kTCCServiceSiri
+        kTCCServiceAppleEvents
+        kTCCServiceAccessibility
+        kTCCServicePostEvent
+        kTCCServiceLocation
+        kTCCServiceSystemPolicyAllFiles
+        kTCCServiceSystemPolicySysAdminFiles
+        kTCCServiceSystemPolicyDeveloperFile
+        kTCCServiceSystemPolicyDocumentsFolder
+        """
 
-	public static func getDefaultRules() throws -> PlayRules {
-		var path: String
-		if FileManager.default.fileExists(atPath: "/Users/\(NSUserName())/.config/PlayCover/default.yaml") {
-			path = "/Users/\(NSUserName())/.config/PlayCover/default.yaml"
-		} else if let bpath = Bundle.main.path(forResource: "default", ofType: "yaml") {
-			path = bpath
-		} else {
-			throw "Default config not found: default.yaml"
-		}
+    public static func getDefaultRules() throws -> PlayRules {
+        var path: String
+        if FileManager.default.fileExists(atPath: "/Users/\(NSUserName())/.config/PlayCover/default.yaml") {
+            path = "/Users/\(NSUserName())/.config/PlayCover/default.yaml"
+        } else if let bpath = Bundle.main.path(forResource: "default", ofType: "yaml") {
+            path = bpath
+        } else {
+            throw "Default config not found: default.yaml"
+        }
 
-		do {
-			let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-			let decoder = YAMLDecoder()
-			let decoded: PlayRules = try decoder.decode(PlayRules.self, from: data)
-			return decoded
-		} catch {
-			print("failed to get default rules at \(path): \(error)")
-			throw "failed to get default rules at \(path): \(error)"
-		}
-	}
+        do {
+            let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+            let decoder = YAMLDecoder()
+            let decoded: PlayRules = try decoder.decode(PlayRules.self, from: data)
+            return decoded
+        } catch {
+            print("failed to get default rules at \(path): \(error)")
+            throw "failed to get default rules at \(path): \(error)"
+        }
+    }
 
-	public static func getBundleRules(_ bundleID: String) throws -> PlayRules? {
-		var path: String
-		if FileManager.default.fileExists(atPath: "/Users/\(NSUserName())/.config/PlayCover/\(bundleID).yaml") {
-			path = "/Users/\(NSUserName())/.config/PlayCover/\(bundleID).yaml"
-		} else if let bpath = Bundle.main.path(forResource: bundleID, ofType: "yaml") {
-			path = bpath
-		} else {
-			return nil
-		}
+    public static func getBundleRules(_ bundleID: String) throws -> PlayRules? {
+        var path: String
+        if FileManager.default.fileExists(atPath: "/Users/\(NSUserName())/.config/PlayCover/\(bundleID).yaml") {
+            path = "/Users/\(NSUserName())/.config/PlayCover/\(bundleID).yaml"
+        } else if let bpath = Bundle.main.path(forResource: bundleID, ofType: "yaml") {
+            path = bpath
+        } else {
+            return nil
+        }
 
-		do {
-			let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-			let decoder = YAMLDecoder()
-			let decoded: PlayRules = try decoder.decode(PlayRules.self, from: data)
-			return decoded
-		} catch {
-			print("failed to get bundle rules at \(path): \(error)")
-			throw error
-		}
-	}
+        do {
+            let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+            let decoder = YAMLDecoder()
+            let decoded: PlayRules = try decoder.decode(PlayRules.self, from: data)
+            return decoded
+        } catch {
+            print("failed to get bundle rules at \(path): \(error)")
+            throw error
+        }
+    }
 
     public static func isAppRequireUnsandbox(_ app: BaseApp) -> Bool {
-        return unsandboxedApps.contains(app.info.bundleIdentifier)
+        unsandboxedApps.contains(app.info.bundleIdentifier)
     }
 
     private static let unsandboxedApps = ["com.devsisters.ck"]
 
     static let entitlements_template = """
-    <?xml version="1.0" encoding="UTF-8"?>
-    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-    <plist version="1.0">
-    <dict>
-    </dict>
-    </plist>
-    """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+        </dict>
+        </plist>
+        """
 }
 
-public func ==<K, L: Hashable, R: Hashable>(lhs: [K: L], rhs: [K: R] ) -> Bool {
-   (lhs as NSDictionary).isEqual(to: rhs)
+public func ==<K, L: Hashable, R: Hashable>(lhs: [K: L], rhs: [K: R]) -> Bool {
+    (lhs as NSDictionary).isEqual(to: rhs)
 }
 
 extension Dictionary {
@@ -226,24 +222,24 @@ extension Dictionary {
         try data.write(to: toUrl)
     }
 
-    static func read( _ from: URL) throws -> Dictionary? {
+    static func read(_ from: URL) throws -> Dictionary? {
         var format = PropertyListSerialization.PropertyListFormat.xml
         if let data = FileManager.default.contents(atPath: from.path) {
-            return try PropertyListSerialization
-                .propertyList(from: data,
-                              options: .mutableContainersAndLeaves,
-                              format: &format) as? Dictionary
+            return try PropertyListSerialization.propertyList(
+                from: data,
+                options: .mutableContainersAndLeaves,
+                format: &format) as? Dictionary
         }
         return nil
     }
 
-    static func read( _ from: String) throws -> Dictionary? {
+    static func read(_ from: String) throws -> Dictionary? {
         var format = PropertyListSerialization.PropertyListFormat.xml
         if let data = from.data(using: .utf8) {
-            return try PropertyListSerialization
-                .propertyList(from: data,
-                              options: .mutableContainersAndLeaves,
-                              format: &format) as? Dictionary
+            return try PropertyListSerialization.propertyList(
+                from: data,
+                options: .mutableContainersAndLeaves,
+                format: &format) as? Dictionary
         }
         return nil
     }
