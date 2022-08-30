@@ -13,8 +13,8 @@ class UserIntentFlow: ObservableObject {
 
     var ipaUrl: URL?
 
-    var searchText: String = ""
+    var searchText = ""
 
-    required init() {}
+    required init() { }
 
 }

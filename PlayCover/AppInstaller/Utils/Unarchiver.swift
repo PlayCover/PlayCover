@@ -12,28 +12,27 @@ typealias BOMSys = OpaquePointer
 
 let BOMHandle = dlopen("/System/Library/PrivateFrameworks/Bom.framework/Bom", RTLD_LAZY)
 
-@_transparent func BOMFunction<T>(_ name: UnsafePointer<CChar>) -> T {
+@_transparent
+func BOMFunction<T>(_ name: UnsafePointer<CChar>) -> T {
     unsafeBitCast(dlsym(BOMHandle, name), to: T.self)
 }
 
 let bomSys_default: @convention(c) () -> BOMSys = BOMFunction("BomSys_default")
-let BOMCopierNewWithSys: (
-    @convention(c) (BOMSys) -> BOMCopier
-) = BOMFunction("BOMCopierNewWithSys")
-let BOMCopierFree: (
-    @convention(c) (BOMCopier) -> Void
-) = BOMFunction("BOMCopierFree")
+let BOMCopierNewWithSys: (@convention(c) (BOMSys) -> BOMCopier) = BOMFunction("BOMCopierNewWithSys")
+let BOMCopierFree: (@convention(c) (BOMCopier) -> Void) = BOMFunction("BOMCopierFree")
 
 let kBOMCopierOptionExtractPKZipKey = "extractPKZip"
 
-let BOMCopierCopy: (
-    @convention(c) (_ copier: BOMCopier, _ fromObj: UnsafePointer<CChar>, _ toOjb: UnsafePointer<CChar>) -> CInt
-) = BOMFunction("BOMCopierCopy")
+let BOMCopierCopy: (@convention(c) (
+    _ copier: BOMCopier,
+    _ fromObj: UnsafePointer<CChar>,
+    _ toOjb: UnsafePointer<CChar>) -> CInt) = BOMFunction("BOMCopierCopy")
 
-let BOMCopierCopyWithOptions: (
-    @convention(c) (_ copier: BOMCopier, _ fromObj: UnsafePointer<CChar>,
-                    _ toObj: UnsafePointer<CChar>, _  options: CFDictionary) -> CInt
-) = BOMFunction("BOMCopierCopyWithOptions")
+let BOMCopierCopyWithOptions: (@convention(c) (
+    _ copier: BOMCopier,
+    _ fromObj: UnsafePointer<CChar>,
+    _ toObj: UnsafePointer<CChar>,
+    _ options: CFDictionary) -> CInt) = BOMFunction("BOMCopierCopyWithOptions")
 
 enum BOMCopierReturn: CInt, Error {
     case invalidArgument = 22

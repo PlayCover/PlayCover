@@ -7,13 +7,14 @@
 
 import SwiftUI
 
+// swiftlint:disable file_length
 struct AppSettingsView: View {
     @Environment(\.dismiss) var dismiss
 
     @ObservedObject var viewModel: AppSettingsVM
 
-    @State var resetSettingsCompletedAlert: Bool = false
-    @State var resetKmCompletedAlert: Bool = false
+    @State var resetSettingsCompletedAlert = false
+    @State var resetKmCompletedAlert = false
 
     var body: some View {
         VStack {
@@ -42,6 +43,10 @@ struct AppSettingsView: View {
                     .tabItem {
                         Text("settings.tab.jbBypass")
                     }
+                EtcView(settings: $viewModel.settings)
+                    .tabItem {
+                        Text("settings.tab.etc")
+                    }
                 InfoView(info: viewModel.app.info)
                     .tabItem {
                         Text("settings.tab.info")
@@ -68,11 +73,13 @@ struct AppSettingsView: View {
             }
         }
         .onChange(of: resetSettingsCompletedAlert) { _ in
-            ToastVM.shared.showToast(toastType: .notice,
+            ToastVM.shared.showToast(
+                toastType: .notice,
                 toastDetails: NSLocalizedString("settings.resetSettingsCompleted", comment: ""))
         }
         .onChange(of: resetKmCompletedAlert) { _ in
-            ToastVM.shared.showToast(toastType: .notice,
+            ToastVM.shared.showToast(
+                toastType: .notice,
                 toastDetails: NSLocalizedString("settings.resetKmCompleted", comment: ""))
         }
         .padding()
@@ -93,11 +100,12 @@ struct KeymappingView: View {
                         .help("settings.toggle.mm.help")
                 }
                 HStack {
-                    Text(NSLocalizedString("settings.slider.mouseSensitivity", comment: "")
-                         + String(format: "%.f", settings.settings.sensitivity))
+                    Text(String(
+                        format: NSLocalizedString("settings.slider.mouseSensitivity", comment: ""),
+                        settings.settings.sensitivity))
                     Spacer()
-                    Slider(value: $settings.settings.sensitivity, in: 0...100, label: {EmptyView()})
-                    .frame(width: 250)
+                    Slider(value: $settings.settings.sensitivity, in: 0...100, label: { EmptyView() })
+                        .frame(width: 250)
                 }
                 Spacer()
             }
@@ -109,8 +117,8 @@ struct KeymappingView: View {
 struct GraphicsView: View {
     @Binding var settings: AppSettings
 
-    @State var customWidth: Int = 1920
-    @State var customHeight: Int = 1080
+    @State var customWidth = 1920
+    @State var customHeight = 1080
 
     static var number: NumberFormatter {
         let formatter = NumberFormatter()
@@ -149,14 +157,16 @@ struct GraphicsView: View {
                     if settings.settings.resolution == 5 {
                         Text(NSLocalizedString("settings.text.customWidth", comment: "") + ":")
                         Stepper {
-                            TextField("settings.text.customWidth", value: $customWidth,
-                                      formatter: GraphicsView.number,
-                                      onCommit: {
-                                        DispatchQueue.main.async {
-                                            NSApp.keyWindow?.makeFirstResponder(nil)
-                                        }
-                                      })
-                            .frame(width: 125)
+                            TextField(
+                                "settings.text.customWidth",
+                                value: $customWidth,
+                                formatter: GraphicsView.number,
+                                onCommit: {
+                                    DispatchQueue.main.async {
+                                        NSApp.keyWindow?.makeFirstResponder(nil)
+                                    }
+                                })
+                                .frame(width: 125)
                         }
                         onIncrement: {
                             customWidth += 1
@@ -166,14 +176,16 @@ struct GraphicsView: View {
                         Spacer()
                         Text(NSLocalizedString("settings.text.customHeight", comment: "") + ":")
                         Stepper {
-                            TextField("settings.text.customHeight", value: $customHeight,
-                                      formatter: GraphicsView.number,
-                                      onCommit: {
-                                        DispatchQueue.main.async {
-                                            NSApp.keyWindow?.makeFirstResponder(nil)
-                                        }
-                                      })
-                            .frame(width: 125)
+                            TextField(
+                                "settings.text.customHeight",
+                                value: $customHeight,
+                                formatter: GraphicsView.number,
+                                onCommit: {
+                                    DispatchQueue.main.async {
+                                        NSApp.keyWindow?.makeFirstResponder(nil)
+                                    }
+                                })
+                                .frame(width: 125)
                         } onIncrement: {
                             customHeight += 1
                         } onDecrement: {
@@ -299,6 +311,62 @@ struct JBBypassView: View {
     }
 }
 
+struct EtcView: View {
+    @Binding var settings: AppSettings
+    @State var showPopover = false
+
+    var body: some View {
+        ScrollView {
+            VStack {
+                HStack {
+                    Toggle("settings.toggle.discord", isOn: $settings.settings.discordActivity.enable)
+                    Button("settings.button.discord") { showPopover = true }
+                        .popover(isPresented: $showPopover, arrowEdge: .bottom) {
+                            VStack {
+                                HStack {
+                                    Text("settings.text.applicationID")
+                                        .frame(width: 90)
+                                    TextField("", text: $settings.settings.discordActivity.applicationID)
+                                        .frame(minWidth: 200, maxWidth: 200)
+                                }.padding([.horizontal, .top])
+                                HStack {
+                                    Text("settings.text.details")
+                                        .frame(width: 90)
+                                        .help("settings.text.details.help")
+                                    TextField("", text: $settings.settings.discordActivity.details)
+                                        .frame(minWidth: 200, maxWidth: 200)
+                                }.padding(.horizontal)
+                                HStack {
+                                    Text("settings.text.state")
+                                        .frame(width: 90)
+                                        .help("settings.text.state.help")
+                                    TextField("", text: $settings.settings.discordActivity.state)
+                                        .frame(minWidth: 200, maxWidth: 200)
+                                }.padding(.horizontal)
+                                HStack {
+                                    Text("settings.text.image")
+                                        .help("settings.text.image.help")
+                                        .frame(width: 90)
+                                    TextField("", text: $settings.settings.discordActivity.image)
+                                        .frame(minWidth: 200, maxWidth: 200)
+                                }.padding(.horizontal)
+                                HStack {
+                                    Button("settings.button.clearActivity") {
+                                        settings.settings.discordActivity = DiscordActivity()
+                                        showPopover = false
+                                    }
+                                    Button("button.OK") { showPopover = false }
+                                }.padding(.bottom)
+                            }
+                        }
+                    Spacer()
+                }
+            }
+            .padding()
+        }
+    }
+}
+
 struct InfoView: View {
     @State var info: AppInfo
 
@@ -342,11 +410,11 @@ struct InfoView: View {
             HStack {
                 Text("settings.info.isGame")
                 Spacer()
-                Text("""
-                        \(info.isGame ?
-                        NSLocalizedString("settings.info.isGame.yes", comment: "") :
-                        NSLocalizedString("settings.info.isGame.no", comment: ""))
-                """)
+                if info.isGame {
+                    Text("settings.info.isGame.yes")
+                } else {
+                    Text("settings.info.isGame.no")
+                }
             }
         }
         .listStyle(.bordered(alternatesRowBackgrounds: true))

@@ -77,7 +77,7 @@
 "settings.picker.displayRefreshRate" = "Tần số quét";
 "settings.picker.screenSize" = "Độ phân giải màn hình";
 "settings.picker.iosDevice" = "Chọn thiết bị";
-"settings.slider.mouseSensitivity" = "Tốc độ chuột: ";
+"settings.slider.mouseSensitivity" = "Tốc độ chuột: %.f";
 "settings.reset" = "Đặt lại cài đặt và keymap";
 "settings.resetCompleted" = "Các thiết lập đã khôi phục về mặc định!";
 "settings.text.customHeight" = "Chiều cao";
@@ -122,3 +122,15 @@
 "xcode.install.progress" = "Đang cài đặt Command Line Tools for Xcode";
 "xcode.install.progress.subtext" = "Có thể tốn tầm 5-10 phút tùy thuộc vào nhà cung cấp dịch vụ internet của bạn";
 "debug.crash" = "[DEBUG] Crash app";
+
+"settings.tab.etc" = "Etc";
+"settings.button.discord" = "Custom Discord activity";
+"settings.button.clearActivity" = "Clear custom activity";
+"settings.text.applicationID" = "Application ID";
+"settings.text.details" = "Details";
+"settings.text.details.help" = "First row below title";
+"settings.text.image" = "Image";
+"settings.text.image.help" = "Link to image or Dev portal asset name";
+"settings.text.state" = "State";
+"settings.text.state.help" = "Second row below title";
+"settings.toggle.discord" = "Enable Discord activity";

@@ -6,8 +6,8 @@
 //  Copied from https://sparkle-project.org/documentation/programmatic-setup/
 //
 
-import SwiftUI
 import Sparkle
+import SwiftUI
 
 // This view model class manages Sparkle's updater and publishes when new updates are allowed to be checked
 final class UpdaterViewModel: ObservableObject {
@@ -17,7 +17,7 @@ final class UpdaterViewModel: ObservableObject {
 
     var automaticallyCheckForUpdates: Bool {
         get {
-            return updaterController.updater.automaticallyChecksForUpdates
+            updaterController.updater.automaticallyChecksForUpdates
         }
         set(newValue) {
             updaterController.updater.automaticallyChecksForUpdates = newValue
@@ -27,8 +27,10 @@ final class UpdaterViewModel: ObservableObject {
     init() {
         // If you want to start the updater manually, pass false to startingUpdater and call .startUpdater() later
         // This is where you can also pass an updater delegate if you need one
-        updaterController = SPUStandardUpdaterController(startingUpdater: true,
-                                                         updaterDelegate: nil, userDriverDelegate: nil)
+        updaterController = SPUStandardUpdaterController(
+            startingUpdater: true,
+            updaterDelegate: nil,
+            userDriverDelegate: nil)
 
         updaterController.updater.publisher(for: \.canCheckForUpdates)
             .assign(to: &$canCheckForUpdates)

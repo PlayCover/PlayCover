@@ -5,9 +5,9 @@
 //  Created by Isaac Marovitz on 23/08/2022.
 //
 
+import AppKit
 import Foundation
 import UniformTypeIdentifiers
-import AppKit
 
 struct KeyModelTransform: Codable {
     var size: Float
@@ -35,9 +35,9 @@ struct MouseAreaModel: Codable {
 struct Keymap: Codable {
     var buttonModels: [ButtonModel] = []
     var joystickModel: [JoystickModel] = []
-    var mouseAreaMode: [MouseAreaModel] = []
+    var mouseAreaModel: [MouseAreaModel] = []
     var bundleIdentifier: String
-    var version: String = "2.0.0"
+    var version = "2.0.0"
 }
 
 class Keymapping {
@@ -65,8 +65,8 @@ class Keymapping {
     init(_ info: AppInfo, container: AppContainer?) {
         self.info = info
         self.container = container
-        self.keymapURL = Keymapping.keymappingDir.appendingPathComponent("\(info.bundleIdentifier).plist")
-        self.keymap = Keymap(bundleIdentifier: info.bundleIdentifier)
+        keymapURL = Keymapping.keymappingDir.appendingPathComponent("\(info.bundleIdentifier).plist")
+        keymap = Keymap(bundleIdentifier: info.bundleIdentifier)
         if !decode() {
             encode()
         }
@@ -140,7 +140,7 @@ class Keymapping {
         let savePanel = NSSavePanel()
         savePanel.title = NSLocalizedString("playapp.exportKm", comment: "")
         savePanel.nameFieldLabel = NSLocalizedString("playapp.exportKmPanel.fieldLabel", comment: "")
-        savePanel.nameFieldStringValue = self.info.displayName
+        savePanel.nameFieldStringValue = info.displayName
         savePanel.allowedContentTypes = [UTType(exportedAs: "io.playcover.PlayCover-playmap")]
         savePanel.canCreateDirectories = true
         savePanel.isExtensionHidden = false

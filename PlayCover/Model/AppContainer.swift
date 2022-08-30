@@ -46,7 +46,6 @@ struct AppContainer {
                     }
                 }
             }
-
         }
 
         return found

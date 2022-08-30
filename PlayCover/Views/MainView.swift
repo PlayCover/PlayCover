@@ -21,7 +21,7 @@ struct MainView: View {
     @State private var selectedView: Int? = -1
     @State private var navWidth: CGFloat = 0
     @State private var viewWidth: CGFloat = 0
-    @State private var collapsed: Bool = false
+    @State private var collapsed = false
     @State private var isInstallingXcodeCli = false
     @State private var xcodeInstallStatus: XcodeInstallStatus = .installing
 
@@ -69,13 +69,14 @@ struct MainView: View {
             .onChange(of: viewGeom.size) { newSize in
                 viewWidth = newSize.width
             }
-            .alert("alert.moveAppToApplications.title",
-                   isPresented: $integrity.integrityOff) {
-                Button("alert.moveAppToApplications.move", role: .cancel) {
-                    integrity.moveToApps()
-                }
-                .tint(.accentColor)
-                .keyboardShortcut(.defaultAction)
+            .alert(
+                "alert.moveAppToApplications.title",
+                isPresented: $integrity.integrityOff) {
+                    Button("alert.moveAppToApplications.move", role: .cancel) {
+                        integrity.moveToApps()
+                    }
+                    .tint(.accentColor)
+                    .keyboardShortcut(.defaultAction)
             } message: {
                 Text("alert.moveAppToApplications.subtitle")
             }
@@ -90,7 +91,7 @@ struct MainView: View {
                                 .font(.system(size: 45))
                                 .foregroundColor(.accentColor)
                             Text("xcode.install.message")
-                            .font(.title3)
+                                    .font(.title3)
                             HStack {
                                 Button("button.Quit") {
                                     exit(0)
@@ -115,7 +116,7 @@ struct MainView: View {
                                 Text("xcode.install.progress")
                                     .font(.title3)
                                 Text("xcode.install.progress.subtext")
-                                    .foregroundColor(.secondary)
+                                        .foregroundColor(.secondary)
                             }
                         }
                     case .success:
@@ -127,7 +128,8 @@ struct MainView: View {
                                     sound.play()
                                 }
                             }
-                        Text("xcode.install.success")
+                        case .success:
+                            Text("xcode.install.success")
                             .font(.title3)
                         Text("alert.restart")
                             .foregroundColor(.secondary)
@@ -162,14 +164,18 @@ struct MainView: View {
                             .buttonStyle(.borderedProminent)
                             .tint(.accentColor)
                             .controlSize(.large)
+                        case .failed:
+                            Text("xcode.install.failed")
+                                .font(.title3)
+                            Text("")
+                                .foregroundColor(.secondary)
                         }
                     }
-                }
                 .padding()
                 .frame(minWidth: 550, minHeight: 150)
             }
         }
-        .frame(minWidth: 650, minHeight: 330)
+        .frame(minWidth: 675, minHeight: 330)
     }
 
     func installXcodeCli() {
@@ -234,7 +240,7 @@ struct SplitViewAccessor: NSViewRepresentable {
 
         override func viewDidMoveToWindow() {
             super.viewDidMoveToWindow()
-            var sview = self.superview
+            var sview = superview
 
             // Find split view through hierarchy
             while sview != nil, !sview!.isKind(of: NSSplitView.self) {

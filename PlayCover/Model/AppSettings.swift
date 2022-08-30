@@ -3,25 +3,26 @@
 //  PlayCover
 //
 
+import AppKit
 import Foundation
 import UniformTypeIdentifiers
-import AppKit
 
 struct AppSettingsData: Codable {
-    var keymapping: Bool = true
-    var mouseMapping: Bool = true
+    var keymapping = true
+    var mouseMapping = true
     var sensitivity: Float = 50
 
-    var disableTimeout: Bool = false
-    var iosDeviceModel: String = "iPad8,6"
-    var refreshRate: Int = 60
-    var windowWidth: Int = 1920
-    var windowHeight: Int = 1080
-    var resolution: Int = 2
-    var aspectRatio: Int = 1
+    var disableTimeout = false
+    var iosDeviceModel = "iPad8,6"
+    var refreshRate = 60
+    var windowWidth = 1920
+    var windowHeight = 1080
+    var resolution = 2
+    var aspectRatio = 1
     var notch: Bool = NSScreen.hasNotch()
-    var bypass: Bool = false
-    var version: String = "2.0.0"
+    var bypass = false
+    var discordActivity = DiscordActivity()
+    var version = "2.0.0"
 }
 
 class AppSettings {
@@ -50,8 +51,8 @@ class AppSettings {
     init(_ info: AppInfo, container: AppContainer?) {
         self.info = info
         self.container = container
-        self.settingsUrl = AppSettings.appSettingsDir.appendingPathComponent("\(info.bundleIdentifier).plist")
-        self.settings = AppSettingsData()
+        settingsUrl = AppSettings.appSettingsDir.appendingPathComponent("\(info.bundleIdentifier).plist")
+        settings = AppSettingsData()
         if !decode() {
             encode()
         }
@@ -93,7 +94,7 @@ class AppSettings {
     }
 }
 
-let notchModels = [ "MacBookPro18,3", "MacBookPro18,4", "MacBookPro18,1", "MacBookPro18,2", "Mac14,2"]
+let notchModels = ["MacBookPro18,3", "MacBookPro18,4", "MacBookPro18,1", "MacBookPro18,2", "Mac14,2"]
 
 extension NSScreen {
     public static func hasNotch() -> Bool {
@@ -105,8 +106,7 @@ extension NSScreen {
     }
 
     private static func getMacModel() -> String? {
-        let service = IOServiceGetMatchingService(kIOMainPortDefault,
-                                                  IOServiceMatching("IOPlatformExpertDevice"))
+        let service = IOServiceGetMatchingService(kIOMainPortDefault, IOServiceMatching("IOPlatformExpertDevice"))
         var modelIdentifier: String?
 
         if let modelData = IORegistryEntryCreateCFProperty(service, "model" as CFString, kCFAllocatorDefault, 0)

@@ -9,32 +9,32 @@ import SwiftUI
 
 struct StoreGenshinAccountView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var folderName: String = ""
-    @State var selectedRegion: String = ""
-    @State var regionIsNotValid: Bool = false
+    @State var folderName = ""
+    @State var selectedRegion = ""
+    @State var regionIsNotValid = false
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
             Spacer()
             Text("storeAccount.storeAcc").font(.largeTitle).lineLimit(1).fixedSize()
             Spacer()
             HStack(spacing: 0) {
-                Picker(selection: $selectedRegion,
-                       label: Text("storeAccount.selectAccRegion")
-                    .font(.headline).lineLimit(1).fixedSize(),
-                       content: {
-                            Text("storeAccount.selectAccRegion.usa").tag("America")
-                            Text("storeAccount.selectAccRegion.euro").tag("Europe")
-                            Text("storeAccount.selectAccRegion.asia").tag("Asia")
-                            Text("storeAccount.selectAccRegion.cht").tag("CHT")
-                }).pickerStyle(.segmented)
+                Picker(
+                    selection: $selectedRegion,
+                    label: Text("storeAccount.selectAccRegion")
+                        .font(.headline).lineLimit(1).fixedSize(),
+                    content: {
+                        Text("storeAccount.selectAccRegion.usa").tag("os_usa")
+                        Text("storeAccount.selectAccRegion.euro").tag("os_euro")
+                        Text("storeAccount.selectAccRegion.asia").tag("os_asia")
+                        Text("storeAccount.selectAccRegion.cht").tag("os_cht")
+                    }).pickerStyle(.segmented)
                 Spacer()
             }
             HStack {
                 Text("storeAccount.nameOfAcc")
                     .font(.headline).lineLimit(1).fixedSize()
                 TextField(NSLocalizedString(
-                    "storeAccount.nameOfAcc.textfieldPlaceholder", comment: ""
-                ), text: $folderName)
+                    "storeAccount.nameOfAcc.textfieldPlaceholder", comment: ""), text: $folderName)
             }
             Spacer()
             HStack {
@@ -43,29 +43,17 @@ struct StoreGenshinAccountView: View {
                         do {
                             if try checkCurrentRegion(selectedRegion: selectedRegion) {
                                 regionIsNotValid = false
-                                if selectedRegion == "America" {
-                                    storeUserData(folderName: $folderName.wrappedValue.lowercased(),
-                                                  accountRegion: "os_usa")
-                                } else if selectedRegion == "Europe" {
-                                    storeUserData(folderName: $folderName.wrappedValue.lowercased(),
-                                                  accountRegion: "os_euro")
-                                } else if selectedRegion == "Asia" {
-                                    storeUserData(folderName: $folderName.wrappedValue.lowercased(),
-                                                  accountRegion: "os_asia")
-                                } else {
-                                    storeUserData(folderName: $folderName.wrappedValue.lowercased(),
-                                                  accountRegion: "os_cht")
-                                }
+                                storeUserData(folderName: folderName.lowercased(), accountRegion: selectedRegion)
                                 presentationMode.wrappedValue.dismiss()
                             } else {
                                 regionIsNotValid = true
                             }
                         } catch {
-                            Log.shared.error("An error occoured while trying to store your account: "
-                                             + error.localizedDescription)
+                            Log.shared.error(
+                                "An error occoured while trying to store your account: " + error.localizedDescription)
                         }
                     } else { presentationMode.wrappedValue.dismiss() }
-                    }, label: {
+                }, label: {
                     Text("storeAccount.store").frame(minWidth: 300, alignment: .center)
                 }).controlSize(.large).font(.title3).padding()
                     .keyboardShortcut(.defaultAction)

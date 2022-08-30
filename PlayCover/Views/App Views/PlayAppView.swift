@@ -14,13 +14,13 @@ struct PlayAppView: View {
     @State private var showClearCacheToast = false
     @State private var showClearPreferencesAlert = false
 
-    @State var isHover: Bool = false
-    @State var showImportSuccess: Bool = false
-    @State var showImportFail: Bool = false
+    @State var isHover = false
+    @State var showImportSuccess = false
+    @State var showImportFail = false
 
-    @State private var showChangeGenshinAccount: Bool = false
-    @State private var showStoreGenshinAccount: Bool = false
-    @State private var showDeleteGenshinAccount: Bool = false
+    @State private var showChangeGenshinAccount = false
+    @State private var showStoreGenshinAccount = false
+    @State private var showDeleteGenshinAccount = false
 
     var body: some View {
         PlayAppConditionalView(app: app, isList: isList, isHover: $isHover)
@@ -103,7 +103,7 @@ struct PlayAppView: View {
                         showDeleteGenshinAccount.toggle()
                     }, label: {
                         Text("playapp.deleteAccount")
-                    Image(systemName: "folder.badge.minus")
+                        Image(systemName: "folder.badge.minus")
                     })
                     Divider().padding(.leading, 36).padding(.trailing, 36)
                 }
@@ -125,25 +125,28 @@ struct PlayAppView: View {
                     app.container?.clear()
                     showClearCacheToast.toggle()
                 }
-                Button("button.Cancel", role: .cancel) {}
+                Button("button.Cancel", role: .cancel) { }
             }
             .alert("alert.app.preferences", isPresented: $showClearPreferencesAlert) {
                 Button("button.Proceed", role: .cancel) {
                     deletePreferences(app: app.info.bundleIdentifier)
                     showClearPreferencesAlert.toggle()
                 }
-                Button("button.Cancel", role: .cancel) {}
+                Button("button.Cancel", role: .cancel) { }
             }
             .onChange(of: showClearCacheToast) { _ in
-                ToastVM.shared.showToast(toastType: .notice,
+                ToastVM.shared.showToast(
+                    toastType: .notice,
                     toastDetails: NSLocalizedString("alert.appCacheCleared", comment: ""))
             }
             .onChange(of: showImportSuccess) { _ in
-                ToastVM.shared.showToast(toastType: .notice,
+                ToastVM.shared.showToast(
+                    toastType: .notice,
                     toastDetails: NSLocalizedString("alert.kmImported", comment: ""))
             }
             .onChange(of: showImportFail) { _ in
-                ToastVM.shared.showToast(toastType: .error,
+                ToastVM.shared.showToast(
+                    toastType: .error,
                     toastDetails: NSLocalizedString("alert.errorImportKm", comment: ""))
             }
             .sheet(isPresented: $showSettings) {
@@ -175,11 +178,9 @@ struct PlayAppConditionalView: View {
                 }
             }
             .background(
-                        withAnimation {
-                            isHover ? Color.gray.opacity(0.3) : Color.clear
-                        }
-                            .animation(.easeInOut(duration: 0.15), value: isHover)
-                    )
+                withAnimation {
+                    isHover ? Color.gray.opacity(0.3) : Color.clear
+                }.animation(.easeInOut(duration: 0.15), value: isHover))
         } else {
             VStack(alignment: .center, spacing: 0) {
                 if let img = app.icon {
@@ -190,14 +191,11 @@ struct PlayAppConditionalView: View {
                         }
                         .cornerRadius(10)
                         .shadow(
-                            color: isHover ? Color.black.opacity(
-                                colorScheme == .dark ? 1 : 0.2
-                            ) : Color.clear, radius: 13, x: 0, y: 5
-                        ).animation(
-                            .interpolatingSpring(
-                                stiffness: 400, damping: 17
-                            ), value: isHover
-                        )
+                            color: isHover ? Color.black.opacity(colorScheme == .dark ? 1 : 0.2) : Color.clear,
+                            radius: 13,
+                            x: 0,
+                            y: 5)
+                        .animation(.interpolatingSpring(stiffness: 400, damping: 17), value: isHover)
                         .frame(width: isHover ? 93 : 88, height: isHover ? 93 : 88)
                         .shadow(radius: 1)
                         .padding(.vertical, 5)

@@ -3,13 +3,13 @@
 //  PlayCover
 //
 
-import Foundation
 import Cocoa
+import Foundation
 import IOKit.pwr_mgt
 
 class PlayApp: BaseApp {
     var searchText: String {
-        return info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
+        info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
     }
 
     func launch() {
@@ -21,7 +21,7 @@ class PlayApp: BaseApp {
 
             AppsVM.shared.updatingApps = true
             AppsVM.shared.fetchApps()
-            self.settings.sync()
+            settings.sync()
             if try !Entitlements.areEntitlementsValid(app: self) {
                 sign()
             }
@@ -40,33 +40,37 @@ class PlayApp: BaseApp {
             Log.shared.error(error)
         }
     }
+
     func runAppExec() {
-        NSWorkspace.shared.openApplication(at: url,
-                                           configuration: NSWorkspace.OpenConfiguration(),
-                                           completionHandler: {runningApp, error in
-            guard error == nil else {return}
-            if self.settings.settings.disableTimeout {
-                // Yeet into a thread
-                DispatchQueue.global().async {
-                    debugPrint("Disabling timeout...")
-                    let reason = "PlayCover: " + self.name + " disabled screen timeout" as CFString
-                    var assertionID: IOPMAssertionID = 0
-                    var success = IOPMAssertionCreateWithName( kIOPMAssertionTypeNoDisplaySleep as CFString,
-                                                               IOPMAssertionLevel(kIOPMAssertionLevelOn),
-                                                               reason,
-                                                               &assertionID )
-                    if success == kIOReturnSuccess {
-                        while true { // Run a loop until the app closes
-                            Thread.sleep(forTimeInterval: 10) // Wait 10s
-                            guard let isFinish = runningApp?.isTerminated,
-                                  !isFinish else { break }
+        NSWorkspace.shared.openApplication(
+            at: url,
+            configuration: NSWorkspace.OpenConfiguration(),
+            completionHandler: { runningApp, error in
+                guard error == nil else { return }
+                if self.settings.settings.disableTimeout {
+                    // Yeet into a thread
+                    DispatchQueue.global().async {
+                        debugPrint("Disabling timeout...")
+                        let reason = "PlayCover: " + self.name + " disabled screen timeout" as CFString
+                        var assertionID: IOPMAssertionID = 0
+                        var success = IOPMAssertionCreateWithName(
+                            kIOPMAssertionTypeNoDisplaySleep as CFString,
+                            IOPMAssertionLevel(kIOPMAssertionLevelOn),
+                            reason,
+                            &assertionID)
+                        if success == kIOReturnSuccess {
+                            while true { // Run a loop until the app closes
+                                Thread.sleep(forTimeInterval: 10) // Wait 10s
+                                guard
+                                    let isFinish = runningApp?.isTerminated,
+                                    !isFinish else { break }
+                            }
+                            success = IOPMAssertionRelease(assertionID)
+                            debugPrint("Enabling timeout...")
                         }
-                        success = IOPMAssertionRelease(assertionID)
-                        debugPrint("Enabling timeout...")
                     }
                 }
-            }
-        })
+            })
     }
 
     var icon: NSImage? {
@@ -87,22 +91,14 @@ class PlayApp: BaseApp {
         }
     }
 
-    lazy var settings: AppSettings = {
-        AppSettings(info, container: container)
-    }()
+    lazy var settings = AppSettings(info, container: container)
 
-    lazy var keymapping: Keymapping = {
-        Keymapping(info, container: container)
-    }()
+    lazy var keymapping = Keymapping(info, container: container)
 
     var container: AppContainer?
 
     func isCodesigned() throws -> Bool {
-        return try shell.shello(
-            "/usr/bin/codesign",
-            "-dv",
-            executable.path
-        ).contains("adhoc")
+        try shell.shello("/usr/bin/codesign", "-dv", executable.path).contains("adhoc")
     }
 
     func showInFinder() {
@@ -136,15 +132,17 @@ class PlayApp: BaseApp {
     }
 
     var prohibitedToPlay: Bool {
-        return PlayApp.PROHIBITED_APPS.contains(info.bundleIdentifier)
+        PlayApp.PROHIBITED_APPS.contains(info.bundleIdentifier)
     }
 
-    static let PROHIBITED_APPS = ["com.activision.callofduty.shooter",
-                                  "com.garena.game.codm",
-                                  "com.tencent.tmgp.cod",
-                                  "com.tencent.ig",
-                                  "com.pubg.newstate",
-                                  "com.tencent.tmgp.pubgmhd",
-                                  "com.dts.freefireth",
-                                  "com.dts.freefiremax"]
+    static let PROHIBITED_APPS = [
+        "com.activision.callofduty.shooter",
+        "com.garena.game.codm",
+        "com.tencent.tmgp.cod",
+        "com.tencent.ig",
+        "com.pubg.newstate",
+        "com.tencent.tmgp.pubgmhd",
+        "com.dts.freefireth",
+        "com.dts.freefiremax"
+    ]
 }

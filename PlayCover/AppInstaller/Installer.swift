@@ -12,50 +12,50 @@ class Installer {
     static func install(ipaUrl: URL, returnCompletion: @escaping (URL?) -> Void) {
         InstallVM.shared.next(.begin, 0.0, 0.0)
         DispatchQueue.global(qos: .background).async {
-        do {
-            let ipa = IPA(url: ipaUrl)
-            InstallVM.shared.next(.unzip, 0.0, 0.5)
-            let app = try ipa.unzip()
-            InstallVM.shared.next(.library, 0.5, 0.55)
-            try saveEntitlements(app)
-            let machos = try resolveValidMachOs(app)
-            app.validMachOs = machos
+            do {
+                let ipa = IPA(url: ipaUrl)
+                InstallVM.shared.next(.unzip, 0.0, 0.5)
+                let app = try ipa.unzip()
+                InstallVM.shared.next(.library, 0.5, 0.55)
+                try saveEntitlements(app)
+                let machos = try resolveValidMachOs(app)
+                app.validMachOs = machos
 
-            InstallVM.shared.next(.playtools, 0.55, 0.85)
-            try PlayTools.installFor(app.executable, resign: true)
+                InstallVM.shared.next(.playtools, 0.55, 0.85)
+                try PlayTools.installFor(app.executable, resign: true)
 
-            for macho in machos {
-                if try PlayTools.isMachoEncrypted(atURL: macho) {
-                    throw PlayCoverError.appEncrypted
+                for macho in machos {
+                    if try PlayTools.isMachoEncrypted(atURL: macho) {
+                        throw PlayCoverError.appEncrypted
+                    }
+                    try PlayTools.replaceLibraries(atURL: macho)
+                    try PlayTools.convertMacho(macho)
+                    try fakesign(macho)
                 }
-                try PlayTools.replaceLibraries(atURL: macho)
-                try PlayTools.convertMacho(macho)
-                try fakesign(macho)
+
+                // -rwxr-xr-x
+                try app.executable.setBinaryPosixPermissions(0o755)
+
+                try removeMobileProvision(app)
+
+                let info = app.info
+
+                info.assert(minimumVersion: 11.0)
+                try info.write()
+
+                InstallVM.shared.next(.wrapper, 0.85, 0.95)
+
+                let installed = try wrap(app)
+                PlayApp(appUrl: installed).sign()
+                try ipa.releaseTempDir()
+                InstallVM.shared.next(.finish, 0.95, 1.0)
+                returnCompletion(installed)
+            } catch {
+                Log.shared.error(error)
+                InstallVM.shared.next(.finish, 0.95, 1.0)
+                returnCompletion(nil)
             }
-
-            // -rwxr-xr-x
-            try app.executable.setBinaryPosixPermissions(0o755)
-
-            try removeMobileProvision(app)
-
-            let info = app.info
-
-            info.assert(minimumVersion: 11.0)
-            try info.write()
-
-            InstallVM.shared.next(.wrapper, 0.85, 0.95)
-
-            let installed = try wrap(app)
-            PlayApp(appUrl: installed).sign()
-            try ipa.releaseTempDir()
-            InstallVM.shared.next(.finish, 0.95, 1.0)
-            returnCompletion(installed)
-        } catch {
-            Log.shared.error(error)
-            InstallVM.shared.next(.finish, 0.95, 1.0)
-            returnCompletion(nil)
         }
-    }
     }
 
     static func exportForSideloadly(ipaUrl: URL, returnCompletion: @escaping (URL?) -> Void) {
@@ -97,7 +97,7 @@ class Installer {
         }
     }
 
-    static func fromIPA (detectingAppNameInFolder folderURL: URL) throws -> BaseApp {
+    static func fromIPA(detectingAppNameInFolder folderURL: URL) throws -> BaseApp {
         let contents = try FileManager.default.contentsOfDirectory(atPath: folderURL.path)
 
         var url: URL?
@@ -111,7 +111,7 @@ class Installer {
             var isDirectory: ObjCBool = false
 
             guard FileManager.default.fileExists(atPath: entryURL.path, isDirectory: &isDirectory),
-                    isDirectory.boolValue else {
+                  isDirectory.boolValue else {
                 continue
             }
 

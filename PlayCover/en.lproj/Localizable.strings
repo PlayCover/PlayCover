@@ -81,7 +81,7 @@
 "settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
 "settings.toggle.mm" = "Mouse mapping";
 "settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
-"settings.slider.mouseSensitivity" = "Mouse sensitivity: ";
+"settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
 
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";
@@ -139,3 +139,15 @@
 "xcode.install.progress.subtext" = "This may take around 5-10 minutes depending on your internet speed";
 "xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
 "xcode.install.failed.altButton" = "Alternate Instructions";
+
+"settings.tab.etc" = "Etc";
+"settings.button.discord" = "Custom Discord activity";
+"settings.button.clearActivity" = "Clear custom activity";
+"settings.text.applicationID" = "Application ID";
+"settings.text.details" = "Details";
+"settings.text.details.help" = "First row below title";
+"settings.text.image" = "Image";
+"settings.text.image.help" = "Link to image or Dev portal asset name";
+"settings.text.state" = "State";
+"settings.text.state.help" = "Second row below title";
+"settings.toggle.discord" = "Enable Discord activity";

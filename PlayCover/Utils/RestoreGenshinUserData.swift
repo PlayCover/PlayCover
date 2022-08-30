@@ -27,7 +27,7 @@ func restoreUserData(folderName: String) {
     // remove existent user data from genshin impact
 
     do {
-        try fileManager.removeItem(at: accountInfoPlistEncryptUrl )
+        try fileManager.removeItem(at: accountInfoPlistEncryptUrl)
         try fileManager.removeItem(at: kibanaReportArrayKeyEncryptUrl)
         try fileManager.removeItem(at: lastAccountModelEncryptUrl)
     } catch {
@@ -36,14 +36,17 @@ func restoreUserData(folderName: String) {
 
     // move data from StorePath to  GameDataPath
     do {
-        try fileManager.copyItem(at: URL(fileURLWithPath: storePath + accountInfoPlistEncrypt),
-                                 to: accountInfoPlistEncryptUrl)
+        try fileManager.copyItem(
+            at: URL(fileURLWithPath: storePath + accountInfoPlistEncrypt),
+            to: accountInfoPlistEncryptUrl)
 
-        try fileManager.copyItem(at: URL(fileURLWithPath: storePath + kibanaReportArrayKeyEncrypt),
-                                 to: kibanaReportArrayKeyEncryptUrl)
+        try fileManager.copyItem(
+            at: URL(fileURLWithPath: storePath + kibanaReportArrayKeyEncrypt),
+            to: kibanaReportArrayKeyEncryptUrl)
 
-        try fileManager.copyItem(at: URL(fileURLWithPath: storePath + lastAccountModelEncrypt),
-                                 to: lastAccountModelEncryptUrl)
+        try fileManager.copyItem(
+            at: URL(fileURLWithPath: storePath + lastAccountModelEncrypt),
+            to: lastAccountModelEncryptUrl)
         let region = try String(contentsOf: URL(fileURLWithPath: storePath + "region.txt"), encoding: .utf8)
         modifyPlist(newRegion: region)
     } catch {
@@ -56,12 +59,13 @@ func modifyPlist(newRegion: String) {
         // path of plist file
         let staticUrl = "/Library/Containers/com.miHoYo.GenshinImpact/" +
             "Data/Library/Preferences/com.miHoYo.GenshinImpact.plist"
-        let url = URL(fileURLWithPath: NSHomeDirectory() + staticUrl )
+        let url = URL(fileURLWithPath: NSHomeDirectory() + staticUrl)
         // read plist file
         let data = try Data(contentsOf: url)
 
-        guard var plist = try PropertyListSerialization.propertyList(from: data, options: [], format: nil)
-                as? [String: Any] else { throw PlayCoverError.noGenshinAccount }
+        guard var plist = try PropertyListSerialization
+            .propertyList(from: data, options: [], format: nil) as? [String: Any]
+        else { throw PlayCoverError.noGenshinAccount }
 
         guard let GENERAL_DATA = plist["GENERAL_DATA"] as? String else { throw PlayCoverError.noGenshinAccount }
         var modifiedValue = GENERAL_DATA
@@ -69,26 +73,28 @@ func modifyPlist(newRegion: String) {
         let regions = ["os_usa", "os_euro", "os_asia", "os_cht"]
 
         for region in regions {
-            modifiedValue = modifiedValue.replacingOccurrences(of: "\(region)",
-                                                              with: "\(newRegion)",
-                                                              options: .literal,
-                                                              range: nil)
+            modifiedValue = modifiedValue.replacingOccurrences(
+                of: "\(region)",
+                with: "\(newRegion)",
+                options: .literal,
+                range: nil)
         }
 
         // write modified value to GENERAL_DATA key of plist
         plist["GENERAL_DATA"] = modifiedValue
 
         // write plist to file
-        let plistData = try PropertyListSerialization.data(fromPropertyList: plist,
-                                                           format: .xml,
-                                                           options: 0)
+        let plistData = try PropertyListSerialization.data(
+            fromPropertyList: plist,
+            format: .xml,
+            options: 0)
         try plistData.write(to: url, options: .atomic)
     } catch {
         Log.shared.log("Error editing plist file: \(error)")
     }
 }
 
-func getAccountList () -> [String] {
+func getAccountList() -> [String] {
     let storePath = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/storage/"
     var accountStored: [String]
     do {

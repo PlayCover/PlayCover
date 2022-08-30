@@ -19,7 +19,7 @@ class InstallVM: ObservableObject {
 
     @Published var status: String = NSLocalizedString(InstallStepsNative.begin.rawValue, comment: "")
     @Published var progress = 0.0
-    @Published var installing  = false
+    @Published var installing = false
 
     static let shared = InstallVM()
 
