@@ -35,31 +35,6 @@ struct PlayAppView: View {
                     showSettings.toggle()
                 }, label: {
                     Text("playapp.settings")
-                    Image(systemName: "gear")
-                })
-                Button(action: {
-                    app.showInFinder()
-                }, label: {
-                    Text("playapp.showInFinder")
-                    Image(systemName: "folder")
-                })
-                Button(action: {
-                    app.openAppCache()
-                }, label: {
-                    Text("playapp.openCache")
-                    Image(systemName: "folder")
-                })
-                Button(action: {
-                    showClearCacheAlert.toggle()
-                }, label: {
-                    Text("playapp.clearCache")
-                    Image(systemName: "xmark.bin")
-                })
-                Button(action: {
-                    showClearPreferencesAlert.toggle()
-                }, label: {
-                    Text("playapp.clearPreferences")
-                    Image(systemName: "xmark.bin")
                 })
                 Button(action: {
                     app.keymapping.importKeymap { result in
@@ -71,41 +46,55 @@ struct PlayAppView: View {
                     }
                 }, label: {
                     Text("playapp.importKm")
-                    Image(systemName: "square.and.arrow.down.on.square.fill")
                 })
                 Button(action: {
                     app.keymapping.exportKeymap()
                 }, label: {
                     Text("playapp.exportKm")
-                    Image(systemName: "arrowshape.turn.up.left")
+                })
+                Divider()
+                Button(action: {
+                    app.showInFinder()
+                }, label: {
+                    Text("playapp.showInFinder")
+                })
+                Button(action: {
+                    app.openAppCache()
+                }, label: {
+                    Text("playapp.openCache")
+                })
+                Button(action: {
+                    showClearCacheAlert.toggle()
+                }, label: {
+                    Text("playapp.clearCache")
+                })
+                Button(action: {
+                    showClearPreferencesAlert.toggle()
+                }, label: {
+                    Text("playapp.clearPreferences")
                 })
                 Button(action: {
                     app.deleteApp()
                 }, label: {
                     Text("playapp.delete")
-                    Image(systemName: "trash")
                 })
                 if app.info.bundleIdentifier == "com.miHoYo.GenshinImpact" {
-                    Divider().padding(.leading, 36).padding(.trailing, 36)
+                    Divider()
                     Button(action: {
                         showStoreGenshinAccount.toggle()
                     }, label: {
                         Text("playapp.storeCurrentAccount")
-                        Image(systemName: "folder.badge.person.crop")
                     })
                     Button(action: {
                         showChangeGenshinAccount.toggle()
                     }, label: {
                         Text("playapp.activateAccount")
-                        Image(systemName: "folder.badge.gearshape")
                     })
                     Button(action: {
                         showDeleteGenshinAccount.toggle()
                     }, label: {
                         Text("playapp.deleteAccount")
-                        Image(systemName: "folder.badge.minus")
                     })
-                    Divider().padding(.leading, 36).padding(.trailing, 36)
                 }
             }
             .onHover(perform: { hovering in

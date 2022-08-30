@@ -1,16 +1,16 @@
 "playapp.add" = "Add app";
-"playapp.settings" = "App settings";
+"playapp.settings" = "App Settings";
 "playapp.showInFinder" = "Show in Finder";
-"playapp.openCache" = "Open app data";
-"playapp.clearCache" = "Clear app data";
-"playapp.importKm" = "Import keymapping";
-"playapp.exportKm" = "Export keymapping";
+"playapp.openCache" = "Open App Data";
+"playapp.clearCache" = "Clear App Data";
+"playapp.importKm" = "Import Keymapping";
+"playapp.exportKm" = "Export Keymapping";
 "playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
-"playapp.delete" = "Delete app";
-"playapp.storeCurrentAccount" = "Store current account";
-"playapp.activateAccount" = "Restore an account";
-"playapp.deleteAccount" = "Delete an account";
-"playapp.clearPreferences" = "Clear app preferences";
+"playapp.delete" = "Delete App";
+"playapp.storeCurrentAccount" = "Store Current Account";
+"playapp.activateAccount" = "Restore Account";
+"playapp.deleteAccount" = "Delete Account";
+"playapp.clearPreferences" = "Clear App Preferences";
 
 "preferences.button.checkForUpdates" = "Check for updates now...";
 "preferences.tab.updates" = "Updates";
@@ -138,7 +138,7 @@
 "xcode.install.progress" = "Installing Xcode Command Line Tools";
 "xcode.install.progress.subtext" = "May take around 5-10 minutes depending on internet speed";
 
-"settings.tab.etc" = "Etc";
+"settings.tab.misc" = "Misc";
 "settings.button.discord" = "Custom Discord activity";
 "settings.button.clearActivity" = "Clear custom activity";
 "settings.text.applicationID" = "Application ID";
@@ -149,3 +149,4 @@
 "settings.text.state" = "State";
 "settings.text.state.help" = "Second row below title";
 "settings.toggle.discord" = "Enable Discord activity";
+"settings.toggle.hud" = "Metal HUD";

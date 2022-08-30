@@ -43,9 +43,9 @@ struct AppSettingsView: View {
                     .tabItem {
                         Text("settings.tab.jbBypass")
                     }
-                EtcView(settings: $viewModel.settings)
+                MiscView(settings: $viewModel.settings)
                     .tabItem {
-                        Text("settings.tab.etc")
+                        Text("settings.tab.misc")
                     }
                 InfoView(info: viewModel.app.info)
                     .tabItem {
@@ -98,6 +98,7 @@ struct KeymappingView: View {
                     Spacer()
                     Toggle("settings.toggle.mm", isOn: $settings.settings.mouseMapping)
                         .help("settings.toggle.mm.help")
+                        .disabled(!settings.settings.keymapping)
                 }
                 HStack {
                     Text(String(
@@ -106,6 +107,7 @@ struct KeymappingView: View {
                     Spacer()
                     Slider(value: $settings.settings.sensitivity, in: 0...100, label: { EmptyView() })
                         .frame(width: 250)
+                        .disabled(!settings.settings.keymapping)
                 }
                 Spacer()
             }
@@ -312,7 +314,7 @@ struct JBBypassView: View {
     }
 }
 
-struct EtcView: View {
+struct MiscView: View {
     @Binding var settings: AppSettings
     @State var showPopover = false
 
@@ -361,6 +363,12 @@ struct EtcView: View {
                             }
                         }
                     Spacer()
+                }
+                if #available(macOS 13.0, *) {
+                    HStack {
+                        Toggle("settings.toggle.hud", isOn: $settings.metalHudEnabled)
+                        Spacer()
+                    }
                 }
             }
             .padding()

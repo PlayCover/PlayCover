@@ -182,9 +182,20 @@ public class AppInfo {
         self[string: "CFBundleShortVersionString"]!
     }
 
+    var supportsTrueScreenSizeOnMac: Bool {
+        get {
+            self[bool: "UISupportsTrueScreenSizeOnMac"]!
+        }
+        set {
+            self[bool: "UISupportsTrueScreenSizeOnMac"] = newValue
+        }
+    }
+
     func assert(minimumVersion: Double) {
         if Double(minimumOSVersion)! > 11.0 {
             minimumOSVersion = Int(minimumVersion).description
         }
+
+        supportsTrueScreenSizeOnMac = true
     }
 }

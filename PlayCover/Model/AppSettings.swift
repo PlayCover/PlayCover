@@ -41,6 +41,7 @@ class AppSettings {
 
     let info: AppInfo
     let settingsUrl: URL
+    var metalHudEnabled: Bool = false
     var container: AppContainer?
     var settings: AppSettingsData {
         didSet {

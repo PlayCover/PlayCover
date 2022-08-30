@@ -42,9 +42,17 @@ class PlayApp: BaseApp {
     }
 
     func runAppExec() {
+        var config = NSWorkspace.OpenConfiguration()
+
+        if settings.metalHudEnabled {
+            config.environment = ["MTL_HUD_ENABLED": "1"]
+        } else {
+            config.environment = ["MTL_HUD_ENABLED": "0"]
+        }
+
         NSWorkspace.shared.openApplication(
             at: url,
-            configuration: NSWorkspace.OpenConfiguration(),
+            configuration: config,
             completionHandler: { runningApp, error in
                 guard error == nil else { return }
                 if self.settings.settings.disableTimeout {
