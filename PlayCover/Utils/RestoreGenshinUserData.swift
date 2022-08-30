@@ -7,12 +7,15 @@
 
 import Foundation
 
-func restoreUserData(folderName: String) {
+func restoreUserData(folderName: String, app: PlayApp) {
+    let BUNDLE_ID = app.info.bundleIdentifier == "com.miHoYo.GenshinImpact"
+                    ? "com.miHoYo.GenshinImpact"
+                    : "com.miHoYo.Yuanshen"
     let accountInfoPlistEncrypt = "MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption"
     let kibanaReportArrayKeyEncrypt = "MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption"
     let lastAccountModelEncrypt = "MIHOYO_LAST_ACCOUNT_MODEL_Encryption"
 
-    let gameDataPath = NSHomeDirectory() + "/Library/Containers/com.miHoYo.GenshinImpact/Data/Documents/"
+    let gameDataPath = NSHomeDirectory() + "/Library/Containers/\(BUNDLE_ID)/Data/Documents/"
     let storePath = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/storage/" + folderName + "/"
 
     let accountInfoPlistEncryptUrl =
@@ -44,8 +47,10 @@ func restoreUserData(folderName: String) {
 
         try fileManager.copyItem(at: URL(fileURLWithPath: storePath + lastAccountModelEncrypt),
                                  to: lastAccountModelEncryptUrl)
-        let region = try String(contentsOf: URL(fileURLWithPath: storePath + "region.txt"), encoding: .utf8)
-        modifyPlist(newRegion: region)
+        if BUNDLE_ID == "com.miHoYo.GenshinImpact" {
+            let region = try String(contentsOf: URL(fileURLWithPath: storePath + "region.txt"), encoding: .utf8)
+            modifyPlist(newRegion: region)
+        }
     } catch {
         Log.shared.log("Error moving file: \(error)")
     }

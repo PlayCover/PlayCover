@@ -11,6 +11,7 @@ struct ChangeGenshinAccountView: View {
     @State var folderName: String = ""
     @State var accountList: [String] = getAccountList()
     @State var restoreAlert: Bool = false
+    @State var app: PlayApp
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
             Spacer()
@@ -31,7 +32,7 @@ struct ChangeGenshinAccountView: View {
                         .frame(width: 300, alignment: .center)
                         .alert("Really Restore Account?", isPresented: $restoreAlert, actions: {
                             Button("Restore Account") {
-                                restoreUserData(folderName: account)
+                                restoreUserData(folderName: account, app: app)
                                 self.presentationMode.wrappedValue.dismiss()
                             }
                             .controlSize(.large).padding()
@@ -49,11 +50,5 @@ struct ChangeGenshinAccountView: View {
             }).controlSize(.large).padding()
         }
         .frame(minWidth: 300)
-    }
-}
-
-struct ChangeGenshinAccountView_preview: PreviewProvider {
-    static var previews: some View {
-        ChangeGenshinAccountView()
     }
 }

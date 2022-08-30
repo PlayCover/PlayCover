@@ -31,7 +31,8 @@ struct DeleteGenshinStoredAccountView: View {
                         .frame(width: 300, alignment: .center)
                         .alert("Really Delete Account?", isPresented: $deleteAlert) {
                             Button("Delete \"\(folderName)\" Account", role: .destructive) {
-                                deleteStoredAccount(folderName: account)
+                                print("account: ", self.folderName)
+                                deleteStoredAccount(folderName: self.folderName)
                                 self.presentationMode.wrappedValue.dismiss()
                             }.foregroundColor(.red)
                             Button("button.Cancel", role: .cancel) {}

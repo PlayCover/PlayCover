@@ -8,17 +8,21 @@
 import Foundation
 import SwiftUI
 
-func storeUserData( folderName: String, accountRegion: String ) {
+func storeUserData( folderName: String, accountRegion: String, app: PlayApp ) {
+        let BUNDLE_ID = app.info.bundleIdentifier == "com.miHoYo.GenshinImpact" ? "com.miHoYo.GenshinImpact"
+                        : "com.miHoYo.Yuanshen"
         let accountInfoPlistEncrypt = "MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption"
         let kibanaReportArrayKeyEncrypt = "MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption"
         let lastAccountModelEncrypt = "MIHOYO_LAST_ACCOUNT_MODEL_Encryption"
 
         // get Path URL and create a folder with the content of uidInfo.txt
-        let gameDataPath = NSHomeDirectory() + "/Library/Containers/com.miHoYo.GenshinImpact/Data/Documents/"
+        let gameDataPath = NSHomeDirectory() + "/Library/Containers/\(BUNDLE_ID)/Data/Documents/"
 
         // Path to the folder where the data will be stored check if exists and if not create it
         let store = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/storage/"
-        let storePath = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/storage/" + folderName + "/"
+        let storePath = BUNDLE_ID == "com.miHoYo.GenshinImpact"
+                        ? store + folderName + "/"
+                        : store + "Yuanshen " + folderName + "/"
 
         // Data to move from GameDataPath to StorePath
         let accountInfoPlistEncryptUrl =
@@ -56,13 +60,12 @@ func storeUserData( folderName: String, accountRegion: String ) {
 
             try fileManager.copyItem(at: lastAccountModelEncryptUrl,
                                      to: URL(fileURLWithPath: storePath + lastAccountModelEncrypt))
-            fileManager.createFile(atPath: storePath + "region.txt", contents: nil, attributes: nil)
-            try accountRegion.write(to: URL(fileURLWithPath: storePath + "region.txt"),
-                                    atomically: false, encoding: .utf8)
-
-        } catch {
-            Log.shared.error("Error moving file: \(error)")
-        }
+            if BUNDLE_ID == "com.miHoYo.GenshinImpact" {
+                fileManager.createFile(atPath: storePath + "region.txt", contents: nil, attributes: nil)
+                try accountRegion.write(to: URL(fileURLWithPath: storePath + "region.txt"),
+                                        atomically: false, encoding: .utf8)
+            }
+        } catch { Log.shared.error("Error moving file: \(error)") }
 
 }
 
