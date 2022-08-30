@@ -21,8 +21,8 @@ struct MainView: View {
     @State private var selectedView: Int? = -1
     @State private var navWidth: CGFloat = 0
     @State private var viewWidth: CGFloat = 0
-    @State private var collapsed = false
-    @State private var isInstallingXcodeCli = false
+    @State private var collapsed: Bool = false
+    @State private var isInstallingXcodeCli: Bool = false
     @State private var xcodeInstallStatus: XcodeInstallStatus = .installing
 
     var body: some View {
@@ -69,26 +69,35 @@ struct MainView: View {
             .onChange(of: viewGeom.size) { newSize in
                 viewWidth = newSize.width
             }
-            .alert(
-                "alert.moveAppToApplications.title",
-                isPresented: $integrity.integrityOff) {
-                    Button("alert.moveAppToApplications.move", role: .cancel) {
-                        integrity.moveToApps()
-                    }
-                    .tint(.accentColor)
-                    .keyboardShortcut(.defaultAction)
+            .alert("alert.moveAppToApplications.title",
+                   isPresented: $integrity.integrityOff) {
+                Button("alert.moveAppToApplications.move", role: .cancel) {
+                    integrity.moveToApps()
+                }
+                .tint(.accentColor)
+                .keyboardShortcut(.defaultAction)
             } message: {
                 Text("alert.moveAppToApplications.subtitle")
             }
             .sheet(isPresented: Binding<Bool>(
-                get: { !xcodeCliInstalled },
-                set: { value in xcodeCliInstalled = value })) {
-                    VStack(spacing: 12) {
-                        switch xcodeInstallStatus {
-                        case .installing:
-                            if !isInstallingXcodeCli {
-                                Text("xcode.install.message")
-                                    .font(.title3)
+                get: {return !xcodeCliInstalled},
+                set: {value in xcodeCliInstalled = value})) {
+                VStack {
+                    switch xcodeInstallStatus {
+                    case .installing:
+                        if !isInstallingXcodeCli {
+                            Image(systemName: "square.and.arrow.down")
+                                .font(.system(size: 45))
+                                .foregroundColor(.accentColor)
+                            Text("xcode.install.message")
+                                .font(.title3)
+                            HStack {
+                                Button("button.Quit") {
+                                    exit(0)
+                                }
+                                .buttonStyle(.borderedProminent)
+                                .tint(Color.gray)
+                                .controlSize(.large)
                                 Button("button.Install") {
                                     installXcodeCli()
                                     isInstallingXcodeCli = true
@@ -96,34 +105,68 @@ struct MainView: View {
                                 .buttonStyle(.borderedProminent)
                                 .tint(.accentColor)
                                 .controlSize(.large)
-                            } else {
-                                VStack {
-                                    ProgressView("xcode.install.progress")
-                                        .progressViewStyle(.circular)
-                                    Text("xcode.install.progress.subtext")
-                                        .foregroundColor(.secondary)
+                            }
+                        } else {
+                            VStack {
+                                ProgressView()
+                                    .progressViewStyle(.circular)
+                                Spacer()
+                                    .frame(height: 10)
+                                Text("xcode.install.progress")
+                                    .font(.title3)
+                                Text("xcode.install.progress.subtext")
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                    case .success:
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(Color.green)
+                            .font(.system(size: 45))
+                            .onAppear {
+                                if let sound = NSSound(named: "Glass") {
+                                    sound.play()
                                 }
                             }
-                        case .success:
-                            Text("xcode.install.success")
-                                .font(.title3)
-                            Text("alert.restart")
-                                .foregroundColor(.secondary)
-                            Button("button.Close") {
-                                NSApplication.shared.terminate(nil)
+                        Text("xcode.install.success")
+                            .font(.title3)
+                        Text("alert.restart")
+                            .foregroundColor(.secondary)
+                        Button("button.Quit") {
+                            exit(0)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(.accentColor)
+                        .controlSize(.large)
+                    case .failed:
+                        Image(systemName: "xmark.octagon")
+                            .foregroundColor(Color.red)
+                            .font(.system(size: 45))
+                            .onAppear {
+                                NSSound.beep()
+                            }
+                        Text("xcode.install.failed")
+                            .font(.title3)
+                        Text("xcode.install.failed.altInstructions")
+                            .foregroundColor(.secondary)
+                        HStack {
+                            Button("button.Quit") {
+                                exit(0)
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .tint(Color.gray)
+                            .controlSize(.large)
+                            Button("xcode.install.failed.altButton") {
+                                NSWorkspace.shared.open(URL(string:
+                                    "https://docs.playcover.io/getting_started/alt_xcode_cli_install")!)
                             }
                             .buttonStyle(.borderedProminent)
                             .tint(.accentColor)
                             .controlSize(.large)
-                        case .failed:
-                            Text("xcode.install.failed")
-                                .font(.title3)
-                            Text("")
-                                .foregroundColor(.secondary)
                         }
                     }
-                    .padding()
-                    .frame(height: 150)
+                }
+                .padding()
+                .frame(minWidth: 550, minHeight: 150)
             }
         }
         .frame(minWidth: 675, minHeight: 330)
@@ -145,8 +188,13 @@ struct MainView: View {
                     if let output = String(data: data, encoding: .utf8) {
                         let trimmed = output.filter { !$0.isWhitespace }
                         if trimmed.isEmpty {
-                            isInstallingXcodeCli = false
-                            xcodeInstallStatus = .success
+                            if shell.isXcodeCliToolsInstalled {
+                                isInstallingXcodeCli = false
+                                xcodeInstallStatus = .success
+                            } else {
+                                isInstallingXcodeCli = false
+                                xcodeInstallStatus = .failed
+                            }
                         } else {
                             isInstallingXcodeCli = false
                             xcodeInstallStatus = .failed
