@@ -1,14 +1,13 @@
-"playapp.add" = "Add app";
-"playapp.settings" = "App Settings";
+"playapp.settings" = "Settings";
 "playapp.showInFinder" = "Show in Finder";
 "playapp.openCache" = "Open App Data";
 "playapp.clearCache" = "Clear App Data";
 "playapp.importKm" = "Import Keymapping";
 "playapp.exportKm" = "Export Keymapping";
 "playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
-"playapp.delete" = "Delete App";
-"playapp.storeCurrentAccount" = "Store Current Account";
-"playapp.activateAccount" = "Restore Account";
+"playapp.delete" = "Uninstall App";
+"playapp.storeCurrentAccount" = "Store Account";
+"playapp.activateAccount" = "Switch Account";
 "playapp.deleteAccount" = "Delete Account";
 "playapp.clearPreferences" = "Clear App Preferences";
 

@@ -37,32 +37,50 @@ struct PlayAppView: View {
                     Text("playapp.settings")
                 })
                 Button(action: {
-                    app.keymapping.importKeymap { result in
-                        if result {
-                            showImportSuccess.toggle()
-                        } else {
-                            showImportFail.toggle()
-                        }
-                    }
-                }, label: {
-                    Text("playapp.importKm")
-                })
-                Button(action: {
-                    app.keymapping.exportKeymap()
-                }, label: {
-                    Text("playapp.exportKm")
-                })
-                Divider()
-                Button(action: {
                     app.showInFinder()
                 }, label: {
                     Text("playapp.showInFinder")
                 })
-                Button(action: {
-                    app.openAppCache()
-                }, label: {
-                    Text("playapp.openCache")
-                })
+                Divider()
+                Group {
+                    Button(action: {
+                        app.keymapping.importKeymap { result in
+                            if result {
+                                showImportSuccess.toggle()
+                            } else {
+                                showImportFail.toggle()
+                            }
+                        }
+                    }, label: {
+                        Text("playapp.importKm")
+                    })
+                    Button(action: {
+                        app.keymapping.exportKeymap()
+                    }, label: {
+                        Text("playapp.exportKm")
+                    })
+                }
+                Group {
+                    if app.info.bundleIdentifier == "com.miHoYo.GenshinImpact" {
+                        Divider()
+                        Button(action: {
+                            showStoreGenshinAccount.toggle()
+                        }, label: {
+                            Text("playapp.storeCurrentAccount")
+                        })
+                        Button(action: {
+                            showChangeGenshinAccount.toggle()
+                        }, label: {
+                            Text("playapp.activateAccount")
+                        })
+                        Button(action: {
+                            showDeleteGenshinAccount.toggle()
+                        }, label: {
+                            Text("playapp.deleteAccount")
+                        })
+                    }
+                }
+                Divider()
                 Button(action: {
                     showClearCacheAlert.toggle()
                 }, label: {
@@ -78,24 +96,6 @@ struct PlayAppView: View {
                 }, label: {
                     Text("playapp.delete")
                 })
-                if app.info.bundleIdentifier == "com.miHoYo.GenshinImpact" {
-                    Divider()
-                    Button(action: {
-                        showStoreGenshinAccount.toggle()
-                    }, label: {
-                        Text("playapp.storeCurrentAccount")
-                    })
-                    Button(action: {
-                        showChangeGenshinAccount.toggle()
-                    }, label: {
-                        Text("playapp.activateAccount")
-                    })
-                    Button(action: {
-                        showDeleteGenshinAccount.toggle()
-                    }, label: {
-                        Text("playapp.deleteAccount")
-                    })
-                }
             }
             .onHover(perform: { hovering in
                 isHover = hovering
