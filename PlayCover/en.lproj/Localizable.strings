@@ -61,6 +61,7 @@
 "button.Cancel" = "Cancel";
 "button.Close" = "Close";
 "button.Install" = "Install";
+"button.Quit" = "Quit";
 
 "error.corruptedIPA" = "This .ipa file is corrupted. It does not contains \"Info.plist\" file.";
 "error.waitInstallation" = "Please wait for the current installation to finish!";
@@ -132,10 +133,11 @@
 
 "xcode.install.message" = "You need to install Xcode Command Line Tools and restart PlayCover";
 "xcode.install.success" = "Xcode Command Line Tools installation succeeded";
-"xcode.install.failed" = "Xcode Command Line Tools intallation failed";
-"xcode.install.failed.subtext" = "Please install Xcode Command Line tools from Terminal with the command `xcode-select --install`, and restart PlayCover";
+"xcode.install.failed" = "Automatic Xcode Command Line Tools intallation failed";
 "xcode.install.progress" = "Installing Xcode Command Line Tools";
-"xcode.install.progress.subtext" = "May take around 5-10 minutes depending on internet speed";
+"xcode.install.progress.subtext" = "This may take around 5-10 minutes depending on your internet speed";
+"xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
+"xcode.install.failed.altButton" = "Alternate Instructions";
 
 "settings.tab.misc" = "Misc";
 "settings.button.discord" = "Custom Discord activity";
