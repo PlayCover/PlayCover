@@ -65,9 +65,7 @@ func storeUserData( folderName: String, accountRegion: String, app: PlayApp ) {
                 try accountRegion.write(to: URL(fileURLWithPath: storePath + "region.txt"),
                                         atomically: false, encoding: .utf8)
             }
-        } catch {
-            Log.shared.error("Error moving file: \(error)")
-        }
+        } catch { Log.shared.error("Error moving file: \(error)") }
 
 }
 
