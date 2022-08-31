@@ -29,7 +29,7 @@ struct PlayAppView: View {
     }
 
     var body: some View {
-        
+
         let bundleID = app.info.bundleIdentifier
         VStack(alignment: .center, spacing: 0) {
             if let img = app.icon {
