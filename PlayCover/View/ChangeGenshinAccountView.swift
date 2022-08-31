@@ -13,11 +13,14 @@ struct ChangeGenshinAccountView: View {
     @State var restoreAlert: Bool = false
     @State var app: PlayApp
     var body: some View {
+        let filteredList = app.info.bundleIdentifier == "com.miHoYo.GenshinImpact"
+                            ? accountList.filter { !$0.contains("Yuanshen") }
+                            : accountList.filter { $0.contains("Yuanshen") }
         VStack(alignment: .center, spacing: 16) {
             Spacer()
             Text("storeAccount.selectAcc").font(.largeTitle).lineLimit(1).fixedSize()
             Spacer()
-            ForEach(accountList, id: \.self) { account in
+            ForEach(filteredList, id: \.self) { account in
                 if account != ".DS_Store"{
                     Button(action: {
                         self.folderName = account

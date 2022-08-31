@@ -29,7 +29,8 @@ struct PlayAppView: View {
     }
 
     var body: some View {
-
+        
+        let bundleID = app.info.bundleIdentifier
         VStack(alignment: .center, spacing: 0) {
             if let img = app.icon {
                 Image(nsImage: img).resizable()
@@ -114,7 +115,7 @@ struct PlayAppView: View {
                     Text("playapp.delete")
                     Image(systemName: "trash")
                 })
-                if app.name == "Genshin Impact" || app.name == "Yuanshen"{
+                if bundleID.contains("GenshinImpact") || bundleID.contains("Yuanshen") {
                     Divider().padding(.leading, 36).padding(.trailing, 36)
                     Button(action: {
                         showStoreGenshinAccount.toggle()

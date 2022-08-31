@@ -9,18 +9,18 @@ import Foundation
 import SwiftUI
 
 func storeUserData( folderName: String, accountRegion: String, app: PlayApp ) {
-        let BUNDLE_ID = app.info.bundleIdentifier == "com.miHoYo.GenshinImpact" ? "com.miHoYo.GenshinImpact"
-                        : "com.miHoYo.Yuanshen"
+        let bundleID = app.info.bundleIdentifier
+        let isGlobalVersion = bundleID == "com.miHoYo.GenshinImpact"
         let accountInfoPlistEncrypt = "MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption"
         let kibanaReportArrayKeyEncrypt = "MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption"
         let lastAccountModelEncrypt = "MIHOYO_LAST_ACCOUNT_MODEL_Encryption"
 
         // get Path URL and create a folder with the content of uidInfo.txt
-        let gameDataPath = NSHomeDirectory() + "/Library/Containers/\(BUNDLE_ID)/Data/Documents/"
+        let gameDataPath = NSHomeDirectory() + "/Library/Containers/\(bundleID)/Data/Documents/"
 
         // Path to the folder where the data will be stored check if exists and if not create it
-        let store = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/storage/"
-        let storePath = BUNDLE_ID == "com.miHoYo.GenshinImpact"
+        let store = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/Storage/"
+        let storePath = isGlobalVersion
                         ? store + folderName + "/"
                         : store + "Yuanshen " + folderName + "/"
 
@@ -60,7 +60,7 @@ func storeUserData( folderName: String, accountRegion: String, app: PlayApp ) {
 
             try fileManager.copyItem(at: lastAccountModelEncryptUrl,
                                      to: URL(fileURLWithPath: storePath + lastAccountModelEncrypt))
-            if BUNDLE_ID == "com.miHoYo.GenshinImpact" {
+            if isGlobalVersion {
                 fileManager.createFile(atPath: storePath + "region.txt", contents: nil, attributes: nil)
                 try accountRegion.write(to: URL(fileURLWithPath: storePath + "region.txt"),
                                         atomically: false, encoding: .utf8)

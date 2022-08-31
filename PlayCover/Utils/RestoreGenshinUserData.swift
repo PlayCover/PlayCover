@@ -8,15 +8,14 @@
 import Foundation
 
 func restoreUserData(folderName: String, app: PlayApp) {
-    let BUNDLE_ID = app.info.bundleIdentifier == "com.miHoYo.GenshinImpact"
-                    ? "com.miHoYo.GenshinImpact"
-                    : "com.miHoYo.Yuanshen"
+    let bundleID = app.info.bundleIdentifier
+    let isGlobalVersion = bundleID == "com.miHoYo.GenshinImpact"
     let accountInfoPlistEncrypt = "MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption"
     let kibanaReportArrayKeyEncrypt = "MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption"
     let lastAccountModelEncrypt = "MIHOYO_LAST_ACCOUNT_MODEL_Encryption"
 
-    let gameDataPath = NSHomeDirectory() + "/Library/Containers/\(BUNDLE_ID)/Data/Documents/"
-    let storePath = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/storage/" + folderName + "/"
+    let gameDataPath = NSHomeDirectory() + "/Library/Containers/\(bundleID)/Data/Documents/"
+    let storePath = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/Storage/" + folderName + "/"
 
     let accountInfoPlistEncryptUrl =
         URL(fileURLWithPath: gameDataPath + accountInfoPlistEncrypt)
@@ -47,7 +46,7 @@ func restoreUserData(folderName: String, app: PlayApp) {
 
         try fileManager.copyItem(at: URL(fileURLWithPath: storePath + lastAccountModelEncrypt),
                                  to: lastAccountModelEncryptUrl)
-        if BUNDLE_ID == "com.miHoYo.GenshinImpact" {
+        if isGlobalVersion {
             let region = try String(contentsOf: URL(fileURLWithPath: storePath + "region.txt"), encoding: .utf8)
             modifyPlist(newRegion: region)
         }
@@ -94,7 +93,7 @@ func modifyPlist(newRegion: String) {
 }
 
 func getAccountList () -> [String] {
-    let storePath = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/storage/"
+    let storePath = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/Storage/"
     var accountStored: [String]
     do {
         accountStored = try FileManager.default.contentsOfDirectory(atPath: storePath)
