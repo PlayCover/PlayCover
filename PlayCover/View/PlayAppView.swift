@@ -30,6 +30,7 @@ struct PlayAppView: View {
 
     var body: some View {
 
+        let bundleID = app.info.bundleIdentifier
         VStack(alignment: .center, spacing: 0) {
             if let img = app.icon {
                 Image(nsImage: img).resizable()
@@ -114,7 +115,7 @@ struct PlayAppView: View {
                     Text("playapp.delete")
                     Image(systemName: "trash")
                 })
-                if app.name == "Genshin Impact" {
+                if bundleID.contains("GenshinImpact") || bundleID.contains("Yuanshen") {
                     Divider().padding(.leading, 36).padding(.trailing, 36)
                     Button(action: {
                         showStoreGenshinAccount.toggle()
@@ -156,9 +157,9 @@ struct PlayAppView: View {
                                 customWidth: String(app.settings.gameWindowSizeWidth)
                 ).frame(minWidth: 500)
             }.sheet(isPresented: $showChangeGenshinAccount) {
-                ChangeGenshinAccountView()
+                ChangeGenshinAccountView(app: app)
             }.sheet(isPresented: $showStoreGenshinAccount) {
-                StoreGenshinAccountView()
+                StoreGenshinAccountView(app: app)
             }.sheet(isPresented: $showDeleteGenshinAccount) {
                 DeleteGenshinStoredAccountView()
             }.alert("alert.app.delete", isPresented: $showClearCacheAlert) {
