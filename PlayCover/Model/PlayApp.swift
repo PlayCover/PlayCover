@@ -92,7 +92,8 @@ class PlayApp: BaseApp {
         for item in items {
             if item.hasPrefix(info.primaryIconName) {
                 do {
-                    if let image = NSImage(data: try Data(contentsOf: URL(fileURLWithPath: "\(appDirectoryPath)\(item)"))) {
+                    if let image = NSImage(data: try Data(contentsOf:
+                                                            URL(fileURLWithPath: "\(appDirectoryPath)\(item)"))) {
                         if highestRes != nil {
                             if image.size.height > highestRes!.size.height {
                                 highestRes = image
