@@ -12,6 +12,7 @@ struct ChangeGenshinAccountView: View {
     @State var accountList: [String] = getAccountList()
     @State var restoreAlert: Bool = false
     @State var app: PlayApp
+
     var body: some View {
         let filteredList = app.info.bundleIdentifier == "com.miHoYo.GenshinImpact"
                             ? accountList.filter { !$0.contains("Yuanshen") }
