@@ -182,6 +182,19 @@ public class AppInfo {
         self[string: "CFBundleShortVersionString"]!
     }
 
+    var primaryIconName: String {
+        let bundleIconDict = self[dictionary: "CFBundleIcons~ipad"]!
+        guard let primaryBundleIconDict: [String: Any] = bundleIconDict["CFBundlePrimaryIcon"] as? [String: Any] else {
+            Log.shared.error("Failed to get icons from Info.plist!")
+            return "AppIcon"
+        }
+        guard let primaryIconName = primaryBundleIconDict["CFBundleIconName"] as? String else {
+            Log.shared.error("Failed to get icons from Info.plist!")
+            return "AppIcon"
+        }
+        return primaryIconName
+    }
+
     var supportsTrueScreenSizeOnMac: Bool {
         get {
             self[bool: "UISupportsTrueScreenSizeOnMac"]!

@@ -13,6 +13,7 @@ struct IPALibraryView: View {
     @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150))]
     @State private var searchString = ""
     @State private var gridViewLayout = 0
+    @State private var selected: StoreAppData?
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -21,7 +22,7 @@ struct IPALibraryView: View {
                     ScrollView {
                         LazyVGrid(columns: gridLayout, alignment: .leading) {
                             ForEach(storeVM.apps, id: \.id) { app in
-                                StoreAppView(app: app, isList: false)
+                                StoreAppView(app: app, isList: false, selected: $selected)
                             }
                         }
                         .padding()
@@ -30,7 +31,7 @@ struct IPALibraryView: View {
                 } else {
                     List {
                         ForEach(storeVM.apps, id: \.id) { app in
-                            StoreAppView(app: app, isList: true)
+                            StoreAppView(app: app, isList: true, selected: $selected)
                         }
                     }
                     .listStyle(.inset)

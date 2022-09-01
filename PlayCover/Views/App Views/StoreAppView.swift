@@ -10,18 +10,22 @@ import SwiftUI
 struct StoreAppView: View {
     @State var app: StoreAppData
     @State var isList: Bool
+    @Binding var selected: StoreAppData?
 
     @State var isHover = false
 
     var body: some View {
-        StoreAppConditionalView(app: app, isList: isList, isHover: $isHover)
+        StoreAppConditionalView(app: app, isList: isList, selected: $selected, isHover: $isHover)
             .cornerRadius(10)
-            .onTapGesture {
+            .gesture(TapGesture(count: 2).onEnded {
                 isHover = false
                 if let url = URL(string: app.link) {
                     NSWorkspace.shared.open(url)
                 }
-            }
+            })
+            .simultaneousGesture(TapGesture().onEnded {
+                selected = app
+            })
             .onHover(perform: { hovering in
                 isHover = hovering
             })
@@ -32,7 +36,10 @@ struct StoreAppConditionalView: View {
     @State var app: StoreAppData
     @State var isList: Bool
     @State var iconUrl: URL?
+    @State var selectedBackgroundColor = Color.blue
+    @Binding var selected: StoreAppData?
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.controlActiveState) var controlActiveState
 
     @Binding var isHover: Bool
 
@@ -70,42 +77,36 @@ struct StoreAppConditionalView: View {
             }
         } else {
             VStack(alignment: .center, spacing: 0) {
-                ZStack {
-                    VStack {
-                        AsyncImage(url: iconUrl) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                        } placeholder: {
-                            ProgressView()
-                                .progressViewStyle(.circular)
-                        }
+                VStack {
+                    AsyncImage(url: iconUrl) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    } placeholder: {
+                        ProgressView()
+                            .progressViewStyle(.circular)
                     }
+                    .frame(width: 60, height: 60)
                     .cornerRadius(15)
-                    .shadow(
-                        color: isHover ? Color.black.opacity(colorScheme == .dark ? 0.8 : 0.3) : Color.clear,
-                        radius: 13,
-                        x: 0,
-                        y: 5)
-                    .animation(.interpolatingSpring(stiffness: 400, damping: 17), value: isHover)
                     .shadow(radius: 1)
-                    .frame(width: isHover ? 75 : 70, height: isHover ? 75 : 70)
-                    .padding(.vertical, 5)
-                    VStack {
-                        Spacer()
-                        HStack {
-                            Image(systemName: "arrow.down.circle")
-                                .font(.system(size: 16))
-                            Text(app.name)
-                                .lineLimit(1)
-                                .multilineTextAlignment(.center)
-                                .padding(.trailing, 16)
-                        }
-                        .padding(.vertical, 5)
-                    }
+                    Text("\(Image(systemName: "arrow.down.circle")) \(app.name)")
+                        .lineLimit(1)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 4)
+                        .padding(.vertical, 2)
+                        .background(selected?.id == app.id ?
+                                        selectedBackgroundColor.cornerRadius(4) : Color.clear.cornerRadius(4))
+                        .frame(width: 150, height: 20)
                 }
             }
-            .frame(width: 150, height: 130)
+            .frame(width: 150, height: 150)
+            .onChange(of: controlActiveState) { state in
+                if state == .inactive {
+                    selectedBackgroundColor = .gray.opacity(0.6)
+                } else {
+                    selectedBackgroundColor = .accentColor.opacity(0.6)
+                }
+            }
             .task {
                 iconUrl = await getIconURLFromBundleIdentifier(app.id, app.region)
             }

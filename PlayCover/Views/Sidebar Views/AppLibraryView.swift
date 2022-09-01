@@ -12,6 +12,8 @@ struct AppLibraryView: View {
     @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150))]
     @State private var searchString = ""
     @State private var gridViewLayout = 0
+    @State private var selected: PlayApp?
+    @State private var showSettings = false
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -20,16 +22,20 @@ struct AppLibraryView: View {
                     ScrollView {
                         LazyVGrid(columns: gridLayout, alignment: .leading) {
                             ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
-                                PlayAppView(app: app, isList: false)
+                                PlayAppView(app: app, isList: false, selected: $selected)
                             }
                         }
                         .padding()
                         .animation(.spring(blendDuration: 0.1), value: geom.size.width)
+                        Spacer()
+                    }
+                    .onTapGesture {
+                        selected = nil
                     }
                 } else {
                     List {
                         ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
-                            PlayAppView(app: app, isList: true)
+                            PlayAppView(app: app, isList: true, selected: $selected)
                         }
                     }
                     .listStyle(.inset)
@@ -39,6 +45,17 @@ struct AppLibraryView: View {
         }
         .navigationTitle("sidebar.appLibrary")
         .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    showSettings.toggle()
+                }, label: {
+                    Image(systemName: "gear")
+                })
+                .disabled(selected == nil)
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Spacer()
+            }
             ToolbarItem(placement: .primaryAction) {
                 Button(action: {
                     if installVM.installing {
@@ -65,6 +82,9 @@ struct AppLibraryView: View {
             uif.searchText = value
             appsVM.fetchApps()
         })
+        .sheet(isPresented: $showSettings) {
+            AppSettingsView(viewModel: AppSettingsVM(app: selected!))
+        }
     }
 
     private func installApp() {
@@ -85,13 +105,5 @@ struct AppLibraryView: View {
                 installApp()
             }
         }
-    }
-}
-
-struct AppLibraryView_Previews: PreviewProvider {
-    static var previews: some View {
-        AppLibraryView()
-            .environmentObject(AppsVM.shared)
-            .environmentObject(InstallVM.shared)
     }
 }

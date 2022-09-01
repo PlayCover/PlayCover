@@ -8,13 +8,13 @@ import SwiftUI
 struct PlayAppView: View {
     @State var app: PlayApp
     @State var isList: Bool
+    @Binding var selected: PlayApp?
 
     @State private var showSettings = false
     @State private var showClearCacheAlert = false
     @State private var showClearCacheToast = false
     @State private var showClearPreferencesAlert = false
 
-    @State var isHover = false
     @State var showImportSuccess = false
     @State var showImportFail = false
 
@@ -23,13 +23,15 @@ struct PlayAppView: View {
     @State private var showDeleteGenshinAccount = false
 
     var body: some View {
-        PlayAppConditionalView(app: app, isList: isList, isHover: $isHover)
+        PlayAppConditionalView(app: app, isList: isList, selected: $selected)
             .cornerRadius(10)
-            .onTapGesture {
-                isHover = false
+            .gesture(TapGesture(count: 2).onEnded {
                 shell.removeTwitterSessionCookie()
                 app.launch()
-            }
+            })
+            .simultaneousGesture(TapGesture().onEnded {
+                selected = app
+            })
             .contextMenu {
                 Button(action: {
                     showSettings.toggle()
@@ -97,9 +99,6 @@ struct PlayAppView: View {
                     Text("playapp.delete")
                 })
             }
-            .onHover(perform: { hovering in
-                isHover = hovering
-            })
             .sheet(isPresented: $showChangeGenshinAccount) {
                 ChangeGenshinAccountView()
             }
@@ -147,8 +146,10 @@ struct PlayAppView: View {
 struct PlayAppConditionalView: View {
     @State var app: PlayApp
     @State var isList: Bool
-    @Binding var isHover: Bool
+    @State var selectedBackgroundColor = Color.blue
+    @Binding var selected: PlayApp?
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.controlActiveState) var controlActiveState
 
     var body: some View {
         if isList {
@@ -166,41 +167,35 @@ struct PlayAppConditionalView: View {
                         .foregroundColor(.secondary)
                 }
             }
-            .background(
-                withAnimation {
-                    isHover ? Color.gray.opacity(0.3) : Color.clear
-                }.animation(.easeInOut(duration: 0.15), value: isHover))
         } else {
             VStack(alignment: .center, spacing: 0) {
                 if let img = app.icon {
-                    ZStack {
-                        VStack {
-                            Image(nsImage: img)
-                                .resizable()
-                        }
-                        .cornerRadius(10)
-                        .shadow(
-                            color: isHover ? Color.black.opacity(colorScheme == .dark ? 1 : 0.2) : Color.clear,
-                            radius: 13,
-                            x: 0,
-                            y: 5)
-                        .animation(.interpolatingSpring(stiffness: 400, damping: 17), value: isHover)
-                        .frame(width: isHover ? 93 : 88, height: isHover ? 93 : 88)
-                        .shadow(radius: 1)
-                        .padding(.vertical, 5)
-                        VStack {
-                            Spacer()
-                            HStack {
-                                Text(app.name)
-                                    .lineLimit(2)
-                                    .multilineTextAlignment(.center)
-                            }
-                            .padding(.vertical, 5)
-                        }
+                    VStack {
+                        Image(nsImage: img)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 60, height: 60)
+                            .cornerRadius(15)
+                            .shadow(radius: 1)
+                        Text(app.name)
+                            .lineLimit(1)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 4)
+                            .padding(.vertical, 2)
+                            .background(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                        selectedBackgroundColor.cornerRadius(4) : Color.clear.cornerRadius(4))
+                            .frame(width: 150, height: 20)
                     }
                 }
             }
-            .frame(width: 150, height: 130)
+            .frame(width: 150, height: 150)
+            .onChange(of: controlActiveState) { state in
+                if state == .inactive {
+                    selectedBackgroundColor = .gray.opacity(0.6)
+                } else {
+                    selectedBackgroundColor = .accentColor.opacity(0.6)
+                }
+            }
         }
     }
 }
