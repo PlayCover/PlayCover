@@ -16,7 +16,6 @@ struct StoreAppView: View {
 
     var body: some View {
         StoreAppConditionalView(app: app, isList: isList, selected: $selected, isHover: $isHover)
-            .cornerRadius(10)
             .gesture(TapGesture(count: 2).onEnded {
                 isHover = false
                 if let url = URL(string: app.link) {
@@ -36,7 +35,7 @@ struct StoreAppConditionalView: View {
     @State var app: StoreAppData
     @State var isList: Bool
     @State var iconUrl: URL?
-    @State var selectedBackgroundColor = Color.blue
+    @State var selectedBackgroundColor = Color.accentColor.opacity(0.6)
     @Binding var selected: StoreAppData?
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.controlActiveState) var controlActiveState
@@ -44,40 +43,11 @@ struct StoreAppConditionalView: View {
     @Binding var isHover: Bool
 
     var body: some View {
-        if isList {
-            HStack(alignment: .center, spacing: 0) {
-                Image(systemName: "arrow.down.circle")
-                    .padding(.horizontal, 15)
-                AsyncImage(url: iconUrl) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                } placeholder: {
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                }
-                .frame(width: 40, height: 40)
-                .cornerRadius(10)
-                .shadow(radius: 1)
-                .padding(.vertical, 5)
-                Spacer()
-                    .frame(width: 20)
-                Text(app.name)
-                Spacer()
-                Text(app.version)
-                    .padding(.horizontal, 15)
-                    .foregroundColor(.secondary)
-            }
-            .background(
-                withAnimation {
-                    isHover ? Color.gray.opacity(0.3) : Color.clear
-                }.animation(.easeInOut(duration: 0.15), value: isHover))
-            .task {
-                iconUrl = await getIconURLFromBundleIdentifier(app.id, app.region)
-            }
-        } else {
-            VStack(alignment: .center, spacing: 0) {
-                VStack {
+        Group {
+            if isList {
+                HStack(alignment: .center, spacing: 0) {
+                    Image(systemName: "arrow.down.circle")
+                        .padding(.leading, 15)
                     AsyncImage(url: iconUrl) { image in
                         image
                             .resizable()
@@ -86,30 +56,63 @@ struct StoreAppConditionalView: View {
                         ProgressView()
                             .progressViewStyle(.circular)
                     }
-                    .frame(width: 60, height: 60)
-                    .cornerRadius(15)
-                    .shadow(radius: 1)
-                    Text("\(Image(systemName: "arrow.down.circle")) \(app.name)")
-                        .lineLimit(1)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 4)
-                        .padding(.vertical, 2)
-                        .background(selected?.id == app.id ?
+                        .frame(width: 30, height: 30)
+                        .cornerRadius(7.5)
+                        .shadow(radius: 1)
+                        .padding(.horizontal, 15)
+                        .padding(.vertical, 5)
+                    Text(app.name)
+                    Spacer()
+                    Text(app.version)
+                        .padding(.horizontal, 15)
+                        .foregroundColor(.secondary)
+                }
+                .contentShape(Rectangle())
+                .onChange(of: controlActiveState) { state in
+                    if state == .inactive {
+                        selectedBackgroundColor = .gray.opacity(0.6)
+                    } else {
+                        selectedBackgroundColor = .accentColor.opacity(0.6)
+                    }
+                }
+                .background(selected?.id == app.id ?
+                            selectedBackgroundColor.cornerRadius(4) : Color.clear.cornerRadius(4))
+            } else {
+                VStack(alignment: .center, spacing: 0) {
+                    VStack {
+                        AsyncImage(url: iconUrl) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        } placeholder: {
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                        }
+                        .frame(width: 60, height: 60)
+                        .cornerRadius(15)
+                        .shadow(radius: 1)
+                        Text("\(Image(systemName: "arrow.down.circle")) \(app.name)")
+                            .lineLimit(1)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 4)
+                            .padding(.vertical, 2)
+                            .onChange(of: controlActiveState) { state in
+                                if state == .inactive {
+                                    selectedBackgroundColor = .gray.opacity(0.6)
+                                } else {
+                                    selectedBackgroundColor = .accentColor.opacity(0.6)
+                                }
+                            }
+                            .background(selected?.id == app.id ?
                                         selectedBackgroundColor.cornerRadius(4) : Color.clear.cornerRadius(4))
-                        .frame(width: 150, height: 20)
+                            .frame(width: 150, height: 20)
+                    }
                 }
+                .frame(width: 150, height: 150)
             }
-            .frame(width: 150, height: 150)
-            .onChange(of: controlActiveState) { state in
-                if state == .inactive {
-                    selectedBackgroundColor = .gray.opacity(0.6)
-                } else {
-                    selectedBackgroundColor = .accentColor.opacity(0.6)
-                }
-            }
-            .task {
-                iconUrl = await getIconURLFromBundleIdentifier(app.id, app.region)
-            }
+        }
+        .task {
+            iconUrl = await getIconURLFromBundleIdentifier(app.id, app.region)
         }
     }
 
