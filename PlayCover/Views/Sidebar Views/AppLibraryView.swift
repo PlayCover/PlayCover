@@ -9,6 +9,9 @@ struct AppLibraryView: View {
     @EnvironmentObject var appsVM: AppsVM
     @EnvironmentObject var installVM: InstallVM
 
+    @Binding var selectedBackgroundColor: Color
+    @Binding var selectedTextColor: Color
+
     @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150))]
     @State private var searchString = ""
     @State private var isList = UserDefaults.standard.bool(forKey: "AppLibrayView")
@@ -22,7 +25,11 @@ struct AppLibraryView: View {
                     ScrollView {
                         LazyVGrid(columns: gridLayout, alignment: .leading) {
                             ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
-                                PlayAppView(app: app, isList: isList, selected: $selected)
+                                PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                            selectedTextColor: $selectedTextColor,
+                                            selected: $selected,
+                                            app: app,
+                                            isList: isList)
                             }
                         }
                         .padding()
@@ -33,7 +40,11 @@ struct AppLibraryView: View {
                     ScrollView {
                         VStack {
                             ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
-                                PlayAppView(app: app, isList: isList, selected: $selected)
+                                PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                            selectedTextColor: $selectedTextColor,
+                                            selected: $selected,
+                                            app: app,
+                                            isList: isList)
                             }
                             Spacer()
                         }

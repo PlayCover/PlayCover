@@ -10,6 +10,9 @@ import SwiftUI
 struct IPALibraryView: View {
     @EnvironmentObject var storeVM: StoreVM
 
+    @Binding var selectedBackgroundColor: Color
+    @Binding var selectedTextColor: Color
+
     @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150))]
     @State private var searchString = ""
     @State private var isList = UserDefaults.standard.bool(forKey: "IPALibrayView")
@@ -22,7 +25,11 @@ struct IPALibraryView: View {
                     ScrollView {
                         LazyVGrid(columns: gridLayout, alignment: .leading) {
                             ForEach(storeVM.apps, id: \.id) { app in
-                                StoreAppView(app: app, isList: isList, selected: $selected)
+                                StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                             selectedTextColor: $selectedTextColor,
+                                             selected: $selected,
+                                             app: app,
+                                             isList: isList)
                             }
                         }
                         .padding()
@@ -33,7 +40,11 @@ struct IPALibraryView: View {
                     ScrollView {
                         VStack {
                             ForEach(storeVM.apps, id: \.id) { app in
-                                StoreAppView(app: app, isList: isList, selected: $selected)
+                                StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                             selectedTextColor: $selectedTextColor,
+                                             selected: $selected,
+                                             app: app,
+                                             isList: isList)
                             }
                             Spacer()
                         }
@@ -64,12 +75,5 @@ struct IPALibraryView: View {
         .onChange(of: isList, perform: { value in
             UserDefaults.standard.set(value, forKey: "IPALibrayView")
         })
-    }
-}
-
-struct IPALibraryView_Previews: PreviewProvider {
-    static var previews: some View {
-        IPALibraryView()
-            .environmentObject(StoreVM.shared)
     }
 }

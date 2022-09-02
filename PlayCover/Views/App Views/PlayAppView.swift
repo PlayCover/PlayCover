@@ -6,9 +6,12 @@
 import SwiftUI
 
 struct PlayAppView: View {
+    @Binding var selectedBackgroundColor: Color
+    @Binding var selectedTextColor: Color
+    @Binding var selected: PlayApp?
+
     @State var app: PlayApp
     @State var isList: Bool
-    @Binding var selected: PlayApp?
 
     @State private var showSettings = false
     @State private var showClearCacheAlert = false
@@ -23,7 +26,11 @@ struct PlayAppView: View {
     @State private var showDeleteGenshinAccount = false
 
     var body: some View {
-        PlayAppConditionalView(app: app, isList: isList, selected: $selected)
+        PlayAppConditionalView(selectedBackgroundColor: $selectedBackgroundColor,
+                               selectedTextColor: $selectedTextColor,
+                               selected: $selected,
+                               app: app,
+                               isList: isList)
             .gesture(TapGesture(count: 2).onEnded {
                 shell.removeTwitterSessionCookie()
                 app.launch()
@@ -143,12 +150,12 @@ struct PlayAppView: View {
 }
 
 struct PlayAppConditionalView: View {
+    @Binding var selectedBackgroundColor: Color
+    @Binding var selectedTextColor: Color
+    @Binding var selected: PlayApp?
+
     @State var app: PlayApp
     @State var isList: Bool
-    @State var selectedBackgroundColor = Color.accentColor.opacity(0.6)
-    @Binding var selected: PlayApp?
-    @Environment(\.colorScheme) var colorScheme
-    @Environment(\.controlActiveState) var controlActiveState
 
     var body: some View {
         if isList {
@@ -163,6 +170,8 @@ struct PlayAppConditionalView: View {
                         .padding(.horizontal, 15)
                         .padding(.vertical, 5)
                     Text(app.name)
+                        .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                         selectedTextColor : Color.primary)
                     Spacer()
                     Text(app.settings.info.bundleVersion)
                         .padding(.horizontal, 15)
@@ -170,15 +179,12 @@ struct PlayAppConditionalView: View {
                 }
             }
             .contentShape(Rectangle())
-            .onChange(of: controlActiveState) { state in
-                if state == .inactive {
-                    selectedBackgroundColor = .gray.opacity(0.6)
-                } else {
-                    selectedBackgroundColor = .accentColor.opacity(0.6)
-                }
-            }
-            .background(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                        selectedBackgroundColor.cornerRadius(4) : Color.clear.cornerRadius(4))
+            .background(
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                        selectedBackgroundColor : Color.clear)
+                    .brightness(-0.2)
+                )
         } else {
             VStack(alignment: .center, spacing: 0) {
                 if let img = app.icon {
@@ -194,15 +200,14 @@ struct PlayAppConditionalView: View {
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 4)
                             .padding(.vertical, 2)
-                            .onChange(of: controlActiveState) { state in
-                                if state == .inactive {
-                                    selectedBackgroundColor = .gray.opacity(0.6)
-                                } else {
-                                    selectedBackgroundColor = .accentColor.opacity(0.6)
-                                }
-                            }
-                            .background(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                        selectedBackgroundColor.cornerRadius(4) : Color.clear.cornerRadius(4))
+                            .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                             selectedTextColor : Color.primary)
+                            .background(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                        selectedBackgroundColor : Color.clear)
+                                    .brightness(-0.2)
+                                )
                             .frame(width: 150, height: 20)
                     }
                 }

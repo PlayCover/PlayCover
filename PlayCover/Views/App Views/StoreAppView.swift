@@ -8,16 +8,20 @@
 import SwiftUI
 
 struct StoreAppView: View {
-    @State var app: StoreAppData
-    @State var isList: Bool
+    @Binding var selectedBackgroundColor: Color
+    @Binding var selectedTextColor: Color
     @Binding var selected: StoreAppData?
 
-    @State var isHover = false
+    @State var app: StoreAppData
+    @State var isList: Bool
 
     var body: some View {
-        StoreAppConditionalView(app: app, isList: isList, selected: $selected, isHover: $isHover)
+        StoreAppConditionalView(selectedBackgroundColor: $selectedBackgroundColor,
+                                selectedTextColor: $selectedTextColor,
+                                selected: $selected,
+                                app: app,
+                                isList: isList)
             .gesture(TapGesture(count: 2).onEnded {
-                isHover = false
                 if let url = URL(string: app.link) {
                     NSWorkspace.shared.open(url)
                 }
@@ -25,22 +29,17 @@ struct StoreAppView: View {
             .simultaneousGesture(TapGesture().onEnded {
                 selected = app
             })
-            .onHover(perform: { hovering in
-                isHover = hovering
-            })
     }
 }
 
 struct StoreAppConditionalView: View {
+    @Binding var selectedBackgroundColor: Color
+    @Binding var selectedTextColor: Color
+    @Binding var selected: StoreAppData?
+
     @State var app: StoreAppData
     @State var isList: Bool
     @State var iconUrl: URL?
-    @State var selectedBackgroundColor = Color.accentColor.opacity(0.6)
-    @Binding var selected: StoreAppData?
-    @Environment(\.colorScheme) var colorScheme
-    @Environment(\.controlActiveState) var controlActiveState
-
-    @Binding var isHover: Bool
 
     var body: some View {
         Group {
@@ -62,49 +61,47 @@ struct StoreAppConditionalView: View {
                         .padding(.horizontal, 15)
                         .padding(.vertical, 5)
                     Text(app.name)
+                        .foregroundColor(selected?.id == app.id ?
+                                         selectedTextColor : Color.primary)
                     Spacer()
                     Text(app.version)
                         .padding(.horizontal, 15)
                         .foregroundColor(.secondary)
                 }
                 .contentShape(Rectangle())
-                .onChange(of: controlActiveState) { state in
-                    if state == .inactive {
-                        selectedBackgroundColor = .gray.opacity(0.6)
-                    } else {
-                        selectedBackgroundColor = .accentColor.opacity(0.6)
-                    }
-                }
-                .background(selected?.id == app.id ?
-                            selectedBackgroundColor.cornerRadius(4) : Color.clear.cornerRadius(4))
+                .background(
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(selected?.id == app.id ?
+                              selectedBackgroundColor : Color.clear)
+                        .brightness(-0.2)
+                )
             } else {
                 VStack(alignment: .center, spacing: 0) {
                     VStack {
                         AsyncImage(url: iconUrl) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                        } placeholder: {
-                            ProgressView()
-                                .progressViewStyle(.circular)
-                        }
-                        .frame(width: 60, height: 60)
-                        .cornerRadius(15)
-                        .shadow(radius: 1)
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            } placeholder: {
+                                ProgressView()
+                                    .progressViewStyle(.circular)
+                            }
+                            .frame(width: 60, height: 60)
+                            .cornerRadius(15)
+                            .shadow(radius: 1)
                         Text("\(Image(systemName: "arrow.down.circle")) \(app.name)")
                             .lineLimit(1)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 4)
                             .padding(.vertical, 2)
-                            .onChange(of: controlActiveState) { state in
-                                if state == .inactive {
-                                    selectedBackgroundColor = .gray.opacity(0.6)
-                                } else {
-                                    selectedBackgroundColor = .accentColor.opacity(0.6)
-                                }
-                            }
-                            .background(selected?.id == app.id ?
-                                        selectedBackgroundColor.cornerRadius(4) : Color.clear.cornerRadius(4))
+                            .foregroundColor(selected?.id == app.id ?
+                                             selectedTextColor : Color.primary)
+                            .background(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(selected?.id == app.id ?
+                                          selectedBackgroundColor : Color.clear)
+                                    .brightness(-0.2)
+                            )
                             .frame(width: 150, height: 20)
                     }
                 }
