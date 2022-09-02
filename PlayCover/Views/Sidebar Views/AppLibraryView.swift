@@ -11,18 +11,18 @@ struct AppLibraryView: View {
 
     @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150))]
     @State private var searchString = ""
-    @State private var gridViewLayout = 0
+    @State private var isList = UserDefaults.standard.bool(forKey: "AppLibrayView")
     @State private var selected: PlayApp?
     @State private var showSettings = false
 
     var body: some View {
         VStack(alignment: .leading) {
             GeometryReader { geom in
-                if gridViewLayout == 0 {
+                if !isList {
                     ScrollView {
                         LazyVGrid(columns: gridLayout, alignment: .leading) {
                             ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
-                                PlayAppView(app: app, isList: false, selected: $selected)
+                                PlayAppView(app: app, isList: isList, selected: $selected)
                             }
                         }
                         .padding()
@@ -33,7 +33,7 @@ struct AppLibraryView: View {
                     ScrollView {
                         VStack {
                             ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
-                                PlayAppView(app: app, isList: true, selected: $selected)
+                                PlayAppView(app: app, isList: isList, selected: $selected)
                             }
                             Spacer()
                         }
@@ -71,11 +71,11 @@ struct AppLibraryView: View {
                 })
             }
             ToolbarItem(placement: .primaryAction) {
-                Picker("Grid View Layout", selection: $gridViewLayout) {
+                Picker("Grid View Layout", selection: $isList) {
                     Image(systemName: "square.grid.2x2")
-                        .tag(0)
+                        .tag(false)
                     Image(systemName: "list.bullet")
-                        .tag(1)
+                        .tag(true)
                 }.pickerStyle(.segmented)
             }
         }
@@ -83,6 +83,9 @@ struct AppLibraryView: View {
         .onChange(of: searchString, perform: { value in
             uif.searchText = value
             appsVM.fetchApps()
+        })
+        .onChange(of: isList, perform: { value in
+            UserDefaults.standard.set(value, forKey: "AppLibrayView")
         })
         .sheet(isPresented: $showSettings) {
             AppSettingsView(viewModel: AppSettingsVM(app: selected!))
