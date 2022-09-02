@@ -40,6 +40,7 @@ class Entitlements {
         base["com.apple.security.network.server"] = true
         base["com.apple.security.device.bluetooth"] = true
         base["com.apple.security.device.camera"] = true
+        base["com.apple.security.device.microphone"] = true
         base["com.apple.security.device.usb"] = true
         base["com.apple.security.files.downloads.read-write"] = true
         base["com.apple.security.files.user-selected.read-write"] = true

@@ -43,9 +43,9 @@ struct AppSettingsView: View {
                     .tabItem {
                         Text("settings.tab.jbBypass")
                     }
-                EtcView(settings: $viewModel.settings)
+                MiscView(settings: $viewModel.settings)
                     .tabItem {
-                        Text("settings.tab.etc")
+                        Text("settings.tab.misc")
                     }
                 InfoView(info: viewModel.app.info)
                     .tabItem {
@@ -98,6 +98,7 @@ struct KeymappingView: View {
                     Spacer()
                     Toggle("settings.toggle.mm", isOn: $settings.settings.mouseMapping)
                         .help("settings.toggle.mm.help")
+                        .disabled(!settings.settings.keymapping)
                 }
                 HStack {
                     Text(String(
@@ -106,6 +107,7 @@ struct KeymappingView: View {
                     Spacer()
                     Slider(value: $settings.settings.sensitivity, in: 0...100, label: { EmptyView() })
                         .frame(width: 250)
+                        .disabled(!settings.settings.keymapping)
                 }
                 Spacer()
             }
@@ -206,6 +208,7 @@ struct GraphicsView: View {
                 HStack {
                     Picker("settings.picker.refreshRate", selection: $settings.settings.refreshRate) {
                         Text("60 Hz").tag(60)
+                        Text("75 HZ").tag(75)
                         Text("120 Hz").tag(120)
                     }
                     .pickerStyle(.segmented)
@@ -311,7 +314,7 @@ struct JBBypassView: View {
     }
 }
 
-struct EtcView: View {
+struct MiscView: View {
     @Binding var settings: AppSettings
     @State var showPopover = false
 
@@ -361,6 +364,12 @@ struct EtcView: View {
                         }
                     Spacer()
                 }
+                if #available(macOS 13.0, *) {
+                    HStack {
+                        Toggle("settings.toggle.hud", isOn: $settings.metalHudEnabled)
+                        Spacer()
+                    }
+                }
             }
             .padding()
         }
@@ -405,7 +414,7 @@ struct InfoView: View {
             HStack {
                 Text("settings.info.url")
                 Spacer()
-                Text("\(info.url)")
+                Text("\(info.url.relativePath)")
             }
             HStack {
                 Text("settings.info.isGame")

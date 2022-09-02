@@ -8,13 +8,13 @@ import SwiftUI
 struct PlayAppView: View {
     @State var app: PlayApp
     @State var isList: Bool
+    @Binding var selected: PlayApp?
 
     @State private var showSettings = false
     @State private var showClearCacheAlert = false
     @State private var showClearCacheToast = false
     @State private var showClearPreferencesAlert = false
 
-    @State var isHover = false
     @State var showImportSuccess = false
     @State var showImportFail = false
 
@@ -23,94 +23,81 @@ struct PlayAppView: View {
     @State private var showDeleteGenshinAccount = false
 
     var body: some View {
-        PlayAppConditionalView(app: app, isList: isList, isHover: $isHover)
-            .cornerRadius(10)
-            .onTapGesture {
-                isHover = false
+        PlayAppConditionalView(app: app, isList: isList, selected: $selected)
+            .gesture(TapGesture(count: 2).onEnded {
                 shell.removeTwitterSessionCookie()
                 app.launch()
-            }
+            })
+            .simultaneousGesture(TapGesture().onEnded {
+                selected = app
+            })
             .contextMenu {
                 Button(action: {
                     showSettings.toggle()
                 }, label: {
                     Text("playapp.settings")
-                    Image(systemName: "gear")
                 })
                 Button(action: {
                     app.showInFinder()
                 }, label: {
                     Text("playapp.showInFinder")
-                    Image(systemName: "folder")
                 })
-                Button(action: {
-                    app.openAppCache()
-                }, label: {
-                    Text("playapp.openCache")
-                    Image(systemName: "folder")
-                })
+                Divider()
+                Group {
+                    Button(action: {
+                        app.keymapping.importKeymap { result in
+                            if result {
+                                showImportSuccess.toggle()
+                            } else {
+                                showImportFail.toggle()
+                            }
+                        }
+                    }, label: {
+                        Text("playapp.importKm")
+                    })
+                    Button(action: {
+                        app.keymapping.exportKeymap()
+                    }, label: {
+                        Text("playapp.exportKm")
+                    })
+                }
+                Group {
+                    if app.info.bundleIdentifier == "com.miHoYo.GenshinImpact" {
+                        Divider()
+                        Button(action: {
+                            showStoreGenshinAccount.toggle()
+                        }, label: {
+                            Text("playapp.storeCurrentAccount")
+                        })
+                        Button(action: {
+                            showChangeGenshinAccount.toggle()
+                        }, label: {
+                            Text("playapp.activateAccount")
+                        })
+                        Button(action: {
+                            showDeleteGenshinAccount.toggle()
+                        }, label: {
+                            Text("playapp.deleteAccount")
+                        })
+                    }
+                }
+                Divider()
                 Button(action: {
                     showClearCacheAlert.toggle()
                 }, label: {
                     Text("playapp.clearCache")
-                    Image(systemName: "xmark.bin")
                 })
                 Button(action: {
                     showClearPreferencesAlert.toggle()
                 }, label: {
                     Text("playapp.clearPreferences")
-                    Image(systemName: "xmark.bin")
-                })
-                Button(action: {
-                    app.keymapping.importKeymap { result in
-                        if result {
-                            showImportSuccess.toggle()
-                        } else {
-                            showImportFail.toggle()
-                        }
-                    }
-                }, label: {
-                    Text("playapp.importKm")
-                    Image(systemName: "square.and.arrow.down.on.square.fill")
-                })
-                Button(action: {
-                    app.keymapping.exportKeymap()
-                }, label: {
-                    Text("playapp.exportKm")
-                    Image(systemName: "arrowshape.turn.up.left")
                 })
                 Button(action: {
                     app.deleteApp()
                 }, label: {
                     Text("playapp.delete")
-                    Image(systemName: "trash")
                 })
-                if app.info.bundleIdentifier == "com.miHoYo.GenshinImpact" {
-                    Divider().padding(.leading, 36).padding(.trailing, 36)
-                    Button(action: {
-                        showStoreGenshinAccount.toggle()
-                    }, label: {
-                        Text("playapp.storeCurrentAccount")
-                        Image(systemName: "folder.badge.person.crop")
-                    })
-                    Button(action: {
-                        showChangeGenshinAccount.toggle()
-                    }, label: {
-                        Text("playapp.activateAccount")
-                        Image(systemName: "folder.badge.gearshape")
-                    })
-                    Button(action: {
-                        showDeleteGenshinAccount.toggle()
-                    }, label: {
-                        Text("playapp.deleteAccount")
-                        Image(systemName: "folder.badge.minus")
-                    })
-                    Divider().padding(.leading, 36).padding(.trailing, 36)
-                }
             }
-            .onHover(perform: { hovering in
-                isHover = hovering
-            })
             .sheet(isPresented: $showChangeGenshinAccount) {
                 ChangeGenshinAccountView()
             }
@@ -158,18 +145,23 @@ struct PlayAppView: View {
 struct PlayAppConditionalView: View {
     @State var app: PlayApp
     @State var isList: Bool
-    @Binding var isHover: Bool
+    @State var selectedBackgroundColor = Color.accentColor.opacity(0.6)
+    @Binding var selected: PlayApp?
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.controlActiveState) var controlActiveState
 
     var body: some View {
         if isList {
             HStack(alignment: .center, spacing: 0) {
                 if let img = app.icon {
-                    Image(nsImage: img).resizable()
-                        .frame(width: 50, height: 50)
-                        .cornerRadius(10)
+                    Image(nsImage: img)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                        .cornerRadius(7.5)
                         .shadow(radius: 1)
                         .padding(.horizontal, 15)
+                        .padding(.vertical, 5)
                     Text(app.name)
                     Spacer()
                     Text(app.settings.info.bundleVersion)
@@ -177,41 +169,45 @@ struct PlayAppConditionalView: View {
                         .foregroundColor(.secondary)
                 }
             }
-            .background(
-                withAnimation {
-                    isHover ? Color.gray.opacity(0.3) : Color.clear
-                }.animation(.easeInOut(duration: 0.15), value: isHover))
+            .contentShape(Rectangle())
+            .onChange(of: controlActiveState) { state in
+                if state == .inactive {
+                    selectedBackgroundColor = .gray.opacity(0.6)
+                } else {
+                    selectedBackgroundColor = .accentColor.opacity(0.6)
+                }
+            }
+            .background(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                        selectedBackgroundColor.cornerRadius(4) : Color.clear.cornerRadius(4))
         } else {
             VStack(alignment: .center, spacing: 0) {
                 if let img = app.icon {
-                    ZStack {
-                        VStack {
-                            Image(nsImage: img)
-                                .resizable()
-                        }
-                        .cornerRadius(10)
-                        .shadow(
-                            color: isHover ? Color.black.opacity(colorScheme == .dark ? 1 : 0.2) : Color.clear,
-                            radius: 13,
-                            x: 0,
-                            y: 5)
-                        .animation(.interpolatingSpring(stiffness: 400, damping: 17), value: isHover)
-                        .frame(width: isHover ? 93 : 88, height: isHover ? 93 : 88)
-                        .shadow(radius: 1)
-                        .padding(.vertical, 5)
-                        VStack {
-                            Spacer()
-                            HStack {
-                                Text(app.name)
-                                    .lineLimit(2)
-                                    .multilineTextAlignment(.center)
+                    VStack {
+                        Image(nsImage: img)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 60, height: 60)
+                            .cornerRadius(15)
+                            .shadow(radius: 1)
+                        Text(app.name)
+                            .lineLimit(1)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 4)
+                            .padding(.vertical, 2)
+                            .onChange(of: controlActiveState) { state in
+                                if state == .inactive {
+                                    selectedBackgroundColor = .gray.opacity(0.6)
+                                } else {
+                                    selectedBackgroundColor = .accentColor.opacity(0.6)
+                                }
                             }
-                            .padding(.vertical, 5)
-                        }
+                            .background(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                        selectedBackgroundColor.cornerRadius(4) : Color.clear.cornerRadius(4))
+                            .frame(width: 150, height: 20)
                     }
                 }
             }
-            .frame(width: 150, height: 130)
+            .frame(width: 150, height: 150)
         }
     }
 }

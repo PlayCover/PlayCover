@@ -42,9 +42,17 @@ class PlayApp: BaseApp {
     }
 
     func runAppExec() {
+        let config = NSWorkspace.OpenConfiguration()
+
+        if settings.metalHudEnabled {
+            config.environment = ["MTL_HUD_ENABLED": "1"]
+        } else {
+            config.environment = ["MTL_HUD_ENABLED": "0"]
+        }
+
         NSWorkspace.shared.openApplication(
             at: url,
-            configuration: NSWorkspace.OpenConfiguration(),
+            configuration: config,
             completionHandler: { runningApp, error in
                 guard error == nil else { return }
                 if self.settings.settings.disableTimeout {
@@ -74,13 +82,32 @@ class PlayApp: BaseApp {
     }
 
     var icon: NSImage? {
-        if let rep = NSWorkspace.shared.icon(forFile: url.path)
-            .bestRepresentation(for: NSRect(x: 0, y: 0, width: 512, height: 512), context: nil, hints: nil) {
-            let image = NSImage(size: rep.size)
-            image.addRepresentation(rep)
-            return image
+        let appDirectoryURL = PlayTools.playCoverContainer
+            .appendingPathComponent(info.executableName)
+            .appendingPathExtension("app")
+        let appDirectoryPath = "\(appDirectoryURL.relativePath)/"
+        guard let items = try? FileManager.default.contentsOfDirectory(atPath: appDirectoryPath) else { return nil }
+        var highestRes: NSImage?
+
+        for item in items {
+            if item.hasPrefix(info.primaryIconName) {
+                do {
+                    if let image = NSImage(data: try Data(contentsOf:
+                                                            URL(fileURLWithPath: "\(appDirectoryPath)\(item)"))) {
+                        if highestRes != nil {
+                            if image.size.height > highestRes!.size.height {
+                                highestRes = image
+                            }
+                        } else {
+                            highestRes = image
+                        }
+                    }
+                } catch {
+                    Log.shared.error(error)
+                }
+            }
         }
-        return nil
+        return highestRes
     }
 
     var name: String {

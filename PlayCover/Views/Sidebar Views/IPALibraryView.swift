@@ -12,40 +12,47 @@ struct IPALibraryView: View {
 
     @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150))]
     @State private var searchString = ""
-    @State private var gridViewLayout = 0
+    @State private var isList = UserDefaults.standard.bool(forKey: "IPALibrayView")
+    @State private var selected: StoreAppData?
 
     var body: some View {
         VStack(alignment: .leading) {
             GeometryReader { geom in
-                if gridViewLayout == 0 {
+                if !isList {
                     ScrollView {
                         LazyVGrid(columns: gridLayout, alignment: .leading) {
                             ForEach(storeVM.apps, id: \.id) { app in
-                                StoreAppView(app: app, isList: false)
+                                StoreAppView(app: app, isList: isList, selected: $selected)
                             }
                         }
                         .padding()
                         .animation(.spring(blendDuration: 0.1), value: geom.size.width)
+                        Spacer()
                     }
                 } else {
-                    List {
-                        ForEach(storeVM.apps, id: \.id) { app in
-                            StoreAppView(app: app, isList: true)
+                    ScrollView {
+                        VStack {
+                            ForEach(storeVM.apps, id: \.id) { app in
+                                StoreAppView(app: app, isList: isList, selected: $selected)
+                            }
+                            Spacer()
                         }
+                        .padding()
                     }
-                    .listStyle(.inset)
-                    .animation(.spring(blendDuration: 0.1), value: geom.size.height)
                 }
             }
+        }
+        .onTapGesture {
+            selected = nil
         }
         .navigationTitle("sidebar.ipaLibrary")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                Picker("", selection: $gridViewLayout) {
+                Picker("", selection: $isList) {
                     Image(systemName: "square.grid.2x2")
-                        .tag(0)
+                        .tag(false)
                     Image(systemName: "list.bullet")
-                        .tag(1)
+                        .tag(true)
                 }.pickerStyle(.segmented)
             }
         }
@@ -53,6 +60,9 @@ struct IPALibraryView: View {
         .onChange(of: searchString, perform: { value in
             uif.searchText = value
             storeVM.fetchApps()
+        })
+        .onChange(of: isList, perform: { value in
+            UserDefaults.standard.set(value, forKey: "IPALibrayView")
         })
     }
 }
