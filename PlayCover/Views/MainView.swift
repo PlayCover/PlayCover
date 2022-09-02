@@ -11,6 +11,9 @@ enum XcodeInstallStatus {
 
 struct MainView: View {
     @Environment(\.openURL) var openURL
+    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.controlActiveState) var controlActiveState
+
     @EnvironmentObject var install: InstallVM
     @EnvironmentObject var apps: AppsVM
     @EnvironmentObject var store: StoreVM
@@ -24,21 +27,62 @@ struct MainView: View {
     @State private var collapsed: Bool = false
     @State private var isInstallingXcodeCli: Bool = false
     @State private var xcodeInstallStatus: XcodeInstallStatus = .installing
+    @State private var selectedBackgroundColor: Color = Color.accentColor
+    @State private var selectedTextColor: Color = Color.black
 
     var body: some View {
         GeometryReader { viewGeom in
             NavigationView {
                 GeometryReader { sidebarGeom in
                     List {
-                        NavigationLink(destination: AppLibraryView(), tag: 1, selection: self.$selectedView) {
+                        NavigationLink(destination: AppLibraryView(selectedBackgroundColor: $selectedBackgroundColor,
+                                                                   selectedTextColor: $selectedTextColor),
+                                       tag: 1, selection: self.$selectedView) {
                             Label("sidebar.appLibrary", systemImage: "square.grid.2x2")
                         }
-                        NavigationLink(destination: IPALibraryView(), tag: 2, selection: self.$selectedView) {
+                        NavigationLink(destination: IPALibraryView(selectedBackgroundColor: $selectedBackgroundColor,
+                                                                   selectedTextColor: $selectedTextColor),
+                                       tag: 2, selection: self.$selectedView) {
                             Label("sidebar.ipaLibrary", systemImage: "arrow.down.circle")
                         }
                     }
                     .onChange(of: sidebarGeom.size) { newSize in
                         navWidth = newSize.width
+                    }
+                    .onChange(of: colorScheme) { scheme in
+                        if scheme == .dark {
+                            selectedTextColor = .white
+                        } else {
+                            if controlActiveState == .inactive {
+                                selectedTextColor = .black
+                            } else {
+                                selectedTextColor = .white
+                            }
+                        }
+                    }
+                    .onChange(of: controlActiveState) { state in
+                        if state == .inactive {
+                            if colorScheme == .light {
+                                selectedTextColor = .black
+                            }
+                            selectedBackgroundColor = .secondary
+                        } else {
+                            if colorScheme == .light {
+                                selectedTextColor = .white
+                            }
+                            selectedBackgroundColor = .accentColor
+                        }
+                    }
+                    .onAppear {
+                        if colorScheme == .dark {
+                            selectedTextColor = .white
+                        } else {
+                            if controlActiveState == .inactive {
+                                selectedTextColor = .black
+                            } else {
+                                selectedTextColor = .white
+                            }
+                        }
                     }
                 }
                 .background(SplitViewAccessor(sideCollapsed: $collapsed))
