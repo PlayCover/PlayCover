@@ -24,7 +24,6 @@ struct PlayAppView: View {
 
     var body: some View {
         PlayAppConditionalView(app: app, isList: isList, selected: $selected)
-            .cornerRadius(10)
             .gesture(TapGesture(count: 2).onEnded {
                 shell.removeTwitterSessionCookie()
                 app.launch()
@@ -146,7 +145,7 @@ struct PlayAppView: View {
 struct PlayAppConditionalView: View {
     @State var app: PlayApp
     @State var isList: Bool
-    @State var selectedBackgroundColor = Color.blue
+    @State var selectedBackgroundColor = Color.accentColor.opacity(0.6)
     @Binding var selected: PlayApp?
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.controlActiveState) var controlActiveState
@@ -155,11 +154,14 @@ struct PlayAppConditionalView: View {
         if isList {
             HStack(alignment: .center, spacing: 0) {
                 if let img = app.icon {
-                    Image(nsImage: img).resizable()
-                        .frame(width: 50, height: 50)
-                        .cornerRadius(10)
+                    Image(nsImage: img)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                        .cornerRadius(7.5)
                         .shadow(radius: 1)
                         .padding(.horizontal, 15)
+                        .padding(.vertical, 5)
                     Text(app.name)
                     Spacer()
                     Text(app.settings.info.bundleVersion)
@@ -167,6 +169,16 @@ struct PlayAppConditionalView: View {
                         .foregroundColor(.secondary)
                 }
             }
+            .contentShape(Rectangle())
+            .onChange(of: controlActiveState) { state in
+                if state == .inactive {
+                    selectedBackgroundColor = .gray.opacity(0.6)
+                } else {
+                    selectedBackgroundColor = .accentColor.opacity(0.6)
+                }
+            }
+            .background(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                        selectedBackgroundColor.cornerRadius(4) : Color.clear.cornerRadius(4))
         } else {
             VStack(alignment: .center, spacing: 0) {
                 if let img = app.icon {
@@ -182,6 +194,13 @@ struct PlayAppConditionalView: View {
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 4)
                             .padding(.vertical, 2)
+                            .onChange(of: controlActiveState) { state in
+                                if state == .inactive {
+                                    selectedBackgroundColor = .gray.opacity(0.6)
+                                } else {
+                                    selectedBackgroundColor = .accentColor.opacity(0.6)
+                                }
+                            }
                             .background(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
                                         selectedBackgroundColor.cornerRadius(4) : Color.clear.cornerRadius(4))
                             .frame(width: 150, height: 20)
@@ -189,13 +208,6 @@ struct PlayAppConditionalView: View {
                 }
             }
             .frame(width: 150, height: 150)
-            .onChange(of: controlActiveState) { state in
-                if state == .inactive {
-                    selectedBackgroundColor = .gray.opacity(0.6)
-                } else {
-                    selectedBackgroundColor = .accentColor.opacity(0.6)
-                }
-            }
         }
     }
 }

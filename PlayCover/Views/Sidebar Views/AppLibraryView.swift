@@ -29,19 +29,21 @@ struct AppLibraryView: View {
                         .animation(.spring(blendDuration: 0.1), value: geom.size.width)
                         Spacer()
                     }
-                    .onTapGesture {
-                        selected = nil
-                    }
                 } else {
-                    List {
-                        ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
-                            PlayAppView(app: app, isList: true, selected: $selected)
+                    ScrollView {
+                        VStack {
+                            ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
+                                PlayAppView(app: app, isList: true, selected: $selected)
+                            }
+                            Spacer()
                         }
+                        .padding()
                     }
-                    .listStyle(.inset)
-                    .animation(.spring(blendDuration: 0.1), value: geom.size.height)
                 }
             }
+        }
+        .onTapGesture {
+            selected = nil
         }
         .navigationTitle("sidebar.appLibrary")
         .toolbar {

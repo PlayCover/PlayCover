@@ -414,7 +414,7 @@ struct InfoView: View {
             HStack {
                 Text("settings.info.url")
                 Spacer()
-                Text("\(info.url)")
+                Text("\(info.url.relativePath)")
             }
             HStack {
                 Text("settings.info.isGame")
