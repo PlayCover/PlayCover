@@ -126,9 +126,19 @@ class PlayTools {
         return PLAY_COVER_PATH
     }
 
-    static func fetchEntitlements(_ exec: URL) throws -> String {
-        try shell.sh("codesign --display --entitlements - --xml '\(exec.path)' | xmllint --format -", pipeStdErr: false)
-    }
+	static func fetchEntitlements(_ exec: URL) throws -> String {
+        do {
+            return  try shell.sh("codesign --display --entitlements - --xml '\(exec.path)'" +
+                            " | xmllint --format -", pipeStdErr: false)
+        } catch {
+            if error.localizedDescription.contains("Document is empty") {
+                // Empty entitlements
+                return ""
+            } else {
+                throw error
+            }
+        }
+	}
 
     private static func binPath(_ bin: String) throws -> URL {
         URL(fileURLWithPath: try shell.sh("which \(bin)").trimmingCharacters(in: .newlines))
