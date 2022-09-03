@@ -12,30 +12,42 @@ class Shell: ObservableObject {
 
     @discardableResult
     static func sh(_ command: String, print: Bool = true, pipeStdErr: Bool = true) throws -> String {
-        let task = Process()
-        let pipe = Pipe()
+		let task = Process()
+		let pipe = Pipe()
+        let errPipe = Pipe()
 
-        task.standardOutput = pipe
-        if pipeStdErr { task.standardError = pipe }
-        task.executableURL = URL(fileURLWithPath: "/bin/zsh")
-        task.arguments = ["-c", command]
-        try task.run()
+		task.standardOutput = pipe
+		if pipeStdErr { task.standardError = pipe } else {task.standardError = errPipe}
+		task.executableURL = URL(fileURLWithPath: "/bin/zsh")
+		task.arguments = ["-c", command]
+		try task.run()
 
-        let data = try pipe.fileHandleForReading.readToEnd() ?? Data()
-        let output = String(data: data, encoding: .utf8)!
+		let data = try pipe.fileHandleForReading.readToEnd() ?? Data()
+		let output = String(data: data, encoding: .utf8)!
 
-        if print {
-            Log.shared.log(output)
-        }
+		if print {
+			Log.shared.log(output)
+		}
 
-        task.waitUntilExit()
+		task.waitUntilExit()
 
-        let status = task.terminationStatus
-        if status != 0 {
-            throw output
-        }
-        return output
-    }
+		let status = task.terminationStatus
+		if status != 0 {
+            if pipeStdErr {
+                throw output
+            } else {
+                let errOutput: String
+                do {
+                    let errData = try errPipe.fileHandleForReading.readToEnd() ?? Data()
+                    errOutput = String(data: errData, encoding: .utf8)!
+                } catch {
+                    errOutput = "Command '\(command)' failed to execute."
+                }
+                throw errOutput
+            }
+		}
+		return output
+	}
 
     @discardableResult
     internal static func shello(print: Bool = true, _ binary: String, _ args: String...) throws -> String {
