@@ -69,7 +69,8 @@ struct PlayAppView: View {
                     })
                 }
                 Group {
-                    if app.info.bundleIdentifier == "com.miHoYo.GenshinImpact" {
+                    if app.info.bundleIdentifier.contains("GenshinImpact")
+                        || app.info.bundleIdentifier.contains("Yuanshen") {
                         Divider()
                         Button(action: {
                             showStoreGenshinAccount.toggle()
@@ -106,10 +107,10 @@ struct PlayAppView: View {
                 })
             }
             .sheet(isPresented: $showChangeGenshinAccount) {
-                ChangeGenshinAccountView()
+                ChangeGenshinAccountView(app: app)
             }
             .sheet(isPresented: $showStoreGenshinAccount) {
-                StoreGenshinAccountView()
+                StoreGenshinAccountView(app: app)
             }
             .sheet(isPresented: $showDeleteGenshinAccount) {
                 DeleteGenshinAccountView()
