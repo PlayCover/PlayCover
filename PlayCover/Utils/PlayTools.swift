@@ -41,8 +41,13 @@ class PlayTools {
     }
 
     static func isMachoEncrypted(atURL url: URL) throws -> Bool {
-        let otoolOutput = try shell.shello(otool.path, "-l", url.path)
-        return otoolOutput.contains("LC_ENCRYPTION_INFO") && otoolOutput.contains("cryptid 1")
+        // Split output into blocks
+        let otoolOutput = try shell.shello(otool.path, "-l", url.path).components(separatedBy: "Load command")
+        // Check specifically for encryption info on the 64 bit block
+        for block in otoolOutput where (block.contains("LC_ENCRYPTION_INFO_64") && block.contains("cryptid 1")) {
+            return true
+        }
+        return false
     }
 
     static func install() {
