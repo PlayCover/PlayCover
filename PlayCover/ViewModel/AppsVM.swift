@@ -3,8 +3,8 @@
 //  PlayCover
 //
 
-import Foundation
 import Cocoa
+import Foundation
 
 class AppsVM: ObservableObject {
 
@@ -17,14 +17,12 @@ class AppsVM: ObservableObject {
     }
 
     @Published var apps: [PlayApp] = []
-    @Published var updatingApps: Bool = false
-    @Published var showAppLinks = UserDefaults.standard.bool(forKey: "ShowLinks")
+    @Published var updatingApps = false
 
     func fetchApps() {
         DispatchQueue.global(qos: .userInteractive).async {
             var result: [PlayApp] = []
             do {
-
                 let containers = try AppContainer.containers()
                 let directoryContents = try FileManager.default
                     .contentsOfDirectory(at: PlayTools.playCoverContainer, includingPropertiesForKeys: nil, options: [])
@@ -54,13 +52,9 @@ class AppsVM: ObservableObject {
                     result = result.filter({ $0.searchText.contains(uif.searchText.lowercased()) })
                 }
 
-                _ = Store.storeApps
-
                 self.apps.append(contentsOf: result)
             }
-
         }
-
     }
 
 }

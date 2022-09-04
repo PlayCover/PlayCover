@@ -3,13 +3,13 @@
 //  PlayCover
 //
 
-import Foundation
 import AppKit
+import Foundation
 import SwiftUI
 
 extension String {
     var esc: String {
-        return self.replacingOccurrences(of: " ", with: "\\ ")
+        replacingOccurrences(of: " ", with: "\\ ")
     }
 
     func copyToClipBoard() {
@@ -29,26 +29,26 @@ extension URL {
     }
 
     var esc: String {
-        return self.path.esc
+        path.esc
     }
 
     var isDirectory: Bool {
-       return (try? resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory == true
+        (try? resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory == true
     }
 
     func openInFinder() {
         do {
-            if self.isDirectory {
-                NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: self.path)
+            if isDirectory {
+                NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: path)
             } else {
-                self.showInFinderAndSelectLastComponent()
+                showInFinderAndSelectLastComponent()
             }
         }
     }
 
     func showInFinder() {
-        if self.isDirectory {
-            NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: self.path)
+        if isDirectory {
+            NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: path)
         } else {
             NSWorkspace.shared.activateFileViewerSelecting([self])
         }
@@ -59,8 +59,7 @@ extension URL {
     }
 
     func bytesFromFile() -> [UInt8]? {
-
-        guard let data = NSData(contentsOfFile: self.path) else { return nil }
+        guard let data = NSData(contentsOfFile: path) else { return nil }
 
         var buffer = [UInt8](repeating: 0, count: data.length)
         data.getBytes(&buffer, length: data.length)
@@ -71,14 +70,15 @@ extension URL {
     func fixExecutable() throws {
         var attributes = [FileAttributeKey: Any]()
         attributes[.posixPermissions] = 0o777
-        try fileMgr.setAttributes(attributes, ofItemAtPath: self.path)
+        try fileMgr.setAttributes(attributes, ofItemAtPath: path)
     }
 
     // Wraps NSFileEnumerator since the geniuses at corelibs-foundation decided it should be completely untyped
     func enumerateContents(_ callback: (URL, URLResourceValues) throws -> Void) throws {
-        guard let enumerator = FileManager.default
-            .enumerator(at: self, includingPropertiesForKeys: [.isRegularFileKey],
-                        options: [.skipsHiddenFiles, .skipsPackageDescendants]) else {
+        guard let enumerator = FileManager.default.enumerator(
+            at: self,
+            includingPropertiesForKeys: [.isRegularFileKey],
+            options: [.skipsHiddenFiles, .skipsPackageDescendants]) else {
             return
         }
 
