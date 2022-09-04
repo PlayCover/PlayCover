@@ -15,7 +15,7 @@ class SoundDeviceService {
     private func getAudioPropertyAddress(
         selector: AudioObjectPropertySelector
     ) -> AudioObjectPropertyAddress {
-        return AudioObjectPropertyAddress(
+        AudioObjectPropertyAddress(
             mSelector: selector,
             mScope: kAudioObjectPropertyScopeGlobal,
             mElement: kAudioObjectPropertyElementMain)

@@ -1,12 +1,13 @@
 //
-//  DeleteGenshinStoredAccountView.swift
+//  DeleteGenshinAccountView.swift
 //  PlayCover
 //
 //  Created by José Elias Moreno villegas on 23/07/22.
 //
+
 import SwiftUI
 
-struct DeleteGenshinStoredAccountView: View {
+struct DeleteGenshinAccountView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var folderName: String = ""
     @State var accountList: [String] = getAccountList()
@@ -31,7 +32,8 @@ struct DeleteGenshinStoredAccountView: View {
                         .frame(width: 300, alignment: .center)
                         .alert("Really Delete Account?", isPresented: $deleteAlert) {
                             Button("Delete \"\(folderName)\" Account", role: .destructive) {
-                                deleteStoredAccount(folderName: account)
+                                print("account: ", self.folderName)
+                                deleteStoredAccount(folderName: self.folderName)
                                 self.presentationMode.wrappedValue.dismiss()
                             }.foregroundColor(.red)
                             Button("button.Cancel", role: .cancel) {}
@@ -51,8 +53,8 @@ struct DeleteGenshinStoredAccountView: View {
     }
 }
 
-struct DeleteGenshinStoredAccountView_preview: PreviewProvider {
+struct DeleteGenshinAccountView_preview: PreviewProvider {
     static var previews: some View {
-        DeleteGenshinStoredAccountView()
+        DeleteGenshinAccountView()
     }
 }

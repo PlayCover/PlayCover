@@ -45,6 +45,7 @@ blacklist:
     - /var/log/syslog
     - /Library/MobileSubstrate/MobileSubstrate.dylib
     - /etc/apt
+    - /usr/bin/ssh
     - /usr/libexec/ssh-keysign
     - /usr/sbin/sshd
     - /etc/ssh/sshd_config
@@ -66,7 +67,7 @@ whitelist:
 allow:
     - (allow user-preference-write (preference-domain ".GlobalPreferences"))
     - (allow user-preference-read (preference-domain ".GlobalPreferences"))
-    - (allow file* file-read* file-write* file-write-data file-read-metadata file-ioctl (literal "/Users/${NSUserName}/Library/Preferences/playcover.plist"))
+    - (allow file* file-read* file-write* file-write-data file-read-metadata file-ioctl (subpath "/Users/${NSUserName}/Library/Containers/io.playcover.PlayCover"))
     - (allow file* file-read* file-read-metadata file-ioctl (subpath "/Users/${NSUserName}/Library/Frameworks/PlayTools.framework"))
 
 bypass:
@@ -76,13 +77,14 @@ bypass:
     - (allow file-read-metadata (subpath "/private/var/db/timezone/"))
     - (allow file* file-read* file-read-data file-read-metadata file-ioctl file-write* file-write-data (literal "/var/folders/kd/"))
     - (allow file* file-read* file-read-metadata file-ioctl (subpath "/Users/${NSUserName}/Library/Containers/"))
-    - (allow file* file-read* file-read-metadata file-ioctl (literal "/usr/share/icu/icudt68l.dat"))
+    - (allow file* file-read* file-read-metadata file-ioctl (subpath "/Users/${NSUserName}/Library/Group Containers/"))
+    - (allow file* file-read* file-read-metadata file-ioctl (subpath "/Users/${NSUserName}/Library/Spelling/"))
+    - (allow file* file-read* file-read-metadata file-ioctl (subpath "/usr/share/icu/"))
     - (allow file* file-read* file-read-metadata file-ioctl (literal "/System/Library/CoreServices/SystemVersion.bundle"))
     - (allow file* file-read* file-read-metadata file-ioctl (subpath "/System/"))
     - (allow file-read-metadata file-ioctl (literal "/private/var/db/.AppleSetupDone"))
-    - (allow file* file-read* file-read-data file-read-metadata file-ioctl file-write* file-write-data (subpath "/private/var/folders/kd/"))
-    - (allow file* file-read* file-read-metadata file-ioctl (literal "/private/var/db/timezone/tz/2021a.3.0/icutz"))
-    - (allow file* file-read* file-read-data file-read-metadata file-ioctl file-write* file-write-data (subpath "/private/var/folders/kd/"))
+    - (allow file* file-read* file-read-data file-read-metadata file-ioctl file-write* file-write-data (subpath "/private/var/folders/"))
+    - (allow file* file-read* file-read-metadata file-ioctl (subpath "/private/var/db/timezone/tz/"))
     - (allow file* file-read* file-read-metadata file-ioctl (literal "/private/var/db/nsurlstoraged/dafsaData.bin"))
     - (allow file* file-read* file-read-metadata file-ioctl (literal "/private/var/folders/"))
     - (allow file* file-read* file-read-metadata file-ioctl (literal "/Library/Preferences/Logging/com.apple.diagnosticd.filter.plist"))
@@ -91,8 +93,9 @@ bypass:
     - (allow file-read* (literal "/dev/autofs_nowait") (literal "/dev/random") (literal "/dev/urandom"))
     - (allow file-read* file-write-data (literal "/dev/null") (literal "/dev/zero"))
     - '(allow file-read-data (regex #"^/private/var/db/mds/"))'
-    - (allow file-ioctl file* file-read* file-read-data file-read-metadata (literal "/private/var/db/mds/system/mdsObject.db"))
+    - (allow file-ioctl file* file-read* file-read-data file-read-metadata (subpath "/private/var/db/mds/system/"))
     - '(allow file-read-metadata file-read* file-write* (regex #"^/private/var/db/mds/[0-9]+(/|$)"))'
+    - (allow file* file-read* file-read-data file-read-metadata file-ioctl file-write* file-write-data (subpath "/private/tmp"))
     - '(allow file-read-data (regex #"^/Users/[^/]+/Library/Preferences/com.apple.CloudKit.plist"))'
     - (allow file-read-metadata file-read* file-read-data (literal "/usr/share/langid/langid.inv"))
     - |
@@ -111,7 +114,7 @@ bypass:
     - (allow file-read-metadata (path-ancestors "/System/Volumes/Data/private"))
     - (allow file-read* (literal "/"))
     - |
-        (allow file-read*
+        (allow file-read* file-read-metadata
             (subpath "/Library/Apple/System")
             (subpath "/Library/Filesystems/NetFSPlugins")
             (subpath "/Library/Preferences/Logging")

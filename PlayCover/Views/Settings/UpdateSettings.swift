@@ -5,8 +5,8 @@
 //  Created by Andrew Glaze on 7/23/22.
 //
 
-import SwiftUI
 import Sparkle
+import SwiftUI
 
 struct UpdateSettings: View {
     @ObservedObject var updaterViewModel: UpdaterViewModel
@@ -14,8 +14,8 @@ struct UpdateSettings: View {
 
     var body: some View {
         Form {
-            Toggle("Automatically check for updates", isOn: $autoUpdate)
-            Button("Check for updates now…") {
+            Toggle("preferences.toggle.automaticUpdates", isOn: $autoUpdate)
+            Button("preferences.button.checkForUpdates") {
                 updaterViewModel.checkForUpdates()
             }
         }
