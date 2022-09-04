@@ -83,6 +83,10 @@ class Shell: ObservableObject {
         shell("/usr/bin/codesign -fs- \(binary.esc)")
     }
 
+    static func quietUnzip(_ zip: URL, toUrl: URL) -> String {
+        return shell("unzip -oq \(zip.esc) -d \(toUrl.esc)")
+    }
+
     static func unzip(_ zip: URL, toUrl: URL) {
         shell("unzip \(zip.esc) -d \(toUrl.esc)")
     }
