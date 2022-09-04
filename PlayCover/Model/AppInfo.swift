@@ -187,11 +187,9 @@ public class AppInfo {
             return "AppIcon"
         }
         guard let primaryBundleIconDict: [String: Any] = bundleIconDict["CFBundlePrimaryIcon"] as? [String: Any] else {
-            Log.shared.error("Failed to get icons from Info.plist!")
             return "AppIcon"
         }
         guard let primaryIconName = primaryBundleIconDict["CFBundleIconName"] as? String else {
-            Log.shared.error("Failed to get icons from Info.plist!")
             return "AppIcon"
         }
         return primaryIconName

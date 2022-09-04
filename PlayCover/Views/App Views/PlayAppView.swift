@@ -170,14 +170,18 @@ struct PlayAppConditionalView: View {
                         .shadow(radius: 1)
                         .padding(.horizontal, 15)
                         .padding(.vertical, 5)
-                    Text(app.name)
-                        .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                         selectedTextColor : Color.primary)
-                    Spacer()
-                    Text(app.settings.info.bundleVersion)
-                        .padding(.horizontal, 15)
-                        .foregroundColor(.secondary)
+                } else {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .frame(width: 60, height: 60)
                 }
+                Text(app.name)
+                    .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                     selectedTextColor : Color.primary)
+                Spacer()
+                Text(app.settings.info.bundleVersion)
+                    .padding(.horizontal, 15)
+                    .foregroundColor(.secondary)
             }
             .contentShape(Rectangle())
             .background(
@@ -188,29 +192,33 @@ struct PlayAppConditionalView: View {
                 )
         } else {
             VStack(alignment: .center, spacing: 0) {
-                if let img = app.icon {
-                    VStack {
+                VStack {
+                    if let img = app.icon {
                         Image(nsImage: img)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 60, height: 60)
                             .cornerRadius(15)
                             .shadow(radius: 1)
-                        Text(app.name)
-                            .lineLimit(1)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 4)
-                            .padding(.vertical, 2)
-                            .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                             selectedTextColor : Color.primary)
-                            .background(
-                                RoundedRectangle(cornerRadius: 4)
-                                    .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                        selectedBackgroundColor : Color.clear)
-                                    .brightness(-0.2)
-                                )
-                            .frame(width: 150, height: 20)
+                    } else {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                            .frame(width: 60, height: 60)
                     }
+                    Text(app.name)
+                        .lineLimit(1)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 4)
+                        .padding(.vertical, 2)
+                        .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                         selectedTextColor : Color.primary)
+                        .background(
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                      selectedBackgroundColor : Color.clear)
+                                .brightness(-0.2)
+                            )
+                        .frame(width: 150, height: 20)
                 }
             }
             .frame(width: 150, height: 150)
