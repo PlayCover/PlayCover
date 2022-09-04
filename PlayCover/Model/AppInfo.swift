@@ -183,7 +183,9 @@ public class AppInfo {
     }
 
     var primaryIconName: String {
-        let bundleIconDict = self[dictionary: "CFBundleIcons~ipad"]!
+        guard let bundleIconDict = self[dictionary: "CFBundleIcons~ipad"] else {
+            return "AppIcon"
+        }
         guard let primaryBundleIconDict: [String: Any] = bundleIconDict["CFBundlePrimaryIcon"] as? [String: Any] else {
             Log.shared.error("Failed to get icons from Info.plist!")
             return "AppIcon"
