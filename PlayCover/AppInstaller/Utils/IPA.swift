@@ -40,10 +40,10 @@ public class IPA {
     public func unzip() throws -> BaseApp {
         let workDir = try allocateTempDir()
 
-        switch unzip_to_destination(url.path, workDir.path) {
-        case .success:
+        if Shell.quietUnzip(url, toUrl: workDir) == "" {
             return try Installer.fromIPA(detectingAppNameInFolder: workDir.appendingPathComponent("Payload"))
-        default: throw PlayCoverError.appCorrupted
+        } else {
+            throw PlayCoverError.appCorrupted
         }
     }
 

@@ -50,7 +50,6 @@
 		92562209274921E500728698 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92562208274921E500728698 /* main.m */; };
 		9272F19E273B74C800DFBEF1 /* AppsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9272F19C273B74C800DFBEF1 /* AppsVM.swift */; };
 		9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280871A2824A8D20034C510 /* SoundDeviceService.swift */; };
-		9280871D2824AD360034C510 /* Unarchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280871C2824AD360034C510 /* Unarchiver.swift */; };
 		9286D296273A7E4200958DD3 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286D295273A7E4200958DD3 /* AppSettings.swift */; };
 		928C01D9272E162C007EB2DF /* InstallVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928C01D8272E162C007EB2DF /* InstallVM.swift */; };
 		92A8AAC9275EFEA800D89B50 /* SystemConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A8AAC8275EFEA800D89B50 /* SystemConfig.swift */; };
@@ -141,7 +140,6 @@
 		92562208274921E500728698 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9272F19C273B74C800DFBEF1 /* AppsVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppsVM.swift; sourceTree = "<group>"; };
 		9280871A2824A8D20034C510 /* SoundDeviceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundDeviceService.swift; sourceTree = "<group>"; };
-		9280871C2824AD360034C510 /* Unarchiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Unarchiver.swift; sourceTree = "<group>"; };
 		9286D295273A7E4200958DD3 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		928C01D7272DF1A2007EB2DF /* PlayCover-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlayCover-Bridging-Header.h"; sourceTree = "<group>"; };
 		928C01D8272E162C007EB2DF /* InstallVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallVM.swift; sourceTree = "<group>"; };
@@ -398,7 +396,6 @@
 		92ECD8A6274E769600DB7AC6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				9280871C2824AD360034C510 /* Unarchiver.swift */,
 				92ECD8A4274E763700DB7AC6 /* IPA.swift */,
 				92ECD8A9274E76FD00DB7AC6 /* TempAllocator.swift */,
 				92EE06DD274EC09F002C907B /* Entitlements.swift */,
@@ -649,7 +646,6 @@
 				ABED59832887A32F004D782B /* MenuBarView.swift in Sources */,
 				538AAE7B26CD41E60009C7AC /* ProcessExtension.swift in Sources */,
 				92EE06D4274EA604002C907B /* PlayAppView.swift in Sources */,
-				9280871D2824AD360034C510 /* Unarchiver.swift in Sources */,
 				9256220327491E4700728698 /* operations.m in Sources */,
 				6E06193A28B3C42E0012C771 /* DeleteGenshinAccountView.swift in Sources */,
 				28361D662892800200B35EDB /* DeleteStoredGenshinUserData.swift in Sources */,
