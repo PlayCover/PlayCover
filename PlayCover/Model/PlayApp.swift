@@ -164,6 +164,7 @@ class PlayApp: BaseApp {
 
     static let PROHIBITED_APPS = [
         "com.activision.callofduty.shooter",
+        "com.ea.ios.apexlegendsmobilefps",
         "com.garena.game.codm",
         "com.tencent.tmgp.cod",
         "com.tencent.ig",
