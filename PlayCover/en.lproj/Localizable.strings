@@ -1,6 +1,5 @@
 "playapp.settings" = "Settings";
 "playapp.showInFinder" = "Show in Finder";
-"playapp.openCache" = "Open App Data";
 "playapp.clearCache" = "Clear App Data";
 "playapp.importKm" = "Import Keymapping";
 "playapp.exportKm" = "Export Keymapping";
