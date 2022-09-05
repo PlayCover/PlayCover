@@ -7,13 +7,15 @@
 
 import Foundation
 
-func restoreUserData(folderName: String) {
+func restoreUserData(folderName: String, app: PlayApp) {
+    let bundleID = app.info.bundleIdentifier
+    let isGlobalVersion = bundleID == "com.miHoYo.GenshinImpact"
     let accountInfoPlistEncrypt = "MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption"
     let kibanaReportArrayKeyEncrypt = "MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption"
     let lastAccountModelEncrypt = "MIHOYO_LAST_ACCOUNT_MODEL_Encryption"
 
-    let gameDataPath = NSHomeDirectory() + "/Library/Containers/com.miHoYo.GenshinImpact/Data/Documents/"
-    let storePath = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/storage/" + folderName + "/"
+    let gameDataPath = NSHomeDirectory() + "/Library/Containers/\(bundleID)/Data/Documents/"
+    let storePath = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/Storage/" + folderName + "/"
 
     let accountInfoPlistEncryptUrl =
         URL(fileURLWithPath: gameDataPath + accountInfoPlistEncrypt)
@@ -44,8 +46,10 @@ func restoreUserData(folderName: String) {
 
         try fileManager.copyItem(at: URL(fileURLWithPath: storePath + lastAccountModelEncrypt),
                                  to: lastAccountModelEncryptUrl)
-        let region = try String(contentsOf: URL(fileURLWithPath: storePath + "region.txt"), encoding: .utf8)
-        modifyPlist(newRegion: region)
+        if isGlobalVersion {
+            let region = try String(contentsOf: URL(fileURLWithPath: storePath + "region.txt"), encoding: .utf8)
+            modifyPlist(newRegion: region)
+        }
     } catch {
         Log.shared.log("Error moving file: \(error)")
     }
@@ -89,7 +93,7 @@ func modifyPlist(newRegion: String) {
 }
 
 func getAccountList () -> [String] {
-    let storePath = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/storage/"
+    let storePath = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/Storage/"
     var accountStored: [String]
     do {
         accountStored = try FileManager.default.contentsOfDirectory(atPath: storePath)

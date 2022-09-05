@@ -77,7 +77,7 @@
 "settings.picker.displayRefreshRate" = "Tần số quét";
 "settings.picker.screenSize" = "Độ phân giải màn hình";
 "settings.picker.iosDevice" = "Chọn thiết bị";
-"settings.slider.mouseSensitivity" = "Tốc độ chuột: ";
+"settings.slider.mouseSensitivity" = "Tốc độ chuột: %.f";
 "settings.reset" = "Đặt lại cài đặt và keymap";
 "settings.resetCompleted" = "Các thiết lập đã khôi phục về mặc định!";
 "settings.text.customHeight" = "Chiều cao";
@@ -101,6 +101,17 @@
 "setupView.pressButtonAndEnterPassword.button" = "Tắt SIP";
 "notification.appInstalled" = "App installed!";
 "notification.appInstalled.message" = "Check it out in PlayCover!";
+"settings.tab.etc" = "Etc";
+"settings.button.discord" = "Custom Discord activity";
+"settings.button.clearActivity" = "Clear custom activity";
+"settings.text.applicationID" = "Application ID";
+"settings.text.details" = "Details";
+"settings.text.details.help" = "First row below title";
+"settings.text.image" = "Image";
+"settings.text.image.help" = "Link to image or Dev portal asset name";
+"settings.text.state" = "State";
+"settings.text.state.help" = "Second row below title";
+"settings.toggle.discord" = "Enable Discord activity";
 "setup.enterLoginPassword" = "Vui lòng điền mật khẩu của bạn";
 "setup.incorrectPassword" = "Sai mật khẩu, vui lòng thử lại";
 "setup.enterLoginPassword.info" = "Nhập mật khẩu mở khóa máy Mac ấy.";
@@ -134,3 +145,4 @@
 
 /* (No Comment) */
 "preferences.tab.updates" = "Updates";
+

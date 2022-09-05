@@ -2,7 +2,7 @@
 "alert.app.delete" = "所有应用数据将被清除；有些软件可能需要重新下载数据。确定继续？";
 
 /* (No Comment) */
-"alert.app.preferences" = "All game preferences will be deleted, You may need to configure your in-game settings(region) and wait a couple of seconds until game assets are located (They won't be downloaded the game will just verify them). Do you wish to continue?";
+"alert.app.preferences" = "所有应用程式偏好设置将被删除，设定可能需要被重新配置，确定继续吗？";
 
 /* (No Comment) */
 "alert.appCacheCleared" = "应用数据已被清除！";
@@ -185,16 +185,22 @@
 "playapp.update" = "更新应用";
 
 /* (No Comment) */
-"preferences.button.checkForUpdates" = "Check for updates now...";
+"preferences.button.checkForUpdates" = "正在检查更新...";
 
 /* (No Comment) */
-"preferences.tab.updates" = "Updates";
+"preferences.tab.updates" = "更新";
 
 /* (No Comment) */
-"preferences.toggle.automaticUpdates" = "Automatically check for updates";
+"preferences.toggle.automaticUpdates" = "自动检查更新";
 
 /* (No Comment) */
 "search.search" = "搜索...";
+
+/* (No Comment) */
+"settings.button.discord" = "Custom Discord activity";
+
+/* (No Comment) */
+"settings.button.clearActivity" = "Clear custom activity";
 
 /* (No Comment) */
 "settings.picker.displayRefreshRate" = "屏幕刷新率";
@@ -212,13 +218,37 @@
 "settings.resetCompleted" = "设置已被重置！";
 
 /* %.f */
-"settings.slider.mouseSensitivity" = "鼠标灵敏度: ";
+"settings.slider.mouseSensitivity" = "鼠标灵敏度: %.f";
+
+/* (No Comment) */
+"settings.tab.etc" = "Etc";
+
+/* (No Comment) */
+"settings.text.applicationID" = "Application ID";
 
 /* (No Comment) */
 "settings.text.customHeight" = "高度";
 
 /* (No Comment) */
 "settings.text.customWidth" = "宽度";
+
+/* (No Comment) */
+"settings.text.details" = "Details";
+
+/* (No Comment) */
+"settings.text.details.help" = "First row below title";
+
+/* (No Comment) */
+"settings.text.image" = "Image";
+
+/* (No Comment) */
+"settings.text.image.help" = "Link to image or Dev portal asset name";
+
+/* (No Comment) */
+"settings.text.state" = "State";
+
+/* (No Comment) */
+"settings.text.state.help" = "Second row below title";
 
 /* (No Comment) */
 "settings.toggle.adaptiveDisplay" = "适配显示器";
@@ -237,6 +267,9 @@
 
 /* (No Comment) */
 "settings.toggle.disableDisplaySleep.info" = "防止显示器在此应用运行时息屏";
+
+/* (No Comment) */
+"settings.toggle.discord" = "Enable Discord activity";
 
 /* (No Comment) */
 "settings.toggle.customSize" = "启用自定义窗口大小";
@@ -350,7 +383,7 @@
 "storeAccount.selectAccRegion.asia" = "亚服";
 
 /* (No Comment) */
-"storeAccount.selectAccRegion.cht" = "台服";
+"storeAccount.selectAccRegion.cht" = "港澳台服";
 
 /* (No Comment) */
 "storeAccount.selectAccRegion.euro" = "欧服";

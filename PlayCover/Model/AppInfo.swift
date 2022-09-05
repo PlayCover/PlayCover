@@ -27,7 +27,7 @@ public class AppInfo {
 
     public func retargeted(toURL url: URL) -> AppInfo {
         guard let copy = rawStorage.mutableCopy() as? NSMutableDictionary
-        else { fatalError("Failed to copy rawStorage")}
+        else { fatalError("Failed to copy rawStorage") }
         return AppInfo(url: url, rawStorage: copy)
     }
 
@@ -41,7 +41,7 @@ public class AppInfo {
         try write(toURL: url)
     }
 
-    subscript (string index: String) -> String? {
+    subscript(string index: String) -> String? {
         get {
             rawStorage[index] as? String
         }
@@ -50,7 +50,7 @@ public class AppInfo {
         }
     }
 
-    subscript (object index: String) -> NSObject? {
+    subscript(object index: String) -> NSObject? {
         get {
             rawStorage[index] as? NSObject
         }
@@ -59,7 +59,7 @@ public class AppInfo {
         }
     }
 
-    subscript (dictionary index: String) -> NSMutableDictionary? {
+    subscript(dictionary index: String) -> NSMutableDictionary? {
         get {
             rawStorage[index] as? NSMutableDictionary
         }
@@ -68,7 +68,7 @@ public class AppInfo {
         }
     }
 
-    subscript (strings index: String) -> [String]? {
+    subscript(strings index: String) -> [String]? {
         get {
             rawStorage[index] as? [String]
         }
@@ -77,7 +77,7 @@ public class AppInfo {
         }
     }
 
-    subscript (array index: String) -> NSMutableArray? {
+    subscript(array index: String) -> NSMutableArray? {
         get {
             rawStorage[index] as? NSMutableArray
         }
@@ -86,7 +86,7 @@ public class AppInfo {
         }
     }
 
-    subscript (numbers index: String) -> [NSNumber]? {
+    subscript(numbers index: String) -> [NSNumber]? {
         get {
             rawStorage[index] as? [NSNumber]
         }
@@ -95,7 +95,7 @@ public class AppInfo {
         }
     }
 
-    subscript (ints index: String) -> [Int]? {
+    subscript(ints index: String) -> [Int]? {
         get {
             rawStorage[index] as? [Int]
         }
@@ -104,7 +104,7 @@ public class AppInfo {
         }
     }
 
-    subscript (doubles index: String) -> [Double]? {
+    subscript(doubles index: String) -> [Double]? {
         get {
             rawStorage[index] as? [Double]
         }
@@ -113,7 +113,7 @@ public class AppInfo {
         }
     }
 
-    subscript (bool index: String) -> Bool? {
+    subscript(bool index: String) -> Bool? {
         get {
             rawStorage[index] as? Bool
         }
@@ -124,19 +124,26 @@ public class AppInfo {
 
     var isGame: Bool {
         let words = rawStorage.description
-            for keyword in AppInfo.keywords {
-                if  words.lowercased().contains(keyword) && !words.lowercased().contains("xbox") {
-                    return true
-                }
+        for keyword in AppInfo.keywords {
+            if words.lowercased().contains(keyword) && !words.lowercased().contains("xbox") {
+                return true
             }
-            return false
         }
+        return false
+    }
 
-    private static var keywords = ["game", "unity",
-                                   "metal", "netflix",
-                                   "opengl", "minecraft",
-                                   "mihoyo", "xbox",
-                                   "disney", "opengl"]
+    private static var keywords = [
+        "game",
+        "unity",
+        "metal",
+        "netflix",
+        "opengl",
+        "minecraft",
+        "mihoyo",
+        "xbox",
+        "disney",
+        "opengl"
+    ]
 
     var minimumOSVersion: String {
         get {
@@ -171,9 +178,37 @@ public class AppInfo {
         self[string: "CFBundleExecutable"]!
     }
 
+    var bundleVersion: String {
+        self[string: "CFBundleShortVersionString"]!
+    }
+
+    var primaryIconName: String {
+        guard let bundleIconDict = self[dictionary: "CFBundleIcons~ipad"] else {
+            return "AppIcon"
+        }
+        guard let primaryBundleIconDict: [String: Any] = bundleIconDict["CFBundlePrimaryIcon"] as? [String: Any] else {
+            return "AppIcon"
+        }
+        guard let primaryIconName = primaryBundleIconDict["CFBundleIconName"] as? String else {
+            return "AppIcon"
+        }
+        return primaryIconName
+    }
+
+    var supportsTrueScreenSizeOnMac: Bool {
+        get {
+            self[bool: "UISupportsTrueScreenSizeOnMac"]!
+        }
+        set {
+            self[bool: "UISupportsTrueScreenSizeOnMac"] = newValue
+        }
+    }
+
     func assert(minimumVersion: Double) {
         if Double(minimumOSVersion)! > 11.0 {
             minimumOSVersion = Int(minimumVersion).description
         }
+
+        supportsTrueScreenSizeOnMac = true
     }
 }

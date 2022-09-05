@@ -197,6 +197,12 @@
 "search.search" = "Поиск...";
 
 /* (No Comment) */
+"settings.button.discord" = "Custom Discord activity";
+
+/* (No Comment) */
+"settings.button.clearActivity" = "Clear custom activity";
+
+/* (No Comment) */
 "settings.picker.displayRefreshRate" = "Частота обновления экрана";
 
 /* (No Comment) */
@@ -212,16 +218,40 @@
 "settings.resetCompleted" = "Настройки возвращены к стандартным!";
 
 /* %.f */
-"settings.slider.mouseSensitivity" = "Чувствительность мыши: ";
+"settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
 
 /* (No Comment) */
-"settings.text.customHeight" = "Высота";
+"settings.tab.etc" = "Etc";
+
+/* (No Comment) */
+"settings.text.applicationID" = "Application ID";
+
+/* (No Comment) */
+"settings.text.customHeight" = "Height";
 
 /* (No Comment) */
 "settings.text.customWidth" = "Ширина";
 
 /* (No Comment) */
-"settings.toggle.adaptiveDisplay" = "Адаптивный дисплей";
+"settings.text.details" = "Details";
+
+/* (No Comment) */
+"settings.text.details.help" = "First row below title";
+
+/* (No Comment) */
+"settings.text.image" = "Image";
+
+/* (No Comment) */
+"settings.text.image.help" = "Link to image or Dev portal asset name";
+
+/* (No Comment) */
+"settings.text.state" = "State";
+
+/* (No Comment) */
+"settings.text.state.help" = "Second row below title";
+
+/* (No Comment) */
+"settings.toggle.adaptiveDisplay" = "Adaptive display";
 
 /* (No Comment) */
 "settings.toggle.adaptiveDisplay.info" = "Адаптирует и масштабирует окно приложения под встроенный дисплей Mac.";
@@ -239,7 +269,10 @@
 "settings.toggle.disableDisplaySleep.info" = "Запретить отключение дисплея во время работы этого приложения";
 
 /* (No Comment) */
-"settings.toggle.gaming" = "Игровой режим";
+"settings.toggle.discord" = "Enable Discord activity";
+
+/* (No Comment) */
+"settings.toggle.gaming" = "Gaming Mode";
 
 /* (No Comment) */
 "settings.toggle.jbBypass" = "Включить обход Jailbreak (Alpha)";
