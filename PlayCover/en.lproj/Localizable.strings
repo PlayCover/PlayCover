@@ -103,12 +103,13 @@
 "settings.info.displayName" = "Display name:";
 "settings.info.bundleName" = "Bundle name:";
 "settings.info.bundleIdentifier" = "Bundle identifier";
+"settings.info.bundleVersion" = "Bundle version";
 "settings.info.executableName" = "Executable name:";
 "settings.info.minimumOSVersion" = "Minimum OS version";
 "settings.info.url" = "URL:";
 "settings.info.isGame" = "Is Game:";
 "settings.info.isGame.yes" = "Yes";
-"settoing.info.isGame.no" = "No";
+"settings.info.isGame.no" = "No";
 
 "settings.resetSettings" = "Reset settings";
 "settings.resetKm" = "Reset keymapping";
