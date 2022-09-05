@@ -129,10 +129,6 @@ class PlayApp: BaseApp {
     }
 
     func showInFinder() {
-        URL(fileURLWithPath: url.path).showInFinderAndSelectLastComponent()
-    }
-
-    func openAppCache() {
         container?.containerUrl.showInFinderAndSelectLastComponent()
     }
 
