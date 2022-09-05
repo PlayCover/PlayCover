@@ -129,7 +129,7 @@ class PlayApp: BaseApp {
     }
 
     func showInFinder() {
-        container?.containerUrl.showInFinderAndSelectLastComponent()
+        URL(fileURLWithPath: url.path).showInFinderAndSelectLastComponent()
     }
 
     func deleteApp() {
