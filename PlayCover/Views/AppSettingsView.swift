@@ -416,15 +416,6 @@ struct InfoView: View {
                 Spacer()
                 Text("\(info.url.relativePath)")
             }
-            HStack {
-                Text("settings.info.isGame")
-                Spacer()
-                if info.isGame {
-                    Text("settings.info.isGame.yes")
-                } else {
-                    Text("settings.info.isGame.no")
-                }
-            }
         }
         .listStyle(.bordered(alternatesRowBackgrounds: true))
         .padding()

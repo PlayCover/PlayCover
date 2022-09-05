@@ -107,9 +107,6 @@
 "settings.info.executableName" = "Executable name:";
 "settings.info.minimumOSVersion" = "Minimum OS version";
 "settings.info.url" = "URL:";
-"settings.info.isGame" = "Is Game:";
-"settings.info.isGame.yes" = "Yes";
-"settings.info.isGame.no" = "No";
 
 "settings.resetSettings" = "Reset settings";
 "settings.resetKm" = "Reset keymapping";

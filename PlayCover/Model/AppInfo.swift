@@ -122,29 +122,6 @@ public class AppInfo {
         }
     }
 
-    var isGame: Bool {
-        let words = rawStorage.description
-        for keyword in AppInfo.keywords {
-            if words.lowercased().contains(keyword) && !words.lowercased().contains("xbox") {
-                return true
-            }
-        }
-        return false
-    }
-
-    private static var keywords = [
-        "game",
-        "unity",
-        "metal",
-        "netflix",
-        "opengl",
-        "minecraft",
-        "mihoyo",
-        "xbox",
-        "disney",
-        "opengl"
-    ]
-
     var minimumOSVersion: String {
         get {
             self[string: "MinimumOSVersion"]!
