@@ -71,7 +71,7 @@
 
 "menubar.exportToSideloady" = "Export to Sideloadly";
 
-"settings.title" = "Settings";
+"settings.title" = "%@ Settings";
 "settings.tab.info" = "Info";
 
 "settings.tab.km" = "Keymapping";

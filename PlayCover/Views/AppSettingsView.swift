@@ -25,7 +25,10 @@ struct AppSettingsView: View {
                         .cornerRadius(10)
                         .shadow(radius: 1)
                 }
-                Text("\(viewModel.app.name) " + NSLocalizedString("settings.title", comment: ""))
+                Text(String(
+                    format:
+                        NSLocalizedString("settings.title", comment: ""),
+                    viewModel.app.name))
                     .font(.title2).bold()
                     .multilineTextAlignment(.leading)
                 Spacer()
