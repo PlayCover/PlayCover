@@ -40,7 +40,7 @@ struct PlayCoverHelpMenuView: Commands {
             }
             #if DEBUG
             Divider()
-            Button("debug.crash") {
+            Button("[DEBUG] Crash app") {
                 fatalError("Crash was triggered")
             }
             #endif
