@@ -20,35 +20,33 @@ struct IPALibraryView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            GeometryReader { geom in
-                if !isList {
-                    ScrollView {
-                        LazyVGrid(columns: gridLayout, alignment: .center) {
-                            ForEach(storeVM.apps, id: \.id) { app in
-                                StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                             selectedTextColor: $selectedTextColor,
-                                             selected: $selected,
-                                             app: app,
-                                             isList: isList)
-                            }
+            if !isList {
+                ScrollView {
+                    LazyVGrid(columns: gridLayout, alignment: .center) {
+                        ForEach(storeVM.apps, id: \.id) { app in
+                            StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                         selectedTextColor: $selectedTextColor,
+                                         selected: $selected,
+                                         app: app,
+                                         isList: isList)
                         }
-                        .padding()
+                    }
+                    .padding()
+                    Spacer()
+                }
+            } else {
+                ScrollView {
+                    VStack {
+                        ForEach(storeVM.apps, id: \.id) { app in
+                            StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                         selectedTextColor: $selectedTextColor,
+                                         selected: $selected,
+                                         app: app,
+                                         isList: isList)
+                        }
                         Spacer()
                     }
-                } else {
-                    ScrollView {
-                        VStack {
-                            ForEach(storeVM.apps, id: \.id) { app in
-                                StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                             selectedTextColor: $selectedTextColor,
-                                             selected: $selected,
-                                             app: app,
-                                             isList: isList)
-                            }
-                            Spacer()
-                        }
-                        .padding()
-                    }
+                    .padding()
                 }
             }
         }
