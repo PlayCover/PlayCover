@@ -23,7 +23,7 @@ jobs:
         run: |
           fastlane run increment_build_number build_number:${{ github.run_number }}
 
-      - name: Fastlane Release
+      - name: Fastlane Nightly
         shell: bash
         run: fastlane nightly
         env:
