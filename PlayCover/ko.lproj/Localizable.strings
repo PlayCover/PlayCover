@@ -191,12 +191,6 @@
 "settings.toggle.km" = "키맵핑 활성화";
 
 /* (No Comment) */
-"setupView.pressButtonAndEnterPassword" = "아래를 통해 SIP를 비활성화 한 후에 맥 비밀번호를 입력하세요.";
-
-/* (No Comment) */
-"setupView.step7" = "7) 위 명령어를 입력 후 맥 비밀번호를 입력하세요 (비밀번호는 입력해도 표시되지 않습니다)";
-
-/* (No Comment) */
 "soundAlert.failureText" = "현재 출력 장치의 샘플 레이트를 48 KHz로 설정하는데 실패하였습니다. ‘오디오 MIDI 설정’ 앱에서 수동으로 샘플 레이트를 설정할 수 있습니다";
 
 /* (No Comment) */
@@ -293,9 +287,6 @@
 "settings.info.executableName" = "Executable name:";
 "settings.info.minimumOSVersion" = "Minimum OS version";
 "settings.info.url" = "URL:";
-"settings.info.isGame" = "Is Game:";
-"settings.info.isGame.yes" = "Yes";
-"settoing.info.isGame.no" = "No";
 "settings.resetSettings" = "Reset settings";
 "settings.resetKm" = "Reset keymapping";
 "settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
@@ -304,3 +295,4 @@
 "xcode.install.failed.altButton" = "Alternate Instructions";
 "settings.tab.misc" = "Misc";
 "settings.toggle.hud" = "Metal HUD";
+"settings.info.bundleVersion" = "Bundle version";
