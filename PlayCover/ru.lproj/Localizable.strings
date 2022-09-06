@@ -17,9 +17,6 @@
 "alert.kmImported" = "Раскладка клавиш импортирована!";
 
 /* (No Comment) */
-"alert.moveAppToApplications" = "PlayCover должен находиться в папке Приложения. Нажмите кнопку ниже, чтобы переместить PlayCover в папку /Приложения.";
-
-/* (No Comment) */
 "alert.moveAppToApplications.move" = "Переместить в /Приложения";
 
 /* (No Comment) */
@@ -32,28 +29,10 @@
 "alert.success" = "Успех!";
 
 /* (No Comment) */
-"alert.wrongFileType" = "Неверный тип файла";
-
-/* (No Comment) */
-"alert.wrongFileType.message" = "Выберите файл .ipa";
-
-/* (No Comment) */
-"bottomBar.notices" = "Уведомления";
-
-/* (No Comment) */
-"bottomBar.notices.help" = "Новости и анонсы от разработчиков";
-
-/* (No Comment) */
-"bottomBar.setupViewButton" = "Возникли проблемы?";
-
-/* (No Comment) */
 "button.Cancel" = "Отмена";
 
 /* (No Comment) */
 "button.Close" = "Закрыть";
-
-/* (No Comment) */
-"button.Dismiss" = "Закрыть";
 
 /* (No Comment) */
 "button.Install" = "Установить";
@@ -65,22 +44,10 @@
 "button.Proceed" = "Продолжить";
 
 /* (No Comment) */
-"debug.crash" = "[ОТЛАДКА] Сбой приложения";
-
-/* (No Comment) */
 "error.corruptedIPA" = "Этот файл .ipa поврежден. Он не содержит файла «Info.plist».";
 
 /* (No Comment) */
-"error.reinstallApp" = "Пожалуйста переустановите PlayCover";
-
-/* (No Comment) */
 "error.waitInstallation" = "Дождитесь завершения текущей установки!";
-
-/* (No Comment) */
-"failedToFetchNotices" = "Не удалось найти уведомления. Пожалуйста, проверьте подключение к интернету.";
-
-/* (No Comment) */
-"logs.copied" = "Логи скопированы";
 
 /* (No Comment) */
 "menubar.checkForUpdates" = "Проверить наличие обновлений";
@@ -92,25 +59,13 @@
 "menubar.documentation" = "Документация";
 
 /* (No Comment) */
-"menubar.downloadMoreApps" = "Загрузить больше приложений";
-
-/* (No Comment) */
-"menubar.downloadMoreApps.help" = "Используйте этот сайт для загрузки приложений для установки";
-
-/* (No Comment) */
 "menubar.exportToSideloady" = "Экспортировать в Sideloadly";
-
-/* (No Comment) */
-"menubar.exportToSideloady.help" = "Экспортируйте .ipa для Sideloady с сайта sideloady.io, который не требует отключения SIP для работы приложений и игр.";
 
 /* (No Comment) */
 "menubar.github" = "GitHub";
 
 /* (No Comment) */
 "menubar.log.copy" = "Скопировать логи";
-
-/* (No Comment) */
-"menubar.showAppLinks" = "Показать ссылки на приложения";
 
 /* (No Comment) */
 "menubar.website" = "Веб-сайт";
@@ -123,12 +78,6 @@
 
 /* (No Comment) */
 "playapp.activateAccount" = "Восстановить аккаунт";
-
-/* (No Comment) */
-"playapp.add" = "Добавить приложение";
-
-/* (No Comment) */
-"playapp.add.help" = "Перетащите или откройте файл приложения для установки.";
 
 /* (No Comment) */
 "playapp.clearCache" = "Очистить данные приложения";
@@ -182,9 +131,6 @@
 "playapp.storeCurrentAccount" = "Сохранить текущую учетную запись";
 
 /* (No Comment) */
-"playapp.update" = "Обновить приложение";
-
-/* (No Comment) */
 "preferences.button.checkForUpdates" = "Проверка наличия обновлений...";
 
 /* (No Comment) */
@@ -194,34 +140,16 @@
 "preferences.toggle.automaticUpdates" = "Автоматически проверять наличие обновлений";
 
 /* (No Comment) */
-"search.search" = "Поиск...";
-
-/* (No Comment) */
 "settings.button.discord" = "Custom Discord activity";
 
 /* (No Comment) */
 "settings.button.clearActivity" = "Clear custom activity";
 
 /* (No Comment) */
-"settings.picker.displayRefreshRate" = "Частота обновления экрана";
-
-/* (No Comment) */
 "settings.picker.iosDevice" = "Выберите iOS-устройство";
-
-/* (No Comment) */
-"settings.picker.screenSize" = "Разрешение экрана";
-
-/* (No Comment) */
-"settings.reset" = "Сбросить настройки и кеймаппинг";
-
-/* (No Comment) */
-"settings.resetCompleted" = "Настройки возвращены к стандартным!";
 
 /* %.f */
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
-
-/* (No Comment) */
-"settings.tab.etc" = "Etc";
 
 /* (No Comment) */
 "settings.text.applicationID" = "Application ID";
@@ -251,103 +179,22 @@
 "settings.text.state.help" = "Second row below title";
 
 /* (No Comment) */
-"settings.toggle.adaptiveDisplay" = "Adaptive display";
-
-/* (No Comment) */
-"settings.toggle.adaptiveDisplay.info" = "Адаптирует и масштабирует окно приложения под встроенный дисплей Mac.";
-
-/* (No Comment) */
-"settings.toggle.autoWindowResize" = "Включить автоматическое изменение размера окна";
-
-/* (No Comment) */
-"settings.toggle.customSize" = "Включить пользовательский размер окна";
-
-/* (No Comment) */
 "settings.toggle.disableDisplaySleep" = "Отключить спящий режим дисплея";
-
-/* (No Comment) */
-"settings.toggle.disableDisplaySleep.info" = "Запретить отключение дисплея во время работы этого приложения";
 
 /* (No Comment) */
 "settings.toggle.discord" = "Enable Discord activity";
 
 /* (No Comment) */
-"settings.toggle.gaming" = "Gaming Mode";
-
-/* (No Comment) */
 "settings.toggle.jbBypass" = "Включить обход Jailbreak (Alpha)";
-
-/* (No Comment) */
-"settings.toggle.jbBypass.info" = "Попытки обойти Jailbreak Detection в некоторых играх (Нет гарантии, что всегда сработает)";
 
 /* (No Comment) */
 "settings.toggle.km" = "Включить кеймаппинг";
 
 /* (No Comment) */
-"settings.toggle.km.info" = "Добавить поддержку клавиатуры в touch-only игры. Используйте Command + K, чтобы открыть меню редактора.";
-
-/* (No Comment) */
-"settings.toggle.portraitMode" = "Портретный режим";
-
-/* (No Comment) */
-"setup.enterLoginPassword" = "Пожалуйста, введите пароль пользователя";
-
-/* (No Comment) */
-"setup.enterLoginPassword.info" = "Введите пароль, который использовался для разблокировки вашего Mac.";
-
-/* (No Comment) */
-"setup.incorrectPassword" = "Неверный пароль. Пожалуйста, попробуйте еще раз";
-
-/* (No Comment) */
-"setup.requireReboot" = "Пожалуйста, перезагрузите ваш Mac, чтобы изменения вступили в силу.";
-
-/* (No Comment) */
-"setupView.bilibili" = "BiliBili";
-
-/* (No Comment) */
 "setupView.header" = "Следуйте приведенным ниже инструкциям для устранения распространенных проблем";
 
 /* (No Comment) */
-"setupView.pressButtonAndEnterPassword" = "Пожалуйста, отключите SIP снизу и введите пароль для входа на Mac.";
-
-/* (No Comment) */
-"setupView.pressButtonAndEnterPassword.button" = "Отключить SIP";
-
-/* (No Comment) */
-"setupView.step1" = "1) Выключите свой Mac";
-
-/* (No Comment) */
-"setupView.step2" = "2) Подождите не менее 20 секунд, пока Mac полностью выключится, затем удерживайте кнопку питания";
-
-/* (No Comment) */
-"setupView.step3" = "3) Когда под логотипом Apple появится надпись «Загрузка параметров запуска», отпустите кнопку питания";
-
-/* (No Comment) */
-"setupView.step4" = "4) Выберите вариант загрузки в режиме восстановления";
-
-/* (No Comment) */
-"setupView.step5" = "5) В режиме восстановления откройте Терминал (Панель меню -> Утилиты -> Терминал)";
-
-/* (No Comment) */
 "setupView.step6" = "6) Напишите: ";
-
-/* (No Comment) */
-"setupView.step7" = "7) Введите команду. Введите пароль для входа в Mac (текст будет скрыт)";
-
-/* (No Comment) */
-"setupView.step8" = "8) Щелкните значок Apple в строке меню и перезагрузите Мас";
-
-/* (No Comment) */
-"setupView.step9" = "Если вы столкнулись с какими-либо ошибками, повторите весь процесс еще раз";
-
-/* (No Comment) */
-"setupView.subheader" = "Исправляет приложения, не разрешающие вход в аккаунт, сбои при запуске и многое другое";
-
-/* (No Comment) */
-"setupView.vidTutorials" = "Видео туториалы";
-
-/* (No Comment) */
-"setupView.youtube" = "YouTube";
 
 /* (No Comment) */
 "soundAlert.failureText" = "Не удалось установить частоту дискретизации текущего устройства вывода на 48 кГц. Вы можете вручную установить частоту дискретизации в приложении Audio MIDI Setup";
@@ -408,3 +255,52 @@
 
 /* (No Comment) */
 "xcode.install.success" = "Установка инструментов командной строки Xcode выполнена успешно";
+"playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
+"sidebar.appLibrary" = "App Library";
+"button.Quit" = "Quit";
+"storeAccount.alert.restoreAccount" = "Really Restore Account?";
+"storeAccount.alert.restoreAccount.button" = "Restore Account";
+"sidebar.ipaLibrary" = "IPA Library";
+"storeAccount.alert.restoreAccount.msg" = "This will override your currently signed-in account.";
+"storeAccount.alert.deleteAccount" = "Really Delete Account?";
+"storeAccount.alert.deleteAccount.button" = "Delete Account";
+"alert.moveAppToApplications.title" = "Move to Applications folder?";
+"alert.moveAppToApplications.subtitle" = "PlayCover must be in the Applications folder to run correctly. Press the button below to move PlayCover automatically.";
+"error.appEncrypted" = "This app is encrypted! Please use a decrypted IPA. iMazing IPAs are not supported!";
+"error.appCorrupted" = "Something went wrong with this IPA. Please try to use another IPA file.";
+"error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";
+"error.noGenshinAccount" = "We couldn't find a Genshin account! Are you signed into an account in-app?";
+"settings.title" = "Settings";
+"settings.tab.info" = "Info";
+"settings.tab.km" = "Keymapping";
+"settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
+"settings.toggle.mm" = "Mouse mapping";
+"settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
+"settings.tab.graphics" = "Graphics";
+"settings.picker.adaptiveRes" = "Adaptive resolution:";
+"settings.picker.adaptiveRes.help" = "Adapts and scales app window to fit the built-in Mac display.";
+"settings.picker.adaptiveRes.0" = "Off";
+"settings.picker.adaptiveRes.1" = "Auto";
+"settings.picker.adaptiveRes.5" = "Custom";
+"settings.picker.aspectRatio" = "Aspect ratio:";
+"settings.picker.refreshRate" = "Refresh rate:";
+"settings.resetKmCompleted" = "Keymapping has been reset!";
+"settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
+"settings.tab.jbBypass" = "Jailbreak Bypass";
+"settings.toggle.jbBypass.help" = "Attempts to bypass Jailbreak Detection in some games (Not guaranteed to work all the time)";
+"settings.info.displayName" = "Display name:";
+"settings.info.bundleName" = "Bundle name:";
+"settings.info.bundleIdentifier" = "Bundle identifier";
+"settings.info.executableName" = "Executable name:";
+"settings.info.minimumOSVersion" = "Minimum OS version";
+"xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
+"settings.info.url" = "URL:";
+"settings.info.isGame" = "Is Game:";
+"settings.info.isGame.yes" = "Yes";
+"settoing.info.isGame.no" = "No";
+"settings.resetSettings" = "Reset settings";
+"settings.resetKm" = "Reset keymapping";
+"settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
+"xcode.install.failed.altButton" = "Alternate Instructions";
+"settings.tab.misc" = "Misc";
+"settings.toggle.hud" = "Metal HUD";

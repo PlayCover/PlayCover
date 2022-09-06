@@ -17,9 +17,6 @@
 "alert.kmImported" = "키맵핑을 불러왔습니다!";
 
 /* (No Comment) */
-"alert.moveAppToApplications" = "PlayCover는 응용 프로그램 폴더에 있어야 합니다. 아래 버튼을 눌러 PlayCover를 응용 프로그램 폴더로 옮길 수 있습니다.";
-
-/* (No Comment) */
 "alert.moveAppToApplications.move" = "/Applications로 옮기기";
 
 /* (No Comment) */
@@ -32,28 +29,10 @@
 "alert.success" = "성공!";
 
 /* (No Comment) */
-"alert.wrongFileType" = "잘못된 파일 타입";
-
-/* (No Comment) */
-"alert.wrongFileType.message" = ".ipa 파일을 선택하세요";
-
-/* (No Comment) */
-"bottomBar.notices" = "공지";
-
-/* (No Comment) */
-"bottomBar.notices.help" = "개발자들로 부터의 공지와 뉴스";
-
-/* (No Comment) */
-"bottomBar.setupViewButton" = "문제가 있나요?";
-
-/* (No Comment) */
 "button.Cancel" = "취소";
 
 /* (No Comment) */
 "button.Close" = "닫기";
-
-/* (No Comment) */
-"button.Dismiss" = "닫기";
 
 /* (No Comment) */
 "button.Install" = "설치";
@@ -65,22 +44,10 @@
 "button.Proceed" = "진행";
 
 /* (No Comment) */
-"debug.crash" = "[DEBUG] Crash app";
-
-/* (No Comment) */
 "error.corruptedIPA" = "이 .ipa 파일은 손상되었습니다. \"Info.plist\" 파일을 포함하고 있지 않습니다.";
 
 /* (No Comment) */
-"error.reinstallApp" = "PlayCover를 다시 설치하십시오";
-
-/* (No Comment) */
 "error.waitInstallation" = "현재 설치가 끝날 때까지 기다려 주세요!";
-
-/* (No Comment) */
-"failedToFetchNotices" = "공지를 불러오는데 실패하였습니다. 인터넷 연결 상태를 확인하십시오.";
-
-/* (No Comment) */
-"logs.copied" = "로그 복사됨";
 
 /* (No Comment) */
 "menubar.checkForUpdates" = "업데이트 확인";
@@ -92,25 +59,13 @@
 "menubar.documentation" = "문서";
 
 /* (No Comment) */
-"menubar.downloadMoreApps" = "더 많은 앱 다운로드";
-
-/* (No Comment) */
-"menubar.downloadMoreApps.help" = "이 사이트에서 설치에 필요한 앱을 다운로드 하십시오";
-
-/* (No Comment) */
 "menubar.exportToSideloady" = "Sideloadly를 위해 내보내기";
-
-/* (No Comment) */
-"menubar.exportToSideloady.help" = "앱과 게임이 작동하기 위해 SIP 비활성화가 필요하지 않은 Sideloady를 위해 .ipa를 내보내기.";
 
 /* (No Comment) */
 "menubar.github" = "GitHub";
 
 /* (No Comment) */
 "menubar.log.copy" = "로그 복사";
-
-/* (No Comment) */
-"menubar.showAppLinks" = "앱 링크를 보기";
 
 /* (No Comment) */
 "menubar.website" = "공식 홈페이지";
@@ -123,12 +78,6 @@
 
 /* (No Comment) */
 "playapp.activateAccount" = "계정 불러오기";
-
-/* (No Comment) */
-"playapp.add" = "앱 추가";
-
-/* (No Comment) */
-"playapp.add.help" = "앱 파일을 드래그하거나 열어 설치.";
 
 /* (No Comment) */
 "playapp.clearCache" = "앱 데이터 삭제";
@@ -182,9 +131,6 @@
 "playapp.storeCurrentAccount" = "현재 계정 보관하기";
 
 /* (No Comment) */
-"playapp.update" = "앱 업데이트";
-
-/* (No Comment) */
 "preferences.button.checkForUpdates" = "지금 업데이트 확인...";
 
 /* (No Comment) */
@@ -194,34 +140,16 @@
 "preferences.toggle.automaticUpdates" = "자동으로 업데이트 확인";
 
 /* (No Comment) */
-"search.search" = "검색...";
-
-/* (No Comment) */
 "settings.button.discord" = "Custom Discord activity";
 
 /* (No Comment) */
 "settings.button.clearActivity" = "Clear custom activity";
 
 /* (No Comment) */
-"settings.picker.displayRefreshRate" = "화면 주사율";
-
-/* (No Comment) */
 "settings.picker.iosDevice" = "iOS 기종 선택";
-
-/* (No Comment) */
-"settings.picker.screenSize" = "화면 해상도";
-
-/* (No Comment) */
-"settings.reset" = "설정과 키맵핑 초기화";
-
-/* (No Comment) */
-"settings.resetCompleted" = "기본 설정으로 초기화 되었습니다!";
 
 /* %.f */
 "settings.slider.mouseSensitivity" = "마우스 감도: %.f";
-
-/* (No Comment) */
-"settings.tab.etc" = "Etc";
 
 /* (No Comment) */
 "settings.text.applicationID" = "Application ID";
@@ -251,100 +179,22 @@
 "settings.text.state.help" = "Second row below title";
 
 /* (No Comment) */
-"settings.toggle.adaptiveDisplay" = "적응형 화면";
-
-/* (No Comment) */
-"settings.toggle.adaptiveDisplay.info" = "맥의 내장 디스플레이에 맞게 앱 창을 조정합니다.";
-
-/* (No Comment) */
-"settings.toggle.autoWindowResize" = "자동 창 크기 변경 활성화";
-
-/* (No Comment) */
-"settings.toggle.customSize" = "사용자 지정 창 크기 활성화";
-
-/* (No Comment) */
 "settings.toggle.disableDisplaySleep" = "화면 잠자기 비활성화";
-
-/* (No Comment) */
-"settings.toggle.disableDisplaySleep.info" = "앱이 실행되는 동안 화면이 꺼지는 것을 방지합니다";
 
 /* (No Comment) */
 "settings.toggle.discord" = "Enable Discord activity";
 
 /* (No Comment) */
-"settings.toggle.gaming" = "게이밍 모드";
-
-/* (No Comment) */
 "settings.toggle.jbBypass" = "탈옥 우회 활성화 (Alpha)";
-
-/* (No Comment) */
-"settings.toggle.jbBypass.info" = "몇몇 게임의 탈옥 감지 우회를 시도합니다 (항상 작동할거라는 보장은 없음)";
 
 /* (No Comment) */
 "settings.toggle.km" = "키맵핑 활성화";
 
 /* (No Comment) */
-"settings.toggle.km.info" = "터치만을 지원하는 게임에 키보드 지원을 추가합니다. Command + K를 통해 에디터 메뉴를 여세요.";
-
-/* (No Comment) */
-"setup.enterLoginPassword" = "맥 비밀번호를 입력하세요";
-
-/* (No Comment) */
-"setup.enterLoginPassword.info" = "맥 잠금해제를 위한 비밀번호를 입력하세요.";
-
-/* (No Comment) */
-"setup.incorrectPassword" = "비밀번호가 일치하지 않습니다. 다시 입력하세요";
-
-/* (No Comment) */
-"setup.requireReboot" = "변경사항이 적용되기 위해서는 맥을 재시동 해야 합니다.";
-
-/* (No Comment) */
-"setupView.bilibili" = "BiliBili";
-
-/* (No Comment) */
-"setupView.header" = "흔한 문제 해결을 위해 다음 단계를 따르십시오";
-
-/* (No Comment) */
 "setupView.pressButtonAndEnterPassword" = "아래를 통해 SIP를 비활성화 한 후에 맥 비밀번호를 입력하세요.";
 
 /* (No Comment) */
-"setupView.pressButtonAndEnterPassword.button" = "SIP 비활성화";
-
-/* (No Comment) */
-"setupView.step1" = "1) 맥의 전원을 끕니다";
-
-/* (No Comment) */
-"setupView.step2" = "2) 맥이 완전히 종료되길 20초간 기다린 후 전원 버튼을 누릅니다";
-
-/* (No Comment) */
-"setupView.step3" = "3) 애플 로고 밑에 ‘시동 옵션 로드 중’이 나타날 때까지 전원 버튼을 길게 누르십시오";
-
-/* (No Comment) */
-"setupView.step4" = "4) 옵션을 클릭한 다음 계속을 클릭하십시오";
-
-/* (No Comment) */
-"setupView.step5" = "5) 복구모드에서 터미널을 여십시오 (메뉴 바 -> 유틸리티 -> 터미널)";
-
-/* (No Comment) */
-"setupView.step6" = "6) 다음 명령어를 입력하세요: ";
-
-/* (No Comment) */
 "setupView.step7" = "7) 위 명령어를 입력 후 맥 비밀번호를 입력하세요 (비밀번호는 입력해도 표시되지 않습니다)";
-
-/* (No Comment) */
-"setupView.step8" = "8) 메뉴바에 애플 로고를 클릭 후 재시동을 선택하세요";
-
-/* (No Comment) */
-"setupView.step9" = "만약 에러가 발생한다면 전체 과정을 다시 수행하세요";
-
-/* (No Comment) */
-"setupView.subheader" = "앱 실행시 충돌, 로그인 안됨 등의 문제 해결";
-
-/* (No Comment) */
-"setupView.vidTutorials" = "영상 튜토리얼 (영어)";
-
-/* (No Comment) */
-"setupView.youtube" = "YouTube";
 
 /* (No Comment) */
 "soundAlert.failureText" = "현재 출력 장치의 샘플 레이트를 48 KHz로 설정하는데 실패하였습니다. ‘오디오 MIDI 설정’ 앱에서 수동으로 샘플 레이트를 설정할 수 있습니다";
@@ -405,6 +255,52 @@
 
 /* (No Comment) */
 "xcode.install.success" = "명령어 라인 개발자 도구(Xcode Command Line Tools)가 성공적으로 설치되었습니다";
-
-/* (No Comment) */
-"settings.toggle.portraitMode" = "세로 화면 모드";
+"settings.title" = "Settings";
+"playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
+"sidebar.appLibrary" = "App Library";
+"sidebar.ipaLibrary" = "IPA Library";
+"storeAccount.alert.restoreAccount" = "Really Restore Account?";
+"storeAccount.alert.restoreAccount.button" = "Restore Account";
+"storeAccount.alert.restoreAccount.msg" = "This will override your currently signed-in account.";
+"storeAccount.alert.deleteAccount" = "Really Delete Account?";
+"storeAccount.alert.deleteAccount.button" = "Delete Account";
+"alert.moveAppToApplications.title" = "Move to Applications folder?";
+"alert.moveAppToApplications.subtitle" = "PlayCover must be in the Applications folder to run correctly. Press the button below to move PlayCover automatically.";
+"button.Quit" = "Quit";
+"error.appEncrypted" = "This app is encrypted! Please use a decrypted IPA. iMazing IPAs are not supported!";
+"error.appCorrupted" = "Something went wrong with this IPA. Please try to use another IPA file.";
+"error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";
+"error.noGenshinAccount" = "We couldn't find a Genshin account! Are you signed into an account in-app?";
+"settings.tab.info" = "Info";
+"settings.tab.km" = "Keymapping";
+"settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
+"settings.toggle.mm" = "Mouse mapping";
+"settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
+"settings.tab.graphics" = "Graphics";
+"settings.picker.adaptiveRes" = "Adaptive resolution:";
+"settings.picker.adaptiveRes.help" = "Adapts and scales app window to fit the built-in Mac display.";
+"settings.picker.adaptiveRes.0" = "Off";
+"settings.picker.adaptiveRes.1" = "Auto";
+"settings.picker.adaptiveRes.5" = "Custom";
+"settings.picker.aspectRatio" = "Aspect ratio:";
+"settings.picker.refreshRate" = "Refresh rate:";
+"settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
+"settings.tab.jbBypass" = "Jailbreak Bypass";
+"settings.toggle.jbBypass.help" = "Attempts to bypass Jailbreak Detection in some games (Not guaranteed to work all the time)";
+"settings.info.displayName" = "Display name:";
+"settings.info.bundleName" = "Bundle name:";
+"settings.info.bundleIdentifier" = "Bundle identifier";
+"settings.info.executableName" = "Executable name:";
+"settings.info.minimumOSVersion" = "Minimum OS version";
+"settings.info.url" = "URL:";
+"settings.info.isGame" = "Is Game:";
+"settings.info.isGame.yes" = "Yes";
+"settoing.info.isGame.no" = "No";
+"settings.resetSettings" = "Reset settings";
+"settings.resetKm" = "Reset keymapping";
+"settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
+"settings.resetKmCompleted" = "Keymapping has been reset!";
+"xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
+"xcode.install.failed.altButton" = "Alternate Instructions";
+"settings.tab.misc" = "Misc";
+"settings.toggle.hud" = "Metal HUD";

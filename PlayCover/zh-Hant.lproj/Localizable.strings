@@ -17,9 +17,6 @@
 "alert.kmImported" = "鍵盤映射佈局已導入！";
 
 /* (No Comment) */
-"alert.moveAppToApplications" = "PlayCover 必須位於應用程式文件夾。單擊以下按鈕讓 PlayCover 將自己移至應用程式文件夾。";
-
-/* (No Comment) */
 "alert.moveAppToApplications.move" = "移至應用程式文件夾";
 
 /* (No Comment) */
@@ -32,28 +29,10 @@
 "alert.success" = "成功!";
 
 /* (No Comment) */
-"alert.wrongFileType" = "文件格式錯誤";
-
-/* (No Comment) */
-"alert.wrongFileType.message" = "請選擇 ipa 文件";
-
-/* (No Comment) */
-"bottomBar.notices" = "公告";
-
-/* (No Comment) */
-"bottomBar.notices.help" = "來自開發者的通知";
-
-/* (No Comment) */
-"bottomBar.setupViewButton" = "遇到了問題？";
-
-/* (No Comment) */
 "button.Cancel" = "取消";
 
 /* (No Comment) */
 "button.Close" = "關閉";
-
-/* (No Comment) */
-"button.Dismiss" = "隱藏";
 
 /* (No Comment) */
 "button.Install" = "安裝";
@@ -65,22 +44,10 @@
 "button.Proceed" = "繼續";
 
 /* (No Comment) */
-"debug.crash" = "【調試】崩潰應用程式";
-
-/* (No Comment) */
 "error.corruptedIPA" = "此 ipa 文件已損壞，因為找不到 \"Info.plist\" 文件。";
 
 /* (No Comment) */
-"error.reinstallApp" = "請重新安裝 PlayCover";
-
-/* (No Comment) */
 "error.waitInstallation" = "請等待安裝過程結束！";
-
-/* (No Comment) */
-"failedToFetchNotices" = "找不到公告；請檢查網路連接狀態。";
-
-/* (No Comment) */
-"logs.copied" = "日誌已複製";
 
 /* (No Comment) */
 "menubar.checkForUpdates" = "檢查更新";
@@ -92,25 +59,13 @@
 "menubar.documentation" = "使用手冊";
 
 /* (No Comment) */
-"menubar.downloadMoreApps" = "下載更多應用程式";
-
-/* (No Comment) */
-"menubar.downloadMoreApps.help" = "使用這個網站下載更多應用程式來安裝";
-
-/* (No Comment) */
 "menubar.exportToSideloady" = "為 Sideloadly 導出";
-
-/* (No Comment) */
-"menubar.exportToSideloady.help" = "為來自 sideloady.io 的 Sideloady 導出 ipa 文件即可無需禁用 SIP 也可暢玩遊戲。";
 
 /* (No Comment) */
 "menubar.github" = "GitHub（源代碼發行網站）";
 
 /* (No Comment) */
 "menubar.log.copy" = "複製日誌";
-
-/* (No Comment) */
-"menubar.showAppLinks" = "顯示未安裝的應用";
 
 /* (No Comment) */
 "menubar.website" = "官網";
@@ -123,12 +78,6 @@
 
 /* (No Comment) */
 "playapp.activateAccount" = "啟動帳號";
-
-/* (No Comment) */
-"playapp.add" = "添加應用程式";
-
-/* (No Comment) */
-"playapp.add.help" = "拖曳或或打開 ipa 文件以安裝。";
 
 /* (No Comment) */
 "playapp.clearCache" = "清除應用程式數據";
@@ -182,9 +131,6 @@
 "playapp.storeCurrentAccount" = "保存現有帳號";
 
 /* (No Comment) */
-"playapp.update" = "更新應用程式";
-
-/* (No Comment) */
 "preferences.button.checkForUpdates" = "正在檢查更新...";
 
 /* (No Comment) */
@@ -194,22 +140,7 @@
 "preferences.toggle.automaticUpdates" = "自動檢查更新";
 
 /* (No Comment) */
-"search.search" = "搜尋...";
-
-/* (No Comment) */
-"settings.picker.displayRefreshRate" = "螢幕更新率";
-
-/* (No Comment) */
 "settings.picker.iosDevice" = "選擇 iOS 裝置";
-
-/* (No Comment) */
-"settings.picker.screenSize" = "螢幕解析度";
-
-/* (No Comment) */
-"settings.reset" = "重置設定與鍵盤映射佈局";
-
-/* (No Comment) */
-"settings.resetCompleted" = "設定已被重置！";
 
 /* %.f */
 "settings.slider.mouseSensitivity" = "滑鼠敏感度: ";
@@ -221,97 +152,19 @@
 "settings.text.customWidth" = "寬度";
 
 /* (No Comment) */
-"settings.toggle.adaptiveDisplay" = "適配顯示器";
-
-/* (No Comment) */
-"settings.toggle.adaptiveDisplay.info" = "為 Mac 的內置顯示器適配應用程式窗口。";
-
-/* (No Comment) */
-"settings.toggle.autoWindowResize" = "啟用自動窗口大小調整";
-
-/* (No Comment) */
-"settings.toggle.customSize" = "啟用自定義窗口大小";
-
-/* (No Comment) */
 "settings.toggle.disableDisplaySleep" = "停用螢幕休眠";
-
-/* (No Comment) */
-"settings.toggle.disableDisplaySleep.info" = "防止螢幕在該應用運行時進入休眠";
-
-/* (No Comment) */
-"settings.toggle.gaming" = "遊戲模式";
 
 /* (No Comment) */
 "settings.toggle.jbBypass" = "啟用繞過越獄檢測（預覽）";
 
 /* (No Comment) */
-"settings.toggle.jbBypass.info" = "嘗試繞過遊戲的防越獄系統（不一定總是有效）";
-
-/* (No Comment) */
 "settings.toggle.km" = "啟用鍵盤映射佈局";
-
-/* (No Comment) */
-"settings.toggle.km.info" = "為觸控螢幕設計的遊戲增添鍵鼠支持。使用 Command + K 啟用鍵盤映射佈局編輯器。";
-
-/* (No Comment) */
-"setup.enterLoginPassword" = "請輸入管理員登錄密碼";
-
-/* (No Comment) */
-"setup.enterLoginPassword.info" = "輸入用來登錄這台 Mac 的密碼。";
-
-/* (No Comment) */
-"setup.incorrectPassword" = "密碼錯誤，請重試";
-
-/* (No Comment) */
-"setup.requireReboot" = "請重啟 Mac 使更改生效。";
-
-/* (No Comment) */
-"setupView.bilibili" = "BiliBili";
-
-/* (No Comment) */
-"setupView.header" = "按照以下指示操作即可修復常見問題";
 
 /* (No Comment) */
 "setupView.pressButtonAndEnterPassword" = "請從以下按鈕禁用SIP並輸入 Mac 登錄密碼。";
 
 /* (No Comment) */
-"setupView.pressButtonAndEnterPassword.button" = "禁用SIP";
-
-/* (No Comment) */
-"setupView.step1" = "1) 將 Mac 關機";
-
-/* (No Comment) */
-"setupView.step2" = "2) 等待20秒以讓 Mac 完全關機, 然後按住電源按鈕";
-
-/* (No Comment) */
-"setupView.step3" = "3) 當 \"正在加載啟動選項\" 在蘋果圖標底下出現時, 鬆開電源按鈕";
-
-/* (No Comment) */
-"setupView.step4" = "4) 點擊 恢復模式";
-
-/* (No Comment) */
-"setupView.step5" = "5) 在恢復模式下， 打開終端機 (菜單欄 -> 常用工具 -> 終端機)";
-
-/* (No Comment) */
-"setupView.step6" = "6) 輸入: ";
-
-/* (No Comment) */
 "setupView.step7" = "7) 輸入並執行上述命令後， 輸入 Mac 的用戶登錄密碼（密碼字樣不會顯示在螢幕上）";
-
-/* (No Comment) */
-"setupView.step8" = "8) 重啟 Mac";
-
-/* (No Comment) */
-"setupView.step9" = "如果遇到了任何錯誤或問題，重複上述操作";
-
-/* (No Comment) */
-"setupView.subheader" = "解決帳號無法登錄，應用程式閃退等問題";
-
-/* (No Comment) */
-"setupView.vidTutorials" = "影片教程";
-
-/* (No Comment) */
-"setupView.youtube" = "YouTube";
 
 /* (No Comment) */
 "soundAlert.failureText" = "現有音響設備設置採樣率 48 KHz 失敗，您可以在 ”音訊MIDI設定“ 應用中手動設置";
@@ -372,6 +225,62 @@
 
 /* (No Comment) */
 "xcode.install.success" = "Xcode 終端工具安裝成功";
-
-/* (No Comment) */
-"settings.toggle.portraitMode" = "豎屏模式";
+"storeAccount.alert.restoreAccount" = "Really Restore Account?";
+"button.Quit" = "Quit";
+"settings.info.bundleName" = "Bundle name:";
+"playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
+"sidebar.appLibrary" = "App Library";
+"sidebar.ipaLibrary" = "IPA Library";
+"storeAccount.alert.restoreAccount.button" = "Restore Account";
+"storeAccount.alert.restoreAccount.msg" = "This will override your currently signed-in account.";
+"storeAccount.alert.deleteAccount" = "Really Delete Account?";
+"storeAccount.alert.deleteAccount.button" = "Delete Account";
+"alert.moveAppToApplications.title" = "Move to Applications folder?";
+"alert.moveAppToApplications.subtitle" = "PlayCover must be in the Applications folder to run correctly. Press the button below to move PlayCover automatically.";
+"error.appEncrypted" = "This app is encrypted! Please use a decrypted IPA. iMazing IPAs are not supported!";
+"error.appCorrupted" = "Something went wrong with this IPA. Please try to use another IPA file.";
+"error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";
+"error.noGenshinAccount" = "We couldn't find a Genshin account! Are you signed into an account in-app?";
+"settings.title" = "Settings";
+"settings.tab.info" = "Info";
+"settings.tab.km" = "Keymapping";
+"settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
+"settings.toggle.mm" = "Mouse mapping";
+"settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
+"settings.tab.graphics" = "Graphics";
+"settings.picker.adaptiveRes" = "Adaptive resolution:";
+"settings.picker.adaptiveRes.help" = "Adapts and scales app window to fit the built-in Mac display.";
+"settings.picker.adaptiveRes.0" = "Off";
+"settings.picker.adaptiveRes.1" = "Auto";
+"settings.picker.adaptiveRes.5" = "Custom";
+"settings.picker.aspectRatio" = "Aspect ratio:";
+"settings.picker.refreshRate" = "Refresh rate:";
+"settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
+"settings.tab.jbBypass" = "Jailbreak Bypass";
+"settings.info.executableName" = "Executable name:";
+"settings.toggle.jbBypass.help" = "Attempts to bypass Jailbreak Detection in some games (Not guaranteed to work all the time)";
+"settings.info.displayName" = "Display name:";
+"settings.info.bundleIdentifier" = "Bundle identifier";
+"settings.info.minimumOSVersion" = "Minimum OS version";
+"settings.info.url" = "URL:";
+"settings.info.isGame" = "Is Game:";
+"settings.info.isGame.yes" = "Yes";
+"settoing.info.isGame.no" = "No";
+"settings.resetSettings" = "Reset settings";
+"xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
+"settings.resetKm" = "Reset keymapping";
+"settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
+"settings.resetKmCompleted" = "Keymapping has been reset!";
+"xcode.install.failed.altButton" = "Alternate Instructions";
+"settings.tab.misc" = "Misc";
+"settings.button.discord" = "Custom Discord activity";
+"settings.button.clearActivity" = "Clear custom activity";
+"settings.text.applicationID" = "Application ID";
+"settings.text.details" = "Details";
+"settings.text.details.help" = "First row below title";
+"settings.text.image" = "Image";
+"settings.text.image.help" = "Link to image or Dev portal asset name";
+"settings.text.state" = "State";
+"settings.text.state.help" = "Second row below title";
+"settings.toggle.discord" = "Enable Discord activity";
+"settings.toggle.hud" = "Metal HUD";
