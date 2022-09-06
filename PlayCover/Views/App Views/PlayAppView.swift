@@ -44,6 +44,9 @@ struct PlayAppView: View {
                 }, label: {
                     Text("playapp.settings")
                 })
+                .onAppear {
+                    selected = app
+                }
                 Button(action: {
                     app.openAppCache()
                 }, label: {
