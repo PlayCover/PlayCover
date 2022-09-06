@@ -39,6 +39,20 @@ lane :release do
     )
 end
 
+lane :nightly do
+  setup_ci if ENV['CI']
+  match(type: "developer_id", readonly: true)
+  build_mac_app(
+    scheme: "Nightly",
+    output_directory: "output",
+    output_name: "PlayCover",
+    export_method: "developer-id",
+    destination: "generic/platform=macOS",
+    skip_package_pkg: true,
+    xcargs: "FASTLANE=1",
+    )
+end  
+
 lane :notarize_app do
   notarize(
     package: "output/PlayCover.app",
