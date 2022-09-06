@@ -72,7 +72,7 @@
 
 "menubar.exportToSideloady" = "Export to Sideloadly";
 
-"settings.title" = "Settings";
+"settings.title" = "%@ Settings";
 "settings.tab.info" = "Info";
 
 "settings.tab.km" = "Keymapping";
@@ -85,7 +85,7 @@
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";
 "settings.picker.adaptiveRes" = "Adaptive resolution:";
-"settings.picker.adaptiveRes.help" ="Adapts and scales app window to fit the built-in Mac display.";
+"settings.picker.adaptiveRes.help" ="Adapts and scales app window to fit your display.";
 "settings.picker.adaptiveRes.0" = "Off";
 "settings.picker.adaptiveRes.1" = "Auto";
 "settings.picker.adaptiveRes.5" = "Custom";
@@ -103,12 +103,10 @@
 "settings.info.displayName" = "Display name:";
 "settings.info.bundleName" = "Bundle name:";
 "settings.info.bundleIdentifier" = "Bundle identifier";
+"settings.info.bundleVersion" = "Bundle version";
 "settings.info.executableName" = "Executable name:";
 "settings.info.minimumOSVersion" = "Minimum OS version";
 "settings.info.url" = "URL:";
-"settings.info.isGame" = "Is Game:";
-"settings.info.isGame.yes" = "Yes";
-"settoing.info.isGame.no" = "No";
 
 "settings.resetSettings" = "Reset settings";
 "settings.resetKm" = "Reset keymapping";
@@ -124,7 +122,7 @@
 "menubar.website" = "Website";
 "menubar.github" = "GitHub";
 "menubar.discord" = "Discord";
-"menubar.checkForUpdates" = "Check for updates";
+"menubar.checkForUpdates" = "Check for Updates...";
 
 "soundAlert.messageText" = "Incorrect Audio Settings Detected!";
 "soundAlert.informativeText" = "Your current output device does not have a sample rate of 48 or 44.1 KHz! Crashes may occur. Would you like to change your current output device's sample rate to 48 KHz?";
