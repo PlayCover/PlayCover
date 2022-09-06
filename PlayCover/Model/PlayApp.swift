@@ -82,29 +82,40 @@ class PlayApp: BaseApp {
     }
 
     var icon: NSImage? {
+        var highestRes: NSImage?
         let appDirectoryURL = PlayTools.playCoverContainer
             .appendingPathComponent(info.executableName)
             .appendingPathExtension("app")
         let appDirectoryPath = "\(appDirectoryURL.relativePath)/"
-        guard let items = try? FileManager.default.contentsOfDirectory(atPath: appDirectoryPath) else { return nil }
-        var highestRes: NSImage?
 
-        for item in items {
-            if item.hasPrefix(info.primaryIconName) {
-                do {
-                    if let image = NSImage(data: try Data(contentsOf:
-                                                            URL(fileURLWithPath: "\(appDirectoryPath)\(item)"))) {
-                        if highestRes != nil {
-                            if image.size.height > highestRes!.size.height {
-                                highestRes = image
-                            }
-                        } else {
+        if let assetsExtractor = try? AssetsExtractor(appUrl: appDirectoryURL) {
+            for icon in assetsExtractor.extractIcons() {
+                if highestRes != nil {
+                    if icon.size.height > highestRes!.size.height {
+                        highestRes = icon
+                    }
+                } else {
+                    highestRes = icon
+                }
+            }
+        }
+
+        guard let items = try? FileManager.default.contentsOfDirectory(atPath: appDirectoryPath) else {
+            return highestRes
+        }
+        for item in items where item.hasPrefix(info.primaryIconName) {
+            do {
+                if let image = NSImage(data: try Data(contentsOf: URL(fileURLWithPath: "\(appDirectoryPath)\(item)"))) {
+                    if highestRes != nil {
+                        if image.size.height > highestRes!.size.height {
                             highestRes = image
                         }
+                    } else {
+                        highestRes = image
                     }
-                } catch {
-                    Log.shared.error(error)
                 }
+            } catch {
+                Log.shared.error(error)
             }
         }
         return highestRes
