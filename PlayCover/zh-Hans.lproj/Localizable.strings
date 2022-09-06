@@ -191,12 +191,6 @@
 "settings.toggle.km" = "启用键盘映射布局";
 
 /* (No Comment) */
-"setupView.header" = "按照以下指示操作即可修复常见问题";
-
-/* (No Comment) */
-"setupView.step6" = "6) 输入: ";
-
-/* (No Comment) */
 "soundAlert.failureText" = "现有音响设备设置采样率 48 KHz 失败。 您可以在 ”音频MIDI设置“ 应用里手动设置";
 
 /* (No Comment) */
@@ -293,9 +287,6 @@
 "settings.info.executableName" = "Executable name:";
 "settings.info.minimumOSVersion" = "Minimum OS version";
 "settings.info.url" = "URL:";
-"settings.info.isGame" = "Is Game:";
-"settings.info.isGame.yes" = "Yes";
-"settoing.info.isGame.no" = "No";
 "settings.resetSettings" = "Reset settings";
 "settings.resetKm" = "Reset keymapping";
 "settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
@@ -304,3 +295,4 @@
 "xcode.install.failed.altButton" = "Alternate Instructions";
 "settings.tab.misc" = "Misc";
 "settings.toggle.hud" = "Metal HUD";
+"settings.info.bundleVersion" = "Bundle version";
