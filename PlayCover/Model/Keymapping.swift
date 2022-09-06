@@ -10,9 +10,9 @@ import Foundation
 import UniformTypeIdentifiers
 
 struct KeyModelTransform: Codable {
-    var size: Float
-    var xCoord: Float
-    var yCoord: Float
+    var size: CGFloat
+    var xCoord: CGFloat
+    var yCoord: CGFloat
 }
 
 struct ButtonModel: Codable {
@@ -34,6 +34,7 @@ struct MouseAreaModel: Codable {
 
 struct Keymap: Codable {
     var buttonModels: [ButtonModel] = []
+    var draggableButtonModels: [ButtonModel] = []
     var joystickModel: [JoystickModel] = []
     var mouseAreaModel: [MouseAreaModel] = []
     var bundleIdentifier: String
