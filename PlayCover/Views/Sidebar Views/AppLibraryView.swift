@@ -9,10 +9,7 @@ struct AppLibraryView: View {
     @EnvironmentObject var appsVM: AppsVM
     @EnvironmentObject var installVM: InstallVM
 
-    @Binding var selectedBackgroundColor: Color
-    @Binding var selectedTextColor: Color
-
-    @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150))]
+    @State private var gridLayout = [GridItem(.adaptive(minimum: 100.5, maximum: .infinity))]
     @State private var searchString = ""
     @State private var isList = UserDefaults.standard.bool(forKey: "AppLibrayView")
     @State private var selected: PlayApp?
@@ -20,36 +17,28 @@ struct AppLibraryView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            GeometryReader { geom in
+            GeometryReader { _ in
                 if !isList {
                     ScrollView {
                         LazyVGrid(columns: gridLayout, alignment: .leading) {
                             ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
-                                PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                            selectedTextColor: $selectedTextColor,
-                                            selected: $selected,
-                                            app: app,
-                                            isList: isList)
+                                PlayAppView(app: app, isList: isList, selected: $selected)
                             }
                         }
                         .padding()
-                        .animation(.spring(blendDuration: 0.1), value: geom.size.width)
                         Spacer()
                     }
                 } else {
                     ScrollView {
                         VStack {
                             ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
-                                PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                            selectedTextColor: $selectedTextColor,
-                                            selected: $selected,
-                                            app: app,
-                                            isList: isList)
+                                PlayAppView(app: app, isList: isList, selected: $selected)
                             }
                             Spacer()
                         }
                         .padding()
                     }
+                    .padding(.leading, 20)
                 }
             }
         }

@@ -42,10 +42,6 @@ struct AppSettingsView: View {
                     .tabItem {
                         Text("settings.tab.graphics")
                     }
-                JBBypassView(settings: $viewModel.settings)
-                    .tabItem {
-                        Text("settings.tab.jbBypass")
-                    }
                 MiscView(settings: $viewModel.settings)
                     .tabItem {
                         Text("settings.tab.misc")
@@ -133,7 +129,7 @@ struct GraphicsView: View {
 
     var body: some View {
         ScrollView {
-            VStack {
+            VStack(alignment: .leading) {
                 HStack {
                     Text("settings.picker.iosDevice")
                     Spacer()
@@ -209,18 +205,19 @@ struct GraphicsView: View {
                     }
                 }
                 HStack {
-                    Picker("settings.picker.refreshRate", selection: $settings.settings.refreshRate) {
+                    Text("settings.picker.refreshRate")
+                    Spacer()
+                    Picker("", selection: $settings.settings.refreshRate) {
                         Text("60 Hz").tag(60)
-                        Text("75 HZ").tag(75)
+                        Text("75 Hz").tag(75)
                         Text("120 Hz").tag(120)
                     }
                     .pickerStyle(.segmented)
                     .fixedSize()
-                    .frame(alignment: .leading)
-                    Spacer()
-                    Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.settings.disableTimeout)
-                        .help("settings.toggle.disableDisplaySleep.help")
                 }
+                .padding(.top, settings.settings.resolution >= 2 ? 0 : 10)
+                Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.settings.disableTimeout)
+                    .help("settings.toggle.disableDisplaySleep.help")
                 Spacer()
             }
             .padding()
@@ -297,23 +294,6 @@ struct GraphicsView: View {
             heightRatio = 9
         }
         return (height / heightRatio) * widthRatio
-    }
-}
-
-struct JBBypassView: View {
-    @Binding var settings: AppSettings
-
-    var body: some View {
-        ScrollView {
-            VStack {
-                HStack {
-                    Toggle("settings.toggle.jbBypass", isOn: $settings.settings.bypass)
-                        .help("settings.toggle.jbBypass.help")
-                    Spacer()
-                }
-            }
-            .padding()
-        }
     }
 }
 

@@ -6,12 +6,9 @@
 import SwiftUI
 
 struct PlayAppView: View {
-    @Binding var selectedBackgroundColor: Color
-    @Binding var selectedTextColor: Color
-    @Binding var selected: PlayApp?
-
     @State var app: PlayApp
     @State var isList: Bool
+    @Binding var selected: PlayApp?
 
     @State private var showSettings = false
     @State private var showClearCacheAlert = false
@@ -26,11 +23,7 @@ struct PlayAppView: View {
     @State private var showDeleteGenshinAccount = false
 
     var body: some View {
-        PlayAppConditionalView(selectedBackgroundColor: $selectedBackgroundColor,
-                               selectedTextColor: $selectedTextColor,
-                               selected: $selected,
-                               app: app,
-                               isList: isList)
+        PlayAppConditionalView(app: app, isList: isList, selected: $selected)
             .gesture(TapGesture(count: 2).onEnded {
                 shell.removeTwitterSessionCookie()
                 app.launch()
@@ -43,11 +36,6 @@ struct PlayAppView: View {
                     showSettings.toggle()
                 }, label: {
                     Text("playapp.settings")
-                })
-                Button(action: {
-                    app.openAppCache()
-                }, label: {
-                    Text("playapp.openCache")
                 })
                 Button(action: {
                     app.showInFinder()
@@ -74,8 +62,7 @@ struct PlayAppView: View {
                     })
                 }
                 Group {
-                    if app.info.bundleIdentifier.contains("GenshinImpact")
-                        || app.info.bundleIdentifier.contains("Yuanshen") {
+                    if app.info.bundleIdentifier == "com.miHoYo.GenshinImpact" {
                         Divider()
                         Button(action: {
                             showStoreGenshinAccount.toggle()
@@ -156,12 +143,12 @@ struct PlayAppView: View {
 }
 
 struct PlayAppConditionalView: View {
-    @Binding var selectedBackgroundColor: Color
-    @Binding var selectedTextColor: Color
-    @Binding var selected: PlayApp?
-
     @State var app: PlayApp
     @State var isList: Bool
+    @State var selectedBackgroundColor = Color.accentColor.opacity(0.6)
+    @Binding var selected: PlayApp?
+    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.controlActiveState) var controlActiveState
 
     var body: some View {
         if isList {
@@ -175,58 +162,54 @@ struct PlayAppConditionalView: View {
                         .shadow(radius: 1)
                         .padding(.horizontal, 15)
                         .padding(.vertical, 5)
-                } else {
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                        .frame(width: 60, height: 60)
+                    Text(app.name)
+                    Spacer()
+                    Text(app.settings.info.bundleVersion)
+                        .padding(.horizontal, 15)
+                        .foregroundColor(.secondary)
                 }
-                Text(app.name)
-                    .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                     selectedTextColor : Color.primary)
-                Spacer()
-                Text(app.settings.info.bundleVersion)
-                    .padding(.horizontal, 15)
-                    .foregroundColor(.secondary)
             }
             .contentShape(Rectangle())
-            .background(
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                        selectedBackgroundColor : Color.clear)
-                    .brightness(-0.2)
-                )
+            .onChange(of: controlActiveState) { state in
+                if state == .inactive {
+                    selectedBackgroundColor = .gray.opacity(0.6)
+                } else {
+                    selectedBackgroundColor = .accentColor.opacity(0.6)
+                }
+            }
+            .background(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                        selectedBackgroundColor.cornerRadius(4) : Color.clear.cornerRadius(4))
         } else {
             VStack(alignment: .center, spacing: 0) {
-                VStack {
-                    if let img = app.icon {
+                if let img = app.icon {
+                    VStack {
                         Image(nsImage: img)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 60, height: 60)
-                            .cornerRadius(15)
-                            .shadow(radius: 1)
-                    } else {
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                            .frame(width: 60, height: 60)
+                            .frame(width: 50, height: 50)
+                            .cornerRadius(12)
+                            .shadow(radius: 1, y: 1)
+                        Text(app.name)
+                            .font(.system(size: 12))
+                            .lineLimit(2)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 4)
+                            .padding(.vertical, 2)
+                            .onChange(of: controlActiveState) { state in
+                                if state == .inactive {
+                                    selectedBackgroundColor = .gray.opacity(0.6)
+                                } else {
+                                    selectedBackgroundColor = .accentColor.opacity(0.6)
+                                }
+                            }
+                            .background(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                        selectedBackgroundColor.cornerRadius(4) : Color.clear.cornerRadius(4))
+                            .frame(height: 20, alignment: .top)
                     }
-                    Text(app.name)
-                        .lineLimit(1)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 4)
-                        .padding(.vertical, 2)
-                        .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                         selectedTextColor : Color.primary)
-                        .background(
-                            RoundedRectangle(cornerRadius: 4)
-                                .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                      selectedBackgroundColor : Color.clear)
-                                .brightness(-0.2)
-                            )
-                        .frame(width: 150, height: 20)
                 }
             }
-            .frame(width: 150, height: 150)
+            .frame(width: 110, height: 100)
         }
     }
 }

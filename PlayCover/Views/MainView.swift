@@ -35,13 +35,11 @@ struct MainView: View {
             NavigationView {
                 GeometryReader { sidebarGeom in
                     List {
-                        NavigationLink(destination: AppLibraryView(selectedBackgroundColor: $selectedBackgroundColor,
-                                                                   selectedTextColor: $selectedTextColor),
+                        NavigationLink(destination: AppLibraryView(),
                                        tag: 1, selection: self.$selectedView) {
                             Label("sidebar.appLibrary", systemImage: "square.grid.2x2")
                         }
-                        NavigationLink(destination: IPALibraryView(selectedBackgroundColor: $selectedBackgroundColor,
-                                                                   selectedTextColor: $selectedTextColor),
+                        NavigationLink(destination: IPALibraryView(),
                                        tag: 2, selection: self.$selectedView) {
                             Label("sidebar.ipaLibrary", systemImage: "arrow.down.circle")
                         }
