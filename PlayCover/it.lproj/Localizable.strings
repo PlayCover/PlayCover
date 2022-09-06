@@ -191,12 +191,6 @@
 "settings.toggle.km" = "Enable keymapping";
 
 /* (No Comment) */
-"setupView.pressButtonAndEnterPassword" = "Please disable SIP from below and enter your Mac login password.";
-
-/* (No Comment) */
-"setupView.step7" = "7) Enter the command. Input your Mac login password (The text will be hidden)";
-
-/* (No Comment) */
 "soundAlert.failureText" = "Failed to set current output device's sample rate to 48 KHz. You can manually set sample rate in ‘Audio MIDI Setup’ app";
 
 /* (No Comment) */
@@ -293,9 +287,6 @@
 "settings.info.executableName" = "Executable name:";
 "settings.info.minimumOSVersion" = "Minimum OS version";
 "settings.info.url" = "URL:";
-"settings.info.isGame" = "Is Game:";
-"settings.info.isGame.yes" = "Yes";
-"settoing.info.isGame.no" = "No";
 "settings.resetSettings" = "Reset settings";
 "settings.resetKm" = "Reset keymapping";
 "settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
@@ -304,3 +295,4 @@
 "xcode.install.failed.altButton" = "Alternate Instructions";
 "settings.tab.misc" = "Misc";
 "settings.toggle.hud" = "Metal HUD";
+"settings.info.bundleVersion" = "Bundle version";
