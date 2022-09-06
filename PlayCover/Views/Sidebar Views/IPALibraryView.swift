@@ -23,7 +23,7 @@ struct IPALibraryView: View {
             GeometryReader { geom in
                 if !isList {
                     ScrollView {
-                        LazyVGrid(columns: gridLayout, alignment: .leading) {
+                        LazyVGrid(columns: gridLayout, alignment: .center) {
                             ForEach(storeVM.apps, id: \.id) { app in
                                 StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                              selectedTextColor: $selectedTextColor,
@@ -33,7 +33,6 @@ struct IPALibraryView: View {
                             }
                         }
                         .padding()
-                        .animation(.spring(blendDuration: 0.1), value: geom.size.width)
                         Spacer()
                     }
                 } else {

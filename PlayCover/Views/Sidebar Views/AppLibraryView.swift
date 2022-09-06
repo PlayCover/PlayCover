@@ -23,7 +23,7 @@ struct AppLibraryView: View {
             GeometryReader { geom in
                 if !isList {
                     ScrollView {
-                        LazyVGrid(columns: gridLayout, alignment: .leading) {
+                        LazyVGrid(columns: gridLayout, alignment: .center) {
                             ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
                                 PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                             selectedTextColor: $selectedTextColor,
@@ -33,7 +33,6 @@ struct AppLibraryView: View {
                             }
                         }
                         .padding()
-                        .animation(.spring(blendDuration: 0.1), value: geom.size.width)
                         Spacer()
                     }
                 } else {
