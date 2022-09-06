@@ -45,6 +45,11 @@ struct PlayAppView: View {
                     Text("playapp.settings")
                 })
                 Button(action: {
+                    app.openAppCache()
+                }, label: {
+                    Text("playapp.openCache")
+                })
+                Button(action: {
                     app.showInFinder()
                 }, label: {
                     Text("playapp.showInFinder")

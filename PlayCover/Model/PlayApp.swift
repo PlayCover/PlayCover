@@ -132,6 +132,10 @@ class PlayApp: BaseApp {
         URL(fileURLWithPath: url.path).showInFinderAndSelectLastComponent()
     }
 
+    func openAppCache() {
+        container?.containerUrl.showInFinderAndSelectLastComponent()
+    }
+
     func deleteApp() {
         do {
             try fileMgr.delete(at: URL(fileURLWithPath: url.path))
