@@ -102,10 +102,10 @@
 
 "settings.info.displayName" = "Display name:";
 "settings.info.bundleName" = "Bundle name:";
-"settings.info.bundleIdentifier" = "Bundle identifier";
-"settings.info.bundleVersion" = "Bundle version";
+"settings.info.bundleIdentifier" = "Bundle identifier:";
+"settings.info.bundleVersion" = "Bundle version:";
 "settings.info.executableName" = "Executable name:";
-"settings.info.minimumOSVersion" = "Minimum OS version";
+"settings.info.minimumOSVersion" = "Minimum OS version:";
 "settings.info.url" = "URL:";
 
 "settings.resetSettings" = "Reset settings";
