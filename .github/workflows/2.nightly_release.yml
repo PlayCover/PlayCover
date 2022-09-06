@@ -25,7 +25,7 @@ jobs:
 
       - name: Fastlane Release
         shell: bash
-        run: fastlane release
+        run: fastlane nightly
         env:
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
