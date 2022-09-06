@@ -13,7 +13,7 @@ struct IPALibraryView: View {
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
 
-    @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150))]
+    @State private var gridLayout = [GridItem(.adaptive(minimum: 130, maximum: .infinity))]
     @State private var searchString = ""
     @State private var isList = UserDefaults.standard.bool(forKey: "IPALibrayView")
     @State private var selected: StoreAppData?
