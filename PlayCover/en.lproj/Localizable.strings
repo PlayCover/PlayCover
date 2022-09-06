@@ -85,7 +85,7 @@
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";
 "settings.picker.adaptiveRes" = "Adaptive resolution:";
-"settings.picker.adaptiveRes.help" ="Adapts and scales app window to fit the built-in Mac display.";
+"settings.picker.adaptiveRes.help" ="Adapts and scales app window to fit your display.";
 "settings.picker.adaptiveRes.0" = "Off";
 "settings.picker.adaptiveRes.1" = "Auto";
 "settings.picker.adaptiveRes.5" = "Custom";
