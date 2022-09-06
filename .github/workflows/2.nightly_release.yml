@@ -7,7 +7,7 @@ env:
   CI: true
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-12
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -18,15 +18,18 @@ jobs:
           brew install graphicsmagick imagemagick
           bundle install
           npm install --global create-dmg
+          
+      - name: Select Xcode version
+        run: sudo xcode-select -s '/Applications/Xcode_13.4.1.app/Contents/Developer'
 
       - name: Set build number
         shell: bash
         run: |
           fastlane run increment_build_number build_number:${{ github.run_number }}
 
-      - name: Fastlane Release
+      - name: Fastlane Nightly
         shell: bash
-        run: fastlane release
+        run: fastlane nightly
         env:
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}

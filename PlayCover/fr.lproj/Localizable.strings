@@ -17,9 +17,6 @@
 "alert.kmImported" = "Keymap importé !";
 
 /* (No Comment) */
-"alert.moveAppToApplications" = "PlayCover doit être dans le dossier Applications. Appuyer le bouton ci-dessous pour automatiquement déplacer PlayCover à /Applications.";
-
-/* (No Comment) */
 "alert.moveAppToApplications.move" = "Déplacer vers /Applications";
 
 /* (No Comment) */
@@ -32,28 +29,10 @@
 "alert.success" = "Succès !";
 
 /* (No Comment) */
-"alert.wrongFileType" = "Mauvais type de fichier";
-
-/* (No Comment) */
-"alert.wrongFileType.message" = "Choisir un fichier ipa";
-
-/* (No Comment) */
-"bottomBar.notices" = "Notes";
-
-/* (No Comment) */
-"bottomBar.notices.help" = "Nouvelles et annonces des développers";
-
-/* (No Comment) */
-"bottomBar.setupViewButton" = "Rencontrez-vous des problèmes ?";
-
-/* (No Comment) */
 "button.Cancel" = "Annuler";
 
 /* (No Comment) */
 "button.Close" = "Fermer";
-
-/* (No Comment) */
-"button.Dismiss" = "Fermer";
 
 /* (No Comment) */
 "button.Install" = "Installer";
@@ -65,22 +44,10 @@
 "button.Proceed" = "Continuer";
 
 /* (No Comment) */
-"debug.crash" = "[DEBUG] Planter l'app";
-
-/* (No Comment) */
 "error.corruptedIPA" = "Ce fichier .ipa est corrompu. Il ne contient pas de fichier 'Info.plist'.";
 
 /* (No Comment) */
-"error.reinstallApp" = "Veuillez réinstaller PlayCover";
-
-/* (No Comment) */
 "error.waitInstallation" = "Veuiller attendre que l'installation actuelle termine !";
-
-/* (No Comment) */
-"failedToFetchNotices" = "Échec à trouver les avis. Veuiller vérifier votre connection.";
-
-/* (No Comment) */
-"logs.copied" = "Registre copié";
 
 /* (No Comment) */
 "menubar.checkForUpdates" = "Rechercher les mises à jour";
@@ -92,25 +59,13 @@
 "menubar.documentation" = "Documentation";
 
 /* (No Comment) */
-"menubar.downloadMoreApps" = "Télécharger plus d'apps";
-
-/* (No Comment) */
-"menubar.downloadMoreApps.help" = "Utilisez ce site pour télécharger des apps";
-
-/* (No Comment) */
 "menubar.exportToSideloady" = "Exporter pour Sideloadly";
-
-/* (No Comment) */
-"menubar.exportToSideloady.help" = "Exporter des IPA pour Sideloady du site sideloady.io qui n'a pas besoin d'avoir SIP désactivé pour que certaines apps marchent.";
 
 /* (No Comment) */
 "menubar.github" = "GitHub";
 
 /* (No Comment) */
 "menubar.log.copy" = "Copier le registre";
-
-/* (No Comment) */
-"menubar.showAppLinks" = "Afficher liens d'apps";
 
 /* (No Comment) */
 "menubar.website" = "Site web";
@@ -122,13 +77,7 @@
 "notification.appInstalled.message" = "Ouvrez-le !";
 
 /* (No Comment) */
-"playapp.activateAccount" = "Activer un compte";
-
-/* (No Comment) */
-"playapp.add" = "Ajouter une app";
-
-/* (No Comment) */
-"playapp.add.help" = "Glisser ou ouvrir un fichier IPA pour installer. Les IPA de Configurator ou de iMazing ne marcheront pas ! Vous devez avoir des IPA déchiffrés, de soit le bouton en haut à droite, Discord, AppDb, ou un appareil Jailbreaké.";
+"playapp.activateAccount" = "Changer de compte";
 
 /* (No Comment) */
 "playapp.clearCache" = "Effacer les caches de l'app";
@@ -179,10 +128,7 @@
 "playapp.showInFinder" = "Afficher dans le Finder";
 
 /* (No Comment) */
-"playapp.storeCurrentAccount" = "Sauvegarder le compte actuel";
-
-/* (No Comment) */
-"playapp.update" = "Mettre à jour l'app";
+"playapp.storeCurrentAccount" = "Sauvegarder un compte";
 
 /* (No Comment) */
 "preferences.button.checkForUpdates" = "Vérifiez les mises à jour maintenant...";
@@ -194,34 +140,16 @@
 "preferences.toggle.automaticUpdates" = "Vérifier automatiquement pour des mises à jour";
 
 /* (No Comment) */
-"search.search" = "Recherche en cours...";
-
-/* (No Comment) */
 "settings.button.discord" = "Custom Discord activity";
 
 /* (No Comment) */
 "settings.button.clearActivity" = "Clear custom activity";
 
 /* (No Comment) */
-"settings.picker.displayRefreshRate" = "Taux de rafraîchissement de l'écran";
-
-/* (No Comment) */
 "settings.picker.iosDevice" = "Sélectionnez un appareil iOS";
-
-/* (No Comment) */
-"settings.picker.screenSize" = "Résolution de l'écran";
-
-/* (No Comment) */
-"settings.reset" = "Réinitialiser réglages et keymap";
-
-/* (No Comment) */
-"settings.resetCompleted" = "Les réglages ont été réinitialisés !";
 
 /* %.f */
 "settings.slider.mouseSensitivity" = "Sensibilité de la souris : %.f";
-
-/* (No Comment) */
-"settings.tab.etc" = "Etc";
 
 /* (No Comment) */
 "settings.text.applicationID" = "Application ID";
@@ -251,100 +179,19 @@
 "settings.text.state.help" = "Second row below title";
 
 /* (No Comment) */
-"settings.toggle.adaptiveDisplay" = "Affichage adaptatif";
-
-/* (No Comment) */
-"settings.toggle.adaptiveDisplay.info" = "Adapte la fenêtre de l'app pour qu'elle rentre dans votre moniteur.";
-
-/* (No Comment) */
-"settings.toggle.autoWindowResize" = "Activer le redimensionnement automatique de la fenêtre";
-
-/* (No Comment) */
-"settings.toggle.customSize" = "Activer la taille de fenêtre personnalisée";
-
-/* (No Comment) */
 "settings.toggle.disableDisplaySleep" = "Désactiver la mise en veille";
-
-/* (No Comment) */
-"settings.toggle.disableDisplaySleep.info" = "Empêcher l'affichage de s'éteindre pendant que cette application est ouvert";
 
 /* (No Comment) */
 "settings.toggle.discord" = "Enable Discord activity";
 
 /* (No Comment) */
-"settings.toggle.gaming" = "Mode de mappage de clavier amélioré";
-
-/* (No Comment) */
 "settings.toggle.jbBypass" = "Activer l'évitement Jailbreak (Alpha)";
-
-/* (No Comment) */
-"settings.toggle.jbBypass.info" = "Essaye d'éviter les détections de Jailbreak dans certains jeux (Aucune garantie de fonctionnement)";
 
 /* (No Comment) */
 "settings.toggle.km" = "Activer le mappage de touches";
 
 /* (No Comment) */
-"settings.toggle.km.info" = "Permet d'utiliser la souris et le keymap en même temps.";
-
-/* (No Comment) */
-"setup.enterLoginPassword" = "Veuillez entrer votre mot de passe";
-
-/* (No Comment) */
-"setup.enterLoginPassword.info" = "Entrer le mot de passe utilisé pour déverrouiller votre Mac.";
-
-/* (No Comment) */
-"setup.incorrectPassword" = "Mot de passe incorrect. Veuillez réessayer";
-
-/* (No Comment) */
-"setup.requireReboot" = "Veuillez redémarrer votre Mac pour que les changements prennent effet.";
-
-/* (No Comment) */
-"setupView.bilibili" = "BiliBili";
-
-/* (No Comment) */
-"setupView.header" = "Suivez les étapes ci-dessous pour résoudre des problèmes courants";
-
-/* (No Comment) */
-"setupView.pressButtonAndEnterPassword" = "Veuillez désactiver SIP et entrez votre mot de passe.";
-
-/* (No Comment) */
-"setupView.pressButtonAndEnterPassword.button" = "Désactiver SIP";
-
-/* (No Comment) */
-"setupView.step1" = "1) Éteignez votre Mac";
-
-/* (No Comment) */
-"setupView.step2" = "2) Attendez au moins 20 secondes pour que votre Mac se ferme et ensuite maintenir le bouton d'alimentation enfoncé";
-
-/* (No Comment) */
-"setupView.step3" = "3) Quand \"Loading Startup Options\" apparait, relachez le bouton d'alimentation";
-
-/* (No Comment) */
-"setupView.step4" = "4) Cliquez l'option Recovery Mode boot";
-
-/* (No Comment) */
-"setupView.step5" = "5) Ouvrez Terminal (Barre de menu -> Utilités -> Terminal)";
-
-/* (No Comment) */
-"setupView.step6" = "6) Entrez : ";
-
-/* (No Comment) */
 "setupView.step7" = "7) Entrez la commande. Ensuite, entrez votre mot de passe (Le texte sera caché)";
-
-/* (No Comment) */
-"setupView.step8" = "8) Cliquez sur le symbole Apple dans la barre du menu et redémarrer";
-
-/* (No Comment) */
-"setupView.step9" = "Si vous rencontrez un erreur, recommencez le processus";
-
-/* (No Comment) */
-"setupView.subheader" = "Ex : Ne pas pouvoir se connecter, certains applications ne marchent pas";
-
-/* (No Comment) */
-"setupView.vidTutorials" = "Tutoriels Vidéo";
-
-/* (No Comment) */
-"setupView.youtube" = "YouTube";
 
 /* (No Comment) */
 "soundAlert.failureText" = "Failed to set current output device's sample rate to 48 KHz. You can manually set sample rate in ‘Audio MIDI Setup’ app";
@@ -405,6 +252,52 @@
 
 /* (No Comment) */
 "xcode.install.success" = "Succès de l'installation de Xcode Command Line Tools";
-
-/* (No Comment) */
-"settings.toggle.portraitMode" = "Mode portrait";
+"sidebar.appLibrary" = "App Library";
+"button.Quit" = "Quit";
+"settings.title" = "Settings";
+"settings.picker.aspectRatio" = "Aspect ratio:";
+"storeAccount.alert.restoreAccount.msg" = "This will override your currently signed-in account.";
+"storeAccount.alert.deleteAccount" = "Really Delete Account?";
+"storeAccount.alert.deleteAccount.button" = "Delete Account";
+"playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
+"sidebar.ipaLibrary" = "IPA Library";
+"storeAccount.alert.restoreAccount" = "Really Restore Account?";
+"alert.moveAppToApplications.title" = "Move to Applications folder?";
+"alert.moveAppToApplications.subtitle" = "PlayCover must be in the Applications folder to run correctly. Press the button below to move PlayCover automatically.";
+"error.appEncrypted" = "This app is encrypted! Please use a decrypted IPA. iMazing IPAs are not supported!";
+"storeAccount.alert.restoreAccount.button" = "Restore Account";
+"error.appCorrupted" = "Something went wrong with this IPA. Please try to use another IPA file.";
+"error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";
+"error.noGenshinAccount" = "We couldn't find a Genshin account! Are you signed into an account in-app?";
+"settings.tab.info" = "Info";
+"settings.tab.km" = "Keymapping";
+"settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
+"settings.toggle.mm" = "Mouse mapping";
+"settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
+"settings.tab.graphics" = "Graphics";
+"settings.picker.adaptiveRes" = "Adaptive resolution:";
+"settings.picker.adaptiveRes.help" = "Adapts and scales app window to fit the built-in Mac display.";
+"settings.picker.adaptiveRes.0" = "Off";
+"settings.picker.adaptiveRes.1" = "Auto";
+"settings.picker.adaptiveRes.5" = "Custom";
+"settings.picker.refreshRate" = "Refresh rate:";
+"settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
+"settings.tab.jbBypass" = "Jailbreak Bypass";
+"settings.toggle.jbBypass.help" = "Attempts to bypass Jailbreak Detection in some games (Not guaranteed to work all the time)";
+"settings.info.displayName" = "Display name:";
+"settings.info.bundleName" = "Bundle name:";
+"settings.info.bundleIdentifier" = "Bundle identifier";
+"settings.info.executableName" = "Executable name:";
+"settings.info.minimumOSVersion" = "Minimum OS version";
+"settings.info.url" = "URL:";
+"settings.info.isGame" = "Is Game:";
+"settings.info.isGame.yes" = "Yes";
+"settoing.info.isGame.no" = "No";
+"settings.resetSettings" = "Reset settings";
+"settings.resetKm" = "Reset keymapping";
+"settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
+"settings.resetKmCompleted" = "Keymapping has been reset!";
+"xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
+"xcode.install.failed.altButton" = "Alternate Instructions";
+"settings.tab.misc" = "Misc";
+"settings.toggle.hud" = "Metal HUD";

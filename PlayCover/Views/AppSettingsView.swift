@@ -25,7 +25,10 @@ struct AppSettingsView: View {
                         .cornerRadius(10)
                         .shadow(radius: 1)
                 }
-                Text("\(viewModel.app.name) " + NSLocalizedString("settings.title", comment: ""))
+                Text(String(
+                    format:
+                        NSLocalizedString("settings.title", comment: ""),
+                    viewModel.app.name))
                     .font(.title2).bold()
                     .multilineTextAlignment(.leading)
                 Spacer()
@@ -415,15 +418,6 @@ struct InfoView: View {
                 Text("settings.info.url")
                 Spacer()
                 Text("\(info.url.relativePath)")
-            }
-            HStack {
-                Text("settings.info.isGame")
-                Spacer()
-                if info.isGame {
-                    Text("settings.info.isGame.yes")
-                } else {
-                    Text("settings.info.isGame.no")
-                }
             }
         }
         .listStyle(.bordered(alternatesRowBackgrounds: true))
