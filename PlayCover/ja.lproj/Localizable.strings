@@ -191,12 +191,6 @@
 "settings.toggle.km" = "キーマッピングを有効にする";
 
 /* (No Comment) */
-"setupView.pressButtonAndEnterPassword" = "以下からSIPを無効にして、Macログインパスワードを入力してください。";
-
-/* (No Comment) */
-"setupView.step7" = "7) コマンドを入力してEnterキーを押してください。パスワードを入力してEnterキーを押してください。（パスワードは入力しても表示されません）";
-
-/* (No Comment) */
 "soundAlert.failureText" = "サンプルレートの変更に失敗しました。「Audio MIDI設定」アプリから手動でサンプルレートを設定することができます";
 
 /* (No Comment) */
@@ -295,12 +289,10 @@
 "settings.info.executableName" = "Executable name:";
 "settings.info.minimumOSVersion" = "Minimum OS version";
 "settings.info.url" = "URL:";
-"settings.info.isGame" = "Is Game:";
-"settings.info.isGame.yes" = "Yes";
-"settoing.info.isGame.no" = "No";
 "settings.resetSettings" = "Reset settings";
 "settings.resetKm" = "Reset keymapping";
 "settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
 "xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
 "xcode.install.failed.altButton" = "Alternate Instructions";
 "settings.toggle.hud" = "Metal HUD";
+"settings.info.bundleVersion" = "Bundle version";
