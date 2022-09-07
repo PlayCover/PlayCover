@@ -71,6 +71,8 @@
 		ABED59832887A32F004D782B /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABED59822887A32F004D782B /* MenuBarView.swift */; };
 		B1084E1F28AA80F400E399FA /* AppSettingsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1084E1E28AA80F400E399FA /* AppSettingsVM.swift */; };
 		B1419FB628BA82EE000CB69F /* DiscordActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1419FB528BA82EE000CB69F /* DiscordActivity.swift */; };
+		B17FD03C28C70C2100B1D4CA /* CoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B17FD03828C70BAE00B1D4CA /* CoreUI.framework */; };
+		B17FD04728C7B0D900B1D4CA /* AssetsExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17FD04628C7B0D900B1D4CA /* AssetsExtractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -169,6 +171,9 @@
 		ABF0BA1A285F9ED200FC5259 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B1084E1E28AA80F400E399FA /* AppSettingsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsVM.swift; sourceTree = "<group>"; };
 		B1419FB528BA82EE000CB69F /* DiscordActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscordActivity.swift; sourceTree = "<group>"; };
+		B17FD03828C70BAE00B1D4CA /* CoreUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreUI.framework; path = /System/Library/PrivateFrameworks/CoreUI.framework; sourceTree = "<group>"; };
+		B17FD03F28C70C7300B1D4CA /* CoreUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreUI.h; sourceTree = "<group>"; };
+		B17FD04628C7B0D900B1D4CA /* AssetsExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsExtractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +183,7 @@
 			files = (
 				365AFB0628847B2E008B3542 /* Sparkle in Frameworks */,
 				AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */,
+				B17FD03C28C70C2100B1D4CA /* CoreUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +219,7 @@
 		53841CC826D9D7920021D27C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B17FD03828C70BAE00B1D4CA /* CoreUI.framework */,
 				92D79316273C065A001CC964 /* libsandbox.1.tbd */,
 				53468A4A2712917900887A08 /* libmis.tbd */,
 				53468A452712632800887A08 /* Security.tbd */,
@@ -292,6 +299,8 @@
 				28361D5F28927CAC00B35EDB /* SaveGenshinUserData.swift */,
 				28361D652892800200B35EDB /* DeleteStoredGenshinUserData.swift */,
 				6ED6ACA528A96E570040D234 /* DeletePreferences.swift */,
+				B17FD04628C7B0D900B1D4CA /* AssetsExtractor.swift */,
+				B17FD03F28C70C7300B1D4CA /* CoreUI.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -646,6 +655,7 @@
 				ABED59832887A32F004D782B /* MenuBarView.swift in Sources */,
 				538AAE7B26CD41E60009C7AC /* ProcessExtension.swift in Sources */,
 				92EE06D4274EA604002C907B /* PlayAppView.swift in Sources */,
+				B17FD04728C7B0D900B1D4CA /* AssetsExtractor.swift in Sources */,
 				9256220327491E4700728698 /* operations.m in Sources */,
 				6E06193A28B3C42E0012C771 /* DeleteGenshinAccountView.swift in Sources */,
 				28361D662892800200B35EDB /* DeleteStoredGenshinUserData.swift in Sources */,
@@ -892,6 +902,10 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "./PlayCover/PlayCover-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+				);
 			};
 			name = Nightly;
 		};
