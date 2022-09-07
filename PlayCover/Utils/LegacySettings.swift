@@ -42,7 +42,7 @@ class LegacySettings {
                 if !settings.isEmpty {
                     dictionary = settings
                     if let legacyKeymaps = dictionary["pc.layout"] as? [Any] {
-                        var keymap = Keymap(bundleIdentifier: "")
+                        var keymap = Keymap(bundleIdentifier: from.deletingPathExtension().lastPathComponent)
 
                         for item in legacyKeymaps {
                             if let data = item as? [Any] {
