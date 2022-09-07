@@ -191,12 +191,6 @@
 "settings.toggle.km" = "Enable keymapping";
 
 /* (No Comment) */
-"setupView.header" = "Follow steps below for fixing common issues";
-
-/* (No Comment) */
-"setupView.step6" = "6) Type: ";
-
-/* (No Comment) */
 "soundAlert.failureText" = "Failed to set current output device's sample rate to 48 KHz. You can manually set sample rate in the Audio MIDI Setup app";
 
 /* (No Comment) */
@@ -294,9 +288,6 @@
 "settings.info.bundleName" = "Bundle name:";
 "settings.info.bundleIdentifier" = "Bundle identifier";
 "settings.info.executableName" = "Executable name:";
-"settings.info.isGame" = "Is Game:";
-"settings.info.isGame.yes" = "Yes";
-"settoing.info.isGame.no" = "No";
 "settings.resetSettings" = "Reset settings";
 "settings.resetKm" = "Reset keymapping";
 "settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
@@ -304,3 +295,4 @@
 "xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
 "xcode.install.failed.altButton" = "Alternate Instructions";
 "settings.tab.misc" = "Misc";
+"settings.info.bundleVersion" = "Bundle version";
