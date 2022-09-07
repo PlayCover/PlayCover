@@ -89,7 +89,7 @@ struct StoreAppConditionalView: View {
                             .frame(width: 60, height: 60)
                             .cornerRadius(15)
                             .shadow(radius: 1)
-                        Text("\(Image(systemName: "arrow.down.circle")) \(app.name)")
+                        Text("\(Image(systemName: "arrow.down.circle"))  \(app.name)")
                             .lineLimit(1)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 4)
@@ -102,10 +102,10 @@ struct StoreAppConditionalView: View {
                                           selectedBackgroundColor : Color.clear)
                                     .brightness(-0.2)
                             )
-                            .frame(width: 150, height: 20)
+                            .frame(width: 130, height: 20)
                     }
                 }
-                .frame(width: 150, height: 150)
+                .frame(width: 130, height: 130)
             }
         }
         .task {

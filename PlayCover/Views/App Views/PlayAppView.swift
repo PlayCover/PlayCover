@@ -223,10 +223,10 @@ struct PlayAppConditionalView: View {
                                       selectedBackgroundColor : Color.clear)
                                 .brightness(-0.2)
                             )
-                        .frame(width: 150, height: 20)
+                        .frame(width: 130, height: 20)
                 }
             }
-            .frame(width: 150, height: 150)
+            .frame(width: 130, height: 130)
         }
     }
 }
