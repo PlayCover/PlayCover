@@ -90,13 +90,7 @@ class PlayApp: BaseApp {
 
         if let assetsExtractor = try? AssetsExtractor(appUrl: appDirectoryURL) {
             for icon in assetsExtractor.extractIcons() {
-                if highestRes != nil {
-                    if icon.size.height > highestRes!.size.height {
-                        highestRes = icon
-                    }
-                } else {
-                    highestRes = icon
-                }
+                highestRes = largerImage(image: icon, compareTo: highestRes)
             }
         }
 
@@ -106,13 +100,7 @@ class PlayApp: BaseApp {
         for item in items where item.hasPrefix(info.primaryIconName) {
             do {
                 if let image = NSImage(data: try Data(contentsOf: URL(fileURLWithPath: "\(appDirectoryPath)\(item)"))) {
-                    if highestRes != nil {
-                        if image.size.height > highestRes!.size.height {
-                            highestRes = image
-                        }
-                    } else {
-                        highestRes = image
-                    }
+                    highestRes = largerImage(image: image, compareTo: highestRes)
                 }
             } catch {
                 Log.shared.error(error)
@@ -167,6 +155,13 @@ class PlayApp: BaseApp {
             print(error)
             Log.shared.error(error)
         }
+    }
+
+    func largerImage(image imageA: NSImage, compareTo imageB: NSImage?) -> NSImage {
+        if imageA.size.height > imageB?.size.height ?? -1 {
+            return imageA
+        }
+        return imageB!
     }
 
     var prohibitedToPlay: Bool {
