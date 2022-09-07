@@ -5,12 +5,21 @@
 //  Created by Isaac Marovitz on 07/09/2022.
 //
 
+// swiftlint:disable function_body_length
+
 import Foundation
 
 class LegacySettings {
+    public static var monolithURL: URL = URL(fileURLWithPath:
+                                                "/Users/\(NSUserName())/Library/Preferences/playcover.plist")
+    public static var doesMonolithExist: Bool {
+        return FileManager.default.fileExists(atPath:
+                                                "/Users/\(NSUserName())/Library/Preferences/playcover.plist")
+    }
+
     static func convertLegacyMonolithPlist(_ from: URL) {
         var dictionary: [String: Any]
-        
+
         do {
             if let monolith = try [String: Any].read(from) {
                 if !monolith.isEmpty {
@@ -19,7 +28,7 @@ class LegacySettings {
                     for (key, value) in dictionary {
                         if let dict = value as? [String: Any] {
                             if let settings = convertLegacySettingsDict(dict) {
-                                let settingsURL = AppSettings.appSettingsDir.appendingPathExtension("\(key).plist")
+                                let settingsURL = AppSettings.appSettingsDir.appendingPathComponent("\(key).plist")
                                 do {
                                     let data = try PropertyListEncoder().encode(settings)
                                     try data.write(to: settingsURL)
@@ -28,9 +37,9 @@ class LegacySettings {
                                 }
                             }
 
-                            if let legacyKeymaps = dictionary["pc.layout"] as? [Any] {
+                            if let legacyKeymaps = dict["pc.layout"] as? [Any] {
                                 let keymap = convertLegacyKeymapArray(legacyKeymaps, key)
-                                let keymapURL = Keymapping.keymappingDir.appendingPathExtension("\(key).plist")
+                                let keymapURL = Keymapping.keymappingDir.appendingPathComponent("\(key).plist")
                                 do {
                                     let data = try PropertyListEncoder().encode(keymap)
                                     try data.write(to: keymapURL)

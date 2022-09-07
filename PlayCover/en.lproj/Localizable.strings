@@ -55,6 +55,8 @@
 "alert.moveAppToApplications.subtitle" = "PlayCover must be in the Applications folder to run correctly. Press the button below to move PlayCover automatically.";
 "alert.moveAppToApplications.move" = "Move to Applications folder";
 "alert.storeAccount.regionIsNotValid" = "The current account is set to a different Region. Launch the game, Change the region, and pass through the gates to save. Then try again";
+"alert.legacyImport.title" = "Legacy App Settings Detected!";
+"alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
 
 "button.OK" = "OK";
 "button.Proceed" = "Proceed";
@@ -62,6 +64,7 @@
 "button.Close" = "Close";
 "button.Install" = "Install";
 "button.Quit" = "Quit";
+"button.Convert" = "Convert & Delete";
 
 "error.corruptedIPA" = "This .ipa file is corrupted. It does not contains \"Info.plist\" file.";
 "error.waitInstallation" = "Please wait for the current installation to finish!";
