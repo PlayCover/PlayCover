@@ -111,7 +111,6 @@
 "settings.picker.adaptiveRes.1" = "خودکار (براساس نمایش‌گر)";
 "settings.picker.adaptiveRes.5" = "اندازه دلخواه";
 "settings.picker.aspectRatio" = "نسبت تصویر:";
-"settings.picker.refreshRate" = "نرخ تازه‌سازی:";
 "settings.toggle.disableDisplaySleep.help" = "این گزینه از خاموش شدن نمایش‌گر در زمان اجرای این برنامه جلوگیری می‌کند";
 "settings.tab.jbBypass" = "پنهان‌گر جیل‌بریک";
 "settings.toggle.jbBypass.help" = "با فعال‌سازی این گزینه تلاش می‌شود که از فعالیت شناساگر جیل‌بریک موجود در برخی بازی‌ها جلوگیری شود (اما همیشه نتیجه نمی‌دهد)";
