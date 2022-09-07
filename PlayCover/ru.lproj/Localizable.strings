@@ -277,7 +277,6 @@
 "settings.picker.adaptiveRes.1" = "Auto";
 "settings.picker.adaptiveRes.5" = "Custom";
 "settings.picker.aspectRatio" = "Aspect ratio:";
-"settings.picker.refreshRate" = "Refresh rate:";
 "settings.resetKmCompleted" = "Keymapping has been reset!";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
 "settings.tab.jbBypass" = "Jailbreak Bypass";
