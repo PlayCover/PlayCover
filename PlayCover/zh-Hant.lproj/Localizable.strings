@@ -161,12 +161,6 @@
 "settings.toggle.km" = "啟用鍵盤映射佈局";
 
 /* (No Comment) */
-"setupView.pressButtonAndEnterPassword" = "請從以下按鈕禁用SIP並輸入 Mac 登錄密碼。";
-
-/* (No Comment) */
-"setupView.step7" = "7) 輸入並執行上述命令後， 輸入 Mac 的用戶登錄密碼（密碼字樣不會顯示在螢幕上）";
-
-/* (No Comment) */
 "soundAlert.failureText" = "現有音響設備設置採樣率 48 KHz 失敗，您可以在 ”音訊MIDI設定“ 應用中手動設置";
 
 /* (No Comment) */
@@ -263,9 +257,6 @@
 "settings.info.bundleIdentifier" = "Bundle identifier";
 "settings.info.minimumOSVersion" = "Minimum OS version";
 "settings.info.url" = "URL:";
-"settings.info.isGame" = "Is Game:";
-"settings.info.isGame.yes" = "Yes";
-"settoing.info.isGame.no" = "No";
 "settings.resetSettings" = "Reset settings";
 "xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
 "settings.resetKm" = "Reset keymapping";
@@ -284,3 +275,4 @@
 "settings.text.state.help" = "Second row below title";
 "settings.toggle.discord" = "Enable Discord activity";
 "settings.toggle.hud" = "Metal HUD";
+"settings.info.bundleVersion" = "Bundle version";

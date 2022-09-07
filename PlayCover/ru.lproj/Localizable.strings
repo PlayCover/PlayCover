@@ -191,12 +191,6 @@
 "settings.toggle.km" = "Включить кеймаппинг";
 
 /* (No Comment) */
-"setupView.header" = "Следуйте приведенным ниже инструкциям для устранения распространенных проблем";
-
-/* (No Comment) */
-"setupView.step6" = "6) Напишите: ";
-
-/* (No Comment) */
 "soundAlert.failureText" = "Не удалось установить частоту дискретизации текущего устройства вывода на 48 кГц. Вы можете вручную установить частоту дискретизации в приложении Audio MIDI Setup";
 
 /* (No Comment) */
@@ -295,12 +289,10 @@
 "settings.info.minimumOSVersion" = "Minimum OS version";
 "xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
 "settings.info.url" = "URL:";
-"settings.info.isGame" = "Is Game:";
-"settings.info.isGame.yes" = "Yes";
-"settoing.info.isGame.no" = "No";
 "settings.resetSettings" = "Reset settings";
 "settings.resetKm" = "Reset keymapping";
 "settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
 "xcode.install.failed.altButton" = "Alternate Instructions";
 "settings.tab.misc" = "Misc";
 "settings.toggle.hud" = "Metal HUD";
+"settings.info.bundleVersion" = "Bundle version";

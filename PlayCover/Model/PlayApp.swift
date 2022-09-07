@@ -82,29 +82,28 @@ class PlayApp: BaseApp {
     }
 
     var icon: NSImage? {
+        var highestRes: NSImage?
         let appDirectoryURL = PlayTools.playCoverContainer
             .appendingPathComponent(info.executableName)
             .appendingPathExtension("app")
         let appDirectoryPath = "\(appDirectoryURL.relativePath)/"
-        guard let items = try? FileManager.default.contentsOfDirectory(atPath: appDirectoryPath) else { return nil }
-        var highestRes: NSImage?
 
-        for item in items {
-            if item.hasPrefix(info.primaryIconName) {
-                do {
-                    if let image = NSImage(data: try Data(contentsOf:
-                                                            URL(fileURLWithPath: "\(appDirectoryPath)\(item)"))) {
-                        if highestRes != nil {
-                            if image.size.height > highestRes!.size.height {
-                                highestRes = image
-                            }
-                        } else {
-                            highestRes = image
-                        }
-                    }
-                } catch {
-                    Log.shared.error(error)
+        if let assetsExtractor = try? AssetsExtractor(appUrl: appDirectoryURL) {
+            for icon in assetsExtractor.extractIcons() {
+                highestRes = largerImage(image: icon, compareTo: highestRes)
+            }
+        }
+
+        guard let items = try? FileManager.default.contentsOfDirectory(atPath: appDirectoryPath) else {
+            return highestRes
+        }
+        for item in items where item.hasPrefix(info.primaryIconName) {
+            do {
+                if let image = NSImage(data: try Data(contentsOf: URL(fileURLWithPath: "\(appDirectoryPath)\(item)"))) {
+                    highestRes = largerImage(image: image, compareTo: highestRes)
                 }
+            } catch {
+                Log.shared.error(error)
             }
         }
         return highestRes
@@ -156,6 +155,13 @@ class PlayApp: BaseApp {
             print(error)
             Log.shared.error(error)
         }
+    }
+
+    func largerImage(image imageA: NSImage, compareTo imageB: NSImage?) -> NSImage {
+        if imageA.size.height > imageB?.size.height ?? -1 {
+            return imageA
+        }
+        return imageB!
     }
 
     var prohibitedToPlay: Bool {

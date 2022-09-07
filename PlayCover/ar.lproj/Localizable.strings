@@ -50,8 +50,6 @@
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
 "settings.picker.iosDevice" = "Select iOS device";
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: ";
-"setupView.step4" = "4) Click the Recovery Mode boot option";
-"setupView.bilibili" = "BiliBili";
 "notification.appInstalled" = "App installed!";
 "notification.appInstalled.message" = "Check it out in PlayCover!";
 "menubar.log.copy" = "Copy Logs";
@@ -118,9 +116,6 @@
 "settings.info.executableName" = "Executable name:";
 "settings.info.minimumOSVersion" = "Minimum OS version";
 "settings.info.url" = "URL:";
-"settings.info.isGame" = "Is Game:";
-"settings.info.isGame.yes" = "Yes";
-"settoing.info.isGame.no" = "No";
 "settings.resetSettings" = "Reset settings";
 "settings.resetKm" = "Reset keymapping";
 "settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
@@ -139,3 +134,4 @@
 "settings.text.state.help" = "Second row below title";
 "settings.toggle.discord" = "Enable Discord activity";
 "settings.toggle.hud" = "Metal HUD";
+"settings.info.bundleVersion" = "Bundle version";

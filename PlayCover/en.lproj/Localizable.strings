@@ -92,7 +92,6 @@
 "settings.text.customHeight" = "Height";
 "settings.text.customWidth" = "Width";
 "settings.picker.aspectRatio" = "Aspect ratio:";
-"settings.picker.refreshRate" = "Refresh rate:";
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
 
@@ -102,10 +101,10 @@
 
 "settings.info.displayName" = "Display name:";
 "settings.info.bundleName" = "Bundle name:";
-"settings.info.bundleIdentifier" = "Bundle identifier";
-"settings.info.bundleVersion" = "Bundle version";
+"settings.info.bundleIdentifier" = "Bundle identifier:";
+"settings.info.bundleVersion" = "Bundle version:";
 "settings.info.executableName" = "Executable name:";
-"settings.info.minimumOSVersion" = "Minimum OS version";
+"settings.info.minimumOSVersion" = "Minimum OS version:";
 "settings.info.url" = "URL:";
 
 "settings.resetSettings" = "Reset settings";

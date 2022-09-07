@@ -54,8 +54,6 @@
 "settings.slider.mouseSensitivity" = "Tốc độ chuột: %.f";
 "settings.text.customHeight" = "Chiều cao";
 "settings.text.customWidth" = "Chiều rộng";
-"setupView.step5" = "5) Trên thanh Menu nhấn vào Tiện ích, sau đó chọn Terminal";
-"setupView.pressButtonAndEnterPassword" = "Hãy tắt SIP và nhập mật khẩu máy Mac của bạn.";
 "notification.appInstalled" = "App installed!";
 "notification.appInstalled.message" = "Check it out in PlayCover!";
 "settings.button.discord" = "Custom Discord activity";
@@ -130,9 +128,6 @@
 "settings.info.executableName" = "Executable name:";
 "settings.info.minimumOSVersion" = "Minimum OS version";
 "settings.info.url" = "URL:";
-"settings.info.isGame" = "Is Game:";
-"settings.info.isGame.yes" = "Yes";
-"settoing.info.isGame.no" = "No";
 "settings.resetSettings" = "Reset settings";
 "settings.resetKm" = "Reset keymapping";
 "settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
@@ -141,3 +136,4 @@
 "xcode.install.failed.altButton" = "Alternate Instructions";
 "settings.tab.misc" = "Misc";
 "settings.toggle.hud" = "Metal HUD";
+"settings.info.bundleVersion" = "Bundle version";

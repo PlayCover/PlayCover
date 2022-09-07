@@ -10,14 +10,11 @@
 "playapp.activateAccount" = "Switch Account";
 "playapp.deleteAccount" = "Delete Account";
 "playapp.clearPreferences" = "Clear App Preferences";
-
 "preferences.button.checkForUpdates" = "Check for updates now...";
 "preferences.tab.updates" = "Updates";
 "preferences.toggle.automaticUpdates" = "Automatically check for updates";
-
 "sidebar.appLibrary" = "App Library";
 "sidebar.ipaLibrary" = "IPA Library";
-
 "storeAccount.selectAccRegion" = "Select account region";
 "storeAccount.selectAccRegion.usa" = "America";
 "storeAccount.selectAccRegion.euro" = "Europe";
@@ -34,7 +31,6 @@
 "storeAccount.alert.restoreAccount.msg" = "This will override your currently signed-in account.";
 "storeAccount.alert.deleteAccount" = "Really Delete Account?";
 "storeAccount.alert.deleteAccount.button" = "Delete Account";
-
 "playapp.install.unzip" = "Extracting app from .ipa file...";
 "playapp.install.createWrapper" = "Creating app wrapper...";
 "playapp.install.installPlayTools" = "Installing PlayTools...";
@@ -42,7 +38,6 @@
 "playapp.install.addToLib" = "Adding app to library...";
 "playapp.install.copy" = "Copying app...";
 "playapp.install.finished" = "Finished";
-
 "alert.appCacheCleared" = "App data has been cleared!";
 "alert.kmImported" = "Keymapping imported!";
 "alert.errorImportKm" = "Error occured when importing!";
@@ -55,37 +50,31 @@
 "alert.moveAppToApplications.subtitle" = "PlayCover must be in the Applications folder to run correctly. Press the button below to move PlayCover automatically.";
 "alert.moveAppToApplications.move" = "Move to Applications folder";
 "alert.storeAccount.regionIsNotValid" = "The current account is set to a different Region. Launch the game, Change the region, and pass through the gates to save. Then try again";
-
 "button.OK" = "OK";
 "button.Proceed" = "Proceed";
 "button.Cancel" = "Cancel";
 "button.Close" = "Close";
 "button.Install" = "Install";
 "button.Quit" = "Quit";
-
 "error.corruptedIPA" = "This .ipa file is corrupted. It does not contains \"Info.plist\" file.";
 "error.waitInstallation" = "Please wait for the current installation to finish!";
 "error.appEncrypted" = "This app is encrypted! Please use a decrypted IPA. iMazing IPAs are not supported!";
 "error.appCorrupted" = "Something went wrong with this IPA. Please try to use another IPA file.";
 "error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";
 "error.noGenshinAccount" = "We couldn't find a Genshin account! Are you signed into an account in-app?";
-
 "menubar.exportToSideloady" = "Export to Sideloadly";
-
 "settings.title" = "Settings";
 "settings.tab.info" = "Info";
-
 "settings.tab.km" = "Keymapping";
 "settings.toggle.km" = "Keymapping";
 "settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
 "settings.toggle.mm" = "Mouse mapping";
 "settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
-
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";
 "settings.picker.adaptiveRes" = "Adaptive resolution:";
-"settings.picker.adaptiveRes.help" ="Adapts and scales app window to fit the built-in Mac display.";
+"settings.picker.adaptiveRes.help" = "Adapts and scales app window to fit the built-in Mac display.";
 "settings.picker.adaptiveRes.0" = "Off";
 "settings.picker.adaptiveRes.1" = "Auto";
 "settings.picker.adaptiveRes.5" = "Custom";
@@ -95,42 +84,31 @@
 "settings.picker.refreshRate" = "Refresh rate:";
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
-
 "settings.tab.jbBypass" = "Jailbreak Bypass";
 "settings.toggle.jbBypass" = "Enable Jailbreak Bypass (Alpha)";
 "settings.toggle.jbBypass.help" = "Attempts to bypass Jailbreak Detection in some games (Not guaranteed to work all the time)";
-
 "settings.info.displayName" = "Display name:";
 "settings.info.bundleName" = "Bundle name:";
 "settings.info.bundleIdentifier" = "Bundle identifier";
 "settings.info.executableName" = "Executable name:";
 "settings.info.minimumOSVersion" = "Minimum OS version";
 "settings.info.url" = "URL:";
-"settings.info.isGame" = "Is Game:";
-"settings.info.isGame.yes" = "Yes";
-"settoing.info.isGame.no" = "No";
-
 "settings.resetSettings" = "Reset settings";
 "settings.resetKm" = "Reset keymapping";
-
 "settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
 "settings.resetKmCompleted" = "Keymapping has been reset!";
-
 "notification.appInstalled" = "App installed!";
 "notification.appInstalled.message" = "Check it out in PlayCover!";
-
 "menubar.log.copy" = "Copy Logs";
 "menubar.documentation" = "Documentation";
 "menubar.website" = "Website";
 "menubar.github" = "GitHub";
 "menubar.discord" = "Discord";
 "menubar.checkForUpdates" = "Check for updates";
-
 "soundAlert.messageText" = "Incorrect Audio Settings Detected!";
 "soundAlert.informativeText" = "Your current output device does not have a sample rate of 48 or 44.1 KHz! Crashes may occur. Would you like to change your current output device's sample rate to 48 KHz?";
 "soundAlert.successText" = "Current output device sample rate set to 48 KHz";
 "soundAlert.failureText" = "Failed to set current output device's sample rate to 48 KHz. You can manually set sample rate in the Audio MIDI Setup app";
-
 "xcode.install.message" = "You need to install Xcode Command Line Tools and restart PlayCover";
 "xcode.install.success" = "Xcode Command Line Tools installation succeeded";
 "xcode.install.failed" = "Automatic Xcode Command Line Tools intallation failed";
@@ -138,7 +116,6 @@
 "xcode.install.progress.subtext" = "This may take around 5-10 minutes depending on your internet speed";
 "xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
 "xcode.install.failed.altButton" = "Alternate Instructions";
-
 "settings.tab.misc" = "Misc";
 "settings.button.discord" = "Custom Discord activity";
 "settings.button.clearActivity" = "Clear custom activity";
@@ -151,3 +128,4 @@
 "settings.text.state.help" = "Second row below title";
 "settings.toggle.discord" = "Enable Discord activity";
 "settings.toggle.hud" = "Metal HUD";
+"settings.info.bundleVersion" = "Bundle version";

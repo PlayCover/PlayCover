@@ -12,7 +12,7 @@ struct AppLibraryView: View {
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
 
-    @State private var gridLayout = [GridItem(.adaptive(minimum: 150, maximum: 150))]
+    @State private var gridLayout = [GridItem(.adaptive(minimum: 130, maximum: .infinity))]
     @State private var searchString = ""
     @State private var isList = UserDefaults.standard.bool(forKey: "AppLibrayView")
     @State private var selected: PlayApp?
@@ -20,36 +20,33 @@ struct AppLibraryView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            GeometryReader { geom in
-                if !isList {
-                    ScrollView {
-                        LazyVGrid(columns: gridLayout, alignment: .leading) {
-                            ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
-                                PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                            selectedTextColor: $selectedTextColor,
-                                            selected: $selected,
-                                            app: app,
-                                            isList: isList)
-                            }
+            if !isList {
+                ScrollView {
+                    LazyVGrid(columns: gridLayout, alignment: .center) {
+                        ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
+                            PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                        selectedTextColor: $selectedTextColor,
+                                        selected: $selected,
+                                        app: app,
+                                        isList: isList)
                         }
-                        .padding()
-                        .animation(.spring(blendDuration: 0.1), value: geom.size.width)
+                    }
+                    .padding()
+                    Spacer()
+                }
+            } else {
+                ScrollView {
+                    VStack {
+                        ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
+                            PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                        selectedTextColor: $selectedTextColor,
+                                        selected: $selected,
+                                        app: app,
+                                        isList: isList)
+                        }
                         Spacer()
                     }
-                } else {
-                    ScrollView {
-                        VStack {
-                            ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
-                                PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                            selectedTextColor: $selectedTextColor,
-                                            selected: $selected,
-                                            app: app,
-                                            isList: isList)
-                            }
-                            Spacer()
-                        }
-                        .padding()
-                    }
+                    .padding()
                 }
             }
         }

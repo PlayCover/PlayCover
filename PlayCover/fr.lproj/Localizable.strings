@@ -17,7 +17,7 @@
 "alert.kmImported" = "Keymap importé !";
 
 /* (No Comment) */
-"alert.moveAppToApplications.move" = "Déplacer vers /Applications";
+"alert.moveAppToApplications.move" = "Déplacer vers le dossier d'applications";
 
 /* (No Comment) */
 "alert.restart" = "Veuillez redémarrer PlayCover.";
@@ -50,7 +50,7 @@
 "error.waitInstallation" = "Veuiller attendre que l'installation actuelle termine !";
 
 /* (No Comment) */
-"menubar.checkForUpdates" = "Rechercher les mises à jour";
+"menubar.checkForUpdates" = "Recherche des mises à jour...";
 
 /* (No Comment) */
 "menubar.discord" = "Discord";
@@ -83,19 +83,19 @@
 "playapp.clearCache" = "Effacer les caches de l'app";
 
 /* (No Comment) */
-"playapp.clearPreferences" = "Réinitialiser les préférences de l'application";
+"playapp.clearPreferences" = "Réinitialiser les Préférences de l'Application";
 
 /* (No Comment) */
 "playapp.delete" = "Supprimer l'app";
 
 /* (No Comment) */
-"playapp.deleteAccount" = "Supprimer un compte";
+"playapp.deleteAccount" = "Supprimer un Compte";
 
 /* (No Comment) */
-"playapp.exportKm" = "Exporter le keymap";
+"playapp.exportKm" = "Exporter le Keymap";
 
 /* (No Comment) */
-"playapp.importKm" = "Importer le keymap";
+"playapp.importKm" = "Importer un Keymap";
 
 /* (No Comment) */
 "playapp.install.addToLib" = "Ajout de l'app dans la librairie...";
@@ -140,19 +140,19 @@
 "preferences.toggle.automaticUpdates" = "Vérifier automatiquement pour des mises à jour";
 
 /* (No Comment) */
-"settings.button.discord" = "Custom Discord activity";
+"settings.button.discord" = "Activité Discord personnalisée";
 
 /* (No Comment) */
-"settings.button.clearActivity" = "Clear custom activity";
+"settings.button.clearActivity" = "Effacer l'activité personnalisée";
 
 /* (No Comment) */
-"settings.picker.iosDevice" = "Sélectionnez un appareil iOS";
+"settings.picker.iosDevice" = "Appareil iOS :";
 
 /* %.f */
 "settings.slider.mouseSensitivity" = "Sensibilité de la souris : %.f";
 
 /* (No Comment) */
-"settings.text.applicationID" = "Application ID";
+"settings.text.applicationID" = "ID d'application";
 
 /* (No Comment) */
 "settings.text.customHeight" = "Hauteur";
@@ -161,37 +161,34 @@
 "settings.text.customWidth" = "Largeur";
 
 /* (No Comment) */
-"settings.text.details" = "Details";
+"settings.text.details" = "Détails";
 
 /* (No Comment) */
-"settings.text.details.help" = "First row below title";
+"settings.text.details.help" = "Première ligne sous le titre";
 
 /* (No Comment) */
 "settings.text.image" = "Image";
 
 /* (No Comment) */
-"settings.text.image.help" = "Link to image or Dev portal asset name";
+"settings.text.image.help" = "Lien vers l'image ou le nom de l'image dans le portail développeur";
 
 /* (No Comment) */
-"settings.text.state" = "State";
+"settings.text.state" = "État";
 
 /* (No Comment) */
-"settings.text.state.help" = "Second row below title";
+"settings.text.state.help" = "Deuxième ligne sous le titre";
 
 /* (No Comment) */
 "settings.toggle.disableDisplaySleep" = "Désactiver la mise en veille";
 
 /* (No Comment) */
-"settings.toggle.discord" = "Enable Discord activity";
+"settings.toggle.discord" = "Activer l'activité Discord";
 
 /* (No Comment) */
 "settings.toggle.jbBypass" = "Activer l'évitement Jailbreak (Alpha)";
 
 /* (No Comment) */
 "settings.toggle.km" = "Activer le mappage de touches";
-
-/* (No Comment) */
-"setupView.step7" = "7) Entrez la commande. Ensuite, entrez votre mot de passe (Le texte sera caché)";
 
 /* (No Comment) */
 "soundAlert.failureText" = "Failed to set current output device's sample rate to 48 KHz. You can manually set sample rate in ‘Audio MIDI Setup’ app";
@@ -248,56 +245,54 @@
 "xcode.install.progress" = "Installation de Xcode Command Line Tools";
 
 /* (No Comment) */
-"xcode.install.progress.subtext" = "Peut prendre environ 5 à 10 minutes selon la vitesse d'Internet";
+"xcode.install.progress.subtext" = "Ceci peut prendre environ 5 à 10 minutes selon la vitesse d'Internet";
 
 /* (No Comment) */
 "xcode.install.success" = "Succès de l'installation de Xcode Command Line Tools";
-"sidebar.appLibrary" = "App Library";
-"button.Quit" = "Quit";
-"settings.title" = "Settings";
-"settings.picker.aspectRatio" = "Aspect ratio:";
-"storeAccount.alert.restoreAccount.msg" = "This will override your currently signed-in account.";
-"storeAccount.alert.deleteAccount" = "Really Delete Account?";
-"storeAccount.alert.deleteAccount.button" = "Delete Account";
-"playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
-"sidebar.ipaLibrary" = "IPA Library";
-"storeAccount.alert.restoreAccount" = "Really Restore Account?";
-"alert.moveAppToApplications.title" = "Move to Applications folder?";
-"alert.moveAppToApplications.subtitle" = "PlayCover must be in the Applications folder to run correctly. Press the button below to move PlayCover automatically.";
-"error.appEncrypted" = "This app is encrypted! Please use a decrypted IPA. iMazing IPAs are not supported!";
-"storeAccount.alert.restoreAccount.button" = "Restore Account";
-"error.appCorrupted" = "Something went wrong with this IPA. Please try to use another IPA file.";
-"error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";
-"error.noGenshinAccount" = "We couldn't find a Genshin account! Are you signed into an account in-app?";
+"sidebar.appLibrary" = "Bibliothèque d'Apps";
+"button.Quit" = "Quitter";
+"settings.title" = "Paramètres de %@";
+"settings.picker.aspectRatio" = "Rapport de taille :";
+"storeAccount.alert.restoreAccount.msg" = "Cela remplacera votre compte actuellement connecté.";
+"storeAccount.alert.deleteAccount" = "Êtes-vous sûrs ?";
+"storeAccount.alert.deleteAccount.button" = "Supprimer un compte";
+"playapp.exportKmPanel.fieldLabel" = "Nom du PlayMap :";
+"sidebar.ipaLibrary" = "Bibliothèque d'IPAs";
+"storeAccount.alert.restoreAccount" = "Êtes-vous sûrs ?";
+"alert.moveAppToApplications.title" = "Déplacer vers le dossier d'applications ?";
+"alert.moveAppToApplications.subtitle" = "PlayCover doit être dans le dossier d'applications pour fonctionner. Appuyez sur le bouton en dessous pour déplacer PlayCover automatiquement.";
+"error.appEncrypted" = "Cet application est chiffré ! Veuillez utiliser une IPA déchiffré. Des IPA de iMazing ne sont pas supportés !";
+"storeAccount.alert.restoreAccount.button" = "Restaurer le Compte";
+"error.appCorrupted" = "Quelque chose est passé avec cette IPA. Veuillez utiliser un autre IPA.";
+"error.appProhibited" = "L'utilisation de cette application via PlayCover entraînera probablement une ban !";
+"error.noGenshinAccount" = "Nous n'avons pas trouvé de compte Genshin ! Êtes-vous connecté à un compte dans l'application ?";
 "settings.tab.info" = "Info";
-"settings.tab.km" = "Keymapping";
-"settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
-"settings.toggle.mm" = "Mouse mapping";
-"settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
-"settings.tab.graphics" = "Graphics";
-"settings.picker.adaptiveRes" = "Adaptive resolution:";
-"settings.picker.adaptiveRes.help" = "Adapts and scales app window to fit the built-in Mac display.";
-"settings.picker.adaptiveRes.0" = "Off";
+"settings.tab.km" = "Mappage de touches";
+"settings.toggle.km.help" = "Ajoutez le mappage de touches aux jeux tactiles uniquement. Utilisez Commande + K pour ouvrir le menu de l'éditeur.";
+"settings.toggle.mm" = "Mappage de la souris";
+"settings.toggle.mm.help" = "Ajoutez des commandes de souris qui simule les mouvements tactiles. Utilisez Commande + K pour ouvrir le menu de l'éditeur.";
+"settings.tab.graphics" = "Graphiques";
+"settings.picker.adaptiveRes" = "Résolution adaptative :";
+"settings.picker.adaptiveRes.help" = "Adapte et met à l'échelle la fenêtre de l'application pour s'adapter à votre écran.";
+"settings.picker.adaptiveRes.0" = "Désactivé";
 "settings.picker.adaptiveRes.1" = "Auto";
-"settings.picker.adaptiveRes.5" = "Custom";
-"settings.picker.refreshRate" = "Refresh rate:";
-"settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
-"settings.tab.jbBypass" = "Jailbreak Bypass";
-"settings.toggle.jbBypass.help" = "Attempts to bypass Jailbreak Detection in some games (Not guaranteed to work all the time)";
-"settings.info.displayName" = "Display name:";
-"settings.info.bundleName" = "Bundle name:";
-"settings.info.bundleIdentifier" = "Bundle identifier";
-"settings.info.executableName" = "Executable name:";
-"settings.info.minimumOSVersion" = "Minimum OS version";
-"settings.info.url" = "URL:";
-"settings.info.isGame" = "Is Game:";
-"settings.info.isGame.yes" = "Yes";
-"settoing.info.isGame.no" = "No";
-"settings.resetSettings" = "Reset settings";
-"settings.resetKm" = "Reset keymapping";
-"settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
-"settings.resetKmCompleted" = "Keymapping has been reset!";
-"xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
-"xcode.install.failed.altButton" = "Alternate Instructions";
-"settings.tab.misc" = "Misc";
+"settings.picker.adaptiveRes.5" = "Personnalisé";
+"settings.picker.refreshRate" = "Fréquence de rafraîchissement :";
+"settings.toggle.disableDisplaySleep.help" = "Empêcher l'affichage de s'éteindre pendant que cette application est ouvert";
+"settings.tab.jbBypass" = "Évitement Jailbreak";
+"settings.toggle.jbBypass.help" = "Tente de contourner la détection jailbreak dans certains apps (Non garanti de fonctionner tout le temps)";
+"settings.info.displayName" = "Nom d'affichage :";
+"settings.info.bundleName" = "Nom d'application :";
+"settings.info.bundleIdentifier" = "Identifiant de l'App";
+"settings.info.executableName" = "Nom de l'exécutable :";
+"settings.info.minimumOSVersion" = "Version minimale du système";
+"settings.info.url" = "URL :";
+"settings.resetSettings" = "Réinitialiser les paramètres";
+"settings.resetKm" = "Réinitialiser le mappage de touches";
+"settings.resetSettingsCompleted" = "Les paramètres ont été réinitialisés !";
+"settings.resetKmCompleted" = "Le mappage de touches a été réinitialisé !";
+"xcode.install.failed.altInstructions" = "Cliquez sur le bouton ci-dessous pour voir d'autres instructions d'installation";
+"xcode.install.failed.altButton" = "Instructions Alternatives";
+"settings.tab.misc" = "Autre";
 "settings.toggle.hud" = "Metal HUD";
+"settings.info.bundleVersion" = "Version de l'app";
