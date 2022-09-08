@@ -85,8 +85,8 @@
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";
 "settings.picker.adaptiveRes" = "Resolution:";
-"settings.picker.adaptiveRes.help" ="Scales the app's window resolution";
-"settings.picker.adaptiveRes.0" = "App's Default";
+"settings.picker.adaptiveRes.help" ="Changes the app's window resolution";
+"settings.picker.adaptiveRes.0" = "App Default";
 "settings.picker.adaptiveRes.1" = "Auto (Based on Display)";
 "settings.picker.adaptiveRes.5" = "Custom";
 "settings.text.customHeight" = "Height";
