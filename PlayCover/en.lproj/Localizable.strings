@@ -84,10 +84,10 @@
 
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";
-"settings.picker.adaptiveRes" = "Adaptive resolution:";
-"settings.picker.adaptiveRes.help" ="Adapts and scales app window to fit your display.";
-"settings.picker.adaptiveRes.0" = "Off";
-"settings.picker.adaptiveRes.1" = "Auto";
+"settings.picker.adaptiveRes" = "Resolution:";
+"settings.picker.adaptiveRes.help" ="Scales the app's window resolution";
+"settings.picker.adaptiveRes.0" = "App's Default";
+"settings.picker.adaptiveRes.1" = "Auto (Based on Display)";
 "settings.picker.adaptiveRes.5" = "Custom";
 "settings.text.customHeight" = "Height";
 "settings.text.customWidth" = "Width";
