@@ -6,6 +6,8 @@
 "playapp.exportKm" = "Export Keymapping";
 "playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
 "playapp.delete" = "Uninstall App";
+"playapp.deleteConfirm" = "Yes, Uninstall";
+"playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
 "playapp.storeCurrentAccount" = "Store Account";
 "playapp.activateAccount" = "Switch Account";
 "playapp.deleteAccount" = "Delete Account";
