@@ -113,10 +113,15 @@ struct SignSetupView: View {
                       dismissButton: .default(Text("OK")))
             }
             Divider()
-            Button("Dismiss", role: .cancel) {
-                isSigningSetupShown = false
+            HStack {
+                Button("Open PlayBook") {
+                    NSWorkspace.shared.open(
+                        URL(string: "https://docs.playcover.io/getting_started/troubleshoot_login")!)
+                }
+                Button("Dismiss", role: .cancel) {
+                    isSigningSetupShown = false
+                }
             }
-            .frame(maxWidth: .infinity)
         }
         .padding()
     }
