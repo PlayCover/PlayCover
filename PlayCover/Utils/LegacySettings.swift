@@ -109,8 +109,8 @@ class LegacySettings {
                                                       yCoord: yCoord)
                     let upKeyCode = data[0] as? Int ?? 0
                     let leftKeyCode = data[2] as? Int ?? 0
-                    let rightKeyCode = data[1] as? Int ?? 0
-                    let downKeyCode = data[3] as? Int ?? 0
+                    let rightKeyCode = data[3] as? Int ?? 0
+                    let downKeyCode = data[1] as? Int ?? 0
                     keymap.joystickModel.append(JoystickModel(upKeyCode: upKeyCode,
                                                               rightKeyCode: rightKeyCode,
                                                               downKeyCode: downKeyCode,
