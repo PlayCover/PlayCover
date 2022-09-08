@@ -64,7 +64,7 @@
 "button.Close" = "Close";
 "button.Install" = "Install";
 "button.Quit" = "Quit";
-"button.Convert" = "Convert & Delete";
+"button.Convert" = "Convert";
 
 "error.corruptedIPA" = "This .ipa file is corrupted. It does not contains \"Info.plist\" file.";
 "error.waitInstallation" = "Please wait for the current installation to finish!";
