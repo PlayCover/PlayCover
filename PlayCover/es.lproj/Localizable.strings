@@ -8,7 +8,7 @@
 "alert.appCacheCleared" = "App data has been cleared!";
 
 /* (No Comment) */
-"alert.error" = "Some error happened!";
+"alert.error" = "An error occurred";
 
 /* (No Comment) */
 "alert.errorImportKm" = "Error occured when importing!";
@@ -26,7 +26,7 @@
 "alert.storeAccount.regionIsNotValid" = "The current account is set to a different Region. Launch the game, Change the region, and pass through the gates to save. Then try again";
 
 /* (No Comment) */
-"alert.success" = "Success!";
+"alert.success" = "Success";
 
 /* (No Comment) */
 "button.Cancel" = "Cancel";

@@ -17,6 +17,7 @@ struct AppLibraryView: View {
     @State private var isList = UserDefaults.standard.bool(forKey: "AppLibrayView")
     @State private var selected: PlayApp?
     @State private var showSettings = false
+    @State private var showLegacyConvertAlert = false
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -98,6 +99,25 @@ struct AppLibraryView: View {
         .sheet(isPresented: $showSettings) {
             AppSettingsView(viewModel: AppSettingsVM(app: selected!))
         }
+        .onAppear {
+            showLegacyConvertAlert = LegacySettings.doesMonolithExist
+        }
+        .alert("Legacy App Settings Detected!", isPresented: $showLegacyConvertAlert, actions: {
+            Button("button.Convert", role: .destructive) {
+                LegacySettings.convertLegacyMonolithPlist(LegacySettings.monolithURL)
+                do {
+                    try FileManager.default.removeItem(at: LegacySettings.monolithURL)
+                } catch {
+                    Log.shared.error(error)
+                }
+            }
+            .keyboardShortcut(.defaultAction)
+            Button("button.Cancel", role: .cancel) {
+                showLegacyConvertAlert.toggle()
+            }
+        }, message: {
+            Text("alert.legacyImport.subtitle")
+        })
     }
 
     private func installApp() {

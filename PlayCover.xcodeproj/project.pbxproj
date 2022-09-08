@@ -36,6 +36,7 @@
 		6E66B0D928A135360099B907 /* ToastVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E66B0D828A135360099B907 /* ToastVM.swift */; };
 		6E7CA16528B4D02900216CD8 /* ITunesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CA16428B4D02900216CD8 /* ITunesResponse.swift */; };
 		6E7CA16728B4EEAE00216CD8 /* Keymapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CA16628B4EEAE00216CD8 /* Keymapping.swift */; };
+		6EB4B57428C93E0600630890 /* LegacySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB4B57328C93E0600630890 /* LegacySettings.swift */; };
 		6ED6ACA428A949A30040D234 /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6ACA328A949A30040D234 /* AppSettingsView.swift */; };
 		6ED6ACA628A96E570040D234 /* DeletePreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6ACA528A96E570040D234 /* DeletePreferences.swift */; };
 		8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */; };
@@ -117,6 +118,7 @@
 		6E7BEDCB28C3AD0300DFF0EB /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6E7CA16428B4D02900216CD8 /* ITunesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesResponse.swift; sourceTree = "<group>"; };
 		6E7CA16628B4EEAE00216CD8 /* Keymapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keymapping.swift; sourceTree = "<group>"; };
+		6EB4B57328C93E0600630890 /* LegacySettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacySettings.swift; sourceTree = "<group>"; };
 		6EC228A028B14A0600D7D73A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		6EC228A128B1830F00D7D73A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6ED6ACA328A949A30040D234 /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				6ED6ACA528A96E570040D234 /* DeletePreferences.swift */,
 				B17FD04628C7B0D900B1D4CA /* AssetsExtractor.swift */,
 				B17FD03F28C70C7300B1D4CA /* CoreUI.h */,
+				6EB4B57328C93E0600630890 /* LegacySettings.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -655,6 +658,7 @@
 				5314D1EE26C402EC00A0A727 /* Shell.swift in Sources */,
 				6E7CA16528B4D02900216CD8 /* ITunesResponse.swift in Sources */,
 				8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */,
+				6EB4B57428C93E0600630890 /* LegacySettings.swift in Sources */,
 				ABED59832887A32F004D782B /* MenuBarView.swift in Sources */,
 				538AAE7B26CD41E60009C7AC /* ProcessExtension.swift in Sources */,
 				92EE06D4274EA604002C907B /* PlayAppView.swift in Sources */,
