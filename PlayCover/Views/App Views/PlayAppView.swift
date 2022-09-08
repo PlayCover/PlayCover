@@ -107,7 +107,7 @@ struct PlayAppView: View {
                     Text("playapp.clearPreferences")
                 })
                 Button(action: {
-                    showDeleteConfirmation = true
+                    showDeleteConfirmation.toggle()
                 }, label: {
                     Text("playapp.delete")
                 })
