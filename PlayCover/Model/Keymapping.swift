@@ -129,7 +129,7 @@ class Keymapping {
                     }
                 } catch {
                     if let selectedPath = openPanel.url {
-                        if var keymap = LegacySettings.convertLegacyKeymapFile(selectedPath) {
+                        if let keymap = LegacySettings.convertLegacyKeymapFile(selectedPath) {
                             if keymap.bundleIdentifier == self.keymap.bundleIdentifier {
                                 self.keymap = keymap
                                 success(true)
