@@ -277,15 +277,14 @@
 "settings.picker.adaptiveRes.0" = "Désactivé";
 "settings.picker.adaptiveRes.1" = "Auto";
 "settings.picker.adaptiveRes.5" = "Personnalisé";
-"settings.picker.refreshRate" = "Fréquence de rafraîchissement :";
 "settings.toggle.disableDisplaySleep.help" = "Empêcher l'affichage de s'éteindre pendant que cette application est ouvert";
 "settings.tab.jbBypass" = "Évitement Jailbreak";
 "settings.toggle.jbBypass.help" = "Tente de contourner la détection jailbreak dans certains apps (Non garanti de fonctionner tout le temps)";
 "settings.info.displayName" = "Nom d'affichage :";
 "settings.info.bundleName" = "Nom d'application :";
-"settings.info.bundleIdentifier" = "Identifiant de l'App";
+"settings.info.bundleIdentifier" = "Identifiant de l'App :";
 "settings.info.executableName" = "Nom de l'exécutable :";
-"settings.info.minimumOSVersion" = "Version minimale du système";
+"settings.info.minimumOSVersion" = "Version minimale du système :";
 "settings.info.url" = "URL :";
 "settings.resetSettings" = "Réinitialiser les paramètres";
 "settings.resetKm" = "Réinitialiser le mappage de touches";
@@ -295,4 +294,4 @@
 "xcode.install.failed.altButton" = "Instructions Alternatives";
 "settings.tab.misc" = "Autre";
 "settings.toggle.hud" = "Metal HUD";
-"settings.info.bundleVersion" = "Version de l'app";
+"settings.info.bundleVersion" = "Version de l'app :";

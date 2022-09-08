@@ -279,7 +279,6 @@
 "settings.picker.adaptiveRes.1" = "Auto";
 "settings.picker.adaptiveRes.5" = "Custom";
 "settings.picker.aspectRatio" = "Aspect ratio:";
-"settings.picker.refreshRate" = "Refresh rate:";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
 "settings.toggle.jbBypass.help" = "Attempts to bypass Jailbreak Detection in some games (Not guaranteed to work all the time)";
 "settings.info.displayName" = "Display name:";
