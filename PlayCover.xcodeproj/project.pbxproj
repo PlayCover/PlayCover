@@ -68,6 +68,7 @@
 		AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA71964A287A0EA800623C15 /* PlayRules.swift */; };
 		AA71964D287A35F400623C15 /* com.nexon.bluearchive.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA71964C287A35F400623C15 /* com.nexon.bluearchive.yaml */; };
 		AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = AA818CB4287ABEC3000BEE9D /* Yams */; };
+		AB671B8C28C9C7DB00B7B102 /* SigningSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB671B8B28C9C7DB00B7B102 /* SigningSetupView.swift */; };
 		ABED59832887A32F004D782B /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABED59822887A32F004D782B /* MenuBarView.swift */; };
 		B1084E1F28AA80F400E399FA /* AppSettingsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1084E1E28AA80F400E399FA /* AppSettingsVM.swift */; };
 		B1419FB628BA82EE000CB69F /* DiscordActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1419FB528BA82EE000CB69F /* DiscordActivity.swift */; };
@@ -167,6 +168,7 @@
 		AA970FD228793A310099A5D0 /* PlayCoverRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayCoverRelease.entitlements; sourceTree = "<group>"; };
 		AAE8809E287ACE9F00FBB23C /* cp_frameworks.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = cp_frameworks.sh; sourceTree = "<group>"; };
 		AAE8809F287ACE9F00FBB23C /* bootstrap.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = bootstrap.sh; sourceTree = "<group>"; };
+		AB671B8B28C9C7DB00B7B102 /* SigningSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningSetupView.swift; sourceTree = "<group>"; };
 		ABED59822887A32F004D782B /* MenuBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		ABF0BA1A285F9ED200FC5259 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B1084E1E28AA80F400E399FA /* AppSettingsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsVM.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				6E66B0CF289F562A0099B907 /* Sidebar Views */,
 				6E66B0CA289F55180099B907 /* App Views */,
 				36B26B95288C722500859EFD /* Settings */,
+				AB671B8B28C9C7DB00B7B102 /* SigningSetupView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -657,6 +660,7 @@
 				8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */,
 				ABED59832887A32F004D782B /* MenuBarView.swift in Sources */,
 				538AAE7B26CD41E60009C7AC /* ProcessExtension.swift in Sources */,
+				AB671B8C28C9C7DB00B7B102 /* SigningSetupView.swift in Sources */,
 				92EE06D4274EA604002C907B /* PlayAppView.swift in Sources */,
 				B17FD04728C7B0D900B1D4CA /* AssetsExtractor.swift in Sources */,
 				9256220327491E4700728698 /* operations.m in Sources */,
