@@ -22,6 +22,13 @@ struct SignSetupView: View {
                 .font(.largeTitle)
                 .foregroundColor(.gray)
                 .padding()
+            Text("""
+                    Package Signing helps fixing issues with apps that uses login, particularly games.
+
+                    After logging in, you may be able to turn Package Signing off, if you so choose.
+                    However, if you get logged out, you will need to enable Package Signing again
+                    """)
+            .multilineTextAlignment(.center)
 
             GroupBox {
                 Spacer()
@@ -114,7 +121,7 @@ struct SignSetupView: View {
             }
             Divider()
             HStack {
-                Button("Open PlayBook") {
+                Button("Help") {
                     NSWorkspace.shared.open(
                         URL(string: "https://docs.playcover.io/getting_started/troubleshoot_login")!)
                 }
@@ -122,6 +129,7 @@ struct SignSetupView: View {
                     isSigningSetupShown = false
                 }
             }
+            .fixedSize(horizontal: true, vertical: true)
         }
         .padding()
     }
