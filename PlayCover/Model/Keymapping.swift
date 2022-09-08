@@ -134,7 +134,8 @@ class Keymapping {
                                 self.keymap = keymap
                                 success(true)
                             } else {
-                                Log.shared.error("Keymapping created for a different app!")
+                                Log.shared.error("Keymapping created for different app! " +
+                                                 "Legacy keymap files must be named after the Bundle ID of the intended application!")
                                 success(false)
                             }
                         } else {
