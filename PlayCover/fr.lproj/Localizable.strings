@@ -295,3 +295,8 @@
 "settings.tab.misc" = "Autre";
 "settings.toggle.hud" = "Metal HUD";
 "settings.info.bundleVersion" = "Version de l'app :";
+"playapp.deleteConfirm" = "Uninstall";
+"playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
+"alert.legacyImport.title" = "Legacy App Settings Detected!";
+"alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
+"button.Convert" = "Convert";
