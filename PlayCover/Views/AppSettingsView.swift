@@ -34,21 +34,13 @@ struct AppSettingsView: View {
                 Spacer()
             }
             TabView {
-                KeymappingView(settings: $viewModel.settings)
+                GeneralView(settings: $viewModel.settings, app: viewModel.app)
                     .tabItem {
-                        Text("settings.tab.km")
+                        Text("settings.tab.general")
                     }
                 GraphicsView(settings: $viewModel.settings)
                     .tabItem {
                         Text("settings.tab.graphics")
-                    }
-                JBBypassView(settings: $viewModel.settings)
-                    .tabItem {
-                        Text("settings.tab.jbBypass")
-                    }
-                MiscView(settings: $viewModel.settings)
-                    .tabItem {
-                        Text("settings.tab.misc")
                     }
                 InfoView(info: viewModel.app.info)
                     .tabItem {
@@ -89,8 +81,11 @@ struct AppSettingsView: View {
     }
 }
 
-struct KeymappingView: View {
+struct GeneralView: View {
     @Binding var settings: AppSettings
+    @State var app: PlayApp
+
+    @State var showPopover = false
 
     var body: some View {
         ScrollView {
@@ -111,6 +106,61 @@ struct KeymappingView: View {
                     Slider(value: $settings.settings.sensitivity, in: 0...100, label: { EmptyView() })
                         .frame(width: 250)
                         .disabled(!settings.settings.keymapping)
+                }
+                HStack {
+                    Toggle("settings.toggle.jbBypass", isOn: $settings.settings.bypass)
+                        .help("settings.toggle.jbBypass.help")
+                        .padding(.bottom, 5.0)
+                    Spacer()
+                }
+                HStack {
+                    Toggle("settings.toggle.discord", isOn: $settings.settings.discordActivity.enable)
+                    Button("settings.button.discord") { showPopover = true }
+                        .popover(isPresented: $showPopover, arrowEdge: .bottom) {
+                            VStack {
+                                HStack {
+                                    Text("settings.text.applicationID")
+                                        .frame(width: 90)
+                                    TextField("", text: $settings.settings.discordActivity.applicationID)
+                                        .frame(minWidth: 200, maxWidth: 200)
+                                }.padding([.horizontal, .top])
+                                HStack {
+                                    Text("settings.text.details")
+                                        .frame(width: 90)
+                                        .help("settings.text.details.help")
+                                    TextField("", text: $settings.settings.discordActivity.details)
+                                        .frame(minWidth: 200, maxWidth: 200)
+                                }.padding(.horizontal)
+                                HStack {
+                                    Text("settings.text.state")
+                                        .frame(width: 90)
+                                        .help("settings.text.state.help")
+                                    TextField("", text: $settings.settings.discordActivity.state)
+                                        .frame(minWidth: 200, maxWidth: 200)
+                                }.padding(.horizontal)
+                                HStack {
+                                    Text("settings.text.image")
+                                        .help("settings.text.image.help")
+                                        .frame(width: 90)
+                                    TextField("", text: $settings.settings.discordActivity.image)
+                                        .frame(minWidth: 200, maxWidth: 200)
+                                }.padding(.horizontal)
+                                HStack {
+                                    Button("settings.button.clearActivity") {
+                                        settings.settings.discordActivity = DiscordActivity()
+                                        showPopover = false
+                                    }
+                                    Button("button.OK") { showPopover = false }
+                                }.padding(.bottom)
+                            }
+                        }
+                    Spacer()
+                }
+                if #available(macOS 13.0, *) {
+                    HStack {
+                        Toggle("settings.toggle.hud", isOn: $settings.metalHudEnabled)
+                        Spacer()
+                    }
                 }
                 Spacer()
             }
@@ -289,85 +339,6 @@ struct GraphicsView: View {
             heightRatio = 9
         }
         return (height / heightRatio) * widthRatio
-    }
-}
-
-struct JBBypassView: View {
-    @Binding var settings: AppSettings
-
-    var body: some View {
-        ScrollView {
-            VStack {
-                HStack {
-                    Toggle("settings.toggle.jbBypass", isOn: $settings.settings.bypass)
-                        .help("settings.toggle.jbBypass.help")
-                    Spacer()
-                }
-            }
-            .padding()
-        }
-    }
-}
-
-struct MiscView: View {
-    @Binding var settings: AppSettings
-    @State var showPopover = false
-
-    var body: some View {
-        ScrollView {
-            VStack {
-                HStack {
-                    Toggle("settings.toggle.discord", isOn: $settings.settings.discordActivity.enable)
-                    Button("settings.button.discord") { showPopover = true }
-                        .popover(isPresented: $showPopover, arrowEdge: .bottom) {
-                            VStack {
-                                HStack {
-                                    Text("settings.text.applicationID")
-                                        .frame(width: 90)
-                                    TextField("", text: $settings.settings.discordActivity.applicationID)
-                                        .frame(minWidth: 200, maxWidth: 200)
-                                }.padding([.horizontal, .top])
-                                HStack {
-                                    Text("settings.text.details")
-                                        .frame(width: 90)
-                                        .help("settings.text.details.help")
-                                    TextField("", text: $settings.settings.discordActivity.details)
-                                        .frame(minWidth: 200, maxWidth: 200)
-                                }.padding(.horizontal)
-                                HStack {
-                                    Text("settings.text.state")
-                                        .frame(width: 90)
-                                        .help("settings.text.state.help")
-                                    TextField("", text: $settings.settings.discordActivity.state)
-                                        .frame(minWidth: 200, maxWidth: 200)
-                                }.padding(.horizontal)
-                                HStack {
-                                    Text("settings.text.image")
-                                        .help("settings.text.image.help")
-                                        .frame(width: 90)
-                                    TextField("", text: $settings.settings.discordActivity.image)
-                                        .frame(minWidth: 200, maxWidth: 200)
-                                }.padding(.horizontal)
-                                HStack {
-                                    Button("settings.button.clearActivity") {
-                                        settings.settings.discordActivity = DiscordActivity()
-                                        showPopover = false
-                                    }
-                                    Button("button.OK") { showPopover = false }
-                                }.padding(.bottom)
-                            }
-                        }
-                    Spacer()
-                }
-                if #available(macOS 13.0, *) {
-                    HStack {
-                        Toggle("settings.toggle.hud", isOn: $settings.metalHudEnabled)
-                        Spacer()
-                    }
-                }
-            }
-            .padding()
-        }
     }
 }
 

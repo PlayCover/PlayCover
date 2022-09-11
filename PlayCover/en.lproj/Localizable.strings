@@ -80,7 +80,6 @@
 "settings.title" = "%@ Settings";
 "settings.tab.info" = "Info";
 
-"settings.tab.km" = "Keymapping";
 "settings.toggle.km" = "Keymapping";
 "settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
 "settings.toggle.mm" = "Mouse mapping";
@@ -100,7 +99,6 @@
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
 
-"settings.tab.jbBypass" = "Jailbreak Bypass";
 "settings.toggle.jbBypass" = "Enable Jailbreak Bypass (Alpha)";
 "settings.toggle.jbBypass.help" = "Attempts to bypass Jailbreak Detection in some games (Not guaranteed to work all the time)";
 
@@ -141,7 +139,7 @@
 "xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
 "xcode.install.failed.altButton" = "Alternate Instructions";
 
-"settings.tab.misc" = "Misc";
+"settings.tab.general" = "General";
 "settings.button.discord" = "Custom Discord activity";
 "settings.button.clearActivity" = "Clear custom activity";
 "settings.text.applicationID" = "Application ID";
