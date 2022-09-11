@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// swiftlint:disable file_length
 struct AppSettingsView: View {
     @Environment(\.dismiss) var dismiss
 
