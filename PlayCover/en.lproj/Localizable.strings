@@ -96,6 +96,7 @@
 "settings.picker.adaptiveRes.5" = "Custom";
 "settings.text.customHeight" = "Height";
 "settings.text.customWidth" = "Width";
+"settings.text.detectedResolution" = "Detected Resolution:";
 "settings.picker.aspectRatio" = "Aspect ratio:";
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";

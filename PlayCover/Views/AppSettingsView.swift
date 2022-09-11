@@ -206,6 +206,12 @@ struct GraphicsView: View {
                         }
                         .pickerStyle(.radioGroup)
                         .horizontalRadioGroupLayout()
+                    } else if settings.settings.resolution == 1 {
+                        let width = Int(NSScreen.main?.frame.width ?? 1920)
+                        let height = getHeightForNotch(width, Int(NSScreen.main?.frame.height ?? 1080))
+                        Text("settings.text.detectedResolution")
+                        Spacer()
+                        Text("\(width) x \(height)")
                     }
                 }
                 HStack {
@@ -242,8 +248,8 @@ struct GraphicsView: View {
         switch settings.settings.resolution {
         // Adaptive resolution = Auto
         case 1:
-            width = Int(NSScreen.main?.visibleFrame.width ?? 1920)
-            height = Int(NSScreen.main?.visibleFrame.width ?? 1080)
+            width = Int(NSScreen.main?.frame.width ?? 1920)
+            height = getHeightForNotch(width, Int(NSScreen.main?.frame.height ?? 1080))
         // Adaptive resolution = 1080p
         case 2:
             height = 1080
@@ -367,6 +373,13 @@ struct MiscView: View {
                 }
             }
             .padding()
+    func getHeightForNotch(_ width: Int, _ height: Int) -> Int {
+        let wFloat = Float(width)
+        let hFloat = Float(height)
+        if NSScreen.hasNotch() && (hFloat/wFloat)*16.0 > 10.3 && (hFloat/wFloat)*16.0 < 10.4 {
+            return Int((wFloat / 16) * 10)
+        } else {
+            return Int(height)
         }
     }
 }
