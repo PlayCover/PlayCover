@@ -20,6 +20,7 @@ struct MainView: View {
     @EnvironmentObject var integrity: AppIntegrity
 
     @Binding public var xcodeCliInstalled: Bool
+    @Binding public var isSigningSetupShown: Bool
 
     @State private var selectedView: Int? = -1
     @State private var navWidth: CGFloat = 0
@@ -29,7 +30,6 @@ struct MainView: View {
     @State private var xcodeInstallStatus: XcodeInstallStatus = .installing
     @State private var selectedBackgroundColor: Color = Color.accentColor
     @State private var selectedTextColor: Color = Color.black
-
     var body: some View {
         GeometryReader { viewGeom in
             NavigationView {
@@ -212,6 +212,9 @@ struct MainView: View {
                 .padding()
                 .frame(minWidth: 550, minHeight: 150)
             }
+                .sheet(isPresented: $isSigningSetupShown) {
+                    SignSetupView(isSigningSetupShown: $isSigningSetupShown)
+                }
         }
         .frame(minWidth: 675, minHeight: 330)
     }
@@ -301,9 +304,11 @@ struct SplitViewAccessor: NSViewRepresentable {
 
 struct MainView_Previews: PreviewProvider {
     @State static var xcodeCliInstalled = true
+    @State static var isSigningSetupShown = true
 
     static var previews: some View {
-        MainView(xcodeCliInstalled: $xcodeCliInstalled)
+        MainView(xcodeCliInstalled: $xcodeCliInstalled,
+                 isSigningSetupShown: $isSigningSetupShown)
             .environmentObject(InstallVM.shared)
             .environmentObject(AppsVM.shared)
             .environmentObject(StoreVM.shared)

@@ -3,15 +3,20 @@
 //  PlayCover
 //
 
+import AppKit
 import SwiftUI
 
 struct PlayCoverMenuView: Commands {
+    @Binding var isSigningSetupShown: Bool
     var body: some Commands {
         CommandGroup(after: .systemServices) {
             Button("menubar.log.copy") {
                 Log.shared.logdata.copyToClipBoard()
             }
             .keyboardShortcut("L", modifiers: [.command, .option])
+            Button("Configure Signing") {
+                isSigningSetupShown = true
+            }
         }
     }
 }

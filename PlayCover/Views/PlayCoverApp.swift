@@ -41,10 +41,12 @@ struct PlayCoverApp: App {
     @StateObject var updaterViewModel = UpdaterViewModel()
 
     @State var xcodeCliInstalled = shell.isXcodeCliToolsInstalled
+    @State var isSigningSetupShown = false
 
     var body: some Scene {
         WindowGroup {
-            MainView(xcodeCliInstalled: $xcodeCliInstalled)
+            MainView(xcodeCliInstalled: $xcodeCliInstalled,
+                     isSigningSetupShown: $isSigningSetupShown)
                 .environmentObject(InstallVM.shared)
                 .environmentObject(AppsVM.shared)
                 .environmentObject(StoreVM.shared)
@@ -57,7 +59,7 @@ struct PlayCoverApp: App {
         }
         .handlesExternalEvents(matching: ["{same path of URL?}"]) // create new window if doesn't exist
         .commands {
-            PlayCoverMenuView()
+            PlayCoverMenuView(isSigningSetupShown: $isSigningSetupShown)
             PlayCoverHelpMenuView(updaterViewModel: updaterViewModel)
             PlayCoverViewMenuView()
             SidebarCommands()
