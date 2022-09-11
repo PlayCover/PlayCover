@@ -9,7 +9,7 @@ class SystemConfig {
 
     static var isFirstTimePlaySign = false
 
-    static let isPlaySignActive: Bool = isSIPDisabled() && isPRAMValid()
+    static let isPlaySignActive: Bool = isSIPDisabled() && isRunningAMFIEnabled()
 
     static func enablePlaySign(_ argc: String) -> Bool {
         shell.sudosh([
@@ -26,6 +26,14 @@ class SystemConfig {
 
     static func isPRAMValid() -> Bool {
         let check = shell.shell("nvram boot-args")
+        for option in NVRAM_OPTIONS where check.contains(option) {
+            return true
+        }
+        return false
+    }
+
+    static func isRunningAMFIEnabled() -> Bool {
+        let check = shell.shell("sysctl kern.bootargs")
         for option in NVRAM_OPTIONS where check.contains(option) {
             return true
         }

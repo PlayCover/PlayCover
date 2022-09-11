@@ -277,7 +277,6 @@
 "settings.picker.adaptiveRes.1" = "Auto";
 "settings.picker.adaptiveRes.5" = "Custom";
 "settings.picker.aspectRatio" = "Aspect ratio:";
-"settings.picker.refreshRate" = "Refresh rate:";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
 "settings.tab.jbBypass" = "Jailbreak Bypass";
 "settings.toggle.jbBypass.help" = "Attempts to bypass Jailbreak Detection in some games (Not guaranteed to work all the time)";
@@ -296,3 +295,8 @@
 "settings.tab.misc" = "Misc";
 "settings.toggle.hud" = "Metal HUD";
 "settings.info.bundleVersion" = "Bundle version";
+"playapp.deleteConfirm" = "Uninstall";
+"playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
+"alert.legacyImport.title" = "Legacy App Settings Detected!";
+"alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
+"button.Convert" = "Convert";

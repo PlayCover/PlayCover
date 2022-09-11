@@ -128,9 +128,21 @@ class Keymapping {
                         }
                     }
                 } catch {
-                    openPanel.close()
-                    Log.shared.error(error)
-                    success(false)
+                    if let selectedPath = openPanel.url {
+                        if let keymap = LegacySettings.convertLegacyKeymapFile(selectedPath) {
+                            if keymap.bundleIdentifier == self.keymap.bundleIdentifier {
+                                self.keymap = keymap
+                                success(true)
+                            } else {
+                                Log.shared.error("Keymapping created for different app! " +
+                                                 "Legacy keymap files must be named after " +
+                                                 "the Bundle ID of the intended application!")
+                                success(false)
+                            }
+                        } else {
+                            success(false)
+                        }
+                    }
                 }
                 openPanel.close()
             }

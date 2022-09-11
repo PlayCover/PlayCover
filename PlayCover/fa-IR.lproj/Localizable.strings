@@ -17,9 +17,9 @@
 "storeAccount.nameOfAcc" = "نام حساب کاربری";
 "storeAccount.nameOfAcc.textfieldPlaceholder" = "اینجا بنویسید...";
 "storeAccount.store" = "ذخیره کردن در حافظه";
-"storeAccount.selectAcc" = "به کدام یک از حساب‌های کاربری می‌خواهید وارد شوید؟";
+"storeAccount.selectAcc" = "حساب کاربری مورد نظرتان را انتخاب کنید";
 "storeAccount.storeAcc" = "پیکربندی حساب کاربری کنونی برای ذخیره‌سازی";
-"storeAccount.deleteAcc" = "کدام یک از حساب‌های کاربری را می‌خواهید از حافظه پاک کنید؟";
+"storeAccount.deleteAcc" = "حساب کاربری مورد نظرتان را انتخاب کنید";
 "playapp.install.unzip" = "استخراج برنامه از پرونده IPA...";
 "playapp.install.createWrapper" = "بارپیچی پیش‌نیازهای برنامه...";
 "playapp.install.installPlayTools" = "نصب PlayTools در برنامه...";
@@ -91,7 +91,7 @@
 "storeAccount.alert.restoreAccount.button" = "بله";
 "storeAccount.alert.restoreAccount.msg" = "این کار منجر به جایگزین شدن حساب کاربری کنونی با حساب کاربری انتخاب‌شده خواهد شد.";
 "storeAccount.alert.deleteAccount" = "از این کار مطمئن هستید؟";
-"storeAccount.alert.deleteAccount.button" = "بله، x را پاک کن";
+"storeAccount.alert.deleteAccount.button" = "بله، آن رااز حافظه پاک کن";
 "alert.moveAppToApplications.title" = "PlayCover در پوشه‌ی Applications مک قرار ندارد؟";
 "alert.moveAppToApplications.subtitle" = "برنامه PlayCover برای این که به درستی کار کند می‌بایست در پوشه Applications مک قرار داشته باشد. برای انتقال خودکار PlayCover به آن پوشه، بر روی دکمه‌ی زیر کلیک کنید.";
 "error.appEncrypted" = "این یک پرونده رمزنگاری‌شده است! لطفاً از یک پرونده IPA رمزشکسته (Decrypted) استفاده کنید. پرونده‌های IPA که از طریق نرم‌افزار iMazing بدست آمده‌اند، قابل استفاده نیستند!";
@@ -111,7 +111,6 @@
 "settings.picker.adaptiveRes.1" = "خودکار (براساس نمایش‌گر)";
 "settings.picker.adaptiveRes.5" = "اندازه دلخواه";
 "settings.picker.aspectRatio" = "نسبت تصویر:";
-"settings.picker.refreshRate" = "نرخ تازه‌سازی:";
 "settings.toggle.disableDisplaySleep.help" = "این گزینه از خاموش شدن نمایش‌گر در زمان اجرای این برنامه جلوگیری می‌کند";
 "settings.tab.jbBypass" = "پنهان‌گر جیل‌بریک";
 "settings.toggle.jbBypass.help" = "با فعال‌سازی این گزینه تلاش می‌شود که از فعالیت شناساگر جیل‌بریک موجود در برخی بازی‌ها جلوگیری شود (اما همیشه نتیجه نمی‌دهد)";
@@ -137,3 +136,8 @@
 "settings.toggle.discord" = "فعال‌سازی ارسال وضعیت به دیسکورد";
 "settings.toggle.hud" = "فعال‌سازی Metal HUD";
 "settings.info.bundleVersion" = "نسخه:";
+"playapp.deleteConfirm" = "Uninstall";
+"playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
+"alert.legacyImport.title" = "Legacy App Settings Detected!";
+"alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
+"button.Convert" = "Convert";

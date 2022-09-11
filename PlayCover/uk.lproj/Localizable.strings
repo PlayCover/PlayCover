@@ -44,8 +44,8 @@
 "alert.app.delete" = "All app data will be erased. You may need to download app files again. Do you wish to continue?";
 "alert.app.preferences" = "All in-app preferences will be deleted. Do you wish to continue?";
 "alert.restart" = "Please restart PlayCover.";
-"alert.error" = "Some error happened!";
-"alert.success" = "Success!";
+"alert.error" = "An error occurred";
+"alert.success" = "Success";
 "alert.moveAppToApplications.title" = "Move to Applications folder?";
 "alert.moveAppToApplications.subtitle" = "PlayCover must be in the Applications folder to run correctly. Press the button below to move PlayCover automatically.";
 "alert.moveAppToApplications.move" = "Move to Applications folder";
@@ -81,7 +81,6 @@
 "settings.text.customHeight" = "Height";
 "settings.text.customWidth" = "Width";
 "settings.picker.aspectRatio" = "Aspect ratio:";
-"settings.picker.refreshRate" = "Refresh rate:";
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
 "settings.tab.jbBypass" = "Jailbreak Bypass";
@@ -129,3 +128,8 @@
 "settings.toggle.discord" = "Enable Discord activity";
 "settings.toggle.hud" = "Metal HUD";
 "settings.info.bundleVersion" = "Bundle version";
+"playapp.deleteConfirm" = "Uninstall";
+"playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
+"alert.legacyImport.title" = "Legacy App Settings Detected!";
+"alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
+"button.Convert" = "Convert";

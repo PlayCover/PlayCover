@@ -8,7 +8,7 @@
 "alert.appCacheCleared" = "App data has been cleared!";
 
 /* (No Comment) */
-"alert.error" = "Some error happened!";
+"alert.error" = "An error occurred";
 
 /* (No Comment) */
 "alert.errorImportKm" = "Error occured when importing!";
@@ -26,7 +26,7 @@
 "alert.storeAccount.regionIsNotValid" = "The current account is set to a different Region. Launch the game, Change the region, and pass through the gates to save. Then try again";
 
 /* (No Comment) */
-"alert.success" = "Success!";
+"alert.success" = "Success";
 
 /* (No Comment) */
 "button.Cancel" = "Cancel";
@@ -275,7 +275,6 @@
 "settings.picker.adaptiveRes.1" = "Auto";
 "settings.picker.adaptiveRes.5" = "Custom";
 "settings.picker.aspectRatio" = "Aspect ratio:";
-"settings.picker.refreshRate" = "Refresh rate:";
 "settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
 "settings.tab.graphics" = "Graphics";
 "settings.picker.adaptiveRes" = "Adaptive resolution:";
@@ -296,3 +295,8 @@
 "xcode.install.failed.altButton" = "Alternate Instructions";
 "settings.tab.misc" = "Misc";
 "settings.info.bundleVersion" = "Bundle version";
+"button.Convert" = "Convert";
+"playapp.deleteConfirm" = "Uninstall";
+"playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
+"alert.legacyImport.title" = "Legacy App Settings Detected!";
+"alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
