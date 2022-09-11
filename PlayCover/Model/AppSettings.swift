@@ -16,7 +16,7 @@ struct AppSettingsData: Codable {
     var iosDeviceModel = "iPad13,8"
     var windowWidth = 1920
     var windowHeight = 1080
-    var resolution = 2
+    var resolution = 1
     var aspectRatio = 1
     var notch: Bool = NSScreen.hasNotch()
     var bypass = false

@@ -296,7 +296,7 @@ struct GraphicsView: View {
         }
         return (height / heightRatio) * widthRatio
     }
-   func getHeightForNotch(_ width: Int, _ height: Int) -> Int {
+    func getHeightForNotch(_ width: Int, _ height: Int) -> Int {
         let wFloat = Float(width)
         let hFloat = Float(height)
         if NSScreen.hasNotch() && (hFloat/wFloat)*16.0 > 10.3 && (hFloat/wFloat)*16.0 < 10.4 {
@@ -304,7 +304,7 @@ struct GraphicsView: View {
         } else {
             return Int(height)
         }
-    } 
+    }
 }
 
 struct JBBypassView: View {
@@ -382,6 +382,8 @@ struct MiscView: View {
                 }
             }
             .padding()
+        }
+    }
 }
 
 struct InfoView: View {
