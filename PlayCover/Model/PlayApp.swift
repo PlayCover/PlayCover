@@ -25,9 +25,7 @@ class PlayApp: BaseApp {
             if try !Entitlements.areEntitlementsValid(app: self) {
                 sign()
             }
-            if !PlayTools.isPluginInstalled(url) {
-                try PlayTools.installPluginInIPA(url)
-            }
+            try PlayTools.installPluginInIPA(url)
             if try !PlayTools.isInstalled() {
                 Log.shared.error("PlayTools are not installed! Please move PlayCover.app into Applications!")
             } else if try !PlayTools.isValidArch(executable.path) {

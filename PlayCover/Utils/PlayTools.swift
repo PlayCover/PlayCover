@@ -174,15 +174,6 @@ class PlayTools {
             && isValidArch(playToolsPath.path)
     }
 
-    static func isPluginInstalled(_ payload: URL) -> Bool {
-        let pluginsURL = payload.appendingPathComponent("PlugIns")
-        let bundleTarget = pluginsURL
-            .appendingPathComponent("AKInterface")
-            .appendingPathExtension("bundle")
-
-        return FileManager.default.fileExists(atPath: bundleTarget.path)
-    }
-
     static func isValidArch(_ path: String) throws -> Bool {
         guard let output = try? shell.shello(vtool.path, "-show-build", path) else {
             return false
