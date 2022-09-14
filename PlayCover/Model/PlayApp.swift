@@ -137,7 +137,7 @@ class PlayApp: BaseApp {
 
     func deleteApp() {
         do {
-            try fileMgr.delete(at: URL(fileURLWithPath: url.path))
+            try FileManager.default.delete(at: URL(fileURLWithPath: url.path))
             AppsVM.shared.fetchApps()
         } catch {
             Log.shared.error(error)
@@ -146,11 +146,17 @@ class PlayApp: BaseApp {
 
     func sign() {
         do {
-            let tmpEnts = try TempAllocator.allocateTempDirectory().appendingPathComponent("entitlements.plist")
+            let tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
+                                                  in: .userDomainMask,
+                                                  appropriateFor: URL(fileURLWithPath: "/Users"),
+                                                  create: true)
+            let tmpEnts = tmpDir
+                .appendingPathComponent(ProcessInfo().globallyUniqueString)
+                .appendingPathExtension("plist")
             let conf = try Entitlements.composeEntitlements(self)
             try conf.store(tmpEnts)
             shell.signAppWith(executable, entitlements: tmpEnts)
-            TempAllocator.clearTemp()
+            try FileManager.default.removeItem(at: tmpEnts)
         } catch {
             print(error)
             Log.shared.error(error)

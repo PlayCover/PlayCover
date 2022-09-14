@@ -23,7 +23,7 @@ struct AppContainer {
 
     public func clear() {
         do {
-            try fileMgr.delete(at: containerUrl)
+            try FileManager.default.delete(at: containerUrl)
         } catch {
             Log.shared.error(error)
         }
@@ -39,7 +39,7 @@ struct AppContainer {
         for sub in subdirs {
             let metadataPlist = sub.appendingPathComponent(".com.apple.containermanagerd.metadata.plist")
 
-            if fileMgr.fileExists(atPath: metadataPlist.path) {
+            if FileManager.default.fileExists(atPath: metadataPlist.path) {
                 if let plist = NSDictionary(contentsOfFile: metadataPlist.path) {
                     if let bundleId = plist["MCMMetadataIdentifier"] as? String {
                         found[bundleId] = AppContainer(bundleId: bundleId, containerUrl: sub)

@@ -44,9 +44,9 @@ struct Keymap: Codable {
 class Keymapping {
     static var keymappingDir: URL {
         let keymappingFolder = PlayTools.playCoverContainer.appendingPathComponent("Keymapping")
-        if !fileMgr.fileExists(atPath: keymappingFolder.path) {
+        if !FileManager.default.fileExists(atPath: keymappingFolder.path) {
             do {
-                try fileMgr.createDirectory(at: keymappingFolder, withIntermediateDirectories: true, attributes: [:])
+                try FileManager.default.createDirectory(at: keymappingFolder, withIntermediateDirectories: true, attributes: [:])
             } catch {
                 Log.shared.error(error)
             }

@@ -11,9 +11,8 @@ class AppsVM: ObservableObject {
     static let shared = AppsVM()
 
     private init() {
-        PlayTools.install()
+        PlayTools.installOnSystem()
         fetchApps()
-        TempAllocator.clearTemp()
     }
 
     @Published var apps: [PlayApp] = []
@@ -31,7 +30,7 @@ class AppsVM: ObservableObject {
 
                 for sub in subdirs {
                     if sub.pathExtension.contains("app") &&
-                        fileMgr.fileExists(atPath: sub.appendingPathComponent("Info.plist").path) {
+                        FileManager.default.fileExists(atPath: sub.appendingPathComponent("Info.plist").path) {
                         let app = PlayApp(appUrl: sub)
                         if let container = containers[app.info.bundleIdentifier] {
                             app.container = container

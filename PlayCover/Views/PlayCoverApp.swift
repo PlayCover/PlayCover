@@ -23,10 +23,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    func applicationWillTerminate(_ aNotification: Notification) {
-        TempAllocator.clearTemp()
-    }
-
     func applicationDidFinishLaunching(_ notification: Notification) {
 		UserDefaults.standard.register(
 			defaults: ["NSApplicationCrashOnExceptions": true]
