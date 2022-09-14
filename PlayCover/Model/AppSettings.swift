@@ -30,7 +30,9 @@ class AppSettings {
             PlayTools.playCoverContainer.appendingPathComponent("App Settings")
         if !FileManager.default.fileExists(atPath: settingsFolder.path) {
             do {
-                try FileManager.default.createDirectory(at: settingsFolder, withIntermediateDirectories: true, attributes: [:])
+                try FileManager.default.createDirectory(at: settingsFolder,
+                                                        withIntermediateDirectories: true,
+                                                        attributes: [:])
             } catch {
                 Log.shared.error(error)
             }

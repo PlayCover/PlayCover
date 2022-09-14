@@ -12,7 +12,9 @@ class Entitlements {
         let entFolder = PlayTools.playCoverContainer.appendingPathComponent("Entitlements")
         if !FileManager.default.fileExists(atPath: entFolder.path) {
             do {
-                try FileManager.default.createDirectory(at: entFolder, withIntermediateDirectories: true, attributes: [:])
+                try FileManager.default.createDirectory(at: entFolder,
+                                                        withIntermediateDirectories: true,
+                                                        attributes: [:])
             } catch {
                 Log.shared.error(error)
             }

@@ -17,7 +17,7 @@ class PlayTools {
         .appendingPathComponent("PlugIns")
         .appendingPathComponent("AKInterface")
         .appendingPathExtension("bundle")
-    private static let bundledPlayToolsFramework = URL(fileURLWithPath:"\(Bundle.main.bundlePath)")
+    private static let bundledPlayToolsFramework = URL(fileURLWithPath: "\(Bundle.main.bundlePath)")
         .appendingPathComponent("Contents")
         .appendingPathComponent("Frameworks")
         .appendingPathComponent("PlayTools")
@@ -81,7 +81,7 @@ class PlayTools {
     }
 
     static func installPluginInIPA(_ payload: URL) throws {
-        let pluginsURL = payload.appendingPathExtension("PlugIns")
+        let pluginsURL = payload.appendingPathComponent("PlugIns")
         if !FileManager.default.fileExists(atPath: pluginsURL.path) {
             try FileManager.default.createDirectory(at: pluginsURL, withIntermediateDirectories: true)
         }

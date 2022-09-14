@@ -46,7 +46,9 @@ class Keymapping {
         let keymappingFolder = PlayTools.playCoverContainer.appendingPathComponent("Keymapping")
         if !FileManager.default.fileExists(atPath: keymappingFolder.path) {
             do {
-                try FileManager.default.createDirectory(at: keymappingFolder, withIntermediateDirectories: true, attributes: [:])
+                try FileManager.default.createDirectory(at: keymappingFolder,
+                                                        withIntermediateDirectories: true,
+                                                        attributes: [:])
             } catch {
                 Log.shared.error(error)
             }
