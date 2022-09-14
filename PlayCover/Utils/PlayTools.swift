@@ -99,6 +99,7 @@ class PlayTools {
         }
         try FileManager.default.copyItem(at: akInterface, to: bundleTarget)
         try bundleTarget.fixExecutable()
+        Shell.codesign(bundleTarget)
     }
 
     static func injectInIPA(_ exec: URL, payload: URL) throws {
@@ -141,6 +142,7 @@ class PlayTools {
 
                 try libraryTarget.fixExecutable()
                 try bundleTarget.fixExecutable()
+                Shell.codesign(bundleTarget)
             } catch {
                 Log.shared.error(error)
             }
@@ -170,6 +172,15 @@ class PlayTools {
         try FileManager.default.fileExists(atPath: playToolsPath.path)
             && FileManager.default.fileExists(atPath: akInterfacePath.path)
             && isValidArch(playToolsPath.path)
+    }
+
+    static func isPluginInstalled(_ payload: URL) -> Bool {
+        let pluginsURL = payload.appendingPathComponent("PlugIns")
+        let bundleTarget = pluginsURL
+            .appendingPathComponent("AKInterface")
+            .appendingPathExtension("bundle")
+
+        return FileManager.default.fileExists(atPath: bundleTarget.path)
     }
 
     static func isValidArch(_ path: String) throws -> Bool {

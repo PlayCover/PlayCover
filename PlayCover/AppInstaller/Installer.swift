@@ -47,8 +47,8 @@ class Installer {
 
                 let installed = try wrap(app)
                 let installedApp = PlayApp(appUrl: installed)
-                installedApp.sign()
                 try PlayTools.installPluginInIPA(installedApp.url)
+                installedApp.sign()
                 try ipa.releaseTempDir()
                 InstallVM.shared.next(.finish, 0.95, 1.0)
                 returnCompletion(installed)
