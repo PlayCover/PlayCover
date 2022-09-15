@@ -5,13 +5,6 @@
 //  Created by Александр Дорофеев on 20.11.2021.
 //
 
-//
-//  patch.h
-//  PlayCover
-//
-//  Created by Александр Дорофеев on 02.11.2021.
-//
-
 #ifndef patch_h
 #define patch_h
 

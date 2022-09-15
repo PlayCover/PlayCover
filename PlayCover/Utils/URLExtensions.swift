@@ -70,7 +70,7 @@ extension URL {
     func fixExecutable() throws {
         var attributes = [FileAttributeKey: Any]()
         attributes[.posixPermissions] = 0o777
-        try fileMgr.setAttributes(attributes, ofItemAtPath: path)
+        try FileManager.default.setAttributes(attributes, ofItemAtPath: path)
     }
 
     // Wraps NSFileEnumerator since the geniuses at corelibs-foundation decided it should be completely untyped

@@ -15,14 +15,12 @@ public class IPA {
     }
 
     public func allocateTempDir() throws -> URL {
-        if let workDir = tempDir, FileManager.default.fileExists(atPath: workDir.path) {
-            return workDir
-        }
-
-        let workDir = try TempAllocator.allocateTempDirectory()
-        tempDir = workDir
-
-        return workDir
+        let tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
+                                                 in: .userDomainMask,
+                                                 appropriateFor: URL(fileURLWithPath: "/Users"),
+                                                 create: true)
+        return tmpDir
+            .appendingPathComponent(ProcessInfo().globallyUniqueString)
     }
 
     public func releaseTempDir() throws {

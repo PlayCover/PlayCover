@@ -28,9 +28,11 @@ class AppSettings {
     static var appSettingsDir: URL {
         let settingsFolder =
             PlayTools.playCoverContainer.appendingPathComponent("App Settings")
-        if !fileMgr.fileExists(atPath: settingsFolder.path) {
+        if !FileManager.default.fileExists(atPath: settingsFolder.path) {
             do {
-                try fileMgr.createDirectory(at: settingsFolder, withIntermediateDirectories: true, attributes: [:])
+                try FileManager.default.createDirectory(at: settingsFolder,
+                                                        withIntermediateDirectories: true,
+                                                        attributes: [:])
             } catch {
                 Log.shared.error(error)
             }

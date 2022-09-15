@@ -22,7 +22,7 @@ class Installer {
                 app.validMachOs = machos
 
                 InstallVM.shared.next(.playtools, 0.55, 0.85)
-                try PlayTools.installFor(app.executable, resign: true)
+                try PlayTools.installInIPA(app.executable, app.url, resign: true)
 
                 for macho in machos {
                     if try PlayTools.isMachoEncrypted(atURL: macho) {
@@ -46,7 +46,9 @@ class Installer {
                 InstallVM.shared.next(.wrapper, 0.85, 0.95)
 
                 let installed = try wrap(app)
-                PlayApp(appUrl: installed).sign()
+                let installedApp = PlayApp(appUrl: installed)
+                try PlayTools.installPluginInIPA(installedApp.url)
+                installedApp.sign()
                 try ipa.releaseTempDir()
                 InstallVM.shared.next(.finish, 0.95, 1.0)
                 returnCompletion(installed)
@@ -72,7 +74,7 @@ class Installer {
                 app.validMachOs = machos
 
                 InstallVM.shared.next(.playtools, 0.55, 0.85)
-                try PlayTools.injectFor(app.executable, payload: app.url)
+                try PlayTools.injectInIPA(app.executable, payload: app.url)
 
                 for macho in machos where try PlayTools.isMachoEncrypted(atURL: macho) {
                     throw PlayCoverError.appEncrypted
@@ -174,8 +176,8 @@ class Installer {
 
     static func removeMobileProvision(_ baseApp: BaseApp) throws {
         let provision = baseApp.url.appendingPathComponent("embedded.mobileprovision")
-        if fileMgr.fileExists(atPath: provision.path) {
-            try fileMgr.removeItem(at: provision)
+        if FileManager.default.fileExists(atPath: provision.path) {
+            try FileManager.default.removeItem(at: provision)
         }
     }
 

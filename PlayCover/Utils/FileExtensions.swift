@@ -6,10 +6,7 @@ import AppKit
 import Foundation
 import UniformTypeIdentifiers
 
-let fileMgr = FileManager.default
-
 extension FileManager {
-
     func delete(at url: URL) throws {
         if FileManager.default.fileExists(atPath: url.path) {
             do {
@@ -21,15 +18,15 @@ extension FileManager {
     }
 
     func copy(at srcURL: URL, to dstURL: URL) throws {
-        if fileMgr.fileExists(atPath: dstURL.path) {
-            try fileMgr.removeItem(at: dstURL)
+        if FileManager.default.fileExists(atPath: dstURL.path) {
+            try FileManager.default.removeItem(at: dstURL)
         }
-        try fileMgr.copyItem(at: srcURL, to: dstURL)
+        try FileManager.default.copyItem(at: srcURL, to: dstURL)
     }
 
     func filesCount(inDir: URL) throws -> Int {
-        if fileMgr.fileExists(atPath: inDir.path) {
-            return try fileMgr.contentsOfDirectory(atPath: inDir.path).count
+        if FileManager.default.fileExists(atPath: inDir.path) {
+            return try FileManager.default.contentsOfDirectory(atPath: inDir.path).count
         }
         return 0
     }
