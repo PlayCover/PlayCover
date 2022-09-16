@@ -6,9 +6,10 @@
 import Foundation
 
 class PlayTools {
-    private static let frameWorksURL: URL = URL(fileURLWithPath:
-                                                    "/Users/\(NSUserName())/Library/Frameworks")
-    private static let playToolsFramwework = frameWorksURL
+    private static let frameworksURL = FileManager.default.homeDirectoryForCurrentUser
+        .appendingPathComponent("Library")
+        .appendingPathComponent("Frameworks")
+    private static let playToolsFramwework = frameworksURL
         .appendingPathComponent("PlayTools")
         .appendingPathExtension("framework")
     private static let playToolsPath = playToolsFramwework
@@ -17,14 +18,17 @@ class PlayTools {
         .appendingPathComponent("PlugIns")
         .appendingPathComponent("AKInterface")
         .appendingPathExtension("bundle")
-    private static let bundledPlayToolsFramework = URL(fileURLWithPath: "\(Bundle.main.bundlePath)")
+    private static let bundledPlayToolsFramework = Bundle.main.bundleURL
         .appendingPathComponent("Contents")
         .appendingPathComponent("Frameworks")
         .appendingPathComponent("PlayTools")
         .appendingPathExtension("framework")
 
     public static var playCoverContainer: URL {
-        let playCoverPath = URL(fileURLWithPath: "/Users/\(NSUserName())/Library/Containers/io.playcover.PlayCover")
+        let playCoverPath = FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent("Library")
+            .appendingPathComponent("Containers")
+            .appendingPathComponent("io.playcover.PlayCover")
         if !FileManager.default.fileExists(atPath: playCoverPath.path) {
             do {
                 try FileManager.default.createDirectory(at: playCoverPath,
@@ -44,9 +48,9 @@ class PlayTools {
                 Log.shared.log("Installing PlayTools")
 
                 // Check if Frameworks folder exists, if not, create it
-                if !FileManager.default.fileExists(atPath: frameWorksURL.path) {
+                if !FileManager.default.fileExists(atPath: frameworksURL.path) {
                     try FileManager.default.createDirectory(
-                        atPath: frameWorksURL.path,
+                        atPath: frameworksURL.path,
                         withIntermediateDirectories: true,
                         attributes: [:])
                 }

@@ -8,13 +8,20 @@
 import Foundation
 
 func deletePreferences(app: String) {
-    let plist = "/Users/\(NSUserName())/Library/Containers/\(app)/Data/Library/Preferences/\(app).plist"
-    let fileManager = FileManager.default
+    let plistURL = FileManager.default.homeDirectoryForCurrentUser
+        .appendingPathComponent("Library")
+        .appendingPathComponent("Containers")
+        .appendingPathComponent(app)
+        .appendingPathComponent("Data")
+        .appendingPathComponent("Library")
+        .appendingPathComponent("Preferences")
+        .appendingPathComponent(app)
+        .appendingPathExtension("plist")
 
-    guard fileManager.fileExists(atPath: plist) else { return }
+    guard FileManager.default.fileExists(atPath: plistURL.path) else { return }
 
     do {
-        try fileManager.removeItem(atPath: plist)
+        try FileManager.default.removeItem(atPath: plistURL.path)
     } catch {
         Log.shared.log("\(error)", isError: true)
     }

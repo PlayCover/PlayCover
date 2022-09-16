@@ -11,6 +11,9 @@ struct AppContainer {
 
     let bundleId: String
     let containerUrl: URL
+    private static let containersURL = FileManager.default.homeDirectoryForCurrentUser
+        .appendingPathComponent("Library")
+        .appendingPathComponent("Containers")
 
     lazy var userPrefsUrl: URL = {
         return containerUrl
@@ -33,7 +36,7 @@ struct AppContainer {
         var found = [String: AppContainer]()
 
         let directoryContents = try FileManager.default
-            .contentsOfDirectory(at: CONTAINERS_PATH, includingPropertiesForKeys: nil, options: [])
+            .contentsOfDirectory(at: containersURL, includingPropertiesForKeys: nil, options: [])
 
         let subdirs = directoryContents.filter { $0.hasDirectoryPath }
         for sub in subdirs {
@@ -50,7 +53,4 @@ struct AppContainer {
 
         return found
     }
-
-    private static let CONTAINERS_PATH = URL(fileURLWithPath: "/Users/\(NSUserName())/Library/Containers")
-
 }

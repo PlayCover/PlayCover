@@ -10,11 +10,13 @@
 import Foundation
 
 class LegacySettings {
-    public static var monolithURL: URL = URL(fileURLWithPath:
-                                                "/Users/\(NSUserName())/Library/Preferences/playcover.plist")
+    public static var monolithURL = FileManager.default.homeDirectoryForCurrentUser
+        .appendingPathComponent("Library")
+        .appendingPathComponent("Preferences")
+        .appendingPathComponent("playcover")
+        .appendingPathExtension("plist")
     public static var doesMonolithExist: Bool {
-        return FileManager.default.fileExists(atPath:
-                                                "/Users/\(NSUserName())/Library/Preferences/playcover.plist")
+        return FileManager.default.fileExists(atPath: monolithURL.path)
     }
 
     static func convertLegacyMonolithPlist(_ from: URL) {
