@@ -123,6 +123,7 @@
 		6EC228A128B1830F00D7D73A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6ED6ACA328A949A30040D234 /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
 		6ED6ACA528A96E570040D234 /* DeletePreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeletePreferences.swift; sourceTree = "<group>"; };
+		81C2786C28D4A5A300E208D7 /* pt-br */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-br"; path = "pt-br.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		8783CFF726B8C52D00171041 /* PlayCover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayCover.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverApp.swift; sourceTree = "<group>"; };
 		8783CFFE26B8C52E00171041 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -500,6 +501,8 @@
 				"fa-IR",
 				"zh-Hant",
 				ar,
+				"pt-br",
+				"pt-BR",
 			);
 			mainGroup = 8783CFEE26B8C52D00171041;
 			packageReferences = (
@@ -695,6 +698,7 @@
 				68154F5328B1081500ECA007 /* fa-IR */,
 				6EC228A028B14A0600D7D73A /* zh-Hant */,
 				6EC228A128B1830F00D7D73A /* ar */,
+				81C2786C28D4A5A300E208D7 /* pt-br */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
