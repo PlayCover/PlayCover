@@ -8,7 +8,7 @@
 "alert.appCacheCleared" = "Les caches de l'app ont été effacés !";
 
 /* (No Comment) */
-"alert.error" = "Un erreur a occuré !";
+"alert.error" = "Une erreur est occurée";
 
 /* (No Comment) */
 "alert.errorImportKm" = "Erreur lors de l'import !";
@@ -26,7 +26,7 @@
 "alert.storeAccount.regionIsNotValid" = "Le compte actuel est défini d'une région différente. Lancez le jeu, changez de région et franchissez les portes pour sauvegarder. Puis réessayer";
 
 /* (No Comment) */
-"alert.success" = "Succès !";
+"alert.success" = "Succès";
 
 /* (No Comment) */
 "button.Cancel" = "Annuler";
@@ -272,10 +272,10 @@
 "settings.toggle.mm" = "Mappage de la souris";
 "settings.toggle.mm.help" = "Ajoutez des commandes de souris qui simule les mouvements tactiles. Utilisez Commande + K pour ouvrir le menu de l'éditeur.";
 "settings.tab.graphics" = "Graphiques";
-"settings.picker.adaptiveRes" = "Résolution adaptative :";
-"settings.picker.adaptiveRes.help" = "Adapte et met à l'échelle la fenêtre de l'application pour s'adapter à votre écran.";
-"settings.picker.adaptiveRes.0" = "Désactivé";
-"settings.picker.adaptiveRes.1" = "Auto";
+"settings.picker.adaptiveRes" = "Résolution :";
+"settings.picker.adaptiveRes.help" = "Adapte la fenêtre de l'application pour s'adapter à votre résolution";
+"settings.picker.adaptiveRes.0" = "Défaut de l'app";
+"settings.picker.adaptiveRes.1" = "Auto (Basé sur l'affichage)";
 "settings.picker.adaptiveRes.5" = "Personnalisé";
 "settings.toggle.disableDisplaySleep.help" = "Empêcher l'affichage de s'éteindre pendant que cette application est ouvert";
 "settings.tab.jbBypass" = "Évitement Jailbreak";
@@ -295,8 +295,9 @@
 "settings.tab.misc" = "Autre";
 "settings.toggle.hud" = "Metal HUD";
 "settings.info.bundleVersion" = "Version de l'app :";
-"playapp.deleteConfirm" = "Uninstall";
-"playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
-"alert.legacyImport.title" = "Legacy App Settings Detected!";
-"alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
-"button.Convert" = "Convert";
+"playapp.deleteConfirm" = "Désinstaller";
+"playapp.deleteMessage" = "Êtes-vous sur de vouloir désinstaller %@ ?";
+"alert.legacyImport.title" = "Vieux paramètres d'application détectés !";
+"alert.legacyImport.subtitle" = "Des vieux paramètres et des vieux fichiers de mappage de touches ont été détectés. Souhaitez-vous convertir ces fichiers au nouveau format ?";
+"button.Convert" = "Convertir";
+"settings.text.detectedResolution" = "Résolution détectée :";

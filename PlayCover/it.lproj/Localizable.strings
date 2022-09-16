@@ -300,3 +300,4 @@
 "playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
 "alert.legacyImport.title" = "Legacy App Settings Detected!";
 "alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
+"settings.text.detectedResolution" = "Detected Resolution:";

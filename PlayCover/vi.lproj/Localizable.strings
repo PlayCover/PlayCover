@@ -141,3 +141,4 @@
 "button.Convert" = "Convert";
 "playapp.deleteConfirm" = "Uninstall";
 "playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
+"settings.text.detectedResolution" = "Detected Resolution:";
