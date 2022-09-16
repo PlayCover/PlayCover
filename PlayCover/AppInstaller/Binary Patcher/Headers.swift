@@ -8,6 +8,12 @@
 import Foundation
 import MachO
 
+struct thin_header {
+    var offset: UInt32 = 0
+    var size: UInt32 = 0
+    var header: mach_header = mach_header()
+}
+
 class Headers {
     public static func headersFromBinary(binary: NSData) -> [thin_header] {
         var headers = Array(repeating: thin_header(), count: 4)
@@ -28,7 +34,7 @@ class Headers {
                 arch.cputype = cpu_type_t(swap(shouldSwap, arch.cputype))
                 arch.offset = swap(shouldSwap, arch.offset)
 
-                let macho = headerAtOffset(binary as Data, arch.offset)
+                let macho = headerAtOffset(binary, arch.offset)
                 if macho.size > 0 {
                     print("Found thin header...")
                     headers[numArchs] = macho
@@ -38,7 +44,7 @@ class Headers {
                 offset += MemoryLayout.size(ofValue: fat_arch.self)
             }
         } else if magic == MH_MAGIC || magic == MH_MAGIC_64 {
-            let macho = headerAtOffset(binary as Data, 0)
+            let macho = headerAtOffset(binary, 0)
             if macho.size > 0 {
                 print("Found thin header...")
                 numArchs += 1
@@ -59,23 +65,22 @@ class Headers {
         return bool ? CFSwapInt32(int) : int
     }
 
-    /*public static func headerAtOffsetSwift(_ binary: NSData, _ offset: Int) -> thin_header {
-        var macho = thin_header()
-        macho.offset = UInt32(offset)
-        macho.header = (binary.bytes + offset).load(as: mach_header.self)
+    public static func headerAtOffset(_ binary: NSData, _ offset: UInt32) -> thin_header {
+        let header = (binary.bytes + Int(offset)).load(as: mach_header.self)
+        var size: UInt32 = 0
 
-        if macho.header.magic == MH_MAGIC || macho.header.magic == MH_CIGAM {
-            macho.size = UInt32(MemoryLayout.size(ofValue: mach_header.self))
+        if header.magic == MH_MAGIC || header.magic == MH_CIGAM {
+            size = UInt32(MemoryLayout.size(ofValue: mach_header.self))
         } else {
-            macho.size = UInt32(MemoryLayout.size(ofValue: mach_header_64.self))
+            size = UInt32(MemoryLayout.size(ofValue: mach_header_64.self))
         }
 
-        if macho.header.cputype != CPU_TYPE_X86_64 &&
-            macho.header.cputype != CPU_TYPE_I386 &&
-            macho.header.cputype != CPU_TYPE_ARM &&
-            macho.header.cputype != CPU_TYPE_ARM64 {
-            macho.size = 0
+        if header.cputype != CPU_TYPE_X86_64 &&
+           header.cputype != CPU_TYPE_I386 &&
+           header.cputype != CPU_TYPE_ARM &&
+           header.cputype != CPU_TYPE_ARM64 {
+            size = 0
         }
-        return macho
-    }*/
+        return thin_header(offset: offset, size: size, header: header)
+    }
 }

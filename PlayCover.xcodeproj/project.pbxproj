@@ -36,7 +36,7 @@
 		6E66B0D928A135360099B907 /* ToastVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E66B0D828A135360099B907 /* ToastVM.swift */; };
 		6E7663AC28D4E89100DE4AF9 /* PatchBinary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7663AB28D4E89000DE4AF9 /* PatchBinary.swift */; };
 		6E7663AE28D4F1EE00DE4AF9 /* Headers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7663AD28D4F1EE00DE4AF9 /* Headers.swift */; };
-		6E7663B128D4FF5800DE4AF9 /* headers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E7663B028D4FF5800DE4AF9 /* headers.m */; };
+		6E7663B328D5048200DE4AF9 /* Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7663B228D5048200DE4AF9 /* Operations.swift */; };
 		6E7CA16528B4D02900216CD8 /* ITunesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CA16428B4D02900216CD8 /* ITunesResponse.swift */; };
 		6E7CA16728B4EEAE00216CD8 /* Keymapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CA16628B4EEAE00216CD8 /* Keymapping.swift */; };
 		6EB4B57428C93E0600630890 /* LegacySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB4B57328C93E0600630890 /* LegacySettings.swift */; };
@@ -47,8 +47,6 @@
 		8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783D00126B8C52E00171041 /* Preview Assets.xcassets */; };
 		8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00A26B8C9E600171041 /* URLExtensions.swift */; };
 		923421F7275F40300030CD7D /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923421F6275F40300030CD7D /* AppContainer.swift */; };
-		9256220127491E4700728698 /* NSData+Reading.m in Sources */ = {isa = PBXBuildFile; fileRef = 925621FD27491E4700728698 /* NSData+Reading.m */; };
-		9256220327491E4700728698 /* operations.m in Sources */ = {isa = PBXBuildFile; fileRef = 925621FF27491E4700728698 /* operations.m */; };
 		9272F19E273B74C800DFBEF1 /* AppsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9272F19C273B74C800DFBEF1 /* AppsVM.swift */; };
 		9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280871A2824A8D20034C510 /* SoundDeviceService.swift */; };
 		9286D296273A7E4200958DD3 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286D295273A7E4200958DD3 /* AppSettings.swift */; };
@@ -117,8 +115,7 @@
 		6E66B0D828A135360099B907 /* ToastVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastVM.swift; sourceTree = "<group>"; };
 		6E7663AB28D4E89000DE4AF9 /* PatchBinary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatchBinary.swift; sourceTree = "<group>"; };
 		6E7663AD28D4F1EE00DE4AF9 /* Headers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Headers.swift; sourceTree = "<group>"; };
-		6E7663AF28D4FF3E00DE4AF9 /* headers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = headers.h; sourceTree = "<group>"; };
-		6E7663B028D4FF5800DE4AF9 /* headers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = headers.m; sourceTree = "<group>"; };
+		6E7663B228D5048200DE4AF9 /* Operations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operations.swift; sourceTree = "<group>"; };
 		6E7BEDCB28C3AD0300DFF0EB /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6E7CA16428B4D02900216CD8 /* ITunesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesResponse.swift; sourceTree = "<group>"; };
 		6E7CA16628B4EEAE00216CD8 /* Keymapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keymapping.swift; sourceTree = "<group>"; };
@@ -136,11 +133,6 @@
 		8783D00A26B8C9E600171041 /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
 		8FBBE76B2826709500F4FE9F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		923421F6275F40300030CD7D /* AppContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
-		925621F927491E4700728698 /* NSData+Reading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Reading.h"; sourceTree = "<group>"; };
-		925621FA27491E4700728698 /* operations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = operations.h; sourceTree = "<group>"; };
-		925621FC27491E4700728698 /* defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = defines.h; sourceTree = "<group>"; };
-		925621FD27491E4700728698 /* NSData+Reading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Reading.m"; sourceTree = "<group>"; };
-		925621FF27491E4700728698 /* operations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = operations.m; sourceTree = "<group>"; };
 		9272F19C273B74C800DFBEF1 /* AppsVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppsVM.swift; sourceTree = "<group>"; };
 		9280871A2824A8D20034C510 /* SoundDeviceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundDeviceService.swift; sourceTree = "<group>"; };
 		9286D295273A7E4200958DD3 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
@@ -388,20 +380,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		925621F827491E4700728698 /* optool */ = {
+		925621F827491E4700728698 /* Binary Patcher */ = {
 			isa = PBXGroup;
 			children = (
 				6E7663AB28D4E89000DE4AF9 /* PatchBinary.swift */,
 				6E7663AD28D4F1EE00DE4AF9 /* Headers.swift */,
-				925621F927491E4700728698 /* NSData+Reading.h */,
-				925621FA27491E4700728698 /* operations.h */,
-				925621FC27491E4700728698 /* defines.h */,
-				6E7663AF28D4FF3E00DE4AF9 /* headers.h */,
-				925621FD27491E4700728698 /* NSData+Reading.m */,
-				925621FF27491E4700728698 /* operations.m */,
-				6E7663B028D4FF5800DE4AF9 /* headers.m */,
+				6E7663B228D5048200DE4AF9 /* Operations.swift */,
 			);
-			path = optool;
+			path = "Binary Patcher";
 			sourceTree = "<group>";
 		};
 		92ECD8A6274E769600DB7AC6 /* Utils */ = {
@@ -628,7 +614,6 @@
 				53F4D2A026C43C690020167C /* Log.swift in Sources */,
 				92A8AAC9275EFEA800D89B50 /* SystemConfig.swift in Sources */,
 				6E66B0C9289F52800099B907 /* IPALibraryView.swift in Sources */,
-				6E7663B128D4FF5800DE4AF9 /* headers.m in Sources */,
 				B1084E1F28AA80F400E399FA /* AppSettingsVM.swift in Sources */,
 				6E7CA16728B4EEAE00216CD8 /* Keymapping.swift in Sources */,
 				6ED6ACA428A949A30040D234 /* AppSettingsView.swift in Sources */,
@@ -661,13 +646,12 @@
 				AB671B8C28C9C7DB00B7B102 /* SigningSetupView.swift in Sources */,
 				92EE06D4274EA604002C907B /* PlayAppView.swift in Sources */,
 				B17FD04728C7B0D900B1D4CA /* AssetsExtractor.swift in Sources */,
-				9256220327491E4700728698 /* operations.m in Sources */,
 				6E06193A28B3C42E0012C771 /* DeleteGenshinAccountView.swift in Sources */,
 				28361D662892800200B35EDB /* DeleteStoredGenshinUserData.swift in Sources */,
 				53D9DAF326C1849D0071959E /* PlayCoverError.swift in Sources */,
+				6E7663B328D5048200DE4AF9 /* Operations.swift in Sources */,
 				9286D296273A7E4200958DD3 /* AppSettings.swift in Sources */,
 				9272F19E273B74C800DFBEF1 /* AppsVM.swift in Sources */,
-				9256220127491E4700728698 /* NSData+Reading.m in Sources */,
 				923421F7275F40300030CD7D /* AppContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
