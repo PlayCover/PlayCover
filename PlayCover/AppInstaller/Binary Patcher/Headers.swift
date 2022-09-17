@@ -8,6 +8,7 @@
 import Foundation
 import MachO
 
+// swiftlint:disable type_name
 struct thin_header {
     var offset: UInt32 = 0
     var size: UInt32 = 0
@@ -17,7 +18,8 @@ struct thin_header {
 class Headers {
     public static func headersFromBinary(binary: NSData) -> [thin_header] {
         var headers = Array(repeating: thin_header(), count: 4)
-        let magic: UInt32 = binary.int(atOffset: 0)
+        let magicData = Data(bytes: binary[0..<4].base.bytes, count: 4)
+        let magic = magicData.withUnsafeBytes { $0.load(as: UInt32.self) }
         let shouldSwap = magic == MH_CIGAM || magic == MH_CIGAM_64 || magic == FAT_CIGAM
         var numArchs: Int = 0
 
@@ -28,7 +30,7 @@ class Headers {
             fat.nfat_arch = swap(shouldSwap, fat.nfat_arch)
             var offset = MemoryLayout.size(ofValue: fat_header.self)
 
-            for _ in 0...fat.nfat_arch {
+            for _ in 0..<fat.nfat_arch {
                 var arch = fat_arch()
                 arch = (binary.bytes + offset).load(as: fat_arch.self)
                 arch.cputype = cpu_type_t(swap(shouldSwap, arch.cputype))

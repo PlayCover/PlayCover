@@ -260,7 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				92ECD8A6274E769600DB7AC6 /* Utils */,
-				925621F827491E4700728698 /* optool */,
+				925621F827491E4700728698 /* Binary Patcher */,
 				92ECD8A2274E75CD00DB7AC6 /* Installer.swift */,
 			);
 			path = AppInstaller;
