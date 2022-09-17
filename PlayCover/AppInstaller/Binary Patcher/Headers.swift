@@ -17,7 +17,7 @@ struct thin_header {
 
 class Headers {
     public static func headersFromBinary(binary: NSData) -> [thin_header] {
-        var headers = Array(repeating: thin_header(), count: 4)
+        var headers: [thin_header] = []
         let magicData = Data(bytes: binary[0..<4].base.bytes, count: 4)
         let magic = magicData.withUnsafeBytes { $0.load(as: UInt32.self) }
         let shouldSwap = magic == MH_CIGAM || magic == MH_CIGAM_64 || magic == FAT_CIGAM
