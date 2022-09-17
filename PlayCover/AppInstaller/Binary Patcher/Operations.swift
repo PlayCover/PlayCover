@@ -63,7 +63,7 @@ class Operations {
         var zeroByte: UInt = 0
         let commandData = NSMutableData(data: Data())
         commandData.append(&command, length: MemoryLayout.size(ofValue: dylib_command.self))
-        commandData.append(dylibPath.data(using: .ascii)!)
+        commandData.append(dylibPath.data(using: .utf8)!)
         commandData.append(&zeroByte, length: Int(padding))
 
         binary.replaceBytes(in: NSRange(location: Int(macho.offset + macho.header.sizeofcmds + macho.size),
@@ -89,7 +89,7 @@ class Operations {
 
         var num: UInt32 = 0
         var cumulativeSize: UInt32 = 0
-        var removedOrdinal: Int32 = -1
+        var removedOrdinal: UInt32 = UInt32.max
 
         for index in 0..<macho.header.ncmds {
             if offset >= binary.length || offset > macho.offset + macho.size + macho.header.sizeofcmds {
@@ -114,13 +114,13 @@ class Operations {
                                                     length: Int(command.cmdsize - command.dylib.name.offset)))
                     .withUnsafeBytes({ $0.load(as: Array<UInt8>.self) })
                 let name = String(bytes: bytes, encoding: .utf8)
-                if name == payload && removedOrdinal == -1 {
+                if name == payload && removedOrdinal == UInt32.max {
                     print("Removing payload from \(LC(cmd))...")
                     binary.replaceBytes(in: NSRange(location: offset,
                                                     length: Int(size)), withBytes: nil, length: 0)
                     num += 1
                     cumulativeSize += size
-                    removedOrdinal = Int32(index)
+                    removedOrdinal = index
                 }
 
                 offset += Int(size)
@@ -153,7 +153,7 @@ class Operations {
         var offset: Int = Int(macho.size + macho.offset)
         var loadOffset = offset
 
-        for _ in 0...macho.header.ncmds {
+        for _ in 0..<macho.header.ncmds {
             if offset >= binary.length || offset > macho.offset + macho.size + macho.header.sizeofcmds {
                 break
             }

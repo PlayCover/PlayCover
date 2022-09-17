@@ -36,7 +36,7 @@ class PatchBinary {
             guard var binary = NSMutableData(contentsOf: binaryURL) else { return false }
             var headers = Headers.headersFromBinary(binary: binary)
 
-            for index in 0...headers.count {
+            for index in 0..<headers.count {
                 Operations.removeLoadEntryFromBinary(&binary, &headers[index], dylibName)
             }
 
