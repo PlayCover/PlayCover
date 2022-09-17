@@ -10,9 +10,8 @@ import MachO
 
 // swiftlint:disable type_name
 struct thin_header {
-    var offset: UInt32 = 0
-    var size: UInt32 = 0
-    var header: mach_header = mach_header()
+    var size: Int = 0
+    var header: mach_header_64 = mach_header_64()
 }
 
 class Headers {
@@ -23,26 +22,30 @@ class Headers {
 
         // We only need to look for 64-bit headers
         if magic == MH_MAGIC_64 {
-            let macho = headerAtOffset(binary, 0)
+            let macho = headerAtOffset(binary)
             if macho.size > 0 {
                 print("Found header...")
                 return macho
+            } else {
+                print("Found empty header!")
+                throw PatchError.headerEmpty
             }
+        } else {
+            print("Header of wrong type!")
         }
+
         print("No header found!")
         throw PatchError.noHeaderFound
     }
 
-    public static func headerAtOffset(_ binary: NSData, _ offset: UInt32) -> thin_header {
-        let header = (binary.bytes + Int(offset)).load(as: mach_header.self)
-        var size: UInt32 = 0
-
-        size = UInt32(MemoryLayout.size(ofValue: mach_header_64.self))
+    public static func headerAtOffset(_ binary: NSData) -> thin_header {
+        let header = binary.bytes.load(as: mach_header_64.self)
+        var size = MemoryLayout.stride(ofValue: mach_header_64.self)
 
         // If the header is not for a 64-bit ARM CPU, it should be ignored
         if header.cputype != CPU_TYPE_ARM64 {
             size = 0
         }
-        return thin_header(offset: offset, size: size, header: header)
+        return thin_header(size: size, header: header)
     }
 }

@@ -9,6 +9,7 @@ import Foundation
 
 enum PatchError: Error {
     case noHeaderFound
+    case headerEmpty
     case failedToLoadBinary
 }
 
@@ -17,6 +18,8 @@ extension PatchError: LocalizedError {
         switch self {
         case .noHeaderFound:
             return "Could not find header!"
+        case .headerEmpty:
+            return "Header found is empty!"
         case .failedToLoadBinary:
             return "Could not load binary!"
         }

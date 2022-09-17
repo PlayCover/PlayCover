@@ -29,10 +29,10 @@ class Operations {
             }
         }
 
-        let length: UInt = UInt(MemoryLayout.size(ofValue: dylib_command.self)) + UInt(dylibPath.count)
+        let length: UInt = UInt(MemoryLayout.stride(ofValue: dylib_command.self) + dylibPath.count)
         let padding: UInt = (8 - (length % 8))
 
-        let occupant = binary.subdata(with: NSRange(location: Int(macho.header.sizeofcmds + macho.offset + macho.size),
+        let occupant = binary.subdata(with: NSRange(location: Int(macho.header.sizeofcmds) + macho.size,
                                                     length: Int(length + padding)))
 
         if occupant[0] != 0 {
@@ -42,7 +42,7 @@ class Operations {
 
         print("Inserting a \(LC(UInt32(LC_LOAD_DYLIB))) command for architecture: \(CPU(macho.header.cputype))")
 
-        let dylib = dylib(name: lc_str(offset: UInt32(MemoryLayout.size(ofValue: dylib_command.self))),
+        let dylib = dylib(name: lc_str(offset: UInt32(MemoryLayout.stride(ofValue: dylib_command.self))),
                           timestamp: 2,
                           current_version: 0,
                           compatibility_version: 0)
@@ -52,11 +52,11 @@ class Operations {
 
         var zeroByte: UInt = 0
         let commandData = NSMutableData(data: Data())
-        commandData.append(&command, length: MemoryLayout.size(ofValue: dylib_command.self))
+        commandData.append(&command, length: MemoryLayout.stride(ofValue: dylib_command.self))
         commandData.append(dylibPath.data(using: .utf8)!)
         commandData.append(&zeroByte, length: Int(padding))
 
-        binary.replaceBytes(in: NSRange(location: Int(macho.offset + macho.header.sizeofcmds + macho.size),
+        binary.replaceBytes(in: NSRange(location: Int(macho.header.sizeofcmds) + macho.size,
                                         length: commandData.length), withBytes: nil, length: 0)
 
         binary.replaceBytes(in: NSRange(location: Int(lastOffset),
@@ -67,7 +67,7 @@ class Operations {
         macho.header.sizeofcmds += command.cmdsize
 
         // Replace the old header with the new one
-        binary.replaceBytes(in: NSRange(location: Int(macho.offset),
+        binary.replaceBytes(in: NSRange(location: 0,
                                         length: MemoryLayout.size(ofValue: macho.header)), withBytes: &macho.header)
 
         return true
@@ -77,14 +77,14 @@ class Operations {
     public static func removeLoadEntryFromBinary(_ binary: inout NSMutableData,
                                                  _ macho: inout thin_header,
                                                  _ payload: String) -> Bool {
-        var offset: Int = Int(macho.offset + macho.size)
+        var offset: Int = macho.size
 
         var num: UInt32 = 0
         var cumulativeSize: UInt32 = 0
         var removedOrdinal: UInt32 = UInt32.max
 
         for index in 0..<macho.header.ncmds {
-            if offset >= binary.length || offset > macho.offset + macho.size + macho.header.sizeofcmds {
+            if offset >= binary.length || offset > macho.size + Int(macho.header.sizeofcmds) {
                 break
             }
 
@@ -129,9 +129,9 @@ class Operations {
         macho.header.sizeofcmds -= cumulativeSize
 
         var zeroByte: UInt32 = 0
-        binary.replaceBytes(in: NSRange(location: Int(macho.offset + macho.header.sizeofcmds + macho.size),
+        binary.replaceBytes(in: NSRange(location: Int(macho.header.sizeofcmds) + macho.size,
                                         length: 0), withBytes: &zeroByte, length: Int(cumulativeSize))
-        binary.replaceBytes(in: NSRange(location: Int(macho.offset),
+        binary.replaceBytes(in: NSRange(location: 0,
                                         length: MemoryLayout.size(ofValue: macho.header)),
                             withBytes: &macho.header, length: MemoryLayout.size(ofValue: macho.header))
 
@@ -142,11 +142,11 @@ class Operations {
                                                     _ dylib: String,
                                                     _ lastOffset: inout UInt32,
                                                     _ macho: thin_header) -> Bool {
-        var offset: Int = Int(macho.size + macho.offset)
+        var offset: Int = macho.size
         var loadOffset = offset
 
         for _ in 0..<macho.header.ncmds {
-            if offset >= binary.length || offset > macho.offset + macho.size + macho.header.sizeofcmds {
+            if offset >= binary.length || offset > macho.size + Int(macho.header.sizeofcmds) {
                 break
             }
 
