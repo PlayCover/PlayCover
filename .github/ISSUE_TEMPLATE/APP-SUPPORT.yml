@@ -25,22 +25,19 @@ body:
     id: more-info
     attributes:
       label: More details
-      description: A clear and concise description of the issues with a 
-particular app.
+      description: A clear and concise description of the issues with a particular app.
     validations:
       required: true
   - type: textarea
     id: logs
     attributes:
       label: Crash log
-      description: Copy and paste in any relevant crash logs in plain 
-text.
+      description: Copy and paste in any relevant crash logs in plain text.
       render: shell
   - type: checkboxes
     attributes:
       label: Issue Language
-      description: All issues must be written in clear plain English so 
-that all devs are able to read them.
+      description: All issues must be written in clear plain English so that all devs are able to read them.
       options:
         - label: Yes my issue is written in English
           required: true
