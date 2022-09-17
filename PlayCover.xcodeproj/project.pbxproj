@@ -103,7 +103,7 @@
 		53F4D29F26C43C690020167C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLibraryView.swift; sourceTree = "<group>"; };
 		53F5E74226C1D37E005AED1D /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
-		68154F5328B1081500ECA007 /* fa-IR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fa-IR"; path = "fa-IR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		6854C5E528D53C9500CE28A0 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6E06193528B3C4090012C771 /* StoreGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreGenshinAccountView.swift; sourceTree = "<group>"; };
 		6E06193728B3C4240012C771 /* ChangeGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeGenshinAccountView.swift; sourceTree = "<group>"; };
 		6E06193928B3C42E0012C771 /* DeleteGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGenshinAccountView.swift; sourceTree = "<group>"; };
@@ -498,11 +498,11 @@
 				vi,
 				it,
 				uk,
-				"fa-IR",
 				"zh-Hant",
 				ar,
 				"pt-br",
 				"pt-BR",
+				fa,
 			);
 			mainGroup = 8783CFEE26B8C52D00171041;
 			packageReferences = (
@@ -695,10 +695,10 @@
 				ABF0BA1A285F9ED200FC5259 /* vi */,
 				AA18F6C6287BA6E90092E378 /* it */,
 				6E7BEDCB28C3AD0300DFF0EB /* uk */,
-				68154F5328B1081500ECA007 /* fa-IR */,
 				6EC228A028B14A0600D7D73A /* zh-Hant */,
 				6EC228A128B1830F00D7D73A /* ar */,
 				81C2786C28D4A5A300E208D7 /* pt-br */,
+				6854C5E528D53C9500CE28A0 /* fa */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
