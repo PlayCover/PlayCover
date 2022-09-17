@@ -48,7 +48,7 @@ class Operations {
             return false
         }
 
-        print("Inserting a \(LC(type)) command for architecture: \(macho.header.cputype)")
+        print("Inserting a \(LC(type)) command for architecture: \(CPU(macho.header.cputype))")
 
         var command = dylib_command()
         var dylib = dylib()
@@ -202,7 +202,22 @@ class Operations {
         case UInt32(LC_LOAD_DYLIB):
             return "LC_LOAD_DYLIB"
         default:
-            return ""
+            return "\(loadCommand)"
+        }
+    }
+    
+    public static func CPU(_ cpuType: Int32) -> String {
+        switch cpuType {
+        case CPU_TYPE_I386:
+            return "x86"
+        case CPU_TYPE_X86_64:
+            return "x86_64"
+        case CPU_TYPE_ARM:
+            return "arm"
+        case CPU_TYPE_ARM64:
+            return "arm64"
+        default:
+            return "\(cpuType)"
         }
     }
 }

@@ -17,9 +17,9 @@ class PatchBinary {
 
             for index in 0..<headers.count {
                 if Operations.insertLoadEntryIntroBinary(dylibName, &binary, &headers[index], UInt32(LC_LOAD_DYLIB)) {
-                    print("Successfully inserted a command for \(headers[index].header.cputype)")
+                    print("Successfully inserted a command for \(Operations.CPU(headers[index].header.cputype))")
                 } else {
-                    print("Failed to insert a command for \(headers[index].header.cputype)")
+                    print("Failed to insert a command for \(Operations.CPU(headers[index].header.cputype))")
                 }
             }
 
