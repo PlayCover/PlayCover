@@ -12,25 +12,17 @@ import Foundation
 class Operations {
     public static func insertLoadEntryIntroBinary(_ dylibPath: String,
                                                   _ binary: inout NSMutableData,
-                                                  _ macho: inout thin_header,
-                                                  _ type: UInt32) -> Bool {
-        if type != LC_REEXPORT_DYLIB &&
-            type != LC_LOAD_WEAK_DYLIB &&
-            type != LC_LOAD_UPWARD_DYLIB &&
-            type != LC_LOAD_DYLIB {
-            print("Invalid load command type")
-            return false
-        }
+                                                  _ macho: inout thin_header) -> Bool {
 
         var lastOffset: UInt32 = 0
         if binaryHasLoadCommandForDylib(&binary, dylibPath, &lastOffset, macho) {
             let originalType: UInt32 = (binary.bytes + Int(lastOffset)).load(as: UInt32.self)
-            if originalType != type {
+            if originalType != LC_LOAD_DYLIB {
                 print("A load command already exists for \(dylibPath). "
-                      + "Changing command type from \(LC(originalType)) to desired \(LC(type))")
-                var typePointer = type
+                      + "Changing command type from \(LC(originalType)) to desired \(LC(UInt32(LC_LOAD_DYLIB)))")
+                var typePointer = LC_LOAD_DYLIB
                 binary.replaceBytes(in: NSRange(location: Int(lastOffset),
-                                                length: MemoryLayout.size(ofValue: type)),
+                                                length: MemoryLayout.size(ofValue: LC_LOAD_DYLIB)),
                                     withBytes: &typePointer)
             } else {
                 print("Load command already exists")
@@ -48,17 +40,15 @@ class Operations {
             return false
         }
 
-        print("Inserting a \(LC(type)) command for architecture: \(CPU(macho.header.cputype))")
+        print("Inserting a \(LC(UInt32(LC_LOAD_DYLIB))) command for architecture: \(CPU(macho.header.cputype))")
 
-        var command = dylib_command()
-        var dylib = dylib()
-        dylib.name.offset = UInt32(MemoryLayout.size(ofValue: dylib_command.self))
-        dylib.timestamp = 2
-        dylib.current_version = 0
-        dylib.compatibility_version = 0
-        command.cmd = type
-        command.dylib = dylib
-        command.cmdsize = UInt32(length + padding)
+        let dylib = dylib(name: lc_str(offset: UInt32(MemoryLayout.size(ofValue: dylib_command.self))),
+                          timestamp: 2,
+                          current_version: 0,
+                          compatibility_version: 0)
+        var command = dylib_command(cmd: UInt32(LC_LOAD_DYLIB),
+                                    cmdsize: UInt32(length + padding),
+                                    dylib: dylib)
 
         var zeroByte: UInt = 0
         let commandData = NSMutableData(data: Data())
@@ -72,9 +62,11 @@ class Operations {
         binary.replaceBytes(in: NSRange(location: Int(lastOffset),
                                         length: 0), withBytes: commandData.bytes, length: commandData.length)
 
+        // Increase the number of commands in the header by 1
         macho.header.ncmds += 1
         macho.header.sizeofcmds += command.cmdsize
 
+        // Replace the old header with the new one
         binary.replaceBytes(in: NSRange(location: Int(macho.offset),
                                         length: MemoryLayout.size(ofValue: macho.header)), withBytes: &macho.header)
 
@@ -205,7 +197,7 @@ class Operations {
             return "\(loadCommand)"
         }
     }
-    
+
     public static func CPU(_ cpuType: Int32) -> String {
         switch cpuType {
         case CPU_TYPE_I386:

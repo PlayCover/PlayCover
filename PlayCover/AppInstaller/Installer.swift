@@ -22,7 +22,7 @@ class Installer {
                 app.validMachOs = machos
 
                 InstallVM.shared.next(.playtools, 0.55, 0.85)
-                try PlayTools.installInIPA(app.executable, app.url, resign: true)
+                try PlayTools.installInIPA(app.executable, resign: true)
 
                 for macho in machos {
                     if try PlayTools.isMachoEncrypted(atURL: macho) {

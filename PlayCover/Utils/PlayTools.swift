@@ -77,8 +77,8 @@ class PlayTools {
             url.path)
     }
 
-    static func installInIPA(_ exec: URL, _ payload: URL, resign: Bool = false) throws {
-        PatchBinary.patchBinaryWithDylib(binaryURL: exec, dylibName: playToolsPath.path)
+    static func installInIPA(_ exec: URL, resign: Bool = false) throws {
+        try PatchBinary.patchBinaryWithDylib(binaryURL: exec, dylibName: playToolsPath.path)
         if resign {
             shell.signApp(exec)
         }
@@ -107,7 +107,7 @@ class PlayTools {
     }
 
     static func injectInIPA(_ exec: URL, payload: URL) throws {
-        PatchBinary.patchBinaryWithDylib(binaryURL: exec, dylibName: "@executable_path/Frameworks/PlayTools.dylib")
+        try PatchBinary.patchBinaryWithDylib(binaryURL: exec, dylibName: "@executable_path/Frameworks/PlayTools.dylib")
         DispatchQueue.global(qos: .background).async {
             do {
                 if !FileManager.default.fileExists(atPath: payload.appendingPathComponent("Frameworks").path) {

@@ -7,45 +7,45 @@
 
 import Foundation
 
-class PatchBinary {
-    public static func patchBinaryWithDylib(binaryURL: URL, dylibName: String) -> Bool {
-        print(dylibName)
+enum PatchError: Error {
+    case noHeaderFound
+    case failedToLoadBinary
+}
 
-        do {
-            guard var binary = NSMutableData(contentsOf: binaryURL) else { return false }
-            var headers = Headers.headersFromBinary(binary: binary)
-
-            for index in 0..<headers.count {
-                if Operations.insertLoadEntryIntroBinary(dylibName, &binary, &headers[index], UInt32(LC_LOAD_DYLIB)) {
-                    print("Successfully inserted a command for \(Operations.CPU(headers[index].header.cputype))")
-                } else {
-                    print("Failed to insert a command for \(Operations.CPU(headers[index].header.cputype))")
-                }
-            }
-
-            try binary.write(to: binaryURL)
-            return true
-        } catch {
-            Log.shared.error(error)
-            return false
+extension PatchError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .noHeaderFound:
+            return "Could not find header!"
+        case .failedToLoadBinary:
+            return "Could not load binary!"
         }
     }
+}
 
-    public static func removePlayToolsFrom(binaryURL: URL, dylibName: String) -> Bool {
-        do {
-            guard var binary = NSMutableData(contentsOf: binaryURL) else { return false }
-            var headers = Headers.headersFromBinary(binary: binary)
+class PatchBinary {
+    public static func patchBinaryWithDylib(binaryURL: URL, dylibName: String) throws {
+        print(dylibName)
 
-            for index in 0..<headers.count {
-                Operations.removeLoadEntryFromBinary(&binary, &headers[index], dylibName)
-            }
+        guard var binary = NSMutableData(contentsOf: binaryURL) else { throw PatchError.failedToLoadBinary }
+        var header = try Headers.headerFromBinary(binary: binary)
 
-            try binary.write(to: binaryURL)
-            return true
-        } catch {
-            Log.shared.error(error)
-            return false
+        if Operations.insertLoadEntryIntroBinary(dylibName, &binary, &header) {
+            print("Successfully inserted a command for \(Operations.CPU(header.header.cputype))")
+        } else {
+            print("Failed to insert a command for \(Operations.CPU(header.header.cputype))")
         }
+
+        try binary.write(to: binaryURL)
+    }
+
+    public static func removePlayToolsFrom(binaryURL: URL, dylibName: String) throws {
+        guard var binary = NSMutableData(contentsOf: binaryURL) else { throw PatchError.failedToLoadBinary }
+        var header = try Headers.headerFromBinary(binary: binary)
+
+        Operations.removeLoadEntryFromBinary(&binary, &header, dylibName)
+
+        try binary.write(to: binaryURL)
     }
 
 }
