@@ -14,7 +14,8 @@ class Operations {
                                                   _ binary: inout NSMutableData,
                                                   _ macho: inout thin_header) -> Bool {
 
-        var lastOffset: UInt32 = 0
+        // Load command only initiated at isntall time, so the command should not already be present
+        /*var lastOffset: UInt32 = 0
         if binaryHasLoadCommandForDylib(&binary, dylibPath, &lastOffset, macho) {
             let originalType: UInt32 = (binary.bytes + Int(lastOffset)).load(as: UInt32.self)
             if originalType != LC_LOAD_DYLIB {
@@ -27,18 +28,20 @@ class Operations {
             } else {
                 print("Load command already exists")
             }
-        }
+        }*/
 
-        let length: UInt = UInt(MemoryLayout.stride(ofValue: dylib_command.self) + dylibPath.count)
+        let length: UInt = UInt(MemoryLayout.stride(ofValue: dylib_command.self))
         let padding: UInt = (8 - (length % 8))
+        print("Legnth: \(length)")
+        print("Padding: \(padding)")
 
-        let occupant = binary.subdata(with: NSRange(location: Int(macho.header.sizeofcmds) + macho.size,
+        /*let occupant = binary.subdata(with: NSRange(location: Int(macho.header.sizeofcmds) + macho.size,
                                                     length: Int(length + padding)))
 
         if occupant[0] != 0 {
             print("Cannot inject payload into \(dylibPath) because there is no room")
             return false
-        }
+        }*/
 
         print("Inserting a \(LC(UInt32(LC_LOAD_DYLIB))) command for architecture: \(CPU(macho.header.cputype))")
 
@@ -53,14 +56,14 @@ class Operations {
         var zeroByte: UInt = 0
         let commandData = NSMutableData(data: Data())
         commandData.append(&command, length: MemoryLayout.stride(ofValue: dylib_command.self))
-        commandData.append(dylibPath.data(using: .utf8)!)
+        // commandData.append(dylibPath.data(using: .utf8)!)
         commandData.append(&zeroByte, length: Int(padding))
 
         binary.replaceBytes(in: NSRange(location: Int(macho.header.sizeofcmds) + macho.size,
                                         length: commandData.length), withBytes: nil, length: 0)
 
-        binary.replaceBytes(in: NSRange(location: Int(lastOffset),
-                                        length: 0), withBytes: commandData.bytes, length: commandData.length)
+        /*binary.replaceBytes(in: NSRange(location: Int(lastOffset),
+                                        length: 0), withBytes: commandData.bytes, length: commandData.length)*/
 
         // Increase the number of commands in the header by 1
         macho.header.ncmds += 1
