@@ -6,7 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import "patch.h"
 
 BOOL patch_binary_with_dylib(NSString *binaryPath, NSString *dylibName) {
@@ -24,7 +23,7 @@ BOOL patch_binary_with_dylib(NSString *binaryPath, NSString *dylibName) {
     for (uint32_t i = 0; i < numHeaders; i++) {
         struct thin_header macho = headers[i];
         // Insert dylib load entry into binary
-        if (insertLoadEntryIntoBinary(dylibName, binary, macho, LC_LOAD_DYLIB)) {
+        if (insertLoadEntryIntoBinary(dylibName, binary, macho)) {
             LOG("Successfully inserted a command for %s", CPU(macho.header.cputype));
         } else {
             LOG("Failed to insert a command for %s", CPU(macho.header.cputype));
