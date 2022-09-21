@@ -11,7 +11,7 @@ class Installer {
 
     static func install(ipaUrl: URL, returnCompletion: @escaping (URL?) -> Void) {
         InstallVM.shared.next(.begin, 0.0, 0.0)
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .userInitiated).async {
             do {
                 let ipa = IPA(url: ipaUrl)
                 InstallVM.shared.next(.unzip, 0.0, 0.5)
@@ -63,7 +63,7 @@ class Installer {
     static func exportForSideloadly(ipaUrl: URL, returnCompletion: @escaping (URL?) -> Void) {
         InstallVM.shared.next(.begin, 0.0, 0.0)
 
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .userInitiated).async {
             do {
                 let ipa = IPA(url: ipaUrl)
                 InstallVM.shared.next(.unzip, 0.0, 0.5)
