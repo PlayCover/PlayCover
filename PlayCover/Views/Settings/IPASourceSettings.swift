@@ -103,14 +103,22 @@ struct IPASourceSettings: View {
 
     func moveSourceUp() {
         let selectedData = sources.filter({ selected.contains($0.id) })
+        var index = sources.firstIndex(of: selectedData.first!)! - 1
         sources.removeAll(where: { selected.contains($0.id) })
-        sources.insert(contentsOf: selectedData, at: 0)
+        if index < 0 {
+            index = 0
+        }
+        sources.insert(contentsOf: selectedData, at: index)
     }
 
     func moveSourceDown() {
         let selectedData = sources.filter({ selected.contains($0.id) })
+        var index = sources.firstIndex(of: selectedData.first!)! + 1
         sources.removeAll(where: { selected.contains($0.id) })
-        sources.append(contentsOf: selectedData)
+        if index > sources.endIndex {
+            index = sources.endIndex
+        }
+        sources.insert(contentsOf: selectedData, at: index)
     }
 }
 
