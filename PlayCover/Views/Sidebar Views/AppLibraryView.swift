@@ -18,6 +18,7 @@ struct AppLibraryView: View {
     @State private var selected: PlayApp?
     @State private var showSettings = false
     @State private var showLegacyConvertAlert = false
+    @State private var showWrongfileTypeAlert = false
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -101,6 +102,37 @@ struct AppLibraryView: View {
         }
         .onAppear {
             showLegacyConvertAlert = LegacySettings.doesMonolithExist
+        }
+        .onDrop(of: ["public.url", "public.file-url"], isTargeted: nil) { (items) -> Bool in
+            if installVM.installing {
+                Log.shared.error(PlayCoverError.waitInstallation)
+                return false
+            } else if let item = items.first {
+                if let identifier = item.registeredTypeIdentifiers.first {
+                    if identifier == "public.url" || identifier == "public.file-url" {
+                        item.loadItem(forTypeIdentifier: identifier, options: nil) { (urlData, _) in
+                            DispatchQueue.main.async {
+                                if let urlData = urlData as? Data {
+                                    let url = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
+                                    if url.pathExtension == "ipa" {
+                                        uif.ipaUrl = url
+                                        installApp()
+                                    } else {
+                                        showWrongfileTypeAlert = true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                return true
+            } else {
+                return false
+            }
+        }
+        .alert(isPresented: $showWrongfileTypeAlert) {
+            Alert(title: Text("alert.wrongFileType.title"),
+                  message: Text("alert.wrongFileType.subtitle"), dismissButton: .default(Text("button.OK")))
         }
         .alert("Legacy App Settings Detected!", isPresented: $showLegacyConvertAlert, actions: {
             Button("button.Convert", role: .destructive) {
