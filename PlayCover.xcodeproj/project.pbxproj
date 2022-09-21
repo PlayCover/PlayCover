@@ -37,6 +37,7 @@
 		6E7CA16528B4D02900216CD8 /* ITunesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CA16428B4D02900216CD8 /* ITunesResponse.swift */; };
 		6E7CA16728B4EEAE00216CD8 /* Keymapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CA16628B4EEAE00216CD8 /* Keymapping.swift */; };
 		6EB4B57428C93E0600630890 /* LegacySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB4B57328C93E0600630890 /* LegacySettings.swift */; };
+		6ED6379D28DAAAC100B506FA /* IPASourceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6379C28DAAAC100B506FA /* IPASourceSettings.swift */; };
 		6ED6ACA428A949A30040D234 /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6ACA328A949A30040D234 /* AppSettingsView.swift */; };
 		6ED6ACA628A96E570040D234 /* DeletePreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6ACA528A96E570040D234 /* DeletePreferences.swift */; };
 		8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */; };
@@ -121,6 +122,7 @@
 		6EB4B57328C93E0600630890 /* LegacySettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacySettings.swift; sourceTree = "<group>"; };
 		6EC228A028B14A0600D7D73A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		6EC228A128B1830F00D7D73A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6ED6379C28DAAAC100B506FA /* IPASourceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPASourceSettings.swift; sourceTree = "<group>"; };
 		6ED6ACA328A949A30040D234 /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
 		6ED6ACA528A96E570040D234 /* DeletePreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeletePreferences.swift; sourceTree = "<group>"; };
 		81C2786C28D4A5A300E208D7 /* pt-br */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-br"; path = "pt-br.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 			children = (
 				3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */,
 				36B26B96288C724600859EFD /* UpdateSettings.swift */,
+				6ED6379C28DAAAC100B506FA /* IPASourceSettings.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -657,6 +660,7 @@
 				28361D5E2892781200B35EDB /* RestoreGenshinUserData.swift in Sources */,
 				36B26B97288C724600859EFD /* UpdateSettings.swift in Sources */,
 				8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */,
+				6ED6379D28DAAAC100B506FA /* IPASourceSettings.swift in Sources */,
 				5314D1EE26C402EC00A0A727 /* Shell.swift in Sources */,
 				6E7CA16528B4D02900216CD8 /* ITunesResponse.swift in Sources */,
 				8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */,

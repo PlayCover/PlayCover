@@ -17,6 +17,7 @@
 "preferences.button.checkForUpdates" = "Check for updates now...";
 "preferences.tab.updates" = "Updates";
 "preferences.toggle.automaticUpdates" = "Automatically check for updates";
+"preferences.tab.ipasource" = "IPA Sources";
 
 "sidebar.appLibrary" = "App Library";
 "sidebar.ipaLibrary" = "IPA Library";
