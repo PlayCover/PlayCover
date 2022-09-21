@@ -10,6 +10,7 @@ import SwiftUI
 struct SourceData: Identifiable, Hashable {
     var id = UUID()
     var source: String
+    var status: SourceValidation = .valid
 }
 
 struct IPASourceSettings: View {
@@ -18,12 +19,12 @@ struct IPASourceSettings: View {
     @State var addSourceSheet = false
 
     @State var sources: [SourceData] = [
-        SourceData(source: "https://www.ipasrcool.net"),
+        SourceData(source: "https://www.ipasrcool.net", status: .badjson),
         SourceData(source: "https://super.cool.app"),
         SourceData(source: "https://www.super-dooper-derypt.org"),
         SourceData(source: "https://www.ipasrcool.net"),
         SourceData(source: "https://super.cool.app"),
-        SourceData(source: "https://www.super-dooper-derypt.org"),
+        SourceData(source: "https://www.super-dooper-derypt.org", status: .badurl),
         SourceData(source: "https://www.ipasrcool.net"),
         SourceData(source: "https://super.cool.app"),
         SourceData(source: "https://www.super-dooper-derypt.org")
@@ -32,8 +33,8 @@ struct IPASourceSettings: View {
     var body: some View {
         Form {
             HStack {
-                List(sources, id: \.id, selection: $selected) { name in
-                    Text(name.source)
+                List(sources, id: \.id, selection: $selected) { source in
+                    SourceView(source: source)
                 }
                 .listStyle(.bordered(alternatesRowBackgrounds: true))
                 Spacer()
@@ -68,6 +69,12 @@ struct IPASourceSettings: View {
                             .frame(width: 130)
                     })
                     .disabled(!selectedNotEmpty)
+                    Spacer()
+                        .frame(height: 20)
+                    Button(action: {}, label: {
+                        Text("Resolve Sources")
+                            .frame(width: 130)
+                    })
                 }
             }
         }
@@ -104,6 +111,58 @@ struct IPASourceSettings: View {
         let selectedData = sources.filter({ selected.contains($0.id) })
         sources.removeAll(where: { selected.contains($0.id) })
         sources.append(contentsOf: selectedData)
+    }
+}
+
+struct SourceView: View {
+    var source: SourceData
+    @State var showingPopover = false
+
+    var body: some View {
+        HStack {
+            Text(source.source)
+            Spacer()
+            switch source.status {
+            case .valid:
+                StatusBadgeView(imageName: "checkmark.circle.fill",
+                                imageColor: .green,
+                                popoverText: "Link valid",
+                                showingPopover: $showingPopover)
+            case .badurl:
+                StatusBadgeView(imageName: "xmark.circle.fill",
+                                imageColor: .red,
+                                popoverText: "URL invalid",
+                                showingPopover: $showingPopover)
+            case .badjson:
+                StatusBadgeView(imageName: "xmark.circle.fill",
+                                imageColor: .red,
+                                popoverText: "JSON not found or invalid",
+                                showingPopover: $showingPopover)
+            case .checking:
+                EmptyView()
+            }
+        }
+    }
+}
+
+struct StatusBadgeView: View {
+    var imageName: String
+    var imageColor: Color
+    var popoverText: String
+    @Binding var showingPopover: Bool
+
+    var body: some View {
+        Button(action: {
+            showingPopover.toggle()
+        }, label: {
+            Image(systemName: imageName)
+                .foregroundColor(imageColor)
+        })
+        .buttonStyle(.plain)
+        .popover(isPresented: $showingPopover) {
+            Text(popoverText)
+                .padding(10)
+        }
     }
 }
 
