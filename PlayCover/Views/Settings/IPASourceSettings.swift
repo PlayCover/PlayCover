@@ -71,7 +71,9 @@ struct IPASourceSettings: View {
                     .disabled(!selectedNotEmpty)
                     Spacer()
                         .frame(height: 20)
-                    Button(action: {}, label: {
+                    Button(action: {
+                        resolveSources()
+                    }, label: {
                         Text("Resolve Sources")
                             .frame(width: 130)
                     })
@@ -88,7 +90,7 @@ struct IPASourceSettings: View {
         .padding(20)
         .frame(width: 600, height: 300, alignment: .center)
         .sheet(isPresented: $addSourceSheet) {
-            AddSourceView(sources: $sources, addSourceSheet: $addSourceSheet)
+            AddSourceView(sources: $sources, addSourceSheet: $addSourceSheet, settings: self)
         }
     }
 
@@ -119,6 +121,37 @@ struct IPASourceSettings: View {
             index = sources.endIndex
         }
         sources.insert(contentsOf: selectedData, at: index)
+    }
+
+    func resolveSources() {
+        for index in 0..<sources.endIndex {
+            sources[index].status = .checking
+            DispatchQueue.global(qos: .userInteractive).async {
+                if let url = URL(string: sources[index].source) {
+                    if StoreVM.checkAvaliability(url: url) {
+                        do {
+                            let contents = try String(contentsOf: url)
+                            let jsonData = contents.data(using: .utf8)!
+                            do {
+                                let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self, from: jsonData)
+                                if data.count > 0 {
+                                    sources[index].status = .valid
+                                    return
+                                }
+                            } catch {
+                                sources[index].status = .badjson
+                                return
+                            }
+                        } catch {
+                            sources[index].status = .badurl
+                            return
+                        }
+                    }
+                }
+                sources[index].status = .badurl
+                return
+            }
+        }
     }
 }
 
@@ -184,6 +217,7 @@ struct AddSourceView: View {
     @State var sourceValidationState = SourceValidation.checking
     @Binding var sources: [SourceData]
     @Binding var addSourceSheet: Bool
+    var settings: IPASourceSettings
 
     var body: some View {
         VStack {
@@ -219,6 +253,7 @@ struct AddSourceView: View {
                 Button(action: {
                     if newSourceURL != nil {
                         sources.append(SourceData(source: newSourceURL!.absoluteString))
+                        settings.resolveSources()
                         addSourceSheet.toggle()
                     }
                 }, label: {
