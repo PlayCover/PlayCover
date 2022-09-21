@@ -10,9 +10,11 @@ class Entitlements {
 
     static var playCoverEntitlementsDir: URL {
         let entFolder = PlayTools.playCoverContainer.appendingPathComponent("Entitlements")
-        if !fileMgr.fileExists(atPath: entFolder.path) {
+        if !FileManager.default.fileExists(atPath: entFolder.path) {
             do {
-                try fileMgr.createDirectory(at: entFolder, withIntermediateDirectories: true, attributes: [:])
+                try FileManager.default.createDirectory(at: entFolder,
+                                                        withIntermediateDirectories: true,
+                                                        attributes: [:])
             } catch {
                 Log.shared.error(error)
             }
@@ -220,7 +222,7 @@ public func ==<K, L: Hashable, R: Hashable>(lhs: [K: L], rhs: [K: R]) -> Bool {
 extension Dictionary {
     func store(_ toUrl: URL) throws {
         let data = try PropertyListSerialization.data(fromPropertyList: self, format: .xml, options: 0)
-        try data.write(to: toUrl)
+        try data.write(to: toUrl, options: .atomic)
     }
 
     static func read(_ from: URL) throws -> Dictionary? {

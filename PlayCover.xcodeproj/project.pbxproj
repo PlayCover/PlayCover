@@ -57,7 +57,6 @@
 		92B4D38F2737CF3D0001D7BB /* PlayTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B4D38E2737CF3D0001D7BB /* PlayTools.swift */; };
 		92ECD8A3274E75CD00DB7AC6 /* Installer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ECD8A2274E75CD00DB7AC6 /* Installer.swift */; };
 		92ECD8A5274E763700DB7AC6 /* IPA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ECD8A4274E763700DB7AC6 /* IPA.swift */; };
-		92ECD8AA274E76FD00DB7AC6 /* TempAllocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ECD8A9274E76FD00DB7AC6 /* TempAllocator.swift */; };
 		92ECD8AE274E787200DB7AC6 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ECD8AD274E787200DB7AC6 /* AppInfo.swift */; };
 		92EE06D0274EA433002C907B /* BaseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06CF274EA433002C907B /* BaseApp.swift */; };
 		92EE06D4274EA604002C907B /* PlayAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06D3274EA604002C907B /* PlayAppView.swift */; };
@@ -104,7 +103,7 @@
 		53F4D29F26C43C690020167C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLibraryView.swift; sourceTree = "<group>"; };
 		53F5E74226C1D37E005AED1D /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
-		68154F5328B1081500ECA007 /* fa-IR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fa-IR"; path = "fa-IR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		6854C5E528D53C9500CE28A0 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6E06193528B3C4090012C771 /* StoreGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreGenshinAccountView.swift; sourceTree = "<group>"; };
 		6E06193728B3C4240012C771 /* ChangeGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeGenshinAccountView.swift; sourceTree = "<group>"; };
 		6E06193928B3C42E0012C771 /* DeleteGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGenshinAccountView.swift; sourceTree = "<group>"; };
@@ -124,6 +123,7 @@
 		6EC228A128B1830F00D7D73A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6ED6ACA328A949A30040D234 /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
 		6ED6ACA528A96E570040D234 /* DeletePreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeletePreferences.swift; sourceTree = "<group>"; };
+		81C2786C28D4A5A300E208D7 /* pt-br */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-br"; path = "pt-br.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		8783CFF726B8C52D00171041 /* PlayCover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayCover.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverApp.swift; sourceTree = "<group>"; };
 		8783CFFE26B8C52E00171041 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -153,7 +153,6 @@
 		92D79316273C065A001CC964 /* libsandbox.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsandbox.1.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/libsandbox.1.tbd; sourceTree = DEVELOPER_DIR; };
 		92ECD8A2274E75CD00DB7AC6 /* Installer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Installer.swift; sourceTree = "<group>"; };
 		92ECD8A4274E763700DB7AC6 /* IPA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPA.swift; sourceTree = "<group>"; };
-		92ECD8A9274E76FD00DB7AC6 /* TempAllocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAllocator.swift; sourceTree = "<group>"; };
 		92ECD8AD274E787200DB7AC6 /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
 		92EE06CF274EA433002C907B /* BaseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseApp.swift; sourceTree = "<group>"; };
 		92EE06D3274EA604002C907B /* PlayAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAppView.swift; sourceTree = "<group>"; };
@@ -412,7 +411,6 @@
 			isa = PBXGroup;
 			children = (
 				92ECD8A4274E763700DB7AC6 /* IPA.swift */,
-				92ECD8A9274E76FD00DB7AC6 /* TempAllocator.swift */,
 				92EE06DD274EC09F002C907B /* Entitlements.swift */,
 			);
 			path = Utils;
@@ -500,9 +498,11 @@
 				vi,
 				it,
 				uk,
-				"fa-IR",
 				"zh-Hant",
 				ar,
+				"pt-br",
+				"pt-BR",
+				fa,
 			);
 			mainGroup = 8783CFEE26B8C52D00171041;
 			packageReferences = (
@@ -644,7 +644,6 @@
 				9256220627491E8200728698 /* patch.m in Sources */,
 				53F3802826EB6F6B00D6B525 /* NotifyService.swift in Sources */,
 				6E5C68BA289865C8008EC11B /* MainView.swift in Sources */,
-				92ECD8AA274E76FD00DB7AC6 /* TempAllocator.swift in Sources */,
 				28361D6028927CAC00B35EDB /* SaveGenshinUserData.swift in Sources */,
 				B1419FB628BA82EE000CB69F /* DiscordActivity.swift in Sources */,
 				53F4D29E26C43C040020167C /* UserIntentFlow.swift in Sources */,
@@ -696,9 +695,10 @@
 				ABF0BA1A285F9ED200FC5259 /* vi */,
 				AA18F6C6287BA6E90092E378 /* it */,
 				6E7BEDCB28C3AD0300DFF0EB /* uk */,
-				68154F5328B1081500ECA007 /* fa-IR */,
 				6EC228A028B14A0600D7D73A /* zh-Hant */,
 				6EC228A128B1830F00D7D73A /* ar */,
+				81C2786C28D4A5A300E208D7 /* pt-br */,
+				6854C5E528D53C9500CE28A0 /* fa */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

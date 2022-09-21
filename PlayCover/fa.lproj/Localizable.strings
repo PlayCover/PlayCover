@@ -33,8 +33,8 @@
 "alert.app.delete" = "تمامی داده‌های درون برنامه پاک خواهند شد. ممکن است نیاز باشد که دوباره آن‌ها را دریافت کنید. ادامه می‌دهید؟";
 "alert.app.preferences" = "تمامی پیکربندی‌های درون برنامه‌ای انجام‌شده، پاک خواهند شد؛ آیا مایل به ادامه دادن هستید؟";
 "alert.restart" = "لطفا PlayCover را از نو راه‌اندازی (Restart) کنید.";
-"alert.error" = "خطائی رخ داد!";
-"alert.success" = "انجام شد!";
+"alert.error" = "خطائی رخ داد";
+"alert.success" = "انجام شد";
 "alert.moveAppToApplications.move" = "انتقال به پوشه Applications مک";
 "alert.storeAccount.regionIsNotValid" = "این حساب کاربری برای منطقه‌ی کاربری دیگری پیکربندی شده است. بازی را باز کرده، منطقه‌ی کاربری را تغییر داده و از دروازه عبور کنید تا پیکربندی آن ذخیره شود. سپس دوباره تلاش کنید";
 
@@ -106,14 +106,14 @@
 "settings.toggle.mm.help" = "حرکات لمسی را به واسطه نشان‌گر ماوس شبیه‌سازی می‌کند. از کلید‌های ترکیبی Command + K برای باز کردن ویرایشگر آن استفاده کنید.";
 "settings.tab.graphics" = "تصویرگر";
 "settings.picker.adaptiveRes" = "وضوح:";
-"settings.picker.adaptiveRes.help" = "وضوح تصویر پنجره‌ی برنامه را پیکربندی می‌کند.";
+"settings.picker.adaptiveRes.help" = "وضوح تصویر پنجره‌ی برنامه را پیکربندی می‌کند";
 "settings.picker.adaptiveRes.0" = "پیش‌فرض برنامه";
 "settings.picker.adaptiveRes.1" = "خودکار (براساس نمایش‌گر)";
 "settings.picker.adaptiveRes.5" = "اندازه دلخواه";
 "settings.picker.aspectRatio" = "نسبت تصویر:";
 "settings.toggle.disableDisplaySleep.help" = "این گزینه از خاموش شدن نمایش‌گر در زمان اجرای این برنامه جلوگیری می‌کند";
 "settings.tab.jbBypass" = "پنهان‌گر جیل‌بریک";
-"settings.toggle.jbBypass.help" = "با فعال‌سازی این گزینه تلاش می‌شود که از فعالیت شناساگر جیل‌بریک موجود در برخی بازی‌ها جلوگیری شود (اما همیشه نتیجه نمی‌دهد)";
+"settings.toggle.jbBypass.help" = "با فعال‌سازی این گزینه تلاش می‌شود که از فعالیت شناساگر جیل‌بریک موجود در برخی بازی‌ها جلوگیری شود (اما تضمینی برای اثرگذاری آن وجود ندارد)";
 "settings.info.displayName" = "نام نمایشی:";
 "settings.info.bundleName" = "نام‌بسته:";
 "settings.info.bundleIdentifier" = "شناس‌نامه:";
@@ -136,8 +136,9 @@
 "settings.toggle.discord" = "فعال‌سازی ارسال وضعیت به دیسکورد";
 "settings.toggle.hud" = "فعال‌سازی Metal HUD";
 "settings.info.bundleVersion" = "نسخه:";
-"playapp.deleteConfirm" = "Uninstall";
-"playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
-"alert.legacyImport.title" = "Legacy App Settings Detected!";
-"alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
-"button.Convert" = "Convert";
+"playapp.deleteConfirm" = "بله، حذف کن";
+"playapp.deleteMessage" = "آیا از حذف %@ مطمئن هستید؟";
+"alert.legacyImport.title" = "پیکربندی‌های تاریخ‌گذشته‌ای شناسایی شدند!";
+"alert.legacyImport.subtitle" = "پرونده‌های تاریخ‌گذشته‌ای پیدا شده‌اند. آیا مایل هستید که آن‌ها را به شکل به‌روزشده‌شان تبدیل کنید؟";
+"button.Convert" = "تبدیل کن";
+"settings.text.detectedResolution" = "وضوح شناسایی‌شده:";

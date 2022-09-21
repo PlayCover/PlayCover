@@ -16,7 +16,7 @@ struct AppSettingsData: Codable {
     var iosDeviceModel = "iPad13,8"
     var windowWidth = 1920
     var windowHeight = 1080
-    var resolution = 2
+    var resolution = 1
     var aspectRatio = 1
     var notch: Bool = NSScreen.hasNotch()
     var bypass = false
@@ -28,9 +28,11 @@ class AppSettings {
     static var appSettingsDir: URL {
         let settingsFolder =
             PlayTools.playCoverContainer.appendingPathComponent("App Settings")
-        if !fileMgr.fileExists(atPath: settingsFolder.path) {
+        if !FileManager.default.fileExists(atPath: settingsFolder.path) {
             do {
-                try fileMgr.createDirectory(at: settingsFolder, withIntermediateDirectories: true, attributes: [:])
+                try FileManager.default.createDirectory(at: settingsFolder,
+                                                        withIntermediateDirectories: true,
+                                                        attributes: [:])
             } catch {
                 Log.shared.error(error)
             }

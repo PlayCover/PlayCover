@@ -1,3 +1,4 @@
+"playapp.add" = "Add app";
 "playapp.settings" = "Settings";
 "playapp.showInFinder" = "Show in Finder";
 "playapp.openCache" = "Open App Data";
@@ -51,7 +52,7 @@
 "alert.app.delete" = "All app data will be erased. You may need to download app files again. Do you wish to continue?";
 "alert.app.preferences" = "All in-app preferences will be deleted. Do you wish to continue?";
 "alert.restart" = "Please restart PlayCover.";
-"alert.error" = "An error occurred";
+"alert.error" = "An error occurred!";
 "alert.success" = "Success";
 "alert.moveAppToApplications.title" = "Move to Applications folder?";
 "alert.moveAppToApplications.subtitle" = "PlayCover must be in the Applications folder to run correctly. Press the button below to move PlayCover automatically.";
@@ -59,6 +60,8 @@
 "alert.storeAccount.regionIsNotValid" = "The current account is set to a different Region. Launch the game, Change the region, and pass through the gates to save. Then try again";
 "alert.legacyImport.title" = "Legacy App Settings Detected!";
 "alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
+"alert.wrongFileType.title" = "Wrong file type!";
+"alert.wrongFileType.subtitle" = "PlayCover can only install valid .ipa files.";
 
 "button.OK" = "OK";
 "button.Proceed" = "Proceed";
@@ -96,6 +99,7 @@
 "settings.picker.adaptiveRes.5" = "Custom";
 "settings.text.customHeight" = "Height";
 "settings.text.customWidth" = "Width";
+"settings.text.detectedResolution" = "Detected Resolution:";
 "settings.picker.aspectRatio" = "Aspect ratio:";
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
