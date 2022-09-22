@@ -17,23 +17,13 @@ struct IPASourceSettings: View {
     @State var selected = Set<UUID>()
     @State var selectedNotEmpty = false
     @State var addSourceSheet = false
-
-    @State var sources: [SourceData] = [
-        SourceData(source: "https://www.ipasrcool.net", status: .badjson),
-        SourceData(source: "https://super.cool.app"),
-        SourceData(source: "https://www.super-dooper-derypt.org"),
-        SourceData(source: "https://www.ipasrcool.net"),
-        SourceData(source: "https://super.cool.app"),
-        SourceData(source: "https://www.super-dooper-derypt.org", status: .badurl),
-        SourceData(source: "https://www.ipasrcool.net"),
-        SourceData(source: "https://super.cool.app"),
-        SourceData(source: "https://www.super-dooper-derypt.org")
-    ]
+    @State var triggerUpdate = false
+    @EnvironmentObject var storeVM: StoreVM
 
     var body: some View {
         Form {
             HStack {
-                List(sources, id: \.id, selection: $selected) { source in
+                List(storeVM.sources, id: \.id, selection: $selected) { source in
                     SourceView(source: source)
                 }
                 .listStyle(.bordered(alternatesRowBackgrounds: true))
@@ -47,7 +37,7 @@ struct IPASourceSettings: View {
                             .frame(width: 130)
                     })
                     Button(action: {
-                        deleteSource()
+                        storeVM.deleteSource(&selected)
                     }, label: {
                         Text("Delete Source")
                             .frame(width: 130)
@@ -56,14 +46,14 @@ struct IPASourceSettings: View {
                     Spacer()
                         .frame(height: 20)
                     Button(action: {
-                        moveSourceUp()
+                        storeVM.moveSourceUp(&selected)
                     }, label: {
                         Text("Move Source Up")
                             .frame(width: 130)
                     })
                     .disabled(!selectedNotEmpty)
                     Button(action: {
-                        moveSourceDown()
+                        storeVM.moveSourceDown(&selected)
                     }, label: {
                         Text("Move Source Down")
                             .frame(width: 130)
@@ -72,7 +62,7 @@ struct IPASourceSettings: View {
                     Spacer()
                         .frame(height: 20)
                     Button(action: {
-                        resolveSources()
+                        storeVM.resolveSources()
                     }, label: {
                         Text("Resolve Sources")
                             .frame(width: 130)
@@ -90,68 +80,13 @@ struct IPASourceSettings: View {
         .padding(20)
         .frame(width: 600, height: 300, alignment: .center)
         .sheet(isPresented: $addSourceSheet) {
-            AddSourceView(sources: $sources, addSourceSheet: $addSourceSheet, settings: self)
+            AddSourceView(addSourceSheet: $addSourceSheet, settings: self)
+                .environmentObject(storeVM)
         }
     }
 
     func addSource() {
         addSourceSheet.toggle()
-    }
-
-    func deleteSource() {
-        sources.removeAll(where: { selected.contains($0.id) })
-        selected.removeAll()
-    }
-
-    func moveSourceUp() {
-        let selectedData = sources.filter({ selected.contains($0.id) })
-        var index = sources.firstIndex(of: selectedData.first!)! - 1
-        sources.removeAll(where: { selected.contains($0.id) })
-        if index < 0 {
-            index = 0
-        }
-        sources.insert(contentsOf: selectedData, at: index)
-    }
-
-    func moveSourceDown() {
-        let selectedData = sources.filter({ selected.contains($0.id) })
-        var index = sources.firstIndex(of: selectedData.first!)! + 1
-        sources.removeAll(where: { selected.contains($0.id) })
-        if index > sources.endIndex {
-            index = sources.endIndex
-        }
-        sources.insert(contentsOf: selectedData, at: index)
-    }
-
-    func resolveSources() {
-        for index in 0..<sources.endIndex {
-            sources[index].status = .checking
-            DispatchQueue.global(qos: .userInteractive).async {
-                if let url = URL(string: sources[index].source) {
-                    if StoreVM.checkAvaliability(url: url) {
-                        do {
-                            let contents = try String(contentsOf: url)
-                            let jsonData = contents.data(using: .utf8)!
-                            do {
-                                let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self, from: jsonData)
-                                if data.count > 0 {
-                                    sources[index].status = .valid
-                                    return
-                                }
-                            } catch {
-                                sources[index].status = .badjson
-                                return
-                            }
-                        } catch {
-                            sources[index].status = .badurl
-                            return
-                        }
-                    }
-                }
-                sources[index].status = .badurl
-                return
-            }
-        }
     }
 }
 
@@ -215,8 +150,8 @@ struct AddSourceView: View {
     @State var newSource = ""
     @State var newSourceURL: URL?
     @State var sourceValidationState = SourceValidation.checking
-    @Binding var sources: [SourceData]
     @Binding var addSourceSheet: Bool
+    @EnvironmentObject var storeVM: StoreVM
     var settings: IPASourceSettings
 
     var body: some View {
@@ -252,8 +187,7 @@ struct AddSourceView: View {
                 })
                 Button(action: {
                     if newSourceURL != nil {
-                        sources.append(SourceData(source: newSourceURL!.absoluteString))
-                        settings.resolveSources()
+                        storeVM.appendSourceData(SourceData(source: newSourceURL!.absoluteString))
                         addSourceSheet.toggle()
                     }
                 }, label: {

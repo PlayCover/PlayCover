@@ -12,36 +12,104 @@ class StoreVM: ObservableObject {
     static let shared = StoreVM()
 
     private init() {
-        fetchApps()
+        resolveSources()
     }
 
     @Published var apps: [StoreAppData] = []
+    @Published var sources: [SourceData] = []
 
-    func fetchApps() {
-        DispatchQueue.global(qos: .userInteractive).async {
-            var result: [StoreAppData] = []
-            do {
-                let jsonData = StoreVM.getStoreJson().data(using: .utf8)!
-                let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self, from: jsonData)
-                for elem in data {
-                    result.append(elem)
+    func appendAppData(_ data: [StoreAppData]) {
+        for element in data {
+            if let index = apps.firstIndex(where: {$0.id == element.id}) {
+                if apps[index].version < element.version {
+                    apps[index] = element
                 }
-            } catch {
-                Log.shared.error(error)
-                Log.shared.msg("Unable to retrieve store!")
-                Log.shared.log("Unable to retrieve store!", isError: true)
-            }
-
-            DispatchQueue.main.async {
-                self.apps.removeAll()
-
-                if !uif.searchText.isEmpty {
-                    result = result.filter({ $0.name.lowercased().contains(uif.searchText.lowercased()) })
-                }
-
-                self.apps.append(contentsOf: result)
+            } else {
+                apps.append(element)
             }
         }
+    }
+
+    func fetchApps() -> [StoreAppData] {
+        var result = apps
+        if !uif.searchText.isEmpty {
+            result = result.filter({
+                $0.name.lowercased().contains(uif.searchText.lowercased())
+            })
+        }
+        return result
+    }
+
+    func resolveSources() {
+        apps.removeAll()
+        for index in 0..<sources.endIndex {
+            sources[index].status = .checking
+            DispatchQueue.global(qos: .userInteractive).async {
+                if let url = URL(string: self.sources[index].source) {
+                    if StoreVM.checkAvaliability(url: url) {
+                        do {
+                            let contents = try String(contentsOf: url)
+                            let jsonData = contents.data(using: .utf8)!
+                            do {
+                                let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self, from: jsonData)
+                                if data.count > 0 {
+                                    DispatchQueue.main.async {
+                                        self.sources[index].status = .valid
+                                        self.appendAppData(data)
+                                    }
+                                    return
+                                }
+                            } catch {
+                                DispatchQueue.main.async {
+                                    self.sources[index].status = .badjson
+                                }
+                                return
+                            }
+                        } catch {
+                            DispatchQueue.main.async {
+                                self.sources[index].status = .badurl
+                            }
+                            return
+                        }
+                    }
+                }
+                DispatchQueue.main.async {
+                    self.sources[index].status = .badurl
+                }
+                return
+            }
+        }
+    }
+
+    func deleteSource(_ selected: inout Set<UUID>) {
+        self.sources.removeAll(where: { selected.contains($0.id) })
+        selected.removeAll()
+        resolveSources()
+    }
+
+    func moveSourceUp(_ selected: inout Set<UUID>) {
+        let selectedData = self.sources.filter({ selected.contains($0.id) })
+        var index = self.sources.firstIndex(of: selectedData.first!)! - 1
+        self.sources.removeAll(where: { selected.contains($0.id) })
+        if index < 0 {
+            index = 0
+        }
+        self.sources.insert(contentsOf: selectedData, at: index)
+    }
+
+    func moveSourceDown(_ selected: inout Set<UUID>) {
+        let selectedData = self.sources.filter({ selected.contains($0.id) })
+        var index = self.sources.firstIndex(of: selectedData.first!)! + 1
+        self.sources.removeAll(where: { selected.contains($0.id) })
+        if index > self.sources.endIndex {
+            index = self.sources.endIndex
+        }
+        self.sources.insert(contentsOf: selectedData, at: index)
+    }
+
+    func appendSourceData(_ data: SourceData) {
+        self.sources.append(data)
+        self.resolveSources()
     }
 
     static func checkAvaliability(url: URL) -> Bool {
@@ -64,20 +132,6 @@ class StoreVM: ObservableObject {
             }
             .resume()
         return avaliable
-    }
-
-    static func getStoreJson() -> String {
-        if let url = URL(string: "https://playcover.io/store/store.json") {
-            do {
-                if checkAvaliability(url: url) {
-                    let contents = try String(contentsOf: url)
-                    return contents
-                }
-            } catch {
-                print(error)
-            }
-        }
-        return "[]"
     }
 }
 

@@ -17,6 +17,7 @@ struct IPALibraryView: View {
     @State private var searchString = ""
     @State private var isList = UserDefaults.standard.bool(forKey: "IPALibrayView")
     @State private var selected: StoreAppData?
+    // @State private var apps: [StoreAppData] = []
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -65,10 +66,13 @@ struct IPALibraryView: View {
             }
         }
         .searchable(text: $searchString, placement: .toolbar)
+        /*.onAppear {
+            apps = storeVM.fetchApps()
+        }
         .onChange(of: searchString, perform: { value in
             uif.searchText = value
-            storeVM.fetchApps()
-        })
+            apps = storeVM.fetchApps()
+        })*/
         .onChange(of: isList, perform: { value in
             UserDefaults.standard.set(value, forKey: "IPALibrayView")
         })

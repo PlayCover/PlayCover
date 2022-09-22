@@ -35,6 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 struct PlayCoverApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject var updaterViewModel = UpdaterViewModel()
+    var storeVM = StoreVM.shared
 
     @State var xcodeCliInstalled = shell.isXcodeCliToolsInstalled
     @State var isSigningSetupShown = false
@@ -45,7 +46,7 @@ struct PlayCoverApp: App {
                      isSigningSetupShown: $isSigningSetupShown)
                 .environmentObject(InstallVM.shared)
                 .environmentObject(AppsVM.shared)
-                .environmentObject(StoreVM.shared)
+                .environmentObject(storeVM)
                 .environmentObject(AppIntegrity())
                 .onAppear {
                     NSWindow.allowsAutomaticWindowTabbing = false
@@ -63,6 +64,7 @@ struct PlayCoverApp: App {
 
         Settings {
             PlayCoverSettingsView(updaterViewModel: updaterViewModel)
+                .environmentObject(storeVM)
         }
     }
 }
