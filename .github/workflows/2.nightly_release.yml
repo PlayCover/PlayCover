@@ -28,12 +28,26 @@ jobs:
         run: |
           fastlane run increment_build_number build_number:${{ github.run_number }}
 
+      - name: Fastlane match
+        shell: bash
+        run: |
+          fastlane match developer_id --readonly
+        env:
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+
+      # pre-build the PlayTools
+      - name: Carthage bootstrap
+        shell: bash
+        run: |
+          carthage update --use-xcframeworks
+        env:
+          FASTLANE: 1
+
       - name: Fastlane Nightly
         shell: bash
         run: fastlane nightly --verbose
         env:
-          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
-          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 120 # x86 is slooooooow
 
       - name: Exract API_KEY

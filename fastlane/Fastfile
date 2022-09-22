@@ -27,7 +27,7 @@ end
 
 lane :release do
   setup_ci if ENV['CI']
-  match(type: "developer_id", readonly: true)
+  # match(type: "developer_id", readonly: true)
   build_mac_app(
     configuration: "Release",
     scheme: "PlayCover",
@@ -42,7 +42,7 @@ end
 
 lane :nightly do
   setup_ci if ENV['CI']
-  match(type: "developer_id", readonly: true)
+  # match(type: "developer_id", readonly: true)
   build_mac_app(
     configuration: "Nightly",
     scheme: "PlayCover",
