@@ -89,7 +89,7 @@ struct PlayCoverViewMenuView: Commands {
             }
         }
         CommandGroup(before: .sidebar) {
-            Button("Resolve Sources") {
+            Button("preferences.button.resolveSources") {
                 StoreVM.shared.resolveSources()
             }
             .keyboardShortcut("R", modifiers: [.command])

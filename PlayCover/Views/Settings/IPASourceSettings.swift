@@ -33,13 +33,13 @@ struct IPASourceSettings: View {
                     Button(action: {
                         addSource()
                     }, label: {
-                        Text("Add Source")
+                        Text("preferences.button.addSource")
                             .frame(width: 130)
                     })
                     Button(action: {
                         storeVM.deleteSource(&selected)
                     }, label: {
-                        Text("Delete Source")
+                        Text("preferences.button.deleteSource")
                             .frame(width: 130)
                     })
                     .disabled(!selectedNotEmpty)
@@ -48,14 +48,14 @@ struct IPASourceSettings: View {
                     Button(action: {
                         storeVM.moveSourceUp(&selected)
                     }, label: {
-                        Text("Move Source Up")
+                        Text("preferences.button.moveSourceUp")
                             .frame(width: 130)
                     })
                     .disabled(!selectedNotEmpty)
                     Button(action: {
                         storeVM.moveSourceDown(&selected)
                     }, label: {
-                        Text("Move Source Down")
+                        Text("preferences.button.moveSourceDown")
                             .frame(width: 130)
                     })
                     .disabled(!selectedNotEmpty)
@@ -64,7 +64,7 @@ struct IPASourceSettings: View {
                     Button(action: {
                         storeVM.resolveSources()
                     }, label: {
-                        Text("Resolve Sources")
+                        Text("preferences.button.resolveSources")
                             .frame(width: 130)
                     })
                 }
@@ -102,17 +102,17 @@ struct SourceView: View {
             case .valid:
                 StatusBadgeView(imageName: "checkmark.circle.fill",
                                 imageColor: .green,
-                                popoverText: "Link valid",
+                                popoverText: "preferences.popover.valid",
                                 showingPopover: $showingPopover)
             case .badurl:
                 StatusBadgeView(imageName: "xmark.circle.fill",
                                 imageColor: .red,
-                                popoverText: "URL invalid",
+                                popoverText: "preferences.popover.badurl",
                                 showingPopover: $showingPopover)
             case .badjson:
                 StatusBadgeView(imageName: "xmark.circle.fill",
                                 imageColor: .red,
-                                popoverText: "JSON not found or invalid",
+                                popoverText: "preferences.popover.badjson",
                                 showingPopover: $showingPopover)
             case .checking:
                 EmptyView()
@@ -156,7 +156,7 @@ struct AddSourceView: View {
 
     var body: some View {
         VStack {
-            TextField(text: $newSource, label: {Text("Source URL...")})
+            TextField(text: $newSource, label: {Text("preferences.textfield.url")})
             Spacer()
                 .frame(height: 20)
             HStack {
@@ -164,17 +164,17 @@ struct AddSourceView: View {
                 case .valid:
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundColor(.green)
-                    Text("Link valid")
+                    Text("preferences.popover.valid")
                         .font(.system(.subheadline))
                 case .badurl:
                     Image(systemName: "xmark.circle.fill")
                         .foregroundColor(.red)
-                    Text("URL invalid")
+                    Text("preferences.popover.badurl")
                         .font(.system(.subheadline))
                 case .badjson:
                     Image(systemName: "xmark.circle.fill")
                         .foregroundColor(.red)
-                    Text("JSON not found or invalid")
+                    Text("preferences.popover.badjson")
                         .font(.system(.subheadline))
                 case .checking:
                     EmptyView()
@@ -183,7 +183,7 @@ struct AddSourceView: View {
                 Button(action: {
                     addSourceSheet.toggle()
                 }, label: {
-                    Text("Cancel")
+                    Text("button.Cancel")
                 })
                 Button(action: {
                     if newSourceURL != nil {
@@ -191,7 +191,7 @@ struct AddSourceView: View {
                         addSourceSheet.toggle()
                     }
                 }, label: {
-                    Text("Done")
+                    Text("button.OK")
                 })
                 .tint(.accentColor)
                 .keyboardShortcut(.defaultAction)
