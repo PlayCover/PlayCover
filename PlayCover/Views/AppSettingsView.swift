@@ -91,6 +91,7 @@ struct AppSettingsView: View {
 
 struct KeymappingView: View {
     @Binding var settings: AppSettings
+    @State var hasKeymapping = false
 
     var body: some View {
         ScrollView {
@@ -102,6 +103,13 @@ struct KeymappingView: View {
                     Toggle("settings.toggle.mm", isOn: $settings.settings.mouseMapping)
                         .help("settings.toggle.mm.help")
                         .disabled(!settings.settings.keymapping)
+
+                    if hasKeymapping {
+                        Spacer()
+                        Button("Download Keymapping") {
+                            print("Success!")
+                        }
+                    }
                 }
                 HStack {
                     Text(String(
@@ -115,6 +123,46 @@ struct KeymappingView: View {
                 Spacer()
             }
             .padding()
+        }
+        .task {
+            await isInKeymaps()
+        }
+    }
+
+    struct Keymaps: Codable {
+        var tag: String
+        var name: String
+        var url: String
+        var bundleIdentifier: String
+    }
+
+    func isInKeymaps() async {
+        // TODO: THIS URL IS TEMPORARY AND SHOULD BE CHANGED TO THE MAIN ONE ONCE THAT PR GETS MERGED
+        let path = "/PlayCover/Puck/d8e3f407a168777a264b204938f7ec7616ac8248/resources/keymaps.json"
+        guard let url = URL(string: "https://raw.githubusercontent.com\(path)") else {
+            print("Invalid URL")
+            return
+        }
+
+        var keymaps = [Keymaps]()
+
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+
+            let decodedResponse = try decoder.decode([Keymaps].self, from: data)
+            keymaps = decodedResponse
+
+            let condition = keymaps[index].bundleIdentifier.contains(settings.info.bundleIdentifier)
+            for index in 0..<keymaps.count where condition {
+                hasKeymapping = true
+                return
+            }
+            hasKeymapping = false
+        } catch {
+            print(error)
         }
     }
 }
