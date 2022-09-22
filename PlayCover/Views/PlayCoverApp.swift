@@ -56,10 +56,10 @@ struct PlayCoverApp: App {
         }
         .handlesExternalEvents(matching: ["{same path of URL?}"]) // create new window if doesn't exist
         .commands {
+            SidebarCommands()
             PlayCoverMenuView(isSigningSetupShown: $isSigningSetupShown)
             PlayCoverHelpMenuView(updaterViewModel: updaterViewModel)
             PlayCoverViewMenuView()
-            SidebarCommands()
         }
 
         Settings {
