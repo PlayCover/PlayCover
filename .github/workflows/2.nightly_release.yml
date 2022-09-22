@@ -19,36 +19,20 @@ jobs:
           bundle install
           npm install --global create-dmg
 
-      # We will make it compatible with the latest version of Xcode
-      # - name: Select Xcode version
-      #   run: sudo xcode-select -s '/Applications/Xcode_13.4.1.app/Contents/Developer'
+      - name: Select Xcode version
+        run: sudo xcode-select -s '/Applications/Xcode_13.4.1.app/Contents/Developer'
 
       - name: Set build number
         shell: bash
         run: |
           fastlane run increment_build_number build_number:${{ github.run_number }}
 
-      - name: Fastlane match
+      - name: Fastlane Nightly
         shell: bash
-        run: |
-          fastlane run setup_ci
-          fastlane match developer_id --readonly
+        run: fastlane nightly
         env:
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-
-      # pre-build the PlayTools
-      - name: Carthage bootstrap
-        shell: bash
-        run: |
-          carthage update --use-xcframeworks
-        env:
-          FASTLANE: 1
-
-      - name: Fastlane Nightly
-        shell: bash
-        run: fastlane nightly --verbose
-        env:
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 120 # x86 is slooooooow
 
       - name: Exract API_KEY
