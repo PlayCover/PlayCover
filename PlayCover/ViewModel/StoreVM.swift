@@ -16,6 +16,7 @@ class StoreVM: ObservableObject {
     }
 
     @Published var apps: [StoreAppData] = []
+    @Published var filteredApps: [StoreAppData] = []
     @Published var sources: [SourceData] = []
 
     func appendAppData(_ data: [StoreAppData]) {
@@ -28,16 +29,17 @@ class StoreVM: ObservableObject {
                 apps.append(element)
             }
         }
+        fetchApps()
     }
 
-    func fetchApps() -> [StoreAppData] {
+    func fetchApps() {
         var result = apps
         if !uif.searchText.isEmpty {
             result = result.filter({
                 $0.name.lowercased().contains(uif.searchText.lowercased())
             })
         }
-        return result
+        filteredApps = result
     }
 
     func resolveSources() {
@@ -79,6 +81,7 @@ class StoreVM: ObservableObject {
                 return
             }
         }
+        fetchApps()
     }
 
     func deleteSource(_ selected: inout Set<UUID>) {

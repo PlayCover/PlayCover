@@ -17,14 +17,13 @@ struct IPALibraryView: View {
     @State private var searchString = ""
     @State private var isList = UserDefaults.standard.bool(forKey: "IPALibrayView")
     @State private var selected: StoreAppData?
-    // @State private var apps: [StoreAppData] = []
 
     var body: some View {
         VStack(alignment: .leading) {
             if !isList {
                 ScrollView {
                     LazyVGrid(columns: gridLayout, alignment: .center) {
-                        ForEach(storeVM.apps, id: \.id) { app in
+                        ForEach(storeVM.filteredApps, id: \.id) { app in
                             StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                          selectedTextColor: $selectedTextColor,
                                          selected: $selected,
@@ -38,7 +37,7 @@ struct IPALibraryView: View {
             } else {
                 ScrollView {
                     VStack {
-                        ForEach(storeVM.apps, id: \.id) { app in
+                        ForEach(storeVM.filteredApps, id: \.id) { app in
                             StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                          selectedTextColor: $selectedTextColor,
                                          selected: $selected,
@@ -66,13 +65,10 @@ struct IPALibraryView: View {
             }
         }
         .searchable(text: $searchString, placement: .toolbar)
-        /*.onAppear {
-            apps = storeVM.fetchApps()
-        }
-        .onChange(of: searchString, perform: { value in
+        .onChange(of: searchString) { value in
             uif.searchText = value
-            apps = storeVM.fetchApps()
-        })*/
+            storeVM.fetchApps()
+        }
         .onChange(of: isList, perform: { value in
             UserDefaults.standard.set(value, forKey: "IPALibrayView")
         })
