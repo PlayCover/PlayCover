@@ -15,9 +15,10 @@ jobs:
       - name: Get the version
         id: tag_version
         run: echo ::set-output name=TAG_NAME::${GITHUB_REF/refs\/tags\//}
-      
-      - name: Select Xcode version
-        run: sudo xcode-select -s '/Applications/Xcode_13.4.1.app/Contents/Developer'
+
+      # We will make it compatible with the latest version of Xcode
+      # - name: Select Xcode version
+      #   run: sudo xcode-select -s '/Applications/Xcode_13.4.1.app/Contents/Developer'
 
       - name: Install dependencies
         shell: bash
