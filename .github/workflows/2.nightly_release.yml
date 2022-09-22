@@ -30,7 +30,7 @@ jobs:
 
       - name: Fastlane Nightly
         shell: bash
-        run: fastlane nightly
+        run: fastlane nightly --verbose
         env:
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
