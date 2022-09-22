@@ -31,6 +31,7 @@ jobs:
       - name: Fastlane match
         shell: bash
         run: |
+          fastlane run setup_ci
           fastlane match developer_id --readonly
         env:
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
