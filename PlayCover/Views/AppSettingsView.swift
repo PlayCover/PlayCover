@@ -155,8 +155,7 @@ struct KeymappingView: View {
             let decodedResponse = try decoder.decode([Keymaps].self, from: data)
             keymaps = decodedResponse
 
-            let condition = keymaps[index].bundleIdentifier.contains(settings.info.bundleIdentifier)
-            for index in 0..<keymaps.count where condition {
+            for index in 0..<keymaps.count where keymaps[index].bundleIdentifier.contains(settings.info.bundleIdentifier) {
                 hasKeymapping = true
                 return
             }
