@@ -72,9 +72,12 @@ end
 
 lane :notarize_dmg do |options|
   notarize(
+    use_notarytool: true,
     package: options[:package],
     api_key_path: "apikey.json",
     bundle_id: bundle_id,
+    print_log: true,
+    verbose: true,
   )
 end
 
