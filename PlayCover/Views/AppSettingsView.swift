@@ -99,6 +99,7 @@ struct KeymappingView: View {
     @State var fetchedKeymapping = [KeymapJSON]()
     @State var keymappingPath: URL?
     @State var downloadedKeymapping: Data?
+    @State var showImportSuccess = false
 
     @Binding var settings: AppSettings
     @ObservedObject var viewModel: AppSettingsVM
@@ -138,6 +139,11 @@ struct KeymappingView: View {
         }
         .task {
             await isInKeymaps()
+        }
+        .onChange(of: showImportSuccess) { _ in
+            ToastVM.shared.showToast(
+                toastType: .notice,
+                toastDetails: NSLocalizedString("alert.kmImported", comment: ""))
         }
     }
 
