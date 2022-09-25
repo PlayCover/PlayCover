@@ -34,7 +34,7 @@ struct AppSettingsView: View {
                 Spacer()
             }
             TabView {
-                KeymappingView(settings: $viewModel.settings)
+                KeymappingView(settings: $viewModel.settings, viewModel: viewModel)
                     .tabItem {
                         Text("settings.tab.km")
                     }
@@ -90,8 +90,18 @@ struct AppSettingsView: View {
 }
 
 struct KeymappingView: View {
-    @Binding var settings: AppSettings
+    struct KeymapJSON: Codable {
+        var directUrl: String
+        var bundleIdentifier: String
+    }
+
     @State var hasKeymapping = false
+    @State var fetchedKeymapping = [KeymapJSON]()
+    @State var keymappingPath: URL?
+    @State var downloadedKeymapping: Data?
+
+    @Binding var settings: AppSettings
+    @ObservedObject var viewModel: AppSettingsVM
 
     var body: some View {
         ScrollView {
@@ -107,7 +117,9 @@ struct KeymappingView: View {
                     if hasKeymapping {
                         Spacer()
                         Button("Download Keymapping") {
-                            print("Success!")
+                            Task {
+                                await downloadKeymapping()
+                            }
                         }
                     }
                 }
@@ -129,22 +141,13 @@ struct KeymappingView: View {
         }
     }
 
-    struct Keymaps: Codable {
-        var tag: String
-        var name: String
-        var url: String
-        var bundleIdentifier: String
-    }
-
     func isInKeymaps() async {
         // TODO: THIS URL IS TEMPORARY AND SHOULD BE CHANGED TO THE MAIN ONE ONCE THAT PR GETS MERGED
-        let path = "/PlayCover/Puck/d8e3f407a168777a264b204938f7ec7616ac8248/resources/keymaps.json"
+        let path = "/ZhichGaming/Puck/patch-1/resources/keymaps.json"
         guard let url = URL(string: "https://raw.githubusercontent.com\(path)") else {
             print("Invalid URL")
             return
         }
-
-        var keymaps = [Keymaps]()
 
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
@@ -152,16 +155,53 @@ struct KeymappingView: View {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
 
-            let decodedResponse = try decoder.decode([Keymaps].self, from: data)
-            keymaps = decodedResponse
+            let decodedResponse = try decoder.decode([KeymapJSON].self, from: data)
+            fetchedKeymapping = decodedResponse
 
-            for index in 0..<keymaps.count where keymaps[index].bundleIdentifier.contains(settings.info.bundleIdentifier) {
+            for index in 0..<fetchedKeymapping.count
+            where fetchedKeymapping[index].bundleIdentifier.contains(settings.info.bundleIdentifier) {
                 hasKeymapping = true
                 return
             }
             hasKeymapping = false
         } catch {
             print(error)
+        }
+    }
+
+    func downloadKeymapping() async {
+        var url: URL? {
+            for index in 0..<fetchedKeymapping.count
+            where fetchedKeymapping[index].bundleIdentifier.contains(settings.info.bundleIdentifier) {
+                return URL(string: fetchedKeymapping[index].directUrl)
+            }
+
+            return nil
+        }
+
+        let task = URLSession.shared.downloadTask(with: url!) { localURL, _, _ in
+            if let localURL = localURL {
+                keymappingPath = localURL
+                if let data = try? Data(contentsOf: localURL) {
+                    downloadedKeymapping = data
+                    saveKeymapping()
+                }
+            }
+        }
+
+        task.resume()
+    }
+
+    func saveKeymapping() {
+        do {
+            let keymap = try PropertyListDecoder().decode(Keymap.self, from: downloadedKeymapping!)
+            viewModel.app.keymapping.keymap = keymap
+            showImportSuccess.toggle()
+        } catch {
+            if let keymap = LegacySettings.convertLegacyKeymapFile(keymappingPath!) {
+                viewModel.app.keymapping.keymap = keymap
+                showImportSuccess.toggle()
+            }
         }
     }
 }
