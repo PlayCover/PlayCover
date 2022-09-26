@@ -134,8 +134,9 @@ struct KeymappingView: View {
                         }
                         .popover(isPresented: $showPopover, arrowEdge: .bottom) {
                             VStack(alignment: .center) {
-                                Text("Keymapping for \n\(settings.info.bundleName)")
-                                    .font(.title3)
+                                Text("Keymapping for")
+                                Text(settings.info.bundleName)
+                                    .font(.headline)
                                 Picker("", selection: $keymapSelection) {
                                     ForEach(fetchedKeymaps, id: \.self) {
                                         Text($0.name.replacingOccurrences(of: ".playmap", with: "")).tag($0.name)
@@ -161,7 +162,7 @@ struct KeymappingView: View {
                                 }
                             }
                             .padding()
-                            .frame(width: 250, height: 200)
+                            .frame(width: 250, height: 165)
                         }
                         .frame(width: 160)
                     } else if hasKeymapping == false {
@@ -231,7 +232,7 @@ struct KeymappingView: View {
 
             hasKeymapping = false
         } catch {
-            Log.shared.error(error)
+
         }
     }
 
