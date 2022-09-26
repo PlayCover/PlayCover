@@ -135,8 +135,8 @@ struct KeymappingView: View {
                         .popover(isPresented: $showPopover, arrowEdge: .bottom) {
                             VStack(alignment: .center) {
                                 Picker("", selection: $keymapSelection) {
-                                    ForEach(fetchedKeymaps, id: \.self) { keymap in
-                                        Text(keymap.name.replacingOccurrences(of: ".playmap", with: ""))
+                                    ForEach(fetchedKeymaps, id: \.self) {
+                                        Text($0.name.replacingOccurrences(of: ".playmap", with: "")).tag($0.name)
                                     }
                                 }
                                 Link("Keymap Info", destination: URL(string: fetchedKeymapsFolder!.htmlUrl)!)
@@ -151,7 +151,11 @@ struct KeymappingView: View {
                                                 $0.name == keymapSelection
                                             })!)
                                         }
+                                        dismiss()
                                     }
+                                    .disabled(fetchedKeymaps.firstIndex(where: {
+                                        $0.name == keymapSelection
+                                    }) == nil)
                                 }
                             }
                             .padding()
