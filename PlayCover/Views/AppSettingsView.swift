@@ -111,7 +111,7 @@ struct KeymappingView: View {
 
     @State private var showImportSuccess = false
     @State private var showPopover = false
-    @State private var keymapSelection = "Select Keymapping"
+    @State private var keymapSelection = ""
 
     @Binding var settings: AppSettings
     @ObservedObject var viewModel: AppSettingsVM
@@ -129,7 +129,7 @@ struct KeymappingView: View {
 
                     if hasKeymapping == true {
                         Spacer()
-                        Button("Download Keymapping") {
+                        Button("settings.button.km.download") {
                             showPopover = true
                         }
                         .popover(isPresented: $showPopover, arrowEdge: .bottom) {
@@ -145,10 +145,10 @@ struct KeymappingView: View {
                                 Link("Keymap Info", destination: URL(string: fetchedKeymapsFolder!.htmlUrl)!)
                                 Divider()
                                 HStack(alignment: .center) {
-                                    Button("Cancel", role: .cancel) {
+                                    Button("button.Cancel", role: .cancel) {
                                         dismiss()
                                     }
-                                    Button("Save") {
+                                    Button("button.Install") {
                                         Task {
                                             await downloadKeymapping(fetchedKeymaps.firstIndex(where: {
                                                 $0.name == keymapSelection
@@ -165,14 +165,11 @@ struct KeymappingView: View {
                             .frame(width: 250, height: 165)
                         }
                         .frame(width: 160)
-                    } else if hasKeymapping == false {
-                        Spacer()
-                        Button("No Keymapping") { }
-                            .frame(width: 160)
-                            .disabled(true)
                     } else {
                         Spacer()
-                        Button("Loading...") { }
+                        Button(!(hasKeymapping ?? true) ?
+                                "settings.button.km.unavailable" :
+                                "settings.button.km.loading") { }
                             .frame(width: 160)
                             .disabled(true)
                     }

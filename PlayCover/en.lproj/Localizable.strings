@@ -86,6 +86,10 @@
 "settings.tab.km" = "Keymapping";
 "settings.toggle.km" = "Keymapping";
 "settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
+"settings.button.km.download" = "Download keymapping";
+"settings.button.km.unavailable" = "No keymapping";
+"settings.button.km.loading" = "Loading...";
+"settings.button.km.forGame" = "Keymapping for";
 "settings.toggle.mm" = "Mouse mapping";
 "settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
