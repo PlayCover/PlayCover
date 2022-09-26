@@ -90,16 +90,28 @@ struct AppSettingsView: View {
 }
 
 struct KeymappingView: View {
-    struct KeymapJSON: Codable {
-        var directUrl: String
-        var bundleIdentifier: String
+    struct KeymapFolder: Codable {
+        var name: String
+        var url: String
+        var htmlUrl: String
     }
 
-    @State var hasKeymapping = false
-    @State var fetchedKeymapping = [KeymapJSON]()
-    @State var keymappingPath: URL?
-    @State var downloadedKeymapping: Data?
-    @State var showImportSuccess = false
+    struct KeymapInfo: Codable, Hashable {
+        var name: String
+        var downloadUrl: String
+    }
+
+    @Environment(\.dismiss) var dismiss
+
+    @State private var hasKeymapping = false
+    @State private var fetchedKeymapsFolder: KeymapFolder?
+    @State private var fetchedKeymaps = [KeymapInfo]()
+    @State private var keymappingPath: URL?
+    @State private var downloadedKeymapping: Data?
+
+    @State private var showImportSuccess = false
+    @State private var showPopover = false
+    @State private var keymapSelection = "Select Keymapping"
 
     @Binding var settings: AppSettings
     @ObservedObject var viewModel: AppSettingsVM
@@ -118,9 +130,32 @@ struct KeymappingView: View {
                     if hasKeymapping {
                         Spacer()
                         Button("Download Keymapping") {
-                            Task {
-                                await downloadKeymapping()
+                            showPopover = true
+                        }
+                        .popover(isPresented: $showPopover, arrowEdge: .bottom) {
+                            VStack(alignment: .center) {
+                                Picker("", selection: $keymapSelection) {
+                                    ForEach(fetchedKeymaps, id: \.self) { keymap in
+                                        Text(keymap.name.replacingOccurrences(of: ".playmap", with: ""))
+                                    }
+                                }
+                                Link("Keymap Info", destination: URL(string: fetchedKeymapsFolder!.htmlUrl)!)
+                                Divider()
+                                HStack(alignment: .center) {
+                                    Button("Cancel", role: .cancel) {
+                                        dismiss()
+                                    }
+                                    Button("Save") {
+                                        Task {
+                                            await downloadKeymapping(fetchedKeymaps.firstIndex(where: {
+                                                $0.name == keymapSelection
+                                            })!)
+                                        }
+                                    }
+                                }
                             }
+                            .padding()
+                            .frame(width: 250, height: 150)
                         }
                     }
                 }
@@ -147,10 +182,9 @@ struct KeymappingView: View {
         }
     }
 
+    // Check if the game currently played is in keymaps repository
     func isInKeymaps() async {
-        // TODO: THIS URL IS TEMPORARY AND SHOULD BE CHANGED TO THE MAIN ONE ONCE THAT PR GETS MERGED
-        let path = "/ZhichGaming/Puck/patch-1/resources/keymaps.json"
-        guard let url = URL(string: "https://raw.githubusercontent.com\(path)") else {
+        guard let url = URL(string: "https://api.github.com/repos/PlayCover/keymaps/contents/keymapping") else {
             print("Invalid URL")
             return
         }
@@ -161,31 +195,36 @@ struct KeymappingView: View {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
 
-            let decodedResponse = try decoder.decode([KeymapJSON].self, from: data)
-            fetchedKeymapping = decodedResponse
+            let decodedResponse = try decoder.decode([KeymapFolder].self, from: data)
 
-            for index in 0..<fetchedKeymapping.count
-            where fetchedKeymapping[index].bundleIdentifier.contains(settings.info.bundleIdentifier) {
+            for index in 0..<decodedResponse.count
+            where decodedResponse[index].name.contains(settings.info.bundleIdentifier) {
                 hasKeymapping = true
+                fetchedKeymapsFolder = decodedResponse[index]
+
+                // Get keymapping data and store it
+                let (data, _) = try await URLSession.shared.data(from: URL(string: fetchedKeymapsFolder!.url)!)
+                let decodedResponse = try decoder.decode([KeymapInfo].self, from: data)
+                fetchedKeymaps = decodedResponse.filter {
+                    $0.name.contains(".playmap")
+                }
+
                 return
             }
+
             hasKeymapping = false
         } catch {
-            print(error)
+            Log.shared.error(error)
         }
     }
 
-    func downloadKeymapping() async {
-        var url: URL? {
-            for index in 0..<fetchedKeymapping.count
-            where fetchedKeymapping[index].bundleIdentifier.contains(settings.info.bundleIdentifier) {
-                return URL(string: fetchedKeymapping[index].directUrl)
-            }
-
-            return nil
+    func downloadKeymapping(_ keymapIndex: Int) async {
+        guard let url = URL(string: fetchedKeymaps[keymapIndex].downloadUrl) else {
+            print("Invalid URL")
+            return
         }
 
-        let task = URLSession.shared.downloadTask(with: url!) { localURL, _, _ in
+        let task = URLSession.shared.downloadTask(with: url) { localURL, _, _ in
             if let localURL = localURL {
                 keymappingPath = localURL
                 if let data = try? Data(contentsOf: localURL) {
@@ -207,7 +246,10 @@ struct KeymappingView: View {
             if let keymap = LegacySettings.convertLegacyKeymapFile(keymappingPath!) {
                 viewModel.app.keymapping.keymap = keymap
                 showImportSuccess.toggle()
+                return
             }
+
+            Log.shared.error(error)
         }
     }
 }
