@@ -103,7 +103,7 @@ struct KeymappingView: View {
 
     @Environment(\.dismiss) var dismiss
 
-    @State private var hasKeymapping = false
+    @State private var hasKeymapping: Bool?
     @State private var fetchedKeymapsFolder: KeymapFolder?
     @State private var fetchedKeymaps = [KeymapInfo]()
     @State private var keymappingPath: URL?
@@ -127,13 +127,15 @@ struct KeymappingView: View {
                         .help("settings.toggle.mm.help")
                         .disabled(!settings.settings.keymapping)
 
-                    if hasKeymapping {
+                    if hasKeymapping == true {
                         Spacer()
                         Button("Download Keymapping") {
                             showPopover = true
                         }
                         .popover(isPresented: $showPopover, arrowEdge: .bottom) {
                             VStack(alignment: .center) {
+                                Text("Keymapping for \n\(settings.info.bundleName)")
+                                    .font(.title3)
                                 Picker("", selection: $keymapSelection) {
                                     ForEach(fetchedKeymaps, id: \.self) {
                                         Text($0.name.replacingOccurrences(of: ".playmap", with: "")).tag($0.name)
@@ -159,8 +161,19 @@ struct KeymappingView: View {
                                 }
                             }
                             .padding()
-                            .frame(width: 250, height: 150)
+                            .frame(width: 250, height: 200)
                         }
+                        .frame(width: 160)
+                    } else if hasKeymapping == false {
+                        Spacer()
+                        Button("No Keymapping") { }
+                            .frame(width: 160)
+                            .disabled(true)
+                    } else {
+                        Spacer()
+                        Button("Loading...") { }
+                            .frame(width: 160)
+                            .disabled(true)
                     }
                 }
                 HStack {
