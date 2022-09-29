@@ -24,6 +24,7 @@
 "preferences.toggle.removeEntitlements" = "Remove app entitlements when uninstalling";
 "preferences.button.pruneFiles" = "Prune files";
 "preferences.prune.alert" = "Are you sure you want to prune all files?";
+"preferences.prune.message" = "This will remove all unused files including settings, keymappings, entitlements, and containers";
 
 "sidebar.appLibrary" = "App Library";
 "sidebar.ipaLibrary" = "IPA Library";

@@ -53,7 +53,7 @@ class Uninstaller {
                 try url.enumerateContents { file, _ in
                     if !bundleIds.contains(file.deletingPathExtension().lastPathComponent) {
                         let containerPath = containerURL.appendingPathComponent(file.deletingPathExtension()
-                                                                                    .lastPathComponent)
+                            .lastPathComponent)
 
                         if FileManager.default.fileExists(atPath: containerPath.path) {
                             try FileManager.default.delete(at: containerPath)
@@ -65,5 +65,6 @@ class Uninstaller {
             } catch {
                 Log.shared.error(error)
             }
-        }x
+        }
+    }
 }
