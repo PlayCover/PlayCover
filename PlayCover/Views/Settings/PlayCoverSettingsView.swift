@@ -12,7 +12,7 @@ struct PlayCoverSettingsView: View {
     @ObservedObject var updaterViewModel: UpdaterViewModel
 
     private enum Tabs: Hashable {
-        case updates
+        case updates, uninstall
     }
 
     var body: some View {
@@ -22,6 +22,12 @@ struct PlayCoverSettingsView: View {
                     Label("preferences.tab.updates", systemImage: "square.and.arrow.down")
                 }
                 .tag(Tabs.updates)
+
+            UninstallSettings.shared
+                .tabItem {
+                  Label("preferences.tab.uninstall", systemImage: "trash.square")
+                }
+                .tag(Tabs.uninstall)
         }
     }
 }

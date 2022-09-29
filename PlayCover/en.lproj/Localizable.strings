@@ -17,6 +17,13 @@
 "preferences.button.checkForUpdates" = "Check for updates now...";
 "preferences.tab.updates" = "Updates";
 "preferences.toggle.automaticUpdates" = "Automatically check for updates";
+"preferences.tab.uninstall" = "Uninstall";
+"preferences.toggle.clearAppData" = "Clear app data when uninstalling";
+"preferences.toggle.removeKeymap" = "Remove app keymapping when uninstalling";
+"preferences.toggle.removeSetting" = "Remove app settings when uninstalling";
+"preferences.toggle.removeEntitlements" = "Remove app entitlements when uninstalling";
+"preferences.button.pruneFiles" = "Prune files";
+"preferences.prune.alert" = "Are you sure you want to prune all files?";
 
 "sidebar.appLibrary" = "App Library";
 "sidebar.ipaLibrary" = "IPA Library";

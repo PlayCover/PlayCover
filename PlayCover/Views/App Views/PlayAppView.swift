@@ -135,6 +135,17 @@ struct PlayAppView: View {
                 }
                 Button("button.Cancel", role: .cancel) { }
             }
+            .alert("playapp.delete", isPresented: $showDeleteConfirmation, actions: {
+                Button("playapp.deleteConfirm", role: .destructive) {
+                    Uninstaller.uninstall(app)
+                }
+                Button("button.Cancel", role: .cancel) {
+                    showDeleteConfirmation.toggle()
+                }
+                .keyboardShortcut(.defaultAction)
+            }, message: {
+                Text(String(format: NSLocalizedString("playapp.deleteMessage", comment: ""), arguments: [app.name]))
+            })
             .onChange(of: showClearCacheToast) { _ in
                 ToastVM.shared.showToast(
                     toastType: .notice,
@@ -153,17 +164,6 @@ struct PlayAppView: View {
             .sheet(isPresented: $showSettings) {
                 AppSettingsView(viewModel: AppSettingsVM(app: app))
             }
-            .alert("playapp.delete", isPresented: $showDeleteConfirmation, actions: {
-                Button("playapp.deleteConfirm", role: .destructive) {
-                    app.deleteApp()
-                }
-                Button("button.Cancel", role: .cancel) {
-                    showDeleteConfirmation.toggle()
-                }
-                .keyboardShortcut(.defaultAction)
-            }, message: {
-                Text(String(format: NSLocalizedString("playapp.deleteMessage", comment: ""), arguments: [app.name]))
-            })
     }
 }
 
