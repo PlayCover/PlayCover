@@ -34,7 +34,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 func dirCheck() -> Bool {
     let langCode  = Locale.current.languageCode
     let rtlLangs = [ "ar", "arc", "dv", "fa", "ha", "he", "khw", "ks", "ku", "ps", "ur", "yi" ]
-    if rtlLangs.contains(langCode!) { return true } else { return false }
+    return rtlLangs.contains(langCode!)
 }
 public var direction = (dirCheck() == true ? LayoutDirection.rightToLeft : LayoutDirection.leftToRight)
 
