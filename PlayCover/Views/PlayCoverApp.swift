@@ -31,6 +31,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 }
 
+func dirCheck() -> Bool {
+    let langCode  = Locale.current.languageCode
+    let rtlLangs = [ "ar", "arc", "dv", "fa", "ha", "he", "khw", "ks", "ku", "ps", "ur", "yi" ]
+    if rtlLangs.contains(langCode!) { return true } else { return false }
+}
+public var direction = (dirCheck() == true ? LayoutDirection.rightToLeft : LayoutDirection.leftToRight)
+
 @main
 struct PlayCoverApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
@@ -52,6 +59,7 @@ struct PlayCoverApp: App {
                     SoundDeviceService.shared.prepareSoundDevice()
                     NotifyService.shared.allowNotify()
                 }
+                .environment(\.layoutDirection, direction)
         }
         .handlesExternalEvents(matching: ["{same path of URL?}"]) // create new window if doesn't exist
         .commands {
