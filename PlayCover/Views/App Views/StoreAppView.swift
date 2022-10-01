@@ -44,13 +44,12 @@ struct StoreAppView: View {
             })
 
             observation = downloadTask.progress.observe(\.fractionCompleted) { progress, _ in
-                DispatchQueue.main.async {
-                    downloadVM.progress = progress.fractionCompleted
-                }
+                downloadVM.progress = progress.fractionCompleted
             }
 
             downloadTask.resume()
             downloadVM.downloading = true
+            downloadVM.progress = 0
             downloadVM.storeAppData = app
         } else {
             Log.shared.error(PlayCoverError.waitDownload)
