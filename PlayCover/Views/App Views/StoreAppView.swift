@@ -14,21 +14,76 @@ struct StoreAppView: View {
 
     @State var app: StoreAppData
     @State var isList: Bool
+    @State var isDownloading: Bool = false
+    @State var downloadProgress: Double = 0
+    @State var observation: NSKeyValueObservation?
 
     var body: some View {
         StoreAppConditionalView(selectedBackgroundColor: $selectedBackgroundColor,
                                 selectedTextColor: $selectedTextColor,
                                 selected: $selected,
+                                isDownloading: $isDownloading,
+                                downloadProgress: $downloadProgress,
                                 app: app,
                                 isList: isList)
-            .gesture(TapGesture(count: 2).onEnded {
-                if let url = URL(string: app.link) {
-                    NSWorkspace.shared.open(url)
-                }
-            })
-            .simultaneousGesture(TapGesture().onEnded {
-                selected = app
-            })
+        .gesture(TapGesture(count: 2).onEnded {
+            if let url = URL(string: app.link) {
+                downloadApp(url)
+            }
+        })
+        .simultaneousGesture(TapGesture().onEnded {
+            selected = app
+        })
+    }
+
+    func downloadApp(_ url: URL) {
+        lazy var urlSession = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
+        let downloadTask = urlSession.downloadTask(with: url, completionHandler: { url, urlResponse, error in
+            observation?.invalidate()
+            downloadComplete(url, urlResponse, error)
+        })
+
+        observation = downloadTask.progress.observe(\.fractionCompleted) { progress, _ in
+            downloadProgress = progress.fractionCompleted
+        }
+
+        downloadTask.resume()
+        isDownloading = true
+    }
+
+    func downloadComplete(_ url: URL?, _ urlResponce: URLResponse?, _ error: Error?) {
+        if error != nil {
+            Log.shared.error(error!)
+        }
+        if let url = url {
+            do {
+                var tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
+                                                         in: .userDomainMask,
+                                                         appropriateFor: URL(fileURLWithPath: "/Users"),
+                                                         create: true)
+                tmpDir = tmpDir
+                    .appendingPathComponent(ProcessInfo().globallyUniqueString)
+                try FileManager.default.createDirectory(at: tmpDir,
+                                                        withIntermediateDirectories: true,
+                                                        attributes: nil)
+                tmpDir = tmpDir
+                    .appendingPathComponent(app.bundleID)
+                    .appendingPathExtension("ipa")
+                try FileManager.default.moveItem(at: url, to: tmpDir)
+                uif.ipaUrl = tmpDir
+                Installer.install(ipaUrl: uif.ipaUrl!, returnCompletion: { _ in
+                    DispatchQueue.main.async {
+                        AppsVM.shared.fetchApps()
+                        NotifyService.shared.notify(
+                            NSLocalizedString("notification.appInstalled", comment: ""),
+                            NSLocalizedString("notification.appInstalled.message", comment: ""))
+                    }
+                })
+            } catch {
+                Log.shared.error(error)
+            }
+        }
+        isDownloading = false
     }
 }
 
@@ -36,10 +91,12 @@ struct StoreAppConditionalView: View {
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
     @Binding var selected: StoreAppData?
+    @Binding var isDownloading: Bool
+    @Binding var downloadProgress: Double
 
     @State var app: StoreAppData
     @State var isList: Bool
-    @State var iconUrl: URL?
+    @State var itunesData: ITunesResponse?
 
     var body: some View {
         Group {
@@ -47,7 +104,7 @@ struct StoreAppConditionalView: View {
                 HStack(alignment: .center, spacing: 0) {
                     Image(systemName: "arrow.down.circle")
                         .padding(.leading, 15)
-                    AsyncImage(url: iconUrl) { image in
+                    AsyncImage(url: URL(string: itunesData?.results[0].artworkUrl512 ?? "")) { image in
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -61,7 +118,7 @@ struct StoreAppConditionalView: View {
                         .padding(.horizontal, 15)
                         .padding(.vertical, 5)
                     Text(app.name)
-                        .foregroundColor(selected?.id == app.id ?
+                        .foregroundColor(selected?.bundleID == app.bundleID ?
                                          selectedTextColor : Color.primary)
                     Spacer()
                     Text(app.version)
@@ -71,34 +128,39 @@ struct StoreAppConditionalView: View {
                 .contentShape(Rectangle())
                 .background(
                     RoundedRectangle(cornerRadius: 4)
-                        .fill(selected?.id == app.id ?
+                        .fill(selected?.bundleID == app.bundleID ?
                               selectedBackgroundColor : Color.clear)
                         .brightness(-0.2)
                 )
             } else {
                 VStack(alignment: .center, spacing: 0) {
                     VStack {
-                        AsyncImage(url: iconUrl) { image in
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                            } placeholder: {
-                                ProgressView()
-                                    .progressViewStyle(.circular)
+                        ZStack {
+                            AsyncImage(url: URL(string: itunesData?.results[0].artworkUrl512 ?? "")) { image in
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                } placeholder: {
+                                    ProgressView()
+                                        .progressViewStyle(.circular)
+                                }
+                                .frame(width: 60, height: 60)
+                                .cornerRadius(15)
+                                .shadow(radius: 1)
+                            if isDownloading {
+                                ProgressView(value: downloadProgress)
                             }
-                            .frame(width: 60, height: 60)
-                            .cornerRadius(15)
-                            .shadow(radius: 1)
+                        }
                         Text("\(Image(systemName: "arrow.down.circle"))  \(app.name)")
                             .lineLimit(1)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 4)
                             .padding(.vertical, 2)
-                            .foregroundColor(selected?.id == app.id ?
+                            .foregroundColor(selected?.bundleID == app.bundleID ?
                                              selectedTextColor : Color.primary)
                             .background(
                                 RoundedRectangle(cornerRadius: 4)
-                                    .fill(selected?.id == app.id ?
+                                    .fill(selected?.bundleID == app.bundleID ?
                                           selectedBackgroundColor : Color.clear)
                                     .brightness(-0.2)
                             )
@@ -109,31 +171,21 @@ struct StoreAppConditionalView: View {
             }
         }
         .task {
-            iconUrl = await getIconURLFromBundleIdentifier(app.id, app.region)
+            itunesData = await getITunesData(app.itunesLookup)
         }
     }
 
-    func getIconURLFromBundleIdentifier(
-        _ bundleIdentifier: String,
-        _ region: StoreAppData.Region
-    ) async -> URL? {
-        let url: URL
-
-        if region == .CN {
-            url = URL(string: "http://itunes.apple.com/lookup?bundleId=\(bundleIdentifier)" + "&country=cn")!
-        } else {
-            url = URL(string: "http://itunes.apple.com/lookup?bundleId=\(bundleIdentifier)")!
-        }
-
+    func getITunesData(_ itunesLookup: String) async -> ITunesResponse? {
+        let url = URL(string: itunesLookup)!
         do {
             let (data, _) = try await URLSession.shared.data(for: URLRequest(url: url))
             let decoder = JSONDecoder()
             let jsonResult: ITunesResponse = try decoder.decode(ITunesResponse.self, from: data)
             if jsonResult.resultCount > 0 {
-                return URL(string: jsonResult.results[0].artworkUrl512)!
+                return jsonResult
             }
         } catch {
-            Log.shared.error("error: \(error)")
+            Log.shared.error(error)
         }
 
         return nil

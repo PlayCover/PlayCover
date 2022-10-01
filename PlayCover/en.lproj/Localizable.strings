@@ -26,7 +26,7 @@
 "preferences.popover.valid" = "Link Valid";
 "preferences.popover.badurl"  = "URL Invalid!";
 "preferences.popover.badjson" = "JSON Invalid or Not Found!";
-"preferences.textfield.url" = "Source URL..."
+"preferences.textfield.url" = "Source URL...";
 
 "sidebar.appLibrary" = "App Library";
 "sidebar.ipaLibrary" = "IPA Library";

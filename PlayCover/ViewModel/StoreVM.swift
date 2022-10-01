@@ -21,9 +21,10 @@ class StoreVM: ObservableObject {
 
     func appendAppData(_ data: [StoreAppData]) {
         for element in data {
-            if let index = apps.firstIndex(where: {$0.id == element.id}) {
+            if let index = apps.firstIndex(where: {$0.bundleID == element.bundleID}) {
                 if apps[index].version < element.version {
                     apps[index] = element
+                    continue
                 }
             } else {
                 apps.append(element)
@@ -139,15 +140,9 @@ class StoreVM: ObservableObject {
 }
 
 struct StoreAppData: Decodable {
-    enum Region: String, Decodable {
-        // swiftlint:disable identifier_name
-        case Global, CN
-    }
-
-    var id: String
+    var bundleID: String
     let name: String
     let version: String
-    let icon: String
+    let itunesLookup: String
     let link: String
-    let region: Region
 }
