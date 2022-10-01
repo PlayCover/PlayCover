@@ -29,6 +29,7 @@ struct IPALibraryView: View {
                                          selected: $selected,
                                          app: app,
                                          isList: isList)
+                            .environmentObject(DownloadVM.shared)
                         }
                     }
                     .padding()
@@ -43,6 +44,7 @@ struct IPALibraryView: View {
                                          selected: $selected,
                                          app: app,
                                          isList: isList)
+                            .environmentObject(DownloadVM.shared)
                         }
                         Spacer()
                     }

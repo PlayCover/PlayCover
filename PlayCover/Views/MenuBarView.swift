@@ -59,6 +59,8 @@ struct PlayCoverViewMenuView: Commands {
             Button("menubar.exportToSideloady") {
                 if InstallVM.shared.installing {
                     Log.shared.error(PlayCoverError.waitInstallation)
+                } else if DownloadVM.shared.downloading {
+                    Log.shared.error(PlayCoverError.waitDownload)
                 } else {
                     NSOpenPanel.selectIPA { result in
                         if case .success(let url) = result {

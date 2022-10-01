@@ -83,6 +83,7 @@
 
 "error.corruptedIPA" = "This .ipa file is corrupted. It does not contains \"Info.plist\" file.";
 "error.waitInstallation" = "Please wait for the current installation to finish!";
+"error.waitDownload" = "Please wait for the current download to finish!";
 "error.appEncrypted" = "This app is encrypted! Please use a decrypted IPA. iMazing IPAs are not supported!";
 "error.appCorrupted" = "Something went wrong with this IPA. Please try to use another IPA file.";
 "error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";

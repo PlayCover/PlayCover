@@ -72,6 +72,8 @@ struct AppLibraryView: View {
                 Button(action: {
                     if installVM.installing {
                         Log.shared.error(PlayCoverError.waitInstallation)
+                    } else if DownloadVM.shared.downloading {
+                        Log.shared.error(PlayCoverError.waitDownload)
                     } else {
                         selectFile()
                     }
@@ -106,6 +108,9 @@ struct AppLibraryView: View {
         .onDrop(of: ["public.url", "public.file-url"], isTargeted: nil) { (items) -> Bool in
             if installVM.installing {
                 Log.shared.error(PlayCoverError.waitInstallation)
+                return false
+            } else if DownloadVM.shared.downloading {
+                Log.shared.error(PlayCoverError.waitDownload)
                 return false
             } else if let item = items.first {
                 if let identifier = item.registeredTypeIdentifiers.first {

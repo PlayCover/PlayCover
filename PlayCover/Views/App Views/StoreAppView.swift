@@ -14,41 +14,47 @@ struct StoreAppView: View {
 
     @State var app: StoreAppData
     @State var isList: Bool
-    @State var isDownloading: Bool = false
-    @State var downloadProgress: Double = 0
     @State var observation: NSKeyValueObservation?
+
+    @EnvironmentObject var downloadVM: DownloadVM
 
     var body: some View {
         StoreAppConditionalView(selectedBackgroundColor: $selectedBackgroundColor,
                                 selectedTextColor: $selectedTextColor,
                                 selected: $selected,
-                                isDownloading: $isDownloading,
-                                downloadProgress: $downloadProgress,
                                 app: app,
                                 isList: isList)
         .gesture(TapGesture(count: 2).onEnded {
             if let url = URL(string: app.link) {
-                downloadApp(url)
+                downloadApp(url, app)
             }
         })
         .simultaneousGesture(TapGesture().onEnded {
             selected = app
         })
+        .environmentObject(downloadVM)
     }
 
-    func downloadApp(_ url: URL) {
-        lazy var urlSession = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
-        let downloadTask = urlSession.downloadTask(with: url, completionHandler: { url, urlResponse, error in
-            observation?.invalidate()
-            downloadComplete(url, urlResponse, error)
-        })
+    func downloadApp(_ url: URL, _ app: StoreAppData) {
+        if !downloadVM.downloading && !InstallVM.shared.installing {
+            lazy var urlSession = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
+            let downloadTask = urlSession.downloadTask(with: url, completionHandler: { url, urlResponse, error in
+                observation?.invalidate()
+                downloadComplete(url, urlResponse, error)
+            })
 
-        observation = downloadTask.progress.observe(\.fractionCompleted) { progress, _ in
-            downloadProgress = progress.fractionCompleted
+            observation = downloadTask.progress.observe(\.fractionCompleted) { progress, _ in
+                DispatchQueue.main.async {
+                    downloadVM.progress = progress.fractionCompleted
+                }
+            }
+
+            downloadTask.resume()
+            downloadVM.downloading = true
+            downloadVM.storeAppData = app
+        } else {
+            Log.shared.error(PlayCoverError.waitDownload)
         }
-
-        downloadTask.resume()
-        isDownloading = true
     }
 
     func downloadComplete(_ url: URL?, _ urlResponce: URLResponse?, _ error: Error?) {
@@ -83,7 +89,9 @@ struct StoreAppView: View {
                 Log.shared.error(error)
             }
         }
-        isDownloading = false
+        downloadVM.downloading = false
+        downloadVM.progress = 0
+        downloadVM.storeAppData = nil
     }
 }
 
@@ -91,12 +99,12 @@ struct StoreAppConditionalView: View {
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
     @Binding var selected: StoreAppData?
-    @Binding var isDownloading: Bool
-    @Binding var downloadProgress: Double
 
     @State var app: StoreAppData
     @State var isList: Bool
     @State var itunesData: ITunesResponse?
+
+    @EnvironmentObject var downloadVM: DownloadVM
 
     var body: some View {
         Group {
@@ -147,8 +155,13 @@ struct StoreAppConditionalView: View {
                                 .frame(width: 60, height: 60)
                                 .cornerRadius(15)
                                 .shadow(radius: 1)
-                            if isDownloading {
-                                ProgressView(value: downloadProgress)
+                            if downloadVM.downloading && downloadVM.storeAppData == app {
+                                VStack {
+                                    Spacer()
+                                    ProgressView(value: downloadVM.progress)
+                                        .padding(.horizontal, 5)
+                                }
+                                .frame(width: 60, height: 60)
                             }
                         }
                         Text("\(Image(systemName: "arrow.down.circle"))  \(app.name)")

@@ -14,7 +14,6 @@ struct MainView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.controlActiveState) var controlActiveState
 
-    @EnvironmentObject var install: InstallVM
     @EnvironmentObject var apps: AppsVM
     @EnvironmentObject var store: StoreVM
     @EnvironmentObject var integrity: AppIntegrity
@@ -107,6 +106,7 @@ struct MainView: View {
                     ToastView()
                         .environmentObject(ToastVM.shared)
                         .environmentObject(InstallVM.shared)
+                        .environmentObject(DownloadVM.shared)
                         .frame(width: collapsed ? viewWidth : (viewWidth - navWidth))
                         .animation(.spring(), value: collapsed)
                 }

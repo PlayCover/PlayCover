@@ -139,7 +139,7 @@ class StoreVM: ObservableObject {
     }
 }
 
-struct StoreAppData: Decodable {
+struct StoreAppData: Decodable, Equatable {
     var bundleID: String
     let name: String
     let version: String
