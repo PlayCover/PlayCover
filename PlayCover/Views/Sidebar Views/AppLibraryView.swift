@@ -25,7 +25,7 @@ struct AppLibraryView: View {
             if !isList {
                 ScrollView {
                     LazyVGrid(columns: gridLayout, alignment: .center) {
-                        ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
+                        ForEach(appsVM.apps, id: \.url) { app in
                             PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                         selectedTextColor: $selectedTextColor,
                                         selected: $selected,
@@ -39,7 +39,7 @@ struct AppLibraryView: View {
             } else {
                 ScrollView {
                     VStack {
-                        ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
+                        ForEach(appsVM.apps, id: \.url) { app in
                             PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                         selectedTextColor: $selectedTextColor,
                                         selected: $selected,

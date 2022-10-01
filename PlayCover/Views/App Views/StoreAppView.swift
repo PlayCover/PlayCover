@@ -111,19 +111,25 @@ struct StoreAppConditionalView: View {
                 HStack(alignment: .center, spacing: 0) {
                     Image(systemName: "arrow.down.circle")
                         .padding(.leading, 15)
-                    AsyncImage(url: URL(string: itunesData?.results[0].artworkUrl512 ?? "")) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                    } placeholder: {
-                        ProgressView()
-                            .progressViewStyle(.circular)
+                    ZStack {
+                        AsyncImage(url: URL(string: itunesData?.results[0].artworkUrl512 ?? "")) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        } placeholder: {
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                        }
+                            .frame(width: 30, height: 30)
+                            .cornerRadius(7.5)
+                            .shadow(radius: 1)
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 5)
+                        if downloadVM.downloading && downloadVM.storeAppData == app {
+                            ProgressView(value: downloadVM.progress)
+                                .progressViewStyle(.circular)
+                        }
                     }
-                        .frame(width: 30, height: 30)
-                        .cornerRadius(7.5)
-                        .shadow(radius: 1)
-                        .padding(.horizontal, 15)
-                        .padding(.vertical, 5)
                     Text(app.name)
                         .foregroundColor(selected?.bundleID == app.bundleID ?
                                          selectedTextColor : Color.primary)
