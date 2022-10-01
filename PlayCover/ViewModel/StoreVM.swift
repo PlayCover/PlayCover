@@ -12,12 +12,52 @@ class StoreVM: ObservableObject {
     static let shared = StoreVM()
 
     private init() {
+        sourcesUrl = PlayTools.playCoverContainer
+            .appendingPathComponent("Sources")
+            .appendingPathExtension("plist")
+        sources = []
+        if !decode() {
+            encode()
+        }
         resolveSources()
     }
 
     @Published var apps: [StoreAppData] = []
     @Published var filteredApps: [StoreAppData] = []
-    @Published var sources: [SourceData] = []
+    @Published var sources: [SourceData] {
+        didSet {
+            encode()
+        }
+    }
+
+    let sourcesUrl: URL
+
+    @discardableResult
+    public func decode() -> Bool {
+        do {
+            let data = try Data(contentsOf: sourcesUrl)
+            sources = try PropertyListDecoder().decode([SourceData].self, from: data)
+            return true
+        } catch {
+            print(error)
+            return false
+        }
+    }
+
+    @discardableResult
+    public func encode() -> Bool {
+        let encoder = PropertyListEncoder()
+        encoder.outputFormat = .xml
+
+        do {
+            let data = try encoder.encode(sources)
+            try data.write(to: sourcesUrl)
+            return true
+        } catch {
+            print(error)
+            return false
+        }
+    }
 
     func appendAppData(_ data: [StoreAppData]) {
         for element in data {
@@ -139,7 +179,7 @@ class StoreVM: ObservableObject {
     }
 }
 
-struct StoreAppData: Decodable, Equatable {
+struct StoreAppData: Codable, Equatable {
     var bundleID: String
     let name: String
     let version: String

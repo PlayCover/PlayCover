@@ -11,6 +11,24 @@ struct SourceData: Identifiable, Hashable {
     var id = UUID()
     var source: String
     var status: SourceValidation = .valid
+
+    enum SourceDataKeys: String, CodingKey {
+        case source
+    }
+}
+
+extension SourceData: Encodable {
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: SourceDataKeys.self)
+        try container.encode(source, forKey: .source)
+    }
+}
+
+extension SourceData: Decodable {
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: SourceDataKeys.self)
+        source = try values.decode(String.self, forKey: .source)
+    }
 }
 
 struct IPASourceSettings: View {
