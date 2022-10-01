@@ -183,7 +183,11 @@ class Installer {
 
     /// Generates a wrapper bundle for an iOS app that allows it to be launched from Finder and other macOS UIs
     static func wrap(_ baseApp: BaseApp) throws -> URL {
-        let location = PlayTools.playCoverContainer.appendingPathComponent(baseApp.url.lastPathComponent)
+        let info = AppInfo(contentsOf: baseApp.url
+            .appendingPathComponent("Info.plist"))
+        let location = PlayTools.playCoverContainer
+            .appendingPathComponent(info.displayName)
+            .appendingPathExtension("app")
         if FileManager.default.fileExists(atPath: location.path) {
             try FileManager.default.removeItem(at: location)
         }
