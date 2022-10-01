@@ -136,7 +136,7 @@ struct StatusBadgeView: View {
         })
         .buttonStyle(.plain)
         .popover(isPresented: $showingPopover) {
-            Text(popoverText)
+            Text(NSLocalizedString(popoverText, comment: ""))
                 .padding(10)
         }
     }
