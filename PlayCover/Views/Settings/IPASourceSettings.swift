@@ -98,7 +98,7 @@ struct IPASourceSettings: View {
         .padding(20)
         .frame(width: 600, height: 300, alignment: .center)
         .sheet(isPresented: $addSourceSheet) {
-            AddSourceView(addSourceSheet: $addSourceSheet, settings: self)
+            AddSourceView(addSourceSheet: $addSourceSheet)
                 .environmentObject(storeVM)
         }
     }
@@ -170,7 +170,6 @@ struct AddSourceView: View {
     @State var sourceValidationState = SourceValidation.checking
     @Binding var addSourceSheet: Bool
     @EnvironmentObject var storeVM: StoreVM
-    var settings: IPASourceSettings
 
     var body: some View {
         VStack {

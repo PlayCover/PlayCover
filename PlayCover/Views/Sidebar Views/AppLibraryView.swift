@@ -22,8 +22,8 @@ struct AppLibraryView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            if !isList {
-                ScrollView {
+            ScrollView {
+                if !isList {
                     LazyVGrid(columns: gridLayout, alignment: .center) {
                         ForEach(appsVM.apps, id: \.url) { app in
                             PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
@@ -35,9 +35,7 @@ struct AppLibraryView: View {
                     }
                     .padding()
                     Spacer()
-                }
-            } else {
-                ScrollView {
+                } else {
                     VStack {
                         ForEach(appsVM.apps, id: \.url) { app in
                             PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,

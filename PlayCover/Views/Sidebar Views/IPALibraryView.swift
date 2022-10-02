@@ -17,39 +17,56 @@ struct IPALibraryView: View {
     @State private var searchString = ""
     @State private var isList = UserDefaults.standard.bool(forKey: "IPALibrayView")
     @State private var selected: StoreAppData?
+    @State private var addSourcePresented = false
 
     var body: some View {
-        VStack(alignment: .leading) {
-            if !isList {
+        ZStack {
+            VStack(alignment: .leading) {
                 ScrollView {
-                    LazyVGrid(columns: gridLayout, alignment: .center) {
-                        ForEach(storeVM.filteredApps, id: \.bundleID) { app in
-                            StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                         selectedTextColor: $selectedTextColor,
-                                         selected: $selected,
-                                         app: app,
-                                         isList: isList)
-                            .environmentObject(DownloadVM.shared)
+                    if !isList {
+                        LazyVGrid(columns: gridLayout, alignment: .center) {
+                            ForEach(storeVM.filteredApps, id: \.bundleID) { app in
+                                StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                             selectedTextColor: $selectedTextColor,
+                                             selected: $selected,
+                                             app: app,
+                                             isList: isList)
+                                .environmentObject(DownloadVM.shared)
+                            }
                         }
+                        .padding()
+                        Spacer()
+                    } else {
+                        VStack {
+                            ForEach(storeVM.filteredApps, id: \.bundleID) { app in
+                                StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                             selectedTextColor: $selectedTextColor,
+                                             selected: $selected,
+                                             app: app,
+                                             isList: isList)
+                                .environmentObject(DownloadVM.shared)
+                            }
+                            Spacer()
+                        }
+                        .padding()
                     }
-                    .padding()
+                }
+            }
+            if storeVM.sources.count == 0 {
+                VStack {
+                    Spacer()
+                    Text("No IPA Sources Added")
+                        .font(.title)
+                        .padding(.bottom, 2)
+                    Text("You currently have no IPA Sources added. Click the button below to add one.")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                    Button("Add Source", action: {
+                        addSourcePresented.toggle()
+                    })
                     Spacer()
                 }
-            } else {
-                ScrollView {
-                    VStack {
-                        ForEach(storeVM.filteredApps, id: \.bundleID) { app in
-                            StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                         selectedTextColor: $selectedTextColor,
-                                         selected: $selected,
-                                         app: app,
-                                         isList: isList)
-                            .environmentObject(DownloadVM.shared)
-                        }
-                        Spacer()
-                    }
-                    .padding()
-                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
         .onTapGesture {
@@ -57,6 +74,14 @@ struct IPALibraryView: View {
         }
         .navigationTitle("sidebar.ipaLibrary")
         .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    addSourcePresented.toggle()
+                }, label: {
+                    Image(systemName: "plus")
+                        .help("playapp.addSource")
+                })
+            }
             ToolbarItem(placement: .primaryAction) {
                 Picker("", selection: $isList) {
                     Image(systemName: "square.grid.2x2")
@@ -74,5 +99,9 @@ struct IPALibraryView: View {
         .onChange(of: isList, perform: { value in
             UserDefaults.standard.set(value, forKey: "IPALibrayView")
         })
+        .sheet(isPresented: $addSourcePresented) {
+            AddSourceView(addSourceSheet: $addSourcePresented)
+                .environmentObject(storeVM)
+        }
     }
 }
