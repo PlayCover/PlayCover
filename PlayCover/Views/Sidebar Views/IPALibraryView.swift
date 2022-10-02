@@ -55,13 +55,13 @@ struct IPALibraryView: View {
             if storeVM.sources.count == 0 {
                 VStack {
                     Spacer()
-                    Text("No IPA Sources Added")
+                    Text("ipaLibrary.noSources.title")
                         .font(.title)
                         .padding(.bottom, 2)
-                    Text("You currently have no IPA Sources added. Click the button below to add one.")
+                    Text("ipaLibrary.noSources.subtitle")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
-                    Button("Add Source", action: {
+                    Button("ipaLibrary.noSources.button", action: {
                         addSourcePresented.toggle()
                     })
                     Spacer()

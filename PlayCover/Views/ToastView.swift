@@ -48,7 +48,7 @@ struct ToastView: View {
             }
             if downloadVM.downloading {
                 VStack {
-                    Text("Downloading...")
+                    Text("playapp.download")
                     ProgressView(value: downloadVM.progress)
                 }
                 .padding()
