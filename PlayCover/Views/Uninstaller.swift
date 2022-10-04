@@ -21,6 +21,84 @@ class Uninstaller {
         baseURL.appendingPathComponent("Keymapping")
     ]
 
+    private static func createButtonView(_ yaxis: CGFloat, _ text: String, _ state: Bool) -> (NSView, NSButton) {
+        let button = NSButton(checkboxWithTitle: text, target: self, action: nil)
+
+        if state {
+            button.animator().setNextState()
+        }
+
+        let view = NSView(frame: NSRect(x: 0, y: yaxis,
+                                        width: button.fittingSize.width,
+                                        height: button.fittingSize.height))
+
+        view.addSubview(button)
+
+        return (view, button)
+    }
+
+    static func uninstallPopup(_ app: PlayApp) {
+        if UninstallSettings.shared.showUninstallPopup {
+            let boxmakers: [String] = [
+                NSLocalizedString("preferences.toggle.removeEntitlements", comment: ""),
+                NSLocalizedString("preferences.toggle.removeSetting", comment: ""),
+                NSLocalizedString("preferences.toggle.removeKeymap", comment: ""),
+                NSLocalizedString("preferences.toggle.clearAppData", comment: "")
+            ]
+
+            var checkboxes: [(NSView, NSButton)] = []
+
+            var viewY = 0.0
+
+            for buttontitle in boxmakers {
+                checkboxes.append(
+                    createButtonView(viewY, buttontitle, UninstallSettings.shared.getSettings(buttontitle) ?? false)
+                )
+                viewY += checkboxes[checkboxes.count - 1].0.frame.height
+            }
+
+            let viewWidth = checkboxes.max(by: { $0.0.frame.width < $1.0.frame.width })?.0.frame.width
+
+            let settingsView = NSStackView(frame: NSRect(x: 0, y: 0, width: viewWidth!, height: viewY))
+
+            for (view, _) in checkboxes {
+                settingsView.addSubview(view)
+            }
+
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString("playapp.delete", comment: "")
+            alert.informativeText = String(format: NSLocalizedString("playapp.deleteMessage",
+                                                                     comment: ""),
+                                           arguments: [app.name])
+
+            alert.alertStyle = .warning
+            alert.accessoryView = settingsView
+
+            let delete = alert.addButton(withTitle: NSLocalizedString("playapp.deleteConfirm", comment: ""))
+            alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
+
+            alert.showsSuppressionButton = true
+
+            delete.hasDestructiveAction = true
+
+            let response = alert.runModal()
+
+            if response == .alertFirstButtonReturn {
+                for (_, button) in checkboxes {
+                    UninstallSettings.shared.setSettings(button.title, (button.state.rawValue != 0))
+                }
+
+                if alert.suppressionButton?.state == .on {
+                    UninstallSettings.shared.showUninstallPopup = false
+                }
+
+                uninstall(app)
+            }
+        } else {
+            uninstall(app)
+        }
+    }
+
     static func uninstall(_ app: PlayApp) {
         if UninstallSettings.shared.clearAppDataUninstall {
             app.container?.clear()

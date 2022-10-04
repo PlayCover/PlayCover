@@ -107,7 +107,7 @@ struct PlayAppView: View {
                     Text("playapp.clearPreferences")
                 })
                 Button(action: {
-                    showDeleteConfirmation.toggle()
+                    Uninstaller.uninstallPopup(app)
                 }, label: {
                     Text("playapp.delete")
                 })
@@ -135,17 +135,6 @@ struct PlayAppView: View {
                 }
                 Button("button.Cancel", role: .cancel) { }
             }
-            .alert("playapp.delete", isPresented: $showDeleteConfirmation, actions: {
-                Button("playapp.deleteConfirm", role: .destructive) {
-                    Uninstaller.uninstall(app)
-                }
-                Button("button.Cancel", role: .cancel) {
-                    showDeleteConfirmation.toggle()
-                }
-                .keyboardShortcut(.defaultAction)
-            }, message: {
-                Text(String(format: NSLocalizedString("playapp.deleteMessage", comment: ""), arguments: [app.name]))
-            })
             .onChange(of: showClearCacheToast) { _ in
                 ToastVM.shared.showToast(
                     toastType: .notice,

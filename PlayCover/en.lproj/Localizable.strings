@@ -18,6 +18,7 @@
 "preferences.tab.updates" = "Updates";
 "preferences.toggle.automaticUpdates" = "Automatically check for updates";
 "preferences.tab.uninstall" = "Uninstall";
+"preferences.toggle.showUninstall" = "Show uninstall popup";
 "preferences.toggle.clearAppData" = "Clear app data when uninstalling";
 "preferences.toggle.removeKeymap" = "Remove app keymapping when uninstalling";
 "preferences.toggle.removeSetting" = "Remove app settings when uninstalling";
