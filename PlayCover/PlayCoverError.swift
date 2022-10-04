@@ -5,6 +5,7 @@ import SwiftUI
 enum PlayCoverError: Error {
     case infoPlistNotFound
     case waitInstallation
+    case waitDownload
     case appEncrypted
     case appCorrupted
     case appProhibited
@@ -18,6 +19,8 @@ extension PlayCoverError: LocalizedError {
             return NSLocalizedString("error.corruptedIPA", comment: "")
         case .waitInstallation:
             return NSLocalizedString("error.waitInstallation", comment: "")
+        case .waitDownload:
+            return NSLocalizedString("error.waitDownload", comment: "")
         case .appEncrypted:
             return NSLocalizedString("error.appEncrypted", comment: "")
         case .appCorrupted:

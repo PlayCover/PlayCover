@@ -10,9 +10,10 @@ import SwiftUI
 
 struct PlayCoverSettingsView: View {
     @ObservedObject var updaterViewModel: UpdaterViewModel
+    @EnvironmentObject var storeVM: StoreVM
 
     private enum Tabs: Hashable {
-        case updates
+        case updates, ipasource
     }
 
     var body: some View {
@@ -22,6 +23,12 @@ struct PlayCoverSettingsView: View {
                     Label("preferences.tab.updates", systemImage: "square.and.arrow.down")
                 }
                 .tag(Tabs.updates)
+            IPASourceSettings()
+                .tabItem {
+                    Label("preferences.tab.ipasource", systemImage: "list.bullet")
+                }
+                .tag(Tabs.ipasource)
+                .environmentObject(storeVM)
         }
     }
 }

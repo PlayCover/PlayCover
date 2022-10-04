@@ -1,4 +1,5 @@
 "playapp.add" = "Add app";
+"playapp.addSource" = "Add source";
 "playapp.settings" = "Settings";
 "playapp.showInFinder" = "Show in Finder";
 "playapp.openCache" = "Open App Data";
@@ -14,9 +15,24 @@
 "playapp.deleteAccount" = "Delete Account";
 "playapp.clearPreferences" = "Clear App Preferences";
 
+"ipaLibrary.noSources.title" = "No IPA Sources Added";
+"ipaLibrary.noSources.subtitle" = "You currently have no IPA Sources added. Click the button below to add one.";
+"ipaLibrary.noSources.button" = "Add Source";
+
+
 "preferences.button.checkForUpdates" = "Check for updates now...";
 "preferences.tab.updates" = "Updates";
 "preferences.toggle.automaticUpdates" = "Automatically check for updates";
+"preferences.tab.ipasource" = "IPA Sources";
+"preferences.button.addSource" = "Add Source";
+"preferences.button.deleteSource" = "Delete Source";
+"preferences.button.moveSourceUp" = "Move Source Up";
+"preferences.button.moveSourceDown" = "Move Source Down";
+"preferences.button.resolveSources" = "Resolve Sources";
+"preferences.popover.valid" = "Link Valid";
+"preferences.popover.badurl"  = "URL Invalid!";
+"preferences.popover.badjson" = "JSON Invalid or Not Found!";
+"preferences.textfield.url" = "Source URL...";
 
 "sidebar.appLibrary" = "App Library";
 "sidebar.ipaLibrary" = "IPA Library";
@@ -38,6 +54,7 @@
 "storeAccount.alert.deleteAccount" = "Really Delete Account?";
 "storeAccount.alert.deleteAccount.button" = "Delete Account";
 
+"playapp.download" = "Downloading...";
 "playapp.install.unzip" = "Extracting app from .ipa file...";
 "playapp.install.createWrapper" = "Creating app wrapper...";
 "playapp.install.installPlayTools" = "Installing PlayTools...";
@@ -73,6 +90,7 @@
 
 "error.corruptedIPA" = "This .ipa file is corrupted. It does not contains \"Info.plist\" file.";
 "error.waitInstallation" = "Please wait for the current installation to finish!";
+"error.waitDownload" = "Please wait for the current download to finish!";
 "error.appEncrypted" = "This app is encrypted! Please use a decrypted IPA. iMazing IPAs are not supported!";
 "error.appCorrupted" = "Something went wrong with this IPA. Please try to use another IPA file.";
 "error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";
