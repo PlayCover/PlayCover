@@ -24,6 +24,7 @@
 "preferences.tab.updates" = "Updates";
 "preferences.toggle.automaticUpdates" = "Automatically check for updates";
 "preferences.tab.ipasource" = "IPA Sources";
+"preferences.tab.keymappingSource" = "Keymapping Sources";
 "preferences.button.addSource" = "Add Source";
 "preferences.button.deleteSource" = "Delete Source";
 "preferences.button.moveSourceUp" = "Move Source Up";
@@ -55,6 +56,8 @@
 "storeAccount.alert.deleteAccount.button" = "Delete Account";
 
 "playapp.download" = "Downloading...";
+"playapp.download.info" = "Keymap info";
+"playapp.download.game" = "Keymapping for";
 "playapp.install.unzip" = "Extracting app from .ipa file...";
 "playapp.install.createWrapper" = "Creating app wrapper...";
 "playapp.install.installPlayTools" = "Installing PlayTools...";
@@ -105,8 +108,8 @@
 "settings.toggle.km" = "Keymapping";
 "settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
 "settings.button.km.download" = "Download keymapping";
-"settings.button.km.unavailable" = "No keymapping";
-"settings.button.km.loading" = "Loading...";
+"settings.button.km.unavailable" = "Not yet provided";
+"settings.button.km.loading" = "Searching...";
 "settings.button.km.forGame" = "Keymapping for";
 "settings.toggle.mm" = "Mouse mapping";
 "settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";

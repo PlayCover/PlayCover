@@ -115,6 +115,7 @@ struct KeymappingView: View {
 
     @Binding var settings: AppSettings
     @ObservedObject var viewModel: AppSettingsVM
+    @EnvironmentObject var storeVM: StoreVM
 
     var body: some View {
         ScrollView {
@@ -134,7 +135,7 @@ struct KeymappingView: View {
                         }
                         .popover(isPresented: $showPopover, arrowEdge: .bottom) {
                             VStack(alignment: .center) {
-                                Text("Keymapping for")
+                                Text("playapp.download.game")
                                 Text(settings.info.bundleName)
                                     .font(.headline)
                                 Picker("", selection: $keymapSelection) {
@@ -142,7 +143,7 @@ struct KeymappingView: View {
                                         Text($0.name.replacingOccurrences(of: ".playmap", with: "")).tag($0.name)
                                     }
                                 }
-                                Link("Keymap Info", destination: URL(string: fetchedKeymapsFolder!.htmlUrl)!)
+                                Link("playapp.download.info", destination: URL(string: fetchedKeymapsFolder!.htmlUrl)!)
                                 Divider()
                                 HStack(alignment: .center) {
                                     Button("button.Cancel", role: .cancel) {
@@ -197,39 +198,46 @@ struct KeymappingView: View {
         }
     }
 
-    // Check if the game currently played is in keymaps repository
+    // Check if the game selected is in keymaps repository
     func isInKeymaps() async {
-        guard let url = URL(string: "https://api.github.com/repos/PlayCover/keymaps/contents/keymapping") else {
-            print("Invalid URL")
+        if storeVM.keymappingSources.isEmpty {
+            hasKeymapping = false
             return
         }
 
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-
-            let decodedResponse = try decoder.decode([KeymapFolder].self, from: data)
-
-            for index in 0..<decodedResponse.count
-            where decodedResponse[index].name.contains(settings.info.bundleIdentifier) {
-                hasKeymapping = true
-                fetchedKeymapsFolder = decodedResponse[index]
-
-                // Get keymapping data and store it
-                let (data, _) = try await URLSession.shared.data(from: URL(string: fetchedKeymapsFolder!.url)!)
-                let decodedResponse = try decoder.decode([KeymapInfo].self, from: data)
-                fetchedKeymaps = decodedResponse.filter {
-                    $0.name.contains(".playmap")
-                }
-
+        for keymappingSource in storeVM.keymappingSources {
+            guard let url = URL(string: keymappingSource.source) else {
+                print("Invalid URL")
                 return
             }
 
-            hasKeymapping = false
-        } catch {
+            do {
+                let (data, _) = try await URLSession.shared.data(from: url)
 
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+
+                let decodedResponse = try decoder.decode([KeymapFolder].self, from: data)
+
+                for index in 0..<decodedResponse.count
+                where decodedResponse[index].name.contains(settings.info.bundleIdentifier) {
+                    hasKeymapping = true
+                    fetchedKeymapsFolder = decodedResponse[index]
+
+                    // Get keymapping data and store it
+                    let (data, _) = try await URLSession.shared.data(from: URL(string: fetchedKeymapsFolder!.url)!)
+                    let decodedResponse = try decoder.decode([KeymapInfo].self, from: data)
+                    fetchedKeymaps = decodedResponse.filter {
+                        $0.name.contains(".playmap")
+                    }
+
+                    return
+                }
+
+                hasKeymapping = false
+            } catch {
+                print(error)
+            }
         }
     }
 

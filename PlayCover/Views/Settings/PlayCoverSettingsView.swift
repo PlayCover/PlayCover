@@ -13,7 +13,7 @@ struct PlayCoverSettingsView: View {
     @EnvironmentObject var storeVM: StoreVM
 
     private enum Tabs: Hashable {
-        case updates, ipasource
+        case updates, ipasource, keymappingSource
     }
 
     var body: some View {
@@ -28,6 +28,12 @@ struct PlayCoverSettingsView: View {
                     Label("preferences.tab.ipasource", systemImage: "list.bullet")
                 }
                 .tag(Tabs.ipasource)
+                .environmentObject(storeVM)
+            KeymappingSourceSettings()
+                .tabItem {
+                    Label("preferences.tab.keymappingSource", systemImage: "keyboard.macwindow")
+                }
+                .tag(Tabs.keymappingSource)
                 .environmentObject(storeVM)
         }
     }
