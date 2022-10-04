@@ -71,6 +71,10 @@
 "alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
 "alert.wrongFileType.title" = "Wrong file type!";
 "alert.wrongFileType.subtitle" = "PlayCover can only install valid .ipa files.";
+"alert.uninstall.clearAppData" = "Clear app data";
+"alert.uninstall.removeKeymap" = "Remove app keymapping";
+"alert.uninstall.removeSetting" = "Remove app settings";
+"alert.uninstall.removeEntitlements" = "Remove app entitlements";
 
 "button.OK" = "OK";
 "button.Proceed" = "Proceed";

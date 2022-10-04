@@ -40,10 +40,10 @@ class Uninstaller {
     static func uninstallPopup(_ app: PlayApp) {
         if UninstallSettings.shared.showUninstallPopup {
             let boxmakers: [String] = [
-                NSLocalizedString("preferences.toggle.removeEntitlements", comment: ""),
-                NSLocalizedString("preferences.toggle.removeSetting", comment: ""),
-                NSLocalizedString("preferences.toggle.removeKeymap", comment: ""),
-                NSLocalizedString("preferences.toggle.clearAppData", comment: "")
+                NSLocalizedString("alert.uninstall.removeEntitlements", comment: ""),
+                NSLocalizedString("alert.uninstall.removeSetting", comment: ""),
+                NSLocalizedString("alert.uninstall.removeKeymap", comment: ""),
+                NSLocalizedString("alert.uninstall.clearAppData", comment: "")
             ]
 
             var checkboxes: [(NSView, NSButton)] = []

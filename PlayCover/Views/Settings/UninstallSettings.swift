@@ -21,13 +21,13 @@ struct UninstallSettings: View {
 
     public func setSettings(_ title: String, _ state: Bool) {
         switch title {
-        case NSLocalizedString("preferences.toggle.clearAppData", comment: ""):
+        case NSLocalizedString("alert.uninstall.clearAppData", comment: ""):
             UninstallSettings.shared.clearAppDataUninstall = state
-        case NSLocalizedString("preferences.toggle.removeKeymap", comment: ""):
+        case NSLocalizedString("alert.uninstall.removeKeymap", comment: ""):
             UninstallSettings.shared.removeAppKeymapUninstall = state
-        case NSLocalizedString("preferences.toggle.removeSetting", comment: ""):
+        case NSLocalizedString("alert.uninstall.removeSetting", comment: ""):
             UninstallSettings.shared.removeAppSettingUninstall = state
-        case NSLocalizedString("preferences.toggle.removeEntitlements", comment: ""):
+        case NSLocalizedString("alert.uninstall.removeEntitlements", comment: ""):
             UninstallSettings.shared.removeAppEntitlementsUninstall = state
         default:
             break
@@ -36,13 +36,13 @@ struct UninstallSettings: View {
 
     public func getSettings(_ title: String) -> Bool? {
         switch title {
-        case NSLocalizedString("preferences.toggle.clearAppData", comment: ""):
+        case NSLocalizedString("alert.uninstall.clearAppData", comment: ""):
             return UninstallSettings.shared.clearAppDataUninstall
-        case NSLocalizedString("preferences.toggle.removeKeymap", comment: ""):
+        case NSLocalizedString("alert.uninstall.removeKeymap", comment: ""):
             return UninstallSettings.shared.removeAppKeymapUninstall
-        case NSLocalizedString("preferences.toggle.removeSetting", comment: ""):
+        case NSLocalizedString("alert.uninstall.removeSetting", comment: ""):
             return UninstallSettings.shared.removeAppSettingUninstall
-        case NSLocalizedString("preferences.toggle.removeEntitlements", comment: ""):
+        case NSLocalizedString("alert.uninstall.removeEntitlements", comment: ""):
             return UninstallSettings.shared.removeAppEntitlementsUninstall
         default:
             return nil

@@ -14,7 +14,6 @@ struct PlayAppView: View {
     @State var isList: Bool
 
     @State private var showSettings = false
-    @State private var showDeleteConfirmation = false
     @State private var showClearCacheAlert = false
     @State private var showClearCacheToast = false
     @State private var showClearPreferencesAlert = false
