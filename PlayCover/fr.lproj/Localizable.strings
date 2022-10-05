@@ -301,3 +301,6 @@
 "alert.legacyImport.subtitle" = "Des vieux paramètres et des vieux fichiers de mappage de touches ont été détectés. Souhaitez-vous convertir ces fichiers au nouveau format ?";
 "button.Convert" = "Convertir";
 "settings.text.detectedResolution" = "Résolution détectée :";
+"playapp.add" = "Add app";
+"alert.wrongFileType.title" = "Wrong file type!";
+"alert.wrongFileType.subtitle" = "PlayCover can only install valid .ipa files.";
