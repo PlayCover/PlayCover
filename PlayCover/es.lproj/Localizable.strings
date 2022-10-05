@@ -1,221 +1,221 @@
 /* (No Comment) */
-"alert.app.delete" = "All app data will be erased. You may need to download app files again. Do you wish to continue?";
+"alert.app.delete" = "Se borrarán todos los datos de la aplicación. Es posible que deba descargar los archivos de la aplicación nuevamente. ¿Continuar?";
 
 /* (No Comment) */
-"alert.app.preferences" = "All in-app preferences will be deleted. Settings may need to be reconfigured. Do you wish to continue?";
+"alert.app.preferences" = "Se eliminarán todas las preferencias dentro de la aplicación. ¿Continuar?";
 
 /* (No Comment) */
-"alert.appCacheCleared" = "App data has been cleared!";
+"alert.appCacheCleared" = "¡Se borraron los datos de la aplicación!";
 
 /* (No Comment) */
-"alert.error" = "An error occurred";
+"alert.error" = "¡Ocurrió un error!";
 
 /* (No Comment) */
-"alert.errorImportKm" = "Error occured when importing!";
+"alert.errorImportKm" = "¡Ocurrió un error al importar!";
 
 /* (No Comment) */
-"alert.kmImported" = "Keymapping imported!";
+"alert.kmImported" = "Mapeo de teclas importado!";
 
 /* (No Comment) */
-"alert.moveAppToApplications.move" = "Move to /Applications";
+"alert.moveAppToApplications.move" = "Mover a /Applications";
 
 /* (No Comment) */
-"alert.restart" = "Please restart PlayCover.";
+"alert.restart" = "Por favor reinicie PlayCover.";
 
 /* (No Comment) */
-"alert.storeAccount.regionIsNotValid" = "The current account is set to a different Region. Launch the game, Change the region, and pass through the gates to save. Then try again";
+"alert.storeAccount.regionIsNotValid" = "La cuenta actual está configurada en una región diferente. Inicie el juego, cambie la región y pase por la puerta para guardar. Después vuelva a intentarlo";
 
 /* (No Comment) */
-"alert.success" = "Success";
+"alert.success" = "Operación completada";
 
 /* (No Comment) */
-"button.Cancel" = "Cancel";
+"button.Cancel" = "Cancelar";
 
 /* (No Comment) */
-"button.Close" = "Close";
+"button.Close" = "Salir";
 
 /* (No Comment) */
-"button.Install" = "Install";
+"button.Install" = "Instalar";
 
 /* (No Comment) */
 "button.OK" = "OK";
 
 /* (No Comment) */
-"button.Proceed" = "Proceed";
+"button.Proceed" = "Continuar";
 
 /* (No Comment) */
-"error.corruptedIPA" = "This .ipa file is corrupted. It does not contains \"Info.plist\" file.";
+"error.corruptedIPA" = "Este archivo .ipa está dañado. No contiene un archivo \"Info.plist\".";
 
 /* (No Comment) */
-"error.waitInstallation" = "Please wait for the current installation to finish!";
+"error.waitInstallation" = "¡Por favor espere a que finalice la instalación!";
 
 /* (No Comment) */
-"menubar.checkForUpdates" = "Check for updates";
+"menubar.checkForUpdates" = "Buscar actualizaciones...";
 
 /* (No Comment) */
 "menubar.discord" = "Discord";
 
 /* (No Comment) */
-"menubar.documentation" = "Documentation";
+"menubar.documentation" = "Documentación";
 
 /* (No Comment) */
-"menubar.exportToSideloady" = "Export to Sideloadly";
+"menubar.exportToSideloady" = "Exportar a Sideloadly";
 
 /* (No Comment) */
 "menubar.github" = "GitHub";
 
 /* (No Comment) */
-"menubar.log.copy" = "Copy Logs";
+"menubar.log.copy" = "Copiar registros";
 
 /* (No Comment) */
-"menubar.website" = "Website";
+"menubar.website" = "Página web";
 
 /* (No Comment) */
-"notification.appInstalled" = "App installed!";
+"notification.appInstalled" = "¡Aplicación instalada!";
 
 /* (No Comment) */
-"notification.appInstalled.message" = "Check it out in PlayCover!";
+"notification.appInstalled.message" = "¡Compruébelo en PlayCover!";
 
 /* (No Comment) */
-"playapp.activateAccount" = "Restore an account";
+"playapp.activateAccount" = "Restaurar cuenta";
 
 /* (No Comment) */
-"playapp.clearCache" = "Clear app data";
+"playapp.clearCache" = "Eliminar datos de la aplicación";
 
 /* (No Comment) */
-"playapp.clearPreferences" = "Clear app preferences";
+"playapp.clearPreferences" = "Eliminar preferencias de la aplicación";
 
 /* (No Comment) */
-"playapp.delete" = "Delete app";
+"playapp.delete" = "Desinstalar Aplicación";
 
 /* (No Comment) */
 "playapp.deleteAccount" = "Delete an account";
 
 /* (No Comment) */
-"playapp.exportKm" = "Export keymapping";
+"playapp.exportKm" = "Exportar mapeo de teclas";
 
 /* (No Comment) */
-"playapp.importKm" = "Import keymapping";
+"playapp.importKm" = "Importar mapeo de teclas";
 
 /* (No Comment) */
-"playapp.install.addToLib" = "Adding app to library...";
+"playapp.install.addToLib" = "Añadiendo aplicación a la biblioteca...";
 
 /* (No Comment) */
-"playapp.install.copy" = "Copying app...";
+"playapp.install.copy" = "Copiando aplicación...";
 
 /* (No Comment) */
-"playapp.install.createWrapper" = "Creating app wrapper...";
+"playapp.install.createWrapper" = "Creando un contenedor...";
 
 /* (No Comment) */
-"playapp.install.finished" = "Finished";
+"playapp.install.finished" = "Completado";
 
 /* (No Comment) */
-"playapp.install.installPlayTools" = "Installing PlayTools...";
+"playapp.install.installPlayTools" = "Instalando PlayTools...";
 
 /* (No Comment) */
-"playapp.install.signing" = "Signing app...";
+"playapp.install.signing" = "Firmando la aplicación...";
 
 /* (No Comment) */
-"playapp.install.unzip" = "Extracting app from .ipa file...";
+"playapp.install.unzip" = "Extrayendo la aplicación...";
 
 /* (No Comment) */
-"playapp.openCache" = "Open app data";
+"playapp.openCache" = "Abrir datos de la aplicación";
 
 /* (No Comment) */
-"playapp.settings" = "App preferences";
+"playapp.settings" = "Preferencias de la aplicación";
 
 /* (No Comment) */
-"playapp.showInFinder" = "Show in Finder";
+"playapp.showInFinder" = "Mostrar en el Finder";
 
 /* (No Comment) */
-"playapp.storeCurrentAccount" = "Store current account";
+"playapp.storeCurrentAccount" = "Guardar cuenta";
 
 /* (No Comment) */
-"preferences.button.checkForUpdates" = "Check for updates now...";
+"preferences.button.checkForUpdates" = "Buscar actualizaciones…";
 
 /* (No Comment) */
-"preferences.tab.updates" = "Updates";
+"preferences.tab.updates" = "Actualizaciones";
 
 /* (No Comment) */
-"preferences.toggle.automaticUpdates" = "Automatically check for updates";
+"preferences.toggle.automaticUpdates" = "Buscar actualizaciones automáticamente";
 
 /* (No Comment) */
-"settings.button.discord" = "Custom Discord activity";
+"settings.button.discord" = "Actividad personalizada de Discord";
 
 /* (No Comment) */
-"settings.button.clearActivity" = "Clear custom activity";
+"settings.button.clearActivity" = "Borrar la actividad personalizada";
 
 /* (No Comment) */
-"settings.picker.iosDevice" = "Select iOS device";
+"settings.picker.iosDevice" = "Dispositivo iOS:";
 
 /* %.f */
-"settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
+"settings.slider.mouseSensitivity" = "Sensibilidad del ratón: %.f";
 
 /* (No Comment) */
-"settings.text.applicationID" = "Application ID";
+"settings.text.applicationID" = "ID de la aplicación";
 
 /* (No Comment) */
-"settings.text.customHeight" = "Height";
+"settings.text.customHeight" = "Altura";
 
 /* (No Comment) */
-"settings.text.customWidth" = "Width";
+"settings.text.customWidth" = "Anchura";
 
 /* (No Comment) */
-"settings.text.details" = "Details";
+"settings.text.details" = "Detalles";
 
 /* (No Comment) */
-"settings.text.details.help" = "First row below title";
+"settings.text.details.help" = "Primera fila debajo del título";
 
 /* (No Comment) */
-"settings.text.image" = "Image";
+"settings.text.image" = "Imagen";
 
 /* (No Comment) */
-"settings.text.image.help" = "Link to image or Dev portal asset name";
+"settings.text.image.help" = "Enlace a la imagen o nombre de activo del portal de desarrollo";
 
 /* (No Comment) */
-"settings.text.state" = "State";
+"settings.text.state" = "Estado";
 
 /* (No Comment) */
-"settings.text.state.help" = "Second row below title";
+"settings.text.state.help" = "Segunda fila debajo del título";
 
 /* (No Comment) */
-"settings.toggle.disableDisplaySleep" = "Disable display sleep";
+"settings.toggle.disableDisplaySleep" = "Desactivar hibernar la pantalla";
 
 /* (No Comment) */
-"settings.toggle.discord" = "Enable Discord activity";
+"settings.toggle.discord" = "Activar la actividad de Discord";
 
 /* (No Comment) */
-"settings.toggle.jbBypass" = "Enable Jailbreak Bypass (Alpha)";
+"settings.toggle.jbBypass" = "Activar el Jailbreak Bypass (Alpha)";
 
 /* (No Comment) */
-"settings.toggle.km" = "Enable keymapping";
+"settings.toggle.km" = "Mapeo de teclas";
 
 /* (No Comment) */
-"soundAlert.failureText" = "Failed to set current output device's sample rate to 48 KHz. You can manually set sample rate in the Audio MIDI Setup app";
+"soundAlert.failureText" = "Hubo un error al establecer la frecuencia de muestreo a 48 KHz en el dispositivo de salida. Puedes hacer esto manualmente en la aplicación Configuración de Audio MIDI";
 
 /* (No Comment) */
-"soundAlert.informativeText" = "Your current output device does not have a sample rate of 48 or 44.1 KHz! Crashes may occur. Would you like to change your current output device's sample rate to 48 KHz?";
+"soundAlert.informativeText" = "Su dispositivo de salida actual no tiene una frecuencia de muestreo de 48 o 44,1 KHz. Pueden producirse errores. ¿Desea cambiar la frecuencia de muestreo de su dispositivo de salida actual a 48 KHz?";
 
 /* (No Comment) */
-"soundAlert.messageText" = "Incorrect Audio Settings Detected!";
+"soundAlert.messageText" = "¡Se ha detectado una configuración de audio incorrecta!";
 
 /* (No Comment) */
-"soundAlert.successText" = "Current output device sample rate set to 48 KHz";
+"soundAlert.successText" = "Frecuencia de muestreo establecida en 48 KHz";
 
 /* (No Comment) */
-"storeAccount.deleteAcc" = "Delete an account";
+"storeAccount.deleteAcc" = "Eliminar una cuenta";
 
 /* (No Comment) */
-"storeAccount.nameOfAcc" = "Name of your account";
+"storeAccount.nameOfAcc" = "Nombre de su cuenta";
 
 /* (No Comment) */
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "Name of account...";
+"storeAccount.nameOfAcc.textfieldPlaceholder" = "Nombre de la cuenta...";
 
 /* (No Comment) */
-"storeAccount.selectAcc" = "Select an account";
+"storeAccount.selectAcc" = "Seleccione una cuenta";
 
 /* (No Comment) */
-"storeAccount.selectAccRegion" = "Select account region";
+"storeAccount.selectAccRegion" = "Seleccione la región de la cuenta";
 
 /* (No Comment) */
 "storeAccount.selectAccRegion.asia" = "Asia";
@@ -224,80 +224,83 @@
 "storeAccount.selectAccRegion.cht" = "TW, HK, MO";
 
 /* (No Comment) */
-"storeAccount.selectAccRegion.euro" = "Europe";
+"storeAccount.selectAccRegion.euro" = "Europa";
 
 /* (No Comment) */
 "storeAccount.selectAccRegion.usa" = "America";
 
 /* (No Comment) */
-"storeAccount.store" = "Store account";
+"storeAccount.store" = "Guardar cuenta";
 
 /* (No Comment) */
-"storeAccount.storeAcc" = "Store an account";
+"storeAccount.storeAcc" = "Guardar una cuenta";
 
 /* (No Comment) */
-"xcode.install.failed" = "Xcode Command Line Tools intallation failed";
+"xcode.install.failed" = "Error en la instalación automática de Xcode Command Line Tools";
 
 /* (No Comment) */
-"xcode.install.message" = "You need to install Xcode Command Line Tools and restart PlayCover";
+"xcode.install.message" = "Tiene que instalar Xcode Command Line Tools y reiniciar PlayCover";
 
 /* (No Comment) */
-"xcode.install.progress" = "Installing Xcode Command Line Tools";
+"xcode.install.progress" = "Instalando Xcode Command Line Tools";
 
 /* (No Comment) */
-"xcode.install.progress.subtext" = "May take around 5-10 minutes depending on internet speed";
+"xcode.install.progress.subtext" = "Esto puede tardar alrededor de 5 a 10 minutos, dependiendo de su velocidad de Internet";
 
 /* (No Comment) */
-"xcode.install.success" = "Xcode Command Line Tools installation succeeded";
-"sidebar.ipaLibrary" = "IPA Library";
-"settings.title" = "Settings";
-"settings.tab.graphics" = "Graphics";
-"settings.tab.jbBypass" = "Jailbreak Bypass";
-"settings.info.bundleName" = "Bundle name:";
-"playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
-"sidebar.appLibrary" = "App Library";
-"storeAccount.alert.restoreAccount" = "Really Restore Account?";
-"storeAccount.alert.restoreAccount.button" = "Restore Account";
-"storeAccount.alert.restoreAccount.msg" = "This will override your currently signed-in account.";
-"storeAccount.alert.deleteAccount" = "Really Delete Account?";
-"storeAccount.alert.deleteAccount.button" = "Delete Account";
-"alert.moveAppToApplications.title" = "Move to Applications folder?";
-"alert.moveAppToApplications.subtitle" = "PlayCover must be in the Applications folder to run correctly. Press the button below to move PlayCover automatically.";
-"button.Quit" = "Quit";
-"error.appEncrypted" = "This app is encrypted! Please use a decrypted IPA. iMazing IPAs are not supported!";
-"error.appCorrupted" = "Something went wrong with this IPA. Please try to use another IPA file.";
-"error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";
-"error.noGenshinAccount" = "We couldn't find a Genshin account! Are you signed into an account in-app?";
+"xcode.install.success" = "La instalación de Xcode Command Line Tools se ha realizado con éxito";
+"sidebar.ipaLibrary" = "Galería de IPA";
+"settings.title" = "Configuración de %@";
+"settings.tab.graphics" = "Gráficos";
+"settings.tab.jbBypass" = "Bypass contra jailbreak";
+"settings.info.bundleName" = "Nombre del paquete:";
+"playapp.exportKmPanel.fieldLabel" = "Nombre del PlayMap:";
+"sidebar.appLibrary" = "Aplicaciones";
+"storeAccount.alert.restoreAccount" = "¿Estás seguro de que quieres restaurar la cuenta?";
+"storeAccount.alert.restoreAccount.button" = "Restaurar cuenta";
+"storeAccount.alert.restoreAccount.msg" = "Esto anulará la sesión de su cuenta actual.";
+"storeAccount.alert.deleteAccount" = "¿Estás seguro de que quieres eliminar la cuenta?";
+"storeAccount.alert.deleteAccount.button" = "Eliminar cuenta";
+"alert.moveAppToApplications.title" = "Mover a la carpeta de Aplicaciones?";
+"alert.moveAppToApplications.subtitle" = "PlayCover debe estar en la carpeta de Aplicaciones para funcionar correctamente. Presione el botón de abajo para mover PlayCover automáticamente.";
+"button.Quit" = "Salir";
+"error.appEncrypted" = "¡Esta aplicación está encriptada! Por favor utilice un IPA descifrado. ¡Los IPA de iMazing no son compatibles!";
+"error.appCorrupted" = "Algo ha ido mal con este IPA. Por favor, intente utilizar otro archivo IPA.";
+"error.appProhibited" = "¡Usar esta aplicación a través de PlayCover probablemente resultará en una prohibición!";
+"error.noGenshinAccount" = "¡No se pudo encontrar una cuenta de Genshin! ¿Ha iniciado sesión en una cuenta en la aplicación?";
 "settings.tab.info" = "Info";
-"settings.tab.km" = "Keymapping";
-"settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
-"settings.toggle.mm" = "Mouse mapping";
-"settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
-"settings.picker.adaptiveRes" = "Adaptive resolution:";
-"settings.picker.adaptiveRes.help" = "Adapts and scales app window to fit the built-in Mac display.";
-"settings.picker.adaptiveRes.0" = "Off";
-"settings.picker.adaptiveRes.1" = "Auto";
-"settings.picker.adaptiveRes.5" = "Custom";
-"settings.picker.aspectRatio" = "Aspect ratio:";
-"settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
-"settings.toggle.jbBypass.help" = "Attempts to bypass Jailbreak Detection in some games (Not guaranteed to work all the time)";
-"settings.info.displayName" = "Display name:";
-"settings.info.bundleIdentifier" = "Bundle identifier";
-"settings.info.executableName" = "Executable name:";
-"settings.info.minimumOSVersion" = "Minimum OS version";
+"settings.tab.km" = "Mapeo de teclas";
+"settings.toggle.km.help" = "Añade soporte para teclado en juegos exclusivamente táctiles. Utilice Command + K para abrir el editor.";
+"settings.toggle.mm" = "Mapeo de ratón";
+"settings.toggle.mm.help" = "Añade controles de ratón que emulen movimientos táctiles. Usa Comando + K para abrir el editor.";
+"settings.picker.adaptiveRes" = "Resolución:";
+"settings.picker.adaptiveRes.help" = "Cambia la resolución de la ventana de la aplicación";
+"settings.picker.adaptiveRes.0" = "Predeterminado";
+"settings.picker.adaptiveRes.1" = "Automático (con base en la pantalla)";
+"settings.picker.adaptiveRes.5" = "Personalizado";
+"settings.picker.aspectRatio" = "Relación de aspecto:";
+"settings.toggle.disableDisplaySleep.help" = "Previene que la pantalla se apague mientras la aplicación esté ejecutándose";
+"settings.toggle.jbBypass.help" = "Intenta evitar la detección de Jailbreak en algunos juegos (No se garantiza que funcione siempre)";
+"settings.info.displayName" = "Nombre mostrado:";
+"settings.info.bundleIdentifier" = "Identificador del paquete:";
+"settings.info.executableName" = "Nombre del ejecutable:";
+"settings.info.minimumOSVersion" = "Versión mínima del sistema operativo:";
 "settings.info.url" = "URL:";
-"settings.resetSettings" = "Reset settings";
-"settings.resetKm" = "Reset keymapping";
-"settings.toggle.hud" = "Metal HUD";
-"settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
-"settings.resetKmCompleted" = "Keymapping has been reset!";
-"xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
-"xcode.install.failed.altButton" = "Alternate Instructions";
-"settings.tab.misc" = "Misc";
-"settings.info.bundleVersion" = "Bundle version";
-"alert.legacyImport.title" = "Legacy App Settings Detected!";
-"alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
-"button.Convert" = "Convert";
-"playapp.deleteConfirm" = "Uninstall";
-"playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
-"settings.text.detectedResolution" = "Detected Resolution:";
+"settings.resetSettings" = "Restablecer configuración";
+"settings.resetKm" = "Restablecer el mapeo de teclas";
+"settings.toggle.hud" = "HUD de Metal";
+"settings.resetSettingsCompleted" = "¡La configuración se ha revertido a la predeterminada!";
+"settings.resetKmCompleted" = "¡Se ha restablecido el mapeo de teclas!";
+"xcode.install.failed.altInstructions" = "Haga clic en el botón de abajo para ver las instrucciones de instalación alternativas";
+"xcode.install.failed.altButton" = "Instrucciones alternativas";
+"settings.tab.misc" = "Varios";
+"settings.info.bundleVersion" = "Versión del paquete:";
+"alert.legacyImport.title" = "¡Se ha encontrado una configuración antigua!";
+"alert.legacyImport.subtitle" = "Se encontraron configuraciones y archivos de mapeo de teclas antiguos. ¿Desea cambiarlos al nuevo formato?";
+"button.Convert" = "Convertir";
+"playapp.deleteConfirm" = "Desinstalar";
+"playapp.deleteMessage" = "¿Estás seguro de que quieres desinstalar %@?";
+"settings.text.detectedResolution" = "Resolución detectada:";
+"playapp.add" = "Añadir aplicación";
+"alert.wrongFileType.title" = "¡Tipo de archivo incorrecto!";
+"alert.wrongFileType.subtitle" = "PlayCover solo puede instalar archivos .ipa válidos.";
