@@ -8,17 +8,13 @@
 import SwiftUI
 
 class Uninstaller {
-    private static let baseURL = FileManager.default.homeDirectoryForCurrentUser
-        .appendingPathComponent("Library")
-        .appendingPathComponent("Containers")
-        .appendingPathComponent("io.playcover.PlayCover")
     private static let containerURL = FileManager.default.homeDirectoryForCurrentUser
         .appendingPathComponent("Library")
         .appendingPathComponent("Containers")
     private static let pruneURLs: [URL] = [
-        baseURL.appendingPathComponent("App Settings"),
-        baseURL.appendingPathComponent("Entitlements"),
-        baseURL.appendingPathComponent("Keymapping")
+        PlayTools.playCoverContainer.appendingPathComponent("App Settings"),
+        PlayTools.playCoverContainer.appendingPathComponent("Entitlements"),
+        PlayTools.playCoverContainer.appendingPathComponent("Keymapping")
     ]
 
     private static func createButtonView(_ yaxis: CGFloat, _ text: String, _ state: Bool) -> (NSView, NSButton) {
@@ -78,6 +74,7 @@ class Uninstaller {
             alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
 
             alert.showsSuppressionButton = true
+            alert.suppressionButton?.toolTip = NSLocalizedString("alert.uninstall.supression", comment: "")
 
             delete.hasDestructiveAction = true
 
@@ -85,7 +82,7 @@ class Uninstaller {
 
             if response == .alertFirstButtonReturn {
                 for (_, button) in checkboxes {
-                    UninstallSettings.shared.setSettings(button.title, (button.state.rawValue != 0))
+                    UninstallSettings.shared.setSettings(button.title, button.state == .on)
                 }
 
                 if alert.suppressionButton?.state == .on {
