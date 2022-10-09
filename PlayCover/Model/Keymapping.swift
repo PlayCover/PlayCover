@@ -60,8 +60,26 @@ class Keymapping {
     let keymapURL: URL
     var container: AppContainer?
     var keymap: Keymap {
-        didSet {
-            encode()
+        get {
+            do {
+                let data = try Data(contentsOf: keymapURL)
+                let map = try PropertyListDecoder().decode(Keymap.self, from: data)
+                return map
+            } catch {
+                print(error)
+                return reset()
+            }
+        }
+        set {
+            let encoder = PropertyListEncoder()
+            encoder.outputFormat = .xml
+
+            do {
+                let data = try encoder.encode(newValue)
+                try data.write(to: keymapURL)
+            } catch {
+                print(error)
+            }
         }
     }
 
@@ -69,41 +87,12 @@ class Keymapping {
         self.info = info
         self.container = container
         keymapURL = Keymapping.keymappingDir.appendingPathComponent("\(info.bundleIdentifier).plist")
-        keymap = Keymap(bundleIdentifier: info.bundleIdentifier)
-        if !decode() {
-            encode()
-        }
-    }
-
-    public func reset() {
-        keymap = Keymap(bundleIdentifier: info.bundleIdentifier)
     }
 
     @discardableResult
-    public func decode() -> Bool {
-        do {
-            let data = try Data(contentsOf: keymapURL)
-            keymap = try PropertyListDecoder().decode(Keymap.self, from: data)
-            return true
-        } catch {
-            print(error)
-            return false
-        }
-    }
-
-    @discardableResult
-    public func encode() -> Bool {
-        let encoder = PropertyListEncoder()
-        encoder.outputFormat = .xml
-
-        do {
-            let data = try encoder.encode(keymap)
-            try data.write(to: keymapURL)
-            return true
-        } catch {
-            print(error)
-            return false
-        }
+    public func reset() -> Keymap {
+        keymap = Keymap(bundleIdentifier: info.bundleIdentifier)
+        return keymap
     }
 
     public func importKeymap(success: @escaping (Bool) -> Void) {
