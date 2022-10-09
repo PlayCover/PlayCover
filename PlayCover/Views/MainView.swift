@@ -316,7 +316,6 @@ struct MainView_Previews: PreviewProvider {
                 .environmentObject(AppIntegrity())
                 .environment(\.layoutDirection, .leftToRight)
                 .previewDisplayName("Left To Right")
-            
             MainView(xcodeCliInstalled: $xcodeCliInstalled,
                      isSigningSetupShown: $isSigningSetupShown)
                 .environmentObject(InstallVM.shared)

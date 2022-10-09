@@ -59,7 +59,6 @@ struct DeleteGenshinAccountView_preview: PreviewProvider {
             DeleteGenshinAccountView()
                 .environment(\.layoutDirection, .leftToRight)
                 .previewDisplayName("Left To Right")
-            
             DeleteGenshinAccountView()
                 .environment(\.layoutDirection, .rightToLeft)
                 .previewDisplayName("Right to Left")

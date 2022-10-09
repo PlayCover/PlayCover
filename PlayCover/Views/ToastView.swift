@@ -59,7 +59,6 @@ struct ToastView_Preview: PreviewProvider {
                 .environmentObject(InstallVM.shared)
                 .environment(\.layoutDirection, .leftToRight)
                 .previewDisplayName("Left To Right")
-            
             ToastView()
                 .environmentObject(ToastVM.shared)
                 .environmentObject(InstallVM.shared)
