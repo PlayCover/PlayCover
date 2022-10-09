@@ -1,15 +1,15 @@
-"playapp.settings" = "Thiết lập ứng dụng";
+"playapp.settings" = "Thiết lập";
 "playapp.showInFinder" = "Hiển thị trong Finder";
-"playapp.openCache" = "Mở tài liệu của Ứng dụng";
-"playapp.clearCache" = "Xóa tài liệu của Ứng dụng";
+"playapp.openCache" = "Mở dữ liệu của Ứng dụng";
+"playapp.clearCache" = "Xóa dữ liệu của Ứng dụng";
 "playapp.importKm" = "Nhập keymap";
 "playapp.exportKm" = "Xuất keymap";
-"playapp.delete" = "Xóa ứng dụng";
-"playapp.storeCurrentAccount" = "Store current account";
-"playapp.activateAccount" = "Restore an account";
-"playapp.deleteAccount" = "Xóa tài khoản";
+"playapp.delete" = "Gỡ cài đặt Ứng dụng";
+"playapp.storeCurrentAccount" = "Lưu tài khoản hiện tại (GI)";
+"playapp.activateAccount" = "Chuyển nhanh tài khoản (GI)";
+"playapp.deleteAccount" = "Xóa tài khoản đã lưu (GI)";
 "playapp.clearPreferences" = "Khôi phục thiết lập ứng dụng về mặc định";
-"storeAccount.selectAccRegion" = "Select account region";
+"storeAccount.selectAccRegion" = "Chọn máy chủ";
 "storeAccount.selectAccRegion.usa" = "America";
 "storeAccount.selectAccRegion.euro" = "Europe";
 "storeAccount.selectAccRegion.asia" = "Asia";
@@ -71,10 +71,10 @@
 "menubar.website" = "Website";
 "menubar.github" = "GitHub";
 "menubar.discord" = "Discord";
-"menubar.checkForUpdates" = "Kiểm tra cập nhật";
+"menubar.checkForUpdates" = "Kiểm tra cập nhật...";
 "soundAlert.messageText" = "Phát hiện thiết lập âm thanh không chính xác!";
 "soundAlert.informativeText" = "Thiết bị đầu ra của bạn không hỗ trợ tốc độ lấy mẫu âm thanh ở mức 44.1 hay 48 KHz, có thể gây crash ứng dụng. Bạn có muốn điều chỉnh tốc độ lấy mẫu âm thanh không?";
-"soundAlert.successText" = "Current output device sample rate set to 48 KHz";
+"soundAlert.successText" = "Tốc độ lấy mẫu âm thanh đang đặt ở 48 KHz";
 "soundAlert.failureText" = "Không thể thiết lập được tốc độ lấy mẫu của thiết bị đầu ra hiện tại thành 48 KHz. Bạn có thể tùy chỉnh thủ công bằng app ‘Audio MIDI Setup’";
 "xcode.install.message" = "Bạn cần cài đặt Command Line Tools for Xcode rồi khởi động lại PlayCover";
 "xcode.install.success" = "Đã cài đặt xong Command Line Tools for Xcode";
@@ -83,20 +83,20 @@
 "xcode.install.progress.subtext" = "Có thể tốn tầm 5-10 phút tùy thuộc vào nhà cung cấp dịch vụ internet của bạn";
 
 /* (No Comment) */
-"preferences.toggle.automaticUpdates" = "Automatically check for updates";
+"preferences.toggle.automaticUpdates" = "Tự động kiểm tra cập nhật";
 
 /* (No Comment) */
-"preferences.button.checkForUpdates" = "Check for updates now...";
+"preferences.button.checkForUpdates" = "Kiểm tra ngay...";
 
 /* (No Comment) */
-"preferences.tab.updates" = "Updates";
-"sidebar.ipaLibrary" = "IPA Library";
+"preferences.tab.updates" = "Cập nhật";
+"sidebar.ipaLibrary" = "Thư viện file .IPA";
 "alert.moveAppToApplications.title" = "Move to Applications folder?";
 "button.Quit" = "Quit";
-"playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
-"sidebar.appLibrary" = "App Library";
-"storeAccount.alert.restoreAccount" = "Really Restore Account?";
-"storeAccount.alert.restoreAccount.button" = "Restore Account";
+"playapp.exportKmPanel.fieldLabel" = "Tên keymap:";
+"sidebar.appLibrary" = "App đã cài đặt";
+"storeAccount.alert.restoreAccount" = "Bạn có chắc muốn xoá chứ?";
+"storeAccount.alert.restoreAccount.button" = "Khôi phục";
 "storeAccount.alert.restoreAccount.msg" = "This will override your currently signed-in account.";
 "storeAccount.alert.deleteAccount" = "Really Delete Account?";
 "storeAccount.alert.deleteAccount.button" = "Delete Account";
@@ -120,7 +120,7 @@
 "settings.picker.aspectRatio" = "Aspect ratio:";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
 "settings.tab.jbBypass" = "Jailbreak Bypass";
-"settings.toggle.jbBypass.help" = "Attempts to bypass Jailbreak Detection in some games (Not guaranteed to work all the time)";
+"settings.toggle.jbBypass.help" = "Bật để có thể mở các app có trình phát hiện jailbreak khác (chưa chắc nó sẽ hoạt động trên mọi app)";
 "settings.info.displayName" = "Display name:";
 "settings.info.bundleName" = "Bundle name:";
 "settings.info.bundleIdentifier" = "Bundle identifier";
@@ -131,7 +131,7 @@
 "settings.resetKm" = "Reset keymapping";
 "settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
 "settings.resetKmCompleted" = "Keymapping has been reset!";
-"xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
+"xcode.install.failed.altInstructions" = "Nhấn nút bên dưới để xem cách cài CLT khác";
 "xcode.install.failed.altButton" = "Alternate Instructions";
 "settings.tab.misc" = "Misc";
 "settings.toggle.hud" = "Metal HUD";
@@ -139,6 +139,9 @@
 "alert.legacyImport.title" = "Legacy App Settings Detected!";
 "alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
 "button.Convert" = "Convert";
-"playapp.deleteConfirm" = "Uninstall";
-"playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
+"playapp.deleteConfirm" = "Gỡ cài đặt";
+"playapp.deleteMessage" = "Bạn có chắc muốn gỡ cài đặt ứng dụng này không %@?";
 "settings.text.detectedResolution" = "Detected Resolution:";
+"alert.wrongFileType.subtitle" = "PlayCover can only install valid .ipa files.";
+"playapp.add" = "Thêm ứng dụng";
+"alert.wrongFileType.title" = "Wrong file type!";

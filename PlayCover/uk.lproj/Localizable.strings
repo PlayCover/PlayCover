@@ -134,3 +134,6 @@
 "alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
 "button.Convert" = "Convert";
 "settings.text.detectedResolution" = "Detected Resolution:";
+"playapp.add" = "Add app";
+"alert.wrongFileType.title" = "Wrong file type!";
+"alert.wrongFileType.subtitle" = "PlayCover can only install valid .ipa files.";

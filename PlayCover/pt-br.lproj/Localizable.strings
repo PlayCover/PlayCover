@@ -12,14 +12,11 @@
 "playapp.activateAccount" = "Trocar Conta";
 "playapp.deleteAccount" = "Excluir Conta";
 "playapp.clearPreferences" = "Limpar preferências do Aplicativo";
-
 "preferences.button.checkForUpdates" = "Buscar atualizações...";
 "preferences.tab.updates" = "Atualizações";
 "preferences.toggle.automaticUpdates" = "Buscar atualizações automaticamente";
-
 "sidebar.appLibrary" = "Biblioteca de Aplicativos";
 "sidebar.ipaLibrary" = "Biblioteca de IPAs";
-
 "storeAccount.selectAccRegion" = "Selecione a região da conta";
 "storeAccount.selectAccRegion.usa" = "América";
 "storeAccount.selectAccRegion.euro" = "Europa";
@@ -36,7 +33,6 @@
 "storeAccount.alert.restoreAccount.msg" = "Isso irá sobrescrever sua conta logada atualmente.";
 "storeAccount.alert.deleteAccount" = "Deseja realmente excluir a Conta?";
 "storeAccount.alert.deleteAccount.button" = "Excluir Conta";
-
 "playapp.install.unzip" = "Extraindo Aplicativo do arquivo .ipa...";
 "playapp.install.createWrapper" = "Criando o empacotador do Aplicativo...";
 "playapp.install.installPlayTools" = "Instalando PlayTools...";
@@ -44,7 +40,6 @@
 "playapp.install.addToLib" = "Adicionando Aplicativo na biblioteca...";
 "playapp.install.copy" = "Copiando Aplicativo...";
 "playapp.install.finished" = "Finalizado";
-
 "alert.appCacheCleared" = "Os dados do Aplicativo foram limpos!";
 "alert.kmImported" = "Mapeamento de Teclas importado!";
 "alert.errorImportKm" = "Ocorreu um erro ao importar!";
@@ -59,7 +54,6 @@
 "alert.storeAccount.regionIsNotValid" = "A conta atual está definida para uma região diferente. Inicie o jogo, mude a região e passe pelos portões para salvar. Depois tente novamente";
 "alert.legacyImport.title" = "Configurações de Aplicativo antigas detectadas!";
 "alert.legacyImport.subtitle" = "Arquivos de Configuração e Mapeamento de Teclas antigos foram detectadas. Gostaria de converter esses arquivos para o novo formato?";
-
 "button.OK" = "OK";
 "button.Proceed" = "Proceguir";
 "button.Cancel" = "Cancelar";
@@ -67,30 +61,25 @@
 "button.Install" = "Instalar";
 "button.Quit" = "Sair";
 "button.Convert" = "Converter";
-
 "error.corruptedIPA" = "Este arquivo .ipa está corrompido. Ele não possui um arquivo \"Info.plist\".";
 "error.waitInstallation" = "Por favor, espere a instalação atual terminar!";
 "error.appEncrypted" = "Este aplicativo é criptografado! Por favor, use um IPA descriptografado. IPAs iMagazin não são suportados!";
 "error.appCorrupted" = "Alguma coisa deu errado com esse IPA. Por favor, tente usar outro arquivo IPA.";
 "error.appProhibited" = "Você pode ser banido deste Aplicativo por utilizá-lo pelo PlayCover!";
 "error.noGenshinAccount" = "Não conseguimos encontrar uma conta do Genshin! Vocês está logado em uma conta dentro do jogo?";
-
 "menubar.exportToSideloady" = "Exportar para o Sideloadly";
-
 "settings.title" = "Preferências de %@";
 "settings.tab.info" = "Informações";
-
 "settings.tab.km" = "Mapeamento de Teclas";
 "settings.toggle.km" = "Mapeamento de Teclas";
 "settings.toggle.km.help" = "Adicione suporte para jogos que só suportam toque na tela. Use o Command + K para abrir o menu de edição.";
 "settings.toggle.mm" = "Mapeamento do mouse";
 "settings.toggle.mm.help" = "Adicione ações do mouse para simular movimentos que são feitos por toque na tela. Use o Command + K para abrir o menu de edição.";
 "settings.slider.mouseSensitivity" = "Sensibilidade do mouse: %.f";
-
 "settings.tab.graphics" = "Gráficos";
 "settings.picker.iosDevice" = "Dispositivo iOS:";
 "settings.picker.adaptiveRes" = "Resolução:";
-"settings.picker.adaptiveRes.help" ="Muda a resolução da janela do Aplicativo";
+"settings.picker.adaptiveRes.help" = "Muda a resolução da janela do Aplicativo";
 "settings.picker.adaptiveRes.0" = "Definição padrão do Aplicativo";
 "settings.picker.adaptiveRes.1" = "Automático (Baseado na Tela)";
 "settings.picker.adaptiveRes.5" = "Personalizado";
@@ -100,11 +89,9 @@
 "settings.picker.aspectRatio" = "Proporção da Tela:";
 "settings.toggle.disableDisplaySleep" = "Desativar a suspensão da tela";
 "settings.toggle.disableDisplaySleep.help" = "Impedir que a tela desligue enquanto este aplicativo estiver em execução";
-
 "settings.tab.jbBypass" = "Contornar Jailbreak";
 "settings.toggle.jbBypass" = "Habilitar o contorno do Jailbreak (Alpha)";
 "settings.toggle.jbBypass.help" = "Tenta contornar a detecção Jailbreak em alguns jogos (Não é garantido que irá funcionar sempre)";
-
 "settings.info.displayName" = "Display name:";
 "settings.info.bundleName" = "Nome do pacote:";
 "settings.info.bundleIdentifier" = "Identificador do pacote:";
@@ -112,28 +99,22 @@
 "settings.info.executableName" = "Nome do executável:";
 "settings.info.minimumOSVersion" = "Versão minima do Sistema Operacional:";
 "settings.info.url" = "URL:";
-
 "settings.resetSettings" = "Redefinir Preferências";
 "settings.resetKm" = "Redefinir Mapeamento de Teclas";
-
 "settings.resetSettingsCompleted" = "Preferências foram redefinidas para o padrão!";
 "settings.resetKmCompleted" = "Os Mapemanto de Teclas foram redefinidos!";
-
 "notification.appInstalled" = "Aplicativo instalado!";
 "notification.appInstalled.message" = "Confira no PlayCover!";
-
 "menubar.log.copy" = "Copiar Logs";
 "menubar.documentation" = "Documentação";
 "menubar.website" = "Site";
 "menubar.github" = "GitHub";
 "menubar.discord" = "Discord";
 "menubar.checkForUpdates" = "Buscar atualizações...";
-
 "soundAlert.messageText" = "Preferências incorretas de Audio detectadas!";
 "soundAlert.informativeText" = "Seu dispositivo de saída atual não possui uma taxa de amostragem de 48 ou 44,1 KHz! Podem ocorrer Crashes. Deseja alterar a taxa de amostragem do seu dispositivo de saída atual para 48 KHz?";
 "soundAlert.successText" = "Taxa de amostragem do dispositivo de saída atual definida para 48 KHz";
 "soundAlert.failureText" = "Falha ao definir a taxa de amostragem do dispositivo de saída atual para 48 KHz. Você pode definir manualmente a taxa de amostragem no aplicativo Configuração Áudio e MIDI";
-
 "xcode.install.message" = "Você precisa instalar o Xcode Command Line Tools e reiniciar o PlayCover";
 "xcode.install.success" = "Xcode Command Line Tools instalado com sucesso";
 "xcode.install.failed" = "Falha na instalação automática do Xcode Command Line Tools";
@@ -141,7 +122,6 @@
 "xcode.install.progress.subtext" = "Isso pode levar cerca de 5 a 10 minutos, dependendo da velocidade da sua internet";
 "xcode.install.failed.altInstructions" = "Clique no botão abaixo para ver instruções de instalação alternativas";
 "xcode.install.failed.altButton" = "Instruções Alternativas";
-
 "settings.tab.misc" = "Diversos";
 "settings.button.discord" = "Atividade personalizada do Discord";
 "settings.button.clearActivity" = "Limpar atividade personalizada";
@@ -154,3 +134,6 @@
 "settings.text.state.help" = "Segunda linha abaixo do título";
 "settings.toggle.discord" = "Ativar atividade do Discord";
 "settings.toggle.hud" = "HUD do Metal";
+"playapp.add" = "Add app";
+"alert.wrongFileType.title" = "Wrong file type!";
+"alert.wrongFileType.subtitle" = "PlayCover can only install valid .ipa files.";
