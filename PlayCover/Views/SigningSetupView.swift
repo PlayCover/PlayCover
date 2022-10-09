@@ -37,21 +37,25 @@ struct SignSetupView: View {
                         .help("""
                         SIP is required to be fully to partially disabled in order for AMFI to be turned off.
                         """)
-                    Text("System Integrity Protection: ")
+                    Text("System Integrity Protection")
                         .font(.headline)
+                    Spacer()
                     Text("\(SIPEnabled ? "Enabled" : "Disabled")")
                         .foregroundColor(SIPEnabled ? .red : .green)
                         .font(.headline)
                 }
+                .padding(.leading, 5)
+                .padding(.trailing, 5)
                 Divider()
                 HStack(alignment: .center) {
                     Image(systemName: "questionmark.circle.fill")
                         .help("""
                         AMFI is required to be turned off in order to allow fake signing of apps, \
-                        which helps fixing certain issues with apps that verifies their integrity
+                        allowing them to run with the correct Team ID
                         """)
-                    Text("Apple Mobile File Integrity: ")
+                    Text("Apple Mobile File Integrity")
                         .font(.headline)
+                    Spacer()
                     if AMFIEnabledInNVRAM {
                         if !AMFIEnabledInRunningOS {
                             Text("Pending Reboot")
@@ -68,6 +72,8 @@ struct SignSetupView: View {
                             .font(.headline)
                     }
                 }
+                .padding(.leading, 5)
+                .padding(.trailing, 5)
                 Spacer()
             }
             .padding()
