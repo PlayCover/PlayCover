@@ -22,6 +22,7 @@ struct PlayCoverSettingsView: View {
                     Label("preferences.tab.updates", systemImage: "square.and.arrow.down")
                 }
                 .tag(Tabs.updates)
+                .environment(\.layoutDirection, direction)
         }
     }
 }

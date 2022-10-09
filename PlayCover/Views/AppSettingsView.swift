@@ -86,6 +86,7 @@ struct AppSettingsView: View {
                 toastDetails: NSLocalizedString("settings.resetKmCompleted", comment: ""))
         }
         .padding()
+        .environment(\.layoutDirection, direction)
     }
 }
 
@@ -111,6 +112,7 @@ struct KeymappingView: View {
                     Slider(value: $settings.settings.sensitivity, in: 0...100, label: { EmptyView() })
                         .frame(width: 250)
                         .disabled(!settings.settings.keymapping)
+                        .flipsForRightToLeftLayoutDirection(true)
                 }
                 Spacer()
             }
