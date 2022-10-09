@@ -31,12 +31,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 }
 
-public func dirCheck() -> Bool {
+public func isRTL() -> Bool {
     let langCode  = Locale.current.languageCode
     let rtlLangs = [ "ar", "arc", "dv", "fa", "ha", "he", "khw", "ks", "ku", "ps", "ur", "yi" ]
     return rtlLangs.contains(langCode!)
 }
-public var direction = (dirCheck() == true ? LayoutDirection.rightToLeft : LayoutDirection.leftToRight)
+public var direction = (isRTL() == true ? LayoutDirection.rightToLeft : LayoutDirection.leftToRight)
 
 @main
 struct PlayCoverApp: App {
