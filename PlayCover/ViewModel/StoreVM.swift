@@ -84,6 +84,8 @@ class StoreVM: ObservableObject {
     }
 
     func resolveSources() {
+        if !NetworkVM.isConnectedToNetwork() { return }
+
         apps.removeAll()
         for index in 0..<sources.endIndex {
             sources[index].status = .checking
