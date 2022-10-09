@@ -8,13 +8,18 @@
 import SwiftUI
 
 class Uninstaller {
-    private static let containerURL = FileManager.default.homeDirectoryForCurrentUser
-        .appendingPathComponent("Library")
-        .appendingPathComponent("Containers")
+    private static let libraryUrl = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library")
     private static let pruneURLs: [URL] = [
         PlayTools.playCoverContainer.appendingPathComponent("App Settings"),
         PlayTools.playCoverContainer.appendingPathComponent("Entitlements"),
         PlayTools.playCoverContainer.appendingPathComponent("Keymapping")
+    ]
+    private static let cacheURLs: [URL] = [
+        Uninstaller.libraryUrl.appendingPathComponent("Containers"),
+        Uninstaller.libraryUrl.appendingPathComponent("Application Scripts"),
+        Uninstaller.libraryUrl.appendingPathComponent("Caches"),
+        Uninstaller.libraryUrl.appendingPathComponent("HTTPStorages"),
+        Uninstaller.libraryUrl.appendingPathComponent("Saved Application State")
     ]
 
     private static func createButtonView(_ yaxis: CGFloat, _ text: String, _ state: Bool) -> (NSView, NSButton) {
@@ -98,7 +103,7 @@ class Uninstaller {
 
     static func uninstall(_ app: PlayApp) {
         if UninstallSettings.shared.clearAppDataUninstall {
-            app.container?.clear()
+            app.clearAllCache()
         }
 
         do {
@@ -120,19 +125,25 @@ class Uninstaller {
         app.deleteApp()
     }
 
+    static func clearExternalCache(_ bundleId: String) {
+        do {
+            for cache in cacheURLs {
+                try FileManager.default.delete(at: cache.appendingPathComponent(bundleId))
+            }
+        } catch {
+            Log.shared.error(error)
+        }
+    }
+
     static func pruneFiles() {
         let bundleIds = AppsVM.shared.apps.map { $0.info.bundleIdentifier }
 
         for url in pruneURLs {
             do {
                 try url.enumerateContents { file, _ in
-                    if !bundleIds.contains(file.deletingPathExtension().lastPathComponent) {
-                        let containerPath = containerURL.appendingPathComponent(file.deletingPathExtension()
-                            .lastPathComponent)
-
-                        if FileManager.default.fileExists(atPath: containerPath.path) {
-                            try FileManager.default.delete(at: containerPath)
-                        }
+                    let bundleId = file.deletingPathExtension().lastPathComponent
+                    if !bundleIds.contains(bundleId) {
+                        clearExternalCache(bundleId)
 
                         try FileManager.default.delete(at: file)
                     }
