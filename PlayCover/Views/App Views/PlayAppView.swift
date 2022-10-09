@@ -123,7 +123,7 @@ struct PlayAppView: View {
             }
             .alert("alert.app.delete", isPresented: $showClearCacheAlert) {
                 Button("button.Proceed", role: .cancel) {
-                    app.container?.clear()
+                    app.clearAllCache()
                     showClearCacheToast.toggle()
                 }
                 Button("button.Cancel", role: .cancel) { }
