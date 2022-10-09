@@ -307,11 +307,24 @@ struct MainView_Previews: PreviewProvider {
     @State static var isSigningSetupShown = true
 
     static var previews: some View {
-        MainView(xcodeCliInstalled: $xcodeCliInstalled,
-                 isSigningSetupShown: $isSigningSetupShown)
-            .environmentObject(InstallVM.shared)
-            .environmentObject(AppsVM.shared)
-            .environmentObject(StoreVM.shared)
-            .environmentObject(AppIntegrity())
+        Group {
+            MainView(xcodeCliInstalled: $xcodeCliInstalled,
+                     isSigningSetupShown: $isSigningSetupShown)
+                .environmentObject(InstallVM.shared)
+                .environmentObject(AppsVM.shared)
+                .environmentObject(StoreVM.shared)
+                .environmentObject(AppIntegrity())
+                .environment(\.layoutDirection, .leftToRight)
+                .previewDisplayName("Left To Right")
+            
+            MainView(xcodeCliInstalled: $xcodeCliInstalled,
+                     isSigningSetupShown: $isSigningSetupShown)
+                .environmentObject(InstallVM.shared)
+                .environmentObject(AppsVM.shared)
+                .environmentObject(StoreVM.shared)
+                .environmentObject(AppIntegrity())
+                .environment(\.layoutDirection, .rightToLeft)
+                .previewDisplayName("Right to Left")
+        }
     }
 }

@@ -53,8 +53,18 @@ struct ToastView: View {
 
 struct ToastView_Preview: PreviewProvider {
     static var previews: some View {
-        ToastView()
-            .environmentObject(ToastVM.shared)
-            .environmentObject(InstallVM.shared)
+        Group {
+            ToastView()
+                .environmentObject(ToastVM.shared)
+                .environmentObject(InstallVM.shared)
+                .environment(\.layoutDirection, .leftToRight)
+                .previewDisplayName("Left To Right")
+            
+            ToastView()
+                .environmentObject(ToastVM.shared)
+                .environmentObject(InstallVM.shared)
+                .environment(\.layoutDirection, .rightToLeft)
+                .previewDisplayName("Right to Left")
+        }
     }
 }

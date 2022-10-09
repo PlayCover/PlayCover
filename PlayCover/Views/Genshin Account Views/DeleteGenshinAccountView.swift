@@ -55,6 +55,14 @@ struct DeleteGenshinAccountView: View {
 
 struct DeleteGenshinAccountView_preview: PreviewProvider {
     static var previews: some View {
-        DeleteGenshinAccountView()
+        Group {
+            DeleteGenshinAccountView()
+                .environment(\.layoutDirection, .leftToRight)
+                .previewDisplayName("Left To Right")
+            
+            DeleteGenshinAccountView()
+                .environment(\.layoutDirection, .rightToLeft)
+                .previewDisplayName("Right to Left")
+        }
     }
 }

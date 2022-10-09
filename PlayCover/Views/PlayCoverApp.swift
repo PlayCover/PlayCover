@@ -31,7 +31,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 }
 
-func dirCheck() -> Bool {
+public func dirCheck() -> Bool {
     let langCode  = Locale.current.languageCode
     let rtlLangs = [ "ar", "arc", "dv", "fa", "ha", "he", "khw", "ks", "ku", "ps", "ur", "yi" ]
     return rtlLangs.contains(langCode!)
