@@ -49,7 +49,10 @@ class NetworkVM {
         if !result {
             let networkToastExists = ToastVM.shared.toasts.contains { $0.toastType == .network }
             if !networkToastExists {
-                ToastVM.shared.showToast(toastType: .network, toastDetails: String("No internet connection!"))
+                ToastVM.shared.showToast(
+                    toastType: .network,
+                    toastDetails: NSLocalizedString("ipaLibrary.noNetworkConnection.toast", comment: "")
+                )
             }
         }
 
