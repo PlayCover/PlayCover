@@ -14,7 +14,6 @@ struct MainView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.controlActiveState) var controlActiveState
 
-    @EnvironmentObject var install: InstallVM
     @EnvironmentObject var apps: AppsVM
     @EnvironmentObject var store: StoreVM
     @EnvironmentObject var integrity: AppIntegrity
@@ -41,7 +40,8 @@ struct MainView: View {
                             Label("sidebar.appLibrary", systemImage: "square.grid.2x2")
                         }
                         NavigationLink(destination: IPALibraryView(selectedBackgroundColor: $selectedBackgroundColor,
-                                                                   selectedTextColor: $selectedTextColor),
+                                                                   selectedTextColor: $selectedTextColor)
+                            .environmentObject(store),
                                        tag: 2, selection: self.$selectedView) {
                             Label("sidebar.ipaLibrary", systemImage: "arrow.down.circle")
                         }
@@ -106,6 +106,7 @@ struct MainView: View {
                     ToastView()
                         .environmentObject(ToastVM.shared)
                         .environmentObject(InstallVM.shared)
+                        .environmentObject(DownloadVM.shared)
                         .frame(width: collapsed ? viewWidth : (viewWidth - navWidth))
                         .animation(.spring(), value: collapsed)
                 }

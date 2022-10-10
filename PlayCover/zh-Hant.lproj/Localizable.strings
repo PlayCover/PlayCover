@@ -2,13 +2,13 @@
 "alert.app.delete" = "所有應用程式數據將被清除； 有些軟體可能需要重新下載數據。確定繼續？";
 
 /* (No Comment) */
-"alert.app.preferences" = "所有應用程序的偏好設定將被刪除，您可能需要重新配置設定，確定要繼續嗎？";
+"alert.app.preferences" = "所有應用程式的偏好設定將被刪除，確定要繼續嗎？";
 
 /* (No Comment) */
 "alert.appCacheCleared" = "應用程式數據應用已被清除！";
 
 /* (No Comment) */
-"alert.error" = "遇到了問題!";
+"alert.error" = "遇到了問題！";
 
 /* (No Comment) */
 "alert.errorImportKm" = "導入過程中出現問題！";
@@ -17,7 +17,7 @@
 "alert.kmImported" = "鍵盤映射佈局已導入！";
 
 /* (No Comment) */
-"alert.moveAppToApplications.move" = "移至應用程式文件夾";
+"alert.moveAppToApplications.move" = "移至應用程式資料夾";
 
 /* (No Comment) */
 "alert.restart" = "請重啟 PlayCover。";
@@ -26,7 +26,7 @@
 "alert.storeAccount.regionIsNotValid" = "此帳號現所在的服務器與選項不符。打開遊戲，更改服務器並進入大門後保存，然後再試";
 
 /* (No Comment) */
-"alert.success" = "成功!";
+"alert.success" = "成功";
 
 /* (No Comment) */
 "button.Cancel" = "取消";
@@ -38,19 +38,19 @@
 "button.Install" = "安裝";
 
 /* (No Comment) */
-"button.OK" = "好";
+"button.OK" = "完成";
 
 /* (No Comment) */
 "button.Proceed" = "繼續";
 
 /* (No Comment) */
-"error.corruptedIPA" = "此 ipa 文件已損壞，因為找不到 \"Info.plist\" 文件。";
+"error.corruptedIPA" = "此 .ipa 檔案已損毀，因為其中沒有包含 \"Info.plist\" 檔案。";
 
 /* (No Comment) */
 "error.waitInstallation" = "請等待安裝過程結束！";
 
 /* (No Comment) */
-"menubar.checkForUpdates" = "檢查更新";
+"menubar.checkForUpdates" = "檢查更新...";
 
 /* (No Comment) */
 "menubar.discord" = "Discord（社區交流平台）";
@@ -77,7 +77,7 @@
 "notification.appInstalled.message" = "馬上來看一看吧!";
 
 /* (No Comment) */
-"playapp.activateAccount" = "啟動帳號";
+"playapp.activateAccount" = "切換帳號";
 
 /* (No Comment) */
 "playapp.clearCache" = "清除應用程式數據";
@@ -86,7 +86,7 @@
 "playapp.clearPreferences" = "清除應用偏好設置";
 
 /* (No Comment) */
-"playapp.delete" = "刪除應用程式";
+"playapp.delete" = "解除安裝應用程式";
 
 /* (No Comment) */
 "playapp.deleteAccount" = "刪除帳號";
@@ -122,7 +122,7 @@
 "playapp.openCache" = "顯示應用程式數據";
 
 /* (No Comment) */
-"playapp.settings" = "應用程式偏好設定";
+"playapp.settings" = "偏好設定";
 
 /* (No Comment) */
 "playapp.showInFinder" = "在Finder中查看";
@@ -140,13 +140,13 @@
 "preferences.toggle.automaticUpdates" = "自動檢查更新";
 
 /* (No Comment) */
-"settings.picker.iosDevice" = "選擇 iOS 裝置";
+"settings.picker.iosDevice" = "選擇 iOS 裝置:";
 
 /* %.f */
-"settings.slider.mouseSensitivity" = "滑鼠敏感度: ";
+"settings.slider.mouseSensitivity" = "滑鼠靈敏度: %.f";
 
 /* (No Comment) */
-"settings.text.customHeight" = "長度";
+"settings.text.customHeight" = "高度";
 
 /* (No Comment) */
 "settings.text.customWidth" = "寬度";
@@ -161,7 +161,7 @@
 "settings.toggle.km" = "啟用鍵盤映射佈局";
 
 /* (No Comment) */
-"soundAlert.failureText" = "現有音響設備設置採樣率 48 KHz 失敗，您可以在 ”音訊MIDI設定“ 應用中手動設置";
+"soundAlert.failureText" = "未能成功更改現有音響設備取樣率為 48 KHz。您可以在 “音訊 MIDI 設定” 應用程式中手動設置";
 
 /* (No Comment) */
 "soundAlert.informativeText" = "現有的音訊設備並無 48 或者 44.1 KHz 取樣率! 程式可能會崩潰。你希望把現有的音響設備設定成 48 KHz 取樣率嗎?";
@@ -206,7 +206,7 @@
 "storeAccount.storeAcc" = "保存一個帳號";
 
 /* (No Comment) */
-"xcode.install.failed" = "Xcode 終端工具安裝失敗";
+"xcode.install.failed" = "Xcode 終端工具自動安裝失敗";
 
 /* (No Comment) */
 "xcode.install.message" = "開始之前，你需要先安裝 Xcode 終端工具並重啟此應用程式";
@@ -219,65 +219,68 @@
 
 /* (No Comment) */
 "xcode.install.success" = "Xcode 終端工具安裝成功";
-"storeAccount.alert.restoreAccount" = "Really Restore Account?";
-"button.Quit" = "Quit";
-"settings.info.bundleName" = "Bundle name:";
-"playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
-"sidebar.appLibrary" = "App Library";
-"sidebar.ipaLibrary" = "IPA Library";
-"storeAccount.alert.restoreAccount.button" = "Restore Account";
-"storeAccount.alert.restoreAccount.msg" = "This will override your currently signed-in account.";
-"storeAccount.alert.deleteAccount" = "Really Delete Account?";
-"storeAccount.alert.deleteAccount.button" = "Delete Account";
-"alert.moveAppToApplications.title" = "Move to Applications folder?";
-"alert.moveAppToApplications.subtitle" = "PlayCover must be in the Applications folder to run correctly. Press the button below to move PlayCover automatically.";
-"error.appEncrypted" = "This app is encrypted! Please use a decrypted IPA. iMazing IPAs are not supported!";
-"error.appCorrupted" = "Something went wrong with this IPA. Please try to use another IPA file.";
-"error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";
-"error.noGenshinAccount" = "We couldn't find a Genshin account! Are you signed into an account in-app?";
-"settings.title" = "Settings";
-"settings.tab.info" = "Info";
-"settings.tab.km" = "Keymapping";
-"settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
-"settings.toggle.mm" = "Mouse mapping";
-"settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
-"settings.tab.graphics" = "Graphics";
-"settings.picker.adaptiveRes" = "Adaptive resolution:";
-"settings.picker.adaptiveRes.help" = "Adapts and scales app window to fit the built-in Mac display.";
-"settings.picker.adaptiveRes.0" = "Off";
-"settings.picker.adaptiveRes.1" = "Auto";
-"settings.picker.adaptiveRes.5" = "Custom";
-"settings.picker.aspectRatio" = "Aspect ratio:";
-"settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
-"settings.tab.jbBypass" = "Jailbreak Bypass";
-"settings.info.executableName" = "Executable name:";
-"settings.toggle.jbBypass.help" = "Attempts to bypass Jailbreak Detection in some games (Not guaranteed to work all the time)";
-"settings.info.displayName" = "Display name:";
-"settings.info.bundleIdentifier" = "Bundle identifier";
-"settings.info.minimumOSVersion" = "Minimum OS version";
-"settings.info.url" = "URL:";
-"settings.resetSettings" = "Reset settings";
-"xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
-"settings.resetKm" = "Reset keymapping";
-"settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
-"settings.resetKmCompleted" = "Keymapping has been reset!";
-"xcode.install.failed.altButton" = "Alternate Instructions";
-"settings.tab.misc" = "Misc";
-"settings.button.discord" = "Custom Discord activity";
-"settings.button.clearActivity" = "Clear custom activity";
-"settings.text.applicationID" = "Application ID";
-"settings.text.details" = "Details";
-"settings.text.details.help" = "First row below title";
-"settings.text.image" = "Image";
-"settings.text.image.help" = "Link to image or Dev portal asset name";
-"settings.text.state" = "State";
-"settings.text.state.help" = "Second row below title";
-"settings.toggle.discord" = "Enable Discord activity";
-"settings.toggle.hud" = "Metal HUD";
-"settings.info.bundleVersion" = "Bundle version";
-"playapp.deleteConfirm" = "Uninstall";
-"playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
-"alert.legacyImport.title" = "Legacy App Settings Detected!";
-"alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
-"button.Convert" = "Convert";
-"settings.text.detectedResolution" = "Detected Resolution:";
+"storeAccount.alert.restoreAccount" = "確定要還原帳號？";
+"button.Quit" = "離開";
+"settings.info.bundleName" = "Bundle 名稱:";
+"playapp.exportKmPanel.fieldLabel" = "PlayMap 名稱:";
+"sidebar.appLibrary" = "App資料庫";
+"sidebar.ipaLibrary" = "IPA資料庫";
+"storeAccount.alert.restoreAccount.button" = "還原帳號";
+"storeAccount.alert.restoreAccount.msg" = "這將會覆蓋你目前已登入的帳號。";
+"storeAccount.alert.deleteAccount" = "確定要刪除帳號嗎？";
+"storeAccount.alert.deleteAccount.button" = "刪除帳號";
+"alert.moveAppToApplications.title" = "是否移動到應用程式資料夾？";
+"alert.moveAppToApplications.subtitle" = "PlayCover必須在應用程式資料夾中才能正常運作。點擊下方按鈕會使PlayCover自動移至應用程式資料夾。";
+"error.appEncrypted" = "此應用程式已被加密！請使用未加密的IPA文件。現已不再支援使用iMazing輸出的IPA檔案！";
+"error.appCorrupted" = "此IPA檔案中包含一些錯誤。請嘗試使用其他IPA檔案。";
+"error.appProhibited" = "在PlayCover中使用這個應用程式可能會遭到封禁！";
+"error.noGenshinAccount" = "無法找到原神帳號！你是否已在該應用程式中登入帳號？";
+"settings.title" = "%@ 設定";
+"settings.tab.info" = "詳細資料";
+"settings.tab.km" = "鍵盤映射佈局";
+"settings.toggle.km.help" = "為僅可透過觸控屏幕操控的遊戲添加鍵盤支援。使用 Command + K 開啟編輯器選單。";
+"settings.toggle.mm" = "啟用滑鼠映射佈局";
+"settings.toggle.mm.help" = "添加模擬觸控屏幕操作的滑鼠映射控制項。使用 Command + K 開啟編輯器選單。";
+"settings.tab.graphics" = "影像設置";
+"settings.picker.adaptiveRes" = "解析度:";
+"settings.picker.adaptiveRes.help" = "修改應用程式的視窗解析度";
+"settings.picker.adaptiveRes.0" = "預設解析度";
+"settings.picker.adaptiveRes.1" = "自動（根據屏幕解析度）";
+"settings.picker.adaptiveRes.5" = "自定義";
+"settings.picker.aspectRatio" = "長寬比:";
+"settings.toggle.disableDisplaySleep.help" = "防止屏幕在應用程式運行期間關閉";
+"settings.tab.jbBypass" = "繞過越獄檢測";
+"settings.info.executableName" = "可執行檔名稱:";
+"settings.toggle.jbBypass.help" = "在部分遊戲中嘗試繞過越獄檢測（無法保證任何時候都正確運作）";
+"settings.info.displayName" = "顯示名稱:";
+"settings.info.bundleIdentifier" = "Bundle ID:";
+"settings.info.minimumOSVersion" = "最低作業系統版本:";
+"settings.info.url" = "位置:";
+"settings.resetSettings" = "重置偏好設定";
+"xcode.install.failed.altInstructions" = "點擊按鈕以顯示額外安裝說明";
+"settings.resetKm" = "重置鍵盤映射佈局";
+"settings.resetSettingsCompleted" = "偏好設定已被重置為預設值！";
+"settings.resetKmCompleted" = "鍵盤映射佈局已被重置！";
+"xcode.install.failed.altButton" = "額外安裝說明";
+"settings.tab.misc" = "雜項";
+"settings.button.discord" = "自定義Discord動態";
+"settings.button.clearActivity" = "清除自定義動態";
+"settings.text.applicationID" = "應用程式 ID";
+"settings.text.details" = "詳細資料";
+"settings.text.details.help" = "標題下方首列";
+"settings.text.image" = "影像";
+"settings.text.image.help" = "連結至影像或開發人員門戶中的資產名稱";
+"settings.text.state" = "狀態";
+"settings.text.state.help" = "標題下方第二列";
+"settings.toggle.discord" = "啟用Discord動態";
+"settings.toggle.hud" = "啟用Metal HUD";
+"settings.info.bundleVersion" = "Bundle 版本:";
+"playapp.deleteConfirm" = "解除安裝";
+"playapp.deleteMessage" = "你是否確定要解除安裝 %@？";
+"alert.legacyImport.title" = "檢測到舊版應用程式設置！";
+"alert.legacyImport.subtitle" = "檢測到舊版應用程式設置及鍵盤映射佈局。是否要把這些檔案轉換為新版格式？";
+"button.Convert" = "轉換";
+"settings.text.detectedResolution" = "檢測到的解析度:";
+"playapp.add" = "安裝App";
+"alert.wrongFileType.title" = "錯誤的檔案類型！";
+"alert.wrongFileType.subtitle" = "PlayCover 只可以安裝有效的 .ipa 檔案。";
