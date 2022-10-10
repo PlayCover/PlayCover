@@ -57,7 +57,7 @@ class StoreVM: ObservableObject {
             return false
         }
     }
-    
+
     @discardableResult
     public func decodeKeymapping() -> Bool {
         do {
@@ -86,7 +86,7 @@ class StoreVM: ObservableObject {
             return false
         }
     }
-    
+
     @discardableResult
     public func encodeKeymapping() -> Bool {
         let encoder = PropertyListEncoder()
@@ -128,6 +128,8 @@ class StoreVM: ObservableObject {
     }
 
     func resolveSources() {
+        if !NetworkVM.isConnectedToNetwork() { return }
+
         apps.removeAll()
         for index in 0..<sources.endIndex {
             sources[index].status = .checking
@@ -190,7 +192,7 @@ class StoreVM: ObservableObject {
         }
         self.sources.insert(contentsOf: selectedData, at: index)
     }
-    
+
     func moveKeymappingSourceUp(_ selected: inout Set<UUID>) {
         let selectedData = self.keymappingSources.filter({ selected.contains($0.id) })
         var index = self.keymappingSources.firstIndex(of: selectedData.first!)! - 1
@@ -210,7 +212,7 @@ class StoreVM: ObservableObject {
         }
         self.sources.insert(contentsOf: selectedData, at: index)
     }
-    
+
     func moveKeymappingSourceDown(_ selected: inout Set<UUID>) {
         let selectedData = self.keymappingSources.filter({ selected.contains($0.id) })
         var index = self.keymappingSources.firstIndex(of: selectedData.first!)! + 1
@@ -230,7 +232,7 @@ class StoreVM: ObservableObject {
         self.sources.append(data)
         self.resolveSources()
     }
-    
+
     func appendKeymappingSourceData(_ data: SourceData) {
         if keymappingSources.contains(where: { $0.source == data.source }) {
             Log.shared.error("This URL already exists!")

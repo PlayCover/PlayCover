@@ -208,6 +208,7 @@ struct KeymappingView: View {
 
     // Check if the game selected is in keymaps repository
     func isInKeymaps() async {
+        if !NetworkVM.isConnectedToNetwork() { return }
         fetchedKeymaps = []
 
         if storeVM.keymappingSources.isEmpty {
