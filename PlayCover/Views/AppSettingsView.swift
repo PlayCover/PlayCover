@@ -296,7 +296,7 @@ struct KeymappingView: View {
             downloadLink.removeSubrange(downloadLink.startIndex..<reposRange.upperBound)
         }
 
-        var sourceComponents = downloadLink.components(separatedBy: "/")
+        let sourceComponents = downloadLink.components(separatedBy: "/")
 
         return "\(sourceComponents[0])/\(sourceComponents[1]) (\(sourceComponents[2]))"
     }
