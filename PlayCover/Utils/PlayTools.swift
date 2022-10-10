@@ -62,7 +62,10 @@ class PlayTools {
 
                 // Install version of PlayTools bundled with PlayCover
                 Log.shared.log("Copying PlayTools to Frameworks")
-                try shell.sh("cp -r \(bundledPlayToolsFramework.esc) \(playToolsFramwework.esc)")
+                if FileManager.default.fileExists(atPath: playToolsFramwework.path) {
+                    try FileManager.default.removeItem(at: playToolsFramwework)
+                }
+                try FileManager.default.copyItem(at: bundledPlayToolsFramework, to: playToolsFramwework)
             } catch {
                 Log.shared.error(error)
             }
