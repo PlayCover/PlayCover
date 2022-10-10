@@ -22,10 +22,10 @@ struct AppLibraryView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            if !isList {
-                ScrollView {
+            ScrollView {
+                if !isList {
                     LazyVGrid(columns: gridLayout, alignment: .center) {
-                        ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
+                        ForEach(appsVM.apps, id: \.url) { app in
                             PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                         selectedTextColor: $selectedTextColor,
                                         selected: $selected,
@@ -35,11 +35,9 @@ struct AppLibraryView: View {
                     }
                     .padding()
                     Spacer()
-                }
-            } else {
-                ScrollView {
+                } else {
                     VStack {
-                        ForEach(appsVM.apps, id: \.info.bundleIdentifier) { app in
+                        ForEach(appsVM.apps, id: \.url) { app in
                             PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                         selectedTextColor: $selectedTextColor,
                                         selected: $selected,
@@ -72,6 +70,8 @@ struct AppLibraryView: View {
                 Button(action: {
                     if installVM.installing {
                         Log.shared.error(PlayCoverError.waitInstallation)
+                    } else if DownloadVM.shared.downloading {
+                        Log.shared.error(PlayCoverError.waitDownload)
                     } else {
                         selectFile()
                     }
@@ -106,6 +106,9 @@ struct AppLibraryView: View {
         .onDrop(of: ["public.url", "public.file-url"], isTargeted: nil) { (items) -> Bool in
             if installVM.installing {
                 Log.shared.error(PlayCoverError.waitInstallation)
+                return false
+            } else if DownloadVM.shared.downloading {
+                Log.shared.error(PlayCoverError.waitDownload)
                 return false
             } else if let item = items.first {
                 if let identifier = item.registeredTypeIdentifiers.first {

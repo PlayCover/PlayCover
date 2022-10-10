@@ -132,7 +132,7 @@ public class AppInfo {
     }
 
     var bundleName: String {
-        if self[string: "CFBundleName"] == nil {
+        if self[string: "CFBundleName"] == nil || self[string: "CFBundleName"] == "" {
             return self[string: "CFBundleDisplayName"]!
         } else {
             return self[string: "CFBundleName"]!
@@ -140,7 +140,7 @@ public class AppInfo {
     }
 
     var displayName: String {
-        if self[string: "CFBundleDisplayName"] == nil {
+        if self[string: "CFBundleDisplayName"] == nil || self[string: "CFBundleDisplayName"] == "" {
             return self[string: "CFBundleName"]!
         } else {
             return self[string: "CFBundleDisplayName"]!
