@@ -33,7 +33,7 @@ struct PlayAppView: View {
                                app: app,
                                isList: isList)
             .gesture(TapGesture(count: 2).onEnded {
-                shell.removeTwitterSessionCookie()
+                removeTwitterSessionCookie()
                 app.launch()
             })
             .simultaneousGesture(TapGesture().onEnded {
@@ -164,6 +164,23 @@ struct PlayAppView: View {
             }, message: {
                 Text(String(format: NSLocalizedString("playapp.deleteMessage", comment: ""), arguments: [app.name]))
             })
+    }
+
+    func removeTwitterSessionCookie() {
+        do {
+            let cookieURL = FileManager.default.homeDirectoryForCurrentUser
+                .appendingPathComponent("Library")
+                .appendingPathComponent("Containers")
+                .appendingPathComponent("com.miHoYo.GenshinImpact")
+                .appendingPathComponent("Data")
+                .appendingPathComponent("Library")
+                .appendingPathComponent("Cookies")
+                .appendingPathComponent("Cookies")
+                .appendingPathExtension("binarycookies")
+            try FileManager.default.removeItem(at: cookieURL)
+        } catch {
+            Log.shared.error(error)
+        }
     }
 }
 
