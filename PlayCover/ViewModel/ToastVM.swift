@@ -24,5 +24,5 @@ struct ToastInfo: Hashable {
 }
 
 enum ToastType {
-    case notice, error
+    case notice, error, network
 }
