@@ -33,7 +33,7 @@ struct PlayAppView: View {
                                app: app,
                                isList: isList)
             .gesture(TapGesture(count: 2).onEnded {
-                shell.removeTwitterSessionCookie()
+                removeTwitterSessionCookie()
                 app.launch()
             })
             .simultaneousGesture(TapGesture().onEnded {
