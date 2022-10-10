@@ -33,7 +33,7 @@
 "alert.app.delete" = "تمامی داده‌های درون برنامه پاک خواهند شد. ممکن است نیاز باشد که دوباره آن‌ها را دریافت کنید. ادامه می‌دهید؟";
 "alert.app.preferences" = "تمامی پیکربندی‌های درون برنامه‌ای انجام‌شده، پاک خواهند شد؛ آیا مایل به ادامه دادن هستید؟";
 "alert.restart" = "لطفا PlayCover را از نو راه‌اندازی (Restart) کنید.";
-"alert.error" = "خطائی رخ داد";
+"alert.error" = "خطائی رخ داد!";
 "alert.success" = "انجام شد";
 "alert.moveAppToApplications.move" = "انتقال به پوشه Applications مک";
 "alert.storeAccount.regionIsNotValid" = "این حساب کاربری برای منطقه‌ی کاربری دیگری پیکربندی شده است. بازی را باز کرده، منطقه‌ی کاربری را تغییر داده و از دروازه عبور کنید تا پیکربندی آن ذخیره شود. سپس دوباره تلاش کنید";
@@ -142,3 +142,6 @@
 "alert.legacyImport.subtitle" = "پرونده‌های تاریخ‌گذشته‌ای پیدا شده‌اند. آیا مایل هستید که آن‌ها را به شکل به‌روزشده‌شان تبدیل کنید؟";
 "button.Convert" = "تبدیل کن";
 "settings.text.detectedResolution" = "وضوح شناسایی‌شده:";
+"playapp.add" = "نصب برنامه";
+"alert.wrongFileType.title" = "پرونده از نوع درستی نیست!";
+"alert.wrongFileType.subtitle" = "PlayCover تنها می‌تواند پرونده‌های IPA معتبر را نصب کند.";

@@ -18,7 +18,7 @@
 "ipaLibrary.noSources.title" = "No IPA Sources Added";
 "ipaLibrary.noSources.subtitle" = "You currently have no IPA Sources added. Click the button below to add one.";
 "ipaLibrary.noSources.button" = "Add Source";
-
+"ipaLibrary.noNetworkConnection.toast" = "No internet connection!";
 
 "preferences.button.checkForUpdates" = "Check for updates now...";
 "preferences.tab.updates" = "Updates";

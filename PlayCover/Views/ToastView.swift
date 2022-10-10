@@ -22,6 +22,8 @@ struct ToastView: View {
                         Image(systemName: "info.circle")
                     case .error:
                         Image(systemName: "exclamationmark.triangle")
+                    case .network:
+                        Image(systemName: "info.circle")
                     }
                     Text(toast.toastDetails)
                 }

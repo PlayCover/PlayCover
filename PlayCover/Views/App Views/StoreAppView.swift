@@ -194,7 +194,13 @@ struct StoreAppConditionalView: View {
     }
 
     func getITunesData(_ itunesLookup: String) async -> ITunesResponse? {
+<<<<<<< HEAD
         let url = URL(string: itunesLookup)!
+=======
+        if !NetworkVM.isConnectedToNetwork() { return nil }
+        guard let url = URL(string: itunesLookup) else { return nil }
+
+>>>>>>> 379bcc71d8e888097660757f05495bb8a3659208
         do {
             let (data, _) = try await URLSession.shared.data(for: URLRequest(url: url))
             let decoder = JSONDecoder()
@@ -203,7 +209,11 @@ struct StoreAppConditionalView: View {
                 return jsonResult
             }
         } catch {
+<<<<<<< HEAD
             Log.shared.error(error)
+=======
+            print("Error getting iTunes data from URL: \(itunesLookup): \(error)")
+>>>>>>> 379bcc71d8e888097660757f05495bb8a3659208
         }
 
         return nil

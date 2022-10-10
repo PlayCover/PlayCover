@@ -8,7 +8,7 @@
 "alert.appCacheCleared" = "앱 데이터가 초기화 되었습니다!";
 
 /* (No Comment) */
-"alert.error" = "오류가 발생했습니다";
+"alert.error" = "오류가 발생했습니다!";
 
 /* (No Comment) */
 "alert.errorImportKm" = "키매핑을 불러오는데 문제가 발생했습니다!";
@@ -140,10 +140,10 @@
 "preferences.toggle.automaticUpdates" = "자동으로 업데이트 확인";
 
 /* (No Comment) */
-"settings.button.discord" = "Discord Rich Presence  사용자화";
+"settings.button.discord" = "Discord 활동 상태 사용자화";
 
 /* (No Comment) */
-"settings.button.clearActivity" = "사용자화한 활동 내역 초기화";
+"settings.button.clearActivity" = "사용자 지정 활동 상태 초기화";
 
 /* (No Comment) */
 "settings.picker.iosDevice" = "iOS 기종 선택:";
@@ -152,7 +152,7 @@
 "settings.slider.mouseSensitivity" = "마우스 감도: %.f";
 
 /* (No Comment) */
-"settings.text.applicationID" = "Application ID";
+"settings.text.applicationID" = "앱 ID";
 
 /* (No Comment) */
 "settings.text.customHeight" = "높이";
@@ -161,28 +161,28 @@
 "settings.text.customWidth" = "너비";
 
 /* (No Comment) */
-"settings.text.details" = "Details";
+"settings.text.details" = "세부 사항";
 
 /* (No Comment) */
-"settings.text.details.help" = "First row below title";
+"settings.text.details.help" = "제목 아래의 첫 번째 줄";
 
 /* (No Comment) */
-"settings.text.image" = "Image";
+"settings.text.image" = "이미지";
 
 /* (No Comment) */
-"settings.text.image.help" = "Link to image or Dev portal asset name";
+"settings.text.image.help" = "이미지 또는 개발자 포털 에셋 이름에 대한 링크";
 
 /* (No Comment) */
-"settings.text.state" = "State";
+"settings.text.state" = "상태";
 
 /* (No Comment) */
-"settings.text.state.help" = "Second row below title";
+"settings.text.state.help" = "제목 아래의 두 번째 줄";
 
 /* (No Comment) */
 "settings.toggle.disableDisplaySleep" = "화면 잠자기 비활성화";
 
 /* (No Comment) */
-"settings.toggle.discord" = "Enable Discord activity";
+"settings.toggle.discord" = "Discord 활동 상태 활성화";
 
 /* (No Comment) */
 "settings.toggle.jbBypass" = "탈옥 우회 활성화 (Alpha)";
@@ -292,7 +292,7 @@
 "xcode.install.failed.altInstructions" = "다른 설치 방법을 알어보려면 아래 버튼을 선택하세요";
 "xcode.install.failed.altButton" = "다른 설치 방법";
 "settings.tab.misc" = "기타";
-"settings.toggle.hud" = "Metal HUD";
+"settings.toggle.hud" = "Metal HUD 활성화";
 "settings.info.bundleVersion" = "번들 버전:";
 "playapp.deleteConfirm" = "삭제";
 "playapp.deleteMessage" = "%@을(를) 삭제하시겠습니까?";
@@ -300,4 +300,7 @@
 "alert.legacyImport.subtitle" = "이전 버전의 설정과 키맵 파일이 존재합니다. 새로운 버전의 포맷으로 변환하시겠습니까?";
 "button.Convert" = "변환";
 "settings.info.displayName" = "디스플레이 이름:";
-"settings.text.detectedResolution" = "Detected Resolution:";
+"settings.text.detectedResolution" = "감지된 해상도:";
+"playapp.add" = "앱 추가";
+"alert.wrongFileType.title" = "잘못된 파일 형식입니다!";
+"alert.wrongFileType.subtitle" = "PlayCover는 유효한 .ipa 파일만 설치할 수 있습니다.";

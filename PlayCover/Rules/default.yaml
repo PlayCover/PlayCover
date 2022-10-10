@@ -69,6 +69,9 @@ allow:
     - (allow user-preference-read (preference-domain ".GlobalPreferences"))
     - (allow file* file-read* file-write* file-write-data file-read-metadata file-ioctl (subpath "/Users/${NSUserName}/Library/Containers/io.playcover.PlayCover"))
     - (allow file* file-read* file-read-metadata file-ioctl (subpath "/Users/${NSUserName}/Library/Frameworks/PlayTools.framework"))
+    
+    - (allow file* file-read* (subpath "/Users/${NSUserName}/Library/Group Containers/"))
+    
 
 bypass:
     - (deny process-fork)
