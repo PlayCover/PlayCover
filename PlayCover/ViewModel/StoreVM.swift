@@ -23,8 +23,8 @@ class StoreVM: ObservableObject {
         if !decode() {
             encode()
         }
-        if !decode(source: keymappingSources) {
-            encode(source: keymappingSources)
+        if !decodeKeymapping() {
+            encodeKeymapping()
         }
         resolveSources()
     }
@@ -38,7 +38,7 @@ class StoreVM: ObservableObject {
     }
     @Published var keymappingSources: [SourceData] {
         didSet {
-            encode(source: keymappingSources)
+            encodeKeymapping()
         }
     }
 
@@ -46,15 +46,23 @@ class StoreVM: ObservableObject {
     let keymappingSourcesUrl: URL
 
     @discardableResult
-    public func decode(source: [SourceData]? = nil) -> Bool {
+    public func decode() -> Bool {
         do {
-            if source == sources || source == nil {
-                let data = try Data(contentsOf: sourcesUrl)
-                sources = try PropertyListDecoder().decode([SourceData].self, from: data)
-            } else if source == keymappingSources {
-                let keymappingData = try Data(contentsOf: keymappingSourcesUrl)
-                keymappingSources = try PropertyListDecoder().decode([SourceData].self, from: keymappingData)
-            }
+            let data = try Data(contentsOf: sourcesUrl)
+            sources = try PropertyListDecoder().decode([SourceData].self, from: data)
+
+            return true
+        } catch {
+            print(error)
+            return false
+        }
+    }
+    
+    @discardableResult
+    public func decodeKeymapping() -> Bool {
+        do {
+            let keymappingData = try Data(contentsOf: keymappingSourcesUrl)
+            keymappingSources = try PropertyListDecoder().decode([SourceData].self, from: keymappingData)
 
             return true
         } catch {
@@ -64,18 +72,29 @@ class StoreVM: ObservableObject {
     }
 
     @discardableResult
-    public func encode(source: [SourceData]? = nil) -> Bool {
+    public func encode() -> Bool {
         let encoder = PropertyListEncoder()
         encoder.outputFormat = .xml
 
         do {
-            if source == sources || source == nil {
-                let data = try encoder.encode(sources)
-                try data.write(to: sourcesUrl)
-            } else if source == keymappingSources {
-                let keymappingData = try encoder.encode(keymappingSources)
-                try keymappingData.write(to: keymappingSourcesUrl)
-            }
+            let data = try encoder.encode(sources)
+            try data.write(to: sourcesUrl)
+
+            return true
+        } catch {
+            print(error)
+            return false
+        }
+    }
+    
+    @discardableResult
+    public func encodeKeymapping() -> Bool {
+        let encoder = PropertyListEncoder()
+        encoder.outputFormat = .xml
+
+        do {
+            let keymappingData = try encoder.encode(keymappingSources)
+            try keymappingData.write(to: keymappingSourcesUrl)
 
             return true
         } catch {
@@ -150,68 +169,75 @@ class StoreVM: ObservableObject {
         fetchApps()
     }
 
-    func deleteSource(_ selected: inout Set<UUID>, source: [SourceData]? = nil) {
-        if source == sources || source == nil {
-            self.sources.removeAll(where: { selected.contains($0.id) })
-        } else if source == keymappingSources {
-            self.keymappingSources.removeAll(where: { selected.contains($0.id) })
-        }
+    func deleteSource(_ selected: inout Set<UUID>) {
+        self.sources.removeAll(where: { selected.contains($0.id) })
         selected.removeAll()
         resolveSources()
     }
 
-    func moveSourceUp(_ selected: inout Set<UUID>, source: [SourceData]? = nil) {
-        if source == sources || source == nil {
-            let selectedData = self.sources.filter({ selected.contains($0.id) })
-            var index = self.sources.firstIndex(of: selectedData.first!)! - 1
-            self.sources.removeAll(where: { selected.contains($0.id) })
-            if index < 0 {
-                index = 0
-            }
-            self.sources.insert(contentsOf: selectedData, at: index)
-        } else if source == keymappingSources {
-            let selectedData = self.keymappingSources.filter({ selected.contains($0.id) })
-            var index = self.keymappingSources.firstIndex(of: selectedData.first!)! - 1
-            self.keymappingSources.removeAll(where: { selected.contains($0.id) })
-            if index < 0 {
-                index = 0
-            }
-            self.keymappingSources.insert(contentsOf: selectedData, at: index)
-        }
+    func deleteKeymappingSource(_ selected: inout Set<UUID>) {
+        self.keymappingSources.removeAll(where: { selected.contains($0.id) })
+        selected.removeAll()
+        resolveSources()
     }
 
-    func moveSourceDown(_ selected: inout Set<UUID>, source: [SourceData]? = nil) {
-        if source == sources || source == nil {
-            let selectedData = self.sources.filter({ selected.contains($0.id) })
-            var index = self.sources.firstIndex(of: selectedData.first!)! + 1
-            self.sources.removeAll(where: { selected.contains($0.id) })
-            if index > self.sources.endIndex {
-                index = self.sources.endIndex
-            }
-            self.sources.insert(contentsOf: selectedData, at: index)
-        } else if source == keymappingSources {
-            let selectedData = self.keymappingSources.filter({ selected.contains($0.id) })
-            var index = self.keymappingSources.firstIndex(of: selectedData.first!)! + 1
-            self.keymappingSources.removeAll(where: { selected.contains($0.id) })
-            if index > self.keymappingSources.endIndex {
-                index = self.keymappingSources.endIndex
-            }
-            self.keymappingSources.insert(contentsOf: selectedData, at: index)
+    func moveSourceUp(_ selected: inout Set<UUID>) {
+        let selectedData = self.sources.filter({ selected.contains($0.id) })
+        var index = self.sources.firstIndex(of: selectedData.first!)! - 1
+        self.sources.removeAll(where: { selected.contains($0.id) })
+        if index < 0 {
+            index = 0
         }
+        self.sources.insert(contentsOf: selectedData, at: index)
+    }
+    
+    func moveKeymappingSourceUp(_ selected: inout Set<UUID>) {
+        let selectedData = self.keymappingSources.filter({ selected.contains($0.id) })
+        var index = self.keymappingSources.firstIndex(of: selectedData.first!)! - 1
+        self.keymappingSources.removeAll(where: { selected.contains($0.id) })
+        if index < 0 {
+            index = 0
+        }
+        self.keymappingSources.insert(contentsOf: selectedData, at: index)
     }
 
-    func appendSourceData(_ data: SourceData, source: [SourceData]? = nil) {
-        if sources.contains(where: { $0.source == data.source }) ||
-            source!.contains(where: { $0.source == data.source }) {
+    func moveSourceDown(_ selected: inout Set<UUID>) {
+        let selectedData = self.sources.filter({ selected.contains($0.id) })
+        var index = self.sources.firstIndex(of: selectedData.first!)! + 1
+        self.sources.removeAll(where: { selected.contains($0.id) })
+        if index > self.sources.endIndex {
+            index = self.sources.endIndex
+        }
+        self.sources.insert(contentsOf: selectedData, at: index)
+    }
+    
+    func moveKeymappingSourceDown(_ selected: inout Set<UUID>) {
+        let selectedData = self.keymappingSources.filter({ selected.contains($0.id) })
+        var index = self.keymappingSources.firstIndex(of: selectedData.first!)! + 1
+        self.keymappingSources.removeAll(where: { selected.contains($0.id) })
+        if index > self.keymappingSources.endIndex {
+            index = self.keymappingSources.endIndex
+        }
+        self.keymappingSources.insert(contentsOf: selectedData, at: index)
+    }
+
+    func appendSourceData(_ data: SourceData) {
+        if sources.contains(where: { $0.source == data.source }) {
             Log.shared.error("This URL already exists!")
             return
         }
 
-        if source == sources || source == nil {
-            self.sources.append(data)
-        } else if source == keymappingSources {
-            self.keymappingSources.append(data)
+        self.sources.append(data)
+        self.resolveSources()
+    }
+    
+    func appendKeymappingSourceData(_ data: SourceData) {
+        if keymappingSources.contains(where: { $0.source == data.source }) {
+            Log.shared.error("This URL already exists!")
+            return
         }
+
+        self.keymappingSources.append(data)
         self.resolveSources()
     }
 

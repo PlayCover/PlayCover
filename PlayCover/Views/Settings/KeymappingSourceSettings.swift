@@ -31,7 +31,7 @@ struct KeymappingSourceSettings: View {
                             .frame(width: 130)
                     })
                     Button(action: {
-                        storeVM.deleteSource(&selected, source: storeVM.keymappingSources)
+                        storeVM.deleteKeymappingSource(&selected)
                     }, label: {
                         Text("preferences.button.deleteSource")
                             .frame(width: 130)
@@ -40,14 +40,14 @@ struct KeymappingSourceSettings: View {
                     Spacer()
                         .frame(height: 20)
                     Button(action: {
-                        storeVM.moveSourceUp(&selected, source: storeVM.keymappingSources)
+                        storeVM.moveKeymappingSourceUp(&selected)
                     }, label: {
                         Text("preferences.button.moveSourceUp")
                             .frame(width: 130)
                     })
                     .disabled(!selectedNotEmpty)
                     Button(action: {
-                        storeVM.moveSourceDown(&selected, source: storeVM.keymappingSources)
+                        storeVM.moveKeymappingSourceDown(&selected)
                     }, label: {
                         Text("preferences.button.moveSourceDown")
                             .frame(width: 130)
@@ -116,9 +116,8 @@ struct AddKeymappingSourceView: View {
                 })
                 Button(action: {
                     if newSourceURL != nil {
-                        storeVM.appendSourceData(
-                            SourceData(source: newSourceURL!.absoluteString),
-                            source: storeVM.keymappingSources
+                        storeVM.appendKeymappingSourceData(
+                            SourceData(source: newSourceURL!.absoluteString)
                         )
                         addSourceSheet.toggle()
                     }
