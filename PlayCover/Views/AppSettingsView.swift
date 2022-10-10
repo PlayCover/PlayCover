@@ -200,6 +200,8 @@ struct KeymappingView: View {
 
     // Check if the game selected is in keymaps repository
     func isInKeymaps() async {
+        fetchedKeymaps = []
+
         if storeVM.keymappingSources.isEmpty {
             hasKeymapping = false
             return
@@ -226,14 +228,16 @@ struct KeymappingView: View {
 
                     // Get keymapping data and store it
                     let (data, _) = try await URLSession.shared.data(from: URL(string: fetchedKeymapsFolder!.url)!)
-                    let decodedResponse = try decoder.decode([KeymapInfo].self, from: data)
-                    fetchedKeymaps = decodedResponse.filter {
-                        $0.name.contains(".playmap")
-                    }
+                    let decodedKeymaps = try decoder.decode([KeymapInfo].self, from: data)
 
-                    return
+                    for keymap in decodedKeymaps where keymap.name.contains(".playmap") {
+                        fetchedKeymaps.append(keymap)
+                    }
                 }
 
+                if hasKeymapping! {
+                    continue
+                }
                 hasKeymapping = false
             } catch {
                 print(error)
