@@ -139,12 +139,20 @@ struct KeymappingView: View {
                                 Text(settings.info.bundleName)
                                     .font(.headline)
                                 Picker("", selection: $keymapSelection) {
-                                    ForEach(fetchedKeymaps, id: \.self) {
-                                        Text($0.name.replacingOccurrences(of: ".playmap", with: "")).tag($0.name)
+                                    ForEach(fetchedKeymaps, id: \.self) { keymap in
+                                        Group {
+                                            Text(keymap.name.replacingOccurrences(of: ".playmap", with: "") + " ")
+                                            +
+                                            Text(getRepoName(keymap.downloadUrl))
+                                                .font(.footnote)
+                                        }
+                                        .tag(keymap.downloadUrl)
                                     }
                                 }
+
                                 Link("playapp.download.info", destination: URL(string: fetchedKeymapsFolder!.htmlUrl)!)
                                 Divider()
+
                                 HStack(alignment: .center) {
                                     Button("button.Cancel", role: .cancel) {
                                         dismiss()
@@ -278,6 +286,18 @@ struct KeymappingView: View {
 
             Log.shared.error(error)
         }
+    }
+
+    func getRepoName(_ downloadLink: String) -> String {
+        var downloadLink = downloadLink
+
+        if let reposRange = downloadLink.range(of: "https://raw.githubusercontent.com/") {
+            downloadLink.removeSubrange(downloadLink.startIndex..<reposRange.upperBound)
+        }
+
+        var sourceComponents = downloadLink.components(separatedBy: "/")
+
+        return "\(sourceComponents[0])/\(sourceComponents[1]) (\(sourceComponents[2]))"
     }
 }
 
