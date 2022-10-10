@@ -201,6 +201,12 @@ class StoreVM: ObservableObject {
     }
 
     func appendSourceData(_ data: SourceData, source: [SourceData]? = nil) {
+        if sources.contains(where: { $0.source == data.source }) ||
+            source!.contains(where: { $0.source == data.source }) {
+            Log.shared.error("This URL already exists!")
+            return
+        }
+
         if source == sources || source == nil {
             self.sources.append(data)
         } else if source == keymappingSources {
