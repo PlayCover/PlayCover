@@ -165,7 +165,7 @@ struct PlayAppView: View {
                 Text(String(format: NSLocalizedString("playapp.deleteMessage", comment: ""), arguments: [app.name]))
             })
     }
-    
+
     func removeTwitterSessionCookie() {
         do {
             let cookieURL = FileManager.default.homeDirectoryForCurrentUser
