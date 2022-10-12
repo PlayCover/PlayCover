@@ -223,12 +223,6 @@ class PlayTools {
             try binPath("install_name_tool")
         }
     }
-
-    private static var ldid: URL {
-        get throws {
-            try binPath("ldid")
-        }
-    }
 }
 
 extension URL {

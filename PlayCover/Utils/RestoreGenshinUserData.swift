@@ -14,40 +14,55 @@ func restoreUserData(folderName: String, app: PlayApp) {
     let kibanaReportArrayKeyEncrypt = "MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption"
     let lastAccountModelEncrypt = "MIHOYO_LAST_ACCOUNT_MODEL_Encryption"
 
-    let gameDataPath = NSHomeDirectory() + "/Library/Containers/\(bundleID)/Data/Documents/"
-    let storePath = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/Storage/" + folderName + "/"
+    let gameDataPath = FileManager.default.homeDirectoryForCurrentUser
+        .appendingPathComponent("Library")
+        .appendingPathComponent("Containers")
+        .appendingPathComponent(bundleID)
+        .appendingPathComponent("Data")
+        .appendingPathComponent("Documents")
+    
+    let storePath = FileManager.default.homeDirectoryForCurrentUser
+        .appendingPathComponent("Library")
+        .appendingPathComponent("Containers")
+        .appendingPathComponent("io.playcover.PlayCover")
+        .appendingPathComponent("Storage")
+        .appendingPathComponent(folderName)
 
-    let accountInfoPlistEncryptUrl =
-        URL(fileURLWithPath: gameDataPath + accountInfoPlistEncrypt)
-    let kibanaReportArrayKeyEncryptUrl =
-        URL(fileURLWithPath: gameDataPath + kibanaReportArrayKeyEncrypt)
-    let lastAccountModelEncryptUrl =
-        URL(fileURLWithPath: gameDataPath + lastAccountModelEncrypt)
+    let accountInfoPlistEncryptUrl = gameDataPath
+        .appendingPathComponent(accountInfoPlistEncrypt)
+    let kibanaReportArrayKeyEncryptUrl = gameDataPath
+        .appendingPathComponent(kibanaReportArrayKeyEncrypt)
+    let lastAccountModelEncryptUrl = gameDataPath
+        .appendingPathComponent(lastAccountModelEncrypt)
 
-    let fileManager = FileManager.default
-
-    // remove existent user data from genshin impact
+    // Remove existent user data from genshin impact
 
     do {
-        try fileManager.removeItem(at: accountInfoPlistEncryptUrl )
-        try fileManager.removeItem(at: kibanaReportArrayKeyEncryptUrl)
-        try fileManager.removeItem(at: lastAccountModelEncryptUrl)
+        try FileManager.default.removeItem(at: accountInfoPlistEncryptUrl )
+        try FileManager.default.removeItem(at: kibanaReportArrayKeyEncryptUrl)
+        try FileManager.default.removeItem(at: lastAccountModelEncryptUrl)
     } catch {
         Log.shared.log("Error removing file: \(error)")
     }
 
-    // move data from StorePath to  GameDataPath
+    // Move data from StorePath to  GameDataPath
     do {
-        try fileManager.copyItem(at: URL(fileURLWithPath: storePath + accountInfoPlistEncrypt),
-                                 to: accountInfoPlistEncryptUrl)
+        try FileManager.default.copyItem(at: storePath
+                                             .appendingPathComponent(accountInfoPlistEncrypt),
+                                         to: accountInfoPlistEncryptUrl)
 
-        try fileManager.copyItem(at: URL(fileURLWithPath: storePath + kibanaReportArrayKeyEncrypt),
-                                 to: kibanaReportArrayKeyEncryptUrl)
+        try FileManager.default.copyItem(at: storePath
+                                             .appendingPathComponent(kibanaReportArrayKeyEncrypt),
+                                         to: kibanaReportArrayKeyEncryptUrl)
 
-        try fileManager.copyItem(at: URL(fileURLWithPath: storePath + lastAccountModelEncrypt),
-                                 to: lastAccountModelEncryptUrl)
+        try FileManager.default.copyItem(at: storePath
+                                             .appendingPathComponent(lastAccountModelEncrypt),
+                                         to: lastAccountModelEncryptUrl)
         if isGlobalVersion {
-            let region = try String(contentsOf: URL(fileURLWithPath: storePath + "region.txt"), encoding: .utf8)
+            let region = try String(contentsOf: storePath
+                                                .appendingPathComponent("region")
+                                                .appendingPathExtension("txt"),
+                                    encoding: .utf8)
             modifyPlist(newRegion: region)
         }
     } catch {
@@ -57,11 +72,18 @@ func restoreUserData(folderName: String, app: PlayApp) {
 
 func modifyPlist(newRegion: String) {
     do {
-        // path of plist file
-        let staticUrl = "/Library/Containers/com.miHoYo.GenshinImpact/" +
-            "Data/Library/Preferences/com.miHoYo.GenshinImpact.plist"
-        let url = URL(fileURLWithPath: NSHomeDirectory() + staticUrl )
-        // read plist file
+        // Path of plist file
+        let url = FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent("Library")
+            .appendingPathComponent("Containers")
+            .appendingPathComponent("com.miHoYo.GenshinImpact")
+            .appendingPathComponent("Data")
+            .appendingPathComponent("Library")
+            .appendingPathComponent("Preferences")
+            .appendingPathComponent("com.miHoYo.GenshinImpact")
+            .appendingPathExtension("plist")
+
+        // Read plist file
         let data = try Data(contentsOf: url)
 
         guard var plist = try PropertyListSerialization.propertyList(from: data, options: [], format: nil)
@@ -69,7 +91,7 @@ func modifyPlist(newRegion: String) {
 
         guard let GENERAL_DATA = plist["GENERAL_DATA"] as? String else { throw PlayCoverError.noGenshinAccount }
         var modifiedValue = GENERAL_DATA
-        // modified GENERAL_DATA
+        // Modified GENERAL_DATA
         let regions = ["os_usa", "os_euro", "os_asia", "os_cht"]
 
         for region in regions {
@@ -79,10 +101,10 @@ func modifyPlist(newRegion: String) {
                                                               range: nil)
         }
 
-        // write modified value to GENERAL_DATA key of plist
+        // Write modified value to GENERAL_DATA key of plist
         plist["GENERAL_DATA"] = modifiedValue
 
-        // write plist to file
+        // Write plist to file
         let plistData = try PropertyListSerialization.data(fromPropertyList: plist,
                                                            format: .xml,
                                                            options: 0)
@@ -93,10 +115,15 @@ func modifyPlist(newRegion: String) {
 }
 
 func getAccountList () -> [String] {
-    let storePath = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/Storage/"
+    let storePath = FileManager.default.homeDirectoryForCurrentUser
+        .appendingPathComponent("Library")
+        .appendingPathComponent("Containers")
+        .appendingPathComponent("io.playcover.PlayCover")
+        .appendingPathComponent("Storage")
+
     var accountStored: [String]
     do {
-        accountStored = try FileManager.default.contentsOfDirectory(atPath: storePath)
+        accountStored = try FileManager.default.contentsOfDirectory(atPath: storePath.path)
     } catch {
         accountStored = []
     }

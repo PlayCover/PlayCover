@@ -8,68 +8,88 @@
 import Foundation
 import SwiftUI
 
-func storeUserData( folderName: String, accountRegion: String, app: PlayApp ) {
-        let bundleID = app.info.bundleIdentifier
-        let isGlobalVersion = bundleID == "com.miHoYo.GenshinImpact"
-        let accountInfoPlistEncrypt = "MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption"
-        let kibanaReportArrayKeyEncrypt = "MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption"
-        let lastAccountModelEncrypt = "MIHOYO_LAST_ACCOUNT_MODEL_Encryption"
+func storeUserData(folderName: String, accountRegion: String, app: PlayApp) {
+    let bundleID = app.info.bundleIdentifier
+    let isGlobalVersion = bundleID == "com.miHoYo.GenshinImpact"
+    let accountInfoPlistEncrypt = "MIHOYO_ACCOUNT_INFO_PLIST_2_Encryption"
+    let kibanaReportArrayKeyEncrypt = "MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption"
+    let lastAccountModelEncrypt = "MIHOYO_LAST_ACCOUNT_MODEL_Encryption"
 
-        // get Path URL and create a folder with the content of uidInfo.txt
-        let gameDataPath = NSHomeDirectory() + "/Library/Containers/\(bundleID)/Data/Documents/"
+    // Get path URL and create a folder with the content of uidInfo.txt
+    let gameDataPath = FileManager.default.homeDirectoryForCurrentUser
+        .appendingPathComponent("Library")
+        .appendingPathComponent("Containers")
+        .appendingPathComponent(bundleID)
+        .appendingPathComponent("Data")
+        .appendingPathComponent("Documents")
 
-        // Path to the folder where the data will be stored check if exists and if not create it
-        let store = NSHomeDirectory() + "/Library/Containers/io.playcover.PlayCover/Storage/"
-        let storePath = isGlobalVersion
-                        ? store + folderName + "/"
-                        : store + "Yuanshen " + folderName + "/"
+    // Path to the folder where the data will be stored check if exists and if not create it
+    let store = FileManager.default.homeDirectoryForCurrentUser
+        .appendingPathComponent("Library")
+        .appendingPathComponent("Containers")
+        .appendingPathComponent("io.playcover.PlayCover")
+        .appendingPathComponent("Storage")
+    let storePath = isGlobalVersion
+                    ? store.appendingPathComponent(folderName)
+                    : store.appendingPathComponent("Yuanshen \(folderName)")
 
-        // Data to move from GameDataPath to StorePath
-        let accountInfoPlistEncryptUrl =
-            URL(fileURLWithPath: gameDataPath + accountInfoPlistEncrypt)
-        let kibanaReportArrayKeyEncryptUrl =
-            URL(fileURLWithPath: gameDataPath + kibanaReportArrayKeyEncrypt)
-        let lastAccountModelEncryptUrl =
-            URL(fileURLWithPath: gameDataPath + lastAccountModelEncrypt)
+    // Data to move from GameDataPath to StorePath
+    let accountInfoPlistEncryptUrl = gameDataPath
+        .appendingPathComponent(accountInfoPlistEncrypt)
+    let kibanaReportArrayKeyEncryptUrl = gameDataPath
+        .appendingPathComponent(kibanaReportArrayKeyEncrypt)
+    let lastAccountModelEncryptUrl = gameDataPath
+        .appendingPathComponent(lastAccountModelEncrypt)
 
-        // create folder using StorePath
-        let fileManager = FileManager.default
-
-        if !fileManager.fileExists(atPath: store) {
-            do {
-                try fileManager.createDirectory(atPath: store, withIntermediateDirectories: false, attributes: nil)
-                try fileManager.createDirectory(atPath: storePath, withIntermediateDirectories: false, attributes: nil)
-            } catch {
-                Log.shared.error("Error creating store directory: \(error)")
-            }
-        } else {
-            do {
-                try fileManager.createDirectory(atPath: storePath, withIntermediateDirectories: false, attributes: nil)
-            } catch {
-                Log.shared.error("Error creating game directory: \(error)")
-            }
-        }
-
-        // move data from GameDataPath to StorePath
+    if !FileManager.default.fileExists(atPath: store.path) {
         do {
-            try fileManager.copyItem(at: accountInfoPlistEncryptUrl,
-                                     to: URL(fileURLWithPath: storePath + accountInfoPlistEncrypt))
+            try FileManager.default.createDirectory(atPath: store.path,
+                                                    withIntermediateDirectories: false,
+                                                    attributes: nil)
+            try FileManager.default.createDirectory(atPath: storePath.path,
+                                                    withIntermediateDirectories: false,
+                                                    attributes: nil)
+        } catch {
+            Log.shared.error("Error creating store directory: \(error)")
+        }
+    } else {
+        do {
+            try FileManager.default.createDirectory(atPath: storePath.path,
+                                                    withIntermediateDirectories: false,
+                                                    attributes: nil)
+        } catch {
+            Log.shared.error("Error creating game directory: \(error)")
+        }
+    }
 
-            try fileManager.copyItem(at: kibanaReportArrayKeyEncryptUrl,
-                                     to: URL(fileURLWithPath: storePath + kibanaReportArrayKeyEncrypt))
+    // Move data from GameDataPath to StorePath
+    do {
+        try FileManager.default.copyItem(at: accountInfoPlistEncryptUrl,
+                                         to: storePath.appendingPathComponent(accountInfoPlistEncrypt))
 
-            try fileManager.copyItem(at: lastAccountModelEncryptUrl,
-                                     to: URL(fileURLWithPath: storePath + lastAccountModelEncrypt))
-            if isGlobalVersion {
-                fileManager.createFile(atPath: storePath + "region.txt", contents: nil, attributes: nil)
-                try accountRegion.write(to: URL(fileURLWithPath: storePath + "region.txt"),
-                                        atomically: false, encoding: .utf8)
-            }
-        } catch { Log.shared.error("Error moving file: \(error)") }
+        try FileManager.default.copyItem(at: kibanaReportArrayKeyEncryptUrl,
+                                         to: storePath.appendingPathComponent(kibanaReportArrayKeyEncrypt))
 
+        try FileManager.default.copyItem(at: lastAccountModelEncryptUrl,
+                                         to: storePath.appendingPathComponent(lastAccountModelEncrypt))
+        if isGlobalVersion {
+            FileManager.default.createFile(atPath: storePath
+                                                   .appendingPathComponent("region")
+                                                   .appendingPathExtension("txt").path,
+                                           contents: nil,
+                                           attributes: nil)
+            try accountRegion.write(to: storePath
+                                        .appendingPathComponent("region")
+                                        .appendingPathExtension("txt"),
+                                    atomically: false,
+                                    encoding: .utf8)
+        }
+    } catch {
+        Log.shared.error("Error moving file: \(error)")
+    }
 }
 
-func checkCurrentRegion (selectedRegion: String) throws -> Bool {
+func checkCurrentRegion(selectedRegion: String) throws -> Bool {
     let regionName: String
 
     if selectedRegion == "America" {
@@ -82,11 +102,18 @@ func checkCurrentRegion (selectedRegion: String) throws -> Bool {
         regionName = "os_cht"
     }
 
-    // plist path
-    let url = URL(fileURLWithPath: NSHomeDirectory() + "/Library/Containers/com.miHoYo.GenshinImpact/" +
-                  "Data/Library/Preferences/com.miHoYo.GenshinImpact.plist")
+    // Path of plist file
+    let url = FileManager.default.homeDirectoryForCurrentUser
+        .appendingPathComponent("Library")
+        .appendingPathComponent("Containers")
+        .appendingPathComponent("com.miHoYo.GenshinImpact")
+        .appendingPathComponent("Data")
+        .appendingPathComponent("Library")
+        .appendingPathComponent("Preferences")
+        .appendingPathComponent("com.miHoYo.GenshinImpact")
+        .appendingPathExtension("plist")
 
-    // read plist file
+    // Read plist file
     let data = try Data(contentsOf: url)
 
     guard let plist = try PropertyListSerialization
@@ -97,9 +124,9 @@ func checkCurrentRegion (selectedRegion: String) throws -> Bool {
 
     // Check if selected region is in the region of the plist
     // "The current account is set to a different server, enter the game"
-        if value.contains(regionName) {
-            return true
-        } else {
-            return false
-        }
+    if value.contains(regionName) {
+        return true
+    } else {
+        return false
+    }
 }
