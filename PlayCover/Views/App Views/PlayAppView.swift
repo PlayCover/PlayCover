@@ -33,7 +33,7 @@ struct PlayAppView: View {
                                app: app,
                                isList: isList)
             .gesture(TapGesture(count: 2).onEnded {
-                if (app.info.bundleIdentifier == "com.miHoYo.GenshinImpact") {
+                if app.info.bundleIdentifier == "com.miHoYo.GenshinImpact" {
                     removeTwitterSessionCookie()
                 }
                 app.launch()
