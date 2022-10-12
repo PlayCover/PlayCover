@@ -30,7 +30,9 @@ class AppsVM: ObservableObject {
 
                 for sub in subdirs {
                     if sub.pathExtension.contains("app") &&
-                        FileManager.default.fileExists(atPath: sub.appendingPathComponent("Info.plist").path) {
+                        FileManager.default.fileExists(atPath: sub.appendingPathComponent("Info")
+                                                                  .appendingPathExtension("plist")
+                                                                  .path) {
                         let app = PlayApp(appUrl: sub)
                         if let container = containers[app.info.bundleIdentifier] {
                             app.container = container
@@ -55,5 +57,4 @@ class AppsVM: ObservableObject {
             }
         }
     }
-
 }

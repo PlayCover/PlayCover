@@ -18,11 +18,14 @@ public class BaseApp {
     }
 
     public var entitlements: URL {
-        Entitlements.playCoverEntitlementsDir.appendingPathComponent("\(info.bundleIdentifier).plist")
+        Entitlements.playCoverEntitlementsDir
+            .appendingPathComponent(info.bundleIdentifier)
+            .appendingPathExtension("plist")
     }
 
     init(appUrl: URL) {
         url = appUrl
-        info = AppInfo(contentsOf: url.appendingPathComponent("Info.plist"))
+        info = AppInfo(contentsOf: url.appendingPathComponent("Info")
+                                      .appendingPathExtension("plist"))
     }
 }
