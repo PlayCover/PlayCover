@@ -62,6 +62,7 @@
 "playapp.install.addToLib" = "Adding app to library...";
 "playapp.install.copy" = "Copying app...";
 "playapp.install.finished" = "Finished";
+"playapp.install.failed" = "Failed";
 
 "alert.appCacheCleared" = "App data has been cleared!";
 "alert.kmImported" = "Keymapping imported!";

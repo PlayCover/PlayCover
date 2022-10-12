@@ -12,7 +12,8 @@ enum InstallStepsNative: String {
          sign = "playapp.install.signing",
          library = "playapp.install.addToLib",
          begin = "playapp.install.copy",
-         finish = "playapp.install.finished"
+         finish = "playapp.install.finished",
+         failed = "playapp.install.failed"
 }
 
 class InstallVM: ObservableObject {

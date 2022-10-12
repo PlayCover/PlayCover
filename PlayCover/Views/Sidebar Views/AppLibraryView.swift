@@ -156,7 +156,7 @@ struct AppLibraryView: View {
     }
 
     private func installApp() {
-        Installer.install(ipaUrl: uif.ipaUrl!, returnCompletion: { _ in
+        Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
             DispatchQueue.main.async {
                 appsVM.fetchApps()
                 NotifyService.shared.notify(

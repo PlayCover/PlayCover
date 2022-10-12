@@ -76,7 +76,7 @@ struct StoreAppView: View {
                     .appendingPathExtension("ipa")
                 try FileManager.default.moveItem(at: url, to: tmpDir)
                 uif.ipaUrl = tmpDir
-                Installer.install(ipaUrl: uif.ipaUrl!, returnCompletion: { _ in
+                Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
                     DispatchQueue.main.async {
                         AppsVM.shared.fetchApps()
                         NotifyService.shared.notify(
