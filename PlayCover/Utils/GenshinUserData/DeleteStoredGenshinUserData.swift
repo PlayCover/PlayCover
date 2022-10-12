@@ -8,12 +8,7 @@
 import Foundation
 
 func deleteStoredAccount(folderName: String) {
-    let folderPath = FileManager.default.homeDirectoryForCurrentUser
-        .appendingPathComponent("Library")
-        .appendingPathComponent("Containers")
-        .appendingPathComponent("io.playcover.PlayCover")
-        .appendingPathComponent("Storage")
-        .appendingPathComponent(folderName)
+    let folderPath = GenshinUserDataURLs.getStorePath(folderName: folderName)
 
     do {
         try FileManager.default.removeItem(atPath: folderPath.path)
