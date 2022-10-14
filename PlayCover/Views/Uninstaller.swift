@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+struct CheckBoxHelper {
+    var view: NSView
+    var button: NSButton
+    var buttonvar: String
+}
+
 class Uninstaller {
     private static let libraryUrl = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library")
     private static let pruneURLs: [URL] = [
@@ -22,10 +28,10 @@ class Uninstaller {
         Uninstaller.libraryUrl.appendingPathComponent("Saved Application State")
     ]
 
-    private static func createButtonView(_ yaxis: CGFloat, _ text: String, _ state: Bool) -> (NSView, NSButton) {
+    private static func createButtonView(_ yaxis: CGFloat, _ text: String, _ varname: String) -> CheckBoxHelper {
         let button = NSButton(checkboxWithTitle: text, target: self, action: nil)
 
-        if state {
+        if UninstallPreferences.shared.value(forKey: varname) as? Bool ?? true {
             button.animator().setNextState()
         }
 
@@ -35,35 +41,33 @@ class Uninstaller {
 
         view.addSubview(button)
 
-        return (view, button)
+        return CheckBoxHelper(view: view, button: button, buttonvar: varname)
     }
 
     static func uninstallPopup(_ app: PlayApp) {
-        if UninstallSettings.shared.showUninstallPopup {
-            let boxmakers: [String] = [
-                NSLocalizedString("alert.uninstall.removeEntitlements", comment: ""),
-                NSLocalizedString("alert.uninstall.removeSetting", comment: ""),
-                NSLocalizedString("alert.uninstall.removeKeymap", comment: ""),
-                NSLocalizedString("alert.uninstall.clearAppData", comment: "")
+        if UninstallPreferences.shared.showUninstallPopup {
+            let boxmakers: [(String, String)] = [
+                ("removeAppEntitlements", NSLocalizedString("alert.uninstall.removeEntitlements", comment: "")),
+                ("removeAppSettings", NSLocalizedString("alert.uninstall.removeSetting", comment: "")),
+                ("removeAppKeymap", NSLocalizedString("alert.uninstall.removeKeymap", comment: "")),
+                ("clearAppData", NSLocalizedString("alert.uninstall.clearAppData", comment: ""))
             ]
 
-            var checkboxes: [(NSView, NSButton)] = []
+            var checkboxes: [CheckBoxHelper] = []
 
             var viewY = 0.0
 
-            for buttontitle in boxmakers {
-                checkboxes.append(
-                    createButtonView(viewY, buttontitle, UninstallSettings.shared.getSettings(buttontitle) ?? false)
-                )
-                viewY += checkboxes[checkboxes.count - 1].0.frame.height
+            for (buttonvar, buttontitle) in boxmakers {
+                checkboxes.append(createButtonView(viewY, buttontitle, buttonvar))
+                viewY += checkboxes[checkboxes.count - 1].view.frame.height
             }
 
-            let viewWidth = checkboxes.max(by: { $0.0.frame.width < $1.0.frame.width })?.0.frame.width
+            let viewWidth = checkboxes.max(by: { $0.view.frame.width < $1.view.frame.width })?.view.frame.width
 
             let settingsView = NSStackView(frame: NSRect(x: 0, y: 0, width: viewWidth!, height: viewY))
 
-            for (view, _) in checkboxes {
-                settingsView.addSubview(view)
+            for checkboxhelper in checkboxes {
+                settingsView.addSubview(checkboxhelper.view)
             }
 
             let alert = NSAlert()
@@ -86,12 +90,13 @@ class Uninstaller {
             let response = alert.runModal()
 
             if response == .alertFirstButtonReturn {
-                for (_, button) in checkboxes {
-                    UninstallSettings.shared.setSettings(button.title, button.state == .on)
+                for checkboxhelper in checkboxes {
+                    UninstallPreferences.shared.setValue(checkboxhelper.button.state == .on,
+                                                         forKey: checkboxhelper.buttonvar)
                 }
 
                 if alert.suppressionButton?.state == .on {
-                    UninstallSettings.shared.showUninstallPopup = false
+                    UninstallPreferences.shared.showUninstallPopup = false
                 }
 
                 uninstall(app)
@@ -102,20 +107,20 @@ class Uninstaller {
     }
 
     static func uninstall(_ app: PlayApp) {
-        if UninstallSettings.shared.clearAppDataUninstall {
+        if UninstallPreferences.shared.clearAppData {
             app.clearAllCache()
         }
 
         do {
-            if UninstallSettings.shared.removeAppKeymapUninstall {
+            if UninstallPreferences.shared.removeAppKeymap {
                 try FileManager.default.delete(at: app.keymapping.keymapURL)
             }
 
-            if UninstallSettings.shared.removeAppSettingUninstall {
+            if UninstallPreferences.shared.removeAppSettings {
                 try FileManager.default.delete(at: app.settings.settingsUrl)
             }
 
-            if UninstallSettings.shared.removeAppEntitlementsUninstall {
+            if UninstallPreferences.shared.removeAppEntitlements {
                 try FileManager.default.delete(at: app.entitlements)
             }
         } catch {
