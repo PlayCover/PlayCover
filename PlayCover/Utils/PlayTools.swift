@@ -9,12 +9,12 @@ class PlayTools {
     private static let frameworksURL = FileManager.default.homeDirectoryForCurrentUser
         .appendingPathComponent("Library")
         .appendingPathComponent("Frameworks")
-    private static let playToolsFramwework = frameworksURL
+    private static let playToolsFramework = frameworksURL
         .appendingPathComponent("PlayTools")
         .appendingPathExtension("framework")
-    private static let playToolsPath = playToolsFramwework
+    private static let playToolsPath = playToolsFramework
         .appendingPathComponent("PlayTools")
-    private static let akInterfacePath = playToolsFramwework
+    private static let akInterfacePath = playToolsFramework
         .appendingPathComponent("PlugIns")
         .appendingPathComponent("AKInterface")
         .appendingPathExtension("bundle")
@@ -56,16 +56,16 @@ class PlayTools {
                 }
 
                 // Check if a version of PlayTools is already installed, if so remove it
-                if FileManager.default.fileExists(atPath: playToolsFramwework.path) {
-                    try FileManager.default.delete(at: URL(fileURLWithPath: playToolsFramwework.path))
+                if FileManager.default.fileExists(atPath: playToolsFramework.path) {
+                    try FileManager.default.delete(at: URL(fileURLWithPath: playToolsFramework.path))
                 }
 
                 // Install version of PlayTools bundled with PlayCover
                 Log.shared.log("Copying PlayTools to Frameworks")
-                if FileManager.default.fileExists(atPath: playToolsFramwework.path) {
-                    try FileManager.default.removeItem(at: playToolsFramwework)
+                if FileManager.default.fileExists(atPath: playToolsFramework.path) {
+                    try FileManager.default.removeItem(at: playToolsFramework)
                 }
-                try FileManager.default.copyItem(at: bundledPlayToolsFramework, to: playToolsFramwework)
+                try FileManager.default.copyItem(at: bundledPlayToolsFramework, to: playToolsFramework)
             } catch {
                 Log.shared.error(error)
             }
@@ -156,6 +156,46 @@ class PlayTools {
         }
     }
 
+    static func installInApp(_ exec: URL, _ bundleID: String? = nil) {
+        do {
+            patch_binary_with_dylib(exec.path, playToolsPath.path)
+            try installPluginInIPA(exec.deletingLastPathComponent())
+            shell.signApp(exec)
+
+            if let bundleID {
+                PlayToolSettings.shared.modify(bundleID, true)
+            }
+        } catch {
+            Log.shared.error(error)
+        }
+    }
+
+    static func removeFromApp(_ exec: URL, _ bundleID: String? = nil) {
+        do {
+            remove_play_tools_from(exec.path, playToolsPath.path)
+
+            let pluginsURL = exec.appendingPathComponent("PlugIns")
+
+            let bundleTarget = pluginsURL
+                .appendingPathComponent("AKInterface")
+                .appendingPathExtension("bundle")
+
+            if FileManager.default.fileExists(atPath: bundleTarget.path) {
+                try FileManager.default.removeItem(at: bundleTarget)
+            }
+
+            Shell.codesign(bundleTarget)
+
+            shell.signApp(exec)
+
+            if let bundleID {
+                PlayToolSettings.shared.modify(bundleID, false)
+            }
+        } catch {
+            Log.shared.error(error)
+        }
+    }
+
     static func convertMacho(_ macho: URL) throws {
         Log.shared.log("Converting \(macho.lastPathComponent) binary")
         try shell.shello(
@@ -170,6 +210,14 @@ class PlayTools {
         let otoolOutput = try shell.shello(otool.path, "-l", url.path).components(separatedBy: "Load command")
         // Check specifically for encryption info on the 64 bit block
         for block in otoolOutput where (block.contains("LC_ENCRYPTION_INFO_64") && block.contains("cryptid 1")) {
+            return true
+        }
+        return false
+    }
+
+    static func installedInExec(atURL url: URL) throws -> Bool {
+        let loads = try shell.shello(otool.path, "-l", url.path).components(separatedBy: "Load command")
+        for block in loads where (block.contains("LC_LOAD_DYLIB") && block.contains(playToolsPath.esc)) {
             return true
         }
         return false
