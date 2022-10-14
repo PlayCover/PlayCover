@@ -52,6 +52,8 @@ class Installer {
                     try PlayTools.installInIPA(app.executable, app.url, resign: true)
                 }
 
+                PlayToolSettings.shared.add(app.info.bundleIdentifier, installPlayTools)
+
                 for macho in machos {
                     if try PlayTools.isMachoEncrypted(atURL: macho) {
                         throw PlayCoverError.appEncrypted

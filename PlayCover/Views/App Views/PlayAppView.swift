@@ -123,7 +123,6 @@ struct PlayAppView: View {
             }
             .alert("alert.app.delete", isPresented: $showClearCacheAlert) {
                 Button("button.Proceed", role: .cancel) {
-                    app.clearAllCache()
                     showClearCacheToast.toggle()
                 }
                 Button("button.Cancel", role: .cancel) { }
@@ -155,6 +154,8 @@ struct PlayAppView: View {
             }
             .alert("playapp.delete", isPresented: $showDeleteConfirmation, actions: {
                 Button("playapp.deleteConfirm", role: .destructive) {
+                    PlayToolSettings.shared.remove(app.info.bundleIdentifier)
+                    app.clearAllCache()
                     app.deleteApp()
                 }
                 Button("button.Cancel", role: .cancel) {
@@ -176,6 +177,7 @@ struct PlayAppConditionalView: View {
     @State var isList: Bool
 
     var body: some View {
+        let hasPlayTools = PlayToolSettings.shared.get(app.info.bundleIdentifier) ?? true
         if isList {
             HStack(alignment: .center, spacing: 0) {
                 if let img = app.icon {
@@ -195,6 +197,12 @@ struct PlayAppConditionalView: View {
                 Text(app.name)
                     .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
                                      selectedTextColor : Color.primary)
+
+                if !hasPlayTools {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .padding(.horizontal, 4)
+                }
+
                 Spacer()
                 Text(app.settings.info.bundleVersion)
                     .padding(.horizontal, 15)
@@ -222,20 +230,27 @@ struct PlayAppConditionalView: View {
                             .progressViewStyle(.circular)
                             .frame(width: 60, height: 60)
                     }
-                    Text(app.name)
-                        .lineLimit(1)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 4)
-                        .padding(.vertical, 2)
-                        .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                         selectedTextColor : Color.primary)
-                        .background(
-                            RoundedRectangle(cornerRadius: 4)
-                                .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                      selectedBackgroundColor : Color.clear)
-                                .brightness(-0.2)
-                            )
-                        .frame(width: 130, height: 20)
+                    HStack {
+                        Text(app.name)
+                            .lineLimit(1)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 4)
+                            .padding(.vertical, 2)
+                            .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                             selectedTextColor : Color.primary)
+                            .background(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                          selectedBackgroundColor : Color.clear)
+                                    .brightness(-0.2)
+                                )
+                            .fixedSize()
+
+                        if !hasPlayTools {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .padding(.vertical, 2)
+                        }
+                    }
                 }
             }
             .frame(width: 130, height: 130)
