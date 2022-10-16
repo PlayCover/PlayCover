@@ -179,9 +179,11 @@ struct PlayAppView: View {
                 .appendingPathComponent("Cookies")
                 .appendingPathComponent("Cookies")
                 .appendingPathExtension("binarycookies")
-            try FileManager.default.removeItem(at: cookieURL)
+            if FileManager.default.fileExists(atPath: cookieURL.path) {
+                try FileManager.default.removeItem(at: cookieURL)
+            }
         } catch {
-            Log.shared.error(error)
+            print("Error when attempting to remove Twitter session cookie: \(error)")
         }
     }
 }
