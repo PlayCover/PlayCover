@@ -95,6 +95,10 @@ struct PlayCoverViewMenuView: Commands {
                 StoreVM.shared.resolveSources()
             }
             .keyboardShortcut("R", modifiers: [.command])
+            Button("menubar.clearCache") {
+                ImageCache.clearCache()
+            }
+            .keyboardShortcut("R", modifiers: [.command, .shift])
             Divider()
         }
     }
