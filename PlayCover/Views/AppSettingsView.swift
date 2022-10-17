@@ -13,10 +13,9 @@ struct AppSettingsView: View {
 
     @ObservedObject var viewModel: AppSettingsVM
 
-    @Binding var iconURL: URL?
-
     @State var resetSettingsCompletedAlert = false
     @State var resetKmCompletedAlert = false
+    @State var iconURL: URL?
 
     var body: some View {
         VStack {
@@ -39,6 +38,12 @@ struct AppSettingsView: View {
                     .multilineTextAlignment(.leading)
                 Spacer()
             }
+            .task(priority: .userInitiated) {
+                iconURL = ImageCache.getLocalImageURL(bundleID: viewModel.app.info.bundleIdentifier,
+                                                      bundleURL: viewModel.app.url,
+                                                      primaryIconName: viewModel.app.info.primaryIconName)
+            }
+
             TabView {
                 KeymappingView(settings: $viewModel.settings)
                     .tabItem {
