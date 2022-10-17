@@ -18,27 +18,6 @@ class ImageCache {
 
         var bestResImage: NSImage?
 
-        do {
-            let items = try FileManager.default.contentsOfDirectory(at: bundleURL, includingPropertiesForKeys: nil)
-
-            for item in items where item.path.contains(primaryIconName) {
-                do {
-                    print(item.path)
-                    if let image = NSImage(data: try Data(contentsOf: item)) {
-                        if checkImageDimensions(image, bestResImage) {
-                            bestResImage = image
-                        }
-                    }
-                }
-            }
-        } catch {
-            Log.shared.error(error)
-        }
-
-        if bestResImage != nil {
-            return saveImageToCache(image: bestResImage!, bundleID: bundleID)
-        }
-
         // Failed to find icon in app bundle checking in assets
         if let assetsExtractor = try? AssetsExtractor(appUrl: bundleURL) {
             for icon in assetsExtractor.extractIcons() where checkImageDimensions(icon, bestResImage) {
@@ -46,6 +25,7 @@ class ImageCache {
             }
         }
 
+        // Found icon in .car file
         if bestResImage != nil {
             return saveImageToCache(image: bestResImage!, bundleID: bundleID)
         }
@@ -94,6 +74,35 @@ class ImageCache {
     }
 
     static func getImageURLFromCache(bundleId: String) -> URL? {
+        // If app is installed, try to get icon from .app bundle
+        if let app = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == bundleId }) {
+            var bestResImage: NSImage?
+            var bestResImageURL: URL?
+
+            do {
+                let items = try FileManager.default.contentsOfDirectory(at: app.url, includingPropertiesForKeys: nil)
+
+                for item in items where item.path.contains(app.info.primaryIconName) {
+                    do {
+                        print(item.path)
+                        if let image = NSImage(data: try Data(contentsOf: item)) {
+                            if checkImageDimensions(image, bestResImage) {
+                                bestResImage = image
+                                bestResImageURL = item
+                            }
+                        }
+                    }
+                }
+            } catch {
+                Log.shared.error(error)
+            }
+
+            if bestResImageURL != nil {
+                return bestResImageURL
+            }
+        }
+
+        // App isn't installed or icon couldn't be found, check cache
         let imageURL = cacheFolder
             .appendingPathComponent(bundleId)
             .appendingPathExtension("png")
