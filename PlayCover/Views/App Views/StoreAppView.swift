@@ -146,44 +146,42 @@ struct StoreAppConditionalView: View {
                         .brightness(-0.2)
                 )
             } else {
-                VStack(alignment: .center, spacing: 0) {
-                    VStack {
-                        ZStack {
-                            AsyncImage(url: iconURL) { image in
-                                    image
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                } placeholder: {
-                                    ProgressView()
-                                        .progressViewStyle(.circular)
-                                }
-                                .frame(width: 60, height: 60)
-                                .cornerRadius(15)
-                                .shadow(radius: 1)
-                            if downloadVM.downloading && downloadVM.storeAppData == app {
-                                VStack {
-                                    Spacer()
-                                    ProgressView(value: downloadVM.progress)
-                                        .padding(.horizontal, 5)
-                                }
-                                .frame(width: 60, height: 60)
+                VStack {
+                    ZStack {
+                        AsyncImage(url: iconURL) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            } placeholder: {
+                                ProgressView()
+                                    .progressViewStyle(.circular)
                             }
+                            .frame(width: 60, height: 60)
+                            .cornerRadius(15)
+                            .shadow(radius: 1)
+                        if downloadVM.downloading && downloadVM.storeAppData == app {
+                            VStack {
+                                Spacer()
+                                ProgressView(value: downloadVM.progress)
+                                    .padding(.horizontal, 5)
+                            }
+                            .frame(width: 60, height: 60)
                         }
-                        Text("\(Image(systemName: "arrow.down.circle"))  \(app.name)")
-                            .lineLimit(1)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 4)
-                            .padding(.vertical, 2)
-                            .foregroundColor(selected?.bundleID == app.bundleID ?
-                                             selectedTextColor : Color.primary)
-                            .background(
-                                RoundedRectangle(cornerRadius: 4)
-                                    .fill(selected?.bundleID == app.bundleID ?
-                                          selectedBackgroundColor : Color.clear)
-                                    .brightness(-0.2)
-                            )
-                            .frame(width: 130, height: 20)
                     }
+                    Text("\(Image(systemName: "arrow.down.circle"))  \(app.name)")
+                        .lineLimit(1)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 4)
+                        .padding(.vertical, 2)
+                        .foregroundColor(selected?.bundleID == app.bundleID ?
+                                         selectedTextColor : Color.primary)
+                        .background(
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(selected?.bundleID == app.bundleID ?
+                                      selectedBackgroundColor : Color.clear)
+                                .brightness(-0.2)
+                        )
+                        .frame(width: 130, height: 20)
                 }
                 .frame(width: 130, height: 130)
             }

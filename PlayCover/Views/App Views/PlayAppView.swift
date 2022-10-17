@@ -238,35 +238,33 @@ struct PlayAppConditionalView: View {
                     .brightness(-0.2)
                 )
         } else {
-            VStack(alignment: .center, spacing: 0) {
-                VStack {
-                    AsyncImage(url: iconURL) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .cornerRadius(15)
-                            .shadow(radius: 1)
-                    } placeholder: {
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                    }
-                    .frame(width: 60, height: 60)
-
-                    Text(app.name)
-                        .lineLimit(1)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 4)
-                        .padding(.vertical, 2)
-                        .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                         selectedTextColor : Color.primary)
-                        .background(
-                            RoundedRectangle(cornerRadius: 4)
-                                .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                      selectedBackgroundColor : Color.clear)
-                                .brightness(-0.2)
-                            )
-                        .frame(width: 130, height: 20)
+            VStack {
+                AsyncImage(url: iconURL) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .cornerRadius(15)
+                        .shadow(radius: 1)
+                } placeholder: {
+                    ProgressView()
+                        .progressViewStyle(.circular)
                 }
+                .frame(width: 60, height: 60)
+
+                Text(app.name)
+                    .lineLimit(1)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 4)
+                    .padding(.vertical, 2)
+                    .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                     selectedTextColor : Color.primary)
+                    .background(
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                  selectedBackgroundColor : Color.clear)
+                            .brightness(-0.2)
+                        )
+                    .frame(width: 130, height: 20)
             }
             .frame(width: 130, height: 130)
         }
