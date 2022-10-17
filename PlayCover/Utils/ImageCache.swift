@@ -8,7 +8,9 @@
 import Foundation
 
 class ImageCache {
-    static let cacheFolder = PlayTools.playCoverContainer.appendingPathComponent("Image Cache")
+    static let cacheFolder = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+        .appendingPathComponent(Bundle.main.bundleIdentifier!)
+        .appendingPathComponent("Image Cache")
 
     static func getLocalImageURL(bundleID: String, bundleURL: URL, primaryIconName: String) -> URL? {
         // If cached icon for bundle id exists, skip getting it again
@@ -84,7 +86,6 @@ class ImageCache {
 
                 for item in items where item.path.contains(app.info.primaryIconName) {
                     do {
-                        print(item.path)
                         if let image = NSImage(data: try Data(contentsOf: item)) {
                             if checkImageDimensions(image, bestResImage) {
                                 bestResImage = image
