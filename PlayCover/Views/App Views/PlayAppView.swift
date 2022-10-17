@@ -12,7 +12,6 @@ struct PlayAppView: View {
 
     @State var app: PlayApp
     @State var isList: Bool
-    @State var iconURL: URL?
 
     @State private var showSettings = false
     @State private var showDeleteConfirmation = false
@@ -31,7 +30,6 @@ struct PlayAppView: View {
         PlayAppConditionalView(selectedBackgroundColor: $selectedBackgroundColor,
                                selectedTextColor: $selectedTextColor,
                                selected: $selected,
-                               iconURL: $iconURL,
                                app: app,
                                isList: isList)
             .gesture(TapGesture(count: 2).onEnded {
@@ -168,11 +166,6 @@ struct PlayAppView: View {
             }, message: {
                 Text(String(format: NSLocalizedString("playapp.deleteMessage", comment: ""), arguments: [app.name]))
             })
-            .task(priority: .userInitiated) {
-                iconURL = ImageCache.getLocalImageURL(bundleID: app.info.bundleIdentifier,
-                                                      bundleURL: app.url,
-                                                      primaryIconName: app.info.primaryIconName)
-            }
     }
 
     func removeTwitterSessionCookie() {
@@ -199,74 +192,81 @@ struct PlayAppConditionalView: View {
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
     @Binding var selected: PlayApp?
-    @Binding var iconURL: URL?
 
+    @State var iconURL: URL?
     @State var app: PlayApp
     @State var isList: Bool
 
     var body: some View {
-        if isList {
-            HStack(alignment: .center, spacing: 0) {
-                AsyncImage(url: iconURL) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 30)
-                        .cornerRadius(7.5)
-                        .shadow(radius: 1)
+        Group {
+            if isList {
+                HStack(alignment: .center, spacing: 0) {
+                    AsyncImage(url: iconURL) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 30, height: 30)
+                            .cornerRadius(7.5)
+                            .shadow(radius: 1)
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 5)
+                    } placeholder: {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                            .frame(width: 60, height: 60)
+                    }
+
+                    Text(app.name)
+                        .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                         selectedTextColor : Color.primary)
+                    Spacer()
+                    Text(app.settings.info.bundleVersion)
                         .padding(.horizontal, 15)
-                        .padding(.vertical, 5)
-                } placeholder: {
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                        .frame(width: 60, height: 60)
+                        .foregroundColor(.secondary)
                 }
+                .contentShape(Rectangle())
+                .background(
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                            selectedBackgroundColor : Color.clear)
+                        .brightness(-0.2)
+                    )
+            } else {
+                VStack {
+                    AsyncImage(url: iconURL) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .cornerRadius(15)
+                            .shadow(radius: 1)
+                    } placeholder: {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                    }
+                    .frame(width: 60, height: 60)
 
-                Text(app.name)
-                    .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                     selectedTextColor : Color.primary)
-                Spacer()
-                Text(app.settings.info.bundleVersion)
-                    .padding(.horizontal, 15)
-                    .foregroundColor(.secondary)
-            }
-            .contentShape(Rectangle())
-            .background(
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                        selectedBackgroundColor : Color.clear)
-                    .brightness(-0.2)
-                )
-        } else {
-            VStack {
-                AsyncImage(url: iconURL) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .cornerRadius(15)
-                        .shadow(radius: 1)
-                } placeholder: {
-                    ProgressView()
-                        .progressViewStyle(.circular)
+                    Text(app.name)
+                        .lineLimit(1)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 4)
+                        .padding(.vertical, 2)
+                        .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                         selectedTextColor : Color.primary)
+                        .background(
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                      selectedBackgroundColor : Color.clear)
+                                .brightness(-0.2)
+                            )
+                        .frame(width: 130, height: 20)
                 }
-                .frame(width: 60, height: 60)
-
-                Text(app.name)
-                    .lineLimit(1)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 4)
-                    .padding(.vertical, 2)
-                    .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                     selectedTextColor : Color.primary)
-                    .background(
-                        RoundedRectangle(cornerRadius: 4)
-                            .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                  selectedBackgroundColor : Color.clear)
-                            .brightness(-0.2)
-                        )
-                    .frame(width: 130, height: 20)
+                .frame(width: 130, height: 130)
             }
-            .frame(width: 130, height: 130)
+        }
+        .task(priority: .userInitiated) {
+            iconURL = ImageCache.getLocalImageURL(bundleID: app.info.bundleIdentifier,
+                                                  bundleURL: app.url,
+                                                  primaryIconName: app.info.primaryIconName)
         }
     }
 }
