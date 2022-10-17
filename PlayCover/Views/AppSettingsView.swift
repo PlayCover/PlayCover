@@ -20,9 +20,9 @@ struct AppSettingsView: View {
     var body: some View {
         VStack {
             HStack {
-                // TODO: Fix sizing
                 AsyncImage(url: iconURL) { image in
                     image
+                        .resizable()
                         .cornerRadius(10)
                         .shadow(radius: 1)
                 } placeholder: {
