@@ -160,16 +160,26 @@ public class AppInfo {
     }
 
     var primaryIconName: String {
-        guard let bundleIconDict = self[dictionary: "CFBundleIcons~ipad"] else {
-            return "AppIcon"
+        if let bundleIconDict = self[dictionary: "CFBundleIcons~ipad"] {
+            if let primaryBundleIconDict: [String: Any] = bundleIconDict["CFBundlePrimaryIcon"] as? [String: Any] {
+                let primaryIconName = primaryBundleIconDict["CFBundleIconName"] as? String ?? "AppIcon"
+                return primaryIconName
+            }
         }
-        guard let primaryBundleIconDict: [String: Any] = bundleIconDict["CFBundlePrimaryIcon"] as? [String: Any] else {
-            return "AppIcon"
+
+        if let bundleIconDict = self[dictionary: "CFBundleIcons"] {
+            if let primaryBundleIconDict: [String: Any] = bundleIconDict["CFBundlePrimaryIcon"] as? [String: Any] {
+                let primaryIconName = primaryBundleIconDict["CFBundleIconName"] as? String ?? "AppIcon"
+                return primaryIconName
+            }
         }
-        guard let primaryIconName = primaryBundleIconDict["CFBundleIconName"] as? String else {
-            return "AppIcon"
+
+        if let bundleIconDict = self[strings: "CFBundleIconFiles"] {
+            let primaryIconName = bundleIconDict[bundleIconDict.count - 1]
+            return primaryIconName
         }
-        return primaryIconName
+
+        return "AppIcon"
     }
 
     var supportsTrueScreenSizeOnMac: Bool {

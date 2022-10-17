@@ -36,7 +36,6 @@ class ImageCache {
         }
 
         if bestResImage != nil {
-            print("Found icon for \(bundleID) in bundle")
             return saveImageToCache(image: bestResImage!, bundleID: bundleID)
         }
 
@@ -48,12 +47,10 @@ class ImageCache {
         }
 
         if bestResImage != nil {
-            print("Found icon for \(bundleID) in assets")
             return saveImageToCache(image: bestResImage!, bundleID: bundleID)
         }
 
         // Failed to find any icon
-        print("Failed to find icon for \(bundleID)")
         return nil
     }
 
@@ -70,7 +67,6 @@ class ImageCache {
         }
 
         if bestImageURL != nil {
-            print("Foind icon for \(bundleID) from iTunes")
             let data = try? Data(contentsOf: bestImageURL!)
             let image = NSImage(data: data!)!
             return saveImageToCache(image: image, bundleID: bundleID)
