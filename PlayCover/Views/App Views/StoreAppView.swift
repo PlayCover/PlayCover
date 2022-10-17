@@ -99,9 +99,9 @@ struct StoreAppConditionalView: View {
     @Binding var selectedTextColor: Color
     @Binding var selected: StoreAppData?
 
+    @State var iconURL: URL?
     @State var app: StoreAppData
     @State var isList: Bool
-    @State var itunesData: ITunesResponse?
 
     @EnvironmentObject var downloadVM: DownloadVM
 
@@ -112,7 +112,7 @@ struct StoreAppConditionalView: View {
                     Image(systemName: "arrow.down.circle")
                         .padding(.leading, 15)
                     ZStack {
-                        AsyncImage(url: URL(string: itunesData?.results[0].artworkUrl512 ?? "")) { image in
+                        AsyncImage(url: iconURL) { image in
                             image
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
@@ -149,7 +149,7 @@ struct StoreAppConditionalView: View {
                 VStack(alignment: .center, spacing: 0) {
                     VStack {
                         ZStack {
-                            AsyncImage(url: URL(string: itunesData?.results[0].artworkUrl512 ?? "")) { image in
+                            AsyncImage(url: iconURL) { image in
                                     image
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
@@ -188,26 +188,9 @@ struct StoreAppConditionalView: View {
                 .frame(width: 130, height: 130)
             }
         }
-        .task {
-            itunesData = await getITunesData(app.itunesLookup)
+        .task(priority: .userInitiated) {
+            iconURL = await ImageCache.getOnlineImageURL(bundleID: app.bundleID,
+                                                         itunesLookup: app.itunesLookup)
         }
-    }
-
-    func getITunesData(_ itunesLookup: String) async -> ITunesResponse? {
-        if !NetworkVM.isConnectedToNetwork() { return nil }
-        guard let url = URL(string: itunesLookup) else { return nil }
-
-        do {
-            let (data, _) = try await URLSession.shared.data(for: URLRequest(url: url))
-            let decoder = JSONDecoder()
-            let jsonResult: ITunesResponse = try decoder.decode(ITunesResponse.self, from: data)
-            if jsonResult.resultCount > 0 {
-                return jsonResult
-            }
-        } catch {
-            print("Error getting iTunes data from URL: \(itunesLookup): \(error)")
-        }
-
-        return nil
     }
 }

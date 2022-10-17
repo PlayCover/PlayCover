@@ -20,6 +20,7 @@ struct AppSettingsView: View {
     var body: some View {
         VStack {
             HStack {
+                // TODO: Fix sizing
                 AsyncImage(url: iconURL) { image in
                     image
                         .cornerRadius(10)

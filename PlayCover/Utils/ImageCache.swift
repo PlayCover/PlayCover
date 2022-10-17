@@ -57,9 +57,41 @@ class ImageCache {
         return nil
     }
 
-    static func getOnlineImageURL(bundleID: String) -> URL? {
+    static func getOnlineImageURL(bundleID: String, itunesLookup: String) async -> URL? {
         if let cacheImageURL = getImageURLFromCache(bundleId: bundleID) {
             return cacheImageURL
+        }
+
+        let itunesData = await getITunesData(itunesLookup)
+        var bestImageURL: URL?
+
+        if itunesData != nil {
+            bestImageURL = URL(string: itunesData!.results[0].artworkUrl512)
+        }
+
+        if bestImageURL != nil {
+            print("Foind icon for \(bundleID) from iTunes")
+            let data = try? Data(contentsOf: bestImageURL!)
+            let image = NSImage(data: data!)!
+            return saveImageToCache(image: image, bundleID: bundleID)
+        }
+
+        return nil
+    }
+
+    static func getITunesData(_ itunesLookup: String) async -> ITunesResponse? {
+        if !NetworkVM.isConnectedToNetwork() { return nil }
+        guard let url = URL(string: itunesLookup) else { return nil }
+
+        do {
+            let (data, _) = try await URLSession.shared.data(for: URLRequest(url: url))
+            let decoder = JSONDecoder()
+            let jsonResult: ITunesResponse = try decoder.decode(ITunesResponse.self, from: data)
+            if jsonResult.resultCount > 0 {
+                return jsonResult
+            }
+        } catch {
+            print("Error getting iTunes data from URL: \(itunesLookup): \(error)")
         }
 
         return nil
