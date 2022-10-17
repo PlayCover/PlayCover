@@ -13,18 +13,24 @@ struct AppSettingsView: View {
 
     @ObservedObject var viewModel: AppSettingsVM
 
+    @Binding var iconURL: URL?
+
     @State var resetSettingsCompletedAlert = false
     @State var resetKmCompletedAlert = false
 
     var body: some View {
         VStack {
             HStack {
-                if let img = viewModel.app.icon {
-                    Image(nsImage: img).resizable()
-                        .frame(width: 33, height: 33)
+                AsyncImage(url: iconURL) { image in
+                    image
                         .cornerRadius(10)
                         .shadow(radius: 1)
+                } placeholder: {
+                    ProgressView()
+                        .progressViewStyle(.circular)
                 }
+                .frame(width: 33, height: 33)
+
                 Text(String(
                     format:
                         NSLocalizedString("settings.title", comment: ""),

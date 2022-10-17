@@ -12,6 +12,7 @@ struct PlayAppView: View {
 
     @State var app: PlayApp
     @State var isList: Bool
+    @State var iconURL: URL?
 
     @State private var showSettings = false
     @State private var showDeleteConfirmation = false
@@ -30,6 +31,7 @@ struct PlayAppView: View {
         PlayAppConditionalView(selectedBackgroundColor: $selectedBackgroundColor,
                                selectedTextColor: $selectedTextColor,
                                selected: $selected,
+                               iconURL: $iconURL,
                                app: app,
                                isList: isList)
             .gesture(TapGesture(count: 2).onEnded {
@@ -166,6 +168,11 @@ struct PlayAppView: View {
             }, message: {
                 Text(String(format: NSLocalizedString("playapp.deleteMessage", comment: ""), arguments: [app.name]))
             })
+            .task(priority: .userInitiated) {
+                iconURL = ImageCache.getLocalImageURL(bundleID: app.info.bundleIdentifier,
+                                                      bundleURL: app.url,
+                                                      primaryIconName: app.info.primaryIconName)
+            }
     }
 
     func removeTwitterSessionCookie() {
@@ -192,6 +199,7 @@ struct PlayAppConditionalView: View {
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
     @Binding var selected: PlayApp?
+    @Binding var iconURL: URL?
 
     @State var app: PlayApp
     @State var isList: Bool
@@ -199,8 +207,8 @@ struct PlayAppConditionalView: View {
     var body: some View {
         if isList {
             HStack(alignment: .center, spacing: 0) {
-                if let img = app.icon {
-                    Image(nsImage: img)
+                AsyncImage(url: iconURL) { image in
+                    image
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 30, height: 30)
@@ -208,11 +216,12 @@ struct PlayAppConditionalView: View {
                         .shadow(radius: 1)
                         .padding(.horizontal, 15)
                         .padding(.vertical, 5)
-                } else {
+                } placeholder: {
                     ProgressView()
                         .progressViewStyle(.circular)
                         .frame(width: 60, height: 60)
                 }
+
                 Text(app.name)
                     .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
                                      selectedTextColor : Color.primary)
@@ -231,18 +240,18 @@ struct PlayAppConditionalView: View {
         } else {
             VStack(alignment: .center, spacing: 0) {
                 VStack {
-                    if let img = app.icon {
-                        Image(nsImage: img)
+                    AsyncImage(url: iconURL) { image in
+                        image
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 60, height: 60)
                             .cornerRadius(15)
                             .shadow(radius: 1)
-                    } else {
+                    } placeholder: {
                         ProgressView()
                             .progressViewStyle(.circular)
-                            .frame(width: 60, height: 60)
                     }
+                    .frame(width: 60, height: 60)
+
                     Text(app.name)
                         .lineLimit(1)
                         .multilineTextAlignment(.center)

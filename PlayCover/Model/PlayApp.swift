@@ -91,31 +91,6 @@ class PlayApp: BaseApp {
             })
     }
 
-    var icon: NSImage? {
-        var highestRes: NSImage?
-        let appDirectoryPath = "\(url.relativePath)/"
-
-        if let assetsExtractor = try? AssetsExtractor(appUrl: url) {
-            for icon in assetsExtractor.extractIcons() {
-                highestRes = largerImage(image: icon, compareTo: highestRes)
-            }
-        }
-
-        guard let items = try? FileManager.default.contentsOfDirectory(atPath: appDirectoryPath) else {
-            return highestRes
-        }
-        for item in items where item.hasPrefix(info.primaryIconName) {
-            do {
-                if let image = NSImage(data: try Data(contentsOf: URL(fileURLWithPath: "\(appDirectoryPath)\(item)"))) {
-                    highestRes = largerImage(image: image, compareTo: highestRes)
-                }
-            } catch {
-                Log.shared.error(error)
-            }
-        }
-        return highestRes
-    }
-
     var name: String {
         if info.displayName.isEmpty {
             return info.bundleName
