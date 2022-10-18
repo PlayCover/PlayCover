@@ -69,14 +69,8 @@
 "xcode.install.progress.subtext" = "May take around 5-10 minutes depending on internet speed";
 "settings.text.customHeight" = "Height";
 "settings.text.customWidth" = "Width";
-
-/* (No Comment) */
 "preferences.button.checkForUpdates" = "Check for updates now...";
-
-/* (No Comment) */
 "preferences.tab.updates" = "Updates";
-
-/* (No Comment) */
 "preferences.toggle.automaticUpdates" = "Automatically check for updates";
 "settings.tab.info" = "Info";
 "playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
@@ -136,6 +130,7 @@
 "settings.info.bundleVersion" = "Bundle version";
 "button.Convert" = "Convert";
 "playapp.deleteConfirm" = "Uninstall";
+/* %@ */
 "playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
 "alert.legacyImport.title" = "Legacy App Settings Detected!";
 "alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";

@@ -1,255 +1,91 @@
 /* (No Comment) */
 "alert.app.delete" = "Se borrarán todos los datos de la aplicación. Es posible que deba descargar los archivos de la aplicación nuevamente. ¿Continuar?";
-
-/* (No Comment) */
 "alert.app.preferences" = "Se eliminarán todas las preferencias dentro de la aplicación. ¿Continuar?";
-
-/* (No Comment) */
 "alert.appCacheCleared" = "¡Se borraron los datos de la aplicación!";
-
-/* (No Comment) */
 "alert.error" = "¡Ocurrió un error!";
-
-/* (No Comment) */
 "alert.errorImportKm" = "¡Ocurrió un error al importar!";
-
-/* (No Comment) */
 "alert.kmImported" = "Mapeo de teclas importado!";
-
-/* (No Comment) */
 "alert.moveAppToApplications.move" = "Mover a /Applications";
-
-/* (No Comment) */
 "alert.restart" = "Por favor reinicie PlayCover.";
-
-/* (No Comment) */
 "alert.storeAccount.regionIsNotValid" = "La cuenta actual está configurada en una región diferente. Inicie el juego, cambie la región y pase por la puerta para guardar. Después vuelva a intentarlo";
-
-/* (No Comment) */
 "alert.success" = "Operación completada";
-
-/* (No Comment) */
 "button.Cancel" = "Cancelar";
-
-/* (No Comment) */
 "button.Close" = "Salir";
-
-/* (No Comment) */
 "button.Install" = "Instalar";
-
-/* (No Comment) */
 "button.OK" = "OK";
-
-/* (No Comment) */
 "button.Proceed" = "Continuar";
-
-/* (No Comment) */
 "error.corruptedIPA" = "Este archivo .ipa está dañado. No contiene un archivo \"Info.plist\".";
-
-/* (No Comment) */
 "error.waitInstallation" = "¡Por favor espere a que finalice la instalación!";
-
-/* (No Comment) */
 "menubar.checkForUpdates" = "Buscar actualizaciones...";
-
-/* (No Comment) */
 "menubar.discord" = "Discord";
-
-/* (No Comment) */
 "menubar.documentation" = "Documentación";
-
-/* (No Comment) */
 "menubar.exportToSideloady" = "Exportar a Sideloadly";
-
-/* (No Comment) */
 "menubar.github" = "GitHub";
-
-/* (No Comment) */
 "menubar.log.copy" = "Copiar registros";
-
-/* (No Comment) */
 "menubar.website" = "Página web";
-
-/* (No Comment) */
 "notification.appInstalled" = "¡Aplicación instalada!";
-
-/* (No Comment) */
 "notification.appInstalled.message" = "¡Compruébelo en PlayCover!";
-
-/* (No Comment) */
 "playapp.activateAccount" = "Restaurar cuenta";
-
-/* (No Comment) */
 "playapp.clearCache" = "Eliminar datos de la aplicación";
-
-/* (No Comment) */
 "playapp.clearPreferences" = "Eliminar preferencias de la aplicación";
-
-/* (No Comment) */
 "playapp.delete" = "Desinstalar Aplicación";
-
-/* (No Comment) */
 "playapp.deleteAccount" = "Delete an account";
-
-/* (No Comment) */
 "playapp.exportKm" = "Exportar mapeo de teclas";
-
-/* (No Comment) */
 "playapp.importKm" = "Importar mapeo de teclas";
-
-/* (No Comment) */
 "playapp.install.addToLib" = "Añadiendo aplicación a la biblioteca...";
-
-/* (No Comment) */
 "playapp.install.copy" = "Copiando aplicación...";
-
-/* (No Comment) */
 "playapp.install.createWrapper" = "Creando un contenedor...";
-
-/* (No Comment) */
 "playapp.install.finished" = "Completado";
-
-/* (No Comment) */
 "playapp.install.installPlayTools" = "Instalando PlayTools...";
-
-/* (No Comment) */
 "playapp.install.signing" = "Firmando la aplicación...";
-
-/* (No Comment) */
 "playapp.install.unzip" = "Extrayendo la aplicación...";
-
-/* (No Comment) */
 "playapp.openCache" = "Abrir datos de la aplicación";
-
-/* (No Comment) */
 "playapp.settings" = "Preferencias de la aplicación";
-
-/* (No Comment) */
 "playapp.showInFinder" = "Mostrar en el Finder";
-
-/* (No Comment) */
 "playapp.storeCurrentAccount" = "Guardar cuenta";
-
-/* (No Comment) */
 "preferences.button.checkForUpdates" = "Buscar actualizaciones…";
-
-/* (No Comment) */
 "preferences.tab.updates" = "Actualizaciones";
-
-/* (No Comment) */
 "preferences.toggle.automaticUpdates" = "Buscar actualizaciones automáticamente";
-
-/* (No Comment) */
 "settings.button.discord" = "Actividad personalizada de Discord";
-
-/* (No Comment) */
 "settings.button.clearActivity" = "Borrar la actividad personalizada";
-
-/* (No Comment) */
 "settings.picker.iosDevice" = "Dispositivo iOS:";
-
 /* %.f */
 "settings.slider.mouseSensitivity" = "Sensibilidad del ratón: %.f";
-
-/* (No Comment) */
 "settings.text.applicationID" = "ID de la aplicación";
-
-/* (No Comment) */
 "settings.text.customHeight" = "Altura";
-
-/* (No Comment) */
 "settings.text.customWidth" = "Anchura";
-
-/* (No Comment) */
 "settings.text.details" = "Detalles";
-
-/* (No Comment) */
 "settings.text.details.help" = "Primera fila debajo del título";
-
-/* (No Comment) */
 "settings.text.image" = "Imagen";
-
-/* (No Comment) */
 "settings.text.image.help" = "Enlace a la imagen o nombre de activo del portal de desarrollo";
-
-/* (No Comment) */
 "settings.text.state" = "Estado";
-
-/* (No Comment) */
 "settings.text.state.help" = "Segunda fila debajo del título";
-
-/* (No Comment) */
 "settings.toggle.disableDisplaySleep" = "Desactivar hibernar la pantalla";
-
-/* (No Comment) */
 "settings.toggle.discord" = "Activar la actividad de Discord";
-
-/* (No Comment) */
 "settings.toggle.jbBypass" = "Activar el Jailbreak Bypass (Alpha)";
-
-/* (No Comment) */
 "settings.toggle.km" = "Mapeo de teclas";
-
-/* (No Comment) */
 "soundAlert.failureText" = "Hubo un error al establecer la frecuencia de muestreo a 48 KHz en el dispositivo de salida. Puedes hacer esto manualmente en la aplicación Configuración de Audio MIDI";
-
-/* (No Comment) */
 "soundAlert.informativeText" = "Su dispositivo de salida actual no tiene una frecuencia de muestreo de 48 o 44,1 KHz. Pueden producirse errores. ¿Desea cambiar la frecuencia de muestreo de su dispositivo de salida actual a 48 KHz?";
-
-/* (No Comment) */
 "soundAlert.messageText" = "¡Se ha detectado una configuración de audio incorrecta!";
-
-/* (No Comment) */
 "soundAlert.successText" = "Frecuencia de muestreo establecida en 48 KHz";
-
-/* (No Comment) */
 "storeAccount.deleteAcc" = "Eliminar una cuenta";
-
-/* (No Comment) */
 "storeAccount.nameOfAcc" = "Nombre de su cuenta";
-
-/* (No Comment) */
 "storeAccount.nameOfAcc.textfieldPlaceholder" = "Nombre de la cuenta...";
-
-/* (No Comment) */
 "storeAccount.selectAcc" = "Seleccione una cuenta";
-
-/* (No Comment) */
 "storeAccount.selectAccRegion" = "Seleccione la región de la cuenta";
-
-/* (No Comment) */
 "storeAccount.selectAccRegion.asia" = "Asia";
-
-/* (No Comment) */
 "storeAccount.selectAccRegion.cht" = "TW, HK, MO";
-
-/* (No Comment) */
 "storeAccount.selectAccRegion.euro" = "Europa";
-
-/* (No Comment) */
 "storeAccount.selectAccRegion.usa" = "America";
-
-/* (No Comment) */
 "storeAccount.store" = "Guardar cuenta";
-
-/* (No Comment) */
 "storeAccount.storeAcc" = "Guardar una cuenta";
-
-/* (No Comment) */
 "xcode.install.failed" = "Error en la instalación automática de Xcode Command Line Tools";
-
-/* (No Comment) */
 "xcode.install.message" = "Tiene que instalar Xcode Command Line Tools y reiniciar PlayCover";
-
-/* (No Comment) */
 "xcode.install.progress" = "Instalando Xcode Command Line Tools";
-
-/* (No Comment) */
 "xcode.install.progress.subtext" = "Esto puede tardar alrededor de 5 a 10 minutos, dependiendo de su velocidad de Internet";
-
-/* (No Comment) */
 "xcode.install.success" = "La instalación de Xcode Command Line Tools se ha realizado con éxito";
 "sidebar.ipaLibrary" = "Galería de IPA";
+/* %@ */
 "settings.title" = "Configuración de %@";
 "settings.tab.graphics" = "Gráficos";
 "settings.tab.jbBypass" = "Bypass contra jailbreak";
@@ -299,6 +135,7 @@
 "alert.legacyImport.subtitle" = "Se encontraron configuraciones y archivos de mapeo de teclas antiguos. ¿Desea cambiarlos al nuevo formato?";
 "button.Convert" = "Convertir";
 "playapp.deleteConfirm" = "Desinstalar";
+/* %@ */
 "playapp.deleteMessage" = "¿Estás seguro de que quieres desinstalar %@?";
 "settings.text.detectedResolution" = "Resolución detectada:";
 "playapp.add" = "Añadir aplicación";

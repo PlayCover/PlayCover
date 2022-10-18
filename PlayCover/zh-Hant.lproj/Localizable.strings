@@ -1,223 +1,77 @@
-/* (No Comment) */
 "alert.app.delete" = "所有應用程式數據將被清除； 有些軟體可能需要重新下載數據。確定繼續？";
-
-/* (No Comment) */
 "alert.app.preferences" = "所有應用程式的偏好設定將被刪除，確定要繼續嗎？";
-
-/* (No Comment) */
 "alert.appCacheCleared" = "應用程式數據應用已被清除！";
-
-/* (No Comment) */
 "alert.error" = "遇到了問題！";
-
-/* (No Comment) */
 "alert.errorImportKm" = "導入過程中出現問題！";
-
-/* (No Comment) */
 "alert.kmImported" = "鍵盤映射佈局已導入！";
-
-/* (No Comment) */
 "alert.moveAppToApplications.move" = "移至應用程式資料夾";
-
-/* (No Comment) */
 "alert.restart" = "請重啟 PlayCover。";
-
-/* (No Comment) */
 "alert.storeAccount.regionIsNotValid" = "此帳號現所在的服務器與選項不符。打開遊戲，更改服務器並進入大門後保存，然後再試";
-
-/* (No Comment) */
 "alert.success" = "成功";
-
-/* (No Comment) */
 "button.Cancel" = "取消";
-
-/* (No Comment) */
 "button.Close" = "關閉";
-
-/* (No Comment) */
 "button.Install" = "安裝";
-
-/* (No Comment) */
 "button.OK" = "完成";
-
-/* (No Comment) */
 "button.Proceed" = "繼續";
-
-/* (No Comment) */
 "error.corruptedIPA" = "此 .ipa 檔案已損毀，因為其中沒有包含 \"Info.plist\" 檔案。";
-
-/* (No Comment) */
 "error.waitInstallation" = "請等待安裝過程結束！";
-
-/* (No Comment) */
 "menubar.checkForUpdates" = "檢查更新...";
-
-/* (No Comment) */
 "menubar.discord" = "Discord（社區交流平台）";
-
-/* (No Comment) */
 "menubar.documentation" = "使用手冊";
-
-/* (No Comment) */
 "menubar.exportToSideloady" = "為 Sideloadly 導出";
-
-/* (No Comment) */
 "menubar.github" = "GitHub（源代碼發行網站）";
-
-/* (No Comment) */
 "menubar.log.copy" = "複製日誌";
-
-/* (No Comment) */
 "menubar.website" = "官網";
-
-/* (No Comment) */
 "notification.appInstalled" = "應用程式安裝成功！";
-
-/* (No Comment) */
 "notification.appInstalled.message" = "馬上來看一看吧!";
-
-/* (No Comment) */
 "playapp.activateAccount" = "切換帳號";
-
-/* (No Comment) */
 "playapp.clearCache" = "清除應用程式數據";
-
-/* (No Comment) */
 "playapp.clearPreferences" = "清除應用偏好設置";
-
-/* (No Comment) */
 "playapp.delete" = "解除安裝應用程式";
-
-/* (No Comment) */
 "playapp.deleteAccount" = "刪除帳號";
-
-/* (No Comment) */
 "playapp.exportKm" = "導出鍵盤映射佈局";
-
-/* (No Comment) */
 "playapp.importKm" = "導入鍵盤映射佈局";
-
-/* (No Comment) */
 "playapp.install.addToLib" = "正在將應用程式移至軟體庫...";
-
-/* (No Comment) */
 "playapp.install.copy" = "正在複製應用程式...";
-
-/* (No Comment) */
 "playapp.install.createWrapper" = "正在包裝應用程式...";
-
-/* (No Comment) */
 "playapp.install.finished" = "完成";
-
-/* (No Comment) */
 "playapp.install.installPlayTools" = "正在安裝 PlayTools...";
-
-/* (No Comment) */
 "playapp.install.signing" = "正在為應用程式簽名...";
-
-/* (No Comment) */
 "playapp.install.unzip" = "正在從文件中提取應用程式...";
-
-/* (No Comment) */
 "playapp.openCache" = "顯示應用程式數據";
-
-/* (No Comment) */
 "playapp.settings" = "偏好設定";
-
-/* (No Comment) */
 "playapp.showInFinder" = "在Finder中查看";
-
-/* (No Comment) */
 "playapp.storeCurrentAccount" = "保存現有帳號";
-
-/* (No Comment) */
 "preferences.button.checkForUpdates" = "正在檢查更新...";
-
-/* (No Comment) */
 "preferences.tab.updates" = "更新";
-
-/* (No Comment) */
 "preferences.toggle.automaticUpdates" = "自動檢查更新";
-
-/* (No Comment) */
 "settings.picker.iosDevice" = "選擇 iOS 裝置:";
-
 /* %.f */
 "settings.slider.mouseSensitivity" = "滑鼠靈敏度: %.f";
-
-/* (No Comment) */
 "settings.text.customHeight" = "高度";
-
-/* (No Comment) */
 "settings.text.customWidth" = "寬度";
-
-/* (No Comment) */
 "settings.toggle.disableDisplaySleep" = "停用螢幕休眠";
-
-/* (No Comment) */
 "settings.toggle.jbBypass" = "啟用繞過越獄檢測（預覽）";
-
-/* (No Comment) */
 "settings.toggle.km" = "啟用鍵盤映射佈局";
-
-/* (No Comment) */
 "soundAlert.failureText" = "未能成功更改現有音響設備取樣率為 48 KHz。您可以在 “音訊 MIDI 設定” 應用程式中手動設置";
-
-/* (No Comment) */
 "soundAlert.informativeText" = "現有的音訊設備並無 48 或者 44.1 KHz 取樣率! 程式可能會崩潰。你希望把現有的音響設備設定成 48 KHz 取樣率嗎?";
-
-/* (No Comment) */
 "soundAlert.messageText" = "檢測到聲音設定有問題!";
-
-/* (No Comment) */
 "soundAlert.successText" = "現有音訊設備取樣率已設為 48 KHz";
-
-/* (No Comment) */
 "storeAccount.deleteAcc" = "刪除一個帳號";
-
-/* (No Comment) */
 "storeAccount.nameOfAcc" = "帳號用戶名稱";
-
-/* (No Comment) */
 "storeAccount.nameOfAcc.textfieldPlaceholder" = "用戶名...";
-
-/* (No Comment) */
 "storeAccount.selectAcc" = "選擇一個帳號";
-
-/* (No Comment) */
 "storeAccount.selectAccRegion" = "選擇帳號地區伺服器";
-
-/* (No Comment) */
 "storeAccount.selectAccRegion.asia" = "亞服";
-
-/* (No Comment) */
 "storeAccount.selectAccRegion.cht" = "港澳臺服";
-
-/* (No Comment) */
 "storeAccount.selectAccRegion.euro" = "歐福";
-
-/* (No Comment) */
 "storeAccount.selectAccRegion.usa" = "美服";
-
-/* (No Comment) */
 "storeAccount.store" = "保存帳號";
-
-/* (No Comment) */
 "storeAccount.storeAcc" = "保存一個帳號";
-
-/* (No Comment) */
 "xcode.install.failed" = "Xcode 終端工具自動安裝失敗";
-
-/* (No Comment) */
 "xcode.install.message" = "開始之前，你需要先安裝 Xcode 終端工具並重啟此應用程式";
-
-/* (No Comment) */
 "xcode.install.progress" = "安裝 Xcode 命令行工具";
-
-/* (No Comment) */
 "xcode.install.progress.subtext" = "根據網路速度，操作可能需要5-10分鐘";
-
-/* (No Comment) */
 "xcode.install.success" = "Xcode 終端工具安裝成功";
 "storeAccount.alert.restoreAccount" = "確定要還原帳號？";
 "button.Quit" = "離開";
@@ -235,6 +89,7 @@
 "error.appCorrupted" = "此IPA檔案中包含一些錯誤。請嘗試使用其他IPA檔案。";
 "error.appProhibited" = "在PlayCover中使用這個應用程式可能會遭到封禁！";
 "error.noGenshinAccount" = "無法找到原神帳號！你是否已在該應用程式中登入帳號？";
+/* %@ */
 "settings.title" = "%@ 設定";
 "settings.tab.info" = "詳細資料";
 "settings.tab.km" = "鍵盤映射佈局";
@@ -276,6 +131,7 @@
 "settings.toggle.hud" = "啟用Metal HUD";
 "settings.info.bundleVersion" = "Bundle 版本:";
 "playapp.deleteConfirm" = "解除安裝";
+/* %@ */
 "playapp.deleteMessage" = "你是否確定要解除安裝 %@？";
 "alert.legacyImport.title" = "檢測到舊版應用程式設置！";
 "alert.legacyImport.subtitle" = "檢測到舊版應用程式設置及鍵盤映射佈局。是否要把這些檔案轉換為新版格式？";

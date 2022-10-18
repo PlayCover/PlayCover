@@ -9,6 +9,7 @@
 "playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
 "playapp.delete" = "Uninstall App";
 "playapp.deleteConfirm" = "Uninstall";
+/* %@ */
 "playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
 "playapp.storeCurrentAccount" = "Store Account";
 "playapp.activateAccount" = "Switch Account";
@@ -98,6 +99,7 @@
 
 "menubar.exportToSideloady" = "Export to Sideloadly";
 
+/* %@ */
 "settings.title" = "%@ Settings";
 "settings.tab.info" = "Info";
 
@@ -106,6 +108,7 @@
 "settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
 "settings.toggle.mm" = "Mouse mapping";
 "settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
+/* %.f */
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
 
 "settings.tab.graphics" = "Graphics";

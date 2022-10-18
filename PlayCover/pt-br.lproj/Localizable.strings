@@ -7,6 +7,7 @@
 "playapp.exportKmPanel.fieldLabel" = "Nome do PlayMap:";
 "playapp.delete" = "Desinstalar Aplicativo";
 "playapp.deleteConfirm" = "Desinstalar";
+/* %@ */
 "playapp.deleteMessage" = "Você tem certeza que deseja desinstalar %@?";
 "playapp.storeCurrentAccount" = "Conta da Loja";
 "playapp.activateAccount" = "Trocar Conta";
@@ -68,6 +69,7 @@
 "error.appProhibited" = "Você pode ser banido deste Aplicativo por utilizá-lo pelo PlayCover!";
 "error.noGenshinAccount" = "Não conseguimos encontrar uma conta do Genshin! Vocês está logado em uma conta dentro do jogo?";
 "menubar.exportToSideloady" = "Exportar para o Sideloadly";
+/* %@ */
 "settings.title" = "Preferências de %@";
 "settings.tab.info" = "Informações";
 "settings.tab.km" = "Mapeamento de Teclas";

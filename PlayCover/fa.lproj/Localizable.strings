@@ -37,8 +37,6 @@
 "alert.success" = "انجام شد";
 "alert.moveAppToApplications.move" = "انتقال به پوشه Applications مک";
 "alert.storeAccount.regionIsNotValid" = "این حساب کاربری برای منطقه‌ی کاربری دیگری پیکربندی شده است. بازی را باز کرده، منطقه‌ی کاربری را تغییر داده و از دروازه عبور کنید تا پیکربندی آن ذخیره شود. سپس دوباره تلاش کنید";
-
-
 "button.OK" = "تأیید";
 "button.Proceed" = "ادامه دادن";
 "button.Cancel" = "لغو";
@@ -51,6 +49,7 @@
 "settings.toggle.jbBypass" = "فعال‌سازی (نسخه آزمایشی)";
 "settings.toggle.disableDisplaySleep" = "جلوگیری از خاموش شدن نمایش‌گر";
 "settings.picker.iosDevice" = "شبیه‌ساز:";
+/* %.f */
 "settings.slider.mouseSensitivity" = "میزان حساسیت ماوس: %.f";
 "notification.appInstalled" = "برنامه نصب شد!";
 "notification.appInstalled.message" = "آن را در PlayCover می‌توانید مشاهده کنید!";
@@ -71,14 +70,8 @@
 "xcode.install.progress.subtext" = "بسته به سرعت اینترنت شما ممکن است زمان دانلود و نصب متفاوت باشد";
 "settings.text.customWidth" = "عرض";
 "settings.text.customHeight" = "ارتفاع";
-
-/* (No Comment) */
 "preferences.button.checkForUpdates" = "همین حالا وضعیت به‌روزی را بررسی کن...";
-
-/* (No Comment) */
 "preferences.tab.updates" = "به‌روزرسانی‌ها";
-
-/* (No Comment) */
 "preferences.toggle.automaticUpdates" = "به صورت خودکار وضعیت به‌روزی را بررسی کن";
 "storeAccount.alert.restoreAccount" = "از این کار مطمئن هستید؟";
 "button.Quit" = "خروج";
@@ -98,6 +91,7 @@
 "error.appCorrupted" = "چیزی در مورد این پرونده IPA درست نیست. لطفاً از پرونده‌ی IPA دیگری استفاده کنید.";
 "error.appProhibited" = "استفاده از این برنامه از طریق PlayCover ممکن است منجر به مسدود شدن حساب کاربری شما شود!";
 "error.noGenshinAccount" = "هیچ حساب کاربری برای Genshin Impact پیدا نشد! آیا در درون بازی اقدام به وارد شدن به حساب کاربری‌تان کرده‌اید؟";
+/* %@ */
 "settings.title" = "پیکربندی‌های %@";
 "settings.tab.info" = "درباره برنامه";
 "settings.tab.km" = "Keymapping";
@@ -137,6 +131,7 @@
 "settings.toggle.hud" = "فعال‌سازی Metal HUD";
 "settings.info.bundleVersion" = "نسخه:";
 "playapp.deleteConfirm" = "بله، حذف کن";
+/* %@ */
 "playapp.deleteMessage" = "آیا از حذف %@ مطمئن هستید؟";
 "alert.legacyImport.title" = "پیکربندی‌های تاریخ‌گذشته‌ای شناسایی شدند!";
 "alert.legacyImport.subtitle" = "پرونده‌های تاریخ‌گذشته‌ای پیدا شده‌اند. آیا مایل هستید که آن‌ها را به شکل به‌روزشده‌شان تبدیل کنید؟";

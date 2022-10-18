@@ -70,6 +70,7 @@
 "settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
 "settings.toggle.mm" = "Mouse mapping";
 "settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
+/* %.f */
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";
@@ -129,6 +130,7 @@
 "settings.toggle.hud" = "Metal HUD";
 "settings.info.bundleVersion" = "Bundle version";
 "playapp.deleteConfirm" = "Uninstall";
+/* %@ */
 "playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
 "alert.legacyImport.title" = "Legacy App Settings Detected!";
 "alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";

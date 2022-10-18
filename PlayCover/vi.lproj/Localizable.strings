@@ -37,8 +37,6 @@
 "alert.success" = "Xong!";
 "alert.moveAppToApplications.move" = "Tiến hành";
 "alert.storeAccount.regionIsNotValid" = "Tài khoản này được thiết lập ở máy chủ khác. Mở Genshin Impact lên, đổi máy chủ, vào hẳn game để lưu rồi thử lại";
-
-
 "button.OK" = "OK";
 "button.Proceed" = "Tiến hành";
 "button.Cancel" = "Hủy";
@@ -51,6 +49,7 @@
 "settings.toggle.jbBypass" = "Bật Jailbreak Bypass (thử nghiệm)";
 "settings.toggle.disableDisplaySleep" = "Không tắt màn hình";
 "settings.picker.iosDevice" = "Chọn thiết bị";
+/* %.f */
 "settings.slider.mouseSensitivity" = "Tốc độ chuột: %.f";
 "settings.text.customHeight" = "Chiều cao";
 "settings.text.customWidth" = "Chiều rộng";
@@ -81,14 +80,8 @@
 "xcode.install.failed" = "Cài đặt Command Line Tools for Xcode thất bại";
 "xcode.install.progress" = "Đang cài đặt Command Line Tools for Xcode";
 "xcode.install.progress.subtext" = "Có thể tốn tầm 5-10 phút tùy thuộc vào nhà cung cấp dịch vụ internet của bạn";
-
-/* (No Comment) */
 "preferences.toggle.automaticUpdates" = "Tự động kiểm tra cập nhật";
-
-/* (No Comment) */
 "preferences.button.checkForUpdates" = "Kiểm tra ngay...";
-
-/* (No Comment) */
 "preferences.tab.updates" = "Cập nhật";
 "sidebar.ipaLibrary" = "Thư viện file .IPA";
 "alert.moveAppToApplications.title" = "Move to Applications folder?";
@@ -140,6 +133,7 @@
 "alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
 "button.Convert" = "Convert";
 "playapp.deleteConfirm" = "Gỡ cài đặt";
+/* %@ */
 "playapp.deleteMessage" = "Bạn có chắc muốn gỡ cài đặt ứng dụng này không %@?";
 "settings.text.detectedResolution" = "Detected Resolution:";
 "alert.wrongFileType.subtitle" = "PlayCover can only install valid .ipa files.";
