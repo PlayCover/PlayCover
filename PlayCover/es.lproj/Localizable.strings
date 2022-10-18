@@ -304,3 +304,8 @@
 "playapp.add" = "Añadir aplicación";
 "alert.wrongFileType.title" = "¡Tipo de archivo incorrecto!";
 "alert.wrongFileType.subtitle" = "PlayCover solo puede instalar archivos .ipa válidos.";
+"ipaLibrary.noSources.title" = "No hay fuente de IPA";
+"ipaLibrary.noSources.subtitle" = "Actualmente no tiene fuentes IPA añadidas. Haga clic en el botón de abajo para agregar uno.";
+"ipaLibrary.noSources.button" = "Añadir Fuente";
+"ipaLibrary.noNetworkConnection.toast" = "Sin conexión a Internet!";
+"preferences.textfield.url" = "URL de fuente...";
