@@ -13,7 +13,7 @@ struct PlayCoverSettingsView: View {
     @EnvironmentObject var storeVM: StoreVM
 
     private enum Tabs: Hashable {
-        case updates, ipasource, installsettings
+        case updates, ipasource, uninstall, install
     }
 
     var body: some View {
@@ -23,6 +23,11 @@ struct PlayCoverSettingsView: View {
                     Label("preferences.tab.updates", systemImage: "square.and.arrow.down")
                 }
                 .tag(Tabs.updates)
+            UninstallSettings.shared
+                .tabItem {
+                  Label("preferences.tab.uninstall", systemImage: "trash.square")
+                }
+                .tag(Tabs.uninstall)
             IPASourceSettings()
                 .tabItem {
                     Label("preferences.tab.ipasource", systemImage: "list.bullet")
@@ -33,7 +38,7 @@ struct PlayCoverSettingsView: View {
                 .tabItem {
                     Label("Install", systemImage: "arrow.down.app")
                 }
-                .tag(Tabs.installsettings)
+                .tag(Tabs.install)
         }
     }
 }

@@ -158,17 +158,22 @@ class Entitlements {
         """
 
     public static func getDefaultRules() throws -> PlayRules {
-        var path: String
-        if FileManager.default.fileExists(atPath: "/Users/\(NSUserName())/.config/PlayCover/default.yaml") {
-            path = "/Users/\(NSUserName())/.config/PlayCover/default.yaml"
+        var path: URL
+        let yamlURL = FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent(".config")
+            .appendingPathComponent("PlayCover")
+            .appendingPathComponent("default")
+            .appendingPathExtension("yaml")
+        if FileManager.default.fileExists(atPath: yamlURL.path) {
+            path = yamlURL
         } else if let bpath = Bundle.main.path(forResource: "default", ofType: "yaml") {
-            path = bpath
+            path = URL(fileURLWithPath: bpath)
         } else {
             throw "Default config not found: default.yaml"
         }
 
         do {
-            let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+            let data = try Data(contentsOf: path, options: .mappedIfSafe)
             let decoder = YAMLDecoder()
             let decoded: PlayRules = try decoder.decode(PlayRules.self, from: data)
             return decoded
@@ -179,17 +184,22 @@ class Entitlements {
     }
 
     public static func getBundleRules(_ bundleID: String) throws -> PlayRules? {
-        var path: String
-        if FileManager.default.fileExists(atPath: "/Users/\(NSUserName())/.config/PlayCover/\(bundleID).yaml") {
-            path = "/Users/\(NSUserName())/.config/PlayCover/\(bundleID).yaml"
+        var path: URL
+        let yamlURL = FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent(".config")
+            .appendingPathComponent("PlayCover")
+            .appendingPathComponent(bundleID)
+            .appendingPathExtension("yaml")
+        if FileManager.default.fileExists(atPath: yamlURL.path) {
+            path = yamlURL
         } else if let bpath = Bundle.main.path(forResource: bundleID, ofType: "yaml") {
-            path = bpath
+            path = URL(fileURLWithPath: bpath)
         } else {
             return nil
         }
 
         do {
-            let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+            let data = try Data(contentsOf: path, options: .mappedIfSafe)
             let decoder = YAMLDecoder()
             let decoded: PlayRules = try decoder.decode(PlayRules.self, from: data)
             return decoded

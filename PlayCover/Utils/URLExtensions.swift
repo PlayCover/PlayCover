@@ -9,7 +9,13 @@ import SwiftUI
 
 extension String {
     var esc: String {
-        replacingOccurrences(of: " ", with: "\\ ")
+        let esc = ["\\", "\"", "'", " ", "(", ")", "[", "]", "{", "}", "&", "|",
+                   ";", "<", ">", "`", "$", "!", "*", "?", "#", "~", "="]
+        var str = self
+        for char in esc {
+            str = str.replacingOccurrences(of: char, with: "\\" + char)
+        }
+        return str
     }
 
     func copyToClipBoard() {
