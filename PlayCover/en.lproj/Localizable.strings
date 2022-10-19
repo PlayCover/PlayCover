@@ -24,11 +24,12 @@
 "preferences.tab.updates" = "Updates";
 "preferences.toggle.automaticUpdates" = "Automatically check for updates";
 "preferences.tab.uninstall" = "Uninstall";
-"preferences.toggle.showUninstall" = "Show uninstall popup";
-"preferences.toggle.clearAppData" = "Clear app data when uninstalling";
-"preferences.toggle.removeKeymap" = "Remove app keymapping when uninstalling";
-"preferences.toggle.removeSetting" = "Remove app settings when uninstalling";
-"preferences.toggle.removeEntitlements" = "Remove app entitlements when uninstalling";
+"preferences.whenUninstalling" = "When uninstalling:";
+"preferences.toggle.showUninstall" = "Show warning popup";
+"preferences.toggle.clearAppData" = "Clear data";
+"preferences.toggle.removeKeymap" = "Remove keymap";
+"preferences.toggle.removeSetting" = "Remove settings";
+"preferences.toggle.removeEntitlements" = "Remove entitlements";
 "preferences.button.pruneFiles" = "Prune files";
 "preferences.prune.alert" = "Are you sure you want to prune all files?";
 "preferences.prune.message" = "This will remove all unused files including settings, keymappings, entitlements, and app data";
@@ -88,11 +89,7 @@
 "alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
 "alert.wrongFileType.title" = "Wrong file type!";
 "alert.wrongFileType.subtitle" = "PlayCover can only install valid .ipa files.";
-"alert.uninstall.clearAppData" = "Clear app data";
-"alert.uninstall.removeKeymap" = "Remove app keymapping";
-"alert.uninstall.removeSetting" = "Remove app settings";
-"alert.uninstall.removeEntitlements" = "Remove app entitlements";
-"alert.uninstall.supression" = "You can change this in the PlayCover Preferences";
+"alert.supression" = "You can change this in the PlayCover preferences";
 
 "button.OK" = "OK";
 "button.Proceed" = "Proceed";
