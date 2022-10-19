@@ -15,16 +15,22 @@ struct AppSettingsView: View {
 
     @State var resetSettingsCompletedAlert = false
     @State var resetKmCompletedAlert = false
+    @State var iconURL: URL?
 
     var body: some View {
         VStack {
             HStack {
-                if let img = viewModel.app.icon {
-                    Image(nsImage: img).resizable()
-                        .frame(width: 33, height: 33)
+                AsyncImage(url: iconURL) { image in
+                    image
+                        .resizable()
                         .cornerRadius(10)
                         .shadow(radius: 1)
+                } placeholder: {
+                    ProgressView()
+                        .progressViewStyle(.circular)
                 }
+                .frame(width: 33, height: 33)
+
                 Text(String(
                     format:
                         NSLocalizedString("settings.title", comment: ""),
@@ -33,6 +39,12 @@ struct AppSettingsView: View {
                     .multilineTextAlignment(.leading)
                 Spacer()
             }
+            .task(priority: .userInitiated) {
+                iconURL = ImageCache.getLocalImageURL(bundleID: viewModel.app.info.bundleIdentifier,
+                                                      bundleURL: viewModel.app.url,
+                                                      primaryIconName: viewModel.app.info.primaryIconName)
+            }
+
             TabView {
                 KeymappingView(settings: $viewModel.settings)
                     .tabItem {

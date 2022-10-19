@@ -80,11 +80,9 @@ class PlayTools {
             url.path)
     }
 
-    static func installInIPA(_ exec: URL, _ payload: URL, resign: Bool = false) throws {
+    static func installInIPA(_ exec: URL, _ payload: URL) throws {
         patch_binary_with_dylib(exec.path, playToolsPath.path)
-        if resign {
-            shell.signApp(exec)
-        }
+        shell.signApp(exec)
     }
 
     static func installPluginInIPA(_ payload: URL) throws {
@@ -221,12 +219,6 @@ class PlayTools {
     private static var install_name_tool: URL {
         get throws {
             try binPath("install_name_tool")
-        }
-    }
-
-    private static var ldid: URL {
-        get throws {
-            try binPath("ldid")
         }
     }
 }

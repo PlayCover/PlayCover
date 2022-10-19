@@ -65,7 +65,7 @@ struct PlayCoverViewMenuView: Commands {
                     NSOpenPanel.selectIPA { result in
                         if case .success(let url) = result {
                             uif.ipaUrl = url
-                            Installer.exportForSideloadly(ipaUrl: uif.ipaUrl!, returnCompletion: { ipa in
+                            Installer.install(ipaUrl: uif.ipaUrl!, export: true, returnCompletion: { ipa in
                                 DispatchQueue.main.async {
                                     if let ipa = ipa {
                                         ipa.showInFinder()
@@ -95,6 +95,10 @@ struct PlayCoverViewMenuView: Commands {
                 StoreVM.shared.resolveSources()
             }
             .keyboardShortcut("R", modifiers: [.command])
+            Button("menubar.clearCache") {
+                ImageCache.clearCache()
+            }
+            .keyboardShortcut("R", modifiers: [.command, .shift])
             Divider()
         }
     }

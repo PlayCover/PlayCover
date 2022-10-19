@@ -177,7 +177,6 @@ class Shell: ObservableObject {
 
         return output
     }
-
 }
 
 extension String: Error { }

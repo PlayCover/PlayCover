@@ -72,6 +72,7 @@
 "playapp.install.addToLib" = "Adding app to library...";
 "playapp.install.copy" = "Copying app...";
 "playapp.install.finished" = "Finished";
+"playapp.install.failed" = "Failed";
 
 "alert.appCacheCleared" = "App data has been cleared!";
 "alert.kmImported" = "Keymapping imported!";
@@ -160,6 +161,7 @@
 "menubar.github" = "GitHub";
 "menubar.discord" = "Discord";
 "menubar.checkForUpdates" = "Check for Updates...";
+"menubar.clearCache" = "Clear Image Cache";
 
 "soundAlert.messageText" = "Incorrect Audio Settings Detected!";
 "soundAlert.informativeText" = "Your current output device does not have a sample rate of 48 or 44.1 KHz! Crashes may occur. Would you like to change your current output device's sample rate to 48 KHz?";

@@ -11,7 +11,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let url = urls.first {
             if url.pathExtension == "ipa" {
                 uif.ipaUrl = url
-                Installer.install(ipaUrl: uif.ipaUrl!, returnCompletion: { _ in
+                Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
                     DispatchQueue.main.async {
                         AppsVM.shared.fetchApps()
                         NotifyService.shared.notify(
