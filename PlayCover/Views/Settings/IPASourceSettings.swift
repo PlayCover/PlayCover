@@ -7,41 +7,17 @@
 
 import SwiftUI
 
-struct SourceData: Identifiable, Hashable {
-    var id = UUID()
-    var source: String
-    var status: SourceValidation = .valid
-
-    enum SourceDataKeys: String, CodingKey {
-        case source
-    }
-}
-
-extension SourceData: Encodable {
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: SourceDataKeys.self)
-        try container.encode(source, forKey: .source)
-    }
-}
-
-extension SourceData: Decodable {
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: SourceDataKeys.self)
-        source = try values.decode(String.self, forKey: .source)
-    }
-}
-
 struct IPASourceSettings: View {
     @State var selected = Set<UUID>()
     @State var selectedNotEmpty = false
     @State var addSourceSheet = false
     @State var triggerUpdate = false
-    @EnvironmentObject var storeVM: StoreVM
+    @EnvironmentObject var ipaSourceVM: IPASourceVM
 
     var body: some View {
         Form {
             HStack {
-                List(storeVM.sources, id: \.id, selection: $selected) { source in
+                List(ipaSourceVM.sources, id: \.id, selection: $selected) { source in
                     SourceView(source: source)
                 }
                 .listStyle(.bordered(alternatesRowBackgrounds: true))
@@ -55,7 +31,7 @@ struct IPASourceSettings: View {
                             .frame(width: 130)
                     })
                     Button(action: {
-                        storeVM.deleteSource(&selected)
+                        ipaSourceVM.deleteSource(&selected)
                     }, label: {
                         Text("preferences.button.deleteSource")
                             .frame(width: 130)
@@ -64,14 +40,14 @@ struct IPASourceSettings: View {
                     Spacer()
                         .frame(height: 20)
                     Button(action: {
-                        storeVM.moveSourceUp(&selected)
+                        ipaSourceVM.moveSourceUp(&selected)
                     }, label: {
                         Text("preferences.button.moveSourceUp")
                             .frame(width: 130)
                     })
                     .disabled(!selectedNotEmpty)
                     Button(action: {
-                        storeVM.moveSourceDown(&selected)
+                        ipaSourceVM.moveSourceDown(&selected)
                     }, label: {
                         Text("preferences.button.moveSourceDown")
                             .frame(width: 130)
@@ -80,7 +56,7 @@ struct IPASourceSettings: View {
                     Spacer()
                         .frame(height: 20)
                     Button(action: {
-                        storeVM.resolveSources()
+                        ipaSourceVM.resolveSources()
                     }, label: {
                         Text("preferences.button.resolveSources")
                             .frame(width: 130)
@@ -99,7 +75,7 @@ struct IPASourceSettings: View {
         .frame(width: 600, height: 300, alignment: .center)
         .sheet(isPresented: $addSourceSheet) {
             AddSourceView(addSourceSheet: $addSourceSheet)
-                .environmentObject(storeVM)
+                .environmentObject(ipaSourceVM)
         }
     }
 
@@ -169,7 +145,7 @@ struct AddSourceView: View {
     @State var newSourceURL: URL?
     @State var sourceValidationState = SourceValidation.checking
     @Binding var addSourceSheet: Bool
-    @EnvironmentObject var storeVM: StoreVM
+    @EnvironmentObject var ipaSourceVM: IPASourceVM
 
     var body: some View {
         VStack {
@@ -204,7 +180,7 @@ struct AddSourceView: View {
                 })
                 Button(action: {
                     if newSourceURL != nil {
-                        storeVM.appendSourceData(SourceData(source: newSourceURL!.absoluteString))
+                        ipaSourceVM.appendSourceData(SourceData(source: newSourceURL!.absoluteString))
                         addSourceSheet.toggle()
                     }
                 }, label: {
@@ -227,27 +203,25 @@ struct AddSourceView: View {
         DispatchQueue.global(qos: .userInteractive).async {
             if let url = URL(string: source) {
                 newSourceURL = url
-                if StoreVM.checkAvaliability(url: newSourceURL!) {
+                do {
+                    if newSourceURL!.scheme == nil {
+                        newSourceURL = URL(string: "https://" + newSourceURL!.absoluteString)!
+                    }
+                    let contents = try String(contentsOf: newSourceURL!)
+                    let jsonData = contents.data(using: .utf8)!
                     do {
-                        if newSourceURL!.scheme == nil {
-                            newSourceURL = URL(string: "https://" + newSourceURL!.absoluteString)!
-                        }
-                        let contents = try String(contentsOf: newSourceURL!)
-                        let jsonData = contents.data(using: .utf8)!
-                        do {
-                            let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self, from: jsonData)
-                            if data.count > 0 {
-                                sourceValidationState = .valid
-                                return
-                            }
-                        } catch {
-                            sourceValidationState = .badjson
+                        let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self, from: jsonData)
+                        if data.count > 0 {
+                            sourceValidationState = .valid
                             return
                         }
                     } catch {
-                        sourceValidationState = .badurl
+                        sourceValidationState = .badjson
                         return
                     }
+                } catch {
+                    sourceValidationState = .badurl
+                    return
                 }
             }
             sourceValidationState = .badurl

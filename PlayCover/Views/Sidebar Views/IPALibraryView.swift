@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct IPALibraryView: View {
-    @EnvironmentObject var storeVM: StoreVM
+    @EnvironmentObject var ipaSourceVM: IPASourceVM
 
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
@@ -24,7 +24,7 @@ struct IPALibraryView: View {
             ScrollView {
                 if !isList {
                     LazyVGrid(columns: gridLayout, alignment: .center) {
-                        ForEach(storeVM.filteredApps, id: \.bundleID) { app in
+                        ForEach(ipaSourceVM.filteredApps, id: \.bundleID) { app in
                             StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                          selectedTextColor: $selectedTextColor,
                                          selected: $selected,
@@ -37,7 +37,7 @@ struct IPALibraryView: View {
                     Spacer()
                 } else {
                     VStack {
-                        ForEach(storeVM.filteredApps, id: \.bundleID) { app in
+                        ForEach(ipaSourceVM.filteredApps, id: \.bundleID) { app in
                             StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                          selectedTextColor: $selectedTextColor,
                                          selected: $selected,
@@ -50,7 +50,7 @@ struct IPALibraryView: View {
                     .padding()
                 }
             }
-            if storeVM.sources.count == 0 {
+            if ipaSourceVM.sources.count == 0 {
                 VStack {
                     Spacer()
                     Text("ipaLibrary.noSources.title")
@@ -92,14 +92,14 @@ struct IPALibraryView: View {
         .searchable(text: $searchString, placement: .toolbar)
         .onChange(of: searchString) { value in
             uif.searchText = value
-            storeVM.fetchApps()
+            ipaSourceVM.fetchApps()
         }
         .onChange(of: isList, perform: { value in
             UserDefaults.standard.set(value, forKey: "IPALibrayView")
         })
         .sheet(isPresented: $addSourcePresented) {
             AddSourceView(addSourceSheet: $addSourcePresented)
-                .environmentObject(storeVM)
+                .environmentObject(ipaSourceVM)
         }
     }
 }
