@@ -192,7 +192,7 @@ struct PlayAppConditionalView: View {
                     let noPlayToolsImage = Image(systemName: "exclamationmark.triangle.fill")
                         .padding(.horizontal, 4)
 
-                    if !app.hasPlayTools {
+                    if app.hasPlayTools {
                         noPlayToolsImage
                             .hidden()
                     } else {
@@ -246,8 +246,9 @@ struct PlayAppConditionalView: View {
                     .frame(width: 60, height: 60)
 
                     HStack {
-                        let noPlayToolsWarning = Text(app.hasPlayTools ?
-                        "\(Image(systemName: "exclamationmark.triangle.fill")) " : "")
+                        let noPlayToolsWarning = Text(
+                            app.hasPlayTools ? "" : "\(Image(systemName: "exclamationmark.triangle.fill")) "
+                        )
 
                         Text("\(noPlayToolsWarning)\(app.name)")
                             .lineLimit(1)
