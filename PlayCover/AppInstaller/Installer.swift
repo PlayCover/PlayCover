@@ -36,7 +36,7 @@ class Installer {
     static func install(ipaUrl: URL, export: Bool, returnCompletion: @escaping (URL?) -> Void) {
         let installPlayTools = (InstallSettings.shared.showInstallPlayToolsPopup && !export) ?
             installPlayToolsPopup() : InstallSettings.shared.alwaysInstallPlayTools
- 
+
         InstallVM.shared.next(.begin, 0.0, 0.0)
 
         DispatchQueue.global(qos: .userInitiated).async {
@@ -52,13 +52,9 @@ class Installer {
                 if export {
                     InstallVM.shared.next(.playtools, 0.55, 0.85)
                     try PlayTools.injectInIPA(app.executable, payload: app.url)
-                } else {
-                  if installPlayTools {
-                      InstallVM.shared.next(.playtools, 0.55, 0.85)
-                      try PlayTools.installInIPA(app.executable, app.url)
-                  }
-
-                  PlayToolSettings.shared.add(app.info.bundleIdentifier, installPlayTools)
+                } else if installPlayTools {
+                    InstallVM.shared.next(.playtools, 0.55, 0.85)
+                    try PlayTools.installInIPA(app.executable, app.url)
                 }
 
                 for macho in machos {

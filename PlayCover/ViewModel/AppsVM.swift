@@ -39,11 +39,6 @@ class AppsVM: ObservableObject {
                             print("Application installed under:", sub.path)
                         }
                         result.append(app)
-
-                        if !PlayToolSettings.shared.has(app.info.bundleIdentifier) {
-                            PlayToolSettings.shared.add(app.info.bundleIdentifier,
-                                                   try PlayTools.installedInExec(atURL: app.executable))
-                        }
                     }
                 }
 

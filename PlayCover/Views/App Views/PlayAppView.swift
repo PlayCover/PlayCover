@@ -180,8 +180,9 @@ struct PlayAppConditionalView: View {
     @Binding var selectedTextColor: Color
     @Binding var selected: PlayApp?
 
+    @ObservedObject var app: PlayApp
+
     @State var iconURL: URL?
-    @State var app: PlayApp
     @State var isList: Bool
 
     var body: some View {
@@ -206,6 +207,12 @@ struct PlayAppConditionalView: View {
                     Text(app.name)
                         .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
                                          selectedTextColor : Color.primary)
+
+                    if !app.hasPlayTools {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .padding(.horizontal, 4)
+                    }
+
                     Spacer()
                     Text(app.settings.info.bundleVersion)
                         .padding(.horizontal, 15)
@@ -232,20 +239,27 @@ struct PlayAppConditionalView: View {
                     }
                     .frame(width: 60, height: 60)
 
-                    Text(app.name)
-                        .lineLimit(1)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 4)
-                        .padding(.vertical, 2)
-                        .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                         selectedTextColor : Color.primary)
-                        .background(
-                            RoundedRectangle(cornerRadius: 4)
-                                .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                      selectedBackgroundColor : Color.clear)
-                                .brightness(-0.2)
-                            )
-                        .frame(width: 130, height: 20)
+                    HStack {
+                        Text(app.name)
+                            .lineLimit(1)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 4)
+                            .padding(.vertical, 2)
+                            .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                             selectedTextColor : Color.primary)
+                            .background(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                          selectedBackgroundColor : Color.clear)
+                                    .brightness(-0.2)
+                                )
+                            .fixedSize()
+
+                        if !app.hasPlayTools {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .padding(.vertical, 2)
+                        }
+                    }
                 }
                 .frame(width: 130, height: 130)
             }

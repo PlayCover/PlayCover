@@ -154,21 +154,17 @@ class PlayTools {
         }
     }
 
-    static func installInApp(_ exec: URL, _ bundleID: String? = nil) {
+    static func installInApp(_ exec: URL) {
         do {
             patch_binary_with_dylib(exec.path, playToolsPath.path)
             try installPluginInIPA(exec.deletingLastPathComponent())
             shell.signApp(exec)
-
-            if let bundleID {
-                PlayToolSettings.shared.modify(bundleID, true)
-            }
         } catch {
             Log.shared.error(error)
         }
     }
 
-    static func removeFromApp(_ exec: URL, _ bundleID: String? = nil) {
+    static func removeFromApp(_ exec: URL) {
         do {
             remove_play_tools_from(exec.path, playToolsPath.path)
 
@@ -185,10 +181,6 @@ class PlayTools {
             Shell.codesign(bundleTarget)
 
             shell.signApp(exec)
-
-            if let bundleID {
-                PlayToolSettings.shared.modify(bundleID, false)
-            }
         } catch {
             Log.shared.error(error)
         }
@@ -214,11 +206,7 @@ class PlayTools {
     }
 
     static func installedInExec(atURL url: URL) throws -> Bool {
-        let loads = try shell.shello(otool.path, "-l", url.path).components(separatedBy: "Load command")
-        for block in loads where (block.contains("LC_LOAD_DYLIB") && block.contains(playToolsPath.esc)) {
-            return true
-        }
-        return false
+        try shell.shello(otool.path, "-L", url.path).contains(playToolsPath.esc)
     }
 
     static func isInstalled() throws -> Bool {

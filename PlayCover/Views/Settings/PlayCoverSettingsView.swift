@@ -36,7 +36,7 @@ struct PlayCoverSettingsView: View {
                 .environmentObject(storeVM)
             InstallSettings.shared
                 .tabItem {
-                    Label("Install", systemImage: "arrow.down.app")
+                    Label("preferences.tab.install", systemImage: "arrow.down.app")
                 }
                 .tag(Tabs.install)
         }

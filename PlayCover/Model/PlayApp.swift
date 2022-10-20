@@ -7,7 +7,7 @@ import Cocoa
 import Foundation
 import IOKit.pwr_mgt
 
-class PlayApp: BaseApp {
+class PlayApp: BaseApp, ObservableObject {
     private static let library = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library")
 
     var searchText: String {

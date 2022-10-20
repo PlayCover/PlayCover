@@ -19,7 +19,6 @@ struct AppSettingsView: View {
     @State var iconURL: URL?
 
     var body: some View {
-        let hasPlayTools = PlayToolSettings.shared.get(viewModel.app.info.bundleIdentifier) ?? true
         VStack {
             HStack {
                 AsyncImage(url: iconURL) { image in
@@ -47,7 +46,7 @@ struct AppSettingsView: View {
                                                       primaryIconName: viewModel.app.info.primaryIconName)
             }
 
-            if !(PlayToolSettings.shared.get(viewModel.app.info.bundleIdentifier) ?? true) {
+            if !viewModel.app.hasPlayTools {
                 HStack {
                     Image(systemName: "exclamationmark.triangle.fill")
                     Text(NSLocalizedString("settings.noPlayTools", comment: ""))
@@ -62,22 +61,22 @@ struct AppSettingsView: View {
                     .tabItem {
                         Text("settings.tab.km")
                     }
-                    .disabled(!hasPlayTools)
+                    .disabled(!viewModel.app.hasPlayTools)
                 GraphicsView(settings: $viewModel.settings)
                     .tabItem {
                         Text("settings.tab.graphics")
                     }
-                    .disabled(!hasPlayTools)
+                    .disabled(!viewModel.app.hasPlayTools)
                 JBBypassView(settings: $viewModel.settings)
                     .tabItem {
                         Text("settings.tab.jbBypass")
                     }
-                    .disabled(!hasPlayTools)
-                MiscView(settings: $viewModel.settings, app: viewModel.app, closeView: $closeView)
+                    .disabled(!viewModel.app.hasPlayTools)
+                MiscView(settings: $viewModel.settings, closeView: $closeView, app: viewModel.app)
                     .tabItem {
                         Text("settings.tab.misc")
                     }
-                InfoView(info: viewModel.app.info, hasPlayTools: hasPlayTools)
+                InfoView(info: viewModel.app.info, hasPlayTools: viewModel.app.hasPlayTools)
                     .tabItem {
                         Text("settings.tab.info")
                     }
@@ -359,12 +358,13 @@ struct JBBypassView: View {
 
 struct MiscView: View {
     @Binding var settings: AppSettings
-    var app: PlayApp
-    @State var showPopover = false
     @Binding var closeView: Bool
 
+    @State var showPopover = false
+
+    var app: PlayApp
+
     var body: some View {
-        let hasPlayTools = PlayToolSettings.shared.get(app.info.bundleIdentifier)
         ScrollView {
             VStack {
                 HStack {
@@ -409,26 +409,26 @@ struct MiscView: View {
                             }
                         }
                     Spacer()
-                }.disabled(!(hasPlayTools ?? true))
+                }.disabled(!app.hasPlayTools)
                 if #available(macOS 13.0, *) {
                     HStack {
                         Toggle("settings.toggle.hud", isOn: $settings.metalHudEnabled)
                         Spacer()
                     }
                 }
-                if let hasPlayTools {
-                    HStack {
-                        Button(hasPlayTools ? "settings.removePlayTools" : "alert.install.injectPlayTools") {
-                            if hasPlayTools {
-                                PlayTools.removeFromApp(app.executable, app.info.bundleIdentifier)
-                            } else {
-                                PlayTools.installInApp(app.executable, app.info.bundleIdentifier)
-                            }
-
-                            closeView.toggle()
+                HStack {
+                    Button(app.hasPlayTools ? "settings.removePlayTools" : "alert.install.injectPlayTools") {
+                        if app.hasPlayTools {
+                            PlayTools.removeFromApp(app.executable)
+                            app.hasPlayTools = false
+                        } else {
+                            PlayTools.installInApp(app.executable)
+                            app.hasPlayTools = true
                         }
-                        Spacer()
+
+                        closeView.toggle()
                     }
+                    Spacer()
                 }
             }
             .padding()
