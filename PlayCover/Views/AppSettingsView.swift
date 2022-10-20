@@ -32,28 +32,32 @@ struct AppSettingsView: View {
                 }
                 .frame(width: 33, height: 33)
 
-                Text(String(
-                    format:
-                        NSLocalizedString("settings.title", comment: ""),
-                    viewModel.app.name))
-                    .font(.title2).bold()
-                    .multilineTextAlignment(.leading)
-                Spacer()
+                VStack {
+                    HStack {
+                        Text(String(
+                            format:
+                                NSLocalizedString("settings.title", comment: ""),
+                            viewModel.app.name))
+                            .font(.title2).bold()
+                            .multilineTextAlignment(.leading)
+                        Spacer()
+                    }
+
+                    if !viewModel.app.hasPlayTools {
+                        HStack(spacing: 3) {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                            Text(NSLocalizedString("settings.noPlayTools", comment: ""))
+                                .font(.caption)
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                        }
+                    }
+                }
             }
             .task(priority: .userInitiated) {
                 iconURL = ImageCache.getLocalImageURL(bundleID: viewModel.app.info.bundleIdentifier,
                                                       bundleURL: viewModel.app.url,
                                                       primaryIconName: viewModel.app.info.primaryIconName)
-            }
-
-            if !viewModel.app.hasPlayTools {
-                HStack {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                    Text(NSLocalizedString("settings.noPlayTools", comment: ""))
-                        .font(.caption)
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                }
             }
 
             TabView {
