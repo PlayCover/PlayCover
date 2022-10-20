@@ -17,6 +17,7 @@ struct InstallSettings: View {
         Form {
             Toggle("preferences.toggle.showInstallPopup", isOn: $showInstallPlayToolsPopup)
             Toggle("preferences.toggle.alwaysInstallPlayTools", isOn: $alwaysInstallPlayTools)
+                .disabled(showInstallPlayToolsPopup)
         }
         .padding(20)
         .frame(width: 350, height: 100, alignment: .center)
