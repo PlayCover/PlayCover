@@ -189,6 +189,17 @@ struct PlayAppConditionalView: View {
         Group {
             if isList {
                 HStack(alignment: .center, spacing: 0) {
+                    let noPlayToolsImage = Image(systemName: "exclamationmark.triangle.fill")
+                        .padding(.horizontal, 4)
+
+                    if !app.hasPlayTools {
+                        noPlayToolsImage
+                            .hidden()
+                    } else {
+                        noPlayToolsImage
+                            .help("settings.noPlayTools")
+                    }
+
                     AsyncImage(url: iconURL) { image in
                         image
                             .resizable()
@@ -207,12 +218,6 @@ struct PlayAppConditionalView: View {
                     Text(app.name)
                         .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
                                          selectedTextColor : Color.primary)
-
-                    if !app.hasPlayTools {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .padding(.horizontal, 4)
-                            .help("settings.noPlayTools")
-                    }
 
                     Spacer()
                     Text(app.settings.info.bundleVersion)
@@ -241,7 +246,10 @@ struct PlayAppConditionalView: View {
                     .frame(width: 60, height: 60)
 
                     HStack {
-                        Text(app.name)
+                        let noPlayToolsWarning = Text(app.hasPlayTools ?
+                        "\(Image(systemName: "exclamationmark.triangle.fill")) " : "")
+
+                        Text("\(noPlayToolsWarning)\(app.name)")
                             .lineLimit(1)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 4)
@@ -254,13 +262,8 @@ struct PlayAppConditionalView: View {
                                           selectedBackgroundColor : Color.clear)
                                     .brightness(-0.2)
                                 )
+                            .help("settings.noPlayTools")
                             .fixedSize()
-
-                        if !app.hasPlayTools {
-                            Image(systemName: "exclamationmark.triangle.fill")
-                                .padding(.vertical, 2)
-                                .help("settings.noPlayTools")
-                        }
                     }
                 }
                 .frame(width: 130, height: 130)
