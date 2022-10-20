@@ -14,7 +14,6 @@ struct PlayAppView: View {
     @State var isList: Bool
 
     @State private var showSettings = false
-    @State private var showDeleteConfirmation = false
     @State private var showClearCacheAlert = false
     @State private var showClearCacheToast = false
     @State private var showClearPreferencesAlert = false
@@ -109,7 +108,7 @@ struct PlayAppView: View {
                     Text("playapp.clearPreferences")
                 })
                 Button(action: {
-                    showDeleteConfirmation.toggle()
+                    Uninstaller.uninstallPopup(app)
                 }, label: {
                     Text("playapp.delete")
                 })
@@ -155,17 +154,6 @@ struct PlayAppView: View {
             .sheet(isPresented: $showSettings) {
                 AppSettingsView(viewModel: AppSettingsVM(app: app))
             }
-            .alert("playapp.delete", isPresented: $showDeleteConfirmation, actions: {
-                Button("playapp.deleteConfirm", role: .destructive) {
-                    app.deleteApp()
-                }
-                Button("button.Cancel", role: .cancel) {
-                    showDeleteConfirmation.toggle()
-                }
-                .keyboardShortcut(.defaultAction)
-            }, message: {
-                Text(String(format: NSLocalizedString("playapp.deleteMessage", comment: ""), arguments: [app.name]))
-            })
     }
 
     func removeTwitterSessionCookie() {
