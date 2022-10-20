@@ -80,6 +80,8 @@
 		B1419FB628BA82EE000CB69F /* DiscordActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1419FB528BA82EE000CB69F /* DiscordActivity.swift */; };
 		B17FD03C28C70C2100B1D4CA /* CoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B17FD03828C70BAE00B1D4CA /* CoreUI.framework */; };
 		B17FD04728C7B0D900B1D4CA /* AssetsExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17FD04628C7B0D900B1D4CA /* AssetsExtractor.swift */; };
+		B6603E1128E206A300DEFA3F /* UninstallSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6603E1028E206A300DEFA3F /* UninstallSettings.swift */; };
+		B6603E1328E2257800DEFA3F /* Uninstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6603E1228E2257800DEFA3F /* Uninstaller.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -189,6 +191,8 @@
 		B17FD03828C70BAE00B1D4CA /* CoreUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreUI.framework; path = /System/Library/PrivateFrameworks/CoreUI.framework; sourceTree = "<group>"; };
 		B17FD03F28C70C7300B1D4CA /* CoreUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreUI.h; sourceTree = "<group>"; };
 		B17FD04628C7B0D900B1D4CA /* AssetsExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsExtractor.swift; sourceTree = "<group>"; };
+		B6603E1028E206A300DEFA3F /* UninstallSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UninstallSettings.swift; sourceTree = "<group>"; };
+		B6603E1228E2257800DEFA3F /* Uninstaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Uninstaller.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +214,7 @@
 			children = (
 				3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */,
 				36B26B96288C724600859EFD /* UpdateSettings.swift */,
+				B6603E1028E206A300DEFA3F /* UninstallSettings.swift */,
 				6ED6379C28DAAAC100B506FA /* IPASourceSettings.swift */,
 			);
 			path = Settings;
@@ -229,6 +234,7 @@
 				6E66B0CA289F55180099B907 /* App Views */,
 				36B26B95288C722500859EFD /* Settings */,
 				AB671B8B28C9C7DB00B7B102 /* SigningSetupView.swift */,
+				B6603E1228E2257800DEFA3F /* Uninstaller.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -666,6 +672,7 @@
 				928C01D9272E162C007EB2DF /* InstallVM.swift in Sources */,
 				6E06193628B3C4090012C771 /* StoreGenshinAccountView.swift in Sources */,
 				53F4D2A026C43C690020167C /* Log.swift in Sources */,
+				B6603E1128E206A300DEFA3F /* UninstallSettings.swift in Sources */,
 				92A8AAC9275EFEA800D89B50 /* SystemConfig.swift in Sources */,
 				6E66B0C9289F52800099B907 /* IPALibraryView.swift in Sources */,
 				B1084E1F28AA80F400E399FA /* AppSettingsVM.swift in Sources */,
@@ -683,6 +690,7 @@
 				28361D6028927CAC00B35EDB /* SaveGenshinUserData.swift in Sources */,
 				B1419FB628BA82EE000CB69F /* DiscordActivity.swift in Sources */,
 				53F4D29E26C43C040020167C /* UserIntentFlow.swift in Sources */,
+				B6603E1328E2257800DEFA3F /* Uninstaller.swift in Sources */,
 				AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */,
 				6E66B0D928A135360099B907 /* ToastVM.swift in Sources */,
 				53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */,
