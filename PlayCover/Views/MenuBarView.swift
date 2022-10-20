@@ -92,7 +92,7 @@ struct PlayCoverViewMenuView: Commands {
         }
         CommandGroup(before: .sidebar) {
             Button("preferences.button.resolveSources") {
-                StoreVM.shared.resolveSources()
+                IPASourceVM.shared.resolveSources()
             }
             .keyboardShortcut("R", modifiers: [.command])
             Button("menubar.clearCache") {

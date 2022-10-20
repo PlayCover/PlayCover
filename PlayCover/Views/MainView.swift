@@ -15,7 +15,7 @@ struct MainView: View {
     @Environment(\.controlActiveState) var controlActiveState
 
     @EnvironmentObject var apps: AppsVM
-    @EnvironmentObject var store: StoreVM
+    @EnvironmentObject var ipaSource: IPASourceVM
     @EnvironmentObject var integrity: AppIntegrity
 
     @Binding public var xcodeCliInstalled: Bool
@@ -41,7 +41,7 @@ struct MainView: View {
                         }
                         NavigationLink(destination: IPALibraryView(selectedBackgroundColor: $selectedBackgroundColor,
                                                                    selectedTextColor: $selectedTextColor)
-                            .environmentObject(store),
+                            .environmentObject(ipaSource),
                                        tag: 2, selection: self.$selectedView) {
                             Label("sidebar.ipaLibrary", systemImage: "arrow.down.circle")
                         }
@@ -312,7 +312,7 @@ struct MainView_Previews: PreviewProvider {
                  isSigningSetupShown: $isSigningSetupShown)
             .environmentObject(InstallVM.shared)
             .environmentObject(AppsVM.shared)
-            .environmentObject(StoreVM.shared)
+            .environmentObject(IPASourceVM.shared)
             .environmentObject(AppIntegrity())
     }
 }
