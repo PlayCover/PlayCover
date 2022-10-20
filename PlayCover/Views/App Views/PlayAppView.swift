@@ -189,7 +189,7 @@ struct PlayAppConditionalView: View {
         Group {
             if isList {
                 HStack(alignment: .center, spacing: 0) {
-                    let noPlayToolsImage = Image(systemName: "exclamationmark.triangle.fill")
+                    let noPlayToolsImage = Image(systemName: "exclamationmark.triangle")
                         .padding(.horizontal, 4)
 
                     if app.hasPlayTools {
@@ -247,7 +247,7 @@ struct PlayAppConditionalView: View {
 
                     HStack {
                         let noPlayToolsWarning = Text(
-                            app.hasPlayTools ? "" : "\(Image(systemName: "exclamationmark.triangle.fill")) "
+                            app.hasPlayTools ? "" : "\(Image(systemName: "exclamationmark.triangle")) "
                         )
 
                         Text("\(noPlayToolsWarning)\(app.name)")
