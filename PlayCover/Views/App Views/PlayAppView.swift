@@ -211,6 +211,7 @@ struct PlayAppConditionalView: View {
                     if !app.hasPlayTools {
                         Image(systemName: "exclamationmark.triangle.fill")
                             .padding(.horizontal, 4)
+                            .help("settings.noPlayTools")
                     }
 
                     Spacer()
@@ -258,6 +259,7 @@ struct PlayAppConditionalView: View {
                         if !app.hasPlayTools {
                             Image(systemName: "exclamationmark.triangle.fill")
                                 .padding(.vertical, 2)
+                                .help("settings.noPlayTools")
                         }
                     }
                 }
