@@ -240,27 +240,25 @@ struct PlayAppConditionalView: View {
                     }
                     .frame(width: 60, height: 60)
 
-                    HStack {
-                        let noPlayToolsWarning = Text(
-                            app.hasPlayTools ? "" : "\(Image(systemName: "exclamationmark.triangle")) "
-                        )
+                    let noPlayToolsWarning = Text(
+                        app.hasPlayTools ? "" : "\(Image(systemName: "exclamationmark.triangle"))  "
+                    )
 
-                        Text("\(noPlayToolsWarning)\(app.name)")
-                            .lineLimit(1)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 4)
-                            .padding(.vertical, 2)
-                            .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                             selectedTextColor : Color.primary)
-                            .background(
-                                RoundedRectangle(cornerRadius: 4)
-                                    .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                          selectedBackgroundColor : Color.clear)
-                                    .brightness(-0.2)
-                                )
-                            .help("settings.noPlayTools")
-                            .fixedSize()
-                    }
+                    Text("\(noPlayToolsWarning)\(app.name)")
+                        .lineLimit(1)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 4)
+                        .padding(.vertical, 2)
+                        .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                         selectedTextColor : Color.primary)
+                        .background(
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                      selectedBackgroundColor : Color.clear)
+                                .brightness(-0.2)
+                            )
+                        .help("settings.noPlayTools")
+                        .frame(width: 130, height: 20)
                 }
                 .frame(width: 130, height: 130)
             }

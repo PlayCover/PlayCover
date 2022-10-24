@@ -44,9 +44,8 @@ struct AppSettingsView: View {
                     }
 
                     if !viewModel.app.hasPlayTools {
-                        HStack(spacing: 3) {
-                            Image(systemName: "exclamationmark.triangle")
-                            Text(NSLocalizedString("settings.noPlayTools", comment: ""))
+                        HStack {
+                            Text("\(Image(systemName: "exclamationmark.triangle")) \(NSLocalizedString("settings.noPlayTools", comment: ""))")
                                 .font(.caption)
                                 .multilineTextAlignment(.leading)
                             Spacer()
