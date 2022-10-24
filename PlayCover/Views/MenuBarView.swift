@@ -55,6 +55,7 @@ struct PlayCoverHelpMenuView: Commands {
 
 struct PlayCoverViewMenuView: Commands {
     var body: some Commands {
+        CommandGroup(replacing: .newItem) {}
         CommandGroup(replacing: .importExport) {
             Button("menubar.exportToSideloady") {
                 if InstallVM.shared.installing {
