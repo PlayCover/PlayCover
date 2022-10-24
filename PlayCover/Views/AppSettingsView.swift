@@ -43,9 +43,12 @@ struct AppSettingsView: View {
                         Spacer()
                     }
 
+                    let noPlayToolsWarning = Image(systemName: "exclamationmark.triangle")
+                    let warning = NSLocalizedString("settings.noPlayTools", comment: "")
+
                     if !viewModel.app.hasPlayTools {
                         HStack {
-                            Text("\(Image(systemName: "exclamationmark.triangle")) \(NSLocalizedString("settings.noPlayTools", comment: ""))")
+                            Text("\(noPlayToolsWarning) \(warning)")
                                 .font(.caption)
                                 .multilineTextAlignment(.leading)
                             Spacer()
