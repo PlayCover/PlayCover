@@ -89,7 +89,7 @@
 "playapp.delete" = "Desinstalar Aplicación";
 
 /* (No Comment) */
-"playapp.deleteAccount" = "Delete an account";
+"playapp.deleteAccount" = "Eliminar cuenta";
 
 /* (No Comment) */
 "playapp.exportKm" = "Exportar mapeo de teclas";
@@ -304,3 +304,43 @@
 "playapp.add" = "Añadir aplicación";
 "alert.wrongFileType.title" = "¡Tipo de archivo incorrecto!";
 "alert.wrongFileType.subtitle" = "PlayCover solo puede instalar archivos .ipa válidos.";
+"playapp.addSource" = "Añadir fuente";
+"ipaLibrary.noSources.title" = "Ninguna fuente de IPA añadida";
+"ipaLibrary.noSources.subtitle" = "Actualmente no tiene fuentes IPA añadidas. Haga clic en el botón de abajo para añadir una.";
+"ipaLibrary.noSources.button" = "Añadir fuente";
+"ipaLibrary.noNetworkConnection.toast" = "¡Sin conexión a Internet!";
+"preferences.tab.ipasource" = "Fuentes IPA";
+"preferences.button.addSource" = "Añadir fuente";
+"preferences.button.deleteSource" = "Eliminar fuente";
+"preferences.button.moveSourceUp" = "Mover la fuente hacia arriba";
+"preferences.button.moveSourceDown" = "Mover la fuente hacia abajo";
+"preferences.button.resolveSources" = "Resolver los orígenes";
+"preferences.popover.valid" = "Enlace válido";
+"preferences.popover.badurl" = "¡URL no válido!";
+"preferences.popover.badjson" = "¡JSON no válido o no encontrado!";
+"preferences.textfield.url" = "URL de origen...";
+"playapp.download" = "Descargando...";
+"error.waitDownload" = "¡Por favor espere a que finalice la descarga!";
+"preferences.tab.uninstall" = "Desinstalar";
+"preferences.whenUninstalling" = "Al desinstalar:";
+"preferences.toggle.showUninstall" = "Mostrar ventana emergente de aviso";
+"preferences.toggle.clearAppData" = "Borrar datos";
+"preferences.toggle.removeKeymap" = "Eliminar mapeo de teclas";
+"preferences.toggle.removeSetting" = "Eliminar la configuración";
+"preferences.toggle.removeEntitlements" = "Eliminar permisos";
+"preferences.button.pruneFiles" = "Podar los archivos";
+"preferences.prune.alert" = "¿Estás seguro de que quieres podar todos los archivos?";
+"preferences.prune.message" = "Esto eliminará todos los archivos que no se utilicen, incluidos los de configuración, mapeo de teclas, permisos, y datos de la aplicación";
+"playapp.install.failed" = "Error";
+"alert.supression" = "Puede cambiar esto en la configuración de PlayCover";
+"menubar.clearCache" = "Borrar la caché de imágenes";
+"preferences.tab.install" = "Install";
+"preferences.toggle.showInstallPopup" = "Show install PlayTools Popup";
+"preferences.toggle.alwaysInstallPlayTools" = "Always install PlayTools";
+"alert.install.injectPlayTools" = "Inject PlayTools";
+"alert.install.injectPlayToolsInApp" = "Do you want to inject PlayTools into this application?";
+"button.Yes" = "Yes";
+"button.No" = "No";
+"settings.noPlayTools" = "PlayTools is not installed in this app";
+"settings.removePlayTools" = "Remove PlayTools";
+"settings.info.playTools" = "PlayTools installed:";

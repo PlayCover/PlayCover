@@ -140,7 +140,7 @@
 "preferences.toggle.automaticUpdates" = "자동으로 업데이트 확인";
 
 /* (No Comment) */
-"settings.button.discord" = "Discord 활동 상태 사용자화";
+"settings.button.discord" = "사용자 지정 디스코드 활동 상태";
 
 /* (No Comment) */
 "settings.button.clearActivity" = "사용자 지정 활동 상태 초기화";
@@ -182,7 +182,7 @@
 "settings.toggle.disableDisplaySleep" = "화면 잠자기 비활성화";
 
 /* (No Comment) */
-"settings.toggle.discord" = "Discord 활동 상태 활성화";
+"settings.toggle.discord" = "디스코드 활동 상태 활성화";
 
 /* (No Comment) */
 "settings.toggle.jbBypass" = "탈옥 우회 활성화 (Alpha)";
@@ -249,7 +249,7 @@
 
 /* (No Comment) */
 "xcode.install.success" = "명령어 라인 개발자 도구(Xcode Command Line Tools)가 성공적으로 설치되었습니다";
-"settings.title" = "설정";
+"settings.title" = "%@ 설정";
 "playapp.exportKmPanel.fieldLabel" = "PlayMap 이름:";
 "sidebar.appLibrary" = "앱 보관함";
 "sidebar.ipaLibrary" = "IPA 보관함";
@@ -279,7 +279,7 @@
 "settings.picker.aspectRatio" = "화면비:";
 "settings.toggle.disableDisplaySleep.help" = "이 앱이 작동하는 중에 화면이 꺼지는 것을 방지합니다";
 "settings.tab.jbBypass" = "탈옥 우회";
-"settings.toggle.jbBypass.help" = "일부 게임에서의 탈옥 감지를 우회하려고 시도합니다. (항상 작동이 보장되지는 않음)";
+"settings.toggle.jbBypass.help" = "일부 게임에서의 탈옥 감지를 우회하려고 시도합니다 (항상 작동이 보장되지는 않습니다)";
 "settings.info.bundleName" = "번들 이름:";
 "settings.info.bundleIdentifier" = "번들 ID:";
 "settings.info.executableName" = "실행 파일 이름:";
@@ -289,7 +289,7 @@
 "settings.resetKm" = "키매핑 초기화";
 "settings.resetSettingsCompleted" = "설정을 기본값으로 되돌렸습니다!";
 "settings.resetKmCompleted" = "키매핑이 재설정되었습니다!";
-"xcode.install.failed.altInstructions" = "다른 설치 방법을 알어보려면 아래 버튼을 선택하세요";
+"xcode.install.failed.altInstructions" = "다른 설치 방법을 알아보려면 아래 버튼을 선택하세요";
 "xcode.install.failed.altButton" = "다른 설치 방법";
 "settings.tab.misc" = "기타";
 "settings.toggle.hud" = "Metal HUD 활성화";
@@ -304,3 +304,43 @@
 "playapp.add" = "앱 추가";
 "alert.wrongFileType.title" = "잘못된 파일 형식입니다!";
 "alert.wrongFileType.subtitle" = "PlayCover는 유효한 .ipa 파일만 설치할 수 있습니다.";
+"ipaLibrary.noSources.title" = "IPA 소스들이 추가되지 않았습니다";
+"ipaLibrary.noSources.button" = "소스 추가";
+"playapp.addSource" = "소스 추가";
+"ipaLibrary.noSources.subtitle" = "현재 어떠한 IPA 소스도 추가되지 않았습니다. 다음 버튼을 클릭하고 하나를 추가하세요.";
+"ipaLibrary.noNetworkConnection.toast" = "인터넷에 연결되지 않았습니다!";
+"preferences.tab.ipasource" = "IPA 소스";
+"preferences.button.addSource" = "소스 추가";
+"preferences.button.deleteSource" = "소스 제거";
+"preferences.button.moveSourceUp" = "소스를 위로 올리기";
+"preferences.button.moveSourceDown" = "소스를 아래로 내리기";
+"preferences.button.resolveSources" = "소스 확인";
+"preferences.popover.valid" = "유효한 Link";
+"preferences.popover.badurl" = "URL이 유효하지 않습니다!";
+"preferences.popover.badjson" = "JSON이 유효하지 않거나 찾을 수 없습니다!";
+"preferences.textfield.url" = "소스 URL...";
+"playapp.download" = "Downloading...";
+"error.waitDownload" = "Please wait for the current download to finish!";
+"playapp.install.failed" = "Failed";
+"alert.supression" = "You can change this in the PlayCover preferences";
+"preferences.toggle.clearAppData" = "Clear data";
+"preferences.tab.uninstall" = "Uninstall";
+"preferences.whenUninstalling" = "When uninstalling:";
+"preferences.toggle.showUninstall" = "Show warning popup";
+"preferences.toggle.removeKeymap" = "Remove keymap";
+"preferences.toggle.removeSetting" = "Remove settings";
+"preferences.toggle.removeEntitlements" = "Remove entitlements";
+"preferences.button.pruneFiles" = "Prune files";
+"preferences.prune.alert" = "Are you sure you want to prune all files?";
+"preferences.prune.message" = "This will remove all unused files including settings, keymappings, entitlements, and app data";
+"menubar.clearCache" = "Clear Image Cache";
+"preferences.tab.install" = "Install";
+"preferences.toggle.showInstallPopup" = "Show install PlayTools Popup";
+"preferences.toggle.alwaysInstallPlayTools" = "Always install PlayTools";
+"alert.install.injectPlayTools" = "Inject PlayTools";
+"alert.install.injectPlayToolsInApp" = "Do you want to inject PlayTools into this application?";
+"button.Yes" = "Yes";
+"button.No" = "No";
+"settings.noPlayTools" = "PlayTools is not installed in this app";
+"settings.removePlayTools" = "Remove PlayTools";
+"settings.info.playTools" = "PlayTools installed:";
