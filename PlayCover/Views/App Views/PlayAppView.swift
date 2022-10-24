@@ -124,7 +124,6 @@ struct PlayAppView: View {
             }
             .alert("alert.app.delete", isPresented: $showClearCacheAlert) {
                 Button("button.Proceed", role: .cancel) {
-                    app.clearAllCache()
                     showClearCacheToast.toggle()
                 }
                 Button("button.Cancel", role: .cancel) { }
@@ -181,14 +180,21 @@ struct PlayAppConditionalView: View {
     @Binding var selectedTextColor: Color
     @Binding var selected: PlayApp?
 
+    @ObservedObject var app: PlayApp
+
     @State var iconURL: URL?
-    @State var app: PlayApp
     @State var isList: Bool
 
     var body: some View {
         Group {
             if isList {
                 HStack(alignment: .center, spacing: 0) {
+                    if !app.hasPlayTools {
+                        Image(systemName: "exclamationmark.triangle")
+                            .padding(.leading, 15)
+                            .help("settings.noPlayTools")
+                    }
+
                     AsyncImage(url: iconURL) { image in
                         image
                             .resizable()
@@ -207,6 +213,7 @@ struct PlayAppConditionalView: View {
                     Text(app.name)
                         .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
                                          selectedTextColor : Color.primary)
+
                     Spacer()
                     Text(app.settings.info.bundleVersion)
                         .padding(.horizontal, 15)
@@ -233,20 +240,27 @@ struct PlayAppConditionalView: View {
                     }
                     .frame(width: 60, height: 60)
 
-                    Text(app.name)
-                        .lineLimit(1)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 4)
-                        .padding(.vertical, 2)
-                        .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                         selectedTextColor : Color.primary)
-                        .background(
-                            RoundedRectangle(cornerRadius: 4)
-                                .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                      selectedBackgroundColor : Color.clear)
-                                .brightness(-0.2)
-                            )
-                        .frame(width: 130, height: 20)
+                    HStack {
+                        let noPlayToolsWarning = Text(
+                            app.hasPlayTools ? "" : "\(Image(systemName: "exclamationmark.triangle")) "
+                        )
+
+                        Text("\(noPlayToolsWarning)\(app.name)")
+                            .lineLimit(1)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 4)
+                            .padding(.vertical, 2)
+                            .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                             selectedTextColor : Color.primary)
+                            .background(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                          selectedBackgroundColor : Color.clear)
+                                    .brightness(-0.2)
+                                )
+                            .help("settings.noPlayTools")
+                            .fixedSize()
+                    }
                 }
                 .frame(width: 130, height: 130)
             }

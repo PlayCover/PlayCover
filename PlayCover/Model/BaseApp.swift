@@ -13,6 +13,8 @@ public class BaseApp {
     public let info: AppInfo
     public var url: URL
 
+    @Published public var hasPlayTools: Bool
+
     public var executable: URL {
         url.appendingPathComponent(info.executableName)
     }
@@ -27,5 +29,12 @@ public class BaseApp {
         url = appUrl
         info = AppInfo(contentsOf: url.appendingPathComponent("Info")
                                       .appendingPathExtension("plist"))
+
+        do {
+            hasPlayTools = try PlayTools.installedInExec(atURL: url.appendingPathComponent(info.executableName))
+        } catch {
+            hasPlayTools = true
+            Log.shared.error(error)
+        }
     }
 }

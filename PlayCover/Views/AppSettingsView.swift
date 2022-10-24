@@ -15,6 +15,7 @@ struct AppSettingsView: View {
 
     @State var resetSettingsCompletedAlert = false
     @State var resetKmCompletedAlert = false
+    @State var closeView = false
     @State var iconURL: URL?
 
     var body: some View {
@@ -31,13 +32,27 @@ struct AppSettingsView: View {
                 }
                 .frame(width: 33, height: 33)
 
-                Text(String(
-                    format:
-                        NSLocalizedString("settings.title", comment: ""),
-                    viewModel.app.name))
-                    .font(.title2).bold()
-                    .multilineTextAlignment(.leading)
-                Spacer()
+                VStack {
+                    HStack {
+                        Text(String(
+                            format:
+                                NSLocalizedString("settings.title", comment: ""),
+                            viewModel.app.name))
+                            .font(.title2).bold()
+                            .multilineTextAlignment(.leading)
+                        Spacer()
+                    }
+
+                    if !viewModel.app.hasPlayTools {
+                        HStack(spacing: 3) {
+                            Image(systemName: "exclamationmark.triangle")
+                            Text(NSLocalizedString("settings.noPlayTools", comment: ""))
+                                .font(.caption)
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                        }
+                    }
+                }
             }
             .task(priority: .userInitiated) {
                 iconURL = ImageCache.getLocalImageURL(bundleID: viewModel.app.info.bundleIdentifier,
@@ -50,19 +65,22 @@ struct AppSettingsView: View {
                     .tabItem {
                         Text("settings.tab.km")
                     }
+                    .disabled(!viewModel.app.hasPlayTools)
                 GraphicsView(settings: $viewModel.settings)
                     .tabItem {
                         Text("settings.tab.graphics")
                     }
+                    .disabled(!viewModel.app.hasPlayTools)
                 JBBypassView(settings: $viewModel.settings)
                     .tabItem {
                         Text("settings.tab.jbBypass")
                     }
-                MiscView(settings: $viewModel.settings)
+                    .disabled(!viewModel.app.hasPlayTools)
+                MiscView(settings: $viewModel.settings, closeView: $closeView, app: viewModel.app)
                     .tabItem {
                         Text("settings.tab.misc")
                     }
-                InfoView(info: viewModel.app.info)
+                InfoView(info: viewModel.app.info, hasPlayTools: viewModel.app.hasPlayTools)
                     .tabItem {
                         Text("settings.tab.info")
                     }
@@ -73,15 +91,15 @@ struct AppSettingsView: View {
                 Button("settings.resetSettings") {
                     resetSettingsCompletedAlert.toggle()
                     viewModel.app.settings.reset()
-                    dismiss()
+                    closeView.toggle()
                 }
                 Button("settings.resetKm") {
                     resetKmCompletedAlert.toggle()
                     viewModel.app.keymapping.reset()
-                    dismiss()
+                    closeView.toggle()
                 }
                 Button("button.OK") {
-                    dismiss()
+                    closeView.toggle()
                 }
                 .tint(.accentColor)
                 .keyboardShortcut(.defaultAction)
@@ -96,6 +114,9 @@ struct AppSettingsView: View {
             ToastVM.shared.showToast(
                 toastType: .notice,
                 toastDetails: NSLocalizedString("settings.resetKmCompleted", comment: ""))
+        }
+        .onChange(of: closeView) { _ in
+            dismiss()
         }
         .padding()
     }
@@ -341,7 +362,11 @@ struct JBBypassView: View {
 
 struct MiscView: View {
     @Binding var settings: AppSettings
+    @Binding var closeView: Bool
+
     @State var showPopover = false
+
+    var app: PlayApp
 
     var body: some View {
         ScrollView {
@@ -388,12 +413,26 @@ struct MiscView: View {
                             }
                         }
                     Spacer()
-                }
+                }.disabled(!app.hasPlayTools)
                 if #available(macOS 13.0, *) {
                     HStack {
                         Toggle("settings.toggle.hud", isOn: $settings.metalHudEnabled)
                         Spacer()
                     }
+                }
+                HStack {
+                    Button(app.hasPlayTools ? "settings.removePlayTools" : "alert.install.injectPlayTools") {
+                        if app.hasPlayTools {
+                            PlayTools.removeFromApp(app.executable)
+                            app.hasPlayTools = false
+                        } else {
+                            PlayTools.installInApp(app.executable)
+                            app.hasPlayTools = true
+                        }
+
+                        closeView.toggle()
+                    }
+                    Spacer()
                 }
             }
             .padding()
@@ -403,6 +442,7 @@ struct MiscView: View {
 
 struct InfoView: View {
     @State var info: AppInfo
+    @State var hasPlayTools: Bool
 
     var body: some View {
         List {
@@ -435,6 +475,11 @@ struct InfoView: View {
                 Text("settings.info.minimumOSVersion")
                 Spacer()
                 Text("\(info.minimumOSVersion)")
+            }
+            HStack {
+                Text("settings.info.playTools")
+                Spacer()
+                Text(String(hasPlayTools))
             }
             HStack {
                 Text("settings.info.url")

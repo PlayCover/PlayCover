@@ -8,8 +8,35 @@
 import Foundation
 
 class Installer {
+
+    static func installPlayToolsPopup() -> Bool {
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("alert.install.injectPlayTools", comment: "")
+        alert.informativeText = NSLocalizedString("alert.install.injectPlayToolsInApp", comment: "")
+
+        alert.showsSuppressionButton = true
+        alert.suppressionButton?.toolTip = NSLocalizedString("alert.supression", comment: "String")
+
+        let yes = alert.addButton(withTitle: NSLocalizedString("button.Yes", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("button.No", comment: ""))
+
+        yes.hasDestructiveAction = true
+
+        let response = alert.runModal()
+
+        if alert.suppressionButton?.state == .on {
+            InstallSettings.shared.showInstallPlayToolsPopup = false
+            InstallSettings.shared.alwaysInstallPlayTools = response == .alertFirstButtonReturn
+        }
+
+        return response == .alertFirstButtonReturn
+    }
+
     // swiftlint:disable function_body_length
     static func install(ipaUrl: URL, export: Bool, returnCompletion: @escaping (URL?) -> Void) {
+        let installPlayTools = (InstallSettings.shared.showInstallPlayToolsPopup && !export) ?
+            installPlayToolsPopup() : InstallSettings.shared.alwaysInstallPlayTools
+
         InstallVM.shared.next(.begin, 0.0, 0.0)
 
         DispatchQueue.global(qos: .userInitiated).async {
@@ -22,10 +49,11 @@ class Installer {
                 let machos = try resolveValidMachOs(app)
                 app.validMachOs = machos
 
-                InstallVM.shared.next(.playtools, 0.55, 0.85)
                 if export {
+                    InstallVM.shared.next(.playtools, 0.55, 0.85)
                     try PlayTools.injectInIPA(app.executable, payload: app.url)
-                } else {
+                } else if installPlayTools {
+                    InstallVM.shared.next(.playtools, 0.55, 0.85)
                     try PlayTools.installInIPA(app.executable, app.url)
                 }
 
