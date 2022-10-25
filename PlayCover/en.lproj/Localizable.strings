@@ -14,6 +14,7 @@
 "playapp.activateAccount" = "Switch Account";
 "playapp.deleteAccount" = "Delete Account";
 "playapp.clearPreferences" = "Clear App Preferences";
+"playapp.refreshSources" = "Refresh Sources";
 
 "ipaLibrary.noSources.title" = "No IPA Sources Added";
 "ipaLibrary.noSources.subtitle" = "You currently have no IPA Sources added. Click the button below to add one.";
@@ -38,7 +39,6 @@
 "preferences.button.deleteSource" = "Delete Source";
 "preferences.button.moveSourceUp" = "Move Source Up";
 "preferences.button.moveSourceDown" = "Move Source Down";
-"preferences.button.resolveSources" = "Resolve Sources";
 "preferences.popover.valid" = "Link Valid";
 "preferences.popover.badurl"  = "URL Invalid!";
 "preferences.popover.badjson" = "JSON Invalid or Not Found!";
