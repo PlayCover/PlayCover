@@ -131,7 +131,7 @@
 "playapp.storeCurrentAccount" = "保存现有账号";
 
 /* (No Comment) */
-"preferences.button.checkForUpdates" = "正在检查更新...";
+"preferences.button.checkForUpdates" = "立即检查更新...";
 
 /* (No Comment) */
 "preferences.tab.updates" = "更新";
@@ -334,13 +334,13 @@
 "preferences.toggle.removeEntitlements" = "移除授权";
 "preferences.prune.alert" = "您确定要删除所有未使用的文件吗？";
 "preferences.prune.message" = "这将删除所有未使用的文件，包括设置、按键映射、授权和应用程序数据";
-"preferences.tab.install" = "Install";
-"preferences.toggle.showInstallPopup" = "Show install PlayTools Popup";
-"preferences.toggle.alwaysInstallPlayTools" = "Always install PlayTools";
-"alert.install.injectPlayTools" = "Inject PlayTools";
-"alert.install.injectPlayToolsInApp" = "Do you want to inject PlayTools into this application?";
-"button.Yes" = "Yes";
-"button.No" = "No";
-"settings.noPlayTools" = "PlayTools is not installed in this app";
-"settings.removePlayTools" = "Remove PlayTools";
-"settings.info.playTools" = "PlayTools installed:";
+"preferences.tab.install" = "安装";
+"preferences.toggle.showInstallPopup" = "显示安装 PlayTools 弹窗";
+"preferences.toggle.alwaysInstallPlayTools" = "总是安装 PlayTools";
+"alert.install.injectPlayTools" = "注入 PlayTools";
+"alert.install.injectPlayToolsInApp" = "您希望在此应用中注入 PlayTools 吗？";
+"button.Yes" = "是";
+"button.No" = "否";
+"settings.noPlayTools" = "此应用中并无安装 PlayTools";
+"settings.removePlayTools" = "移除 PlayTools";
+"settings.info.playTools" = "已安装 PlayTools：";
