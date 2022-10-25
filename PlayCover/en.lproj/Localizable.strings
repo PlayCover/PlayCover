@@ -21,7 +21,7 @@
 "ipaLibrary.noSources.button" = "Add Source";
 "ipaLibrary.noNetworkConnection.toast" = "No internet connection!";
 
-"preferences.button.checkForUpdates" = "Check for updates now...";
+"preferences.button.checkForUpdates" = "Check for Updates";
 "preferences.tab.updates" = "Updates";
 "preferences.toggle.automaticUpdates" = "Automatically check for updates";
 "preferences.tab.uninstall" = "Uninstall";
@@ -31,7 +31,7 @@
 "preferences.toggle.removeKeymap" = "Remove keymap";
 "preferences.toggle.removeSetting" = "Remove settings";
 "preferences.toggle.removeEntitlements" = "Remove entitlements";
-"preferences.button.pruneFiles" = "Prune files";
+"preferences.button.pruneFiles" = "Prune Files";
 "preferences.prune.alert" = "Are you sure you want to prune all files?";
 "preferences.prune.message" = "This will remove all unused files including settings, keymappings, entitlements, and app data";
 "preferences.tab.ipasource" = "IPA Sources";
@@ -44,7 +44,7 @@
 "preferences.popover.badjson" = "JSON Invalid or Not Found!";
 "preferences.textfield.url" = "Source URL...";
 "preferences.tab.install" = "Install";
-"preferences.toggle.showInstallPopup" = "Show install PlayTools Popup";
+"preferences.toggle.showInstallPopup" = "Show install PlayTools popup";
 "preferences.toggle.alwaysInstallPlayTools" = "Always install PlayTools";
 
 "sidebar.appLibrary" = "App Library";

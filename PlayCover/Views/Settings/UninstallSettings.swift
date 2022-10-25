@@ -27,16 +27,21 @@ struct UninstallSettings: View {
 
     var body: some View {
         Form {
-            HStack {
-                Text("preferences.whenUninstalling")
-                VStack(alignment: .leading) {
-                    Toggle("preferences.toggle.showUninstall", isOn: $uninstallPreferences.showUninstallPopup)
-                    Toggle("preferences.toggle.clearAppData", isOn: $uninstallPreferences.clearAppData)
-                    Toggle("preferences.toggle.removeKeymap", isOn: $uninstallPreferences.removeAppKeymap)
-                    Toggle("preferences.toggle.removeSetting", isOn: $uninstallPreferences.removeAppSettings)
-                    Toggle("preferences.toggle.removeEntitlements", isOn: $uninstallPreferences.removeAppEntitlements)
+            Text("preferences.whenUninstalling")
+            GroupBox {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Toggle("preferences.toggle.showUninstall", isOn: $uninstallPreferences.showUninstallPopup)
+                        Toggle("preferences.toggle.clearAppData", isOn: $uninstallPreferences.clearAppData)
+                        Toggle("preferences.toggle.removeKeymap", isOn: $uninstallPreferences.removeAppKeymap)
+                        Toggle("preferences.toggle.removeSetting", isOn: $uninstallPreferences.removeAppSettings)
+                        Toggle("preferences.toggle.removeEntitlements", isOn: $uninstallPreferences.removeAppEntitlements)
+                    }
+                    Spacer()
                 }
             }
+            Spacer()
+                .frame(height: 20)
             Button("preferences.button.pruneFiles") {
                 showPruneFileAlert.toggle()
             }
@@ -53,6 +58,6 @@ struct UninstallSettings: View {
             })
         }
         .padding(30)
-        .frame(width: 400, height: 170, alignment: .center)
+        .frame(width: 400, height: 240, alignment: .center)
     }
 }
