@@ -74,6 +74,18 @@ struct IPALibraryView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button(action: {
+                    storeVM.resolveSources()
+                }, label: {
+                    Image(systemName: "arrow.clockwise")
+                        .help("playapp.refreshSources")
+                })
+                .disabled(storeVM.sources.count == 0)
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Spacer()
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: {
                     addSourcePresented.toggle()
                 }, label: {
                     Image(systemName: "plus")
