@@ -206,7 +206,7 @@ class PlayTools {
     }
 
     static func installedInExec(atURL url: URL) throws -> Bool {
-        try shell.shello(otool.path, "-L", url.path).contains(playToolsPath.esc)
+        try shell.shello(print: false, otool.path, "-L", url.path).contains(playToolsPath.esc)
     }
 
     static func isInstalled() throws -> Bool {
@@ -237,7 +237,7 @@ class PlayTools {
 	}
 
     private static func binPath(_ bin: String) throws -> URL {
-        URL(fileURLWithPath: try shell.sh("which \(bin)").trimmingCharacters(in: .newlines))
+        URL(fileURLWithPath: try shell.sh("which \(bin)", print: false).trimmingCharacters(in: .newlines))
     }
 
     private static var vtool: URL {
