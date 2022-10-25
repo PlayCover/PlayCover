@@ -31,11 +31,16 @@ struct UninstallSettings: View {
             GroupBox {
                 HStack {
                     VStack(alignment: .leading) {
-                        Toggle("preferences.toggle.showUninstall", isOn: $uninstallPreferences.showUninstallPopup)
-                        Toggle("preferences.toggle.clearAppData", isOn: $uninstallPreferences.clearAppData)
-                        Toggle("preferences.toggle.removeKeymap", isOn: $uninstallPreferences.removeAppKeymap)
-                        Toggle("preferences.toggle.removeSetting", isOn: $uninstallPreferences.removeAppSettings)
-                        Toggle("preferences.toggle.removeEntitlements", isOn: $uninstallPreferences.removeAppEntitlements)
+                        Toggle("preferences.toggle.showUninstall",
+                               isOn: $uninstallPreferences.showUninstallPopup)
+                        Toggle("preferences.toggle.clearAppData",
+                               isOn: $uninstallPreferences.clearAppData)
+                        Toggle("preferences.toggle.removeKeymap",
+                               isOn: $uninstallPreferences.removeAppKeymap)
+                        Toggle("preferences.toggle.removeSetting",
+                               isOn: $uninstallPreferences.removeAppSettings)
+                        Toggle("preferences.toggle.removeEntitlements",
+                               isOn: $uninstallPreferences.removeAppEntitlements)
                     }
                     Spacer()
                 }
