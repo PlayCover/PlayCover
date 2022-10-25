@@ -43,10 +43,12 @@ struct AppSettingsView: View {
                         Spacer()
                     }
 
+                    let noPlayToolsWarning = Image(systemName: "exclamationmark.triangle")
+                    let warning = NSLocalizedString("settings.noPlayTools", comment: "")
+
                     if !viewModel.app.hasPlayTools {
-                        HStack(spacing: 3) {
-                            Image(systemName: "exclamationmark.triangle")
-                            Text(NSLocalizedString("settings.noPlayTools", comment: ""))
+                        HStack {
+                            Text("\(noPlayToolsWarning) \(warning)")
                                 .font(.caption)
                                 .multilineTextAlignment(.leading)
                             Spacer()
@@ -248,6 +250,8 @@ struct GraphicsView: View {
                         Text("settings.text.detectedResolution")
                         Spacer()
                         Text("\(width) x \(height)")
+                    } else {
+                        Spacer()
                     }
                 }
                 HStack {
@@ -373,6 +377,7 @@ struct MiscView: View {
             VStack {
                 HStack {
                     Toggle("settings.toggle.discord", isOn: $settings.settings.discordActivity.enable)
+                    Spacer()
                     Button("settings.button.discord") { showPopover = true }
                         .popover(isPresented: $showPopover, arrowEdge: .bottom) {
                             VStack {
@@ -412,7 +417,6 @@ struct MiscView: View {
                                 }.padding(.bottom)
                             }
                         }
-                    Spacer()
                 }.disabled(!app.hasPlayTools)
                 if #available(macOS 13.0, *) {
                     HStack {
@@ -420,6 +424,8 @@ struct MiscView: View {
                         Spacer()
                     }
                 }
+                Spacer()
+                    .frame(height: 20)
                 HStack {
                     Button(app.hasPlayTools ? "settings.removePlayTools" : "alert.install.injectPlayTools") {
                         if app.hasPlayTools {
