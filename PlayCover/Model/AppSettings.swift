@@ -43,6 +43,8 @@ class AppSettings {
     let info: AppInfo
     let settingsUrl: URL
     var metalHudEnabled: Bool = false
+    var openWithLLDB: Bool = false
+    var openLLDBWithTerminal: Bool = true
     var container: AppContainer?
     var settings: AppSettingsData {
         didSet {

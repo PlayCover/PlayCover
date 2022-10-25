@@ -24,10 +24,13 @@ class PlayApp: BaseApp, ObservableObject {
             AppsVM.shared.updatingApps = true
             AppsVM.shared.fetchApps()
             settings.sync()
+
             if try !Entitlements.areEntitlementsValid(app: self) {
                 sign()
             }
+
             try PlayTools.installPluginInIPA(url)
+
             if try !PlayTools.isInstalled() {
                 Log.shared.error("PlayTools are not installed! Please move PlayCover.app into Applications!")
             } else if try !PlayTools.isValidArch(executable.path) {
@@ -35,8 +38,13 @@ class PlayApp: BaseApp, ObservableObject {
             } else if try !isCodesigned() {
                 Log.shared.error("The app is not codesigned! Please open Xcode and accept license agreement.")
             } else {
-                runAppExec() // Splitting to reduce complexity
+                if settings.openWithLLDB {
+                    Shell.lldb(executable, withTerminalWindow: settings.openLLDBWithTerminal)
+                } else {
+                    runAppExec() // Splitting to reduce complexity
+                }
             }
+
             AppsVM.shared.updatingApps = false
         } catch {
             AppsVM.shared.updatingApps = false
