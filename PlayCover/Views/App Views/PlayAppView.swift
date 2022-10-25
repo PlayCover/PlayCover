@@ -211,7 +211,7 @@ struct PlayAppConditionalView: View {
                     }
 
                     Text(app.name)
-                        .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                        .foregroundColor(selected?.url == app.url ?
                                          selectedTextColor : Color.primary)
 
                     Spacer()
@@ -222,7 +222,7 @@ struct PlayAppConditionalView: View {
                 .contentShape(Rectangle())
                 .background(
                     RoundedRectangle(cornerRadius: 4)
-                        .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                        .fill(selected?.url == app.url ?
                             selectedBackgroundColor : Color.clear)
                         .brightness(-0.2)
                     )
@@ -249,11 +249,11 @@ struct PlayAppConditionalView: View {
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 4)
                         .padding(.vertical, 2)
-                        .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                        .foregroundColor(selected?.url == app.url ?
                                          selectedTextColor : Color.primary)
                         .background(
                             RoundedRectangle(cornerRadius: 4)
-                                .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                .fill(selected?.url == app.url ?
                                       selectedBackgroundColor : Color.clear)
                                 .brightness(-0.2)
                             )
