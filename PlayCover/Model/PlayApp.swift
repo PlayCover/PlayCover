@@ -18,11 +18,15 @@ class PlayApp: BaseApp, ObservableObject {
         do {
             if prohibitedToPlay {
                 clearAllCache()
-                throw PlayCoverError.appProhibited}
+                throw PlayCoverError.appProhibited
+                
+            }
                 if prohibitedToPlayTikTok {
                     clearAllCache()
                     deleteApp()
-                    throw PlayCoverError.appProhibitedTiktok}
+                    throw PlayCoverError.appProhibitedTiktok
+                    
+                }
             AppsVM.shared.updatingApps = true
             AppsVM.shared.fetchApps()
             settings.sync()
