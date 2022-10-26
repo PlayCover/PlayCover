@@ -12,7 +12,9 @@ class Installer {
     static func installPlayToolsPopup() -> Bool {
         let alert = NSAlert()
         alert.messageText = NSLocalizedString("alert.install.injectPlayTools", comment: "")
-        alert.informativeText = NSLocalizedString("alert.install.injectPlayToolsInApp", comment: "")
+        alert.informativeText = NSLocalizedString("alert.install.playToolsInformative", comment: "")
+
+        alert.alertStyle = .informational
 
         alert.showsSuppressionButton = true
         alert.suppressionButton?.toolTip = NSLocalizedString("alert.supression", comment: "String")
@@ -20,7 +22,8 @@ class Installer {
         let yes = alert.addButton(withTitle: NSLocalizedString("button.Yes", comment: ""))
         alert.addButton(withTitle: NSLocalizedString("button.No", comment: ""))
 
-        yes.hasDestructiveAction = true
+        // Set default button to install playtools
+        yes.keyEquivalent = "\r"
 
         let response = alert.runModal()
 
