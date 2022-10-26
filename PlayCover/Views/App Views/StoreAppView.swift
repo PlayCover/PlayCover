@@ -44,9 +44,7 @@ struct StoreAppView: View {
             })
 
             observation = downloadTask.progress.observe(\.fractionCompleted) { progress, _ in
-                DispatchQueue.main.async {
-                    downloadVM.progress = progress.fractionCompleted
-                }
+                downloadVM.progress = progress.fractionCompleted
             }
 
             downloadTask.resume()
@@ -78,14 +76,14 @@ struct StoreAppView: View {
                     .appendingPathExtension("ipa")
                 try FileManager.default.moveItem(at: url, to: tmpDir)
                 uif.ipaUrl = tmpDir
-                DispatchQueue.main.async {
-                    Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
-                            AppsVM.shared.fetchApps()
-                            NotifyService.shared.notify(
-                                NSLocalizedString("notification.appInstalled", comment: ""),
-                                NSLocalizedString("notification.appInstalled.message", comment: ""))
-                    })
-                }
+                Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
+                    DispatchQueue.main.async {
+                        AppsVM.shared.fetchApps()
+                        NotifyService.shared.notify(
+                            NSLocalizedString("notification.appInstalled", comment: ""),
+                            NSLocalizedString("notification.appInstalled.message", comment: ""))
+                    }
+                })
             } catch {
                 Log.shared.error(error)
             }

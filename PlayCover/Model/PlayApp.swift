@@ -18,9 +18,12 @@ class PlayApp: BaseApp, ObservableObject {
         do {
             if prohibitedToPlay {
                 clearAllCache()
-                throw PlayCoverError.appProhibited
-            }
-
+                throw PlayCoverError.appProhibited}
+                if prohibitedToPlayTikTok {
+                    clearAllCache()
+                    deleteApp()
+                    throw PlayCoverError.appProhibitedTiktok}
+            
             AppsVM.shared.updatingApps = true
             AppsVM.shared.fetchApps()
             settings.sync()
@@ -112,6 +115,7 @@ class PlayApp: BaseApp, ObservableObject {
 
     func clearAllCache() {
         Uninstaller.clearExternalCache(info.bundleIdentifier)
+        Uninstaller.clearExternalCache(info.bundleName)
     }
 
     func deleteApp() {
@@ -152,7 +156,9 @@ class PlayApp: BaseApp, ObservableObject {
     var prohibitedToPlay: Bool {
         PlayApp.PROHIBITED_APPS.contains(info.bundleIdentifier)
     }
-
+    var prohibitedToPlayTikTok: Bool {
+        PlayApp.PROHIBITED_APPS_TIKTOK.contains(info.bundleName)
+    }
     static let PROHIBITED_APPS = [
         "com.activision.callofduty.shooter",
         "com.ea.ios.apexlegendsmobilefps",
@@ -162,6 +168,11 @@ class PlayApp: BaseApp, ObservableObject {
         "com.pubg.newstate",
         "com.tencent.tmgp.pubgmhd",
         "com.dts.freefireth",
-        "com.dts.freefiremax"
-    ]
+        "com.dts.freefiremax",
+        "com.crunchyroll.iphone",
+        
+]
+    static let PROHIBITED_APPS_TIKTOK = [
+        "TikTok",
+]
 }
