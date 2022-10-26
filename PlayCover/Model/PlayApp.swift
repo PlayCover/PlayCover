@@ -23,7 +23,6 @@ class PlayApp: BaseApp, ObservableObject {
                     clearAllCache()
                     deleteApp()
                     throw PlayCoverError.appProhibitedTiktok}
-            
             AppsVM.shared.updatingApps = true
             AppsVM.shared.fetchApps()
             settings.sync()
@@ -169,8 +168,6 @@ class PlayApp: BaseApp, ObservableObject {
         "com.tencent.tmgp.pubgmhd",
         "com.dts.freefireth",
         "com.dts.freefiremax",
-        "com.crunchyroll.iphone",
-        
 ]
     static let PROHIBITED_APPS_TIKTOK = [
         "TikTok",
