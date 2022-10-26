@@ -9,95 +9,100 @@ import Foundation
 
 class Installer {
 
-    static func install(ipaUrl: URL, returnCompletion: @escaping (URL?) -> Void) {
-        InstallVM.shared.next(.begin)
-        DispatchQueue.global(qos: .background).async {
-        do {
-            let ipa = IPA(url: ipaUrl)
-            InstallVM.shared.next(.unzip)
-            let app = try ipa.unzip()
-            InstallVM.shared.next(.library)
-            try saveEntitlements(app)
-            let machos = try resolveValidMachOs(app)
-            app.validMachOs = machos
+    static func installPlayToolsPopup() -> Bool {
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("alert.install.injectPlayTools", comment: "")
+        alert.informativeText = NSLocalizedString("alert.install.injectPlayToolsInApp", comment: "")
 
-            InstallVM.shared.next(.playtools)
-            try PlayTools.installFor(app.executable, resign: true)
+        alert.showsSuppressionButton = true
+        alert.suppressionButton?.toolTip = NSLocalizedString("alert.supression", comment: "String")
 
-            for macho in machos {
-                if try PlayTools.isMachoEncrypted(atURL: macho) {
-                    throw PlayCoverError.appEncrypted
-                }
-                try PlayTools.replaceLibraries(atURL: macho)
-                try PlayTools.convertMacho(macho)
-                try fakesign(macho)
-            }
+        let yes = alert.addButton(withTitle: NSLocalizedString("button.Yes", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("button.No", comment: ""))
 
-            // -rwxr-xr-x
-            try app.executable.setBinaryPosixPermissions(0o755)
+        yes.hasDestructiveAction = true
 
-            try removeMobileProvision(app)
+        let response = alert.runModal()
 
-            let info = app.info
-
-            info.assert(minimumVersion: 11.0)
-            try info.write()
-
-            InstallVM.shared.next(.wrapper)
-
-            let installed = try wrap(app)
-            PlayApp(appUrl: installed).sign()
-            try ipa.releaseTempDir()
-            InstallVM.shared.next(.finish)
-            returnCompletion(installed)
-        } catch {
-            Log.shared.error(error)
-            InstallVM.shared.next(.finish)
-            returnCompletion(nil)
+        if alert.suppressionButton?.state == .on {
+            InstallSettings.shared.showInstallPlayToolsPopup = false
+            InstallSettings.shared.alwaysInstallPlayTools = response == .alertFirstButtonReturn
         }
-    }
+
+        return response == .alertFirstButtonReturn
     }
 
-    static func exportForSideloadly(ipaUrl: URL, returnCompletion: @escaping (URL?) -> Void) {
-        InstallVM.shared.next(.begin)
+    // swiftlint:disable function_body_length
+    static func install(ipaUrl: URL, export: Bool, returnCompletion: @escaping (URL?) -> Void) {
+        let installPlayTools = (InstallSettings.shared.showInstallPlayToolsPopup && !export) ?
+            installPlayToolsPopup() : InstallSettings.shared.alwaysInstallPlayTools
 
-        DispatchQueue.global(qos: .background).async {
+        InstallVM.shared.next(.begin, 0.0, 0.0)
+
+        DispatchQueue.global(qos: .userInitiated).async {
             do {
                 let ipa = IPA(url: ipaUrl)
-                InstallVM.shared.next(.unzip)
+                InstallVM.shared.next(.unzip, 0.0, 0.5)
                 let app = try ipa.unzip()
-                InstallVM.shared.next(.library)
+                InstallVM.shared.next(.library, 0.5, 0.55)
                 try saveEntitlements(app)
                 let machos = try resolveValidMachOs(app)
                 app.validMachOs = machos
 
-                InstallVM.shared.next(.playtools)
-                try PlayTools.injectFor(app.executable, payload: app.url)
+                if export {
+                    InstallVM.shared.next(.playtools, 0.55, 0.85)
+                    try PlayTools.injectInIPA(app.executable, payload: app.url)
+                } else if installPlayTools {
+                    InstallVM.shared.next(.playtools, 0.55, 0.85)
+                    try PlayTools.installInIPA(app.executable, app.url)
+                }
 
-                for macho in machos where try PlayTools.isMachoEncrypted(atURL: macho) {
-                    throw PlayCoverError.appEncrypted
+                for macho in machos {
+                    if try PlayTools.isMachoEncrypted(atURL: macho) {
+                        throw PlayCoverError.appEncrypted
+                    }
+
+                    if !export {
+                        try PlayTools.replaceLibraries(atURL: macho)
+                        try PlayTools.convertMacho(macho)
+                        try fakesign(macho)
+                    }
+                }
+
+                if !export {
+                    // -rwxr-xr-x
+                    try app.executable.setBinaryPosixPermissions(0o755)
+                    try removeMobileProvision(app)
                 }
 
                 let info = app.info
-
                 info.assert(minimumVersion: 11.0)
                 try info.write()
+                InstallVM.shared.next(.wrapper, 0.85, 0.95)
 
-                InstallVM.shared.next(.wrapper)
+                var finalURL: URL
 
-                let exported = try ipa.packIPABack(app: app.url)
+                if export {
+                    finalURL = try ipa.packIPABack(app: app.url)
+                } else {
+                    finalURL = try wrap(app)
+                    let installedApp = PlayApp(appUrl: finalURL)
+                    try PlayTools.installPluginInIPA(installedApp.url)
+                    installedApp.sign()
+                }
+
                 try ipa.releaseTempDir()
-                InstallVM.shared.next(.finish)
-                returnCompletion(exported)
+                InstallVM.shared.next(.finish, 0.95, 1.0)
+                returnCompletion(finalURL)
             } catch {
                 Log.shared.error(error)
-                InstallVM.shared.next(.finish)
+                InstallVM.shared.next(.failed, 0.95, 1.0)
                 returnCompletion(nil)
             }
         }
     }
 
-    static func fromIPA (detectingAppNameInFolder folderURL: URL) throws -> BaseApp {
+    static func fromIPA(detectingAppNameInFolder folderURL: URL) throws -> BaseApp {
         let contents = try FileManager.default.contentsOfDirectory(atPath: folderURL.path)
 
         var url: URL?
@@ -111,7 +116,7 @@ class Installer {
             var isDirectory: ObjCBool = false
 
             guard FileManager.default.fileExists(atPath: entryURL.path, isDirectory: &isDirectory),
-                    isDirectory.boolValue else {
+                  isDirectory.boolValue else {
                 continue
             }
 
@@ -174,14 +179,19 @@ class Installer {
 
     static func removeMobileProvision(_ baseApp: BaseApp) throws {
         let provision = baseApp.url.appendingPathComponent("embedded.mobileprovision")
-        if fileMgr.fileExists(atPath: provision.path) {
-            try fileMgr.removeItem(at: provision)
+        if FileManager.default.fileExists(atPath: provision.path) {
+            try FileManager.default.removeItem(at: provision)
         }
     }
 
     /// Generates a wrapper bundle for an iOS app that allows it to be launched from Finder and other macOS UIs
     static func wrap(_ baseApp: BaseApp) throws -> URL {
-        let location = PlayTools.playCoverContainer.appendingPathComponent(baseApp.url.lastPathComponent)
+        let info = AppInfo(contentsOf: baseApp.url
+            .appendingPathComponent("Info")
+            .appendingPathExtension("plist"))
+        let location = PlayTools.playCoverContainer
+            .appendingPathComponent(info.displayName)
+            .appendingPathExtension("app")
         if FileManager.default.fileExists(atPath: location.path) {
             try FileManager.default.removeItem(at: location)
         }

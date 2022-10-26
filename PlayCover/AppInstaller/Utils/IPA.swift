@@ -15,14 +15,12 @@ public class IPA {
     }
 
     public func allocateTempDir() throws -> URL {
-        if let workDir = tempDir, FileManager.default.fileExists(atPath: workDir.path) {
-            return workDir
-        }
-
-        let workDir = try TempAllocator.allocateTempDirectory()
-        self.tempDir = workDir
-
-        return workDir
+        let tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
+                                                 in: .userDomainMask,
+                                                 appropriateFor: URL(fileURLWithPath: "/Users"),
+                                                 create: true)
+        return tmpDir
+            .appendingPathComponent(ProcessInfo().globallyUniqueString)
     }
 
     public func releaseTempDir() throws {
@@ -34,24 +32,31 @@ public class IPA {
             try FileManager.default.removeItem(at: workDir)
         }
 
-        self.tempDir = nil
+        tempDir = nil
+    }
+
+    func removeQuarantine(_ execUrl: URL) throws {
+        try shell.shello("/usr/bin/xattr", "-r", "-d", "com.apple.quarantine", execUrl.relativePath)
     }
 
     public func unzip() throws -> BaseApp {
         let workDir = try allocateTempDir()
 
-        switch unzip_to_destination(url.path, workDir.path) {
-        case .success:
+        if Shell.quietUnzip(url, toUrl: workDir) == "" {
+            try removeQuarantine(workDir)
             return try Installer.fromIPA(detectingAppNameInFolder: workDir.appendingPathComponent("Payload"))
-        default: throw PlayCoverError.appCorrupted
+        } else {
+            throw PlayCoverError.appCorrupted
         }
     }
 
     func packIPABack(app: URL) throws -> URL {
-         let newIpa = getDocumentsDirectory()
+        let newIpa = getDocumentsDirectory()
             .appendingPathComponent(app.deletingPathExtension().lastPathComponent).appendingPathExtension("ipa")
-         try Shell.zip(ipa: newIpa, name: app.deletingPathExtension().lastPathComponent,
-                       payload: app.deletingLastPathComponent().deletingLastPathComponent())
+        try Shell.zip(
+            ipa: newIpa,
+            name: app.deletingPathExtension().lastPathComponent,
+            payload: app.deletingLastPathComponent().deletingLastPathComponent())
         return newIpa
     }
 

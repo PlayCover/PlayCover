@@ -3,34 +3,37 @@
 //  PlayCover
 //
 
-import Foundation
 import Cocoa
+import Foundation
 import IOKit.pwr_mgt
 
-class PlayApp: BaseApp {
+class PlayApp: BaseApp, ObservableObject {
+    private static let library = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library")
+
     var searchText: String {
-        return info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
+        info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
     }
 
     func launch() {
         do {
             if prohibitedToPlay {
-                container?.clear()
+                clearAllCache()
                 throw PlayCoverError.appProhibited
             }
 
             AppsVM.shared.updatingApps = true
             AppsVM.shared.fetchApps()
-            self.settings.sync()
+            settings.sync()
             if try !Entitlements.areEntitlementsValid(app: self) {
                 sign()
             }
+            try PlayTools.installPluginInIPA(url)
             if try !PlayTools.isInstalled() {
-                Log.shared.msg("PlayTools are not installed! Please move PlayCover.app into Applications!")
+                Log.shared.error("PlayTools are not installed! Please move PlayCover.app into Applications!")
             } else if try !PlayTools.isValidArch(executable.path) {
-                Log.shared.msg("The app threw an error during conversion.")
+                Log.shared.error("The app threw an error during conversion.")
             } else if try !isCodesigned() {
-                Log.shared.msg("The app is not codesigned! Please open Xcode and accept license agreement.")
+                Log.shared.error("The app is not codesigned! Please open Xcode and accept license agreement.")
             } else {
                 runAppExec() // Splitting to reduce complexity
             }
@@ -40,43 +43,45 @@ class PlayApp: BaseApp {
             Log.shared.error(error)
         }
     }
+
     func runAppExec() {
-        NSWorkspace.shared.openApplication(at: url,
-                                           configuration: NSWorkspace.OpenConfiguration(),
-                                           completionHandler: {runningApp, error in
-            guard error == nil else {return}
-            if self.settings.disableTimeout {
-                // Yeet into a thread
-                DispatchQueue.global().async {
-                    debugPrint("Disabling timeout...")
-                    let reason = "PlayCover: " + self.name + " disabled screen timeout" as CFString
-                    var assertionID: IOPMAssertionID = 0
-                    var success = IOPMAssertionCreateWithName( kIOPMAssertionTypeNoDisplaySleep as CFString,
-                                                               IOPMAssertionLevel(kIOPMAssertionLevelOn),
-                                                               reason,
-                                                               &assertionID )
-                    if success == kIOReturnSuccess {
-                        while true { // Run a loop until the app closes
-                            Thread.sleep(forTimeInterval: 10) // Wait 10s
-                            guard let isFinish = runningApp?.isTerminated,
-                                  !isFinish else { break }
+        let config = NSWorkspace.OpenConfiguration()
+
+        if settings.metalHudEnabled {
+            config.environment = ["MTL_HUD_ENABLED": "1"]
+        } else {
+            config.environment = ["MTL_HUD_ENABLED": "0"]
+        }
+
+        NSWorkspace.shared.openApplication(
+            at: url,
+            configuration: config,
+            completionHandler: { runningApp, error in
+                guard error == nil else { return }
+                if self.settings.settings.disableTimeout {
+                    // Yeet into a thread
+                    DispatchQueue.global().async {
+                        debugPrint("Disabling timeout...")
+                        let reason = "PlayCover: " + self.name + " disabled screen timeout" as CFString
+                        var assertionID: IOPMAssertionID = 0
+                        var success = IOPMAssertionCreateWithName(
+                            kIOPMAssertionTypeNoDisplaySleep as CFString,
+                            IOPMAssertionLevel(kIOPMAssertionLevelOn),
+                            reason,
+                            &assertionID)
+                        if success == kIOReturnSuccess {
+                            while true { // Run a loop until the app closes
+                                Thread.sleep(forTimeInterval: 10) // Wait 10s
+                                guard
+                                    let isFinish = runningApp?.isTerminated,
+                                    !isFinish else { break }
+                            }
+                            success = IOPMAssertionRelease(assertionID)
+                            debugPrint("Enabling timeout...")
                         }
-                        success = IOPMAssertionRelease(assertionID)
-                        debugPrint("Enabling timeout...")
                     }
                 }
-            }
-        })
-    }
-
-    var icon: NSImage? {
-        if let rep = NSWorkspace.shared.icon(forFile: url.path)
-            .bestRepresentation(for: NSRect(x: 0, y: 0, width: 128, height: 128), context: nil, hints: nil) {
-            let image = NSImage(size: rep.size)
-            image.addRepresentation(rep)
-            return image
-        }
-        return nil
+            })
     }
 
     var name: String {
@@ -87,18 +92,14 @@ class PlayApp: BaseApp {
         }
     }
 
-    lazy var settings: AppSettings = {
-        AppSettings(info, container: container)
-    }()
+    lazy var settings = AppSettings(info, container: container)
+
+    lazy var keymapping = Keymapping(info, container: container)
 
     var container: AppContainer?
 
     func isCodesigned() throws -> Bool {
-        return try shell.shello(
-            "/usr/bin/codesign",
-            "-dv",
-            executable.path
-        ).contains("adhoc")
+        try shell.shello("/usr/bin/codesign", "-dv", executable.path).contains("adhoc")
     }
 
     func showInFinder() {
@@ -109,9 +110,13 @@ class PlayApp: BaseApp {
         container?.containerUrl.showInFinderAndSelectLastComponent()
     }
 
+    func clearAllCache() {
+        Uninstaller.clearExternalCache(info.bundleIdentifier)
+    }
+
     func deleteApp() {
         do {
-            try fileMgr.delete(at: URL(fileURLWithPath: url.path))
+            try FileManager.default.delete(at: URL(fileURLWithPath: url.path))
             AppsVM.shared.fetchApps()
         } catch {
             Log.shared.error(error)
@@ -120,27 +125,43 @@ class PlayApp: BaseApp {
 
     func sign() {
         do {
-            let tmpEnts = try TempAllocator.allocateTempDirectory().appendingPathComponent("entitlements.plist")
+            let tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
+                                                  in: .userDomainMask,
+                                                  appropriateFor: URL(fileURLWithPath: "/Users"),
+                                                  create: true)
+            let tmpEnts = tmpDir
+                .appendingPathComponent(ProcessInfo().globallyUniqueString)
+                .appendingPathExtension("plist")
             let conf = try Entitlements.composeEntitlements(self)
             try conf.store(tmpEnts)
             shell.signAppWith(executable, entitlements: tmpEnts)
-            TempAllocator.clearTemp()
+            try FileManager.default.removeItem(at: tmpEnts)
         } catch {
             print(error)
             Log.shared.error(error)
         }
     }
 
-    var prohibitedToPlay: Bool {
-        return PlayApp.PROHIBITED_APPS.contains(info.bundleIdentifier)
+    func largerImage(image imageA: NSImage, compareTo imageB: NSImage?) -> NSImage {
+        if imageA.size.height > imageB?.size.height ?? -1 {
+            return imageA
+        }
+        return imageB!
     }
 
-    static let PROHIBITED_APPS = ["com.activision.callofduty.shooter",
-                                  "com.garena.game.codm",
-                                  "com.tencent.tmgp.cod",
-                                  "com.tencent.ig",
-                                  "com.pubg.newstate",
-                                  "com.tencent.tmgp.pubgmhd",
-                                  "com.dts.freefireth",
-                                  "com.dts.freefiremax"]
+    var prohibitedToPlay: Bool {
+        PlayApp.PROHIBITED_APPS.contains(info.bundleIdentifier)
+    }
+
+    static let PROHIBITED_APPS = [
+        "com.activision.callofduty.shooter",
+        "com.ea.ios.apexlegendsmobilefps",
+        "com.garena.game.codm",
+        "com.tencent.tmgp.cod",
+        "com.tencent.ig",
+        "com.pubg.newstate",
+        "com.tencent.tmgp.pubgmhd",
+        "com.dts.freefireth",
+        "com.dts.freefiremax"
+    ]
 }

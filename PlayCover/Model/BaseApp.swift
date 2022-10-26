@@ -13,16 +13,28 @@ public class BaseApp {
     public let info: AppInfo
     public var url: URL
 
+    @Published public var hasPlayTools: Bool
+
     public var executable: URL {
-        return url.appendingPathComponent(info.executableName)
+        url.appendingPathComponent(info.executableName)
     }
 
     public var entitlements: URL {
-        return Entitlements.playCoverEntitlementsDir.appendingPathComponent("\(info.bundleIdentifier).plist")
+        Entitlements.playCoverEntitlementsDir
+            .appendingPathComponent(info.bundleIdentifier)
+            .appendingPathExtension("plist")
     }
 
     init(appUrl: URL) {
-        self.url = appUrl
-        self.info = AppInfo(contentsOf: url.appendingPathComponent("Info.plist"))
+        url = appUrl
+        info = AppInfo(contentsOf: url.appendingPathComponent("Info")
+                                      .appendingPathExtension("plist"))
+
+        do {
+            hasPlayTools = try PlayTools.installedInExec(atURL: url.appendingPathComponent(info.executableName))
+        } catch {
+            hasPlayTools = true
+            Log.shared.error(error)
+        }
     }
 }

@@ -1,0 +1,43 @@
+name: App Support Request
+description: Request support for a currently unsupported app(not game).
+title: "[App Support]: "
+labels: ["app-support"]
+body:
+  - type: textarea
+    id: app-store
+    attributes:
+      label: App Store link
+      description: Provide a link to the app on the iOS App Store.
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: Current issues
+      description: Please check all relevant issues
+      options:
+        - label: App fails to install
+        - label: App fails to open
+        - label: App crashes randomly during usage
+        - label: App experiences graphical issues or broken UI
+        - label: App fails to connect to servers
+        - label: Other
+  - type: textarea
+    id: more-info
+    attributes:
+      label: More details
+      description: A clear and concise description of the issues with a particular app.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Crash log
+      description: Copy and paste in any relevant crash logs in plain text.
+      render: shell
+  - type: checkboxes
+    attributes:
+      label: Issue Language
+      description: All issues must be written in clear plain English so that all devs are able to read them.
+      options:
+        - label: Yes my issue is written in English
+          required: true

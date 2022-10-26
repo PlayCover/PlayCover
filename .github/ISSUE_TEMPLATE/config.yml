@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation (PlayBook)
+    url: https://docs.playcover.io
+    about: Please check the documentation to see if there is already a solution to your problem.
+  - name: Discord Support
+    url: https://discord.com/channels/871829896492642387/1004054238827134976
+    about: Please ask for support first to confirm the issue before submitting a report.

@@ -6,30 +6,184 @@
 import Foundation
 
 class PlayTools {
-    static func replaceLibraries(atURL url: URL) throws {
-        Log.shared.log("Replacing libswiftUIKit.dylib")
-        try shell.shello(
-            install_name_tool.path ,
-            "-change", "@rpath/libswiftUIKit.dylib", "/System/iOSSupport/usr/lib/swift/libswiftUIKit.dylib",
-            url.path
-        )
+    private static let frameworksURL = FileManager.default.homeDirectoryForCurrentUser
+        .appendingPathComponent("Library")
+        .appendingPathComponent("Frameworks")
+    private static let playToolsFramework = frameworksURL
+        .appendingPathComponent("PlayTools")
+        .appendingPathExtension("framework")
+    private static let playToolsPath = playToolsFramework
+        .appendingPathComponent("PlayTools")
+    private static let akInterfacePath = playToolsFramework
+        .appendingPathComponent("PlugIns")
+        .appendingPathComponent("AKInterface")
+        .appendingPathExtension("bundle")
+    private static let bundledPlayToolsFramework = Bundle.main.bundleURL
+        .appendingPathComponent("Contents")
+        .appendingPathComponent("Frameworks")
+        .appendingPathComponent("PlayTools")
+        .appendingPathExtension("framework")
+
+    public static var playCoverContainer: URL {
+        let playCoverPath = FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent("Library")
+            .appendingPathComponent("Containers")
+            .appendingPathComponent("io.playcover.PlayCover")
+        if !FileManager.default.fileExists(atPath: playCoverPath.path) {
+            do {
+                try FileManager.default.createDirectory(at: playCoverPath,
+                                                        withIntermediateDirectories: true,
+                                                        attributes: [:])
+            } catch {
+                Log.shared.error(error)
+            }
+        }
+
+        return playCoverPath
     }
 
-    static func installFor(_ exec: URL, resign: Bool = false) throws {
-        patch_binary_with_dylib(exec.path, PLAY_TOOLS_PATH)
-        if resign {
-            shell.signApp(exec)
+    static func installOnSystem() {
+        DispatchQueue.global(qos: .background).async {
+            do {
+                Log.shared.log("Installing PlayTools")
+
+                // Check if Frameworks folder exists, if not, create it
+                if !FileManager.default.fileExists(atPath: frameworksURL.path) {
+                    try FileManager.default.createDirectory(
+                        atPath: frameworksURL.path,
+                        withIntermediateDirectories: true,
+                        attributes: [:])
+                }
+
+                // Check if a version of PlayTools is already installed, if so remove it
+                if FileManager.default.fileExists(atPath: playToolsFramework.path) {
+                    try FileManager.default.delete(at: URL(fileURLWithPath: playToolsFramework.path))
+                }
+
+                // Install version of PlayTools bundled with PlayCover
+                Log.shared.log("Copying PlayTools to Frameworks")
+                if FileManager.default.fileExists(atPath: playToolsFramework.path) {
+                    try FileManager.default.removeItem(at: playToolsFramework)
+                }
+                try FileManager.default.copyItem(at: bundledPlayToolsFramework, to: playToolsFramework)
+            } catch {
+                Log.shared.error(error)
+            }
         }
     }
 
-    static func injectFor(_ exec: URL, payload: URL) throws {
-        patch_binary_with_dylib(exec.path, "@executable_path/Frameworks/PlayTools.dylib")
-        try injectPlayTools(payload)
+    static func replaceLibraries(atURL url: URL) throws {
+        Log.shared.log("Replacing libswiftUIKit.dylib")
+        try shell.shello(
+            install_name_tool.path,
+            "-change", "@rpath/libswiftUIKit.dylib", "/System/iOSSupport/usr/lib/swift/libswiftUIKit.dylib",
+            url.path)
     }
 
-    static func deleteFrom(_ exec: URL) throws {
-        remove_play_tools_from(exec.path, PLAY_TOOLS_PATH)
+    static func installInIPA(_ exec: URL, _ payload: URL) throws {
+        patch_binary_with_dylib(exec.path, playToolsPath.path)
         shell.signApp(exec)
+    }
+
+    static func installPluginInIPA(_ payload: URL) throws {
+        let pluginsURL = payload.appendingPathComponent("PlugIns")
+        if !FileManager.default.fileExists(atPath: pluginsURL.path) {
+            try FileManager.default.createDirectory(at: pluginsURL, withIntermediateDirectories: true)
+        }
+
+        let bundleTarget = pluginsURL
+            .appendingPathComponent("AKInterface")
+            .appendingPathExtension("bundle")
+
+        let akInterface = bundledPlayToolsFramework.appendingPathComponent("PlugIns")
+            .appendingPathComponent("AKInterface")
+            .appendingPathExtension("bundle")
+
+        if FileManager.default.fileExists(atPath: bundleTarget.path) {
+            try FileManager.default.removeItem(at: bundleTarget)
+        }
+        try FileManager.default.copyItem(at: akInterface, to: bundleTarget)
+        try bundleTarget.fixExecutable()
+        Shell.codesign(bundleTarget)
+    }
+
+    static func injectInIPA(_ exec: URL, payload: URL) throws {
+        patch_binary_with_dylib(exec.path, "@executable_path/Frameworks/PlayTools.dylib")
+        DispatchQueue.global(qos: .background).async {
+            do {
+                if !FileManager.default.fileExists(atPath: payload.appendingPathComponent("Frameworks").path) {
+                    try FileManager.default.createDirectory(
+                        at: payload.appendingPathComponent("Frameworks"),
+                        withIntermediateDirectories: true)
+                }
+                if !FileManager.default.fileExists(atPath: payload.appendingPathComponent("PlugIns").path) {
+                    try FileManager.default.createDirectory(
+                        at: payload.appendingPathComponent("PlugIns"),
+                        withIntermediateDirectories: true)
+                }
+
+                let libraryTarget = payload.appendingPathComponent("Frameworks")
+                    .appendingPathComponent("PlayTools")
+                    .appendingPathExtension("dylib")
+                let bundleTarget = payload.appendingPathComponent("PlugIns")
+                    .appendingPathComponent("AKInterface")
+                    .appendingPathExtension("bundle")
+
+                let tools = bundledPlayToolsFramework
+                    .appendingPathComponent("PlayTools")
+                let akInterface = bundledPlayToolsFramework.appendingPathComponent("PlugIns")
+                    .appendingPathComponent("AKInterface")
+                    .appendingPathExtension("bundle")
+
+                if FileManager.default.fileExists(atPath: libraryTarget.path) {
+                    try FileManager.default.removeItem(at: libraryTarget)
+                }
+                try FileManager.default.copyItem(at: tools, to: libraryTarget)
+
+                if FileManager.default.fileExists(atPath: bundleTarget.path) {
+                    try FileManager.default.removeItem(at: bundleTarget)
+                }
+                try FileManager.default.copyItem(at: akInterface, to: bundleTarget)
+
+                try libraryTarget.fixExecutable()
+                try bundleTarget.fixExecutable()
+                Shell.codesign(bundleTarget)
+            } catch {
+                Log.shared.error(error)
+            }
+        }
+    }
+
+    static func installInApp(_ exec: URL) {
+        do {
+            patch_binary_with_dylib(exec.path, playToolsPath.path)
+            try installPluginInIPA(exec.deletingLastPathComponent())
+            shell.signApp(exec)
+        } catch {
+            Log.shared.error(error)
+        }
+    }
+
+    static func removeFromApp(_ exec: URL) {
+        do {
+            remove_play_tools_from(exec.path, playToolsPath.path)
+
+            let pluginsURL = exec.appendingPathComponent("PlugIns")
+
+            let bundleTarget = pluginsURL
+                .appendingPathComponent("AKInterface")
+                .appendingPathExtension("bundle")
+
+            if FileManager.default.fileExists(atPath: bundleTarget.path) {
+                try FileManager.default.removeItem(at: bundleTarget)
+            }
+
+            Shell.codesign(bundleTarget)
+
+            shell.signApp(exec)
+        } catch {
+            Log.shared.error(error)
+        }
     }
 
     static func convertMacho(_ macho: URL) throws {
@@ -38,126 +192,75 @@ class PlayTools {
             vtool.path,
             "-set-build-version", "maccatalyst", "11.0", "14.0",
             "-replace", "-output",
-            macho.path, macho.path
-        )
+            macho.path, macho.path)
     }
 
     static func isMachoEncrypted(atURL url: URL) throws -> Bool {
-        let otoolOutput = try shell.shello(otool.path, "-l", url.path)
-        if otoolOutput.contains("LC_ENCRYPTION_INFO") && otoolOutput.contains("cryptid 1") {return true}
+        // Split output into blocks
+        let otoolOutput = try shell.shello(otool.path, "-l", url.path).components(separatedBy: "Load command")
+        // Check specifically for encryption info on the 64 bit block
+        for block in otoolOutput where (block.contains("LC_ENCRYPTION_INFO_64") && block.contains("cryptid 1")) {
+            return true
+        }
         return false
     }
 
-    static func install() {
-        DispatchQueue.global(qos: .background).async {
-            do {
-				let tools = URL(fileURLWithPath: BUNDLED_PLAY_TOOLS_FRAMEWORKS_PATH)
-                Log.shared.log("Installing PlayTools")
-//                try convertMacho(tools)
-//                sh.codesign(tools)
-                if !fileMgr.fileExists(atPath: FRAMEWORKS_PATH) {
-                    try fileMgr.createDirectory(atPath: FRAMEWORKS_PATH,
-                                                withIntermediateDirectories: true, attributes: [:])
-                }
-                if fileMgr.fileExists(atPath: PLAY_TOOLS_FRAMEWORKS_PATH) {
-                    try fileMgr.delete(at: URL(fileURLWithPath: PLAY_TOOLS_FRAMEWORKS_PATH))
-                }
-                Log.shared.log("Copying PlayTools to Frameworks")
-                try shell.sh("cp -r \(tools.esc) \(PLAY_TOOLS_FRAMEWORKS_PATH)")
-            } catch {
-                Log.shared.error(error)
-            }
-        }
-    }
-
-    static func injectPlayTools(_ payload: URL) throws {
-        DispatchQueue.global(qos: .background).async {
-            do {
-				let tools = URL(fileURLWithPath: "\(BUNDLED_PLAY_TOOLS_FRAMEWORKS_PATH)/PlayTools")
-                if !FileManager.default.fileExists(atPath: payload.appendingPathComponent("Frameworks").path) {
-                    try FileManager.default.createDirectory(at: payload.appendingPathComponent("Frameworks"),
-                                                            withIntermediateDirectories: true)
-                }
-                let libraryTraget = payload.appendingPathComponent("Frameworks")
-                    .appendingPathComponent("PlayTools").appendingPathExtension("dylib")
-                shell.shell("cp \(tools.esc) \(libraryTraget.esc)")
-                try libraryTraget.fixExecutable()
-            } catch {
-                Log.shared.error(error)
-            }
-        }
+    static func installedInExec(atURL url: URL) throws -> Bool {
+        try shell.shello(otool.path, "-L", url.path).contains(playToolsPath.esc)
     }
 
     static func isInstalled() throws -> Bool {
-        return try fileMgr.fileExists(atPath: PLAY_TOOLS_PATH) && isValidArch(PLAY_TOOLS_PATH)
+        try FileManager.default.fileExists(atPath: playToolsPath.path)
+            && FileManager.default.fileExists(atPath: akInterfacePath.path)
+            && isValidArch(playToolsPath.path)
     }
 
     static func isValidArch(_ path: String) throws -> Bool {
-		guard let output = try? shell.shello(vtool.path, "-show-build", path) else {
-			return false
-		}
-		return output.contains("MACCATALYST")
-    }
-	private static let PLAY_TOOLS_FRAMEWORKS_PATH = "\(FRAMEWORKS_PATH)/PlayTools.framework"
-	private static let PLAY_TOOLS_PATH = "\(PLAY_TOOLS_FRAMEWORKS_PATH)/PlayTools"
-//    private static let PLAY_TOOLS_PATH = "\(FRAMEWORKS_PATH)/\(getSystemUUID()?.prefix(4) ?? "3DEF")N"
-    private static let FRAMEWORKS_PATH = "/Users/\(NSUserName())/Library/Frameworks"
-    private static let PLAY_COVER_PATH = URL(fileURLWithPath:
-                                                "/Users/\(NSUserName())/Library/Containers/io.playcover.PlayCover")
-	private static let BUNDLED_PLAY_TOOLS_FRAMEWORKS_PATH =
-        "\(Bundle.main.bundlePath)/Contents/Frameworks/PlayTools.framework"
-
-    public static var playCoverContainer: URL {
-
-        if !fileMgr.fileExists(atPath: PLAY_COVER_PATH.path) {
-            do {
-                try fileMgr.createDirectory(at: PLAY_COVER_PATH, withIntermediateDirectories: true, attributes: [:])
-            } catch {
-                Log.shared.error(error)
-            }
+        guard let output = try? shell.shello(vtool.path, "-show-build", path) else {
+            return false
         }
-
-        return PLAY_COVER_PATH
+        return output.contains("MACCATALYST")
     }
 
 	static func fetchEntitlements(_ exec: URL) throws -> String {
-		return try shell.sh("codesign --display --entitlements - --xml '\(exec.path)'" +
+        do {
+            return  try shell.sh("codesign --display --entitlements - --xml '\(exec.path)'" +
                             " | xmllint --format -", pipeStdErr: false)
+        } catch {
+            if error.localizedDescription.contains("Document is empty") {
+                // Empty entitlements
+                return ""
+            } else {
+                throw error
+            }
+        }
 	}
 
-	private static func binPath(_ bin: String) throws -> URL {
-		return URL(fileURLWithPath: try shell.sh("which \(bin)").trimmingCharacters(in: .newlines))
-	}
+    private static func binPath(_ bin: String) throws -> URL {
+        URL(fileURLWithPath: try shell.sh("which \(bin)").trimmingCharacters(in: .newlines))
+    }
 
     private static var vtool: URL {
-		get throws {
-			try binPath("vtool")
-		}
+        get throws {
+            try binPath("vtool")
+        }
     }
 
     private static var otool: URL {
-		get throws {
-			try binPath("otool")
-		}
+        get throws {
+            try binPath("otool")
+        }
     }
 
     private static var install_name_tool: URL {
-		get throws {
-			try binPath("install_name_tool")
-		}
-    }
-
-    private static var ldid: URL {
-		get throws {
-			try binPath("ldid")
-		}
+        get throws {
+            try binPath("install_name_tool")
+        }
     }
 }
 
 extension URL {
     func setBinaryPosixPermissions(_ permissions: Int) throws {
-        try FileManager.default.setAttributes([
-            .posixPermissions: permissions
-        ], ofItemAtPath: self.path)
+        try FileManager.default.setAttributes([.posixPermissions: permissions], ofItemAtPath: path)
     }
 }

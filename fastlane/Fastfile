@@ -28,7 +28,11 @@ end
 lane :release do
   setup_ci if ENV['CI']
   match(type: "developer_id", readonly: true)
+  Dir.chdir("..") do
+    sh("carthage", "update", "--use-xcframeworks")
+  end
   build_mac_app(
+    configuration: "Release",
     scheme: "PlayCover",
     output_directory: "output",
     output_name: "PlayCover",
@@ -38,6 +42,25 @@ lane :release do
     xcargs: "FASTLANE=1",
     )
 end
+
+lane :nightly do
+  setup_ci if ENV['CI']
+  match(type: "developer_id", readonly: true)
+  Dir.chdir("..") do
+    sh("carthage", "update", "--use-xcframeworks")
+  end
+  carthage(use_xcframeworks: true)
+  build_mac_app(
+    configuration: "Nightly",
+    scheme: "PlayCover",
+    output_directory: "output",
+    output_name: "PlayCover",
+    export_method: "developer-id",
+    destination: "generic/platform=macOS",
+    skip_package_pkg: true,
+    xcargs: "FASTLANE=1",
+    )
+end  
 
 lane :notarize_app do
   notarize(
@@ -49,9 +72,12 @@ end
 
 lane :notarize_dmg do |options|
   notarize(
+    use_notarytool: true,
     package: options[:package],
     api_key_path: "apikey.json",
     bundle_id: bundle_id,
+    print_log: true,
+    verbose: true,
   )
 end
 
