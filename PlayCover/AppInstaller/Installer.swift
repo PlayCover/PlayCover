@@ -37,8 +37,17 @@ class Installer {
 
     // swiftlint:disable function_body_length
     static func install(ipaUrl: URL, export: Bool, returnCompletion: @escaping (URL?) -> Void) {
-        let installPlayTools = (InstallSettings.shared.showInstallPlayToolsPopup && !export) ?
-            installPlayToolsPopup() : InstallSettings.shared.alwaysInstallPlayTools
+        let installPlayTools: Bool
+
+        if InstallSettings.shared.showInstallPlayToolsPopup {
+            installPlayTools = !export ? installPlayToolsPopup() : InstallSettings.shared.alwaysInstallPlayTools
+        } else {
+            if Installer.isOptionKeyHeld {
+                installPlayTools = installPlayToolsPopup()
+            } else {
+                installPlayTools = InstallSettings.shared.alwaysInstallPlayTools
+            }
+        }
 
         InstallVM.shared.next(.begin, 0.0, 0.0)
 
@@ -206,5 +215,11 @@ class Installer {
     /// Regular codesign, does not accept entitlements. Used to re-seal an app after you've modified it.
     static func fakesign(_ url: URL) throws {
         try shell.shello("/usr/bin/codesign", "-fs-", url.path)
+    }
+    
+    static var isOptionKeyHeld: Bool {
+        get {
+            NSEvent.modifierFlags.contains(.option)
+        }
     }
 }

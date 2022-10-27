@@ -10,7 +10,7 @@ import SwiftUI
 struct InstallSettings: View {
     public static var shared = InstallSettings()
 
-    @AppStorage("ShowInstallPlayToolsPopup") var showInstallPlayToolsPopup = true
+    @AppStorage("ShowInstallPlayToolsPopup") var showInstallPlayToolsPopup = false
     @AppStorage("AlwaysInstallPlayTools") var alwaysInstallPlayTools = true
 
     var body: some View {
