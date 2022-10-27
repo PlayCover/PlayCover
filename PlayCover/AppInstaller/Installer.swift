@@ -37,17 +37,11 @@ class Installer {
 
     // swiftlint:disable function_body_length
     static func install(ipaUrl: URL, export: Bool, returnCompletion: @escaping (URL?) -> Void) {
-        let installPlayTools: Bool
-
-        if InstallSettings.shared.showInstallPlayToolsPopup {
-            installPlayTools = !export ? installPlayToolsPopup() : InstallSettings.shared.alwaysInstallPlayTools
-        } else {
-            if Installer.isOptionKeyHeld {
-                installPlayTools = installPlayToolsPopup()
-            } else {
-                installPlayTools = InstallSettings.shared.alwaysInstallPlayTools
-            }
-        }
+        // If (the option key is held or the install playtools popup settings is true) and its not an export,
+        //    then show the installer dialog
+        let installPlayTools = ((Installer.isOptionKeyHeld || InstallSettings.shared.showInstallPlayToolsPopup) &&
+                                !export) ?
+            installPlayToolsPopup() : InstallSettings.shared.alwaysInstallPlayTools
 
         InstallVM.shared.next(.begin, 0.0, 0.0)
 
@@ -218,8 +212,6 @@ class Installer {
     }
     
     static var isOptionKeyHeld: Bool {
-        get {
-            NSEvent.modifierFlags.contains(.option)
-        }
+        NSEvent.modifierFlags.contains(.option)
     }
 }
