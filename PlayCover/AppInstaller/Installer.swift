@@ -11,7 +11,7 @@ class Installer {
 
     static func installPlayToolsPopup() -> Bool {
         let alert = NSAlert()
-        alert.messageText = NSLocalizedString("alert.install.injectPlayTools", comment: "")
+        alert.messageText = NSLocalizedString("alert.install.injectPlayToolsQuestion", comment: "")
         alert.informativeText = NSLocalizedString("alert.install.playToolsInformative", comment: "")
 
         alert.alertStyle = .informational
@@ -93,7 +93,11 @@ class Installer {
                 } else {
                     finalURL = try wrap(app)
                     let installedApp = PlayApp(appUrl: finalURL)
-                    try PlayTools.installPluginInIPA(installedApp.url)
+
+                    if installPlayTools {
+                        try PlayTools.installPluginInIPA(installedApp.url)
+                    }
+
                     installedApp.sign()
                 }
 
