@@ -210,7 +210,7 @@ class Installer {
     static func fakesign(_ url: URL) throws {
         try shell.shello("/usr/bin/codesign", "-fs-", url.path)
     }
-    
+
     static var isOptionKeyHeld: Bool {
         NSEvent.modifierFlags.contains(.option)
     }
