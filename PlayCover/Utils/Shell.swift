@@ -121,18 +121,20 @@ class Shell: ObservableObject {
     static func lldb(_ url: URL, withTerminalWindow: Bool = false) {
         var command = "/usr/bin/lldb -o run \(url.esc) -o exit"
 
-        if withTerminalWindow {
-            command = command.replacingOccurrences(of: "\\", with: "\\\\")
-            let osascript = """
-                tell app "Terminal"
-                    reopen
-                    activate
-                    do script "\(command)"
-                end tell
-            """
-            shell("/usr/bin/osascript -e '\(osascript)'", print: true)
-        } else {
-            shell(command, print: true)
+        DispatchQueue.global(qos: .utility).async {
+            if withTerminalWindow {
+                command = command.replacingOccurrences(of: "\\", with: "\\\\")
+                let osascript = """
+                    tell app "Terminal"
+                        reopen
+                        activate
+                        do script "\(command)"
+                    end tell
+                """
+                shell("/usr/bin/osascript -e '\(osascript)'", print: true)
+            } else {
+                shell(command, print: true)
+            }
         }
     }
 
