@@ -244,7 +244,7 @@ struct KeymappingView: View {
                     }
                 }
 
-                if hasKeymapping! {
+                if hasKeymapping ?? false {
                     continue
                 }
                 hasKeymapping = false
