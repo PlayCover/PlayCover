@@ -107,7 +107,7 @@
 "playapp.install.createWrapper" = "앱 컨테이너 만드는중...";
 
 /* (No Comment) */
-"playapp.install.finished" = "완료";
+"playapp.install.finished" = "완료됨";
 
 /* (No Comment) */
 "playapp.install.installPlayTools" = "PlayTools 설치중...";
@@ -122,7 +122,7 @@
 "playapp.openCache" = "앱 데이터 열기";
 
 /* (No Comment) */
-"playapp.settings" = "환경설정";
+"playapp.settings" = "설정";
 
 /* (No Comment) */
 "playapp.showInFinder" = "Finder에서 열기";
@@ -131,7 +131,7 @@
 "playapp.storeCurrentAccount" = "계정 보관하기";
 
 /* (No Comment) */
-"preferences.button.checkForUpdates" = "지금 업데이트 확인...";
+"preferences.button.checkForUpdates" = "업데이트 확인";
 
 /* (No Comment) */
 "preferences.tab.updates" = "업데이트";
@@ -206,7 +206,7 @@
 "storeAccount.deleteAcc" = "계정 삭제하기";
 
 /* (No Comment) */
-"storeAccount.nameOfAcc" = "계정 이름";
+"storeAccount.nameOfAcc" = "사용자의 계정 이름";
 
 /* (No Comment) */
 "storeAccount.nameOfAcc.textfieldPlaceholder" = "계정 이름...";
@@ -215,7 +215,7 @@
 "storeAccount.selectAcc" = "계정을 선택하세요";
 
 /* (No Comment) */
-"storeAccount.selectAccRegion" = "계정 지역 선택";
+"storeAccount.selectAccRegion" = "계정 지역 선택하기";
 
 /* (No Comment) */
 "storeAccount.selectAccRegion.asia" = "아시아";
@@ -254,10 +254,10 @@
 "sidebar.appLibrary" = "앱 보관함";
 "sidebar.ipaLibrary" = "IPA 보관함";
 "storeAccount.alert.restoreAccount" = "정말로 계정을 복구하시겠습니까?";
-"storeAccount.alert.restoreAccount.button" = "계정 복구";
+"storeAccount.alert.restoreAccount.button" = "계정 복구하기";
 "storeAccount.alert.restoreAccount.msg" = "현재 로그인한 계정을 덮어씁니다.";
 "storeAccount.alert.deleteAccount" = "정말로 계정을 삭제하시겠습니까?";
-"storeAccount.alert.deleteAccount.button" = "계정 삭제";
+"storeAccount.alert.deleteAccount.button" = "계정 삭제하기";
 "alert.moveAppToApplications.title" = "응용 프로그램 폴더로 이동할까요?";
 "alert.moveAppToApplications.subtitle" = "PlayCover는 올바르게 실행되려면 반드시 응용 프로그램 폴더에 있어야 합니다. PlayCover를 자동으로 이동하려면 아래 버튼을 누르세요.";
 "button.Quit" = "종료";
@@ -301,35 +301,34 @@
 "button.Convert" = "변환";
 "settings.info.displayName" = "디스플레이 이름:";
 "settings.text.detectedResolution" = "감지된 해상도:";
-"playapp.add" = "앱 추가";
+"playapp.add" = "앱 추가하기";
 "alert.wrongFileType.title" = "잘못된 파일 형식입니다!";
 "alert.wrongFileType.subtitle" = "PlayCover는 유효한 .ipa 파일만 설치할 수 있습니다.";
 "ipaLibrary.noSources.title" = "IPA 소스들이 추가되지 않았습니다";
-"ipaLibrary.noSources.button" = "소스 추가";
-"playapp.addSource" = "소스 추가";
+"ipaLibrary.noSources.button" = "소스 추가하기";
+"playapp.addSource" = "소스 추가하기";
 "ipaLibrary.noSources.subtitle" = "현재 어떠한 IPA 소스도 추가되지 않았습니다. 다음 버튼을 클릭하고 하나를 추가하세요.";
 "ipaLibrary.noNetworkConnection.toast" = "인터넷에 연결되지 않았습니다!";
 "preferences.tab.ipasource" = "IPA 소스";
-"preferences.button.addSource" = "소스 추가";
-"preferences.button.deleteSource" = "소스 제거";
+"preferences.button.addSource" = "소스 추가하기";
+"preferences.button.deleteSource" = "소스 삭제하기";
 "preferences.button.moveSourceUp" = "소스를 위로 올리기";
 "preferences.button.moveSourceDown" = "소스를 아래로 내리기";
-"preferences.button.resolveSources" = "소스 확인";
-"preferences.popover.valid" = "유효한 Link";
+"preferences.popover.valid" = "유효한 링크";
 "preferences.popover.badurl" = "URL이 유효하지 않습니다!";
 "preferences.popover.badjson" = "JSON이 유효하지 않거나 찾을 수 없습니다!";
 "preferences.textfield.url" = "소스 URL...";
 "playapp.download" = "다운로드 중...";
 "error.waitDownload" = "현재 다운로드가 끝날 때까지 기다려 주세요!";
-"playapp.install.failed" = "실패";
+"playapp.install.failed" = "실패함";
 "alert.supression" = "PlayCover 환경설정에서 변경할 수 있습니다";
 "preferences.toggle.clearAppData" = "데이터 초기화";
 "preferences.tab.uninstall" = "제거";
 "preferences.whenUninstalling" = "제거 할 때:";
 "preferences.toggle.showUninstall" = "경고 팝업 보기";
-"preferences.toggle.removeKeymap" = "키맵 제거";
-"preferences.toggle.removeSetting" = "설정 제거";
-"preferences.toggle.removeEntitlements" = "권한 제거";
+"preferences.toggle.removeKeymap" = "키맵 제거하기";
+"preferences.toggle.removeSetting" = "설정 제거하기";
+"preferences.toggle.removeEntitlements" = "권한 제거하기";
 "preferences.button.pruneFiles" = "파일 정리";
 "preferences.prune.alert" = "모든 파일을 정리하시겠습니까?";
 "preferences.prune.message" = "이는 설정, 키매핑, 권한, 앱데이터를 포함한 모든 불필요한 것들을 제거합니다";
@@ -344,3 +343,4 @@
 "settings.noPlayTools" = "이 앱에는 PlayTools 가 설치되지 않았습니다";
 "settings.removePlayTools" = "PlayTools 제거";
 "settings.info.playTools" = "PlayTools 설치됨:";
+"playapp.refreshSources" = "소스 새로 고침";
