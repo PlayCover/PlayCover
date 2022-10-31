@@ -147,7 +147,6 @@
 "preferences.button.deleteSource" = "Excluir Fonte";
 "preferences.button.moveSourceUp" = "Mover Fonte para Cima";
 "preferences.button.moveSourceDown" = "Mover Fonte para Baixo";
-"preferences.button.resolveSources" = "Resolver Fontes";
 "preferences.popover.valid" = "Link Válido";
 "preferences.popover.badurl" = "URL Inválida!";
 "preferences.popover.badjson" = "JSON Inválido ou Não Encontrado!";
@@ -177,3 +176,4 @@
 "settings.noPlayTools" = "O PlayTools não está instalado nesse aplicativo";
 "settings.removePlayTools" = "Remover PlayTools";
 "settings.info.playTools" = "PlayTools instalado:";
+"playapp.refreshSources" = "Refresh Sources";

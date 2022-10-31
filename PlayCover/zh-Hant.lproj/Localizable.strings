@@ -294,7 +294,6 @@
 "preferences.button.deleteSource" = "Delete Source";
 "preferences.button.moveSourceUp" = "Move Source Up";
 "preferences.button.moveSourceDown" = "Move Source Down";
-"preferences.button.resolveSources" = "Resolve Sources";
 "preferences.popover.valid" = "Link Valid";
 "preferences.popover.badurl" = "URL Invalid!";
 "preferences.popover.badjson" = "JSON Invalid or Not Found!";
@@ -324,3 +323,4 @@
 "button.Yes" = "Yes";
 "button.No" = "No";
 "settings.noPlayTools" = "PlayTools is not installed in this app";
+"playapp.refreshSources" = "Refresh Sources";

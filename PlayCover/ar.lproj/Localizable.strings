@@ -140,10 +140,10 @@
 "alert.legacyImport.title" = "Legacy App Settings Detected!";
 "alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
 "settings.text.detectedResolution" = "Detected Resolution:";
-"playapp.add" = "Add app";
+"playapp.add" = "إضافة تطبيق";
 "alert.wrongFileType.title" = "Wrong file type!";
 "alert.wrongFileType.subtitle" = "PlayCover can only install valid .ipa files.";
-"playapp.addSource" = "Add source";
+"playapp.addSource" = "اضافة مصدر";
 "ipaLibrary.noSources.title" = "No IPA Sources Added";
 "ipaLibrary.noSources.subtitle" = "You currently have no IPA Sources added. Click the button below to add one.";
 "ipaLibrary.noSources.button" = "Add Source";
@@ -153,7 +153,6 @@
 "preferences.button.deleteSource" = "Delete Source";
 "preferences.button.moveSourceUp" = "Move Source Up";
 "preferences.button.moveSourceDown" = "Move Source Down";
-"preferences.button.resolveSources" = "Resolve Sources";
 "preferences.popover.valid" = "Link Valid";
 "preferences.popover.badurl" = "URL Invalid!";
 "preferences.popover.badjson" = "JSON Invalid or Not Found!";
@@ -183,3 +182,4 @@
 "settings.noPlayTools" = "PlayTools is not installed in this app";
 "settings.removePlayTools" = "Remove PlayTools";
 "settings.info.playTools" = "PlayTools installed:";
+"playapp.refreshSources" = "Refresh Sources";

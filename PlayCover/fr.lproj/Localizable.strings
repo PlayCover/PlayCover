@@ -131,7 +131,7 @@
 "playapp.storeCurrentAccount" = "Sauvegarder un compte";
 
 /* (No Comment) */
-"preferences.button.checkForUpdates" = "Vérifiez les mises à jour maintenant...";
+"preferences.button.checkForUpdates" = "Vérifiez les mises à jour";
 
 /* (No Comment) */
 "preferences.tab.updates" = "Mises à jour";
@@ -314,7 +314,6 @@
 "preferences.button.deleteSource" = "Supprimer la source";
 "preferences.button.moveSourceUp" = "Déplacer vers le haut";
 "preferences.button.moveSourceDown" = "Déplacer vers le bas";
-"preferences.button.resolveSources" = "Rafraîchir les sources";
 "preferences.popover.valid" = "Lien valide";
 "preferences.popover.badurl" = "Lien invalide !";
 "preferences.popover.badjson" = "JSON invalide ou introuvable !";
@@ -344,3 +343,4 @@
 "settings.noPlayTools" = "PlayTools n'est pas installé dans cette application";
 "settings.removePlayTools" = "Supprimer PlayTools";
 "settings.info.playTools" = "PlayTools installé :";
+"playapp.refreshSources" = "Actualiser les sources";
