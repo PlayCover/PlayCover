@@ -168,13 +168,19 @@ class PlayTools {
         do {
             remove_play_tools_from(exec.path, playToolsPath.path)
 
-            let bundleTarget = exec.deletingLastPathComponent()
+            let pluginUrl = exec.deletingLastPathComponent()
                 .appendingPathComponent("PlugIns")
+
+            let bundleTarget = pluginUrl
                 .appendingPathComponent("AKInterface")
                 .appendingPathExtension("bundle")
 
             if FileManager.default.fileExists(atPath: bundleTarget.path) {
                 try FileManager.default.removeItem(at: bundleTarget)
+            }
+
+            if try FileManager.default.contentsOfDirectory(atPath: pluginUrl.esc).isEmpty {
+                try FileManager.default.removeItem(at: pluginUrl)
             }
 
             shell.signApp(exec)
