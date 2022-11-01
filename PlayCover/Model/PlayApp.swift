@@ -20,7 +20,11 @@ class PlayApp: BaseApp, ObservableObject {
                 clearAllCache()
                 throw PlayCoverError.appProhibited
             }
-
+            if maliciousProhibited {
+                clearAllCache()
+                deleteApp()
+                throw PlayCoverError.appMaliciousProhibited
+            }
             AppsVM.shared.updatingApps = true
             AppsVM.shared.fetchApps()
             settings.sync()
@@ -152,7 +156,9 @@ class PlayApp: BaseApp, ObservableObject {
     var prohibitedToPlay: Bool {
         PlayApp.PROHIBITED_APPS.contains(info.bundleIdentifier)
     }
-
+    var maliciousProhibited: Bool {
+        PlayApp.MALICIOUS_APPS.contains(info.bundleIdentifier)
+    }
     static let PROHIBITED_APPS = [
         "com.activision.callofduty.shooter",
         "com.ea.ios.apexlegendsmobilefps",
@@ -163,5 +169,8 @@ class PlayApp: BaseApp, ObservableObject {
         "com.tencent.tmgp.pubgmhd",
         "com.dts.freefireth",
         "com.dts.freefiremax"
-    ]
+]
+    static let MALICIOUS_APPS = [
+        "com.zhiliaoapp.musically"
+]
 }
