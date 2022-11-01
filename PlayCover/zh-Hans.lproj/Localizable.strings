@@ -131,7 +131,7 @@
 "playapp.storeCurrentAccount" = "保存现有账号";
 
 /* (No Comment) */
-"preferences.button.checkForUpdates" = "立即检查更新...";
+"preferences.button.checkForUpdates" = "检查更新";
 
 /* (No Comment) */
 "preferences.tab.updates" = "更新";
@@ -191,16 +191,16 @@
 "settings.toggle.km" = "启用键盘映射布局";
 
 /* (No Comment) */
-"soundAlert.failureText" = "现有音响设备设置采样率 48 KHz 失败。 您可以在 ”音频MIDI设置“ 应用里手动设置";
+"soundAlert.failureText" = "现有音频设备设置采样率 48 KHz 失败。 您可以在 ”音频MIDI设置“ 应用里手动设置";
 
 /* (No Comment) */
-"soundAlert.informativeText" = "现有的音响设备并无 48 或者 44.1 KHz 采样率! 应用可能会崩溃。您希望把现有的音响设备设置成 48 KHz 采样率吗?";
+"soundAlert.informativeText" = "现有的音频设备没有设置到 48 或 44.1 KHz 采样率! 应用可能会崩溃。您希望把现有的音频设备设置成 48 KHz 采样率吗?";
 
 /* (No Comment) */
 "soundAlert.messageText" = "监测到声音设置有问题!";
 
 /* (No Comment) */
-"soundAlert.successText" = "现有音响设备采样率已设为 48 KHz";
+"soundAlert.successText" = "现有音频设备采样率已设为 48 KHz";
 
 /* (No Comment) */
 "storeAccount.deleteAcc" = "删除一个账号";
@@ -245,7 +245,7 @@
 "xcode.install.progress" = "正在安装 Xcode 命令行工具";
 
 /* (No Comment) */
-"xcode.install.progress.subtext" = "根据网络速度，操作可能需要 5-10 分钟";
+"xcode.install.progress.subtext" = "根据网络速度，这操作可能需要 5-10 分钟";
 
 /* (No Comment) */
 "xcode.install.success" = "Xcode 命令行工具安装成功";
@@ -314,7 +314,6 @@
 "preferences.button.deleteSource" = "删除来源";
 "preferences.button.moveSourceUp" = "上移来源";
 "preferences.button.moveSourceDown" = "下移来源";
-"preferences.button.resolveSources" = "验证来源";
 "preferences.popover.valid" = "链接有效";
 "preferences.popover.badurl" = "链接错误!";
 "preferences.popover.badjson" = "JSON 无效或未找到!";
@@ -344,3 +343,4 @@
 "settings.noPlayTools" = "此应用中并无安装 PlayTools";
 "settings.removePlayTools" = "移除 PlayTools";
 "settings.info.playTools" = "已安装 PlayTools：";
+"playapp.refreshSources" = "刷新来源";
