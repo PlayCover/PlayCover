@@ -29,8 +29,8 @@ class Installer {
         let response = alert.runModal()
 
         if alert.suppressionButton?.state == .on && response != .alertThirdButtonReturn {
-            InstallSettings.shared.showInstallPlayToolsPopup = false
-            InstallSettings.shared.alwaysInstallPlayTools = response == .alertFirstButtonReturn
+            InstallPreferences.shared.showInstallPopup = false
+            InstallPreferences.shared.alwaysInstallPlayTools = response == .alertFirstButtonReturn
         }
 
         return response == .alertThirdButtonReturn ? nil : response == .alertFirstButtonReturn
@@ -40,9 +40,8 @@ class Installer {
     static func install(ipaUrl: URL, export: Bool, returnCompletion: @escaping (URL?) -> Void) {
         // If (the option key is held or the install playtools popup settings is true) and its not an export,
         //    then show the installer dialog
-        let installPlayTools = ((Installer.isOptionKeyHeld || InstallSettings.shared.showInstallPlayToolsPopup) &&
-                                !export) ?
-            installPlayToolsPopup() : InstallSettings.shared.alwaysInstallPlayTools
+        let installPlayTools = ((Installer.isOptionKeyHeld || InstallPreferences.shared.showInstallPopup) &&
+                                !export) ? installPlayToolsPopup() : InstallPreferences.shared.alwaysInstallPlayTools
 
         if let installPlayTools {
             InstallVM.shared.next(.begin, 0.0, 0.0)

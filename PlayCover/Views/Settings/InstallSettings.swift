@@ -7,17 +7,32 @@
 
 import SwiftUI
 
+class InstallPreferences: NSObject, ObservableObject {
+    static var shared = InstallPreferences()
+
+    @objc @AppStorage("AlwaysInstallPlayTools") var alwaysInstallPlayTools = true
+
+    @AppStorage("ShowInstallPopup") var showInstallPopup = false
+}
+
 struct InstallSettings: View {
     public static var shared = InstallSettings()
 
-    @AppStorage("ShowInstallPlayToolsPopup") var showInstallPlayToolsPopup = false
-    @AppStorage("AlwaysInstallPlayTools") var alwaysInstallPlayTools = true
+    @ObservedObject var installPreferences = InstallPreferences.shared
 
     var body: some View {
         Form {
-            Toggle("preferences.toggle.showInstallPopup", isOn: $showInstallPlayToolsPopup)
-            Toggle("preferences.toggle.alwaysInstallPlayTools", isOn: $alwaysInstallPlayTools)
-                .disabled(showInstallPlayToolsPopup)
+            Toggle("preferences.toggle.showInstallPopup", isOn: $installPreferences.showInstallPopup)
+            GroupBox {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Toggle("preferences.toggle.alwaysInstallPlayTools",
+                               isOn: $installPreferences.alwaysInstallPlayTools)
+                    }
+                    Spacer()
+                }
+            }.disabled(installPreferences.showInstallPopup)
+            Spacer()
         }
         .padding(20)
         .frame(width: 350, height: 100, alignment: .center)
