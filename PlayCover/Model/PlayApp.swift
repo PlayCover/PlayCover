@@ -168,7 +168,7 @@ class PlayApp: BaseApp, ObservableObject {
         "com.pubg.newstate",
         "com.tencent.tmgp.pubgmhd",
         "com.dts.freefireth",
-        "com.dts.freefiremax"        
+        "com.dts.freefiremax"
 ]
     static let MALICIOUS_APPS = [
         "com.zhiliaoapp.musically"
