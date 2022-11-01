@@ -1,5 +1,3 @@
-
-
 //
 //  StoreAppGridView.swift
 //  PlayCover
