@@ -113,7 +113,7 @@
 "error.appEncrypted" = "This app is encrypted! Please use a decrypted IPA. iMazing IPAs are not supported!";
 "error.appCorrupted" = "Something went wrong with this IPA. Please try to use another IPA file.";
 "error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";
-"error.appProhibitedTiktok" = "TikTok behaves maliciously on Macs & using it can leave your device in an unbootable state, therefore is blocked from PlayCover. (Also.. Uninstalling this devil's app...)";
+"error.appMaliciousProhibited" = "This App behaves maliciously on Macs, and using it can leave your device in an unbootable state, therefore it is blocked from PlayCover. (Uninstalling...)";
 "error.noGenshinAccount" = "We couldn't find a Genshin account! Are you signed into an account in-app?";
 
 "menubar.exportToSideloady" = "Export to Sideloadly";
