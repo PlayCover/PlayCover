@@ -20,7 +20,7 @@ class PlayApp: BaseApp, ObservableObject {
                 clearAllCache()
                 throw PlayCoverError.appProhibited
             }
-            if MaliciousProhibited {
+            if maliciousProhibited {
                 clearAllCache()
                 deleteApp()
                 throw PlayCoverError.appMaliciousProhibited
@@ -156,7 +156,7 @@ class PlayApp: BaseApp, ObservableObject {
     var prohibitedToPlay: Bool {
         PlayApp.PROHIBITED_APPS.contains(info.bundleIdentifier)
     }
-    var MaliciousProhibited: Bool {
+    var maliciousProhibited: Bool {
         PlayApp.MALICIOUS_APPS.contains(info.bundleIdentifier)
     }
     static let PROHIBITED_APPS = [
@@ -169,8 +169,9 @@ class PlayApp: BaseApp, ObservableObject {
         "com.tencent.tmgp.pubgmhd",
         "com.dts.freefireth",
         "com.dts.freefiremax",
+        "com.crunchyroll.iphone"
 ]
     static let MALICIOUS_APPS = [
-        "TikTok",
+        "com.zhiliaoapp.musically"
 ]
 }
