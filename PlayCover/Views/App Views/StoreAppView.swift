@@ -79,10 +79,11 @@ struct StoreAppView: View {
                 uif.ipaUrl = tmpDir
                 DispatchQueue.main.async {
                     Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
-                            AppsVM.shared.fetchApps()
-                            NotifyService.shared.notify(
-                                NSLocalizedString("notification.appInstalled", comment: ""),
-                                NSLocalizedString("notification.appInstalled.message", comment: ""))
+                        AppsVM.shared.apps = []
+                        AppsVM.shared.fetchApps()
+                        NotifyService.shared.notify(
+                            NSLocalizedString("notification.appInstalled", comment: ""),
+                            NSLocalizedString("notification.appInstalled.message", comment: ""))
                     })
                 }
             } catch {
