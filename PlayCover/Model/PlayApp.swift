@@ -31,7 +31,12 @@ class PlayApp: BaseApp, ObservableObject {
             if try !Entitlements.areEntitlementsValid(app: self) {
                 sign()
             }
-            try PlayTools.installPluginInIPA(url)
+
+            // If the app does not have PlayTools, do not install PlugIns
+            if hasPlayTools {
+                try PlayTools.installPluginInIPA(url)
+            }
+
             if try !PlayTools.isInstalled() {
                 Log.shared.error("PlayTools are not installed! Please move PlayCover.app into Applications!")
             } else if try !PlayTools.isValidArch(executable.path) {
