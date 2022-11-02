@@ -95,7 +95,7 @@
 "alert.wrongFileType.subtitle" = "PlayCover can only install valid .ipa files.";
 "alert.install.injectPlayTools" = "Inject PlayTools";
 "alert.install.injectPlayToolsQuestion" = "Do you want to inject PlayTools into this application?";
-"alert.install.playToolsInformative" = "PlayTools is a tool that allows you to bind keys to screen touches, custom display resolutions, and more, but may break certain apps";
+"alert.install.playToolsInformative" = "PlayTools is a tool that allows you to bind keys to screen touches, custom display resolutions, and more, but it may break certain apps";
 "alert.supression" = "You can change this in the PlayCover preferences";
 
 "button.OK" = "OK";
