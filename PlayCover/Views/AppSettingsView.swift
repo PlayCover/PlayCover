@@ -436,13 +436,16 @@ struct MiscView: View {
                     .frame(height: 20)
                 HStack {
                     Button((hasPlayTools ?? true) ? "settings.removePlayTools" : "alert.install.injectPlayTools") {
-                        if (hasPlayTools ?? true) {
-                            PlayTools.removeFromApp(app.executable)
-                        } else {
-                            PlayTools.installInApp(app.executable)
-                        }
-
                         closeView.toggle()
+                        DispatchQueue.global(qos: .background).async {
+                            if hasPlayTools ?? true {
+                                PlayTools.removeFromApp(app.executable)
+                            } else {
+                                PlayTools.installInApp(app.executable)
+                            }
+                            AppsVM.shared.apps = []
+                            AppsVM.shared.fetchApps()
+                        }
                     }
                     Spacer()
                 }
