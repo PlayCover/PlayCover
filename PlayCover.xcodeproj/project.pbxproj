@@ -94,9 +94,7 @@
 		5314D1ED26C402EC00A0A727 /* Shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
 		531D717926E8313100F4A7AB /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		532644E126E79E5C002EA34D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		532644E226E7D9C4002EA34D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		532644E326E80DD0002EA34D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		532644E426E80E1A002EA34D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		532644E526E80E6B002EA34D /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
 		53468A3E271236A800887A08 /* BaseBoard.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = BaseBoard.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/PrivateFrameworks/BaseBoard.framework/Versions/A/BaseBoard.tbd; sourceTree = DEVELOPER_DIR; };
 		53468A452712632800887A08 /* Security.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = Security.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Security.framework/Versions/A/Security.tbd; sourceTree = DEVELOPER_DIR; };
@@ -127,12 +125,10 @@
 		6E66B0D828A135360099B907 /* ToastVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastVM.swift; sourceTree = "<group>"; };
 		6E692F1C290B34890090D9EC /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6E692F1D290B349F0090D9EC /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
-		6E7BEDCB28C3AD0300DFF0EB /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6E7CA16428B4D02900216CD8 /* ITunesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesResponse.swift; sourceTree = "<group>"; };
 		6E7CA16628B4EEAE00216CD8 /* Keymapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keymapping.swift; sourceTree = "<group>"; };
 		6EB4B57328C93E0600630890 /* LegacySettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacySettings.swift; sourceTree = "<group>"; };
 		6EC228A028B14A0600D7D73A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		6EC228A128B1830F00D7D73A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6ED6379C28DAAAC100B506FA /* IPASourceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPASourceSettings.swift; sourceTree = "<group>"; };
 		6ED6ACA328A949A30040D234 /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
 		6ED6ACA528A96E570040D234 /* DeletePreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeletePreferences.swift; sourceTree = "<group>"; };
@@ -174,7 +170,6 @@
 		92EE06D9274EB009002C907B /* PlayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayApp.swift; sourceTree = "<group>"; };
 		92EE06DD274EC09F002C907B /* Entitlements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entitlements.swift; sourceTree = "<group>"; };
 		92F8500927675124005CE6BE /* AppIntegrity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntegrity.swift; sourceTree = "<group>"; };
-		AA18F6C6287BA6E90092E378 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA719646287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = com.YostarJP.BlueArchive.yaml; sourceTree = "<group>"; };
 		AA719647287A0E2500623C15 /* default.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = default.yaml; sourceTree = "<group>"; };
 		AA71964A287A0EA800623C15 /* PlayRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayRules.swift; sourceTree = "<group>"; };
@@ -521,19 +516,14 @@
 			knownRegions = (
 				en,
 				Base,
-				de,
 				"zh-Hans",
-				ru,
 				id,
 				es,
 				ja,
 				ko,
 				fr,
 				vi,
-				it,
-				uk,
 				"zh-Hant",
-				ar,
 				"pt-br",
 				"pt-BR",
 				fa,
@@ -728,19 +718,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				532644E126E79E5C002EA34D /* en */,
-				532644E226E7D9C4002EA34D /* de */,
 				532644E326E80DD0002EA34D /* zh-Hans */,
-				532644E426E80E1A002EA34D /* ru */,
 				532644E526E80E6B002EA34D /* id */,
 				531D717926E8313100F4A7AB /* es */,
 				53F3802526EB6CEA00D6B525 /* ja */,
 				53E3311126F574B600217197 /* ko */,
 				8FBBE76B2826709500F4FE9F /* fr */,
 				ABF0BA1A285F9ED200FC5259 /* vi */,
-				AA18F6C6287BA6E90092E378 /* it */,
-				6E7BEDCB28C3AD0300DFF0EB /* uk */,
 				6EC228A028B14A0600D7D73A /* zh-Hant */,
-				6EC228A128B1830F00D7D73A /* ar */,
 				81C2786C28D4A5A300E208D7 /* pt-br */,
 				6854C5E528D53C9500CE28A0 /* fa */,
 				6E692F1C290B34890090D9EC /* tr */,
