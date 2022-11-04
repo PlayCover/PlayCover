@@ -110,7 +110,7 @@
 "playapp.install.finished" = "완료됨";
 
 /* (No Comment) */
-"playapp.install.installPlayTools" = "PlayTools 설치중...";
+"playapp.install.installPlayTools" = "PlayTools 설치 중...";
 
 /* (No Comment) */
 "playapp.install.signing" = "앱 코드 서명중...";
@@ -271,10 +271,10 @@
 "settings.toggle.mm" = "마우스 맵핑";
 "settings.toggle.mm.help" = "터치 컨트롤을 모방하는 마우스 제어를 추가합니다. Command + K 키로 에디터 창을 열 수 있습니다.";
 "settings.tab.graphics" = "그래픽";
-"settings.picker.adaptiveRes" = "적응형 해상도:";
+"settings.picker.adaptiveRes" = "해상도:";
 "settings.picker.adaptiveRes.help" = "앱 화면 해상도를 변경합니다";
 "settings.picker.adaptiveRes.0" = "앱 기본값";
-"settings.picker.adaptiveRes.1" = "자동(디스플레이 기반)";
+"settings.picker.adaptiveRes.1" = "자동 (디스플레이 기반)";
 "settings.picker.adaptiveRes.5" = "사용자화";
 "settings.picker.aspectRatio" = "가로세로 비율:";
 "settings.toggle.disableDisplaySleep.help" = "이 앱이 작동하는 중에 화면이 꺼지는 것을 방지합니다";
@@ -299,7 +299,7 @@
 "alert.legacyImport.title" = "레거시 앱 설정이 감지되었습니다!";
 "alert.legacyImport.subtitle" = "이전 버전의 설정과 키맵 파일이 존재합니다. 새로운 버전의 포맷으로 변환하시겠습니까?";
 "button.Convert" = "변환";
-"settings.info.displayName" = "디스플레이 이름:";
+"settings.info.displayName" = "보이는 제목:";
 "settings.text.detectedResolution" = "감지된 해상도:";
 "playapp.add" = "앱 추가하기";
 "alert.wrongFileType.title" = "잘못된 파일 형식입니다!";
@@ -337,10 +337,12 @@
 "preferences.toggle.showInstallPopup" = "PlayTools 설치 팝업 보기";
 "preferences.toggle.alwaysInstallPlayTools" = "항상 PlayTools 설치";
 "alert.install.injectPlayTools" = "PlayTools 주입";
-"alert.install.injectPlayToolsInApp" = "앱에 PlayTools를 주입하시겠습니까?";
 "button.Yes" = "예";
 "button.No" = "아니오";
 "settings.noPlayTools" = "이 앱에는 PlayTools 가 설치되지 않았습니다";
 "settings.removePlayTools" = "PlayTools 제거";
-"settings.info.playTools" = "PlayTools 설치됨:";
+"settings.info.playTools" = "PlayTools 설치 여부:";
 "playapp.refreshSources" = "소스 새로 고침";
+"error.appMaliciousProhibited" = "This App behaves maliciously on Macs, and using it can leave your device in an unbootable state, therefore it is blocked from PlayCover. (Uninstalling...)";
+"alert.install.injectPlayToolsQuestion" = "Do you want to inject PlayTools into this application?";
+"alert.install.playToolsInformative" = "PlayTools is a tool that allows you to bind keys to screen touches, custom display resolutions, and more, but it may break certain apps";
