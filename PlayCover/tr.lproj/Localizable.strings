@@ -1,72 +1,67 @@
-"playapp.add" = "Add app";
-"playapp.addSource" = "Add source";
-"playapp.settings" = "Settings";
-"playapp.showInFinder" = "Show in Finder";
-"playapp.openCache" = "Open App Data";
-"playapp.clearCache" = "Clear App Data";
-"playapp.importKm" = "Import Keymapping";
-"playapp.exportKm" = "Export Keymapping";
-"playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
-"playapp.delete" = "Uninstall App";
-"playapp.deleteConfirm" = "Uninstall";
-"playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
-"playapp.storeCurrentAccount" = "Store Account";
-"playapp.activateAccount" = "Switch Account";
-"playapp.deleteAccount" = "Delete Account";
-"playapp.clearPreferences" = "Clear App Preferences";
-"playapp.refreshSources" = "Refresh Sources";
-
-"ipaLibrary.noSources.title" = "No IPA Sources Added";
-"ipaLibrary.noSources.subtitle" = "You currently have no IPA Sources added. Click the button below to add one.";
-"ipaLibrary.noSources.button" = "Add Source";
-"ipaLibrary.noNetworkConnection.toast" = "No internet connection!";
-
-"preferences.button.checkForUpdates" = "Check for Updates";
-"preferences.tab.updates" = "Updates";
-"preferences.toggle.automaticUpdates" = "Automatically check for updates";
-"preferences.tab.uninstall" = "Uninstall";
-"preferences.whenUninstalling" = "When uninstalling:";
-"preferences.toggle.showUninstall" = "Show warning popup";
-"preferences.toggle.clearAppData" = "Clear data";
-"preferences.toggle.removeKeymap" = "Remove keymap";
-"preferences.toggle.removeSetting" = "Remove settings";
-"preferences.toggle.removeEntitlements" = "Remove entitlements";
-"preferences.button.pruneFiles" = "Prune Files";
-"preferences.prune.alert" = "Are you sure you want to prune all files?";
-"preferences.prune.message" = "This will remove all unused files including settings, keymappings, entitlements, and app data";
-"preferences.tab.ipasource" = "IPA Sources";
-"preferences.button.addSource" = "Add Source";
-"preferences.button.deleteSource" = "Delete Source";
-"preferences.button.moveSourceUp" = "Move Source Up";
-"preferences.button.moveSourceDown" = "Move Source Down";
-"preferences.popover.valid" = "Link Valid";
-"preferences.popover.badurl"  = "URL Invalid!";
-"preferences.popover.badjson" = "JSON Invalid or Not Found!";
-"preferences.textfield.url" = "Source URL...";
-"preferences.tab.install" = "Install";
-"preferences.toggle.showInstallPopup" = "Show install PlayTools popup";
-"preferences.toggle.alwaysInstallPlayTools" = "Always install PlayTools";
-
-"sidebar.appLibrary" = "App Library";
-"sidebar.ipaLibrary" = "IPA Library";
-
-"storeAccount.selectAccRegion" = "Select account region";
-"storeAccount.selectAccRegion.usa" = "America";
-"storeAccount.selectAccRegion.euro" = "Europe";
-"storeAccount.selectAccRegion.asia" = "Asia";
+"playapp.add" = "Uygulama ekle";
+"playapp.addSource" = "Kaynak ekle";
+"playapp.settings" = "Ayarlar";
+"playapp.showInFinder" = "Finder'da Göster";
+"playapp.openCache" = "Uygulama Verisini Aç";
+"playapp.clearCache" = "Uygulama Verisini Kaldır";
+"playapp.importKm" = "Keymapping Ekle";
+"playapp.exportKm" = "Keymapping'i Dışarı Aktar";
+"playapp.exportKmPanel.fieldLabel" = "PlayMap Adı:";
+"playapp.delete" = "Uygulamayı Sil";
+"playapp.deleteConfirm" = "Sil";
+"playapp.deleteMessage" = "%@'i silmek istediğinize emin misiniz?";
+"playapp.storeCurrentAccount" = "Hesap";
+"playapp.activateAccount" = "Hesap Değiştir";
+"playapp.deleteAccount" = "Hesabı Sil";
+"playapp.clearPreferences" = "Uygulama Tercihlerini Temizle";
+"playapp.refreshSources" = "Kaynak Yenile";
+"ipaLibrary.noSources.title" = "IPA Kaynağı Yok";
+"ipaLibrary.noSources.subtitle" = "IPA Kaynağı yok. Eklemek için aşağıya tıklıyın.";
+"ipaLibrary.noSources.button" = "Kaynak Ekle";
+"ipaLibrary.noNetworkConnection.toast" = "İnternet bağlantısı yok!";
+"preferences.button.checkForUpdates" = "Güncelleme Ara";
+"preferences.tab.updates" = "Güncellemeler";
+"preferences.toggle.automaticUpdates" = "Otomatik olarak güncelleme bul";
+"preferences.tab.uninstall" = "Sil";
+"preferences.whenUninstalling" = "Silerken:";
+"preferences.toggle.showUninstall" = "Uyarı göster";
+"preferences.toggle.clearAppData" = "Verileri sil";
+"preferences.toggle.removeKeymap" = "Keymap'i temizle";
+"preferences.toggle.removeSetting" = "Tercihleri sil";
+"preferences.toggle.removeEntitlements" = "Entitlementleri sil";
+"preferences.button.pruneFiles" = "Dosyaları kes";
+"preferences.prune.alert" = "Dosyları silmek istediğinize emin misiniz?";
+"preferences.prune.message" = "Kullanılmayan bütün ayarlar, keymaplar, yetkiler ve uygulama verileri silinecektir.";
+"preferences.tab.ipasource" = "IPA Kaynakları";
+"preferences.button.addSource" = "Kaynak Ekle";
+"preferences.button.deleteSource" = "Kaynağı Sil";
+"preferences.button.moveSourceUp" = "Kaynağı Yukarı İt";
+"preferences.button.moveSourceDown" = "Kaynağı Aşağıya İt";
+"preferences.popover.valid" = "Bağlantı Geçerli";
+"preferences.popover.badurl" = "Bağlantı Geçersiz!";
+"preferences.popover.badjson" = "JSON Geçersiz ve ya Kayıp.";
+"preferences.textfield.url" = "Kaynak bağlantısı...";
+"preferences.tab.install" = "İndir";
+"preferences.toggle.showInstallPopup" = "Playtools'u indir bildirisini göster";
+"preferences.toggle.alwaysInstallPlayTools" = "Her Zaman Playtools'u indir";
+"sidebar.appLibrary" = "Uygulamalar";
+"sidebar.ipaLibrary" = "IPAler";
+"storeAccount.selectAccRegion" = "Hesap bölgesini seç";
+"storeAccount.selectAccRegion.usa" = "Amerika";
+"storeAccount.selectAccRegion.euro" = "Avrupa";
+"storeAccount.selectAccRegion.asia" = "Asya";
 "storeAccount.selectAccRegion.cht" = "TW, HK, MO";
-"storeAccount.nameOfAcc" = "Name of your account";
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "Name of account...";
-"storeAccount.store" = "Store account";
-"storeAccount.selectAcc" = "Select an account";
+"storeAccount.nameOfAcc" = "Hesap adı";
+"storeAccount.nameOfAcc.textfieldPlaceholder" = "Hesap adı...";
+"storeAccount.store" = "Hesabı kaydet";
+"storeAccount.selectAcc" = "Hesap seç";
 "storeAccount.storeAcc" = "Store an account";
-"storeAccount.deleteAcc" = "Delete an account";
+"storeAccount.deleteAcc" = "Hesap sil";
 "storeAccount.alert.restoreAccount" = "Really Restore Account?";
 "storeAccount.alert.restoreAccount.button" = "Restore Account";
-"storeAccount.alert.restoreAccount.msg" = "This will override your currently signed-in account.";
-"storeAccount.alert.deleteAccount" = "Really Delete Account?";
+"storeAccount.alert.restoreAccount.msg" = "Bu sizin şuanki hesabınızın yerine geçecektir.";
+"storeAccount.alert.deleteAccount" = "Hesabı silmek istediğinize emin misiniz?";
 "storeAccount.alert.deleteAccount.button" = "Delete Account";
-
 "playapp.download" = "Downloading...";
 "playapp.install.unzip" = "Extracting app from .ipa file...";
 "playapp.install.createWrapper" = "Creating app wrapper...";
@@ -76,7 +71,6 @@
 "playapp.install.copy" = "Copying app...";
 "playapp.install.finished" = "Finished";
 "playapp.install.failed" = "Failed";
-
 "alert.appCacheCleared" = "App data has been cleared!";
 "alert.kmImported" = "Keymapping imported!";
 "alert.errorImportKm" = "Error occured when importing!";
@@ -94,9 +88,7 @@
 "alert.wrongFileType.title" = "Wrong file type!";
 "alert.wrongFileType.subtitle" = "PlayCover can only install valid .ipa files.";
 "alert.install.injectPlayTools" = "Inject PlayTools";
-"alert.install.injectPlayToolsInApp"= "Do you want to inject PlayTools into this application?";
 "alert.supression" = "You can change this in the PlayCover preferences";
-
 "button.OK" = "OK";
 "button.Proceed" = "Proceed";
 "button.Cancel" = "Cancel";
@@ -106,7 +98,6 @@
 "button.Convert" = "Convert";
 "button.Yes" = "Yes";
 "button.No" = "No";
-
 "error.corruptedIPA" = "This .ipa file is corrupted. It does not contains \"Info.plist\" file.";
 "error.waitInstallation" = "Please wait for the current installation to finish!";
 "error.waitDownload" = "Please wait for the current download to finish!";
@@ -114,23 +105,19 @@
 "error.appCorrupted" = "Something went wrong with this IPA. Please try to use another IPA file.";
 "error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";
 "error.noGenshinAccount" = "We couldn't find a Genshin account! Are you signed into an account in-app?";
-
 "menubar.exportToSideloady" = "Export to Sideloadly";
-
 "settings.title" = "%@ Settings";
 "settings.tab.info" = "Info";
-
 "settings.tab.km" = "Keymapping";
 "settings.toggle.km" = "Keymapping";
 "settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
 "settings.toggle.mm" = "Mouse mapping";
 "settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
-
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";
 "settings.picker.adaptiveRes" = "Resolution:";
-"settings.picker.adaptiveRes.help" ="Changes the app's window resolution";
+"settings.picker.adaptiveRes.help" = "Changes the app's window resolution";
 "settings.picker.adaptiveRes.0" = "App Default";
 "settings.picker.adaptiveRes.1" = "Auto (Based on Display)";
 "settings.picker.adaptiveRes.5" = "Custom";
@@ -141,13 +128,10 @@
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
 "settings.noPlayTools" = "PlayTools is not installed in this app";
-
 "settings.tab.jbBypass" = "Jailbreak Bypass";
 "settings.toggle.jbBypass" = "Enable Jailbreak Bypass (Alpha)";
 "settings.toggle.jbBypass.help" = "Attempts to bypass Jailbreak Detection in some games (Not guaranteed to work all the time)";
-
 "settings.removePlayTools" = "Remove PlayTools";
-
 "settings.info.displayName" = "Display name:";
 "settings.info.bundleName" = "Bundle name:";
 "settings.info.bundleIdentifier" = "Bundle identifier:";
@@ -156,16 +140,12 @@
 "settings.info.minimumOSVersion" = "Minimum OS version:";
 "settings.info.playTools" = "PlayTools installed:";
 "settings.info.url" = "URL:";
-
 "settings.resetSettings" = "Reset settings";
 "settings.resetKm" = "Reset keymapping";
-
 "settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
 "settings.resetKmCompleted" = "Keymapping has been reset!";
-
 "notification.appInstalled" = "App installed!";
 "notification.appInstalled.message" = "Check it out in PlayCover!";
-
 "menubar.log.copy" = "Copy Logs";
 "menubar.documentation" = "Documentation";
 "menubar.website" = "Website";
@@ -173,12 +153,10 @@
 "menubar.discord" = "Discord";
 "menubar.checkForUpdates" = "Check for Updates...";
 "menubar.clearCache" = "Clear Image Cache";
-
 "soundAlert.messageText" = "Incorrect Audio Settings Detected!";
 "soundAlert.informativeText" = "Your current output device does not have a sample rate of 48 or 44.1 KHz! Crashes may occur. Would you like to change your current output device's sample rate to 48 KHz?";
 "soundAlert.successText" = "Current output device sample rate set to 48 KHz";
 "soundAlert.failureText" = "Failed to set current output device's sample rate to 48 KHz. You can manually set sample rate in the Audio MIDI Setup app";
-
 "xcode.install.message" = "You need to install Xcode Command Line Tools and restart PlayCover";
 "xcode.install.success" = "Xcode Command Line Tools installation succeeded";
 "xcode.install.failed" = "Automatic Xcode Command Line Tools intallation failed";
@@ -186,7 +164,6 @@
 "xcode.install.progress.subtext" = "This may take around 5-10 minutes depending on your internet speed";
 "xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
 "xcode.install.failed.altButton" = "Alternate Instructions";
-
 "settings.tab.misc" = "Misc";
 "settings.button.discord" = "Custom Discord activity";
 "settings.button.clearActivity" = "Clear custom activity";
@@ -199,3 +176,6 @@
 "settings.text.state.help" = "Second row below title";
 "settings.toggle.discord" = "Enable Discord activity";
 "settings.toggle.hud" = "Metal HUD";
+"error.appMaliciousProhibited" = "This App behaves maliciously on Macs, and using it can leave your device in an unbootable state, therefore it is blocked from PlayCover. (Uninstalling...)";
+"alert.install.injectPlayToolsQuestion" = "Do you want to inject PlayTools into this application?";
+"alert.install.playToolsInformative" = "PlayTools is a tool that allows you to bind keys to screen touches, custom display resolutions, and more, but it may break certain apps";
