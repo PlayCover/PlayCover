@@ -23,14 +23,14 @@ struct StoreAppView: View {
                                 selected: $selected,
                                 app: app,
                                 isList: isList)
-        .gesture(TapGesture(count: 2).onEnded {
+        /*.gesture(TapGesture(count: 2).onEnded
             if let url = URL(string: app.link) {
                 downloadApp(url, app)
             }
         })
         .simultaneousGesture(TapGesture().onEnded {
             selected = app
-        })
+        })*/
         .environmentObject(downloadVM)
     }
 
@@ -191,5 +191,186 @@ struct StoreAppConditionalView: View {
             iconURL = await ImageCache.getOnlineImageURL(bundleID: app.bundleID,
                                                          itunesLookup: app.itunesLookup)
         }
+    }
+}
+
+struct DetailStoreAppView: View {
+    @State var app: StoreAppData
+    @State var iconURL: URL?
+    @State var bannerImageURLs: [URL?] = []
+    @State var itunesResponce: ITunesResponse?
+    @State var truncated = true
+
+    var body: some View {
+        ScrollView {
+            VStack {
+                HStack {
+                    AsyncImage(url: iconURL) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    } placeholder: {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                    }
+                        .frame(width: 50, height: 50)
+                        .cornerRadius(12)
+                        .shadow(radius: 5)
+                        .padding(10)
+                    VStack {
+                        HStack {
+                            Text(app.name)
+                                .font(.title.bold())
+                            Spacer()
+                        }
+                        HStack {
+                            Text(itunesResponce?.results[0].genres[0]
+                                .components(separatedBy: CharacterSet.newlines).first ?? "")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            Spacer()
+                        }
+                    }
+                    Button {
+
+                    } label: {
+                        Image(systemName: "arrow.down.circle.fill")
+                            .resizable()
+                            .foregroundColor(.accentColor)
+                    }
+                    .buttonStyle(.plain)
+                    .frame(width: 30, height: 30)
+                    .padding(10)
+                    Spacer()
+                }
+                Divider()
+                if let responce = itunesResponce {
+                    StatBanner(responce: responce,
+                               storeData: app)
+                }
+                HStack {
+                    Text(itunesResponce?.results[0].description ?? "")
+                        .lineLimit(truncated ? 5 : nil)
+                    VStack {
+                        Spacer()
+                        Button {
+                            truncated.toggle()
+                        } label: {
+                            Text(truncated ? "Read more" : "Read less")
+                                .foregroundColor(.accentColor)
+                                .padding(.leading, 5)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(bannerImageURLs, id: \.self) { url in
+                            AsyncImage(url: url) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .cornerRadius(5)
+                                    .shadow(radius: 5)
+                                    .padding(5)
+                            } placeholder: {
+                                ProgressView()
+                            }
+                        }
+                    }
+                    .ignoresSafeArea(edges: .trailing)
+                    .background(.ultraThinMaterial)
+                    .frame(height: 180)
+                }
+                Spacer()
+            }
+            .padding()
+            .navigationTitle(app.name)
+            .task(priority: .userInitiated) {
+                iconURL = await ImageCache.getOnlineImageURL(bundleID: app.bundleID,
+                                                             itunesLookup: app.itunesLookup)
+                itunesResponce = await ImageCache.getITunesData(app.itunesLookup)
+
+                if itunesResponce != nil {
+                    let screenshots: [String]
+                    if itunesResponce!.results[0].ipadScreenshotUrls.isEmpty {
+                        screenshots = itunesResponce!.results[0].screenshotUrls
+                    } else {
+                        screenshots = itunesResponce!.results[0].ipadScreenshotUrls
+                    }
+
+                    for string in screenshots {
+                        bannerImageURLs.append(URL(string: string))
+                    }
+                }
+        }
+        }
+    }
+}
+
+struct VerticalSpacer: View {
+    var body: some View {
+        Spacer()
+        Divider()
+            .frame(height: .infinity)
+        Spacer()
+    }
+}
+
+struct StatBadge: View {
+    @State var header: String
+    @State var stat: String
+
+    var body: some View {
+        VStack {
+            Text(header)
+                .textCase(.uppercase)
+                .font(.subheadline.bold())
+                .foregroundColor(Color(nsColor: .tertiaryLabelColor))
+            Spacer()
+                .frame(height: 5)
+            Text(stat)
+                .font(.title2.bold())
+        }
+    }
+}
+
+struct StatBanner: View {
+    @State var responce: ITunesResponse
+    @State var storeData: StoreAppData
+
+    var body: some View {
+        HStack {
+            Spacer()
+            StatBadge(header: "Rating",
+                      stat: (round(responce
+                        .results[0]
+                        .averageUserRating * 10) / 10.0)
+                        .formatted())
+            VerticalSpacer()
+            StatBadge(header: "Version",
+                      stat: storeData.version)
+            VerticalSpacer()
+            StatBadge(header: "Size",
+                      stat: ByteCountFormatter
+                .string(fromByteCount:
+                            Int64(responce.results[0].fileSizeBytes) ?? 0,
+                        countStyle: .file))
+            VerticalSpacer()
+            StatBadge(header: "Age",
+                      stat: responce.results[0].trackContentRating)
+            Spacer()
+        }
+        .padding()
+    }
+}
+
+struct DetailStoreAppView_Preview: PreviewProvider {
+    static var previews: some View {
+        DetailStoreAppView(app: StoreAppData(bundleID: "com.miHoYo.GenshinImpact",
+                                             name: "Genshin Impact",
+                                             version: "3.2.0",
+                                             itunesLookup: "http://itunes.apple.com/lookup?bundleId=com.miHoYo.GenshinImpact",
+                                             link: "https://repo.amrsm.ir/ipa/Genshin-Impact_3.2.0.ipa"))
     }
 }
