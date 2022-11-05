@@ -7,7 +7,7 @@ import Cocoa
 import Foundation
 import IOKit.pwr_mgt
 
-class PlayApp: BaseApp, ObservableObject {
+class PlayApp: BaseApp {
     private static let library = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library")
 
     var searchText: String {
@@ -33,7 +33,7 @@ class PlayApp: BaseApp, ObservableObject {
             }
 
             // If the app does not have PlayTools, do not install PlugIns
-            if hasPlayTools {
+            if hasPlayTools() {
                 try PlayTools.installPluginInIPA(url)
             }
 
@@ -106,6 +106,15 @@ class PlayApp: BaseApp, ObservableObject {
     lazy var keymapping = Keymapping(info, container: container)
 
     var container: AppContainer?
+
+    func hasPlayTools() -> Bool {
+        do {
+            return try PlayTools.installedInExec(atURL: url.appendingPathComponent(info.executableName))
+        } catch {
+            Log.shared.error(error)
+            return true
+        }
+    }
 
     func isCodesigned() throws -> Bool {
         try shell.shello("/usr/bin/codesign", "-dv", executable.path).contains("adhoc")

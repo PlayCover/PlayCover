@@ -170,16 +170,10 @@ class PlayTools {
 
             let pluginUrl = exec.deletingLastPathComponent()
                 .appendingPathComponent("PlugIns")
-
-            let bundleTarget = pluginUrl
                 .appendingPathComponent("AKInterface")
                 .appendingPathExtension("bundle")
 
-            if FileManager.default.fileExists(atPath: bundleTarget.path) {
-                try FileManager.default.removeItem(at: bundleTarget)
-            }
-
-            if try FileManager.default.contentsOfDirectory(atPath: pluginUrl.esc).isEmpty {
+            if FileManager.default.fileExists(atPath: pluginUrl.path) {
                 try FileManager.default.removeItem(at: pluginUrl)
             }
 

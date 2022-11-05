@@ -9,7 +9,7 @@ import Foundation
 
 class Installer {
 
-    static func installPlayToolsPopup() -> Bool? {
+    static func installPlayToolsPopup() -> Bool {
         let alert = NSAlert()
         alert.messageText = NSLocalizedString("alert.install.injectPlayToolsQuestion", comment: "")
         alert.informativeText = NSLocalizedString("alert.install.playToolsInformative", comment: "")
@@ -21,98 +21,98 @@ class Installer {
 
         let yes = alert.addButton(withTitle: NSLocalizedString("button.Yes", comment: ""))
         alert.addButton(withTitle: NSLocalizedString("button.No", comment: ""))
-        alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
 
         // Set default button to install playtools
         yes.keyEquivalent = "\r"
 
         let response = alert.runModal()
 
-        if alert.suppressionButton?.state == .on && response != .alertThirdButtonReturn {
+        if alert.suppressionButton?.state == .on {
             InstallPreferences.shared.showInstallPopup = false
             InstallPreferences.shared.alwaysInstallPlayTools = response == .alertFirstButtonReturn
         }
 
-        return response == .alertThirdButtonReturn ? nil : response == .alertFirstButtonReturn
+        return response == .alertFirstButtonReturn
     }
 
     // swiftlint:disable function_body_length
     static func install(ipaUrl: URL, export: Bool, returnCompletion: @escaping (URL?) -> Void) {
         // If (the option key is held or the install playtools popup settings is true) and its not an export,
         //    then show the installer dialog
-        let installPlayTools = ((Installer.isOptionKeyHeld || InstallPreferences.shared.showInstallPopup) &&
-                                !export) ? installPlayToolsPopup() : InstallPreferences.shared.alwaysInstallPlayTools
+        let installPlayTools: Bool
 
-        if let installPlayTools {
-            InstallVM.shared.next(.begin, 0.0, 0.0)
+        if (Installer.isOptionKeyHeld || InstallPreferences.shared.showInstallPopup) && !export {
+            installPlayTools = installPlayToolsPopup()
+        } else {
+            installPlayTools = InstallPreferences.shared.alwaysInstallPlayTools
+        }
 
-            DispatchQueue.global(qos: .userInitiated).async {
-                do {
-                    let ipa = IPA(url: ipaUrl)
-                    InstallVM.shared.next(.unzip, 0.0, 0.5)
-                    let app = try ipa.unzip()
-                    InstallVM.shared.next(.library, 0.5, 0.55)
-                    try saveEntitlements(app)
-                    let machos = try resolveValidMachOs(app)
-                    app.validMachOs = machos
+        InstallVM.shared.next(.begin, 0.0, 0.0)
 
-                    if export {
-                        InstallVM.shared.next(.playtools, 0.55, 0.85)
-                        try PlayTools.injectInIPA(app.executable, payload: app.url)
-                    } else if installPlayTools {
-                        InstallVM.shared.next(.playtools, 0.55, 0.85)
-                        try PlayTools.installInIPA(app.executable, app.url)
-                    }
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                let ipa = IPA(url: ipaUrl)
+                InstallVM.shared.next(.unzip, 0.0, 0.5)
+                let app = try ipa.unzip()
+                InstallVM.shared.next(.library, 0.5, 0.55)
+                try saveEntitlements(app)
+                let machos = try resolveValidMachOs(app)
+                app.validMachOs = machos
 
-                    for macho in machos {
-                        if try PlayTools.isMachoEncrypted(atURL: macho) {
-                            throw PlayCoverError.appEncrypted
-                        }
+                if export {
+                    InstallVM.shared.next(.playtools, 0.55, 0.85)
+                    try PlayTools.injectInIPA(app.executable, payload: app.url)
+                } else if installPlayTools {
+                    InstallVM.shared.next(.playtools, 0.55, 0.85)
+                    try PlayTools.installInIPA(app.executable, app.url)
+                }
 
-                        if !export {
-                            try PlayTools.replaceLibraries(atURL: macho)
-                            try PlayTools.convertMacho(macho)
-                            try fakesign(macho)
-                        }
+                for macho in machos {
+                    if try PlayTools.isMachoEncrypted(atURL: macho) {
+                        throw PlayCoverError.appEncrypted
                     }
 
                     if !export {
-                        // -rwxr-xr-x
-                        try app.executable.setBinaryPosixPermissions(0o755)
-                        try removeMobileProvision(app)
+                        try PlayTools.replaceLibraries(atURL: macho)
+                        try PlayTools.convertMacho(macho)
+                        try fakesign(macho)
                     }
-
-                    let info = app.info
-                    info.assert(minimumVersion: 11.0)
-                    try info.write()
-                    InstallVM.shared.next(.wrapper, 0.85, 0.95)
-
-                    var finalURL: URL
-
-                    if export {
-                        finalURL = try ipa.packIPABack(app: app.url)
-                    } else {
-                        finalURL = try wrap(app)
-                        let installedApp = PlayApp(appUrl: finalURL)
-
-                        if installPlayTools {
-                            try PlayTools.installPluginInIPA(installedApp.url)
-                        }
-
-                        installedApp.sign()
-                    }
-
-                    try ipa.releaseTempDir()
-                    InstallVM.shared.next(.finish, 0.95, 1.0)
-                    returnCompletion(finalURL)
-                } catch {
-                    Log.shared.error(error)
-                    InstallVM.shared.next(.failed, 0.95, 1.0)
-                    returnCompletion(nil)
                 }
+
+                if !export {
+                    // -rwxr-xr-x
+                    try app.executable.setBinaryPosixPermissions(0o755)
+                    try removeMobileProvision(app)
+                }
+
+                let info = app.info
+                info.assert(minimumVersion: 11.0)
+                try info.write()
+                InstallVM.shared.next(.wrapper, 0.85, 0.95)
+
+                var finalURL: URL
+
+                if export {
+                    finalURL = try ipa.packIPABack(app: app.url)
+                } else {
+                    finalURL = try wrap(app)
+                    let installedApp = PlayApp(appUrl: finalURL)
+
+                    if installPlayTools {
+                        try PlayTools.installPluginInIPA(installedApp.url)
+                    }
+
+                    installedApp.sign()
+                }
+
+                try ipa.releaseTempDir()
+                InstallVM.shared.next(.finish, 0.95, 1.0)
+                returnCompletion(finalURL)
+            } catch {
+                Log.shared.error(error)
+                InstallVM.shared.next(.failed, 0.95, 1.0)
+                returnCompletion(nil)
             }
-        } else {
-            returnCompletion(nil)
         }
     }
 
