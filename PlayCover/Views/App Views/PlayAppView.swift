@@ -208,7 +208,6 @@ struct PlayAppConditionalView: View {
                     Text(app.name)
                         .foregroundColor(selected?.url == app.url ?
                                          selectedTextColor : Color.primary)
-                    
                     if !(hasPlayTools ?? true) {
                         Image(systemName: "exclamationmark.triangle")
                             .padding(.leading, 15)
