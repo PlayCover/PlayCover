@@ -337,10 +337,12 @@
 "preferences.tab.install" = "Install";
 "preferences.toggle.showInstallPopup" = "Tampilkan install PlayTools popup";
 "preferences.toggle.alwaysInstallPlayTools" = "Selalu install PlayTools";
-"alert.install.injectPlayToolsInApp" = "Apakah Anda ingin memasukkan PlayTools ke dalam aplikasi ini?";
 "button.Yes" = "Iya";
 "button.No" = "Tidak";
 "settings.noPlayTools" = "PlayTools tidak diinstal di aplikasi ini";
 "settings.removePlayTools" = "Hapus PlayTools";
 "settings.info.playTools" = "PlayTools terpasang:";
 "playapp.refreshSources" = "Menyegarkan sumber";
+"error.appMaliciousProhibited" = "This App behaves maliciously on Macs, and using it can leave your device in an unbootable state, therefore it is blocked from PlayCover. (Uninstalling...)";
+"alert.install.injectPlayToolsQuestion" = "Do you want to inject PlayTools into this application?";
+"alert.install.playToolsInformative" = "PlayTools is a tool that allows you to bind keys to screen touches, custom display resolutions, and more, but it may break certain apps";

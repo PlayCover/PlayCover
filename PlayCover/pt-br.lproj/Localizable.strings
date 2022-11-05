@@ -12,7 +12,7 @@
 "playapp.activateAccount" = "Trocar conta";
 "playapp.deleteAccount" = "Excluir conta";
 "playapp.clearPreferences" = "Excluir configurações do aplicativo";
-"preferences.button.checkForUpdates" = "Buscar atualizações...";
+"preferences.button.checkForUpdates" = "Buscar Atualizações";
 "preferences.tab.updates" = "Atualizações";
 "preferences.toggle.automaticUpdates" = "Buscar atualizações automaticamente";
 "sidebar.appLibrary" = "Aplicativos";
@@ -171,9 +171,11 @@
 "preferences.toggle.showInstallPopup" = "Mostrar popup de instalação do PlayTools";
 "preferences.toggle.alwaysInstallPlayTools" = "Sempre instalar o PlayTools";
 "alert.install.injectPlayTools" = "Injetar PlayTools";
-"alert.install.injectPlayToolsInApp" = "Tem certeza de que deseja injetar o PlayTools nessa aplicação?";
 "button.Yes" = "Sim";
 "settings.noPlayTools" = "O PlayTools não está instalado nesse aplicativo";
 "settings.removePlayTools" = "Remover PlayTools";
 "settings.info.playTools" = "PlayTools instalado:";
-"playapp.refreshSources" = "Refresh Sources";
+"playapp.refreshSources" = "Atualizar Fontes";
+"error.appMaliciousProhibited" = "Esse aplicativo se comporta maliciosamente em Macs e pode deixar seu dispositivo em um estado não-funcional; portanto, ele está bloqueado no PlayCover. (Desinstalando...)";
+"alert.install.injectPlayToolsQuestion" = "Tem certeza de que deseja injetar o PlayTools nessa aplicação?";
+"alert.install.playToolsInformative" = "O PlayTools é uma ferramenta que permite mapear teclas para toques na tela, resoluções de exibição personalizados e mais, mas alguns aplicativos podem deixar de funcionar";
