@@ -23,7 +23,7 @@
 "playapp.install.unzip" = "Trích xuất ứng dụng từ tệp .ipa...";
 "playapp.install.createWrapper" = "Tạo trình bọc ứng dụng...";
 "playapp.install.installPlayTools" = "Cài đặt PlayTools...";
-"playapp.install.signing" = "Signing app...";
+"playapp.install.signing" = "Đang ký ứng dụng...";
 "playapp.install.addToLib" = "Đang thêm vào thư viện...";
 "playapp.install.copy" = "Đang sao chép ứng dụng...";
 "playapp.install.finished" = "Hoàn thành";
@@ -63,7 +63,7 @@
 "settings.text.details.help" = "Hàng đầu tiên bên dưới tiêu đề";
 "settings.text.image" = "Ảnh";
 "settings.text.image.help" = "Chuột phải vào ảnh app, sao chép địa chỉ hình ảnh rồi dán vào là được";
-"settings.text.state" = "State";
+"settings.text.state" = "Trạng thái";
 "settings.text.state.help" = "Hàng thứ hai bên dưới tiêu đề";
 "settings.toggle.discord" = "Bật hoạt động tuỳ chỉnh cho Discord";
 "menubar.log.copy" = "Sao chép nhật ký";
@@ -157,7 +157,7 @@
 "preferences.button.moveSourceDown" = "Di chuyển xuống";
 "preferences.popover.valid" = "Link hợp lệ";
 "preferences.popover.badurl" = "URL không hợp lệ!";
-"preferences.popover.badjson" = "JSON Invalid or Not Found!";
+"preferences.popover.badjson" = "File JSON không đúng hoặc không tồn tại!";
 "preferences.textfield.url" = "URL nguồn...";
 "playapp.download" = "Đang tải xuống ...";
 "error.waitDownload" = "Vui lòng đợi quá trình tải xuống hiện tại kết thúc!";
@@ -178,10 +178,12 @@
 "preferences.toggle.showInstallPopup" = "Luôn hiển thị cửa sổ cài đặt";
 "preferences.toggle.alwaysInstallPlayTools" = "Luôn cài đặt PlayTools";
 "alert.install.injectPlayTools" = "thêm PlayTools";
-"alert.install.injectPlayToolsInApp" = "Bạn có muốn đưa PlayTools vào ứng dụng này không?";
 "button.Yes" = "Có";
 "button.No" = "Không";
 "settings.noPlayTools" = "PlayTools chưa được cài đặt trong ứng dụng này";
 "settings.removePlayTools" = "Xóa PlayTools";
 "settings.info.playTools" = "PlayTools đã được cài đặt:";
 "playapp.refreshSources" = "Làm mới nguồn";
+"error.appMaliciousProhibited" = "Ứng dụng này có thể gây lỗi máy Mac của bạn. Tiếp tục sử dụng có thể làm hỏng phần mềm hoặc thiết bị. PlayCover đã chặn ứng dụng này";
+"alert.install.injectPlayToolsQuestion" = "Bạn có muốn cài đặt PlayTools vào ứng dụng này?";
+"alert.install.playToolsInformative" = "PlayTools là một công cụ cho phép gán phím vào điều khiển cảm ứng, đặt độ phân giải tuỳ chỉnh, v.v. nhưng có thể làm lỗi một số ứng dụng nhất định";
