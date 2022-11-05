@@ -367,10 +367,15 @@ struct StatBanner: View {
 
 struct DetailStoreAppView_Preview: PreviewProvider {
     static var previews: some View {
-        DetailStoreAppView(app: StoreAppData(bundleID: "com.miHoYo.GenshinImpact",
-                                             name: "Genshin Impact",
-                                             version: "3.2.0",
-                                             itunesLookup: "http://itunes.apple.com/lookup?bundleId=com.miHoYo.GenshinImpact",
-                                             link: "https://repo.amrsm.ir/ipa/Genshin-Impact_3.2.0.ipa"))
+        DetailStoreAppView(app: StoreAppData(bundleID:
+                                                "com.miHoYo.GenshinImpact",
+                                             name:
+                                                "Genshin Impact",
+                                             version:
+                                                "3.2.0",
+                                             itunesLookup:
+                                                "http://itunes.apple.com/lookup?bundleId=com.miHoYo.GenshinImpact",
+                                             link:
+                                                "https://repo.amrsm.ir/ipa/Genshin-Impact_3.2.0.ipa"))
     }
 }
