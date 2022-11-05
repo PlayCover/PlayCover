@@ -124,6 +124,7 @@ struct PlayAppView: View {
             }
             .alert("alert.app.delete", isPresented: $showClearCacheAlert) {
                 Button("button.Proceed", role: .cancel) {
+                    app.clearAllCache()
                     showClearCacheToast.toggle()
                 }
                 Button("button.Cancel", role: .cancel) { }
@@ -180,16 +181,16 @@ struct PlayAppConditionalView: View {
     @Binding var selectedTextColor: Color
     @Binding var selected: PlayApp?
 
-    @ObservedObject var app: PlayApp
-
+    @State var app: PlayApp
     @State var iconURL: URL?
     @State var isList: Bool
+    @State var hasPlayTools: Bool?
 
     var body: some View {
         Group {
             if isList {
                 HStack(alignment: .center, spacing: 0) {
-                    if !app.hasPlayTools {
+                    if !(hasPlayTools ?? true) {
                         Image(systemName: "exclamationmark.triangle")
                             .padding(.leading, 15)
                             .help("settings.noPlayTools")
@@ -241,7 +242,7 @@ struct PlayAppConditionalView: View {
                     .frame(width: 60, height: 60)
 
                     let noPlayToolsWarning = Text(
-                        app.hasPlayTools ? "" : "\(Image(systemName: "exclamationmark.triangle"))  "
+                        (hasPlayTools ?? true) ? "" : "\(Image(systemName: "exclamationmark.triangle"))  "
                     )
 
                     Text("\(noPlayToolsWarning)\(app.name)")
@@ -267,6 +268,9 @@ struct PlayAppConditionalView: View {
             iconURL = ImageCache.getLocalImageURL(bundleID: app.info.bundleIdentifier,
                                                   bundleURL: app.url,
                                                   primaryIconName: app.info.primaryIconName)
+        }
+        .task(priority: .background) {
+            hasPlayTools = app.hasPlayTools()
         }
     }
 }

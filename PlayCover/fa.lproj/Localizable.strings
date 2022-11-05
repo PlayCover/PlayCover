@@ -73,7 +73,7 @@
 "settings.text.customHeight" = "ارتفاع";
 
 /* (No Comment) */
-"preferences.button.checkForUpdates" = "همین حالا وضعیت به‌روزی را بررسی کن...";
+"preferences.button.checkForUpdates" = "همین حالا وضعیت به‌روزی را بررسی کن";
 
 /* (No Comment) */
 "preferences.tab.updates" = "به‌روزرسانی‌ها";
@@ -155,7 +155,6 @@
 "preferences.button.deleteSource" = "حذف مخزن";
 "preferences.button.moveSourceUp" = "جابجایی مخزن به بالا";
 "preferences.button.moveSourceDown" = "جابجایی مخزن به پایین";
-"preferences.button.resolveSources" = "اعتبارسنجی مخزن‌ها";
 "preferences.popover.valid" = "پیوند معتبر است";
 "preferences.popover.badurl" = "پیوند معتبر نیست!";
 "preferences.popover.badjson" = "پرونده JSON اعتبار نداشته و یا یافت نشد!";
@@ -181,7 +180,10 @@
 "preferences.toggle.showInstallPopup" = "در زمان نصب برنامه‌ها درباره نصب PlayTools از من بپرس";
 "preferences.toggle.alwaysInstallPlayTools" = "همیشه PlayTools را نصب کن";
 "alert.install.injectPlayTools" = "نصب PlayTools در برنامه";
-"alert.install.injectPlayToolsInApp" = "آیا می‌خواهید PlayTools در این برنامه نصب شود؟";
 "button.Yes" = "بله";
 "button.No" = "خیر";
 "settings.noPlayTools" = "PlayTools در این برنامه نصب نیست";
+"playapp.refreshSources" = "تازه‌سازی مخزن‌ها";
+"error.appMaliciousProhibited" = "از این برنامه در مک، رفتارهای مخربانه دیده شده است؛ استفاده از آن ممکن است سیستم عامل دستگاه شما را از بین ببرد، به همین خاطر استفاده از آن در PlayCover ممنوع شده است. (در حال حذف برنامه...)";
+"alert.install.injectPlayToolsQuestion" = "آیا می‌خواهید PlayTools را در این برنامه نصب کنید؟";
+"alert.install.playToolsInformative" = "افزونه PlayTools به شما کمک می‌کند که از صفحه کلید برای کنترل برنامه استفاده کنید، رزولوشن آن راتغییر دهید و مواردی دیگر، اما ممکن است لازم باشد برای برخی برنامه‌ها آن را نصب نکنید";

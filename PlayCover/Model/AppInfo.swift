@@ -199,7 +199,5 @@ public class AppInfo {
         if Double(minimumOSVersion)! > 11.0 {
             minimumOSVersion = Int(minimumVersion).description
         }
-
-        supportsTrueScreenSizeOnMac = true
     }
 }

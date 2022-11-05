@@ -9,6 +9,7 @@ enum PlayCoverError: Error {
     case appEncrypted
     case appCorrupted
     case appProhibited
+    case appMaliciousProhibited
     case noGenshinAccount
 }
 
@@ -27,6 +28,8 @@ extension PlayCoverError: LocalizedError {
             return NSLocalizedString("error.appCorrupted", comment: "")
         case .appProhibited:
             return NSLocalizedString("error.appProhibited", comment: "")
+        case .appMaliciousProhibited:
+            return NSLocalizedString("error.appMaliciousProhibited", comment: "")
         case .noGenshinAccount:
             return NSLocalizedString("error.noGenshinAccount", comment: "")
         }

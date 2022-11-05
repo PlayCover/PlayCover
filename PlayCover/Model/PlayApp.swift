@@ -7,7 +7,7 @@ import Cocoa
 import Foundation
 import IOKit.pwr_mgt
 
-class PlayApp: BaseApp, ObservableObject {
+class PlayApp: BaseApp {
     private static let library = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library")
 
     var searchText: String {
@@ -20,14 +20,23 @@ class PlayApp: BaseApp, ObservableObject {
                 clearAllCache()
                 throw PlayCoverError.appProhibited
             }
-
+            if maliciousProhibited {
+                clearAllCache()
+                deleteApp()
+                throw PlayCoverError.appMaliciousProhibited
+            }
             AppsVM.shared.updatingApps = true
             AppsVM.shared.fetchApps()
             settings.sync()
             if try !Entitlements.areEntitlementsValid(app: self) {
                 sign()
             }
-            try PlayTools.installPluginInIPA(url)
+
+            // If the app does not have PlayTools, do not install PlugIns
+            if hasPlayTools() {
+                try PlayTools.installPluginInIPA(url)
+            }
+
             if try !PlayTools.isInstalled() {
                 Log.shared.error("PlayTools are not installed! Please move PlayCover.app into Applications!")
             } else if try !PlayTools.isValidArch(executable.path) {
@@ -98,6 +107,15 @@ class PlayApp: BaseApp, ObservableObject {
 
     var container: AppContainer?
 
+    func hasPlayTools() -> Bool {
+        do {
+            return try PlayTools.installedInExec(atURL: url.appendingPathComponent(info.executableName))
+        } catch {
+            Log.shared.error(error)
+            return true
+        }
+    }
+
     func isCodesigned() throws -> Bool {
         try shell.shello("/usr/bin/codesign", "-dv", executable.path).contains("adhoc")
     }
@@ -152,7 +170,9 @@ class PlayApp: BaseApp, ObservableObject {
     var prohibitedToPlay: Bool {
         PlayApp.PROHIBITED_APPS.contains(info.bundleIdentifier)
     }
-
+    var maliciousProhibited: Bool {
+        PlayApp.MALICIOUS_APPS.contains(info.bundleIdentifier)
+    }
     static let PROHIBITED_APPS = [
         "com.activision.callofduty.shooter",
         "com.ea.ios.apexlegendsmobilefps",
@@ -163,5 +183,8 @@ class PlayApp: BaseApp, ObservableObject {
         "com.tencent.tmgp.pubgmhd",
         "com.dts.freefireth",
         "com.dts.freefiremax"
-    ]
+]
+    static let MALICIOUS_APPS = [
+        "com.zhiliaoapp.musically"
+]
 }

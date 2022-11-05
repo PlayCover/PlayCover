@@ -17,6 +17,7 @@ struct AppSettingsView: View {
     @State var resetKmCompletedAlert = false
     @State var closeView = false
     @State var iconURL: URL?
+    @State var hasPlayTools: Bool?
 
     var body: some View {
         VStack {
@@ -46,7 +47,7 @@ struct AppSettingsView: View {
                     let noPlayToolsWarning = Image(systemName: "exclamationmark.triangle")
                     let warning = NSLocalizedString("settings.noPlayTools", comment: "")
 
-                    if !viewModel.app.hasPlayTools {
+                    if !(hasPlayTools ?? true) {
                         HStack {
                             Text("\(noPlayToolsWarning) \(warning)")
                                 .font(.caption)
@@ -67,22 +68,25 @@ struct AppSettingsView: View {
                     .tabItem {
                         Text("settings.tab.km")
                     }
-                    .disabled(!viewModel.app.hasPlayTools)
+                    .disabled(!(hasPlayTools ?? true))
                 GraphicsView(settings: $viewModel.settings)
                     .tabItem {
                         Text("settings.tab.graphics")
                     }
-                    .disabled(!viewModel.app.hasPlayTools)
+                    .disabled(!(hasPlayTools ?? true))
                 JBBypassView(settings: $viewModel.settings)
                     .tabItem {
                         Text("settings.tab.jbBypass")
                     }
-                    .disabled(!viewModel.app.hasPlayTools)
-                MiscView(settings: $viewModel.settings, closeView: $closeView, app: viewModel.app)
+                    .disabled(!(hasPlayTools ?? true))
+                MiscView(settings: $viewModel.settings,
+                         closeView: $closeView,
+                         hasPlayTools: $hasPlayTools,
+                         app: viewModel.app)
                     .tabItem {
                         Text("settings.tab.misc")
                     }
-                InfoView(info: viewModel.app.info, hasPlayTools: viewModel.app.hasPlayTools)
+                InfoView(info: viewModel.app.info, hasPlayTools: (hasPlayTools ?? true))
                     .tabItem {
                         Text("settings.tab.info")
                     }
@@ -119,6 +123,9 @@ struct AppSettingsView: View {
         }
         .onChange(of: closeView) { _ in
             dismiss()
+        }
+        .task(priority: .background) {
+            hasPlayTools = viewModel.app.hasPlayTools()
         }
         .padding()
     }
@@ -367,6 +374,7 @@ struct JBBypassView: View {
 struct MiscView: View {
     @Binding var settings: AppSettings
     @Binding var closeView: Bool
+    @Binding var hasPlayTools: Bool?
 
     @State var showPopover = false
 
@@ -417,7 +425,7 @@ struct MiscView: View {
                                 }.padding(.bottom)
                             }
                         }
-                }.disabled(!app.hasPlayTools)
+                }.disabled(!(hasPlayTools ?? true))
                 if #available(macOS 13.0, *) {
                     HStack {
                         Toggle("settings.toggle.hud", isOn: $settings.metalHudEnabled)
@@ -427,16 +435,17 @@ struct MiscView: View {
                 Spacer()
                     .frame(height: 20)
                 HStack {
-                    Button(app.hasPlayTools ? "settings.removePlayTools" : "alert.install.injectPlayTools") {
-                        if app.hasPlayTools {
-                            PlayTools.removeFromApp(app.executable)
-                            app.hasPlayTools = false
-                        } else {
-                            PlayTools.installInApp(app.executable)
-                            app.hasPlayTools = true
-                        }
-
+                    Button((hasPlayTools ?? true) ? "settings.removePlayTools" : "alert.install.injectPlayTools") {
                         closeView.toggle()
+                        DispatchQueue.global(qos: .userInitiated).async {
+                            if hasPlayTools ?? true {
+                                PlayTools.removeFromApp(app.executable)
+                            } else {
+                                PlayTools.installInApp(app.executable)
+                            }
+                            AppsVM.shared.apps = []
+                            AppsVM.shared.fetchApps()
+                        }
                     }
                     Spacer()
                 }

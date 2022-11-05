@@ -11,8 +11,10 @@ class Installer {
 
     static func installPlayToolsPopup() -> Bool {
         let alert = NSAlert()
-        alert.messageText = NSLocalizedString("alert.install.injectPlayTools", comment: "")
-        alert.informativeText = NSLocalizedString("alert.install.injectPlayToolsInApp", comment: "")
+        alert.messageText = NSLocalizedString("alert.install.injectPlayToolsQuestion", comment: "")
+        alert.informativeText = NSLocalizedString("alert.install.playToolsInformative", comment: "")
+
+        alert.alertStyle = .informational
 
         alert.showsSuppressionButton = true
         alert.suppressionButton?.toolTip = NSLocalizedString("alert.supression", comment: "String")
@@ -20,13 +22,14 @@ class Installer {
         let yes = alert.addButton(withTitle: NSLocalizedString("button.Yes", comment: ""))
         alert.addButton(withTitle: NSLocalizedString("button.No", comment: ""))
 
-        yes.hasDestructiveAction = true
+        // Set default button to install playtools
+        yes.keyEquivalent = "\r"
 
         let response = alert.runModal()
 
         if alert.suppressionButton?.state == .on {
-            InstallSettings.shared.showInstallPlayToolsPopup = false
-            InstallSettings.shared.alwaysInstallPlayTools = response == .alertFirstButtonReturn
+            InstallPreferences.shared.showInstallPopup = false
+            InstallPreferences.shared.alwaysInstallPlayTools = response == .alertFirstButtonReturn
         }
 
         return response == .alertFirstButtonReturn
@@ -34,8 +37,15 @@ class Installer {
 
     // swiftlint:disable function_body_length
     static func install(ipaUrl: URL, export: Bool, returnCompletion: @escaping (URL?) -> Void) {
-        let installPlayTools = (InstallSettings.shared.showInstallPlayToolsPopup && !export) ?
-            installPlayToolsPopup() : InstallSettings.shared.alwaysInstallPlayTools
+        // If (the option key is held or the install playtools popup settings is true) and its not an export,
+        //    then show the installer dialog
+        let installPlayTools: Bool
+
+        if (Installer.isOptionKeyHeld || InstallPreferences.shared.showInstallPopup) && !export {
+            installPlayTools = installPlayToolsPopup()
+        } else {
+            installPlayTools = InstallPreferences.shared.alwaysInstallPlayTools
+        }
 
         InstallVM.shared.next(.begin, 0.0, 0.0)
 
@@ -87,7 +97,11 @@ class Installer {
                 } else {
                     finalURL = try wrap(app)
                     let installedApp = PlayApp(appUrl: finalURL)
-                    try PlayTools.installPluginInIPA(installedApp.url)
+
+                    if installPlayTools {
+                        try PlayTools.installPluginInIPA(installedApp.url)
+                    }
+
                     installedApp.sign()
                 }
 
@@ -203,5 +217,9 @@ class Installer {
     /// Regular codesign, does not accept entitlements. Used to re-seal an app after you've modified it.
     static func fakesign(_ url: URL) throws {
         try shell.shello("/usr/bin/codesign", "-fs-", url.path)
+    }
+
+    static var isOptionKeyHeld: Bool {
+        NSEvent.modifierFlags.contains(.option)
     }
 }

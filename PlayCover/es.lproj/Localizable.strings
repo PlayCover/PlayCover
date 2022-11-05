@@ -314,7 +314,6 @@
 "preferences.button.deleteSource" = "Eliminar fuente";
 "preferences.button.moveSourceUp" = "Mover la fuente hacia arriba";
 "preferences.button.moveSourceDown" = "Mover la fuente hacia abajo";
-"preferences.button.resolveSources" = "Resolver los orígenes";
 "preferences.popover.valid" = "Enlace válido";
 "preferences.popover.badurl" = "¡URL no válido!";
 "preferences.popover.badjson" = "¡JSON no válido o no encontrado!";
@@ -338,9 +337,12 @@
 "preferences.toggle.showInstallPopup" = "Mostrar ventana de instalación de PlayTools";
 "preferences.toggle.alwaysInstallPlayTools" = "Instalar siempre PlayTools";
 "alert.install.injectPlayTools" = "Instalar PlayTools";
-"alert.install.injectPlayToolsInApp" = "¿Quieres instalar PlayTools en esta aplicación?";
 "button.Yes" = "Sí";
 "button.No" = "No";
 "settings.noPlayTools" = "PlayTools no está instalado en esta aplicación";
 "settings.removePlayTools" = "Desinstalar PlayTools";
 "settings.info.playTools" = "PlayTools instalado:";
+"playapp.refreshSources" = "Refresh Sources";
+"error.appMaliciousProhibited" = "This App behaves maliciously on Macs, and using it can leave your device in an unbootable state, therefore it is blocked from PlayCover. (Uninstalling...)";
+"alert.install.injectPlayToolsQuestion" = "Do you want to inject PlayTools into this application?";
+"alert.install.playToolsInformative" = "PlayTools is a tool that allows you to bind keys to screen touches, custom display resolutions, and more, but it may break certain apps";
