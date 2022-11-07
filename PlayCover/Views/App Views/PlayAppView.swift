@@ -124,6 +124,7 @@ struct PlayAppView: View {
             }
             .alert("alert.app.delete", isPresented: $showClearCacheAlert) {
                 Button("button.Proceed", role: .cancel) {
+                    app.clearAllCache()
                     showClearCacheToast.toggle()
                 }
                 Button("button.Cancel", role: .cancel) { }
@@ -180,16 +181,16 @@ struct PlayAppConditionalView: View {
     @Binding var selectedTextColor: Color
     @Binding var selected: PlayApp?
 
-    @ObservedObject var app: PlayApp
-
+    @State var app: PlayApp
     @State var iconURL: URL?
     @State var isList: Bool
+    @State var hasPlayTools: Bool?
 
     var body: some View {
         Group {
             if isList {
                 HStack(alignment: .center, spacing: 0) {
-                    if !app.hasPlayTools {
+                    if !(hasPlayTools ?? true) {
                         Image(systemName: "exclamationmark.triangle")
                             .padding(.leading, 15)
                             .help("settings.noPlayTools")
@@ -211,7 +212,7 @@ struct PlayAppConditionalView: View {
                     }
 
                     Text(app.name)
-                        .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                        .foregroundColor(selected?.url == app.url ?
                                          selectedTextColor : Color.primary)
 
                     Spacer()
@@ -222,7 +223,7 @@ struct PlayAppConditionalView: View {
                 .contentShape(Rectangle())
                 .background(
                     RoundedRectangle(cornerRadius: 4)
-                        .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                        .fill(selected?.url == app.url ?
                             selectedBackgroundColor : Color.clear)
                         .brightness(-0.2)
                     )
@@ -240,27 +241,25 @@ struct PlayAppConditionalView: View {
                     }
                     .frame(width: 60, height: 60)
 
-                    HStack {
-                        let noPlayToolsWarning = Text(
-                            app.hasPlayTools ? "" : "\(Image(systemName: "exclamationmark.triangle")) "
-                        )
+                    let noPlayToolsWarning = Text(
+                        (hasPlayTools ?? true) ? "" : "\(Image(systemName: "exclamationmark.triangle"))  "
+                    )
 
-                        Text("\(noPlayToolsWarning)\(app.name)")
-                            .lineLimit(1)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 4)
-                            .padding(.vertical, 2)
-                            .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                             selectedTextColor : Color.primary)
-                            .background(
-                                RoundedRectangle(cornerRadius: 4)
-                                    .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                          selectedBackgroundColor : Color.clear)
-                                    .brightness(-0.2)
-                                )
-                            .help("settings.noPlayTools")
-                            .fixedSize()
-                    }
+                    Text("\(noPlayToolsWarning)\(app.name)")
+                        .lineLimit(1)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 4)
+                        .padding(.vertical, 2)
+                        .foregroundColor(selected?.url == app.url ?
+                                         selectedTextColor : Color.primary)
+                        .background(
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(selected?.url == app.url ?
+                                      selectedBackgroundColor : Color.clear)
+                                .brightness(-0.2)
+                            )
+                        .help("settings.noPlayTools")
+                        .frame(width: 130, height: 20)
                 }
                 .frame(width: 130, height: 130)
             }
@@ -269,6 +268,9 @@ struct PlayAppConditionalView: View {
             iconURL = ImageCache.getLocalImageURL(bundleID: app.info.bundleIdentifier,
                                                   bundleURL: app.url,
                                                   primaryIconName: app.info.primaryIconName)
+        }
+        .task(priority: .background) {
+            hasPlayTools = app.hasPlayTools()
         }
     }
 }

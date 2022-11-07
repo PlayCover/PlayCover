@@ -82,7 +82,7 @@ struct IPASourceSettings: View {
                     Button(action: {
                         storeVM.resolveSources()
                     }, label: {
-                        Text("preferences.button.resolveSources")
+                        Text("playapp.refreshSources")
                             .frame(width: 130)
                     })
                 }

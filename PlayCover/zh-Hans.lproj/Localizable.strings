@@ -131,7 +131,7 @@
 "playapp.storeCurrentAccount" = "保存现有账号";
 
 /* (No Comment) */
-"preferences.button.checkForUpdates" = "正在检查更新...";
+"preferences.button.checkForUpdates" = "检查更新";
 
 /* (No Comment) */
 "preferences.tab.updates" = "更新";
@@ -191,16 +191,16 @@
 "settings.toggle.km" = "启用键盘映射布局";
 
 /* (No Comment) */
-"soundAlert.failureText" = "现有音响设备设置采样率 48 KHz 失败。 您可以在 ”音频MIDI设置“ 应用里手动设置";
+"soundAlert.failureText" = "现有音频设备设置采样率 48 KHz 失败。 您可以在 ”音频MIDI设置“ 应用里手动设置";
 
 /* (No Comment) */
-"soundAlert.informativeText" = "现有的音响设备并无 48 或者 44.1 KHz 采样率! 应用可能会崩溃。您希望把现有的音响设备设置成 48 KHz 采样率吗?";
+"soundAlert.informativeText" = "现有的音频设备没有设置到 48 或 44.1 KHz 采样率! 应用可能会崩溃。您希望把现有的音频设备设置成 48 KHz 采样率吗?";
 
 /* (No Comment) */
 "soundAlert.messageText" = "监测到声音设置有问题!";
 
 /* (No Comment) */
-"soundAlert.successText" = "现有音响设备采样率已设为 48 KHz";
+"soundAlert.successText" = "现有音频设备采样率已设为 48 KHz";
 
 /* (No Comment) */
 "storeAccount.deleteAcc" = "删除一个账号";
@@ -245,7 +245,7 @@
 "xcode.install.progress" = "正在安装 Xcode 命令行工具";
 
 /* (No Comment) */
-"xcode.install.progress.subtext" = "根据网络速度，操作可能需要 5-10 分钟";
+"xcode.install.progress.subtext" = "根据网络速度，这操作可能需要 5-10 分钟";
 
 /* (No Comment) */
 "xcode.install.success" = "Xcode 命令行工具安装成功";
@@ -263,8 +263,8 @@
 "alert.moveAppToApplications.title" = "是否移动至应用程序文件夹？";
 "settings.toggle.mm" = "鼠标映射";
 "alert.moveAppToApplications.subtitle" = "PlayCover必须在应用程序文件夹下才能正常运行。点击下方按钮将会自动移动PlayCover至应用程序文件夹。";
-"error.appEncrypted" = "此app已被加密! 请使用未加密ipa文件. 现已不再支持iMazing IPAs!";
-"error.appCorrupted" = "此IPA文件是错误的。请尝试使用其他IPA文件。";
+"error.appEncrypted" = "此应用已被加密！请使用未加密的 ipa 文件。 现已不再支持来自 iMazing 的 ipa！";
+"error.appCorrupted" = "此 ipa 文件是错误的。请尝试使用其他 ipa 文件。";
 "error.noGenshinAccount" = "我们没有找到原神帐户！ 您是否已登录帐户？";
 "settings.tab.info" = "信息";
 "settings.tab.km" = "键盘映射";
@@ -301,20 +301,19 @@
 "alert.legacyImport.subtitle" = "检测到老版本的设置和按键映射文件。你需要把这些文件转换为新的格式吗？";
 "button.Convert" = "转换";
 "settings.text.detectedResolution" = "已检测到的分辨率：";
-"playapp.add" = "安装 APP";
+"playapp.add" = "添加应用";
 "alert.wrongFileType.title" = "错误的文件类型!";
 "alert.wrongFileType.subtitle" = "PlayCover 只可以安装有效的 .ipa 文件。";
-"playapp.addSource" = "添加来源";
-"ipaLibrary.noSources.title" = "没有添加 IPA 来源";
-"ipaLibrary.noSources.subtitle" = "您目前没有添加IPA来源。点击下面的按钮来添加一个。";
-"ipaLibrary.noSources.button" = "添加来源";
+"playapp.addSource" = "添加源";
+"ipaLibrary.noSources.title" = "没有添加 ipa 源";
+"ipaLibrary.noSources.subtitle" = "您目前没有添加 ipa 源。点击下面的按钮来添加一个。";
+"ipaLibrary.noSources.button" = "添加源";
 "ipaLibrary.noNetworkConnection.toast" = "没有网络连接!";
 "preferences.tab.ipasource" = "IPA 来源";
 "preferences.button.addSource" = "添加来源";
 "preferences.button.deleteSource" = "删除来源";
 "preferences.button.moveSourceUp" = "上移来源";
 "preferences.button.moveSourceDown" = "下移来源";
-"preferences.button.resolveSources" = "验证来源";
 "preferences.popover.valid" = "链接有效";
 "preferences.popover.badurl" = "链接错误!";
 "preferences.popover.badjson" = "JSON 无效或未找到!";
@@ -334,13 +333,16 @@
 "preferences.toggle.removeEntitlements" = "移除授权";
 "preferences.prune.alert" = "您确定要删除所有未使用的文件吗？";
 "preferences.prune.message" = "这将删除所有未使用的文件，包括设置、按键映射、授权和应用程序数据";
-"preferences.tab.install" = "Install";
-"preferences.toggle.showInstallPopup" = "Show install PlayTools Popup";
-"preferences.toggle.alwaysInstallPlayTools" = "Always install PlayTools";
-"alert.install.injectPlayTools" = "Inject PlayTools";
-"alert.install.injectPlayToolsInApp" = "Do you want to inject PlayTools into this application?";
-"button.Yes" = "Yes";
-"button.No" = "No";
-"settings.noPlayTools" = "PlayTools is not installed in this app";
-"settings.removePlayTools" = "Remove PlayTools";
-"settings.info.playTools" = "PlayTools installed:";
+"preferences.tab.install" = "安装";
+"preferences.toggle.showInstallPopup" = "显示安装 PlayTools 弹窗";
+"preferences.toggle.alwaysInstallPlayTools" = "总是安装 PlayTools";
+"alert.install.injectPlayTools" = "注入 PlayTools";
+"button.Yes" = "是";
+"button.No" = "否";
+"settings.noPlayTools" = "此应用中并无安装 PlayTools";
+"settings.removePlayTools" = "移除 PlayTools";
+"settings.info.playTools" = "已安装 PlayTools：";
+"playapp.refreshSources" = "刷新来源";
+"error.appMaliciousProhibited" = "此应用程序在Mac上有恶意行为，使用它会使您的设备处于无法启动的状态，因此它被PlayCover阻止。（正在卸载...)";
+"alert.install.injectPlayToolsQuestion" = "您希望在此应用中注入 PlayTools 吗？";
+"alert.install.playToolsInformative" = "PlayTools 是一个能帮您将键盘按键映射为触屏控制，自定义显示分辨率以及更多的工具，但它有可能使某些应用无法使用";
