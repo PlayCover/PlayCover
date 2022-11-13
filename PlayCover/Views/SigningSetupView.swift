@@ -18,29 +18,22 @@ struct SignSetupView: View {
 
     var body: some View {
         Group {
-            Text("Configure Package Signing")
+            Text("configSigning.header")
                 .font(.largeTitle)
                 .foregroundColor(.gray)
                 .padding()
-            Text("""
-                    Package Signing helps fixing issues with apps that uses login, particularly games.
-
-                    After logging in, you may be able to turn Package Signing off, if you so choose.
-                    However, if you get logged out, you will need to enable Package Signing again
-                    """)
+            Text("configSigning.subtext")
             .multilineTextAlignment(.center)
 
             GroupBox {
                 Spacer()
                 HStack(alignment: .center) {
                     Image(systemName: "questionmark.circle.fill")
-                        .help("""
-                        SIP is required to be fully to partially disabled in order for AMFI to be turned off.
-                        """)
-                    Text("System Integrity Protection")
+                        .help("configSigning.info.SIP")
+                    Text("configSigning.info.SIPHeader")
                         .font(.headline)
                     Spacer()
-                    Text("\(SIPEnabled ? "Enabled" : "Disabled")")
+                    Text((SIPEnabled ? "state.enabled" : "state.disabled"))
                         .foregroundColor(SIPEnabled ? .red : .green)
                         .font(.headline)
                 }
@@ -49,25 +42,22 @@ struct SignSetupView: View {
                 Divider()
                 HStack(alignment: .center) {
                     Image(systemName: "questionmark.circle.fill")
-                        .help("""
-                        AMFI is required to be turned off in order to allow fake signing of apps, \
-                        allowing them to run with the correct Team ID
-                        """)
-                    Text("Apple Mobile File Integrity")
+                        .help("configSigning.info.AMFI")
+                    Text("configSigning.info.AMFIHeader")
                         .font(.headline)
                     Spacer()
                     if AMFIEnabledInNVRAM {
                         if !AMFIEnabledInRunningOS {
-                            Text("Pending Reboot")
+                            Text("state.pendingReboot")
                                 .foregroundColor(.yellow)
                                 .font(.headline)
                         } else {
-                            Text("Disabled")
+                            Text("state.disabled")
                                 .foregroundColor(.green)
                                 .font(.headline)
                         }
                     } else {
-                        Text("Enabled")
+                        Text("state.enabled")
                             .foregroundColor(.red)
                             .font(.headline)
                     }
@@ -79,10 +69,10 @@ struct SignSetupView: View {
             .padding()
             Group {
                 if SIPEnabled {
-                    Text("Please disable SIP from Recovery Mode")
+                    Text("configSigning.step.disableSIP")
                         .font(.subheadline)
                     Spacer()
-                    Button("Shut down my Mac") {
+                    Button("configSigning.action.shutdown") {
                         let source = "tell application \"Finder\"\nshut down\nend tell"
                         let script = NSAppleScript(source: source)
                         script?.executeAndReturnError(nil)
@@ -90,10 +80,10 @@ struct SignSetupView: View {
                     }
                 } else {
                     if !AMFIEnabledInNVRAM && !AMFIEnabledInRunningOS {
-                        Text("Please disable AMFI")
+                        Text("configSigning.step.disableAMFI")
                             .font(.subheadline)
                         Spacer()
-                        Button("Copy Command to Clipboard") {
+                        Button("configSigning.action.copyCommand") {
                             let disableCommand =
                             """
                             sudo nvram boot-args=\"amfi_get_out_of_my_way=0x1 ipc_control_port_options=0\" \
@@ -105,33 +95,33 @@ struct SignSetupView: View {
                         }
                     } else if AMFIEnabledInNVRAM {
                         if !AMFIEnabledInRunningOS {
-                            Text("AMFI Disabled. Please reboot")
+                            Text("configSigning.step.AMFIreboot")
                                 .font(.subheadline)
                             Spacer()
-                            Button("Restart my Mac") {
+                            Button("configSigning.action.restart") {
                                 let source = "tell application \"Finder\"\nrestart\nend tell"
                                 let script = NSAppleScript(source: source)
                                 script?.executeAndReturnError(nil)
                                 isSigningSetupShown = false
                             }
                         } else {
-                            Text("Package Signing has been configured. You're good to go!")
+                            Text("configSigning.step.complete")
                         }
                     }
                 }
             }
             .alert(isPresented: $commandCopiedAlert) {
-                Alert(title: Text("Command Copied!"),
-                      message: Text("Please paste and run the command in Terminal.app. Your Mac will reboot after"),
-                      dismissButton: .default(Text("OK")))
+                Alert(title: Text("configSigning.alert.copied"),
+                      message: Text("configSigning.alert.info"),
+                      dismissButton: .default(Text("button.OK")))
             }
             Divider()
             HStack {
-                Button("Help") {
+                Button("button.Help") {
                     NSWorkspace.shared.open(
                         URL(string: "https://docs.playcover.io/getting_started/troubleshoot_login")!)
                 }
-                Button("Dismiss", role: .cancel) {
+                Button("button.Dismiss", role: .cancel) {
                     isSigningSetupShown = false
                 }
             }
