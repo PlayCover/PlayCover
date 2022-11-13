@@ -107,6 +107,12 @@
 "button.Convert" = "Convert";
 "button.Yes" = "Yes";
 "button.No" = "No";
+"button.Help" = "Help";
+"button.Dismiss" = "Dismiss";
+
+"state.enabled" = "Enabled";
+"state.disabled" = "Disabled";
+"state.pendingReboot" = "Pending Reboot";
 
 "error.corruptedIPA" = "This .ipa file is corrupted. It does not contains \"Info.plist\" file.";
 "error.waitInstallation" = "Please wait for the current installation to finish!";
@@ -175,6 +181,7 @@
 "menubar.discord" = "Discord";
 "menubar.checkForUpdates" = "Check for Updates...";
 "menubar.clearCache" = "Clear Image Cache";
+"menubar.configSigning" = "Configure Signing";
 
 "soundAlert.messageText" = "Incorrect Audio Settings Detected!";
 "soundAlert.informativeText" = "Your current output device does not have a sample rate of 48 or 44.1 KHz! Crashes may occur. Would you like to change your current output device's sample rate to 48 KHz?";
@@ -201,3 +208,21 @@
 "settings.text.state.help" = "Second row below title";
 "settings.toggle.discord" = "Enable Discord activity";
 "settings.toggle.hud" = "Metal HUD";
+
+"configSigning.header" = "Configure Package Signing";
+"configSigning.subtext" = "Package Signing helps fixing issues with apps that rely on \ncorrect Team IDs for operations like authorization. \nThere may be security risks associated with enabling this feature.\n\n As such, we recommend disabling it when it's not necessary";
+
+"configSigning.info.SIP" = "SIP is required to be fully to partially disabled in order for AMFI to be turned off.";
+"configSigning.info.SIPHeader" = "System Integrity Protection";
+"configSigning.info.AMFI" = "AMFI is required to be turned off in order to allow fake signing of apps, allowing them to run with the correct Team ID";
+"configSigning.info.AMFIHeader" = "Apple Mobile File Integrity";
+"configSigning.action.shutdown" = "Shut down my Mac";
+"configSigning.action.copyCommand" = "Copy Command to Clipboard";
+"configSigning.action.restart" = "Restart my Mac";
+"configSigning.step.disableSIP" = "Please disable SIP from Recovery Mode";
+"configSigning.step.disableAMFI" = "Please disable AMFI";
+"configSigning.step.AMFIreboot" = "AMFI Disabled. Please reboot";
+"configSigning.step.complete" = "Package Signing has been configured successfully";
+
+"configSigning.alert.copied" = "Command Copied!";
+"configSigning.alert.info" = "Please paste and run the command in Terminal.app. Your Mac will reboot after";
