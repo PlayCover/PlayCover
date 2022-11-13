@@ -8,31 +8,27 @@ import Foundation
 public class IPA {
 
     public let url: URL
-    public private(set) var tempDir: URL?
+    public private(set) var tmpDir: URL?
 
     public init(url: URL) {
         self.url = url
     }
 
-    public func allocateTempDir() throws -> URL {
-        let tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
-                                                 in: .userDomainMask,
-                                                 appropriateFor: URL(fileURLWithPath: "/Users"),
-                                                 create: true)
-        return tmpDir
-            .appendingPathComponent(ProcessInfo().globallyUniqueString)
+    public func allocateTempDir() throws {
+        tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
+                                             in: .userDomainMask,
+                                             appropriateFor: URL(fileURLWithPath: "/Users"),
+                                             create: true)
     }
 
-    public func releaseTempDir() throws {
-        guard let workDir = tempDir else {
+    public func releaseTempDir() {
+        guard let workDir = tmpDir else {
             return
         }
 
-        if FileManager.default.fileExists(atPath: workDir.path) {
-            try FileManager.default.removeItem(at: workDir)
-        }
+        FileManager.default.delete(at: workDir)
 
-        tempDir = nil
+        tmpDir = nil
     }
 
     func removeQuarantine(_ execUrl: URL) throws {
@@ -40,11 +36,13 @@ public class IPA {
     }
 
     public func unzip() throws -> BaseApp {
-        let workDir = try allocateTempDir()
-
-        if Shell.quietUnzip(url, toUrl: workDir) == "" {
-            try removeQuarantine(workDir)
-            return try Installer.fromIPA(detectingAppNameInFolder: workDir.appendingPathComponent("Payload"))
+        if let workDir = tmpDir {
+            if Shell.quietUnzip(url, toUrl: workDir) == "" {
+                try removeQuarantine(workDir)
+                return try Installer.fromIPA(detectingAppNameInFolder: workDir.appendingPathComponent("Payload"))
+            } else {
+                throw PlayCoverError.appCorrupted
+            }
         } else {
             throw PlayCoverError.appCorrupted
         }

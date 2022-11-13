@@ -62,23 +62,23 @@ struct StoreAppView: View {
             Log.shared.error(error!)
         }
         if let url = url {
+            var tmpDir: URL?
+
             do {
-                var tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
+                tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
                                                          in: .userDomainMask,
                                                          appropriateFor: URL(fileURLWithPath: "/Users"),
                                                          create: true)
-                tmpDir = tmpDir
-                    .appendingPathComponent(ProcessInfo().globallyUniqueString)
-                try FileManager.default.createDirectory(at: tmpDir,
-                                                        withIntermediateDirectories: true,
-                                                        attributes: nil)
-                tmpDir = tmpDir
-                    .appendingPathComponent(app.bundleID)
-                    .appendingPathExtension("ipa")
-                try FileManager.default.moveItem(at: url, to: tmpDir)
-                uif.ipaUrl = tmpDir
+
+                let tmpIpa = tmpDir!.appendingPathComponent(app.bundleID)
+                                    .appendingPathExtension("ipa")
+
+                try FileManager.default.moveItem(at: url, to: tmpIpa)
+                uif.ipaUrl = tmpIpa
                 DispatchQueue.main.async {
                     Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
+                        FileManager.default.delete(at: tmpDir!)
+
                         AppsVM.shared.apps = []
                         AppsVM.shared.fetchApps()
                         NotifyService.shared.notify(
@@ -87,6 +87,10 @@ struct StoreAppView: View {
                     })
                 }
             } catch {
+                if let tmpDir = tmpDir {
+                    FileManager.default.delete(at: tmpDir)
+                }
+
                 Log.shared.error(error)
             }
         }

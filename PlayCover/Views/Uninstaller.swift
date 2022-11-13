@@ -111,32 +111,24 @@ class Uninstaller {
             app.clearAllCache()
         }
 
-        do {
-            if UninstallPreferences.shared.removeAppKeymap {
-                try FileManager.default.delete(at: app.keymapping.keymapURL)
-            }
+        if UninstallPreferences.shared.removeAppKeymap {
+            FileManager.default.delete(at: app.keymapping.keymapURL)
+        }
 
-            if UninstallPreferences.shared.removeAppSettings {
-                try FileManager.default.delete(at: app.settings.settingsUrl)
-            }
+        if UninstallPreferences.shared.removeAppSettings {
+            FileManager.default.delete(at: app.settings.settingsUrl)
+        }
 
-            if UninstallPreferences.shared.removeAppEntitlements {
-                try FileManager.default.delete(at: app.entitlements)
-            }
-        } catch {
-            Log.shared.error(error)
+        if UninstallPreferences.shared.removeAppEntitlements {
+            FileManager.default.delete(at: app.entitlements)
         }
 
         app.deleteApp()
     }
 
     static func clearExternalCache(_ bundleId: String) {
-        do {
-            for cache in cacheURLs {
-                try FileManager.default.delete(at: cache.appendingPathComponent(bundleId))
-            }
-        } catch {
-            Log.shared.error(error)
+        for cache in cacheURLs {
+            FileManager.default.delete(at: cache.appendingPathComponent(bundleId))
         }
     }
 
@@ -150,7 +142,7 @@ class Uninstaller {
                     if !bundleIds.contains(bundleId) {
                         clearExternalCache(bundleId)
 
-                        try FileManager.default.delete(at: file)
+                        FileManager.default.delete(at: file)
                     }
                 }
             } catch {
