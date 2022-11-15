@@ -17,6 +17,7 @@ struct KeyModelTransform: Codable {
 
 struct ButtonModel: Codable {
     var keyCode: Int
+    var keyName: String
     var transform: KeyModelTransform
 }
 
@@ -25,10 +26,12 @@ struct JoystickModel: Codable {
     var rightKeyCode: Int
     var downKeyCode: Int
     var leftKeyCode: Int
+    var keyName: String = "Keyboard"
     var transform: KeyModelTransform
 }
 
 struct MouseAreaModel: Codable {
+    var keyName: String
     var transform: KeyModelTransform
 }
 
