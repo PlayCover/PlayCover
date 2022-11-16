@@ -131,28 +131,7 @@ class Keymapping {
                         }
                     }
                 } catch {
-                    if let selectedPath = openPanel.url {
-                        if let keymap = LegacySettings.convertLegacyKeymapFile(selectedPath) {
-                            if keymap.bundleIdentifier == self.keymap.bundleIdentifier {
-                                self.keymap = keymap
-                                success(true)
-                            } else {
-                                NSAlert.differentBundleIdKeymap { result in
-                                    switch result {
-                                    case .alertFirstButtonReturn:
-                                        self.keymap = keymap
-                                        success(true)
-                                    case .alertSecondButtonReturn:
-                                        success(false)
-                                    default:
-                                        success(false)
-                                    }
-                                }
-                            }
-                        } else {
-                            success(false)
-                        }
-                    }
+                    success(self.convertKeymap(openPanel: openPanel))
                 }
                 openPanel.close()
             }
@@ -185,5 +164,35 @@ class Keymapping {
                 savePanel.close()
             }
         }
+    }
+
+    func convertKeymap(openPanel: NSOpenPanel) -> Bool {
+        if let selectedPath = openPanel.url {
+            if let keymap = LegacySettings.convertLegacyKeymapFile(selectedPath) {
+                if keymap.bundleIdentifier == self.keymap.bundleIdentifier {
+                    self.keymap = keymap
+                    return true
+                } else {
+                    var success = false
+                    NSAlert.differentBundleIdKeymap { result in
+                        switch result {
+                        case .alertFirstButtonReturn:
+                            self.keymap = keymap
+                            success = true
+                        case .alertSecondButtonReturn:
+                            success = false
+                        default:
+                            success = false
+                        }
+                    }
+
+                    return success
+                }
+            } else {
+                return false
+            }
+        }
+
+        return false
     }
 }
