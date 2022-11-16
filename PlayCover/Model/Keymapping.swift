@@ -9,6 +9,27 @@ import AppKit
 import Foundation
 import UniformTypeIdentifiers
 
+extension NSAlert {
+    static func differentBundleIdKeymap() -> Bool {
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("alert.differentBundleIdKeymap.message", comment: "")
+        alert.informativeText = NSLocalizedString("alert.differentBundleIdKeymap.text", comment: "")
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: NSLocalizedString("button.Proceed", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
+
+        let result = alert.runModal()
+        switch result {
+        case .alertFirstButtonReturn:
+            return true
+        case .alertSecondButtonReturn:
+            return false
+        default:
+            return false
+        }
+    }
+}
+
 struct KeyModelTransform: Codable {
     var size: CGFloat
     var xCoord: CGFloat
@@ -117,21 +138,32 @@ class Keymapping {
                             self.keymap = importedKeymap
                             success(true)
                         } else {
-                            NSAlert.differentBundleIdKeymap { result in
-                                switch result {
-                                case .alertFirstButtonReturn:
-                                    self.keymap = importedKeymap
-                                    success(true)
-                                case .alertSecondButtonReturn:
-                                    success(false)
-                                default:
-                                    success(false)
-                                }
+                            if NSAlert.differentBundleIdKeymap() {
+                                self.keymap = importedKeymap
+                                success(true)
+                            } else {
+                                success(false)
                             }
                         }
                     }
                 } catch {
-                    success(self.convertKeymap(openPanel: openPanel))
+                    if let selectedPath = openPanel.url {
+                        if let keymap = LegacySettings.convertLegacyKeymapFile(selectedPath) {
+                            if keymap.bundleIdentifier == self.keymap.bundleIdentifier {
+                                self.keymap = keymap
+                                success(false)
+                            } else {
+                                if NSAlert.differentBundleIdKeymap() {
+                                    self.keymap = keymap
+                                    success(true)
+                                } else {
+                                    success(false)
+                                }
+                            }
+                        } else {
+                            success(false)
+                        }
+                    }
                 }
                 openPanel.close()
             }
@@ -164,35 +196,5 @@ class Keymapping {
                 savePanel.close()
             }
         }
-    }
-
-    func convertKeymap(openPanel: NSOpenPanel) -> Bool {
-        if let selectedPath = openPanel.url {
-            if let keymap = LegacySettings.convertLegacyKeymapFile(selectedPath) {
-                if keymap.bundleIdentifier == self.keymap.bundleIdentifier {
-                    self.keymap = keymap
-                    return true
-                } else {
-                    var success = false
-                    NSAlert.differentBundleIdKeymap { result in
-                        switch result {
-                        case .alertFirstButtonReturn:
-                            self.keymap = keymap
-                            success = true
-                        case .alertSecondButtonReturn:
-                            success = false
-                        default:
-                            success = false
-                        }
-                    }
-
-                    return success
-                }
-            } else {
-                return false
-            }
-        }
-
-        return false
     }
 }
