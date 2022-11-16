@@ -97,6 +97,8 @@
 "alert.install.injectPlayToolsQuestion" = "Do you want to inject PlayTools into this application?";
 "alert.install.playToolsInformative" = "PlayTools is a tool that allows you to bind keys to screen touches, custom display resolutions, and more, but it may break certain apps";
 "alert.supression" = "You can change this in the PlayCover preferences";
+"alert.differentBundleIdKeymap.message" = "The name of the keymap is different from the bundle ID of the app!";
+"alert.differentBundleIdKeymap.text" = "The keymap may have been created for another application.";
 
 "button.OK" = "OK";
 "button.Proceed" = "Proceed";
