@@ -117,8 +117,17 @@ class Keymapping {
                             self.keymap = importedKeymap
                             success(true)
                         } else {
-                            Log.shared.error("Keymapping created for different app!")
-                            success(false)
+                            NSAlert.differentBundleIdKeymap { result in
+                                switch result {
+                                case .alertFirstButtonReturn:
+                                    self.keymap = importedKeymap
+                                    success(true)
+                                case .alertSecondButtonReturn:
+                                    success(false)
+                                default:
+                                    success(false)
+                                }
+                            }
                         }
                     }
                 } catch {
@@ -128,10 +137,17 @@ class Keymapping {
                                 self.keymap = keymap
                                 success(true)
                             } else {
-                                Log.shared.error("Keymapping created for different app! " +
-                                                 "Legacy keymap files must be named after " +
-                                                 "the Bundle ID of the intended application!")
-                                success(false)
+                                NSAlert.differentBundleIdKeymap { result in
+                                    switch result {
+                                    case .alertFirstButtonReturn:
+                                        self.keymap = keymap
+                                        success(true)
+                                    case .alertSecondButtonReturn:
+                                        success(false)
+                                    default:
+                                        success(false)
+                                    }
+                                }
                             }
                         } else {
                             success(false)
