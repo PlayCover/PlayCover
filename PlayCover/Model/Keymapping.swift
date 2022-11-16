@@ -9,27 +9,6 @@ import AppKit
 import Foundation
 import UniformTypeIdentifiers
 
-extension NSAlert {
-    static func differentBundleIdKeymap() -> Bool {
-        let alert = NSAlert()
-        alert.messageText = NSLocalizedString("alert.differentBundleIdKeymap.message", comment: "")
-        alert.informativeText = NSLocalizedString("alert.differentBundleIdKeymap.text", comment: "")
-        alert.alertStyle = .warning
-        alert.addButton(withTitle: NSLocalizedString("button.Proceed", comment: ""))
-        alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
-
-        let result = alert.runModal()
-        switch result {
-        case .alertFirstButtonReturn:
-            return true
-        case .alertSecondButtonReturn:
-            return false
-        default:
-            return false
-        }
-    }
-}
-
 struct KeyModelTransform: Codable {
     var size: CGFloat
     var xCoord: CGFloat
@@ -138,7 +117,7 @@ class Keymapping {
                             self.keymap = importedKeymap
                             success(true)
                         } else {
-                            if NSAlert.differentBundleIdKeymap() {
+                            if self.differentBundleIdKeymapAlert() {
                                 self.keymap = importedKeymap
                                 success(true)
                             } else {
@@ -153,7 +132,7 @@ class Keymapping {
                                 self.keymap = keymap
                                 success(false)
                             } else {
-                                if NSAlert.differentBundleIdKeymap() {
+                                if self.differentBundleIdKeymapAlert() {
                                     self.keymap = keymap
                                     success(true)
                                 } else {
@@ -195,6 +174,25 @@ class Keymapping {
                 }
                 savePanel.close()
             }
+        }
+    }
+
+    private func differentBundleIdKeymapAlert() -> Bool {
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("alert.differentBundleIdKeymap.message", comment: "")
+        alert.informativeText = NSLocalizedString("alert.differentBundleIdKeymap.text", comment: "")
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: NSLocalizedString("button.Proceed", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
+
+        let result = alert.runModal()
+        switch result {
+        case .alertFirstButtonReturn:
+            return true
+        case .alertSecondButtonReturn:
+            return false
+        default:
+            return false
         }
     }
 }
