@@ -36,6 +36,7 @@ struct IPASourceSettings: View {
     @State var selectedNotEmpty = false
     @State var addSourceSheet = false
     @State var triggerUpdate = false
+    @State var sourceString = ""
     @EnvironmentObject var storeVM: StoreVM
 
     var body: some View {
@@ -98,7 +99,8 @@ struct IPASourceSettings: View {
         .padding(20)
         .frame(width: 600, height: 300, alignment: .center)
         .sheet(isPresented: $addSourceSheet) {
-            AddSourceView(addSourceSheet: $addSourceSheet)
+            AddSourceView(sourceString: $sourceString,
+                          addSourceSheet: $addSourceSheet)
                 .environmentObject(storeVM)
         }
     }
@@ -168,6 +170,7 @@ struct AddSourceView: View {
     @State var newSource = ""
     @State var newSourceURL: URL?
     @State var sourceValidationState = SourceValidation.checking
+    @Binding var sourceString: String
     @Binding var addSourceSheet: Bool
     @EnvironmentObject var storeVM: StoreVM
 
@@ -219,6 +222,9 @@ struct AddSourceView: View {
         .frame(width: 400, height: 100)
         .onChange(of: newSource) { source in
             validateSource(source)
+        }
+        .onAppear {
+            newSource = sourceString
         }
     }
 

@@ -29,6 +29,9 @@ struct MainView: View {
     @State private var xcodeInstallStatus: XcodeInstallStatus = .installing
     @State private var selectedBackgroundColor: Color = Color.accentColor
     @State private var selectedTextColor: Color = Color.black
+
+    let schemaSourcePub = NotificationCenter.default.publisher(for: NSNotification.Name("sourceAdd"))
+
     var body: some View {
         GeometryReader { viewGeom in
             NavigationView {
@@ -44,6 +47,14 @@ struct MainView: View {
                             .environmentObject(store),
                                        tag: 2, selection: self.$selectedView) {
                             Label("sidebar.ipaLibrary", systemImage: "arrow.down.circle")
+                        }
+                    }
+                    .onReceive(schemaSourcePub) { (data) in
+                        if data.userInfo?["url"] is String {
+                            selectedView = 2
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                NotificationCenter.default.post(name: NSNotification.Name("sourceAddFinal"), object: nil, userInfo: data.userInfo)
+                            }
                         }
                     }
                     .onChange(of: sidebarGeom.size) { newSize in

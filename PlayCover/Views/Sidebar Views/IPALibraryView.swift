@@ -18,6 +18,9 @@ struct IPALibraryView: View {
     @State private var isList = UserDefaults.standard.bool(forKey: "IPALibrayView")
     @State private var selected: StoreAppData?
     @State private var addSourcePresented = false
+    @State private var sourceString: String = ""
+
+    let schemaSourcePub = NotificationCenter.default.publisher(for: NSNotification.Name("sourceAddFinal"))
 
     var body: some View {
         ZStack {
@@ -110,8 +113,18 @@ struct IPALibraryView: View {
             UserDefaults.standard.set(value, forKey: "IPALibrayView")
         })
         .sheet(isPresented: $addSourcePresented) {
-            AddSourceView(addSourceSheet: $addSourcePresented)
+            AddSourceView(sourceString: $sourceString,
+                          addSourceSheet: $addSourcePresented)
                 .environmentObject(storeVM)
+        }
+        .onReceive(schemaSourcePub) { (data) in
+            if let source = data.userInfo?["url"] as? String {
+                addSourcePresented = true
+                sourceString = source
+            }
+        }
+        .onAppear {
+            sourceString = ""
         }
     }
 }

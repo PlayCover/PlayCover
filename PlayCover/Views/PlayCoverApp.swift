@@ -6,7 +6,6 @@
 import SwiftUI
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-
     func application(_ application: NSApplication, open urls: [URL]) {
         if let url = urls.first {
             if url.pathExtension == "ipa" {
@@ -20,6 +19,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                             NSLocalizedString("notification.appInstalled.message", comment: ""))
                     }
                 })
+            }
+            if let scheme = url.scheme {
+                if scheme == "playcover" {
+                    let sourceUrl = url.absoluteString.replacingOccurrences(of: "\(url.scheme ?? "")://", with: "")
+                    let urlNotifData: [String: String] = ["url": sourceUrl]
+                    NotificationCenter.default.post(name: NSNotification.Name("sourceAdd"), object: nil, userInfo: urlNotifData)
+                }
             }
         }
     }
