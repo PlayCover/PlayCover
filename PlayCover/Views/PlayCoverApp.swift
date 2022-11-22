@@ -24,7 +24,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 if scheme == "playcover" {
                     let sourceUrl = url.absoluteString.replacingOccurrences(of: "\(url.scheme ?? "")://", with: "")
                     let urlNotifData: [String: String] = ["url": sourceUrl]
-                    NotificationCenter.default.post(name: NSNotification.Name("sourceAdd"), object: nil, userInfo: urlNotifData)
+                    NotificationCenter.default.post(name: NSNotification.Name("sourceAdd"),
+                                                    object: nil,
+                                                    userInfo: urlNotifData)
                 }
             }
         }

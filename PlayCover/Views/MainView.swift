@@ -3,6 +3,8 @@
 //  PlayCover
 //
 
+// swiftlint:disable type_body_length
+
 import SwiftUI
 
 enum XcodeInstallStatus {
@@ -53,7 +55,9 @@ struct MainView: View {
                         if data.userInfo?["url"] is String {
                             selectedView = 2
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                NotificationCenter.default.post(name: NSNotification.Name("sourceAddFinal"), object: nil, userInfo: data.userInfo)
+                                NotificationCenter.default.post(name: NSNotification.Name("sourceAddFinal"),
+                                                                object: nil,
+                                                                userInfo: data.userInfo)
                             }
                         }
                     }
