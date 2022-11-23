@@ -13,8 +13,7 @@ struct PlayCoverSettingsView: View {
     @EnvironmentObject var storeVM: StoreVM
 
     private enum Tabs: Hashable {
-        case updates, ipasource, install, uninstall
-        case updates, ipasource, keymappingSource
+        case updates, ipasource, keymappingSource, install, uninstall
     }
 
     var body: some View {
