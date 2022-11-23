@@ -9,13 +9,6 @@ import IOKit.pwr_mgt
 
 class PlayApp: BaseApp {
     private static let library = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library")
-    lazy var appStorageLocations: [URL] = [
-        PlayApp.library.appendingPathComponent("Application Scripts").appendingPathComponent(info.bundleIdentifier),
-        PlayApp.library.appendingPathComponent("Caches").appendingPathComponent(info.bundleIdentifier),
-        PlayApp.library.appendingPathComponent("HTTPStorages").appendingPathComponent(info.bundleIdentifier),
-        PlayApp.library.appendingPathComponent("Saved Application State")
-            .appendingPathComponent(info.bundleIdentifier).appendingPathExtension(".savedState")
-     ]
 
     var searchText: String {
         info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
@@ -24,17 +17,26 @@ class PlayApp: BaseApp {
     func launch() {
         do {
             if prohibitedToPlay {
-                container?.clear()
+                clearAllCache()
                 throw PlayCoverError.appProhibited
             }
-
+            if maliciousProhibited {
+                clearAllCache()
+                deleteApp()
+                throw PlayCoverError.appMaliciousProhibited
+            }
             AppsVM.shared.updatingApps = true
             AppsVM.shared.fetchApps()
             settings.sync()
             if try !Entitlements.areEntitlementsValid(app: self) {
                 sign()
             }
-            try PlayTools.installPluginInIPA(url)
+
+            // If the app does not have PlayTools, do not install PlugIns
+            if hasPlayTools() {
+                try PlayTools.installPluginInIPA(url)
+            }
+
             if try !PlayTools.isInstalled() {
                 Log.shared.error("PlayTools are not installed! Please move PlayCover.app into Applications!")
             } else if try !PlayTools.isValidArch(executable.path) {
@@ -91,31 +93,6 @@ class PlayApp: BaseApp {
             })
     }
 
-    var icon: NSImage? {
-        var highestRes: NSImage?
-        let appDirectoryPath = "\(url.relativePath)/"
-
-        if let assetsExtractor = try? AssetsExtractor(appUrl: url) {
-            for icon in assetsExtractor.extractIcons() {
-                highestRes = largerImage(image: icon, compareTo: highestRes)
-            }
-        }
-
-        guard let items = try? FileManager.default.contentsOfDirectory(atPath: appDirectoryPath) else {
-            return highestRes
-        }
-        for item in items where item.hasPrefix(info.primaryIconName) {
-            do {
-                if let image = NSImage(data: try Data(contentsOf: URL(fileURLWithPath: "\(appDirectoryPath)\(item)"))) {
-                    highestRes = largerImage(image: image, compareTo: highestRes)
-                }
-            } catch {
-                Log.shared.error(error)
-            }
-        }
-        return highestRes
-    }
-
     var name: String {
         if info.displayName.isEmpty {
             return info.bundleName
@@ -130,6 +107,15 @@ class PlayApp: BaseApp {
 
     var container: AppContainer?
 
+    func hasPlayTools() -> Bool {
+        do {
+            return try PlayTools.installedInExec(atURL: url.appendingPathComponent(info.executableName))
+        } catch {
+            Log.shared.error(error)
+            return true
+        }
+    }
+
     func isCodesigned() throws -> Bool {
         try shell.shello("/usr/bin/codesign", "-dv", executable.path).contains("adhoc")
     }
@@ -143,24 +129,12 @@ class PlayApp: BaseApp {
     }
 
     func clearAllCache() {
-        do {
-            for cache in appStorageLocations {
-                try FileManager.default.delete(at: cache)
-            }
-
-            container?.clear()
-        } catch {
-            Log.shared.error(error)
-        }
+        Uninstaller.clearExternalCache(info.bundleIdentifier)
     }
 
     func deleteApp() {
-        do {
-            try FileManager.default.delete(at: URL(fileURLWithPath: url.path))
-            AppsVM.shared.fetchApps()
-        } catch {
-            Log.shared.error(error)
-        }
+        FileManager.default.delete(at: URL(fileURLWithPath: url.path))
+        AppsVM.shared.fetchApps()
     }
 
     func sign() {
@@ -175,7 +149,7 @@ class PlayApp: BaseApp {
             let conf = try Entitlements.composeEntitlements(self)
             try conf.store(tmpEnts)
             shell.signAppWith(executable, entitlements: tmpEnts)
-            try FileManager.default.removeItem(at: tmpEnts)
+            try FileManager.default.removeItem(at: tmpDir)
         } catch {
             print(error)
             Log.shared.error(error)
@@ -192,7 +166,9 @@ class PlayApp: BaseApp {
     var prohibitedToPlay: Bool {
         PlayApp.PROHIBITED_APPS.contains(info.bundleIdentifier)
     }
-
+    var maliciousProhibited: Bool {
+        PlayApp.MALICIOUS_APPS.contains(info.bundleIdentifier)
+    }
     static let PROHIBITED_APPS = [
         "com.activision.callofduty.shooter",
         "com.ea.ios.apexlegendsmobilefps",
@@ -203,5 +179,8 @@ class PlayApp: BaseApp {
         "com.tencent.tmgp.pubgmhd",
         "com.dts.freefireth",
         "com.dts.freefiremax"
-    ]
+]
+    static let MALICIOUS_APPS = [
+        "com.zhiliaoapp.musically"
+]
 }

@@ -118,22 +118,6 @@ class Shell: ObservableObject {
         shell("/usr/bin/codesign -fs- \(exec.deletingLastPathComponent().esc) --deep --preserve-metadata=entitlements")
     }
 
-    static func copyAppToTemp(_ bundleName: String, name: String, temp: URL) {
-        shell("cp -R /Applications/\(bundleName.esc).app/Wrapper/\(name.esc).app \(temp.esc)/ipafile/Payload/")
-    }
-    static func removeTwitterSessionCookie () {
-        let cookieURL = FileManager.default.homeDirectoryForCurrentUser
-            .appendingPathComponent("Library")
-            .appendingPathComponent("Containers")
-            .appendingPathComponent("com.miHoYo.GenshinImpact")
-            .appendingPathComponent("Data")
-            .appendingPathComponent("Library")
-            .appendingPathComponent("Cookies")
-            .appendingPathComponent("Cookies")
-            .appendingPathExtension("binarycookies")
-        shell("rm -rf \(cookieURL.path)")
-    }
-
     static func sudosh(_ args: [String], _ argc: String) -> Bool {
         let password = argc
         let passwordWithNewline = password + "\n"
@@ -193,7 +177,6 @@ class Shell: ObservableObject {
 
         return output
     }
-
 }
 
 extension String: Error { }

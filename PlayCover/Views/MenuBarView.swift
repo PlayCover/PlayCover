@@ -14,7 +14,7 @@ struct PlayCoverMenuView: Commands {
                 Log.shared.logdata.copyToClipBoard()
             }
             .keyboardShortcut("L", modifiers: [.command, .option])
-            Button("Configure Signing") {
+            Button("menubar.configSigning") {
                 isSigningSetupShown = true
             }
         }
@@ -55,6 +55,7 @@ struct PlayCoverHelpMenuView: Commands {
 
 struct PlayCoverViewMenuView: Commands {
     var body: some Commands {
+        CommandGroup(replacing: .newItem) {}
         CommandGroup(replacing: .importExport) {
             Button("menubar.exportToSideloady") {
                 if InstallVM.shared.installing {
@@ -65,7 +66,7 @@ struct PlayCoverViewMenuView: Commands {
                     NSOpenPanel.selectIPA { result in
                         if case .success(let url) = result {
                             uif.ipaUrl = url
-                            Installer.exportForSideloadly(ipaUrl: uif.ipaUrl!, returnCompletion: { ipa in
+                            Installer.install(ipaUrl: uif.ipaUrl!, export: true, returnCompletion: { ipa in
                                 DispatchQueue.main.async {
                                     if let ipa = ipa {
                                         ipa.showInFinder()
@@ -91,10 +92,10 @@ struct PlayCoverViewMenuView: Commands {
             }
         }
         CommandGroup(before: .sidebar) {
-            Button("preferences.button.resolveSources") {
-                StoreVM.shared.resolveSources()
+            Button("menubar.clearCache") {
+                ImageCache.clearCache()
             }
-            .keyboardShortcut("R", modifiers: [.command])
+            .keyboardShortcut("R", modifiers: [.command, .shift])
             Divider()
         }
     }

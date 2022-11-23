@@ -21,35 +21,33 @@ struct IPALibraryView: View {
 
     var body: some View {
         ZStack {
-            VStack(alignment: .leading) {
-                ScrollView {
-                    if !isList {
-                        LazyVGrid(columns: gridLayout, alignment: .center) {
-                            ForEach(storeVM.filteredApps, id: \.bundleID) { app in
-                                StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                             selectedTextColor: $selectedTextColor,
-                                             selected: $selected,
-                                             app: app,
-                                             isList: isList)
-                                .environmentObject(DownloadVM.shared)
-                            }
+            ScrollView {
+                if !isList {
+                    LazyVGrid(columns: gridLayout, alignment: .center) {
+                        ForEach(storeVM.filteredApps, id: \.bundleID) { app in
+                            StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                         selectedTextColor: $selectedTextColor,
+                                         selected: $selected,
+                                         app: app,
+                                         isList: isList)
+                            .environmentObject(DownloadVM.shared)
                         }
-                        .padding()
-                        Spacer()
-                    } else {
-                        VStack {
-                            ForEach(storeVM.filteredApps, id: \.bundleID) { app in
-                                StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                             selectedTextColor: $selectedTextColor,
-                                             selected: $selected,
-                                             app: app,
-                                             isList: isList)
-                                .environmentObject(DownloadVM.shared)
-                            }
-                            Spacer()
-                        }
-                        .padding()
                     }
+                    .padding()
+                    Spacer()
+                } else {
+                    VStack {
+                        ForEach(storeVM.filteredApps, id: \.bundleID) { app in
+                            StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                         selectedTextColor: $selectedTextColor,
+                                         selected: $selected,
+                                         app: app,
+                                         isList: isList)
+                            .environmentObject(DownloadVM.shared)
+                        }
+                        Spacer()
+                    }
+                    .padding()
                 }
             }
             if storeVM.sources.count == 0 {
@@ -74,6 +72,18 @@ struct IPALibraryView: View {
         }
         .navigationTitle("sidebar.ipaLibrary")
         .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    storeVM.resolveSources()
+                }, label: {
+                    Image(systemName: "arrow.clockwise")
+                        .help("playapp.refreshSources")
+                })
+                .disabled(storeVM.sources.count == 0)
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Spacer()
+            }
             ToolbarItem(placement: .primaryAction) {
                 Button(action: {
                     addSourcePresented.toggle()

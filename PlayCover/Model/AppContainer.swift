@@ -25,11 +25,7 @@ struct AppContainer {
     }()
 
     public func clear() {
-        do {
-            try FileManager.default.delete(at: containerUrl)
-        } catch {
-            Log.shared.error(error)
-        }
+        FileManager.default.delete(at: containerUrl)
     }
 
     public static func containers() throws -> [String: AppContainer] {
@@ -40,7 +36,8 @@ struct AppContainer {
 
         let subdirs = directoryContents.filter { $0.hasDirectoryPath }
         for sub in subdirs {
-            let metadataPlist = sub.appendingPathComponent(".com.apple.containermanagerd.metadata.plist")
+            let metadataPlist = sub.appendingPathComponent(".com.apple.containermanagerd.metadata")
+                                   .appendingPathExtension("plist")
 
             if FileManager.default.fileExists(atPath: metadataPlist.path) {
                 if let plist = NSDictionary(contentsOfFile: metadataPlist.path) {

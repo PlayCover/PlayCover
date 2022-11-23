@@ -9,12 +9,12 @@ class PlayTools {
     private static let frameworksURL = FileManager.default.homeDirectoryForCurrentUser
         .appendingPathComponent("Library")
         .appendingPathComponent("Frameworks")
-    private static let playToolsFramwework = frameworksURL
+    private static let playToolsFramework = frameworksURL
         .appendingPathComponent("PlayTools")
         .appendingPathExtension("framework")
-    private static let playToolsPath = playToolsFramwework
+    private static let playToolsPath = playToolsFramework
         .appendingPathComponent("PlayTools")
-    private static let akInterfacePath = playToolsFramwework
+    private static let akInterfacePath = playToolsFramework
         .appendingPathComponent("PlugIns")
         .appendingPathComponent("AKInterface")
         .appendingPathExtension("bundle")
@@ -56,13 +56,14 @@ class PlayTools {
                 }
 
                 // Check if a version of PlayTools is already installed, if so remove it
-                if FileManager.default.fileExists(atPath: playToolsFramwework.path) {
-                    try FileManager.default.delete(at: URL(fileURLWithPath: playToolsFramwework.path))
-                }
+                FileManager.default.delete(at: URL(fileURLWithPath: playToolsFramework.path))
 
                 // Install version of PlayTools bundled with PlayCover
                 Log.shared.log("Copying PlayTools to Frameworks")
-                try shell.sh("cp -r \(bundledPlayToolsFramework.esc) \(playToolsFramwework.esc)")
+                if FileManager.default.fileExists(atPath: playToolsFramework.path) {
+                    try FileManager.default.removeItem(at: playToolsFramework)
+                }
+                try FileManager.default.copyItem(at: bundledPlayToolsFramework, to: playToolsFramework)
             } catch {
                 Log.shared.error(error)
             }
@@ -77,11 +78,9 @@ class PlayTools {
             url.path)
     }
 
-    static func installInIPA(_ exec: URL, _ payload: URL, resign: Bool = false) throws {
+    static func installInIPA(_ exec: URL, _ payload: URL) throws {
         patch_binary_with_dylib(exec.path, playToolsPath.path)
-        if resign {
-            shell.signApp(exec)
-        }
+        shell.signApp(exec)
     }
 
     static func installPluginInIPA(_ payload: URL) throws {
@@ -153,6 +152,35 @@ class PlayTools {
         }
     }
 
+    static func installInApp(_ exec: URL) {
+        do {
+            patch_binary_with_dylib(exec.path, playToolsPath.path)
+            try installPluginInIPA(exec.deletingLastPathComponent())
+            shell.signApp(exec)
+        } catch {
+            Log.shared.error(error)
+        }
+    }
+
+    static func removeFromApp(_ exec: URL) {
+        do {
+            remove_play_tools_from(exec.path, playToolsPath.path)
+
+            let pluginUrl = exec.deletingLastPathComponent()
+                .appendingPathComponent("PlugIns")
+                .appendingPathComponent("AKInterface")
+                .appendingPathExtension("bundle")
+
+            if FileManager.default.fileExists(atPath: pluginUrl.path) {
+                try FileManager.default.removeItem(at: pluginUrl)
+            }
+
+            shell.signApp(exec)
+        } catch {
+            Log.shared.error(error)
+        }
+    }
+
     static func convertMacho(_ macho: URL) throws {
         Log.shared.log("Converting \(macho.lastPathComponent) binary")
         try shell.shello(
@@ -170,6 +198,10 @@ class PlayTools {
             return true
         }
         return false
+    }
+
+    static func installedInExec(atURL url: URL) throws -> Bool {
+        try shell.shello(otool.path, "-L", url.path).contains(playToolsPath.esc)
     }
 
     static func isInstalled() throws -> Bool {
@@ -218,12 +250,6 @@ class PlayTools {
     private static var install_name_tool: URL {
         get throws {
             try binPath("install_name_tool")
-        }
-    }
-
-    private static var ldid: URL {
-        get throws {
-            try binPath("ldid")
         }
     }
 }

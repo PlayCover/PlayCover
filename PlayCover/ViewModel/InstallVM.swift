@@ -12,7 +12,8 @@ enum InstallStepsNative: String {
          sign = "playapp.install.signing",
          library = "playapp.install.addToLib",
          begin = "playapp.install.copy",
-         finish = "playapp.install.finished"
+         finish = "playapp.install.finished",
+         failed = "playapp.install.failed"
 }
 
 class InstallVM: ObservableObject {
@@ -29,7 +30,7 @@ class InstallVM: ObservableObject {
             self.status = NSLocalizedString(step.rawValue, comment: "")
             if step == .begin {
                 self.installing = true
-            } else if step == .finish {
+            } else if step == .finish || step == .failed {
                 self.progress = 1.0
                 DispatchQueue.global(qos: .userInteractive).async {
                     usleep(1500000)

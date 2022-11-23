@@ -4,7 +4,6 @@
 //
 //  Created by Isaac Marovitz on 07/08/2022.
 //
-
 import SwiftUI
 
 struct StoreAppView: View {
@@ -44,7 +43,9 @@ struct StoreAppView: View {
             })
 
             observation = downloadTask.progress.observe(\.fractionCompleted) { progress, _ in
-                downloadVM.progress = progress.fractionCompleted
+                DispatchQueue.main.async {
+                    downloadVM.progress = progress.fractionCompleted
+                }
             }
 
             downloadTask.resume()
@@ -61,30 +62,35 @@ struct StoreAppView: View {
             Log.shared.error(error!)
         }
         if let url = url {
+            var tmpDir: URL?
+
             do {
-                var tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
+                tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
                                                          in: .userDomainMask,
                                                          appropriateFor: URL(fileURLWithPath: "/Users"),
                                                          create: true)
-                tmpDir = tmpDir
-                    .appendingPathComponent(ProcessInfo().globallyUniqueString)
-                try FileManager.default.createDirectory(at: tmpDir,
-                                                        withIntermediateDirectories: true,
-                                                        attributes: nil)
-                tmpDir = tmpDir
-                    .appendingPathComponent(app.bundleID)
-                    .appendingPathExtension("ipa")
-                try FileManager.default.moveItem(at: url, to: tmpDir)
-                uif.ipaUrl = tmpDir
-                Installer.install(ipaUrl: uif.ipaUrl!, returnCompletion: { _ in
-                    DispatchQueue.main.async {
+
+                let tmpIpa = tmpDir!.appendingPathComponent(app.bundleID)
+                                    .appendingPathExtension("ipa")
+
+                try FileManager.default.moveItem(at: url, to: tmpIpa)
+                uif.ipaUrl = tmpIpa
+                DispatchQueue.main.async {
+                    Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
+                        FileManager.default.delete(at: tmpDir!)
+
+                        AppsVM.shared.apps = []
                         AppsVM.shared.fetchApps()
                         NotifyService.shared.notify(
                             NSLocalizedString("notification.appInstalled", comment: ""),
                             NSLocalizedString("notification.appInstalled.message", comment: ""))
-                    }
-                })
+                    })
+                }
             } catch {
+                if let tmpDir = tmpDir {
+                    FileManager.default.delete(at: tmpDir)
+                }
+
                 Log.shared.error(error)
             }
         }
@@ -99,9 +105,9 @@ struct StoreAppConditionalView: View {
     @Binding var selectedTextColor: Color
     @Binding var selected: StoreAppData?
 
+    @State var iconURL: URL?
     @State var app: StoreAppData
     @State var isList: Bool
-    @State var itunesData: ITunesResponse?
 
     @EnvironmentObject var downloadVM: DownloadVM
 
@@ -112,7 +118,7 @@ struct StoreAppConditionalView: View {
                     Image(systemName: "arrow.down.circle")
                         .padding(.leading, 15)
                     ZStack {
-                        AsyncImage(url: URL(string: itunesData?.results[0].artworkUrl512 ?? "")) { image in
+                        AsyncImage(url: iconURL) { image in
                             image
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
@@ -146,68 +152,49 @@ struct StoreAppConditionalView: View {
                         .brightness(-0.2)
                 )
             } else {
-                VStack(alignment: .center, spacing: 0) {
-                    VStack {
-                        ZStack {
-                            AsyncImage(url: URL(string: itunesData?.results[0].artworkUrl512 ?? "")) { image in
-                                    image
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                } placeholder: {
-                                    ProgressView()
-                                        .progressViewStyle(.circular)
-                                }
-                                .frame(width: 60, height: 60)
-                                .cornerRadius(15)
-                                .shadow(radius: 1)
-                            if downloadVM.downloading && downloadVM.storeAppData == app {
-                                VStack {
-                                    Spacer()
-                                    ProgressView(value: downloadVM.progress)
-                                        .padding(.horizontal, 5)
-                                }
-                                .frame(width: 60, height: 60)
+                VStack {
+                    ZStack {
+                        AsyncImage(url: iconURL) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            } placeholder: {
+                                ProgressView()
+                                    .progressViewStyle(.circular)
                             }
+                            .frame(width: 60, height: 60)
+                            .cornerRadius(15)
+                            .shadow(radius: 1)
+                        if downloadVM.downloading && downloadVM.storeAppData == app {
+                            VStack {
+                                Spacer()
+                                ProgressView(value: downloadVM.progress)
+                                    .padding(.horizontal, 5)
+                            }
+                            .frame(width: 60, height: 60)
                         }
-                        Text("\(Image(systemName: "arrow.down.circle"))  \(app.name)")
-                            .lineLimit(1)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 4)
-                            .padding(.vertical, 2)
-                            .foregroundColor(selected?.bundleID == app.bundleID ?
-                                             selectedTextColor : Color.primary)
-                            .background(
-                                RoundedRectangle(cornerRadius: 4)
-                                    .fill(selected?.bundleID == app.bundleID ?
-                                          selectedBackgroundColor : Color.clear)
-                                    .brightness(-0.2)
-                            )
-                            .frame(width: 130, height: 20)
                     }
+                    Text("\(Image(systemName: "arrow.down.circle"))  \(app.name)")
+                        .lineLimit(1)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 4)
+                        .padding(.vertical, 2)
+                        .foregroundColor(selected?.bundleID == app.bundleID ?
+                                         selectedTextColor : Color.primary)
+                        .background(
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(selected?.bundleID == app.bundleID ?
+                                      selectedBackgroundColor : Color.clear)
+                                .brightness(-0.2)
+                        )
+                        .frame(width: 130, height: 20)
                 }
                 .frame(width: 130, height: 130)
             }
         }
-        .task {
-            itunesData = await getITunesData(app.itunesLookup)
+        .task(priority: .userInitiated) {
+            iconURL = await ImageCache.getOnlineImageURL(bundleID: app.bundleID,
+                                                         itunesLookup: app.itunesLookup)
         }
-    }
-
-    func getITunesData(_ itunesLookup: String) async -> ITunesResponse? {
-        if !NetworkVM.isConnectedToNetwork() { return nil }
-        guard let url = URL(string: itunesLookup) else { return nil }
-
-        do {
-            let (data, _) = try await URLSession.shared.data(for: URLRequest(url: url))
-            let decoder = JSONDecoder()
-            let jsonResult: ITunesResponse = try decoder.decode(ITunesResponse.self, from: data)
-            if jsonResult.resultCount > 0 {
-                return jsonResult
-            }
-        } catch {
-            print("Error getting iTunes data from URL: \(itunesLookup): \(error)")
-        }
-
-        return nil
     }
 }

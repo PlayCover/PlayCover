@@ -14,7 +14,6 @@ struct PlayAppView: View {
     @State var isList: Bool
 
     @State private var showSettings = false
-    @State private var showDeleteConfirmation = false
     @State private var showClearCacheAlert = false
     @State private var showClearCacheToast = false
     @State private var showClearPreferencesAlert = false
@@ -33,7 +32,9 @@ struct PlayAppView: View {
                                app: app,
                                isList: isList)
             .gesture(TapGesture(count: 2).onEnded {
-                shell.removeTwitterSessionCookie()
+                if app.info.bundleIdentifier == "com.miHoYo.GenshinImpact" {
+                    removeTwitterSessionCookie()
+                }
                 app.launch()
             })
             .simultaneousGesture(TapGesture().onEnded {
@@ -107,7 +108,7 @@ struct PlayAppView: View {
                     Text("playapp.clearPreferences")
                 })
                 Button(action: {
-                    showDeleteConfirmation.toggle()
+                    Uninstaller.uninstallPopup(app)
                 }, label: {
                     Text("playapp.delete")
                 })
@@ -153,17 +154,25 @@ struct PlayAppView: View {
             .sheet(isPresented: $showSettings) {
                 AppSettingsView(viewModel: AppSettingsVM(app: app))
             }
-            .alert("playapp.delete", isPresented: $showDeleteConfirmation, actions: {
-                Button("playapp.deleteConfirm", role: .destructive) {
-                    app.deleteApp()
-                }
-                Button("button.Cancel", role: .cancel) {
-                    showDeleteConfirmation.toggle()
-                }
-                .keyboardShortcut(.defaultAction)
-            }, message: {
-                Text(String(format: NSLocalizedString("playapp.deleteMessage", comment: ""), arguments: [app.name]))
-            })
+    }
+
+    func removeTwitterSessionCookie() {
+        do {
+            let cookieURL = FileManager.default.homeDirectoryForCurrentUser
+                .appendingPathComponent("Library")
+                .appendingPathComponent("Containers")
+                .appendingPathComponent("com.miHoYo.GenshinImpact")
+                .appendingPathComponent("Data")
+                .appendingPathComponent("Library")
+                .appendingPathComponent("Cookies")
+                .appendingPathComponent("Cookies")
+                .appendingPathExtension("binarycookies")
+            if FileManager.default.fileExists(atPath: cookieURL.path) {
+                try FileManager.default.removeItem(at: cookieURL)
+            }
+        } catch {
+            print("Error when attempting to remove Twitter session cookie: \(error)")
+        }
     }
 }
 
@@ -173,72 +182,93 @@ struct PlayAppConditionalView: View {
     @Binding var selected: PlayApp?
 
     @State var app: PlayApp
+    @State var iconURL: URL?
     @State var isList: Bool
+    @State var hasPlayTools: Bool?
 
     var body: some View {
-        if isList {
-            HStack(alignment: .center, spacing: 0) {
-                if let img = app.icon {
-                    Image(nsImage: img)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 30)
-                        .cornerRadius(7.5)
-                        .shadow(radius: 1)
-                        .padding(.horizontal, 15)
-                        .padding(.vertical, 5)
-                } else {
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                        .frame(width: 60, height: 60)
-                }
-                Text(app.name)
-                    .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                                     selectedTextColor : Color.primary)
-                Spacer()
-                Text(app.settings.info.bundleVersion)
-                    .padding(.horizontal, 15)
-                    .foregroundColor(.secondary)
-            }
-            .contentShape(Rectangle())
-            .background(
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
-                        selectedBackgroundColor : Color.clear)
-                    .brightness(-0.2)
-                )
-        } else {
-            VStack(alignment: .center, spacing: 0) {
-                VStack {
-                    if let img = app.icon {
-                        Image(nsImage: img)
+        Group {
+            if isList {
+                HStack(alignment: .center, spacing: 0) {
+                    AsyncImage(url: iconURL) { image in
+                        image
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 60, height: 60)
-                            .cornerRadius(15)
+                            .frame(width: 30, height: 30)
+                            .cornerRadius(7.5)
                             .shadow(radius: 1)
-                    } else {
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 5)
+                    } placeholder: {
                         ProgressView()
                             .progressViewStyle(.circular)
                             .frame(width: 60, height: 60)
                     }
+
                     Text(app.name)
+                        .foregroundColor(selected?.url == app.url ?
+                                         selectedTextColor : Color.primary)
+                    if !(hasPlayTools ?? true) {
+                        Image(systemName: "exclamationmark.triangle")
+                            .padding(.leading, 15)
+                            .help("settings.noPlayTools")
+                    }
+                    Spacer()
+                    Text(app.settings.info.bundleVersion)
+                        .padding(.horizontal, 15)
+                        .foregroundColor(.secondary)
+                }
+                .contentShape(Rectangle())
+                .background(
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(selected?.url == app.url ?
+                            selectedBackgroundColor : Color.clear)
+                        .brightness(-0.2)
+                    )
+            } else {
+                VStack {
+                    AsyncImage(url: iconURL) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .cornerRadius(15)
+                            .shadow(radius: 1)
+                    } placeholder: {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                    }
+                    .frame(width: 60, height: 60)
+
+                    let noPlayToolsWarning = Text(
+                        (hasPlayTools ?? true) ? "" : "\(Image(systemName: "exclamationmark.triangle"))  "
+                    )
+
+                    Text("\(noPlayToolsWarning)\(app.name)")
                         .lineLimit(1)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 4)
                         .padding(.vertical, 2)
-                        .foregroundColor(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                        .foregroundColor(selected?.url == app.url ?
                                          selectedTextColor : Color.primary)
                         .background(
                             RoundedRectangle(cornerRadius: 4)
-                                .fill(selected?.info.bundleIdentifier == app.info.bundleIdentifier ?
+                                .fill(selected?.url == app.url ?
                                       selectedBackgroundColor : Color.clear)
                                 .brightness(-0.2)
                             )
+                        .help("settings.noPlayTools")
                         .frame(width: 130, height: 20)
                 }
+                .frame(width: 130, height: 130)
             }
-            .frame(width: 130, height: 130)
+        }
+        .task(priority: .userInitiated) {
+            iconURL = ImageCache.getLocalImageURL(bundleID: app.info.bundleIdentifier,
+                                                  bundleURL: app.url,
+                                                  primaryIconName: app.info.primaryIconName)
+        }
+        .task(priority: .background) {
+            hasPlayTools = app.hasPlayTools()
         }
     }
 }

@@ -21,33 +21,30 @@ struct AppLibraryView: View {
     @State private var showWrongfileTypeAlert = false
 
     var body: some View {
-        VStack(alignment: .leading) {
-            ScrollView {
-                if !isList {
-                    LazyVGrid(columns: gridLayout, alignment: .center) {
-                        ForEach(appsVM.apps, id: \.url) { app in
-                            PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                        selectedTextColor: $selectedTextColor,
-                                        selected: $selected,
-                                        app: app,
-                                        isList: isList)
-                        }
+        ScrollView {
+            if !isList {
+                LazyVGrid(columns: gridLayout, alignment: .center) {
+                    ForEach(appsVM.apps, id: \.url) { app in
+                        PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                    selectedTextColor: $selectedTextColor,
+                                    selected: $selected,
+                                    app: app,
+                                    isList: isList)
                     }
-                    .padding()
-                    Spacer()
-                } else {
-                    VStack {
-                        ForEach(appsVM.apps, id: \.url) { app in
-                            PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                        selectedTextColor: $selectedTextColor,
-                                        selected: $selected,
-                                        app: app,
-                                        isList: isList)
-                        }
-                        Spacer()
-                    }
-                    .padding()
                 }
+                .padding()
+            } else {
+                VStack {
+                    ForEach(appsVM.apps, id: \.url) { app in
+                        PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                    selectedTextColor: $selectedTextColor,
+                                    selected: $selected,
+                                    app: app,
+                                    isList: isList)
+                    }
+                    Spacer()
+                }
+                .padding()
             }
         }
         .onTapGesture {
@@ -156,8 +153,9 @@ struct AppLibraryView: View {
     }
 
     private func installApp() {
-        Installer.install(ipaUrl: uif.ipaUrl!, returnCompletion: { _ in
+        Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
             DispatchQueue.main.async {
+                appsVM.apps = []
                 appsVM.fetchApps()
                 NotifyService.shared.notify(
                     NSLocalizedString("notification.appInstalled", comment: ""),

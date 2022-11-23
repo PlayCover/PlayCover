@@ -73,7 +73,7 @@
 "settings.text.customHeight" = "ارتفاع";
 
 /* (No Comment) */
-"preferences.button.checkForUpdates" = "همین حالا وضعیت به‌روزی را بررسی کن...";
+"preferences.button.checkForUpdates" = "همین حالا وضعیت به‌روزی را بررسی کن";
 
 /* (No Comment) */
 "preferences.tab.updates" = "به‌روزرسانی‌ها";
@@ -102,7 +102,7 @@
 "settings.tab.info" = "درباره برنامه";
 "settings.tab.km" = "Keymapping";
 "settings.toggle.km.help" = "پشتیبانی از صفحه کلید را به بازی‌های لمسی اضافه می‌کند. از کلید‌های ترکیبی Command + K برای باز کردن ویرایشگر آن استفاده کنید.";
-"settings.toggle.mm" = "نشان‌گر ماوس آزاد";
+"settings.toggle.mm" = "مقید کردن ماوس به Keymap";
 "settings.toggle.mm.help" = "حرکات لمسی را به واسطه نشان‌گر ماوس شبیه‌سازی می‌کند. از کلید‌های ترکیبی Command + K برای باز کردن ویرایشگر آن استفاده کنید.";
 "settings.tab.graphics" = "تصویرگر";
 "settings.picker.adaptiveRes" = "وضوح:";
@@ -145,3 +145,45 @@
 "playapp.add" = "نصب برنامه";
 "alert.wrongFileType.title" = "پرونده از نوع درستی نیست!";
 "alert.wrongFileType.subtitle" = "PlayCover تنها می‌تواند پرونده‌های IPA معتبر را نصب کند.";
+"playapp.addSource" = "افزودن مخزن";
+"ipaLibrary.noSources.title" = "مخزنی یافت نشد";
+"ipaLibrary.noSources.subtitle" = "تاکنون مخزنی برای پرونده‌های IPA اضافه نکرده‌اید. با کلیک برروی دکمه زیر می‌توانید این کار را انجام دهید.";
+"ipaLibrary.noSources.button" = "افزودن مخزن";
+"ipaLibrary.noNetworkConnection.toast" = "اتصال به اینترنت ممکن نیست!";
+"preferences.tab.ipasource" = "مخزن‌های IPA";
+"preferences.button.addSource" = "افزودن مخزن";
+"preferences.button.deleteSource" = "حذف مخزن";
+"preferences.button.moveSourceUp" = "جابجایی مخزن به بالا";
+"preferences.button.moveSourceDown" = "جابجایی مخزن به پایین";
+"preferences.popover.valid" = "پیوند معتبر است";
+"preferences.popover.badurl" = "پیوند معتبر نیست!";
+"preferences.popover.badjson" = "پرونده JSON اعتبار نداشته و یا یافت نشد!";
+"preferences.textfield.url" = "پیوند مخزن را وارد کنید...";
+"playapp.download" = "در حال بارگیری...";
+"error.waitDownload" = "لطفاً پس از پایان یافتن روند بارگیری در حال انجام، تلاش کنید!";
+"preferences.tab.uninstall" = "گزینه‌های حذف برنامه";
+"playapp.install.failed" = "موفقیت‌آمیز نبود";
+"preferences.whenUninstalling" = "در زمان حذف:";
+"preferences.toggle.showUninstall" = "پاپ‌آپ تأیید حذف را نمایش بده";
+"preferences.toggle.clearAppData" = "داده‌های برنامه را پاک کن";
+"preferences.toggle.removeKeymap" = "پرونده‌های Keymap را پاک کن";
+"preferences.toggle.removeSetting" = "پیکربندی‌های برنامه را پاک کن";
+"preferences.toggle.removeEntitlements" = "دسترسی‌سازهای برنامه را لغو کن";
+"preferences.button.pruneFiles" = "پرونده‌های بلااستفاده را پاک کن";
+"preferences.prune.alert" = "از پاک کردن پرونده‌های بلااستفاده مطمئن هستید؟";
+"preferences.prune.message" = "با این کار تمامی پیکربندی‌ها، Keymapها، دسترسی‌سازها و داده‌های برنامه‌هایی که در گذشته حذف شده‌اند و در PlayCover بلااستفاده باقی‌مانده‌اند، پاک خواهد شد";
+"alert.supression" = "این مورد را می‌توانید در پیکربندی PlayCover تغییر دهید";
+"menubar.clearCache" = "تصاویر Cacheشده را پاک کن";
+"settings.removePlayTools" = "حذف PlayTools از برنامه";
+"settings.info.playTools" = "PlayTools نصب است:";
+"preferences.tab.install" = "گزینه‌های نصب برنامه";
+"preferences.toggle.showInstallPopup" = "در زمان نصب برنامه‌ها درباره نصب PlayTools از من بپرس";
+"preferences.toggle.alwaysInstallPlayTools" = "همیشه PlayTools را نصب کن";
+"alert.install.injectPlayTools" = "نصب PlayTools در برنامه";
+"button.Yes" = "بله";
+"button.No" = "خیر";
+"settings.noPlayTools" = "PlayTools در این برنامه نصب نیست";
+"playapp.refreshSources" = "تازه‌سازی مخزن‌ها";
+"error.appMaliciousProhibited" = "از این برنامه در مک، رفتارهای مخربانه دیده شده است؛ استفاده از آن ممکن است سیستم عامل دستگاه شما را از بین ببرد، به همین خاطر استفاده از آن در PlayCover ممنوع شده است. (در حال حذف برنامه...)";
+"alert.install.injectPlayToolsQuestion" = "آیا می‌خواهید PlayTools را در این برنامه نصب کنید؟";
+"alert.install.playToolsInformative" = "افزونه PlayTools به شما کمک می‌کند که از صفحه کلید برای کنترل برنامه استفاده کنید، رزولوشن آن راتغییر دهید و مواردی دیگر، اما ممکن است لازم باشد برای برخی برنامه‌ها آن را نصب نکنید";

@@ -11,8 +11,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let url = urls.first {
             if url.pathExtension == "ipa" {
                 uif.ipaUrl = url
-                Installer.install(ipaUrl: uif.ipaUrl!, returnCompletion: { _ in
+                Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
                     DispatchQueue.main.async {
+                        AppsVM.shared.apps = []
                         AppsVM.shared.fetchApps()
                         NotifyService.shared.notify(
                             NSLocalizedString("notification.appInstalled", comment: ""),
@@ -29,6 +30,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		)
     }
 
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return true
+    }
 }
 
 @main

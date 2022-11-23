@@ -107,10 +107,10 @@
 "playapp.install.createWrapper" = "앱 컨테이너 만드는중...";
 
 /* (No Comment) */
-"playapp.install.finished" = "완료";
+"playapp.install.finished" = "완료됨";
 
 /* (No Comment) */
-"playapp.install.installPlayTools" = "PlayTools 설치중...";
+"playapp.install.installPlayTools" = "PlayTools 설치 중...";
 
 /* (No Comment) */
 "playapp.install.signing" = "앱 코드 서명중...";
@@ -122,7 +122,7 @@
 "playapp.openCache" = "앱 데이터 열기";
 
 /* (No Comment) */
-"playapp.settings" = "환경설정";
+"playapp.settings" = "설정";
 
 /* (No Comment) */
 "playapp.showInFinder" = "Finder에서 열기";
@@ -131,7 +131,7 @@
 "playapp.storeCurrentAccount" = "계정 보관하기";
 
 /* (No Comment) */
-"preferences.button.checkForUpdates" = "지금 업데이트 확인...";
+"preferences.button.checkForUpdates" = "업데이트 확인";
 
 /* (No Comment) */
 "preferences.tab.updates" = "업데이트";
@@ -140,7 +140,7 @@
 "preferences.toggle.automaticUpdates" = "자동으로 업데이트 확인";
 
 /* (No Comment) */
-"settings.button.discord" = "Discord 활동 상태 사용자화";
+"settings.button.discord" = "사용자 지정 디스코드 활동 상태";
 
 /* (No Comment) */
 "settings.button.clearActivity" = "사용자 지정 활동 상태 초기화";
@@ -182,7 +182,7 @@
 "settings.toggle.disableDisplaySleep" = "화면 잠자기 비활성화";
 
 /* (No Comment) */
-"settings.toggle.discord" = "Discord 활동 상태 활성화";
+"settings.toggle.discord" = "디스코드 활동 상태 활성화";
 
 /* (No Comment) */
 "settings.toggle.jbBypass" = "탈옥 우회 활성화 (Alpha)";
@@ -206,7 +206,7 @@
 "storeAccount.deleteAcc" = "계정 삭제하기";
 
 /* (No Comment) */
-"storeAccount.nameOfAcc" = "계정 이름";
+"storeAccount.nameOfAcc" = "사용자의 계정 이름";
 
 /* (No Comment) */
 "storeAccount.nameOfAcc.textfieldPlaceholder" = "계정 이름...";
@@ -215,7 +215,7 @@
 "storeAccount.selectAcc" = "계정을 선택하세요";
 
 /* (No Comment) */
-"storeAccount.selectAccRegion" = "계정 지역 선택";
+"storeAccount.selectAccRegion" = "계정 지역 선택하기";
 
 /* (No Comment) */
 "storeAccount.selectAccRegion.asia" = "아시아";
@@ -249,15 +249,15 @@
 
 /* (No Comment) */
 "xcode.install.success" = "명령어 라인 개발자 도구(Xcode Command Line Tools)가 성공적으로 설치되었습니다";
-"settings.title" = "설정";
+"settings.title" = "%@ 설정";
 "playapp.exportKmPanel.fieldLabel" = "PlayMap 이름:";
 "sidebar.appLibrary" = "앱 보관함";
 "sidebar.ipaLibrary" = "IPA 보관함";
 "storeAccount.alert.restoreAccount" = "정말로 계정을 복구하시겠습니까?";
-"storeAccount.alert.restoreAccount.button" = "계정 복구";
+"storeAccount.alert.restoreAccount.button" = "계정 복구하기";
 "storeAccount.alert.restoreAccount.msg" = "현재 로그인한 계정을 덮어씁니다.";
 "storeAccount.alert.deleteAccount" = "정말로 계정을 삭제하시겠습니까?";
-"storeAccount.alert.deleteAccount.button" = "계정 삭제";
+"storeAccount.alert.deleteAccount.button" = "계정 삭제하기";
 "alert.moveAppToApplications.title" = "응용 프로그램 폴더로 이동할까요?";
 "alert.moveAppToApplications.subtitle" = "PlayCover는 올바르게 실행되려면 반드시 응용 프로그램 폴더에 있어야 합니다. PlayCover를 자동으로 이동하려면 아래 버튼을 누르세요.";
 "button.Quit" = "종료";
@@ -271,26 +271,26 @@
 "settings.toggle.mm" = "마우스 맵핑";
 "settings.toggle.mm.help" = "터치 컨트롤을 모방하는 마우스 제어를 추가합니다. Command + K 키로 에디터 창을 열 수 있습니다.";
 "settings.tab.graphics" = "그래픽";
-"settings.picker.adaptiveRes" = "적응형 해상도:";
+"settings.picker.adaptiveRes" = "해상도:";
 "settings.picker.adaptiveRes.help" = "앱 화면 해상도를 변경합니다";
 "settings.picker.adaptiveRes.0" = "앱 기본값";
-"settings.picker.adaptiveRes.1" = "자동(디스플레이 기반)";
+"settings.picker.adaptiveRes.1" = "자동 (디스플레이 기반)";
 "settings.picker.adaptiveRes.5" = "사용자화";
-"settings.picker.aspectRatio" = "화면비:";
+"settings.picker.aspectRatio" = "가로세로 비율:";
 "settings.toggle.disableDisplaySleep.help" = "이 앱이 작동하는 중에 화면이 꺼지는 것을 방지합니다";
 "settings.tab.jbBypass" = "탈옥 우회";
-"settings.toggle.jbBypass.help" = "일부 게임에서의 탈옥 감지를 우회하려고 시도합니다. (항상 작동이 보장되지는 않음)";
+"settings.toggle.jbBypass.help" = "일부 게임에서의 탈옥 감지를 우회하려고 시도합니다 (항상 작동이 보장되지는 않습니다)";
 "settings.info.bundleName" = "번들 이름:";
-"settings.info.bundleIdentifier" = "번들 ID:";
+"settings.info.bundleIdentifier" = "번들 식별자:";
 "settings.info.executableName" = "실행 파일 이름:";
 "settings.info.minimumOSVersion" = "최소지원 OS 버전:";
-"settings.info.url" = "info.plist 경로:";
+"settings.info.url" = "경로:";
 "settings.resetSettings" = "설정 초기화";
 "settings.resetKm" = "키매핑 초기화";
 "settings.resetSettingsCompleted" = "설정을 기본값으로 되돌렸습니다!";
 "settings.resetKmCompleted" = "키매핑이 재설정되었습니다!";
-"xcode.install.failed.altInstructions" = "다른 설치 방법을 알어보려면 아래 버튼을 선택하세요";
-"xcode.install.failed.altButton" = "다른 설치 방법";
+"xcode.install.failed.altInstructions" = "대체 설치 지침을 보려면 아래 버튼를 클릭하세요";
+"xcode.install.failed.altButton" = "대체 지침";
 "settings.tab.misc" = "기타";
 "settings.toggle.hud" = "Metal HUD 활성화";
 "settings.info.bundleVersion" = "번들 버전:";
@@ -299,8 +299,50 @@
 "alert.legacyImport.title" = "레거시 앱 설정이 감지되었습니다!";
 "alert.legacyImport.subtitle" = "이전 버전의 설정과 키맵 파일이 존재합니다. 새로운 버전의 포맷으로 변환하시겠습니까?";
 "button.Convert" = "변환";
-"settings.info.displayName" = "디스플레이 이름:";
+"settings.info.displayName" = "보이는 제목:";
 "settings.text.detectedResolution" = "감지된 해상도:";
-"playapp.add" = "앱 추가";
+"playapp.add" = "앱 추가하기";
 "alert.wrongFileType.title" = "잘못된 파일 형식입니다!";
 "alert.wrongFileType.subtitle" = "PlayCover는 유효한 .ipa 파일만 설치할 수 있습니다.";
+"ipaLibrary.noSources.title" = "IPA 소스들이 추가되지 않았습니다";
+"ipaLibrary.noSources.button" = "소스 추가하기";
+"playapp.addSource" = "소스 추가하기";
+"ipaLibrary.noSources.subtitle" = "현재 어떠한 IPA 소스도 추가되지 않았습니다. 다음 버튼을 클릭하고 하나를 추가하세요.";
+"ipaLibrary.noNetworkConnection.toast" = "인터넷에 연결되지 않았습니다!";
+"preferences.tab.ipasource" = "IPA 소스";
+"preferences.button.addSource" = "소스 추가하기";
+"preferences.button.deleteSource" = "소스 삭제하기";
+"preferences.button.moveSourceUp" = "소스를 위로 올리기";
+"preferences.button.moveSourceDown" = "소스를 아래로 내리기";
+"preferences.popover.valid" = "유효한 링크";
+"preferences.popover.badurl" = "URL이 유효하지 않습니다!";
+"preferences.popover.badjson" = "JSON이 유효하지 않거나 찾을 수 없습니다!";
+"preferences.textfield.url" = "소스 URL...";
+"playapp.download" = "다운로드 중...";
+"error.waitDownload" = "현재 다운로드가 끝날 때까지 기다려 주세요!";
+"playapp.install.failed" = "실패함";
+"alert.supression" = "PlayCover 환경설정에서 변경할 수 있습니다";
+"preferences.toggle.clearAppData" = "데이터 초기화";
+"preferences.tab.uninstall" = "제거";
+"preferences.whenUninstalling" = "제거 할 때:";
+"preferences.toggle.showUninstall" = "경고 팝업 보기";
+"preferences.toggle.removeKeymap" = "키맵 제거하기";
+"preferences.toggle.removeSetting" = "설정 제거하기";
+"preferences.toggle.removeEntitlements" = "권한 제거하기";
+"preferences.button.pruneFiles" = "파일 정리";
+"preferences.prune.alert" = "모든 파일을 정리하시겠습니까?";
+"preferences.prune.message" = "이는 설정, 키매핑, 권한, 앱데이터를 포함한 모든 불필요한 것들을 제거합니다";
+"menubar.clearCache" = "이미지 캐시 제거";
+"preferences.tab.install" = "설치";
+"preferences.toggle.showInstallPopup" = "PlayTools 설치 팝업 보기";
+"preferences.toggle.alwaysInstallPlayTools" = "항상 PlayTools 설치";
+"alert.install.injectPlayTools" = "PlayTools 주입";
+"button.Yes" = "예";
+"button.No" = "아니오";
+"settings.noPlayTools" = "이 앱에는 PlayTools 가 설치되지 않았습니다";
+"settings.removePlayTools" = "PlayTools 제거";
+"settings.info.playTools" = "PlayTools 설치 여부:";
+"playapp.refreshSources" = "소스 새로 고침";
+"error.appMaliciousProhibited" = "This App behaves maliciously on Macs, and using it can leave your device in an unbootable state, therefore it is blocked from PlayCover. (Uninstalling...)";
+"alert.install.injectPlayToolsQuestion" = "Do you want to inject PlayTools into this application?";
+"alert.install.playToolsInformative" = "PlayTools is a tool that allows you to bind keys to screen touches, custom display resolutions, and more, but it may break certain apps";
