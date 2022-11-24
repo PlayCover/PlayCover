@@ -50,9 +50,12 @@ class Installer {
         InstallVM.shared.next(.begin, 0.0, 0.0)
 
         DispatchQueue.global(qos: .userInitiated).async {
+            let ipa = IPA(url: ipaUrl)
+
             do {
-                let ipa = IPA(url: ipaUrl)
                 InstallVM.shared.next(.unzip, 0.0, 0.5)
+                try ipa.allocateTempDir()
+
                 let app = try ipa.unzip()
                 InstallVM.shared.next(.library, 0.5, 0.55)
                 try saveEntitlements(app)
@@ -105,11 +108,14 @@ class Installer {
                     installedApp.sign()
                 }
 
-                try ipa.releaseTempDir()
+                ipa.releaseTempDir()
                 InstallVM.shared.next(.finish, 0.95, 1.0)
                 returnCompletion(finalURL)
             } catch {
                 Log.shared.error(error)
+
+                ipa.releaseTempDir()
+
                 InstallVM.shared.next(.failed, 0.95, 1.0)
                 returnCompletion(nil)
             }

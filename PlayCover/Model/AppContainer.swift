@@ -25,11 +25,7 @@ struct AppContainer {
     }()
 
     public func clear() {
-        do {
-            try FileManager.default.delete(at: containerUrl)
-        } catch {
-            Log.shared.error(error)
-        }
+        FileManager.default.delete(at: containerUrl)
     }
 
     public static func containers() throws -> [String: AppContainer] {

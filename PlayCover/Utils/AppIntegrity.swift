@@ -15,12 +15,10 @@ class AppIntegrity: ObservableObject {
 
     func moveToApps() {
         do {
-            if FileManager.default.fileExists(atPath: AppIntegrity.expectedUrl.path) {
-                try FileManager.default.delete(at: AppIntegrity.expectedUrl)
-            }
+            FileManager.default.delete(at: AppIntegrity.expectedUrl)
             try FileManager.default.copyItem(at: AppIntegrity.appUrl!, to: AppIntegrity.expectedUrl)
             URL(fileURLWithPath: AppIntegrity.expectedUrl.path).openInFinder()
-            try FileManager.default.delete(at: AppIntegrity.appUrl!)
+            FileManager.default.delete(at: AppIntegrity.appUrl!)
             exit(0)
         } catch {
             Log.shared.error(error)

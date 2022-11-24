@@ -56,9 +56,7 @@ class PlayTools {
                 }
 
                 // Check if a version of PlayTools is already installed, if so remove it
-                if FileManager.default.fileExists(atPath: playToolsFramework.path) {
-                    try FileManager.default.delete(at: URL(fileURLWithPath: playToolsFramework.path))
-                }
+                FileManager.default.delete(at: URL(fileURLWithPath: playToolsFramework.path))
 
                 // Install version of PlayTools bundled with PlayCover
                 Log.shared.log("Copying PlayTools to Frameworks")
