@@ -25,7 +25,7 @@
     <br />
     <a href="https://playcover.github.io/PlayBook">Documentation</a>
     ·
-    <a href="https://discord.gg/rMv5qxGTGC">Discord</a>
+    <a href="https://discord.com/invite/PlayCover">Discord</a>
     ·
     <a href="https://playcover.io/">Website</a>
   </p>
