@@ -6,7 +6,6 @@
 import SwiftUI
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-
     func application(_ application: NSApplication, open urls: [URL]) {
         if let url = urls.first {
             if url.pathExtension == "ipa" {
@@ -25,13 +24,37 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-		UserDefaults.standard.register(
-			defaults: ["NSApplicationCrashOnExceptions": true]
-		)
+        UserDefaults.standard.register(
+            defaults: ["NSApplicationCrashOnExceptions": true]
+        )
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(powerStateChanged),
+                                               name: Notification.Name.NSProcessInfoPowerStateDidChange,
+                                               object: nil)
+        if ProcessInfo.processInfo.isLowPowerModeEnabled {
+            powerModal()
+        }
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return true
+    }
+
+    @objc func powerStateChanged(_ notification: Notification) {
+        if ProcessInfo.processInfo.isLowPowerModeEnabled {
+            DispatchQueue.main.async {
+                self.powerModal()
+            }
+        }
+    }
+
+    func powerModal() {
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("alert.power.title", comment: "")
+        alert.informativeText = NSLocalizedString("alert.power.subtitle", comment: "")
+        alert.addButton(withTitle: NSLocalizedString("button.OK", comment: ""))
+        alert.alertStyle = .critical
+        alert.runModal()
     }
 }
 

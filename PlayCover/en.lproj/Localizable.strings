@@ -97,6 +97,8 @@
 "alert.install.injectPlayToolsQuestion" = "Do you want to inject PlayTools into this application?";
 "alert.install.playToolsInformative" = "PlayTools is a tool that allows you to bind keys to screen touches, custom display resolutions, and more, but it may break certain apps";
 "alert.supression" = "You can change this in the PlayCover preferences";
+"alert.power.title" = "Low Power Mode Enabled!";
+"alert.power.subtitle" = "Some apps will not work with Low Power Mode enabled. It is recommended to disable it.";
 
 "button.OK" = "OK";
 "button.Proceed" = "Proceed";
