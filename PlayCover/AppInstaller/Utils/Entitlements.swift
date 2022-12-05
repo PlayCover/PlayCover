@@ -225,7 +225,7 @@ class Entitlements {
         """
 }
 
-public func == <K, L: Hashable, R: Hashable>(lhs: [K: L], rhs: [K: R]) -> Bool {
+public func ==<K, L: Hashable, R: Hashable>(lhs: [K: L], rhs: [K: R]) -> Bool {
     (lhs as NSDictionary).isEqual(to: rhs)
 }
 
