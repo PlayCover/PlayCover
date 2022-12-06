@@ -19,6 +19,18 @@ struct ButtonModel: Codable {
     var keyCode: Int
     var keyName: String
     var transform: KeyModelTransform
+
+    init(keyCode: Int, transform: KeyModelTransform) {
+        self.keyCode = keyCode
+        self.keyName = KeyCodeNames.keyCodes[keyCode] ?? "Btn"
+        self.transform = transform
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.init(keyCode: try container.decode(Int.self, forKey: .keyCode),
+                  transform: try container.decode(KeyModelTransform.self, forKey: .transform))
+    }
 }
 
 struct JoystickModel: Codable {
@@ -26,13 +38,41 @@ struct JoystickModel: Codable {
     var rightKeyCode: Int
     var downKeyCode: Int
     var leftKeyCode: Int
-    var keyName: String = "Keyboard"
+    var keyName: String
     var transform: KeyModelTransform
+
+    init(upKeyCode: Int, rightKeyCode: Int, downKeyCode: Int, leftKeyCode: Int, transform: KeyModelTransform) {
+        self.upKeyCode = upKeyCode
+        self.rightKeyCode = rightKeyCode
+        self.downKeyCode = downKeyCode
+        self.leftKeyCode = leftKeyCode
+        self.keyName = "Keyboard"
+        self.transform = transform
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.init(upKeyCode: try container.decode(Int.self, forKey: .upKeyCode),
+                  rightKeyCode: try container.decode(Int.self, forKey: .rightKeyCode),
+                  downKeyCode: try container.decode(Int.self, forKey: .downKeyCode),
+                  leftKeyCode: try container.decode(Int.self, forKey: .leftKeyCode),
+                  transform: try container.decode(KeyModelTransform.self, forKey: .transform))
+    }
 }
 
 struct MouseAreaModel: Codable {
     var keyName: String
     var transform: KeyModelTransform
+
+    init(transform: KeyModelTransform) {
+        self.keyName = "Mouse"
+        self.transform = transform
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.init(transform: try container.decode(KeyModelTransform.self, forKey: .transform))
+    }
 }
 
 struct Keymap: Codable {
