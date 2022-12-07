@@ -15,6 +15,9 @@ struct StoreAppView: View {
     @State var isList: Bool
     @State var observation: NSKeyValueObservation?
 
+    @State var warningSymbol: String?
+    @State var warningMessage: String?
+
     @EnvironmentObject var downloadVM: DownloadVM
 
     var body: some View {
@@ -22,7 +25,9 @@ struct StoreAppView: View {
                                 selectedTextColor: $selectedTextColor,
                                 selected: $selected,
                                 app: app,
-                                isList: isList)
+                                isList: isList,
+                                warningSymbol: $warningSymbol,
+                                warningMessage: $warningMessage)
         .gesture(TapGesture(count: 2).onEnded {
             if let url = URL(string: app.link) {
                 downloadApp(url, app)
@@ -32,9 +37,42 @@ struct StoreAppView: View {
             selected = app
         })
         .environmentObject(downloadVM)
+        .task(priority: .background) {
+            if let sourceApp = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == app.bundleID }) {
+                switch app.version.compare(sourceApp.info.bundleVersion, options: .numeric) {
+                case .orderedAscending:
+                    warningSymbol = "checkmark.circle.badge.xmark"
+                    warningMessage = "ipaLibrary.version.older"
+                case .orderedSame:
+                    warningSymbol = "checkmark.circle"
+                    warningMessage = "ipaLibrary.version.same"
+                case .orderedDescending:
+                    warningSymbol = "checkmark.circle.trianglebadge.exclamationmark"
+                    warningMessage = "ipaLibrary.version.newer"
+                default:
+                    warningSymbol = "arrow.down.circle"
+                    warningMessage = "ipaLibrary.download"
+                }
+            }
+        }
     }
 
     func downloadApp(_ url: URL, _ app: StoreAppData) {
+        if let warningMessage = warningMessage {
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString(warningMessage, comment: "")
+            alert.informativeText = String(format: NSLocalizedString("ipaLibrary.alert.download",
+                                                                     comment: ""),
+                                           arguments: [app.name])
+            alert.alertStyle = .warning
+            alert.addButton(withTitle: NSLocalizedString("button.Yes", comment: ""))
+            alert.addButton(withTitle: NSLocalizedString("button.No", comment: ""))
+
+            if alert.runModal() == .alertSecondButtonReturn {
+                return
+            }
+        }
+
         if !downloadVM.downloading && !InstallVM.shared.installing {
             lazy var urlSession = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
             let downloadTask = urlSession.downloadTask(with: url, completionHandler: { url, urlResponse, error in
@@ -66,9 +104,9 @@ struct StoreAppView: View {
 
             do {
                 tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
-                                                         in: .userDomainMask,
-                                                         appropriateFor: URL(fileURLWithPath: "/Users"),
-                                                         create: true)
+                                                     in: .userDomainMask,
+                                                     appropriateFor: URL(fileURLWithPath: "/Users"),
+                                                     create: true)
 
                 let tmpIpa = tmpDir!.appendingPathComponent(app.bundleID)
                                     .appendingPathExtension("ipa")
@@ -81,6 +119,7 @@ struct StoreAppView: View {
 
                         AppsVM.shared.apps = []
                         AppsVM.shared.fetchApps()
+                        StoreVM.shared.resolveSources()
                         NotifyService.shared.notify(
                             NSLocalizedString("notification.appInstalled", comment: ""),
                             NSLocalizedString("notification.appInstalled.message", comment: ""))
@@ -109,13 +148,17 @@ struct StoreAppConditionalView: View {
     @State var app: StoreAppData
     @State var isList: Bool
 
+    @Binding var warningSymbol: String?
+    @Binding var warningMessage: String?
+
     @EnvironmentObject var downloadVM: DownloadVM
 
     var body: some View {
         Group {
             if isList {
                 HStack(alignment: .center, spacing: 0) {
-                    Image(systemName: "arrow.down.circle")
+                    Image(systemName: warningSymbol ?? "arrow.down.circle")
+                        .help(NSLocalizedString(warningMessage ?? "ipaLibrary.download", comment: ""))
                         .padding(.leading, 15)
                     ZStack {
                         AsyncImage(url: iconURL) { image in
@@ -174,7 +217,7 @@ struct StoreAppConditionalView: View {
                             .frame(width: 60, height: 60)
                         }
                     }
-                    Text("\(Image(systemName: "arrow.down.circle"))  \(app.name)")
+                    Text("\(Image(systemName: warningSymbol ?? "arrow.down.circle"))  \(app.name)")
                         .lineLimit(1)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 4)
@@ -187,6 +230,7 @@ struct StoreAppConditionalView: View {
                                       selectedBackgroundColor : Color.clear)
                                 .brightness(-0.2)
                         )
+                        .help(NSLocalizedString(warningMessage ?? "ipaLibrary.download", comment: ""))
                         .frame(width: 130, height: 20)
                 }
                 .frame(width: 130, height: 130)
