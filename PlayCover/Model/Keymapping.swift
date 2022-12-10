@@ -157,8 +157,12 @@ class Keymapping {
                             self.keymap = importedKeymap
                             success(true)
                         } else {
-                            Log.shared.error("Keymapping created for different app!")
-                            success(false)
+                            if self.differentBundleIdKeymapAlert() {
+                                self.keymap = importedKeymap
+                                success(true)
+                            } else {
+                                success(false)
+                            }
                         }
                     }
                 } catch {
@@ -166,12 +170,14 @@ class Keymapping {
                         if let keymap = LegacySettings.convertLegacyKeymapFile(selectedPath) {
                             if keymap.bundleIdentifier == self.keymap.bundleIdentifier {
                                 self.keymap = keymap
-                                success(true)
-                            } else {
-                                Log.shared.error("Keymapping created for different app! " +
-                                                 "Legacy keymap files must be named after " +
-                                                 "the Bundle ID of the intended application!")
                                 success(false)
+                            } else {
+                                if self.differentBundleIdKeymapAlert() {
+                                    self.keymap = keymap
+                                    success(true)
+                                } else {
+                                    success(false)
+                                }
                             }
                         } else {
                             success(false)
@@ -208,6 +214,25 @@ class Keymapping {
                 }
                 savePanel.close()
             }
+        }
+    }
+
+    private func differentBundleIdKeymapAlert() -> Bool {
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("alert.differentBundleIdKeymap.message", comment: "")
+        alert.informativeText = NSLocalizedString("alert.differentBundleIdKeymap.text", comment: "")
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: NSLocalizedString("button.Proceed", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
+
+        let result = alert.runModal()
+        switch result {
+        case .alertFirstButtonReturn:
+            return true
+        case .alertSecondButtonReturn:
+            return false
+        default:
+            return false
         }
     }
 }
