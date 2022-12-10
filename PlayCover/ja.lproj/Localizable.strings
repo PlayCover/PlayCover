@@ -20,13 +20,13 @@
 "alert.moveAppToApplications.move" = "/Applicationsに移動";
 
 /* (No Comment) */
-"alert.restart" = "PlayCoverを再起動してください";
+"alert.restart" = "PlayCoverを再起動してください。";
 
 /* (No Comment) */
 "alert.storeAccount.regionIsNotValid" = "現在のアカウントは他の地域に設定されています。ゲームを起動して、地域を変更してから、ゲートを通過して保存してください。その後、再度試してください";
 
 /* (No Comment) */
-"alert.success" = "完了しました！";
+"alert.success" = "完了しました";
 
 /* (No Comment) */
 "button.Cancel" = "キャンセル";
@@ -50,7 +50,7 @@
 "error.waitInstallation" = "今のインストールを完了するまでお待ちください！";
 
 /* (No Comment) */
-"menubar.checkForUpdates" = "更新を確認する";
+"menubar.checkForUpdates" = "更新を確認する…";
 
 /* (No Comment) */
 "menubar.discord" = "Discord";
@@ -239,16 +239,16 @@
 "xcode.install.failed" = "Xcodeコマンドラインツールのインストールに失敗しました";
 
 /* (No Comment) */
-"xcode.install.message" = "XcodeコマンドラインツールをインストールしてPlayCoverを再起動してください。";
+"xcode.install.message" = "XcodeコマンドラインツールをインストールしてPlayCoverを再起動してください";
 
 /* (No Comment) */
-"xcode.install.progress" = "Xcodeコマンドラインツールをインストールしています...";
+"xcode.install.progress" = "Xcodeコマンドラインツールをインストールしています";
 
 /* (No Comment) */
 "xcode.install.progress.subtext" = "5〜10分ほどかかります(インターネットの環境によって変化します)";
 
 /* (No Comment) */
-"xcode.install.success" = "Xcodeコマンドラインツールのインストールが完了しました！";
+"xcode.install.success" = "Xcodeコマンドラインツールのインストールが完了しました";
 "settings.resetKmCompleted" = "キーマップは初期化されました！";
 "settings.tab.misc" = "その他";
 "playapp.exportKmPanel.fieldLabel" = "キーマップの名前:";
@@ -264,7 +264,7 @@
 "button.Quit" = "終了";
 "error.appEncrypted" = "このアプリは暗号化されています!復号化されたIPAを使用してください。iMazing IPAはサポートされていません！";
 "error.appCorrupted" = "問題が発生しました。 別の IPA ファイルを使用してみてください。";
-"error.appProhibited" = "PlayCoverでこのアプリを使用すると、BAN される可能性があります。";
+"error.appProhibited" = "PlayCoverでこのアプリを使用すると、BAN される可能性があります!";
 "error.noGenshinAccount" = "Genshin アカウントが見つかりませんでした。 アプリ内でアカウントにサインインしていますか?";
 "settings.title" = "%@設定";
 "settings.tab.info" = "情報";
@@ -286,7 +286,7 @@
 "settings.info.bundleName" = "バンドル名:";
 "settings.info.bundleIdentifier" = "バンドル識別子:";
 "settings.info.executableName" = "実行可能ファイル名:";
-"settings.info.minimumOSVersion" = "必要なiOSバージョン";
+"settings.info.minimumOSVersion" = "必要なiOSバージョン:";
 "settings.info.url" = "URL:";
 "settings.resetSettings" = "設定をリセット";
 "settings.resetKm" = "キーマップをリセット";
@@ -302,7 +302,7 @@
 "button.Convert" = "変換";
 "settings.text.detectedResolution" = "検出された解像度:";
 "playapp.add" = "アプリを追加";
-"alert.wrongFileType.title" = "無効なファイルのタイプ";
+"alert.wrongFileType.title" = "ファイルのタイプが無効です!";
 "alert.wrongFileType.subtitle" = "PlayCoverは有効な.ipaファイルのみをインストールできます。";
 "playapp.addSource" = "ソースを追加";
 "ipaLibrary.noSources.title" = "ソースがありません";
@@ -315,14 +315,14 @@
 "preferences.button.moveSourceUp" = "1つ上に上げる";
 "preferences.button.moveSourceDown" = "1つ下に下げる";
 "preferences.popover.valid" = "有効なリンク";
-"preferences.popover.badurl" = "無効なURL";
-"preferences.popover.badjson" = "JSONファイルが無効であるか見つかりません。";
+"preferences.popover.badurl" = "無効なURL!";
+"preferences.popover.badjson" = "JSONファイルが無効であるか見つかりません!";
 "preferences.textfield.url" = "ソースのURL...";
 "playapp.download" = "ダウンロード中...";
-"error.waitDownload" = "ダウンロードが終了するまでお待ちください";
+"error.waitDownload" = "ダウンロードが終了するまでお待ちください!";
 "menubar.clearCache" = "画像キャッシュをクリア";
 "preferences.tab.uninstall" = "アンインストール";
-"preferences.whenUninstalling" = "アンインストールする時";
+"preferences.whenUninstalling" = "アンインストール時:";
 "preferences.toggle.showUninstall" = "警告を表示";
 "preferences.toggle.clearAppData" = "データの消去";
 "preferences.toggle.removeKeymap" = "キーマップを消去";
@@ -330,9 +330,9 @@
 "preferences.toggle.removeEntitlements" = "資格を消去";
 "preferences.button.pruneFiles" = "ファイルを削除";
 "preferences.prune.alert" = "すべてのファイルを削除しますか？";
-"preferences.prune.message" = "これにより、設定、キーマッピング、エンタイトルメント、アプリデータなどのファイルがすべて削除されます。";
+"preferences.prune.message" = "これにより、設定、キーマッピング、エンタイトルメント、アプリデータなどのファイルがすべて削除されます";
 "playapp.install.failed" = "失敗";
-"alert.supression" = "これはPlayCover環境設定で変更できます。";
+"alert.supression" = "これはPlayCover環境設定で変更できます";
 "preferences.tab.install" = "インストール";
 "preferences.toggle.showInstallPopup" = "PlayToolsをインストールするポップアップを表示する";
 "preferences.toggle.alwaysInstallPlayTools" = "常にPlayToolsをインストールする";
@@ -344,5 +344,38 @@
 "settings.info.playTools" = "PlayToolsがインストール済み:";
 "playapp.refreshSources" = "ソースを更新";
 "error.appMaliciousProhibited" = "This App behaves maliciously on Macs, and using it can leave your device in an unbootable state, therefore it is blocked from PlayCover. (Uninstalling...)";
-"alert.install.injectPlayToolsQuestion" = "Do you want to inject PlayTools into this application?";
+"alert.install.injectPlayToolsQuestion" = "PlayToolsをインストールしますか？";
 "alert.install.playToolsInformative" = "PlayTools is a tool that allows you to bind keys to screen touches, custom display resolutions, and more, but it may break certain apps";
+"button.Help" = "ヘルプ";
+"button.Dismiss" = "Dismiss";
+"state.enabled" = "Enabled";
+"state.disabled" = "Disabled";
+"state.pendingReboot" = "Pending Reboot";
+"menubar.configSigning" = "Configure Signing";
+"configSigning.header" = "Configure Package Signing";
+"configSigning.info.SIP" = "SIP is required to be fully to partially disabled in order for AMFI to be turned off.";
+"configSigning.subtext" = "Package Signing helps fixing issues with apps that rely on \ncorrect Team IDs for operations like authorization. \nThere may be security risks associated with enabling this feature.\n\n As such, we recommend disabling it when it's not necessary";
+"configSigning.info.SIPHeader" = "System Integrity Protection";
+"configSigning.info.AMFI" = "AMFI is required to be turned off in order to allow fake signing of apps, allowing them to run with the correct Team ID";
+"configSigning.info.AMFIHeader" = "Apple Mobile File Integrity";
+"configSigning.action.shutdown" = "Shut down my Mac";
+"configSigning.action.copyCommand" = "Copy Command to Clipboard";
+"configSigning.action.restart" = "Restart my Mac";
+"configSigning.step.disableSIP" = "Please disable SIP from Recovery Mode";
+"configSigning.step.disableAMFI" = "Please disable AMFI";
+"configSigning.step.AMFIreboot" = "AMFI Disabled. Please reboot";
+"configSigning.step.complete" = "Package Signing has been configured successfully";
+"configSigning.alert.copied" = "Command Copied!";
+"configSigning.alert.info" = "Please paste and run the command in Terminal.app. Your Mac will reboot after";
+"alert.power.title" = "Low Power Mode Enabled!";
+"alert.power.subtitle" = "Some apps will not work with Low Power Mode enabled. It is recommended to disable it.";
+"ipaLibrary.download" = "Download";
+"settings.text.debugger" = "Debugger:";
+"ipaLibrary.version.older" = "This version is older than the one you have installed";
+"ipaLibrary.version.same" = "App already installed";
+"ipaLibrary.version.newer" = "This version is newer than the version you have installed";
+"ipaLibrary.alert.download" = "Are you sure you want to download this version of %@?";
+"alert.differentBundleIdKeymap.message" = "The keymap may have been created for another application.";
+"alert.differentBundleIdKeymap.text" = "Are you sure you want to import this keymap?";
+"settings.toggle.lldb" = "Open with LLDB";
+"settings.toggle.lldbWithTerminal" = "Open in terminal";

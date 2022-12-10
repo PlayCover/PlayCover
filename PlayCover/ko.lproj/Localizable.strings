@@ -98,13 +98,13 @@
 "playapp.importKm" = "키매핑 불러오기";
 
 /* (No Comment) */
-"playapp.install.addToLib" = "보관함에 앱을 추가하는중...";
+"playapp.install.addToLib" = "보관함에 앱을 추가하는 중...";
 
 /* (No Comment) */
-"playapp.install.copy" = "앱 복사중...";
+"playapp.install.copy" = "앱 복사 중...";
 
 /* (No Comment) */
-"playapp.install.createWrapper" = "앱 컨테이너 만드는중...";
+"playapp.install.createWrapper" = "앱 컨테이너 만드는 중...";
 
 /* (No Comment) */
 "playapp.install.finished" = "완료됨";
@@ -113,10 +113,10 @@
 "playapp.install.installPlayTools" = "PlayTools 설치 중...";
 
 /* (No Comment) */
-"playapp.install.signing" = "앱 코드 서명중...";
+"playapp.install.signing" = "앱 코드 서명 중...";
 
 /* (No Comment) */
-"playapp.install.unzip" = ".ipa 파일에서 앱 추출하는중...";
+"playapp.install.unzip" = ".ipa 파일에서 앱 추출하는 중...";
 
 /* (No Comment) */
 "playapp.openCache" = "앱 데이터 열기";
@@ -242,7 +242,7 @@
 "xcode.install.message" = "명령어 라인 개발자 도구(Xcode Command Line Tools)를 설치한 후 PlayCover를 재시작 해야합니다";
 
 /* (No Comment) */
-"xcode.install.progress" = "명령어 라인 개발자 도구(Xcode Command Line Tools) 설치중";
+"xcode.install.progress" = "명령어 라인 개발자 도구(Xcode Command Line Tools) 설치 중";
 
 /* (No Comment) */
 "xcode.install.progress.subtext" = "인터넷 속도에 따라 5~10분정도 소요됩니다";
@@ -343,6 +343,39 @@
 "settings.removePlayTools" = "PlayTools 제거";
 "settings.info.playTools" = "PlayTools 설치 여부:";
 "playapp.refreshSources" = "소스 새로 고침";
-"error.appMaliciousProhibited" = "This App behaves maliciously on Macs, and using it can leave your device in an unbootable state, therefore it is blocked from PlayCover. (Uninstalling...)";
-"alert.install.injectPlayToolsQuestion" = "Do you want to inject PlayTools into this application?";
-"alert.install.playToolsInformative" = "PlayTools is a tool that allows you to bind keys to screen touches, custom display resolutions, and more, but it may break certain apps";
+"error.appMaliciousProhibited" = "이 앱은 Mac에서 악의적으로 작동하며 기기를 부팅할 수 없는 상태로 만들 수 있으므로 PlayCover에서 차단됩니다. (제거 중...)";
+"alert.install.injectPlayToolsQuestion" = "이 애플리케이션에 PlayTools를 주입하시겠습니까?";
+"alert.install.playToolsInformative" = "PlayTools는 화면 터치, 사용자 지정 디스플레이 해상도 등에 키를 바인딩할 수 있는 도구이지만 특정 앱이 중단될 수 있습니다";
+"state.pendingReboot" = "재시동 대기 중";
+"configSigning.info.SIP" = "AMFI를 끄려면 SIP을 완전히 비활성화해야 합니다.";
+"configSigning.info.SIPHeader" = "시스템 무결성 보호(SIP)";
+"configSigning.info.AMFI" = "가짜 서명을 허용하여 앱을 올바른 팀 ID로 실행하기 위해서는 AMFI를 꺼야합니다";
+"configSigning.info.AMFIHeader" = "Apple 모바일 파일 무결성(AMFI)";
+"configSigning.action.shutdown" = "내 Mac 종료";
+"configSigning.action.copyCommand" = "명령 복사하기";
+"configSigning.action.restart" = "재시동";
+"configSigning.step.disableSIP" = "리커버리 모드에서 SIP를 비활성화 해주세요";
+"configSigning.step.disableAMFI" = "AMFI를 비활성화 해주세요";
+"configSigning.step.AMFIreboot" = "AMFI가 비활성화되었습니다. 재부팅 해주세요";
+"button.Help" = "도움말";
+"button.Dismiss" = "닫기";
+"state.enabled" = "사용";
+"state.disabled" = "사용 안 함";
+"menubar.configSigning" = "서명 구성";
+"configSigning.header" = "패키지 서명 구성";
+"configSigning.subtext" = "패키지 서명은 인증 같은 작업을 위해 올바른 팀 ID를 필요로 하는 \n앱의 문제를 해결하는 데 도움이 됩니다. \n이 기능을 사용하도록 설정하면 보안 위험이 발생할 수도 있습니다.\n\n 따라서 필요하지 않다면 비활성화 하는 것이 좋습니다";
+"configSigning.step.complete" = "패키지 서명을 성공적으로 구성했습니다";
+"configSigning.alert.copied" = "명령이 복사되었습니다!";
+"configSigning.alert.info" = "Terminal.app에 명령을 붙여넣고 실행하세요. Mac이 재부팅됩니다";
+"alert.power.title" = "Low Power Mode Enabled!";
+"alert.power.subtitle" = "Some apps will not work with Low Power Mode enabled. It is recommended to disable it.";
+"ipaLibrary.version.older" = "This version is older than the one you have installed";
+"ipaLibrary.version.same" = "App already installed";
+"settings.text.debugger" = "Debugger:";
+"settings.toggle.lldb" = "Open with LLDB";
+"settings.toggle.lldbWithTerminal" = "Open in terminal";
+"ipaLibrary.version.newer" = "This version is newer than the version you have installed";
+"ipaLibrary.alert.download" = "Are you sure you want to download this version of %@?";
+"ipaLibrary.download" = "Download";
+"alert.differentBundleIdKeymap.message" = "The keymap may have been created for another application.";
+"alert.differentBundleIdKeymap.text" = "Are you sure you want to import this keymap?";
