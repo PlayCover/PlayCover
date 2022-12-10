@@ -28,6 +28,7 @@ class PlayApp: BaseApp {
             AppsVM.shared.updatingApps = true
             AppsVM.shared.fetchApps()
             settings.sync()
+
             if try !Entitlements.areEntitlementsValid(app: self) {
                 sign()
             }
@@ -44,8 +45,13 @@ class PlayApp: BaseApp {
             } else if try !isCodesigned() {
                 Log.shared.error("The app is not codesigned! Please open Xcode and accept license agreement.")
             } else {
-                runAppExec() // Splitting to reduce complexity
+                if settings.openWithLLDB {
+                    Shell.lldb(executable, withTerminalWindow: settings.openLLDBWithTerminal)
+                } else {
+                    runAppExec() // Splitting to reduce complexity
+                }
             }
+
             AppsVM.shared.updatingApps = false
         } catch {
             AppsVM.shared.updatingApps = false

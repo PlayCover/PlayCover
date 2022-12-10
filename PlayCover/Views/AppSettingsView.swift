@@ -426,11 +426,22 @@ struct MiscView: View {
                                 }.padding(.bottom)
                             }
                         }
+                    Spacer()
                 }.disabled(!(hasPlayTools ?? true))
-                if #available(macOS 13.0, *) {
+                HStack {
                     HStack {
-                        Toggle("settings.toggle.hud", isOn: $settings.metalHudEnabled)
-                        Spacer()
+                        if #available(macOS 13.0, *) {
+                            Toggle("settings.toggle.hud", isOn: $settings.metalHudEnabled)
+                            Spacer()
+                        }
+                        HStack {
+                            Text("settings.text.debugger")
+                            VStack {
+                                Toggle("settings.toggle.lldb", isOn: $settings.openWithLLDB)
+                                Toggle("settings.toggle.lldbWithTerminal", isOn: $settings.openLLDBWithTerminal)
+                                    .disabled(!settings.openWithLLDB)
+                            }
+                        }
                     }
                 }
                 Spacer()

@@ -118,6 +118,26 @@ class Shell: ObservableObject {
         shell("/usr/bin/codesign -fs- \(exec.deletingLastPathComponent().esc) --deep --preserve-metadata=entitlements")
     }
 
+    static func lldb(_ url: URL, withTerminalWindow: Bool = false) {
+        var command = "/usr/bin/lldb -o run \(url.esc) -o exit"
+
+        DispatchQueue.global(qos: .utility).async {
+            if withTerminalWindow {
+                command = command.replacingOccurrences(of: "\\", with: "\\\\")
+                let osascript = """
+                    tell app "Terminal"
+                        reopen
+                        activate
+                        do script "\(command)"
+                    end tell
+                """
+                shell("/usr/bin/osascript -e '\(osascript)'", print: true)
+            } else {
+                shell(command, print: true)
+            }
+        }
+    }
+
     static func sudosh(_ args: [String], _ argc: String) -> Bool {
         let password = argc
         let passwordWithNewline = password + "\n"

@@ -217,6 +217,9 @@
 "settings.text.state.help" = "Second row below title";
 "settings.toggle.discord" = "Enable Discord activity";
 "settings.toggle.hud" = "Metal HUD";
+"settings.text.debugger" = "Debugger:";
+"settings.toggle.lldb" = "Open with LLDB";
+"settings.toggle.lldbWithTerminal" = "Open in terminal";
 
 "configSigning.header" = "Configure Package Signing";
 "configSigning.subtext" = "Package Signing helps fixing issues with apps that rely on \ncorrect Team IDs for operations like authorization. \nThere may be security risks associated with enabling this feature.\n\n As such, we recommend disabling it when it's not necessary";
