@@ -86,7 +86,7 @@
 "playapp.clearPreferences" = "Eliminar preferencias de la aplicación";
 
 /* (No Comment) */
-"playapp.delete" = "Desinstalar Aplicación";
+"playapp.delete" = "Desinstalar aplicación";
 
 /* (No Comment) */
 "playapp.deleteAccount" = "Eliminar cuenta";
@@ -256,10 +256,10 @@
 "settings.info.bundleName" = "Nombre del paquete:";
 "playapp.exportKmPanel.fieldLabel" = "Nombre del PlayMap:";
 "sidebar.appLibrary" = "Aplicaciones";
-"storeAccount.alert.restoreAccount" = "¿Estás seguro de que quieres restaurar la cuenta?";
+"storeAccount.alert.restoreAccount" = "¿Está seguro de que quiere restaurar la cuenta?";
 "storeAccount.alert.restoreAccount.button" = "Restaurar cuenta";
 "storeAccount.alert.restoreAccount.msg" = "Esto anulará la sesión de su cuenta actual.";
-"storeAccount.alert.deleteAccount" = "¿Estás seguro de que quieres eliminar la cuenta?";
+"storeAccount.alert.deleteAccount" = "¿Está seguro de que quiere eliminar la cuenta?";
 "storeAccount.alert.deleteAccount.button" = "Eliminar cuenta";
 "alert.moveAppToApplications.title" = "Mover a la carpeta de Aplicaciones?";
 "alert.moveAppToApplications.subtitle" = "PlayCover debe estar en la carpeta de Aplicaciones para funcionar correctamente. Presione el botón de abajo para mover PlayCover automáticamente.";
@@ -369,13 +369,13 @@
 "configSigning.action.shutdown" = "Apagar mi Mac";
 "alert.power.title" = "¡Modo de bajo consumo activado!";
 "alert.power.subtitle" = "Algunas aplicaciones no funcionarán con el modo de bajo consumo activado. Se recomienda desactivarlo.";
-"ipaLibrary.version.same" = "App already installed";
-"ipaLibrary.download" = "Download";
-"ipaLibrary.version.older" = "This version is older than the one you have installed";
-"ipaLibrary.version.newer" = "This version is newer than the version you have installed";
-"ipaLibrary.alert.download" = "Are you sure you want to download this version of %@?";
-"alert.differentBundleIdKeymap.message" = "The keymap may have been created for another application.";
-"alert.differentBundleIdKeymap.text" = "Are you sure you want to import this keymap?";
-"settings.text.debugger" = "Debugger:";
-"settings.toggle.lldb" = "Open with LLDB";
-"settings.toggle.lldbWithTerminal" = "Open in terminal";
+"ipaLibrary.version.same" = "Aplicación ya instalada";
+"ipaLibrary.download" = "Descargar";
+"ipaLibrary.version.older" = "Esta versión es más vieja que la instalada actualmente";
+"ipaLibrary.version.newer" = "Esta versión es más nueva que la instalada actualmente";
+"ipaLibrary.alert.download" = "¿Está seguro de que quiere descargar una nueva versión de %@?";
+"alert.differentBundleIdKeymap.message" = "Este mapeo de teclas pudo haber sido creado para otra aplicación.";
+"alert.differentBundleIdKeymap.text" = "¿Está seguro de que quiere importar este mapeo de teclas?";
+"settings.text.debugger" = "Depurador:";
+"settings.toggle.lldb" = "Abrir con LLDB";
+"settings.toggle.lldbWithTerminal" = "Abrir en terminal";
