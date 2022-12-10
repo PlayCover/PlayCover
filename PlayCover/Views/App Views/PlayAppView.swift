@@ -256,7 +256,7 @@ struct PlayAppConditionalView: View {
                                       selectedBackgroundColor : Color.clear)
                                 .brightness(-0.2)
                             )
-                        .help("settings.noPlayTools")
+                        .help(!(hasPlayTools ?? true) ? "settings.noPlayTools" : "")
                         .frame(width: 130, height: 20)
                 }
                 .frame(width: 130, height: 130)
