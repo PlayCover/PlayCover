@@ -190,12 +190,6 @@ struct PlayAppConditionalView: View {
         Group {
             if isList {
                 HStack(alignment: .center, spacing: 0) {
-                    if !(hasPlayTools ?? true) {
-                        Image(systemName: "exclamationmark.triangle")
-                            .padding(.leading, 15)
-                            .help("settings.noPlayTools")
-                    }
-
                     AsyncImage(url: iconURL) { image in
                         image
                             .resizable()
@@ -214,7 +208,11 @@ struct PlayAppConditionalView: View {
                     Text(app.name)
                         .foregroundColor(selected?.url == app.url ?
                                          selectedTextColor : Color.primary)
-
+                    if !(hasPlayTools ?? true) {
+                        Image(systemName: "exclamationmark.triangle")
+                            .padding(.leading, 15)
+                            .help("settings.noPlayTools")
+                    }
                     Spacer()
                     Text(app.settings.info.bundleVersion)
                         .padding(.horizontal, 15)
@@ -258,7 +256,7 @@ struct PlayAppConditionalView: View {
                                       selectedBackgroundColor : Color.clear)
                                 .brightness(-0.2)
                             )
-                        .help("settings.noPlayTools")
+                        .help(!(hasPlayTools ?? true) ? "settings.noPlayTools" : "")
                         .frame(width: 130, height: 20)
                 }
                 .frame(width: 130, height: 130)

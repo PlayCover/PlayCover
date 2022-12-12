@@ -86,7 +86,7 @@
 "playapp.clearPreferences" = "Eliminar preferencias de la aplicación";
 
 /* (No Comment) */
-"playapp.delete" = "Desinstalar Aplicación";
+"playapp.delete" = "Desinstalar aplicación";
 
 /* (No Comment) */
 "playapp.deleteAccount" = "Eliminar cuenta";
@@ -131,7 +131,7 @@
 "playapp.storeCurrentAccount" = "Guardar cuenta";
 
 /* (No Comment) */
-"preferences.button.checkForUpdates" = "Buscar actualizaciones…";
+"preferences.button.checkForUpdates" = "Buscar actualizaciones";
 
 /* (No Comment) */
 "preferences.tab.updates" = "Actualizaciones";
@@ -256,10 +256,10 @@
 "settings.info.bundleName" = "Nombre del paquete:";
 "playapp.exportKmPanel.fieldLabel" = "Nombre del PlayMap:";
 "sidebar.appLibrary" = "Aplicaciones";
-"storeAccount.alert.restoreAccount" = "¿Estás seguro de que quieres restaurar la cuenta?";
+"storeAccount.alert.restoreAccount" = "¿Está seguro de que quiere restaurar la cuenta?";
 "storeAccount.alert.restoreAccount.button" = "Restaurar cuenta";
 "storeAccount.alert.restoreAccount.msg" = "Esto anulará la sesión de su cuenta actual.";
-"storeAccount.alert.deleteAccount" = "¿Estás seguro de que quieres eliminar la cuenta?";
+"storeAccount.alert.deleteAccount" = "¿Está seguro de que quiere eliminar la cuenta?";
 "storeAccount.alert.deleteAccount.button" = "Eliminar cuenta";
 "alert.moveAppToApplications.title" = "Mover a la carpeta de Aplicaciones?";
 "alert.moveAppToApplications.subtitle" = "PlayCover debe estar en la carpeta de Aplicaciones para funcionar correctamente. Presione el botón de abajo para mover PlayCover automáticamente.";
@@ -327,8 +327,8 @@
 "preferences.toggle.removeKeymap" = "Eliminar mapeo de teclas";
 "preferences.toggle.removeSetting" = "Eliminar la configuración";
 "preferences.toggle.removeEntitlements" = "Eliminar permisos";
-"preferences.button.pruneFiles" = "Podar los archivos";
-"preferences.prune.alert" = "¿Estás seguro de que quieres podar todos los archivos?";
+"preferences.button.pruneFiles" = "Limpiar archivos";
+"preferences.prune.alert" = "¿Estás seguro de que quieres limpiar todos los archivos?";
 "preferences.prune.message" = "Esto eliminará todos los archivos que no se utilicen, incluidos los de configuración, mapeo de teclas, permisos, y datos de la aplicación";
 "playapp.install.failed" = "Error";
 "alert.supression" = "Puede cambiar esto en la configuración de PlayCover";
@@ -342,7 +342,40 @@
 "settings.noPlayTools" = "PlayTools no está instalado en esta aplicación";
 "settings.removePlayTools" = "Desinstalar PlayTools";
 "settings.info.playTools" = "PlayTools instalado:";
-"playapp.refreshSources" = "Refresh Sources";
-"error.appMaliciousProhibited" = "This App behaves maliciously on Macs, and using it can leave your device in an unbootable state, therefore it is blocked from PlayCover. (Uninstalling...)";
-"alert.install.injectPlayToolsQuestion" = "Do you want to inject PlayTools into this application?";
-"alert.install.playToolsInformative" = "PlayTools is a tool that allows you to bind keys to screen touches, custom display resolutions, and more, but it may break certain apps";
+"playapp.refreshSources" = "Refrescar fuentes";
+"error.appMaliciousProhibited" = "Esta aplicación se comporta maliciosamente en Mac, y usarla puede dejar su computadora en un estado de no arranque. Por ello es bloqueada por PlayCover. (Desinstalando...)";
+"alert.install.injectPlayToolsQuestion" = "¿Quiere inyectar PlayTools en esta aplicación?";
+"alert.install.playToolsInformative" = "PlayTools es una herramienta que permite asignar teclas a toques en la pantalla, configurar resoluciones personalizadas, y más. Puede impactar negativamente el funcionamiento de algunas aplicaciones";
+"state.enabled" = "Activado";
+"state.disabled" = "Desactivado";
+"state.pendingReboot" = "Reinicio pendiente";
+"menubar.configSigning" = "Configurar firma";
+"configSigning.subtext" = "La firma de paquetes ayuda a arreglar problemas con aplicaciones que dependen de \nIDs de Equipo correctos para operaciones como la autorización. \nPueden haber riesgos de seguridad derivados de la habilitación de esta característica.\n\nPor esta razón, se recomienda deshabilitarla cuando su uso no es requerido";
+"configSigning.info.SIP" = "Se requiere deshabilitar SIP completa o parcialmente para poder deshabilitar AMFI.";
+"configSigning.info.SIPHeader" = "Protección de la integridad del sistema";
+"configSigning.action.copyCommand" = "Copiar comando al portapapeles";
+"configSigning.action.restart" = "Reiniciar mi Mac";
+"configSigning.step.disableSIP" = "Por favor desactive SIP desde el modo de recuperación";
+"configSigning.step.disableAMFI" = "Por favor desactive AMFI";
+"configSigning.step.AMFIreboot" = "AMFI desactivado. Por favor reinicie";
+"configSigning.step.complete" = "La firma de paquetes ha sido configurado con éxito";
+"configSigning.alert.copied" = "¡Comando copiado!";
+"configSigning.alert.info" = "Por favor pegue y ejecute el comando en Terminal.app. Su Mac se reiniciará sucesivamente";
+"button.Help" = "Ayuda";
+"button.Dismiss" = "Ignorar";
+"configSigning.header" = "Configurar firma de paquetes";
+"configSigning.info.AMFI" = "Se require deshabilitar AMFI para permitir la firma falsa de aplicaciones, permitiendo así su ejecución con el ID de Equipo correcto";
+"configSigning.info.AMFIHeader" = "Apple Mobile File Integrity";
+"configSigning.action.shutdown" = "Apagar mi Mac";
+"alert.power.title" = "¡Modo de bajo consumo activado!";
+"alert.power.subtitle" = "Algunas aplicaciones no funcionarán con el modo de bajo consumo activado. Se recomienda desactivarlo.";
+"ipaLibrary.version.same" = "Aplicación ya instalada";
+"ipaLibrary.download" = "Descargar";
+"ipaLibrary.version.older" = "Esta versión es más vieja que la instalada actualmente";
+"ipaLibrary.version.newer" = "Esta versión es más nueva que la instalada actualmente";
+"ipaLibrary.alert.download" = "¿Está seguro de que quiere descargar una nueva versión de %@?";
+"alert.differentBundleIdKeymap.message" = "Este mapeo de teclas pudo haber sido creado para otra aplicación.";
+"alert.differentBundleIdKeymap.text" = "¿Está seguro de que quiere importar este mapeo de teclas?";
+"settings.text.debugger" = "Depurador:";
+"settings.toggle.lldb" = "Abrir con LLDB";
+"settings.toggle.lldbWithTerminal" = "Abrir en terminal";

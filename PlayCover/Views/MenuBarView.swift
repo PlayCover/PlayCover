@@ -14,7 +14,7 @@ struct PlayCoverMenuView: Commands {
                 Log.shared.logdata.copyToClipBoard()
             }
             .keyboardShortcut("L", modifiers: [.command, .option])
-            Button("Configure Signing") {
+            Button("menubar.configSigning") {
                 isSigningSetupShown = true
             }
         }

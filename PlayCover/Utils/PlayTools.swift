@@ -56,9 +56,7 @@ class PlayTools {
                 }
 
                 // Check if a version of PlayTools is already installed, if so remove it
-                if FileManager.default.fileExists(atPath: playToolsFramework.path) {
-                    try FileManager.default.delete(at: URL(fileURLWithPath: playToolsFramework.path))
-                }
+                FileManager.default.delete(at: URL(fileURLWithPath: playToolsFramework.path))
 
                 // Install version of PlayTools bundled with PlayCover
                 Log.shared.log("Copying PlayTools to Frameworks")
@@ -203,7 +201,7 @@ class PlayTools {
     }
 
     static func installedInExec(atURL url: URL) throws -> Bool {
-        try shell.shello(otool.path, "-L", url.path).contains(playToolsPath.esc)
+        try shell.shello(print: false, otool.path, "-L", url.path).contains(playToolsPath.esc)
     }
 
     static func isInstalled() throws -> Bool {
@@ -234,7 +232,7 @@ class PlayTools {
 	}
 
     private static func binPath(_ bin: String) throws -> URL {
-        URL(fileURLWithPath: try shell.sh("which \(bin)").trimmingCharacters(in: .newlines))
+        URL(fileURLWithPath: try shell.sh("which \(bin)", print: false).trimmingCharacters(in: .newlines))
     }
 
     private static var vtool: URL {

@@ -5,8 +5,6 @@
 //  Created by Isaac Marovitz on 07/09/2022.
 //
 
-// swiftlint:disable function_body_length
-
 import Foundation
 
 class LegacySettings {
@@ -131,7 +129,7 @@ class LegacySettings {
 
                     let keyCode = data[0] as? Int ?? 0
                     keymap.draggableButtonModels.append(ButtonModel(keyCode: keyCode,
-                                                           transform: transform))
+                                                                    transform: transform))
                 }
             }
         }

@@ -183,6 +183,7 @@ struct GraphicsView: View {
                         Text("iPad Pro (12.9-inch) (1st gen) | A9X | 4GB").tag("iPad6,7")
                         Text("iPad Pro (12.9-inch) (3rd gen) | A12Z | 4GB").tag("iPad8,6")
                         Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
+                        Text("iPad Pro (12.9-inch) (6th gen) | M2 | 8GB").tag("iPad14,5")
                         Divider()
                         Text("iPhone 13 Pro Max | A15 | 6GB").tag("iPhone14,3")
                         Text("iPhone 14 Pro Max | A16 | 6GB").tag("iPhone15,3")
@@ -425,11 +426,22 @@ struct MiscView: View {
                                 }.padding(.bottom)
                             }
                         }
+                    Spacer()
                 }.disabled(!(hasPlayTools ?? true))
-                if #available(macOS 13.0, *) {
+                HStack {
                     HStack {
-                        Toggle("settings.toggle.hud", isOn: $settings.metalHudEnabled)
-                        Spacer()
+                        if #available(macOS 13.0, *) {
+                            Toggle("settings.toggle.hud", isOn: $settings.metalHudEnabled)
+                            Spacer()
+                        }
+                        HStack {
+                            Text("settings.text.debugger")
+                            VStack {
+                                Toggle("settings.toggle.lldb", isOn: $settings.openWithLLDB)
+                                Toggle("settings.toggle.lldbWithTerminal", isOn: $settings.openLLDBWithTerminal)
+                                    .disabled(!settings.openWithLLDB)
+                            }
+                        }
                     }
                 }
                 Spacer()

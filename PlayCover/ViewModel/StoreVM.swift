@@ -74,6 +74,7 @@ class StoreVM: ObservableObject {
     }
 
     func fetchApps() {
+        filteredApps.removeAll()
         var result = apps
         if !uif.searchText.isEmpty {
             result = result.filter({
