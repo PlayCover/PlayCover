@@ -164,7 +164,7 @@
 "settings.text.details" = "详细信息";
 
 /* (No Comment) */
-"settings.text.details.help" = "标题下的一行文字";
+"settings.text.details.help" = "标题下的第一行文字";
 
 /* (No Comment) */
 "settings.text.image" = "图像";
@@ -194,7 +194,7 @@
 "soundAlert.failureText" = "现有音频设备设置采样率 48 KHz 失败。 您可以在 ”音频MIDI设置“ 应用里手动设置";
 
 /* (No Comment) */
-"soundAlert.informativeText" = "现有的音频设备没有设置到 48 或 44.1 KHz 采样率! 应用可能会崩溃。您希望把现有的音频设备设置成 48 KHz 采样率吗?";
+"soundAlert.informativeText" = "现有的音频设备没有设置到 48 或 44.1 KHz 采样率！应用可能会崩溃。您希望把现有的音频设备设置成 48 KHz 采样率吗?";
 
 /* (No Comment) */
 "soundAlert.messageText" = "监测到声音设置有问题!";
@@ -245,14 +245,14 @@
 "xcode.install.progress" = "正在安装 Xcode 命令行工具";
 
 /* (No Comment) */
-"xcode.install.progress.subtext" = "根据网络速度，这操作可能需要 5-10 分钟";
+"xcode.install.progress.subtext" = "根据网络速度，此操作可能需要 5-10 分钟";
 
 /* (No Comment) */
 "xcode.install.success" = "Xcode 命令行工具安装成功";
 "button.Quit" = "退出";
 "error.appProhibited" = "通过 PlayCover 使用这个应用程序很可能会导致帐号被封停！";
 "settings.title" = "%@ 设定";
-"playapp.exportKmPanel.fieldLabel" = "PlayMap 名称:";
+"playapp.exportKmPanel.fieldLabel" = "PlayMap 名称：";
 "sidebar.appLibrary" = "App 库";
 "sidebar.ipaLibrary" = "IPA 库";
 "storeAccount.alert.restoreAccount" = "确定要重置帐号吗？";
@@ -293,7 +293,7 @@
 "xcode.install.failed.altInstructions" = "点击下方按钮以查看额外安装说明";
 "xcode.install.failed.altButton" = "额外安装说明";
 "settings.tab.misc" = "杂项";
-"settings.toggle.hud" = "启用 Metal HUD";
+"settings.toggle.hud" = "启用 Metal 性能面板";
 "settings.info.bundleVersion" = "Bundle 版本号：";
 "playapp.deleteConfirm" = "确认卸载";
 "playapp.deleteMessage" = "确认卸载 %@ 吗?";
@@ -348,34 +348,34 @@
 "alert.install.playToolsInformative" = "PlayTools 是一个能帮您将键盘按键映射为触屏控制，自定义显示分辨率以及更多的工具，但它有可能使某些应用无法使用";
 "configSigning.info.SIPHeader" = "系统完整性保护";
 "configSigning.alert.copied" = "命令已复制！";
-"configSigning.alert.info" = "请在 Terminal.app 中粘贴并运行该命令。您的 Mac 之后将重新启动";
+"configSigning.alert.info" = "请在 终端 中粘贴并运行该命令。您的 Mac 之后将重新启动";
 "button.Help" = "帮助";
 "button.Dismiss" = "隐藏";
 "state.enabled" = "启用";
 "state.disabled" = "禁用";
 "state.pendingReboot" = "等待重新启动";
-"menubar.configSigning" = "配置签名中";
+"menubar.configSigning" = "配置签名";
 "configSigning.info.SIP" = "SIP 需要完整禁用才可以关闭 AMFI 。";
 "configSigning.info.AMFI" = "需要关闭 AMFI，以允许对应用程序进行虚假签名，使其以正确的团队ID运行";
-"configSigning.header" = "配置软件包签名中";
-"configSigning.subtext" = "软件包签名有助于解决应用程序的问题，这些应用程序在授权等操作上依赖 \n正确的团队ID进行授权等操作。 \n启用这一功能可能会有安全风险。\n\n 因此，我们建议在不需要时禁用它";
-"configSigning.info.AMFIHeader" = "苹果手机文件的完整性";
-"configSigning.action.shutdown" = "关闭你的 MAC";
-"configSigning.action.copyCommand" = "复制命令到剪贴板";
-"configSigning.action.restart" = "重新启动我的 MAC";
+"configSigning.header" = "配置软件包签名";
+"configSigning.subtext" = "软件包签名有助于解决应用程序的问题，这些应用程序在授权等操作上依赖 \n正确的 团队ID 进行授权等操作。\n启用这一功能可能会有安全风险。\n\n因此，我们建议在不需要时禁用它";
+"configSigning.info.AMFIHeader" = "苹果移动文件完整性";
+"configSigning.action.shutdown" = "将我的 Mac 关机";
+"configSigning.action.copyCommand" = "复制命令至剪贴板";
+"configSigning.action.restart" = "将我的 Mac 重启";
 "configSigning.step.disableSIP" = "请从恢复模式中禁用 SIP";
 "configSigning.step.disableAMFI" = "请禁用 AMFI";
 "configSigning.step.AMFIreboot" = "AMFI 已禁用。请重新启动";
-"configSigning.step.complete" = "包裹签名已成功配置";
+"configSigning.step.complete" = "软件包签名已成功配置";
 "alert.power.title" = "低电量模式已开启！";
 "alert.power.subtitle" = "部分应用程序在启用低电量模式后将无法工作。建议将其关闭。";
-"ipaLibrary.version.older" = "This version is older than the one you have installed";
-"ipaLibrary.version.same" = "App already installed";
-"ipaLibrary.version.newer" = "This version is newer than the version you have installed";
-"alert.differentBundleIdKeymap.message" = "The keymap may have been created for another application.";
-"alert.differentBundleIdKeymap.text" = "Are you sure you want to import this keymap?";
-"settings.text.debugger" = "Debugger:";
-"settings.toggle.lldb" = "Open with LLDB";
-"ipaLibrary.alert.download" = "Are you sure you want to download this version of %@?";
-"ipaLibrary.download" = "Download";
-"settings.toggle.lldbWithTerminal" = "Open in terminal";
+"ipaLibrary.version.older" = "此版本比您已安装的应用更旧";
+"ipaLibrary.version.same" = "应用已安装";
+"ipaLibrary.version.newer" = "此版本比您已安装的应用更新";
+"alert.differentBundleIdKeymap.message" = "此键盘映射文件有可能是为其他应用创建的。";
+"alert.differentBundleIdKeymap.text" = "您确定您要导入此键盘映射文件吗？";
+"settings.text.debugger" = "调试器：";
+"settings.toggle.lldb" = "用 LLDB 高性能调试器打开";
+"ipaLibrary.alert.download" = "您确定您要下载这个版本的 %@ 吗?";
+"ipaLibrary.download" = "下载";
+"settings.toggle.lldbWithTerminal" = "在终端里打开";
