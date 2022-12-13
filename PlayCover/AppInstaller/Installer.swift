@@ -36,6 +36,7 @@ class Installer {
     }
 
     // swiftlint:disable function_body_length
+    // swiftlint:disable cyclomatic_complexity
     static func install(ipaUrl: URL, export: Bool, ipaSourcePTD: Bool?, returnCompletion: @escaping (URL?) -> Void) {
         // If (the option key is held or the install playtools popup settings is true) and its not an export,
         //    then show the installer dialog
