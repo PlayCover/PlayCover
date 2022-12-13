@@ -153,7 +153,7 @@ struct AppLibraryView: View {
     }
 
     private func installApp() {
-        Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
+        Installer.install(ipaUrl: uif.ipaUrl!, export: false, ipaSourcePTD: nil, returnCompletion: { _ in
             DispatchQueue.main.async {
                 appsVM.apps = []
                 appsVM.fetchApps()
