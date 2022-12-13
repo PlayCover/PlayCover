@@ -66,7 +66,7 @@ struct PlayCoverViewMenuView: Commands {
                     NSOpenPanel.selectIPA { result in
                         if case .success(let url) = result {
                             uif.ipaUrl = url
-                            // swiftlint:disable function_body_length
+                            // swiftlint:disable line_length
                             Installer.install(ipaUrl: uif.ipaUrl!, export: true, ipaSourcePTD: nil, returnCompletion: { ipa in
                                 DispatchQueue.main.async {
                                     if let ipa = ipa {

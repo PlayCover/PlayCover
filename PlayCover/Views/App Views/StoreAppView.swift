@@ -114,7 +114,7 @@ struct StoreAppView: View {
                 try FileManager.default.moveItem(at: url, to: tmpIpa)
                 uif.ipaUrl = tmpIpa
                 DispatchQueue.main.async {
-                    // swiftlint:disable function_body_length
+                    // swiftlint:disable line_length
                     Installer.install(ipaUrl: uif.ipaUrl!, export: false, ipaSourcePTD: app.playtools, returnCompletion: { _ in
                         FileManager.default.delete(at: tmpDir!)
 
