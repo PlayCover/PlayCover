@@ -153,15 +153,21 @@ struct AppLibraryView: View {
     }
 
     private func installApp() {
-        Installer.install(ipaUrl: uif.ipaUrl!, export: false, ipaSourcePTD: nil, returnCompletion: { _ in
-            DispatchQueue.main.async {
-                appsVM.apps = []
-                appsVM.fetchApps()
-                NotifyService.shared.notify(
-                    NSLocalizedString("notification.appInstalled", comment: ""),
-                    NSLocalizedString("notification.appInstalled.message", comment: ""))
-            }
-        })
+        Installer.install(
+            ipaUrl: uif.ipaUrl!,
+            export: false,
+            ipaSourcePTD: nil,
+            returnCompletion:
+                { _ in
+                    DispatchQueue.main.async {
+                        appsVM.apps = []
+                        appsVM.fetchApps()
+                        NotifyService.shared.notify(
+                            NSLocalizedString("notification.appInstalled", comment: ""),
+                            NSLocalizedString("notification.appInstalled.message", comment: ""))
+                    }
+                }
+        )
     }
 
     private func selectFile() {
