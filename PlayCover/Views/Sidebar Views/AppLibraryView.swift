@@ -157,16 +157,15 @@ struct AppLibraryView: View {
             ipaUrl: uif.ipaUrl!,
             export: false,
             ipaSourcePTD: nil,
-            returnCompletion:
-                { _ in
-                    DispatchQueue.main.async {
-                        appsVM.apps = []
-                        appsVM.fetchApps()
-                        NotifyService.shared.notify(
-                            NSLocalizedString("notification.appInstalled", comment: ""),
-                            NSLocalizedString("notification.appInstalled.message", comment: ""))
-                    }
+            returnCompletion: { _ in
+                DispatchQueue.main.async {
+                    appsVM.apps = []
+                    appsVM.fetchApps()
+                    NotifyService.shared.notify(
+                        NSLocalizedString("notification.appInstalled", comment: ""),
+                        NSLocalizedString("notification.appInstalled.message", comment: ""))
                 }
+            }
         )
     }
 

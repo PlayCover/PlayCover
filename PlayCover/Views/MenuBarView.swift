@@ -70,27 +70,26 @@ struct PlayCoverViewMenuView: Commands {
                                 ipaUrl: uif.ipaUrl!,
                                 export: true,
                                 ipaSourcePTD: nil,
-                                returnCompletion:
-                                    { ipa in
-                                        DispatchQueue.main.async {
-                                            if let ipa = ipa {
-                                                ipa.showInFinder()
-                                                let config = NSWorkspace.OpenConfiguration()
-                                                config.promptsUserIfNeeded = true
-                                                let url = NSWorkspace.shared
-                                                    .urlForApplication(withBundleIdentifier: "com.sideloadly.sideloadly")
-                                                if url != nil {
-                                                    let unwrap = url.unsafelyUnwrapped
-                                                    NSWorkspace.shared
-                                                        .open([ipa], withApplicationAt: unwrap, configuration: config)
-                                                } else {
-                                                    Log.shared.error("Could not find Sideloadly!")
-                                                }
+                                returnCompletion: { ipa in
+                                    DispatchQueue.main.async {
+                                        if let ipa = ipa {
+                                            ipa.showInFinder()
+                                            let config = NSWorkspace.OpenConfiguration()
+                                            config.promptsUserIfNeeded = true
+                                            let url = NSWorkspace.shared
+                                                .urlForApplication(withBundleIdentifier: "com.sideloadly.sideloadly")
+                                            if url != nil {
+                                                let unwrap = url.unsafelyUnwrapped
+                                                NSWorkspace.shared
+                                                    .open([ipa], withApplicationAt: unwrap, configuration: config)
                                             } else {
-                                                Log.shared.error("Could not find file!")
+                                                Log.shared.error("Could not find Sideloadly!")
                                             }
+                                        } else {
+                                            Log.shared.error("Could not find file!")
                                         }
                                     }
+                                }
                             )
                         }
                     }

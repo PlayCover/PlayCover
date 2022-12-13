@@ -118,17 +118,16 @@ struct StoreAppView: View {
                         ipaUrl: uif.ipaUrl!,
                         export: false,
                         ipaSourcePTD: app.playtools,
-                        returnCompletion:
-                            { _ in
-                                FileManager.default.delete(at: tmpDir!)
+                        returnCompletion: { _ in
+                            FileManager.default.delete(at: tmpDir!)
 
-                                AppsVM.shared.apps = []
-                                AppsVM.shared.fetchApps()
-                                StoreVM.shared.resolveSources()
-                                NotifyService.shared.notify(
-                                    NSLocalizedString("notification.appInstalled", comment: ""),
-                                    NSLocalizedString("notification.appInstalled.message", comment: ""))
-                            }
+                            AppsVM.shared.apps = []
+                            AppsVM.shared.fetchApps()
+                            StoreVM.shared.resolveSources()
+                            NotifyService.shared.notify(
+                                NSLocalizedString("notification.appInstalled", comment: ""),
+                                NSLocalizedString("notification.appInstalled.message", comment: ""))
+                        }
                     )
                 }
             } catch {
