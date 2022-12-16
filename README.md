@@ -127,8 +127,7 @@ Lucas Lee - playcover@lucas.icu
 
 These open source libraries were used to create this project.
 
-* [appdecrypt](https://github.com/paradiseduo/appdecrypt/tree/main/Sources/appdecrypt)
-* [optool](https://github.com/alexzielenski/optool)
+* [inject](https://github.com/paradiseduo/inject)
 * [PTFakeTouch](https://github.com/Ret70/PTFakeTouch)
 
 * Thanks to @iVoider for creating such a great project!
