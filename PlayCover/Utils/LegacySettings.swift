@@ -5,8 +5,6 @@
 //  Created by Isaac Marovitz on 07/09/2022.
 //
 
-// swiftlint:disable function_body_length
-
 import Foundation
 
 class LegacySettings {
