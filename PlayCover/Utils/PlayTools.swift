@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import injection
 
 class PlayTools {
     private static let frameworksURL = FileManager.default.homeDirectoryForCurrentUser
@@ -79,8 +80,15 @@ class PlayTools {
     }
 
     static func installInIPA(_ exec: URL, _ payload: URL) throws {
-        patch_binary_with_dylib(exec.path, playToolsPath.path)
-        shell.signApp(exec)
+        Inject.injectMachO(machoPath: exec.path,
+                           cmdType: LC_Type.LOAD_DYLIB,
+                           backup: false,
+                           injectPath: playToolsPath.path,
+                           finishHandle: { result in
+            if result {
+                shell.signApp(exec)
+            }
+        })
     }
 
     static func installPluginInIPA(_ payload: URL) throws {
@@ -106,79 +114,100 @@ class PlayTools {
     }
 
     static func injectInIPA(_ exec: URL, payload: URL) throws {
-        patch_binary_with_dylib(exec.path, "@executable_path/Frameworks/PlayTools.dylib")
-        DispatchQueue.global(qos: .background).async {
-            do {
-                if !FileManager.default.fileExists(atPath: payload.appendingPathComponent("Frameworks").path) {
-                    try FileManager.default.createDirectory(
-                        at: payload.appendingPathComponent("Frameworks"),
-                        withIntermediateDirectories: true)
+        Inject.injectMachO(machoPath: exec.path,
+                           cmdType: LC_Type.LOAD_DYLIB,
+                           backup: false,
+                           injectPath: "@executable_path/Frameworks/PlayTools.dylib",
+                           finishHandle: { result in
+            if result {
+                DispatchQueue.global(qos: .background).async {
+                    do {
+                        if !FileManager.default.fileExists(atPath: payload.appendingPathComponent("Frameworks").path) {
+                            try FileManager.default.createDirectory(
+                                at: payload.appendingPathComponent("Frameworks"),
+                                withIntermediateDirectories: true)
+                        }
+                        if !FileManager.default.fileExists(atPath: payload.appendingPathComponent("PlugIns").path) {
+                            try FileManager.default.createDirectory(
+                                at: payload.appendingPathComponent("PlugIns"),
+                                withIntermediateDirectories: true)
+                        }
+
+                        let libraryTarget = payload.appendingPathComponent("Frameworks")
+                            .appendingPathComponent("PlayTools")
+                            .appendingPathExtension("dylib")
+                        let bundleTarget = payload.appendingPathComponent("PlugIns")
+                            .appendingPathComponent("AKInterface")
+                            .appendingPathExtension("bundle")
+
+                        let tools = bundledPlayToolsFramework
+                            .appendingPathComponent("PlayTools")
+                        let akInterface = bundledPlayToolsFramework.appendingPathComponent("PlugIns")
+                            .appendingPathComponent("AKInterface")
+                            .appendingPathExtension("bundle")
+
+                        if FileManager.default.fileExists(atPath: libraryTarget.path) {
+                            try FileManager.default.removeItem(at: libraryTarget)
+                        }
+                        try FileManager.default.copyItem(at: tools, to: libraryTarget)
+
+                        if FileManager.default.fileExists(atPath: bundleTarget.path) {
+                            try FileManager.default.removeItem(at: bundleTarget)
+                        }
+                        try FileManager.default.copyItem(at: akInterface, to: bundleTarget)
+
+                        try libraryTarget.fixExecutable()
+                        try bundleTarget.fixExecutable()
+                        Shell.codesign(bundleTarget)
+                    } catch {
+                        Log.shared.error(error)
+                    }
                 }
-                if !FileManager.default.fileExists(atPath: payload.appendingPathComponent("PlugIns").path) {
-                    try FileManager.default.createDirectory(
-                        at: payload.appendingPathComponent("PlugIns"),
-                        withIntermediateDirectories: true)
-                }
-
-                let libraryTarget = payload.appendingPathComponent("Frameworks")
-                    .appendingPathComponent("PlayTools")
-                    .appendingPathExtension("dylib")
-                let bundleTarget = payload.appendingPathComponent("PlugIns")
-                    .appendingPathComponent("AKInterface")
-                    .appendingPathExtension("bundle")
-
-                let tools = bundledPlayToolsFramework
-                    .appendingPathComponent("PlayTools")
-                let akInterface = bundledPlayToolsFramework.appendingPathComponent("PlugIns")
-                    .appendingPathComponent("AKInterface")
-                    .appendingPathExtension("bundle")
-
-                if FileManager.default.fileExists(atPath: libraryTarget.path) {
-                    try FileManager.default.removeItem(at: libraryTarget)
-                }
-                try FileManager.default.copyItem(at: tools, to: libraryTarget)
-
-                if FileManager.default.fileExists(atPath: bundleTarget.path) {
-                    try FileManager.default.removeItem(at: bundleTarget)
-                }
-                try FileManager.default.copyItem(at: akInterface, to: bundleTarget)
-
-                try libraryTarget.fixExecutable()
-                try bundleTarget.fixExecutable()
-                Shell.codesign(bundleTarget)
-            } catch {
-                Log.shared.error(error)
             }
-        }
+        })
     }
 
     static func installInApp(_ exec: URL) {
-        do {
-            patch_binary_with_dylib(exec.path, playToolsPath.path)
-            try installPluginInIPA(exec.deletingLastPathComponent())
-            shell.signApp(exec)
-        } catch {
-            Log.shared.error(error)
-        }
+        Inject.injectMachO(machoPath: exec.path,
+                           cmdType: LC_Type.LOAD_DYLIB,
+                           backup: false,
+                           injectPath: playToolsPath.path,
+                           finishHandle: { result in
+            if result {
+                do {
+                    try installPluginInIPA(exec.deletingLastPathComponent())
+                    shell.signApp(exec)
+                } catch {
+                    Log.shared.error(error)
+
+                }
+            }
+        })
     }
 
     static func removeFromApp(_ exec: URL) {
-        do {
-            remove_play_tools_from(exec.path, playToolsPath.path)
+        Inject.removeMachO(machoPath: exec.path,
+                           cmdType: LC_Type.LOAD_DYLIB,
+                           backup: false,
+                           injectPath: playToolsPath.path,
+                           finishHandle: { result in
+            if result {
+                do {
+                    let pluginUrl = exec.deletingLastPathComponent()
+                        .appendingPathComponent("PlugIns")
+                        .appendingPathComponent("AKInterface")
+                        .appendingPathExtension("bundle")
 
-            let pluginUrl = exec.deletingLastPathComponent()
-                .appendingPathComponent("PlugIns")
-                .appendingPathComponent("AKInterface")
-                .appendingPathExtension("bundle")
+                    if FileManager.default.fileExists(atPath: pluginUrl.path) {
+                        try FileManager.default.removeItem(at: pluginUrl)
+                    }
 
-            if FileManager.default.fileExists(atPath: pluginUrl.path) {
-                try FileManager.default.removeItem(at: pluginUrl)
+                    shell.signApp(exec)
+                } catch {
+                    Log.shared.error(error)
+                }
             }
-
-            shell.signApp(exec)
-        } catch {
-            Log.shared.error(error)
-        }
+        })
     }
 
     static func convertMacho(_ macho: URL) throws {
