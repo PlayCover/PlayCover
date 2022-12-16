@@ -36,7 +36,7 @@ body:
       label: What version of PlayCover are you using?
       options:
         - Nightly/beta
-        - 1.1.1
+        - 2.0.0
     validations:
         required: true
   - type: dropdown
