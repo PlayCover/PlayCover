@@ -21,35 +21,6 @@ struct IPALibraryView: View {
 
     var body: some View {
         ZStack {
-            ScrollView {
-                if !isList {
-                    LazyVGrid(columns: gridLayout, alignment: .center) {
-                        ForEach(storeVM.filteredApps, id: \.bundleID) { app in
-                            StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                         selectedTextColor: $selectedTextColor,
-                                         selected: $selected,
-                                         app: app,
-                                         isList: isList)
-                            .environmentObject(DownloadVM.shared)
-                        }
-                    }
-                    .padding()
-                    Spacer()
-                } else {
-                    VStack {
-                        ForEach(storeVM.filteredApps, id: \.bundleID) { app in
-                            StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                         selectedTextColor: $selectedTextColor,
-                                         selected: $selected,
-                                         app: app,
-                                         isList: isList)
-                            .environmentObject(DownloadVM.shared)
-                        }
-                        Spacer()
-                    }
-                    .padding()
-                }
-            }
             if storeVM.sources.count == 0 {
                 VStack {
                     Spacer()
@@ -65,10 +36,107 @@ struct IPALibraryView: View {
                     Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .sheet(isPresented: $addSourcePresented) {
+                    AddSourceView(addSourceSheet: $addSourcePresented)
+                        .environmentObject(storeVM)
+                }
+            } else {
+                if #available(macOS 13.0, *) {
+                    NavigationStack {
+                        ZStack {
+                            ScrollView {
+                                if !isList {
+                                    LazyVGrid(columns: gridLayout, alignment: .center) {
+                                        ForEach(storeVM.filteredApps, id: \.bundleID) { app in
+                                            NavigationLink(
+                                                destination: DetailStoreAppView(
+                                                    app: app,
+                                                    downloadVM: DownloadVM.shared,
+                                                    installVM: InstallVM.shared)
+                                            ) {
+                                                StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                                             selectedTextColor: $selectedTextColor,
+                                                             selected: $selected,
+                                                             app: app,
+                                                             isList: isList)
+                                                .environmentObject(DownloadVM.shared)
+                                                .environmentObject(InstallVM.shared)
+                                            }
+                                            .buttonStyle(.plain)
+                                        }
+                                    }
+                                    .padding()
+                                    Spacer()
+                                } else {
+                                    VStack {
+                                        ForEach(storeVM.filteredApps, id: \.bundleID) { app in
+                                            NavigationLink(
+                                                destination: DetailStoreAppView(
+                                                    app: app,
+                                                    downloadVM: DownloadVM.shared,
+                                                    installVM: InstallVM.shared)
+                                            ) {
+                                                StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                                             selectedTextColor: $selectedTextColor,
+                                                             selected: $selected,
+                                                             app: app,
+                                                             isList: isList)
+                                                .environmentObject(DownloadVM.shared)
+                                                .environmentObject(InstallVM.shared)
+                                            }
+                                            .buttonStyle(.plain)
+                                            Spacer()
+                                        }
+                                    }
+                                    .padding()
+                                }
+                            }
+                        }
+                        .searchable(text: $searchString, placement: .toolbar)
+                        .onChange(of: searchString) { value in
+                            uif.searchText = value
+                            storeVM.fetchApps()
+                        }
+                    }
+                } else {
+                    ZStack {
+                        ScrollView {
+                            if !isList {
+                                LazyVGrid(columns: gridLayout, alignment: .center) {
+                                    ForEach(storeVM.filteredApps, id: \.bundleID) { app in
+                                        StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                                     selectedTextColor: $selectedTextColor,
+                                                     selected: $selected,
+                                                     app: app,
+                                                     isList: isList)
+                                        .environmentObject(DownloadVM.shared)
+                                    }
+                                }
+                                .padding()
+                                Spacer()
+                            } else {
+                                VStack {
+                                    ForEach(storeVM.filteredApps, id: \.bundleID) { app in
+                                        StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                                     selectedTextColor: $selectedTextColor,
+                                                     selected: $selected,
+                                                     app: app,
+                                                     isList: isList)
+                                        .environmentObject(DownloadVM.shared)
+                                    }
+                                    Spacer()
+                                }
+                                .padding()
+                            }
+                        }
+                    }
+                    .searchable(text: $searchString, placement: .toolbar)
+                    .onChange(of: searchString) { value in
+                        uif.searchText = value
+                        storeVM.fetchApps()
+                    }
+                }
             }
-        }
-        .onTapGesture {
-            selected = nil
         }
         .navigationTitle("sidebar.ipaLibrary")
         .toolbar {
@@ -100,11 +168,6 @@ struct IPALibraryView: View {
                         .tag(true)
                 }.pickerStyle(.segmented)
             }
-        }
-        .searchable(text: $searchString, placement: .toolbar)
-        .onChange(of: searchString) { value in
-            uif.searchText = value
-            storeVM.fetchApps()
         }
         .onChange(of: isList, perform: { value in
             UserDefaults.standard.set(value, forKey: "IPALibrayView")
