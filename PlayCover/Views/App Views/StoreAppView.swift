@@ -21,7 +21,7 @@ struct StoreAppView: View {
     @EnvironmentObject var downloadVM: DownloadVM
 
     var body: some View {
-        ZStack {
+        Group {
             if #available(macOS 13.0, *) {
                 StoreAppConditionalView(selectedBackgroundColor: $selectedBackgroundColor,
                                         selectedTextColor: $selectedTextColor,
@@ -120,12 +120,10 @@ struct StoreAppConditionalView: View {
                         .foregroundColor(.secondary)
                 }
                 .contentShape(Rectangle())
-                .background(
-                    RoundedRectangle(cornerRadius: 4)
+                .background(RoundedRectangle(cornerRadius: 4)
                         .fill(selected?.bundleID == app.bundleID ?
                               selectedBackgroundColor : Color.clear)
-                        .brightness(-0.2)
-                )
+                        .brightness(-0.2))
             } else {
                 VStack {
                     ZStack {
@@ -176,8 +174,7 @@ struct StoreAppConditionalView: View {
 }
 
 struct DetailStoreAppView: View {
-
-    @State var downloadText: String?
+    @State var dlButtonText: LocalizedStringKey?
     @State var warningMessage: String?
 
     @State var app: StoreAppData
@@ -225,15 +222,15 @@ struct DetailStoreAppView: View {
                         }
                     } label: {
                         if downloadVM.downloading && downloadVM.storeAppData == app {
-                            ProgressView("Downloading...", value: downloadVM.progress)
+                            ProgressView("playapp.download", value: downloadVM.progress)
                                 .progressViewStyle(.circular)
                                 .font(.caption2)
                         } else if installVM.installing && downloadVM.storeAppData == app {
-                            ProgressView("Installing...", value: installVM.progress)
+                            ProgressView("playapp.install", value: installVM.progress)
                                 .progressViewStyle(.circular)
                                 .font(.caption2)
                         } else {
-                            Text(downloadText ?? "Get")
+                            Text(dlButtonText ?? "ipaLibrary.detailed.dlnew")
                                 .font(.headline)
                                 .fontWeight(.semibold)
                                 .padding(.horizontal)
@@ -247,23 +244,69 @@ struct DetailStoreAppView: View {
                     Spacer()
                 }
                 Divider()
-                if let responce = itunesResponce {
-                    StatBanner(responce: responce,
-                               storeData: app)
-                }
                 HStack {
-                    Text(itunesResponce?.results[0].description ?? "")
-                        .lineLimit(truncated ? 5 : nil)
+                    Spacer()
                     VStack {
+                        Text("ipaLibrary.detailed.apprating")
+                            .modifier(BadgeTextStyle())
                         Spacer()
-                        Button {
-                            truncated.toggle()
-                        } label: {
-                            Text(truncated ? "Read more" : "Show less")
-                                .foregroundColor(.accentColor)
-                                .padding(.leading, 5)
+                            .frame(height: 5)
+                        if let average = itunesResponce?.results[0].averageUserRating ?? 0 {
+                            let rating = String(format: "%.1f", round(average * 10) / 10.0)
+                            Text(rating)
+                                .font(.title2.bold())
                         }
-                        .buttonStyle(.plain)
+                    }
+                    VerticalSpacer()
+                    VStack {
+                        Text("ipaLibrary.detailed.appversion")
+                            .modifier(BadgeTextStyle())
+                        Spacer()
+                            .frame(height: 5)
+                        Text(app.version)
+                            .font(.title2.bold())
+                    }
+                    VerticalSpacer()
+                    VStack {
+                        Text("ipaLibrary.detailed.filesize")
+                            .modifier(BadgeTextStyle())
+                        Spacer()
+                            .frame(height: 5)
+                        Text(ByteCountFormatter.string(
+                            fromByteCount: Int64(itunesResponce?.results[0].fileSizeBytes ?? "0") ?? 0,
+                            countStyle: .file
+                        ))
+                        .font(.title2.bold())
+                    }
+                    VerticalSpacer()
+                    VStack {
+                        Text("ipaLibrary.detailed.apppg")
+                            .modifier(BadgeTextStyle())
+                        Spacer()
+                            .frame(height: 5)
+                        Text(itunesResponce?.results[0].trackContentRating ?? "0")
+                            .font(.title2.bold())
+                    }
+                    Spacer()
+                }
+                .padding()
+                HStack {
+                    Text(itunesResponce?.results[0].description ??
+                         NSLocalizedString("ipaLibrary.detailed.nodesc", comment: ""))
+                    .lineLimit(truncated ? 5 : nil)
+                    Spacer()
+                    if itunesResponce != nil {
+                        VStack {
+                            Spacer()
+                            Button {
+                                truncated.toggle()
+                            } label: {
+                                Text(truncated ? "ipaLibrary.detailed.more" : "ipaLibrary.detailed.less")
+                                    .foregroundColor(.accentColor)
+                                    .padding(.leading, 5)
+                            }
+                            .buttonStyle(.plain)
+                        }
                     }
                 }
                 ScrollView(.horizontal) {
@@ -293,13 +336,13 @@ struct DetailStoreAppView: View {
                 if let sourceApp = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == app.bundleID }) {
                     switch app.version.compare(sourceApp.info.bundleVersion, options: .numeric) {
                     case .orderedAscending:
-                        downloadText = "Downgrade"
+                        dlButtonText = "ipaLibrary.detailed.dlolder"
                         warningMessage = "ipaLibrary.version.older"
                     case .orderedSame:
-                        downloadText = "Reinstall"
+                        dlButtonText = "ipaLibrary.detailed.dlsame"
                         warningMessage = "ipaLibrary.version.same"
                     case .orderedDescending:
-                        downloadText = "Update"
+                        dlButtonText = "ipaLibrary.detailed.dlnewer"
                         warningMessage = "ipaLibrary.version.newer"
                     default:
                         warningMessage = "ipaLibrary.download"
@@ -324,75 +367,16 @@ struct DetailStoreAppView: View {
     }
 }
 
-struct VerticalSpacer: View {
-    var body: some View {
-        Spacer()
-        Divider()
-            .frame(height: .infinity)
-        Spacer()
-    }
-}
-
-struct StatBadge: View {
-    @State var header: String
-    @State var stat: String
-
-    var body: some View {
-        VStack {
-            Text(header)
-                .textCase(.uppercase)
-                .font(.subheadline.bold())
-                .foregroundColor(Color(nsColor: .tertiaryLabelColor))
-            Spacer()
-                .frame(height: 5)
-            Text(stat)
-                .font(.title2.bold())
-        }
-    }
-}
-
-struct StatBanner: View {
-    @State var responce: ITunesResponse
-    @State var storeData: StoreAppData
-
-    var body: some View {
-        HStack {
-            Spacer()
-            StatBadge(header: "Rating",
-                      stat: (round(responce
-                        .results[0]
-                        .averageUserRating * 10) / 10.0)
-                        .formatted())
-            VerticalSpacer()
-            StatBadge(header: "Version",
-                      stat: storeData.version)
-            VerticalSpacer()
-            StatBadge(header: "Size",
-                      stat: ByteCountFormatter
-                .string(fromByteCount:
-                            Int64(responce.results[0].fileSizeBytes) ?? 0,
-                        countStyle: .file))
-            VerticalSpacer()
-            StatBadge(header: "Age",
-                      stat: responce.results[0].trackContentRating)
-            Spacer()
-        }
-        .padding()
-    }
-}
-
 struct DetailStoreAppView_Preview: PreviewProvider {
     static var previews: some View {
         DetailStoreAppView(
             app: StoreAppData(
                 bundleID: "com.miHoYo.GenshinImpact",
-                name: "Genshin Impact",
-                version: "3.3.0",
+                name: "Genshin Impact", version: "3.3.0",
                 itunesLookup: "http://itunes.apple.com/lookup?bundleId=com.miHoYo.GenshinImpact",
                 link: "https://repo.amrsm.ir/ipa/Genshin-Impact_3.3.0.ipa"
             ),
-            downloadVM: DownloadVM.shared,
-            installVM: InstallVM.shared
+            downloadVM: DownloadVM.shared, installVM: InstallVM.shared
         )
     }
 }

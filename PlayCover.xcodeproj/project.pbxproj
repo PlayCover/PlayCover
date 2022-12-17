@@ -23,6 +23,7 @@
 		53F4D2A026C43C690020167C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29F26C43C690020167C /* Log.swift */; };
 		53F50C4926E3CA42007AD2D3 /* AppLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */; };
 		53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F5E74226C1D37E005AED1D /* FileExtensions.swift */; };
+		68822458294D920600D72AF9 /* ViewExtenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68822457294D920600D72AF9 /* ViewExtenstions.swift */; };
 		68E53BD5294D5DB300E56DCF /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E53BD4294D5DB300E56DCF /* Downloader.swift */; };
 		6E06193628B3C4090012C771 /* StoreGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193528B3C4090012C771 /* StoreGenshinAccountView.swift */; };
 		6E06193828B3C4240012C771 /* ChangeGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193728B3C4240012C771 /* ChangeGenshinAccountView.swift */; };
@@ -110,6 +111,7 @@
 		53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLibraryView.swift; sourceTree = "<group>"; };
 		53F5E74226C1D37E005AED1D /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
 		6854C5E528D53C9500CE28A0 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
+		68822457294D920600D72AF9 /* ViewExtenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtenstions.swift; sourceTree = "<group>"; };
 		68E53BD4294D5DB300E56DCF /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		6E06193528B3C4090012C771 /* StoreGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreGenshinAccountView.swift; sourceTree = "<group>"; };
 		6E06193728B3C4240012C771 /* ChangeGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeGenshinAccountView.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				8783D00A26B8C9E600171041 /* URLExtensions.swift */,
 				53F5E74226C1D37E005AED1D /* FileExtensions.swift */,
 				5314D1ED26C402EC00A0A727 /* Shell.swift */,
+				68822457294D920600D72AF9 /* ViewExtenstions.swift */,
 				538AAE7A26CD41E60009C7AC /* ProcessExtension.swift */,
 				92B4D38E2737CF3D0001D7BB /* PlayTools.swift */,
 				92A8AAC8275EFEA800D89B50 /* SystemConfig.swift */,
@@ -632,6 +635,7 @@
 				92EE06DE274EC09F002C907B /* Entitlements.swift in Sources */,
 				92ECD8A5274E763700DB7AC6 /* IPA.swift in Sources */,
 				365AFB0828847B75008B3542 /* Sparkle.swift in Sources */,
+				68822458294D920600D72AF9 /* ViewExtenstions.swift in Sources */,
 				92B4D38F2737CF3D0001D7BB /* PlayTools.swift in Sources */,
 				3665EF8928832400007CF915 /* PlayCoverSettingsView.swift in Sources */,
 				9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */,
@@ -890,14 +894,11 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				BUNDLE_ID_SUFFIX = .dev;
 				CODE_SIGN_ENTITLEMENTS = PlayCover/PlayCoverRelease.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
-				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 174;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "PlayCover/Preview\\ Content";
-				DEVELOPMENT_TEAM = 792V9HMJW3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = x86_64;
@@ -913,7 +914,6 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.playcover.PlayCover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Direct io.playcover.PlayCover macos";
 				RUN_DOCUMENTATION_COMPILER = YES;
 				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = off;
 				SWIFT_OBJC_BRIDGING_HEADER = "./PlayCover/PlayCover-Bridging-Header.h";
