@@ -182,7 +182,7 @@ class StoreVM: ObservableObject {
     }
 }
 
-struct StoreAppData: Codable, Equatable {
+struct StoreAppData: Codable, Equatable, Hashable {
     var bundleID: String
     let name: String
     let version: String
