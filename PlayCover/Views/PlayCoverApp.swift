@@ -27,6 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         UserDefaults.standard.register(
             defaults: ["NSApplicationCrashOnExceptions": true]
         )
+/*
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(powerStateChanged),
                                                name: Notification.Name.NSProcessInfoPowerStateDidChange,
@@ -34,12 +35,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if ProcessInfo.processInfo.isLowPowerModeEnabled {
             powerModal()
         }
+*/ 
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return true
     }
-
+/*
     @objc func powerStateChanged(_ notification: Notification) {
         if ProcessInfo.processInfo.isLowPowerModeEnabled {
             DispatchQueue.main.async {
@@ -56,6 +58,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         alert.alertStyle = .critical
         alert.runModal()
     }
+*/
 }
 
 @main
