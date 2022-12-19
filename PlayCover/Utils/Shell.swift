@@ -138,6 +138,29 @@ class Shell: ObservableObject {
         }
     }
 
+    static func createAlias(_ app: PlayApp) {
+        if !FileManager.default.fileExists(atPath: app.aliasDirectory.path) {
+            do {
+                try FileManager.default.createDirectory(atPath: app.aliasDirectory.path,
+                                                        withIntermediateDirectories: true,
+                                                        attributes: nil)
+            } catch {
+                Log.shared.log("Error creating app alias directory: \(error)")
+            }
+        }
+        if let scriptPath = Bundle.main.url(forResource: "appAlias", withExtension: "scpt") {
+            DispatchQueue.global(qos: .utility).async {
+                let process = Process()
+                process.launchPath = "/usr/bin/osascript"
+                process.arguments = ["\(scriptPath.path)", "\(app.url.path)", app.name]
+                let pipe = Pipe()
+                process.standardOutput = pipe
+                process.launch()
+                process.waitUntilExit()
+            }
+        }
+    }
+
     static func sudosh(_ args: [String], _ argc: String) -> Bool {
         let password = argc
         let passwordWithNewline = password + "\n"

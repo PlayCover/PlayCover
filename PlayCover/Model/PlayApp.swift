@@ -107,6 +107,19 @@ class PlayApp: BaseApp {
         }
     }
 
+    var aliasDirectory: URL {
+        return FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent("Applications")
+            .appendingPathComponent("PlayCover")
+    }
+
+    var aliasURL: URL {
+        return FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent("Applications")
+            .appendingPathComponent("PlayCover")
+            .appendingPathComponent(name)
+    }
+
     lazy var settings = AppSettings(info, container: container)
 
     lazy var keymapping = Keymapping(info, container: container)
@@ -120,6 +133,10 @@ class PlayApp: BaseApp {
             Log.shared.error(error)
             return true
         }
+    }
+
+    func hasAlias() -> Bool {
+        return FileManager.default.fileExists(atPath: aliasURL.path)
     }
 
     func isCodesigned() throws -> Bool {
@@ -136,6 +153,12 @@ class PlayApp: BaseApp {
 
     func clearAllCache() {
         Uninstaller.clearExternalCache(info.bundleIdentifier)
+    }
+
+    func removeAlias() {
+        if FileManager.default.fileExists(atPath: aliasURL.path) {
+            FileManager.default.delete(at: aliasURL)
+        }
     }
 
     func deleteApp() {

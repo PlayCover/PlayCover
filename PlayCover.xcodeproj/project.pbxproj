@@ -79,6 +79,7 @@
 		B6603E1328E2257800DEFA3F /* Uninstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6603E1228E2257800DEFA3F /* Uninstaller.swift */; };
 		B6825C3528F3D23600E3015A /* InstallSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6825C3428F3D23600E3015A /* InstallSettings.swift */; };
 		B6AB53C929232B4F00039B2E /* KeyCodeNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AB53C829232B4F00039B2E /* KeyCodeNames.swift */; };
+		FB8CA83A29518ADC00DE021E /* appAlias.scpt in Resources */ = {isa = PBXBuildFile; fileRef = FB8CA83929518ADC00DE021E /* appAlias.scpt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -180,6 +181,7 @@
 		B6603E1228E2257800DEFA3F /* Uninstaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Uninstaller.swift; sourceTree = "<group>"; };
 		B6825C3428F3D23600E3015A /* InstallSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallSettings.swift; sourceTree = "<group>"; };
 		B6AB53C829232B4F00039B2E /* KeyCodeNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCodeNames.swift; sourceTree = "<group>"; };
+		FB8CA83929518ADC00DE021E /* appAlias.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = appAlias.scpt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -432,6 +434,7 @@
 		AAE8809D287ACE7D00FBB23C /* scripts */ = {
 			isa = PBXGroup;
 			children = (
+				FB8CA83929518ADC00DE021E /* appAlias.scpt */,
 				6E3C8E1028AE1F250020BCEA /* xcode_install.scpt */,
 				AAE8809F287ACE9F00FBB23C /* bootstrap.sh */,
 				AAE8809E287ACE9F00FBB23C /* cp_frameworks.sh */,
@@ -527,6 +530,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB8CA83A29518ADC00DE021E /* appAlias.scpt in Resources */,
 				6E3C8E1128AE1F330020BCEA /* xcode_install.scpt in Resources */,
 				AA719649287A0E2500623C15 /* default.yaml in Resources */,
 				8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */,
