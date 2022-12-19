@@ -7,7 +7,6 @@
 
 import Foundation
 
-// swiftlint:disable function_body_length
 func downloadApp(_ url: URL,
                  _ app: StoreAppData,
                  _ downloadVM: DownloadVM,
@@ -34,7 +33,7 @@ func downloadApp(_ url: URL,
         lazy var urlSession = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
         let downloadTask = urlSession.downloadTask(with: url, completionHandler: { url, urlResponse, error in
             observation?.invalidate()
-            downloadComplete(url, urlResponse, error)
+            downloadComplete(url, app, downloadVM, urlResponse, error)
         })
 
         observation = downloadTask.progress.observe(\.fractionCompleted) { progress, _ in
@@ -50,46 +49,50 @@ func downloadApp(_ url: URL,
     } else {
         Log.shared.error(PlayCoverError.waitDownload)
     }
-    func downloadComplete(_ url: URL?, _ urlResponce: URLResponse?, _ error: Error?) {
-        if error != nil {
-            Log.shared.error(error!)
-        }
-        if let url = url {
-            var tmpDir: URL?
+}
 
-            do {
-                tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
-                                                     in: .userDomainMask,
-                                                     appropriateFor: URL(fileURLWithPath: "/Users"),
-                                                     create: true)
-
-                let tmpIpa = tmpDir!.appendingPathComponent(app.bundleID)
-                                    .appendingPathExtension("ipa")
-
-                try FileManager.default.moveItem(at: url, to: tmpIpa)
-                uif.ipaUrl = tmpIpa
-                DispatchQueue.main.async {
-                    Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
-                        FileManager.default.delete(at: tmpDir!)
-
-                        AppsVM.shared.apps = []
-                        AppsVM.shared.fetchApps()
-                        StoreVM.shared.resolveSources()
-                        NotifyService.shared.notify(
-                            NSLocalizedString("notification.appInstalled", comment: ""),
-                            NSLocalizedString("notification.appInstalled.message", comment: ""))
-                    })
-                }
-            } catch {
-                if let tmpDir = tmpDir {
-                    FileManager.default.delete(at: tmpDir)
-                }
-
-                Log.shared.error(error)
-            }
-        }
-        downloadVM.downloading = false
-        downloadVM.progress = 0
-//        downloadVM.storeAppData = nil
+func downloadComplete(_ url: URL?,
+                      _ app: StoreAppData,
+                      _ downloadVM: DownloadVM,
+                      _ urlResponse: URLResponse?,
+                      _ error: Error?) {
+    if error != nil {
+        Log.shared.error(error!)
     }
+    if let url = url {
+        var tmpDir: URL?
+
+        do {
+            tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
+                                                 in: .userDomainMask,
+                                                 appropriateFor: URL(fileURLWithPath: "/Users"),
+                                                 create: true)
+
+            let tmpIpa = tmpDir!.appendingPathComponent(app.bundleID)
+                                .appendingPathExtension("ipa")
+
+            try FileManager.default.moveItem(at: url, to: tmpIpa)
+            uif.ipaUrl = tmpIpa
+            DispatchQueue.main.async {
+                Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
+                    FileManager.default.delete(at: tmpDir!)
+                    AppsVM.shared.apps = []
+                    AppsVM.shared.fetchApps()
+                    StoreVM.shared.resolveSources()
+                    NotifyService.shared.notify(
+                        NSLocalizedString("notification.appInstalled", comment: ""),
+                        NSLocalizedString("notification.appInstalled.message", comment: ""))
+                })
+            }
+        } catch {
+            if let tmpDir = tmpDir {
+                FileManager.default.delete(at: tmpDir)
+            }
+
+            Log.shared.error(error)
+        }
+    }
+    downloadVM.downloading = false
+    downloadVM.progress = 0
+//        downloadVM.storeAppData = nil
 }
