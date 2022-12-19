@@ -123,6 +123,7 @@ class Uninstaller {
             FileManager.default.delete(at: app.entitlements)
         }
 
+        app.removeAlias()
         app.deleteApp()
     }
 
