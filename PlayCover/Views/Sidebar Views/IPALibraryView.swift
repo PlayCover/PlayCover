@@ -20,7 +20,7 @@ struct IPALibraryView: View {
     @State private var addSourcePresented = false
 
     var body: some View {
-        ZStack {
+        Group {
             if storeVM.sources.count == 0 {
                 VStack {
                     Spacer()
