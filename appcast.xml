@@ -3,6 +3,16 @@
     <channel>
         <title>PlayCover</title>
         <item>
+            <title>2.0.1</title>
+            <pubDate>Tue, 20 Dec 2022 13:57:00 +0900</pubDate>
+            <link>https://github.com/PlayCover/PlayCover/releases/tag/2.0.1</link>
+            <sparkle:fullReleaseNotesLink>https://github.com/PlayCover/PlayCover/releases/tag/2.0.1</sparkle:fullReleaseNotesLink>
+            <sparkle:version>185</sparkle:version>
+            <sparkle:shortVersionString>2.0.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/PlayCover/PlayCover/releases/download/2.0.1/PlayCover_2.0.1.dmg" length="5107408" type="application/octet-stream" sparkle:edSignature="51bX06gkprn0wi+m7z31crvgx6Oap+qsb6HvjoxSB/KqzfuPQvQDxJ5SxCSYZACjBEzsWYDzURXz2pZKHCSWCA==" />
+        </item>
+        <item>
             <title>2.0.0</title>
             <pubDate>Mon, 11 Dec 2022 13:50:00 +0900</pubDate>
             <link>https://github.com/PlayCover/PlayCover/releases/tag/2.0.0</link>
