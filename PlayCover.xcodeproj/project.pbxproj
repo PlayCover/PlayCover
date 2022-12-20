@@ -26,6 +26,7 @@
 		6E06193628B3C4090012C771 /* StoreGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193528B3C4090012C771 /* StoreGenshinAccountView.swift */; };
 		6E06193828B3C4240012C771 /* ChangeGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193728B3C4240012C771 /* ChangeGenshinAccountView.swift */; };
 		6E06193A28B3C42E0012C771 /* DeleteGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193928B3C42E0012C771 /* DeleteGenshinAccountView.swift */; };
+		6E174058294C2759002A63E0 /* Injection in Frameworks */ = {isa = PBXBuildFile; productRef = 6E174057294C2759002A63E0 /* Injection */; };
 		6E21233128F65F7600B4D75D /* GenshinUserDataURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E21233028F65F7600B4D75D /* GenshinUserDataURLs.swift */; };
 		6E3C8E1128AE1F330020BCEA /* xcode_install.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 6E3C8E1028AE1F250020BCEA /* xcode_install.scpt */; };
 		6E40BC9228FDBDF300AB9CB9 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E40BC9128FDBDF300AB9CB9 /* ImageCache.swift */; };
@@ -49,11 +50,6 @@
 		8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783D00126B8C52E00171041 /* Preview Assets.xcassets */; };
 		8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00A26B8C9E600171041 /* URLExtensions.swift */; };
 		923421F7275F40300030CD7D /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923421F6275F40300030CD7D /* AppContainer.swift */; };
-		9256220127491E4700728698 /* NSData+Reading.m in Sources */ = {isa = PBXBuildFile; fileRef = 925621FD27491E4700728698 /* NSData+Reading.m */; };
-		9256220327491E4700728698 /* operations.m in Sources */ = {isa = PBXBuildFile; fileRef = 925621FF27491E4700728698 /* operations.m */; };
-		9256220427491E4700728698 /* headers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9256220027491E4700728698 /* headers.m */; };
-		9256220627491E8200728698 /* patch.m in Sources */ = {isa = PBXBuildFile; fileRef = 9256220527491E8200728698 /* patch.m */; };
-		92562209274921E500728698 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92562208274921E500728698 /* main.m */; };
 		9272F19E273B74C800DFBEF1 /* AppsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9272F19C273B74C800DFBEF1 /* AppsVM.swift */; };
 		9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280871A2824A8D20034C510 /* SoundDeviceService.swift */; };
 		9286D296273A7E4200958DD3 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286D295273A7E4200958DD3 /* AppSettings.swift */; };
@@ -147,16 +143,6 @@
 		8783D00A26B8C9E600171041 /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
 		8FBBE76B2826709500F4FE9F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		923421F6275F40300030CD7D /* AppContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
-		925621F927491E4700728698 /* NSData+Reading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Reading.h"; sourceTree = "<group>"; };
-		925621FA27491E4700728698 /* operations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = operations.h; sourceTree = "<group>"; };
-		925621FB27491E4700728698 /* headers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = headers.h; sourceTree = "<group>"; };
-		925621FC27491E4700728698 /* defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = defines.h; sourceTree = "<group>"; };
-		925621FD27491E4700728698 /* NSData+Reading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Reading.m"; sourceTree = "<group>"; };
-		925621FF27491E4700728698 /* operations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = operations.m; sourceTree = "<group>"; };
-		9256220027491E4700728698 /* headers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = headers.m; sourceTree = "<group>"; };
-		9256220527491E8200728698 /* patch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = patch.m; sourceTree = "<group>"; };
-		9256220727491E9F00728698 /* patch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = patch.h; sourceTree = "<group>"; };
-		92562208274921E500728698 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9272F19C273B74C800DFBEF1 /* AppsVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppsVM.swift; sourceTree = "<group>"; };
 		9280871A2824A8D20034C510 /* SoundDeviceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundDeviceService.swift; sourceTree = "<group>"; };
 		9286D295273A7E4200958DD3 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
@@ -201,6 +187,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E174058294C2759002A63E0 /* Injection in Frameworks */,
 				365AFB0628847B2E008B3542 /* Sparkle in Frameworks */,
 				AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */,
 				B17FD03C28C70C2100B1D4CA /* CoreUI.framework in Frameworks */,
@@ -292,7 +279,6 @@
 			isa = PBXGroup;
 			children = (
 				92ECD8A6274E769600DB7AC6 /* Utils */,
-				925621F827491E4700728698 /* optool */,
 				92ECD8A2274E75CD00DB7AC6 /* Installer.swift */,
 			);
 			path = AppInstaller;
@@ -424,23 +410,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		925621F827491E4700728698 /* optool */ = {
-			isa = PBXGroup;
-			children = (
-				92562208274921E500728698 /* main.m */,
-				925621F927491E4700728698 /* NSData+Reading.h */,
-				925621FA27491E4700728698 /* operations.h */,
-				925621FB27491E4700728698 /* headers.h */,
-				925621FC27491E4700728698 /* defines.h */,
-				925621FD27491E4700728698 /* NSData+Reading.m */,
-				925621FF27491E4700728698 /* operations.m */,
-				9256220027491E4700728698 /* headers.m */,
-				9256220527491E8200728698 /* patch.m */,
-				9256220727491E9F00728698 /* patch.h */,
-			);
-			path = optool;
-			sourceTree = "<group>";
-		};
 		92ECD8A6274E769600DB7AC6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -493,6 +462,7 @@
 			packageProductDependencies = (
 				AA818CB4287ABEC3000BEE9D /* Yams */,
 				365AFB0528847B2E008B3542 /* Sparkle */,
+				6E174057294C2759002A63E0 /* Injection */,
 			);
 			productName = PlayCover;
 			productReference = 8783CFF726B8C52D00171041 /* PlayCover.app */;
@@ -541,6 +511,7 @@
 			packageReferences = (
 				AA818CB3287ABEC3000BEE9D /* XCRemoteSwiftPackageReference "Yams" */,
 				365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */,
+				6EC73F38293FCBD60047A07C /* XCRemoteSwiftPackageReference "inject" */,
 			);
 			productRefGroup = 8783CFF826B8C52D00171041 /* Products */;
 			projectDirPath = "";
@@ -659,7 +630,6 @@
 				92ECD8A5274E763700DB7AC6 /* IPA.swift in Sources */,
 				365AFB0828847B75008B3542 /* Sparkle.swift in Sources */,
 				92B4D38F2737CF3D0001D7BB /* PlayTools.swift in Sources */,
-				92562209274921E500728698 /* main.m in Sources */,
 				3665EF8928832400007CF915 /* PlayCoverSettingsView.swift in Sources */,
 				9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */,
 				92ECD8AE274E787200DB7AC6 /* AppInfo.swift in Sources */,
@@ -673,11 +643,9 @@
 				6E7CA16728B4EEAE00216CD8 /* Keymapping.swift in Sources */,
 				6ED6ACA428A949A30040D234 /* AppSettingsView.swift in Sources */,
 				92EE06DA274EB009002C907B /* PlayApp.swift in Sources */,
-				9256220427491E4700728698 /* headers.m in Sources */,
 				53F50C4926E3CA42007AD2D3 /* AppLibraryView.swift in Sources */,
 				6E66B0D1289F57B00099B907 /* Documentation.docc in Sources */,
 				6E40BC9228FDBDF300AB9CB9 /* ImageCache.swift in Sources */,
-				9256220627491E8200728698 /* patch.m in Sources */,
 				53F3802826EB6F6B00D6B525 /* NotifyService.swift in Sources */,
 				6E5C68BA289865C8008EC11B /* MainView.swift in Sources */,
 				28361D6028927CAC00B35EDB /* SaveGenshinUserData.swift in Sources */,
@@ -707,14 +675,12 @@
 				92EE06D4274EA604002C907B /* PlayAppView.swift in Sources */,
 				6E21233128F65F7600B4D75D /* GenshinUserDataURLs.swift in Sources */,
 				B17FD04728C7B0D900B1D4CA /* AssetsExtractor.swift in Sources */,
-				9256220327491E4700728698 /* operations.m in Sources */,
 				6EE8265028E8AB2B003935BC /* DownloadVM.swift in Sources */,
 				6E06193A28B3C42E0012C771 /* DeleteGenshinAccountView.swift in Sources */,
 				28361D662892800200B35EDB /* DeleteStoredGenshinUserData.swift in Sources */,
 				53D9DAF326C1849D0071959E /* PlayCoverError.swift in Sources */,
 				9286D296273A7E4200958DD3 /* AppSettings.swift in Sources */,
 				9272F19E273B74C800DFBEF1 /* AppsVM.swift in Sources */,
-				9256220127491E4700728698 /* NSData+Reading.m in Sources */,
 				923421F7275F40300030CD7D /* AppContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -820,7 +786,7 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 174;
+				CURRENT_PROJECT_VERSION = 185;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "PlayCover/Preview\\ Content";
@@ -923,7 +889,7 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 174;
+				CURRENT_PROJECT_VERSION = 185;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "PlayCover/Preview\\ Content";
@@ -985,6 +951,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		6EC73F38293FCBD60047A07C /* XCRemoteSwiftPackageReference "inject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/paradiseduo/inject";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		AA818CB3287ABEC3000BEE9D /* XCRemoteSwiftPackageReference "Yams" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jpsim/Yams.git";
@@ -1001,6 +975,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */;
 			productName = Sparkle;
+		};
+		6E174057294C2759002A63E0 /* Injection */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6EC73F38293FCBD60047A07C /* XCRemoteSwiftPackageReference "inject" */;
+			productName = Injection;
 		};
 		AA818CB4287ABEC3000BEE9D /* Yams */ = {
 			isa = XCSwiftPackageProductDependency;

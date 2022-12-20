@@ -36,7 +36,7 @@ body:
       label: What version of PlayCover are you using?
       options:
         - Nightly/beta
-        - 1.1.1
+        - 2.0.1
     validations:
         required: true
   - type: dropdown
@@ -46,6 +46,7 @@ body:
       options:
         - "Monterey (macOS 12)"
         - "Ventura (macOS 13)"
+        - macOS beta (please state the specific version)
     validations:
       required: true
   - type: checkboxes

@@ -76,8 +76,10 @@ struct StoreAppView: View {
         if !downloadVM.downloading && !InstallVM.shared.installing {
             lazy var urlSession = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
             let downloadTask = urlSession.downloadTask(with: url, completionHandler: { url, urlResponse, error in
-                observation?.invalidate()
-                downloadComplete(url, urlResponse, error)
+                DispatchQueue.main.async {
+                    observation?.invalidate()
+                    downloadComplete(url, urlResponse, error)
+                }
             })
 
             observation = downloadTask.progress.observe(\.fractionCompleted) { progress, _ in
@@ -113,8 +115,8 @@ struct StoreAppView: View {
 
                 try FileManager.default.moveItem(at: url, to: tmpIpa)
                 uif.ipaUrl = tmpIpa
-                DispatchQueue.main.async {
-                    Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
+                Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
+                    DispatchQueue.main.async {
                         FileManager.default.delete(at: tmpDir!)
 
                         AppsVM.shared.apps = []
@@ -123,8 +125,8 @@ struct StoreAppView: View {
                         NotifyService.shared.notify(
                             NSLocalizedString("notification.appInstalled", comment: ""),
                             NSLocalizedString("notification.appInstalled.message", comment: ""))
-                    })
-                }
+                    }
+                })
             } catch {
                 if let tmpDir = tmpDir {
                     FileManager.default.delete(at: tmpDir)
