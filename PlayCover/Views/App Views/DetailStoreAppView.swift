@@ -43,8 +43,9 @@ struct DetailStoreAppView: View {
                             Spacer()
                         }
                         HStack {
-                            Text(itunesResponce?.results[0].genres[0]
-                                .components(separatedBy: CharacterSet.newlines).first ?? "")
+                            Text(itunesResponce?.results[0].primaryGenreName
+                                 ?? NSLocalizedString("ipaLibrary.detailed.nil", comment: "")
+                            )
                             .font(.subheadline)
                             .foregroundColor(.secondary)
                             Spacer()
@@ -69,20 +70,24 @@ struct DetailStoreAppView: View {
                                     .font(.caption2)
                                 Image(systemName: "stop.fill")
                                     .foregroundColor(.blue)
-                                    .padding(.bottom, 20)
+                                    .padding(.bottom, 21)
                             }
                         } else if installVM.installing && downloadVM.storeAppData == app {
                             ProgressView("playapp.install", value: installVM.progress)
                                 .progressViewStyle(.circular)
                                 .font(.caption2)
                         } else {
-                            Text(dlButtonText ?? "ipaLibrary.detailed.dlnew")
-                                .font(.headline)
-                                .fontWeight(.semibold)
-                                .padding(.horizontal)
-                                .background(.blue)
-                                .foregroundColor(.white)
-                                .clipShape(Capsule())
+                            ZStack(alignment: .center) {
+                                Capsule()
+                                    .fill(.blue)
+                                    .frame(width: 80, height: 25)
+                                Text(dlButtonText ?? "ipaLibrary.detailed.dlnew")
+                                    .minimumScaleFactor(0.5)
+                                    .font(.subheadline.bold())
+                                    .textCase(.uppercase)
+                                    .foregroundColor(.white)
+                                    .frame(width: 60, height: 25)
+                            }
                         }
                     }
                     .buttonStyle(.plain)
@@ -97,12 +102,15 @@ struct DetailStoreAppView: View {
                     VStack {
                         Text("ipaLibrary.detailed.apprating")
                             .modifier(BadgeTextStyle())
-                        if let average = itunesResponce?.results[0].averageUserRating ?? 0 {
-                            let rating = String(format: "%.1f", round(average * 10) / 10.0)
-                            Text(rating)
-                                .font(.title2.bold())
-                                .padding(.top, 1)
-                        }
+                        let average = itunesResponce?.results[0].averageUserRating ?? 0
+                        let rating = String(format: "%.1f", round(average * 10) / 10.0)
+                        Text(itunesResponce == nil
+                             ? NSLocalizedString("ipaLibrary.detailed.nil", comment: "")
+                             : rating)
+                        .font(itunesResponce == nil
+                              ? .subheadline
+                              : .title2.bold())
+                        .padding(.top, 1)
                     }
                     VerticalSpacer()
                     VStack {
@@ -120,24 +128,33 @@ struct DetailStoreAppView: View {
                             fromByteCount: Int64(itunesResponce?.results[0].fileSizeBytes ?? "0") ?? 0,
                             countStyle: .file
                         )
-                        Text("\(size) or less")
-                        .font(.title2.bold())
+                        Text(itunesResponce == nil
+                             ? NSLocalizedString("ipaLibrary.detailed.nil", comment: "")
+                             : size)
+                        .font(itunesResponce == nil
+                              ? .subheadline
+                              : .title2.bold())
                         .padding(.top, 1)
                     }
                     VerticalSpacer()
                     VStack {
                         Text("ipaLibrary.detailed.apppg")
                             .modifier(BadgeTextStyle())
-                        Text(itunesResponce?.results[0].trackContentRating ?? "0")
-                            .font(.title2.bold())
+                        Text(itunesResponce?.results[0].trackContentRating
+                             ?? NSLocalizedString("ipaLibrary.detailed.nil", comment: "")
+                        )
+                            .font(itunesResponce == nil
+                                  ? .subheadline
+                                  : .title2.bold())
                             .padding(.top, 1)
                     }
                     Spacer()
                 }
                 .padding()
                 HStack {
-                    Text(itunesResponce?.results[0].description ??
-                         NSLocalizedString("ipaLibrary.detailed.nodesc", comment: ""))
+                    Text(itunesResponce?.results[0].description
+                         ?? NSLocalizedString("ipaLibrary.detailed.nodesc", comment: "")
+                    )
                     .lineLimit(truncated ? 5 : nil)
                     Spacer()
                     if itunesResponce != nil {

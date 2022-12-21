@@ -37,6 +37,7 @@
 "ipaLibrary.detailed.appversion" = "Version";
 "ipaLibrary.detailed.filesize" = "Size";
 "ipaLibrary.detailed.apppg" = "Age";
+"ipaLibrary.detailed.nil" = "Not Specified";
 
 "preferences.button.checkForUpdates" = "Check for Updates";
 "preferences.tab.updates" = "Updates";
