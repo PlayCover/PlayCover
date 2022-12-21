@@ -31,6 +31,22 @@ struct StoreAppView: View {
                                         warningSymbol: $warningSymbol,
                                         warningMessage: $warningMessage)
                 .environmentObject(downloadVM)
+                .contextMenu {
+                    Button {
+                        if let url = URL(string: app.link) {
+                            let downloader = DownloadApp(url: url,
+                                                         app: app,
+                                                         warning: warningMessage)
+                            if downloadVM.downloading {
+                                downloader.cancel()
+                            } else {
+                                downloader.start()
+                            }
+                        }
+                    } label: {
+                        Text(downloadVM.downloading ? "Cancel All Downloads" : "Download App")
+                    }
+                }
             } else {
                 StoreAppConditionalView(selectedBackgroundColor: $selectedBackgroundColor,
                                         selectedTextColor: $selectedTextColor,
