@@ -44,7 +44,7 @@ struct StoreAppView: View {
                             }
                         }
                     } label: {
-                        Text(downloadVM.downloading ? "Cancel All Downloads" : "Download App")
+                        Text(downloadVM.downloading ? "ipaLibrary.cancelDL" : "ipaLibrary.download")
                     }
                 }
             } else {
@@ -79,7 +79,7 @@ struct StoreAppView: View {
                             }
                         }
                     } label: {
-                        Text(downloadVM.downloading ? "Cancel All Downloads" : "Download App")
+                        Text(downloadVM.downloading ? "ipaLibrary.cancelDL" : "ipaLibrary.download")
                     }
                 }
                 .environmentObject(downloadVM)

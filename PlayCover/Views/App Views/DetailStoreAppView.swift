@@ -68,6 +68,7 @@ struct DetailStoreAppView: View {
                                 ProgressView("playapp.download", value: downloadVM.progress)
                                     .progressViewStyle(.circular)
                                     .font(.caption2)
+                                    .textCase(.uppercase)
                                 Image(systemName: "stop.fill")
                                     .foregroundColor(.blue)
                                     .padding(.bottom, 21)
@@ -76,6 +77,7 @@ struct DetailStoreAppView: View {
                             ProgressView("playapp.install", value: installVM.progress)
                                 .progressViewStyle(.circular)
                                 .font(.caption2)
+                                .textCase(.uppercase)
                         } else {
                             ZStack(alignment: .center) {
                                 Capsule()
@@ -182,7 +184,14 @@ struct DetailStoreAppView: View {
                                     .shadow(radius: 5)
                                     .padding(5)
                             } placeholder: {
-                                ProgressView()
+                                ZStack(alignment: .center) {
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .fill(.regularMaterial)
+                                        .shadow(radius: 5)
+                                        .padding(5)
+                                        .frame(width: 200, height: 170)
+                                    ProgressView()
+                                }
                             }
                         }
                     }
@@ -195,6 +204,12 @@ struct DetailStoreAppView: View {
             .padding()
             .navigationTitle(app.name)
             .task(priority: .userInitiated) {
+                if downloadVM.storeAppData == app {
+                    ToastVM.shared.isShown = false
+                }
+
+                itunesResponce = await ImageCache.getITunesData(app.itunesLookup)
+
                 if let sourceApp = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == app.bundleID }) {
                     switch app.version.compare(sourceApp.info.bundleVersion, options: .numeric) {
                     case .orderedAscending:
@@ -210,9 +225,9 @@ struct DetailStoreAppView: View {
                         warningMessage = "ipaLibrary.download"
                     }
                 }
+
                 iconURL = await ImageCache.getOnlineImageURL(bundleID: app.bundleID,
                                                              itunesLookup: app.itunesLookup)
-                itunesResponce = await ImageCache.getITunesData(app.itunesLookup)
                 if itunesResponce != nil {
                     let screenshots: [String]
                     if itunesResponce!.results[0].ipadScreenshotUrls.isEmpty {
@@ -224,6 +239,14 @@ struct DetailStoreAppView: View {
                         bannerImageURLs.append(URL(string: string))
                     }
                 }
+            }
+        }
+        .onDisappear {
+            ToastVM.shared.isShown = true
+        }
+        .onChange(of: downloadVM.storeAppData) { _ in
+            if downloadVM.storeAppData == app {
+                ToastVM.shared.isShown = false
             }
         }
     }

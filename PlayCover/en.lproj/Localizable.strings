@@ -25,6 +25,7 @@
 "ipaLibrary.version.newer" = "This version is newer than the version you have installed";
 "ipaLibrary.alert.download" = "Are you sure you want to download this version of %@?";
 "ipaLibrary.download" = "Download";
+"ipaLibrary.cancelDL" = "Cancel Current Download";
 
 "ipaLibrary.detailed.dlnew" = "Get";
 "ipaLibrary.detailed.dlsame" = "Reinstall";
@@ -85,8 +86,8 @@
 "storeAccount.alert.deleteAccount" = "Really Delete Account?";
 "storeAccount.alert.deleteAccount.button" = "Delete Account";
 
-"playapp.download" = "Downloading...";
-"playapp.install" = "Installing...";
+"playapp.download" = "Downloading";
+"playapp.install" = "Installing";
 "playapp.install.unzip" = "Extracting app from .ipa file...";
 "playapp.install.createWrapper" = "Creating app wrapper...";
 "playapp.install.installPlayTools" = "Installing PlayTools...";
