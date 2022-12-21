@@ -59,9 +59,9 @@ class DownloadApp {
 
     func cancel() {
         downloader.cancelAllDownloads()
-        self.dlVM.downloading = false
-        self.dlVM.progress = 0
-        self.dlVM.storeAppData = nil
+        dlVM.downloading = false
+        dlVM.progress = 0
+        dlVM.storeAppData = nil
     }
 
     private func proceedDownload() {
