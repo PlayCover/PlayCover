@@ -91,8 +91,6 @@ class DownloadApp {
     }
 
     private func proceedInstall(_ url: URL?) {
-        self.dlVM.downloading = false
-        self.dlVM.progress = 0
         if let url = url {
             var tmpDir: URL?
             do {
@@ -100,9 +98,9 @@ class DownloadApp {
                                                      in: .userDomainMask,
                                                      appropriateFor: URL(fileURLWithPath: "/Users"),
                                                      create: true)
-
-                let tmpIpa = tmpDir!.appendingPathComponent(app.bundleID)
-                                    .appendingPathExtension("ipa")
+                let tmpIpa = tmpDir!
+                    .appendingPathComponent(app.bundleID)
+                    .appendingPathExtension("ipa")
 
                 try FileManager.default.moveItem(at: url, to: tmpIpa)
                 uif.ipaUrl = tmpIpa
