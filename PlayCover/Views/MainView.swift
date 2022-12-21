@@ -107,7 +107,7 @@ struct MainView: View {
                         .environmentObject(ToastVM.shared)
                         .environmentObject(InstallVM.shared)
                         .environmentObject(DownloadVM.shared)
-                        .frame(width: collapsed ? viewWidth : (viewWidth - navWidth))
+                        .frame(width: collapsed || viewWidth < navWidth ? viewWidth : (viewWidth - navWidth))
                         .animation(.spring(), value: collapsed)
                 }
             }

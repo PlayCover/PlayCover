@@ -25,6 +25,8 @@
 		53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F5E74226C1D37E005AED1D /* FileExtensions.swift */; };
 		68822458294D920600D72AF9 /* ViewExtenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68822457294D920600D72AF9 /* ViewExtenstions.swift */; };
 		68E53BD5294D5DB300E56DCF /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E53BD4294D5DB300E56DCF /* Downloader.swift */; };
+		68EA16662952F7EB007A84CE /* DownloadManager in Frameworks */ = {isa = PBXBuildFile; productRef = 68EA16652952F7EB007A84CE /* DownloadManager */; };
+		68EA166829530841007A84CE /* DetailStoreAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EA166729530841007A84CE /* DetailStoreAppView.swift */; };
 		6E06193628B3C4090012C771 /* StoreGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193528B3C4090012C771 /* StoreGenshinAccountView.swift */; };
 		6E06193828B3C4240012C771 /* ChangeGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193728B3C4240012C771 /* ChangeGenshinAccountView.swift */; };
 		6E06193A28B3C42E0012C771 /* DeleteGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193928B3C42E0012C771 /* DeleteGenshinAccountView.swift */; };
@@ -113,6 +115,7 @@
 		6854C5E528D53C9500CE28A0 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
 		68822457294D920600D72AF9 /* ViewExtenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtenstions.swift; sourceTree = "<group>"; };
 		68E53BD4294D5DB300E56DCF /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
+		68EA166729530841007A84CE /* DetailStoreAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStoreAppView.swift; sourceTree = "<group>"; };
 		6E06193528B3C4090012C771 /* StoreGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreGenshinAccountView.swift; sourceTree = "<group>"; };
 		6E06193728B3C4240012C771 /* ChangeGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeGenshinAccountView.swift; sourceTree = "<group>"; };
 		6E06193928B3C42E0012C771 /* DeleteGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGenshinAccountView.swift; sourceTree = "<group>"; };
@@ -194,6 +197,7 @@
 				6E174058294C2759002A63E0 /* Injection in Frameworks */,
 				365AFB0628847B2E008B3542 /* Sparkle in Frameworks */,
 				AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */,
+				68EA16662952F7EB007A84CE /* DownloadManager in Frameworks */,
 				B17FD03C28C70C2100B1D4CA /* CoreUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,6 +355,7 @@
 			children = (
 				92EE06D3274EA604002C907B /* PlayAppView.swift */,
 				6E66B0D2289F5A010099B907 /* StoreAppView.swift */,
+				68EA166729530841007A84CE /* DetailStoreAppView.swift */,
 			);
 			path = "App Views";
 			sourceTree = "<group>";
@@ -469,6 +474,7 @@
 				AA818CB4287ABEC3000BEE9D /* Yams */,
 				365AFB0528847B2E008B3542 /* Sparkle */,
 				6E174057294C2759002A63E0 /* Injection */,
+				68EA16652952F7EB007A84CE /* DownloadManager */,
 			);
 			productName = PlayCover;
 			productReference = 8783CFF726B8C52D00171041 /* PlayCover.app */;
@@ -518,6 +524,7 @@
 				AA818CB3287ABEC3000BEE9D /* XCRemoteSwiftPackageReference "Yams" */,
 				365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */,
 				6EC73F38293FCBD60047A07C /* XCRemoteSwiftPackageReference "inject" */,
+				68EA16642952F7EB007A84CE /* XCRemoteSwiftPackageReference "download-manager" */,
 			);
 			productRefGroup = 8783CFF826B8C52D00171041 /* Products */;
 			projectDirPath = "";
@@ -642,6 +649,7 @@
 				92ECD8AE274E787200DB7AC6 /* AppInfo.swift in Sources */,
 				928C01D9272E162C007EB2DF /* InstallVM.swift in Sources */,
 				6E06193628B3C4090012C771 /* StoreGenshinAccountView.swift in Sources */,
+				68EA166829530841007A84CE /* DetailStoreAppView.swift in Sources */,
 				53F4D2A026C43C690020167C /* Log.swift in Sources */,
 				B6603E1128E206A300DEFA3F /* UninstallSettings.swift in Sources */,
 				92A8AAC9275EFEA800D89B50 /* SystemConfig.swift in Sources */,
@@ -894,11 +902,14 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				BUNDLE_ID_SUFFIX = .dev;
 				CODE_SIGN_ENTITLEMENTS = PlayCover/PlayCoverRelease.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 174;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "PlayCover/Preview\\ Content";
+				DEVELOPMENT_TEAM = 44JD6UQ5FG;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = x86_64;
@@ -914,6 +925,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.playcover.PlayCover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				RUN_DOCUMENTATION_COMPILER = YES;
 				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = off;
 				SWIFT_OBJC_BRIDGING_HEADER = "./PlayCover/PlayCover-Bridging-Header.h";
@@ -955,6 +967,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		68EA16642952F7EB007A84CE /* XCRemoteSwiftPackageReference "download-manager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/shapedbyiris/download-manager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
 		6EC73F38293FCBD60047A07C /* XCRemoteSwiftPackageReference "inject" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/paradiseduo/inject";
@@ -979,6 +999,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */;
 			productName = Sparkle;
+		};
+		68EA16652952F7EB007A84CE /* DownloadManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68EA16642952F7EB007A84CE /* XCRemoteSwiftPackageReference "download-manager" */;
+			productName = DownloadManager;
 		};
 		6E174057294C2759002A63E0 /* Injection */ = {
 			isa = XCSwiftPackageProductDependency;
