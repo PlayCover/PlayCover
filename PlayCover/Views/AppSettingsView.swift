@@ -455,8 +455,11 @@ struct MiscView: View {
                             } else {
                                 PlayTools.installInApp(app.executable)
                             }
-                            AppsVM.shared.apps = []
-                            AppsVM.shared.fetchApps()
+
+                            DispatchQueue.main.async {
+                                AppsVM.shared.apps = []
+                                AppsVM.shared.fetchApps()
+                            }
                         }
                     }
                     Spacer()
