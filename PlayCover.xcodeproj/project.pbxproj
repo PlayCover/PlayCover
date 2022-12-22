@@ -25,6 +25,7 @@
 		53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F5E74226C1D37E005AED1D /* FileExtensions.swift */; };
 		68822458294D920600D72AF9 /* ViewExtenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68822457294D920600D72AF9 /* ViewExtenstions.swift */; };
 		68C7649C295478010017F054 /* Injection in Frameworks */ = {isa = PBXBuildFile; productRef = 68C7649B295478010017F054 /* Injection */; };
+		68C764BF2954DB130017F054 /* DataCache in Frameworks */ = {isa = PBXBuildFile; productRef = 68C764BE2954DB130017F054 /* DataCache */; };
 		68E53BD5294D5DB300E56DCF /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E53BD4294D5DB300E56DCF /* Downloader.swift */; };
 		68EA16662952F7EB007A84CE /* DownloadManager in Frameworks */ = {isa = PBXBuildFile; productRef = 68EA16652952F7EB007A84CE /* DownloadManager */; };
 		68EA166829530841007A84CE /* DetailStoreAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EA166729530841007A84CE /* DetailStoreAppView.swift */; };
@@ -199,6 +200,7 @@
 				68EA16662952F7EB007A84CE /* DownloadManager in Frameworks */,
 				68C7649C295478010017F054 /* Injection in Frameworks */,
 				B17FD03C28C70C2100B1D4CA /* CoreUI.framework in Frameworks */,
+				68C764BF2954DB130017F054 /* DataCache in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,6 +477,7 @@
 				365AFB0528847B2E008B3542 /* Sparkle */,
 				68EA16652952F7EB007A84CE /* DownloadManager */,
 				68C7649B295478010017F054 /* Injection */,
+				68C764BE2954DB130017F054 /* DataCache */,
 			);
 			productName = PlayCover;
 			productReference = 8783CFF726B8C52D00171041 /* PlayCover.app */;
@@ -525,6 +528,7 @@
 				365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */,
 				68EA16642952F7EB007A84CE /* XCRemoteSwiftPackageReference "download-manager" */,
 				68C7649A295478010017F054 /* XCRemoteSwiftPackageReference "inject" */,
+				68C764BD2954DB130017F054 /* XCRemoteSwiftPackageReference "DataCache" */,
 			);
 			productRefGroup = 8783CFF826B8C52D00171041 /* Products */;
 			projectDirPath = "";
@@ -975,6 +979,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		68C764BD2954DB130017F054 /* XCRemoteSwiftPackageReference "DataCache" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/huynguyencong/DataCache";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		68EA16642952F7EB007A84CE /* XCRemoteSwiftPackageReference "download-manager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/shapedbyiris/download-manager.git";
@@ -1004,6 +1016,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 68C7649A295478010017F054 /* XCRemoteSwiftPackageReference "inject" */;
 			productName = Injection;
+		};
+		68C764BE2954DB130017F054 /* DataCache */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68C764BD2954DB130017F054 /* XCRemoteSwiftPackageReference "DataCache" */;
+			productName = DataCache;
 		};
 		68EA16652952F7EB007A84CE /* DownloadManager */ = {
 			isa = XCSwiftPackageProductDependency;
