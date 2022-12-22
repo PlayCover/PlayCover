@@ -36,24 +36,28 @@ class DownloadApp {
     let downloader = DownloadManager.shared
 
     func start() {
-        if let warningMessage = warning {
-            let alert = NSAlert()
-            alert.messageText = NSLocalizedString(warningMessage, comment: "")
-            alert.informativeText = String(
-                format: NSLocalizedString("ipaLibrary.alert.download", comment: ""),
-                arguments: [app.name]
-            )
-            alert.alertStyle = .warning
-            alert.addButton(withTitle: NSLocalizedString("button.Yes", comment: ""))
-            alert.addButton(withTitle: NSLocalizedString("button.No", comment: ""))
+        if dlVM.downloading && inVM.installing {
+            Log.shared.error(PlayCoverError.waitDownload)
+        } else {
+            if let warningMessage = warning {
+                let alert = NSAlert()
+                alert.messageText = NSLocalizedString(warningMessage, comment: "")
+                alert.informativeText = String(
+                    format: NSLocalizedString("ipaLibrary.alert.download", comment: ""),
+                    arguments: [app.name]
+                )
+                alert.alertStyle = .warning
+                alert.addButton(withTitle: NSLocalizedString("button.Yes", comment: ""))
+                alert.addButton(withTitle: NSLocalizedString("button.No", comment: ""))
 
-            if alert.runModal() == .alertSecondButtonReturn {
-                return
+                if alert.runModal() == .alertSecondButtonReturn {
+                    return
+                } else {
+                    proceedDownload()
+                }
             } else {
                 proceedDownload()
             }
-        } else {
-            proceedDownload()
         }
     }
 
@@ -65,29 +69,25 @@ class DownloadApp {
     }
 
     private func proceedDownload() {
-        if dlVM.downloading && inVM.installing {
-            Log.shared.error(PlayCoverError.waitDownload)
-        } else {
-            let path = NSURL.fileURL(withPathComponents: [NSTemporaryDirectory(), app.bundleID])
-            downloader.addDownload(url: url,
-                                   destinationURL: path!,
-                                   onProgress: { progress in
-                self.dlVM.storeAppData = self.app
-                self.dlVM.downloading = true
-                // progress is a Float
-                self.dlVM.progress = Double(progress)
-            }, onCompletion: { error, fileURL in
-                guard error == nil else {
-                    self.dlVM.downloading = false
-                    self.dlVM.progress = 0
-                    self.dlVM.storeAppData = nil
-                    return Log.shared.error(error!)
-                }
+        let path = NSURL.fileURL(withPathComponents: [NSTemporaryDirectory(), app.bundleID])
+        downloader.addDownload(url: url,
+                               destinationURL: path!,
+                               onProgress: { progress in
+            self.dlVM.storeAppData = self.app
+            self.dlVM.downloading = true
+            // progress is a Float
+            self.dlVM.progress = Double(progress)
+        }, onCompletion: { error, fileURL in
+            guard error == nil else {
                 self.dlVM.downloading = false
                 self.dlVM.progress = 0
-                self.proceedInstall(fileURL)
-            })
-        }
+                self.dlVM.storeAppData = nil
+                return Log.shared.error(error!)
+            }
+            self.dlVM.downloading = false
+            self.dlVM.progress = 0
+            self.proceedInstall(fileURL)
+        })
     }
 
     private func proceedInstall(_ url: URL?) {

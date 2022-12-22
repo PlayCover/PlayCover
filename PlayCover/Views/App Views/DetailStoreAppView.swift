@@ -207,9 +207,6 @@ struct DetailStoreAppView: View {
                 if downloadVM.storeAppData == app {
                     ToastVM.shared.isShown = false
                 }
-
-                itunesResponce = await ImageCache.getITunesData(app.itunesLookup)
-
                 if let sourceApp = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == app.bundleID }) {
                     switch app.version.compare(sourceApp.info.bundleVersion, options: .numeric) {
                     case .orderedAscending:
@@ -225,7 +222,7 @@ struct DetailStoreAppView: View {
                         warningMessage = "ipaLibrary.download"
                     }
                 }
-
+                itunesResponce = await ImageCache.getITunesData(app.itunesLookup)
                 iconURL = await ImageCache.getOnlineImageURL(bundleID: app.bundleID,
                                                              itunesLookup: app.itunesLookup)
                 if itunesResponce != nil {

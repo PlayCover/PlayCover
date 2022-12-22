@@ -19,6 +19,7 @@ struct StoreAppView: View {
     @State var warningMessage: String?
 
     @EnvironmentObject var downloadVM: DownloadVM
+    @EnvironmentObject var installVM: InstallVM
 
     var body: some View {
         Group {
@@ -30,23 +31,6 @@ struct StoreAppView: View {
                                         isList: isList,
                                         warningSymbol: $warningSymbol,
                                         warningMessage: $warningMessage)
-                .environmentObject(downloadVM)
-                .contextMenu {
-                    Button {
-                        if let url = URL(string: app.link) {
-                            let downloader = DownloadApp(url: url,
-                                                         app: app,
-                                                         warning: warningMessage)
-                            if downloadVM.downloading {
-                                downloader.cancel()
-                            } else {
-                                downloader.start()
-                            }
-                        }
-                    } label: {
-                        Text(downloadVM.downloading ? "ipaLibrary.cancelDL" : "ipaLibrary.download")
-                    }
-                }
             } else {
                 StoreAppConditionalView(selectedBackgroundColor: $selectedBackgroundColor,
                                         selectedTextColor: $selectedTextColor,
@@ -55,35 +39,37 @@ struct StoreAppView: View {
                                         isList: isList,
                                         warningSymbol: $warningSymbol,
                                         warningMessage: $warningMessage)
-                .gesture(TapGesture(count: 2).onEnded {
-                    if let url = URL(string: app.link) {
-                        let downloader = DownloadApp(url: url,
-                                                     app: app,
-                                                     warning: warningMessage)
-                        downloader.start()
-                    }
-                })
-                .simultaneousGesture(TapGesture().onEnded {
+                .onTapGesture {
                     selected = app
-                })
-                .contextMenu {
-                    Button {
+                }
+                .simultaneousGesture(TapGesture(count: 2).onEnded {
+                    if !downloadVM.downloading && !installVM.installing {
                         if let url = URL(string: app.link) {
                             let downloader = DownloadApp(url: url,
                                                          app: app,
                                                          warning: warningMessage)
-                            if downloadVM.downloading {
-                                downloader.cancel()
-                            } else {
-                                downloader.start()
-                            }
+                            downloader.start()
                         }
-                    } label: {
-                        Text(downloadVM.downloading ? "ipaLibrary.cancelDL" : "ipaLibrary.download")
+                    }
+                })
+            }
+        }
+        .contextMenu {
+            Button {
+                if let url = URL(string: app.link) {
+                    let downloader = DownloadApp(url: url,
+                                                 app: app,
+                                                 warning: warningMessage)
+                    if downloadVM.downloading {
+                        downloader.cancel()
+                    } else {
+                        downloader.start()
                     }
                 }
-                .environmentObject(downloadVM)
+            } label: {
+                Text(downloadVM.downloading ? "ipaLibrary.cancelDL" : "ipaLibrary.download")
             }
+            .disabled(installVM.installing)
         }
         .task(priority: .background) {
             if let sourceApp = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == app.bundleID }) {
