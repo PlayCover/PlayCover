@@ -11,18 +11,25 @@ import DataCache
 
 class Cacher {
 
+    let cache = DataCache.instance
+    /// We can create a custom cache like this (default values are as the same as below):
+    /// `let cache = DataCache(name: "PlayCoverCache")`
+    /// `cache.maxDiskCacheSize = 100*1024*1024`      // 100 MB
+    /// `cache.maxCachePeriodInSecond = 7*86400`      // 1 week
+    /// More details: https://github.com/huynguyencong/DataCache/blob/master/README.md
+
     func resolveITunesData(_ link: String) async {
         if let refreshedITunesData = await getITunesData(link) {
             let screenshots: [String]
-            let screenshotsArrayName = refreshedITunesData.results[0].bundleId + "scUrls"
+            let screenshotsArrayName = refreshedITunesData.results[0].bundleId + ".scUrls"
             do {
-                try DataCache.instance.write(codable: refreshedITunesData, forKey: link)
+                try cache.write(codable: refreshedITunesData, forKey: link)
                 if refreshedITunesData.results[0].ipadScreenshotUrls.isEmpty {
                     screenshots = refreshedITunesData.results[0].screenshotUrls
                 } else {
                     screenshots = refreshedITunesData.results[0].ipadScreenshotUrls
                 }
-                DataCache.instance.write(array: screenshots, forKey: screenshotsArrayName)
+                cache.write(array: screenshots, forKey: screenshotsArrayName)
             } catch {
                 print("Write error \(error.localizedDescription)")
             }
@@ -31,8 +38,9 @@ class Cacher {
 
     func resolveLocalIcon(_ app: PlayApp) async -> NSImage? {
         var appIcon: NSImage?
-        if DataCache.instance.readString(forKey: app.info.bundleVersion) == app.info.bundleVersion {
-            if let image = DataCache.instance.readImage(forKey: app.info.bundleIdentifier) {
+        if cache.readString(forKey: app.info.bundleVersion) == app.info.bundleVersion
+            && cache.readImage(forKey: app.info.bundleIdentifier) != nil {
+            if let image = cache.readImage(forKey: app.info.bundleIdentifier) {
                 appIcon = image
             }
         } else {
@@ -42,9 +50,9 @@ class Cacher {
                     bestResImage = icon
                 }
             }
-            DataCache.instance.write(string: app.info.bundleVersion, forKey: app.info.bundleVersion)
-            DataCache.instance.write(image: bestResImage!, forKey: app.info.bundleIdentifier)
-            appIcon = DataCache.instance.readImage(forKey: app.info.bundleIdentifier)
+            cache.write(string: app.info.bundleVersion, forKey: app.info.bundleVersion)
+            cache.write(image: bestResImage!, forKey: app.info.bundleIdentifier)
+            appIcon = cache.readImage(forKey: app.info.bundleIdentifier)
         }
         return appIcon
     }

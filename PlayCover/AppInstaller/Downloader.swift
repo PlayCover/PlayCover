@@ -15,10 +15,10 @@ import DownloadManager
 ///    `public var usesNotificationCenter = false`
 ///    `public var showsLocalNotifications = false`
 ///    `public var logVerbosity: LogVerbosity = .none
-/// `}
+/// `}`
 ///  Use `downloader.configuration = DownloadManagerConfig()` in
 ///  `DownloadApp` class before `downloader.addDownload` to apply
-///  More detail: https://github.com/shapedbyiris/download-manager/blob/master/README.md
+///  More details: https://github.com/shapedbyiris/download-manager/blob/master/README.md
 
 class DownloadApp {
     let url: URL

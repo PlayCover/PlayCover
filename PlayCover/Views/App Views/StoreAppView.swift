@@ -99,6 +99,7 @@ struct StoreAppConditionalView: View {
     @Binding var selectedTextColor: Color
     @Binding var selected: StoreAppData?
 
+    @State var cache = DataCache.instance
     @State var app: StoreAppData
     @State var itunesResponce: ITunesResponse?
     @State var onlineIcon: URL?
@@ -208,11 +209,11 @@ struct StoreAppConditionalView: View {
             }
         }
         .task(priority: .userInitiated) {
-            if !DataCache.instance.hasData(forKey: app.itunesLookup) {
+            if !cache.hasData(forKey: app.itunesLookup) {
                 await Cacher().resolveITunesData(app.itunesLookup)
             }
             do {
-                itunesResponce = try DataCache.instance.readCodable(forKey: app.itunesLookup)
+                itunesResponce = try cache.readCodable(forKey: app.itunesLookup)
             } catch {
                 print("Read error \(error.localizedDescription)")
             }

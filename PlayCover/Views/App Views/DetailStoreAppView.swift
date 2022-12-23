@@ -12,14 +12,13 @@ import CachedAsyncImage
 struct DetailStoreAppView: View {
     @State var dlButtonText: LocalizedStringKey?
     @State var warningMessage: String?
-
+    @State var cache = DataCache.instance
     @State var app: StoreAppData
     @State var onlineIconURL: URL?
     @State var localIcon: NSImage?
     @State var bannerImageURLs: [URL?] = []
     @State var itunesResponce: ITunesResponse?
     @State var truncated = true
-
     @StateObject var downloadVM: DownloadVM
     @StateObject var installVM: InstallVM
 
@@ -120,8 +119,7 @@ struct DetailStoreAppView: View {
                              ? NSLocalizedString("ipaLibrary.detailed.nil", comment: "")
                              : rating)
                         .font(itunesResponce == nil
-                              ? .subheadline
-                              : .title2.bold())
+                              ? .subheadline : .title2.bold())
                         .padding(.top, 1)
                     }
                     VerticalSpacer()
@@ -129,8 +127,7 @@ struct DetailStoreAppView: View {
                         Text("ipaLibrary.detailed.appversion")
                             .modifier(BadgeTextStyle())
                         Text(app.version)
-                            .font(.title2.bold())
-                            .padding(.top, 1)
+                            .font(.title2.bold()) .padding(.top, 1)
                     }
                     VerticalSpacer()
                     VStack {
@@ -143,8 +140,7 @@ struct DetailStoreAppView: View {
                              ? NSLocalizedString("ipaLibrary.detailed.nil", comment: "")
                              : size)
                         .font(itunesResponce == nil
-                              ? .subheadline
-                              : .title2.bold())
+                              ? .subheadline : .title2.bold())
                         .padding(.top, 1)
                     }
                     VerticalSpacer()
@@ -154,8 +150,7 @@ struct DetailStoreAppView: View {
                         Text(itunesResponce?.results[0].trackContentRating
                              ?? NSLocalizedString("ipaLibrary.detailed.nil", comment: ""))
                             .font(itunesResponce == nil
-                                  ? .subheadline
-                                  : .title2.bold())
+                                  ? .subheadline : .title2.bold())
                             .padding(.top, 1)
                     }
                     Spacer()
@@ -164,7 +159,7 @@ struct DetailStoreAppView: View {
                 HStack {
                     Text(itunesResponce?.results[0].description
                          ?? NSLocalizedString("ipaLibrary.detailed.nodesc", comment: ""))
-                    .lineLimit(truncated ? 10 : nil)
+                    .lineLimit(truncated ? 9 : nil)
                     Spacer()
                     if itunesResponce != nil {
                         VStack {
@@ -245,13 +240,16 @@ struct DetailStoreAppView: View {
         }
     }
     func getData() async {
+        if !cache.hasData(forKey: app.itunesLookup) {
+            await Cacher().resolveITunesData(app.itunesLookup)
+        }
         do {
-            itunesResponce = try DataCache.instance.readCodable(forKey: app.itunesLookup)
+            itunesResponce = try cache.readCodable(forKey: app.itunesLookup)
         } catch {
             print("Read error \(error.localizedDescription)")
         }
         if itunesResponce != nil {
-            if let array = DataCache.instance.readArray(forKey: app.bundleID + "scUrls") {
+            if let array = cache.readArray(forKey: app.bundleID + ".scUrls") {
                 let screenshots = array.compactMap { String(describing: $0) }
                 for string in screenshots {
                     bannerImageURLs.append(URL(string: string))
