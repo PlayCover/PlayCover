@@ -182,7 +182,7 @@ struct PlayAppConditionalView: View {
     @Binding var selected: PlayApp?
 
     @State var app: PlayApp
-    @State var iconURL: URL?
+    @State var appIcon: NSImage?
     @State var isList: Bool
     @State var hasPlayTools: Bool?
 
@@ -190,20 +190,22 @@ struct PlayAppConditionalView: View {
         Group {
             if isList {
                 HStack(alignment: .center, spacing: 0) {
-                    AsyncImage(url: iconURL) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 30, height: 30)
-                            .cornerRadius(7.5)
-                            .shadow(radius: 1)
-                            .padding(.horizontal, 15)
-                            .padding(.vertical, 5)
-                    } placeholder: {
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                            .frame(width: 60, height: 60)
+                    Group {
+                        if let image = appIcon {
+                            Image(nsImage: image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        } else {
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                                .frame(width: 60, height: 60)
+                        }
                     }
+                    .frame(width: 30, height: 30)
+                    .cornerRadius(7.5)
+                    .shadow(radius: 1)
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, 5)
 
                     Text(app.name)
                         .foregroundColor(selected?.url == app.url ?
@@ -227,16 +229,18 @@ struct PlayAppConditionalView: View {
                     )
             } else {
                 VStack {
-                    AsyncImage(url: iconURL) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .cornerRadius(15)
-                            .shadow(radius: 1)
-                    } placeholder: {
-                        ProgressView()
-                            .progressViewStyle(.circular)
+                    Group {
+                        if let image = appIcon {
+                            Image(nsImage: image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        } else {
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                        }
                     }
+                    .cornerRadius(15)
+                    .shadow(radius: 1)
                     .frame(width: 60, height: 60)
 
                     let noPlayToolsWarning = Text(
@@ -263,9 +267,7 @@ struct PlayAppConditionalView: View {
             }
         }
         .task(priority: .userInitiated) {
-            iconURL = ImageCache.getLocalImageURL(bundleID: app.info.bundleIdentifier,
-                                                  bundleURL: app.url,
-                                                  primaryIconName: app.info.primaryIconName)
+            appIcon = await Cacher().resolveLocalIcon(app)
         }
         .task(priority: .background) {
             hasPlayTools = app.hasPlayTools()

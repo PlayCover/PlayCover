@@ -6,13 +6,16 @@
 //
 
 import SwiftUI
+import DataCache
+import CachedAsyncImage
 
 struct DetailStoreAppView: View {
     @State var dlButtonText: LocalizedStringKey?
     @State var warningMessage: String?
 
     @State var app: StoreAppData
-    @State var iconURL: URL?
+    @State var onlineIconURL: URL?
+    @State var localIcon: NSImage?
     @State var bannerImageURLs: [URL?] = []
     @State var itunesResponce: ITunesResponse?
     @State var truncated = true
@@ -24,13 +27,21 @@ struct DetailStoreAppView: View {
         ScrollView {
             VStack {
                 HStack {
-                    AsyncImage(url: iconURL) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                    } placeholder: {
-                        ProgressView()
-                            .progressViewStyle(.circular)
+                    Group {
+                        CachedAsyncImage(url: onlineIconURL) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        } placeholder: {
+                            if let image = localIcon {
+                                Image(nsImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            } else {
+                                ProgressView()
+                                    .progressViewStyle(.circular)
+                            }
+                        }
                     }
                     .frame(width: 50, height: 50)
                     .cornerRadius(12)
@@ -93,9 +104,8 @@ struct DetailStoreAppView: View {
                         }
                     }
                     .buttonStyle(.plain)
-                    .disabled(
-                        installVM.installing || (downloadVM.downloading && downloadVM.storeAppData != app)
-                    )
+                    .disabled(installVM.installing ||
+                              (downloadVM.downloading && downloadVM.storeAppData != app))
                     Spacer()
                 }
                 Divider()
@@ -128,8 +138,7 @@ struct DetailStoreAppView: View {
                             .modifier(BadgeTextStyle())
                         let size = ByteCountFormatter.string(
                             fromByteCount: Int64(itunesResponce?.results[0].fileSizeBytes ?? "0") ?? 0,
-                            countStyle: .file
-                        )
+                            countStyle: .file)
                         Text(itunesResponce == nil
                              ? NSLocalizedString("ipaLibrary.detailed.nil", comment: "")
                              : size)
@@ -143,8 +152,7 @@ struct DetailStoreAppView: View {
                         Text("ipaLibrary.detailed.apppg")
                             .modifier(BadgeTextStyle())
                         Text(itunesResponce?.results[0].trackContentRating
-                             ?? NSLocalizedString("ipaLibrary.detailed.nil", comment: "")
-                        )
+                             ?? NSLocalizedString("ipaLibrary.detailed.nil", comment: ""))
                             .font(itunesResponce == nil
                                   ? .subheadline
                                   : .title2.bold())
@@ -155,8 +163,7 @@ struct DetailStoreAppView: View {
                 .padding()
                 HStack {
                     Text(itunesResponce?.results[0].description
-                         ?? NSLocalizedString("ipaLibrary.detailed.nodesc", comment: "")
-                    )
+                         ?? NSLocalizedString("ipaLibrary.detailed.nodesc", comment: ""))
                     .lineLimit(truncated ? 5 : nil)
                     Spacer()
                     if itunesResponce != nil {
@@ -176,7 +183,7 @@ struct DetailStoreAppView: View {
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(bannerImageURLs, id: \.self) { url in
-                            AsyncImage(url: url) { image in
+                            CachedAsyncImage(url: url) { image in
                                 image
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
@@ -203,40 +210,13 @@ struct DetailStoreAppView: View {
             }
             .padding()
             .navigationTitle(app.name)
-            .task(priority: .userInitiated) {
-                if downloadVM.storeAppData == app {
-                    ToastVM.shared.isShown = false
-                }
-                if let sourceApp = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == app.bundleID }) {
-                    switch app.version.compare(sourceApp.info.bundleVersion, options: .numeric) {
-                    case .orderedAscending:
-                        dlButtonText = "ipaLibrary.detailed.dlolder"
-                        warningMessage = "ipaLibrary.version.older"
-                    case .orderedSame:
-                        dlButtonText = "ipaLibrary.detailed.dlsame"
-                        warningMessage = "ipaLibrary.version.same"
-                    case .orderedDescending:
-                        dlButtonText = "ipaLibrary.detailed.dlnewer"
-                        warningMessage = "ipaLibrary.version.newer"
-                    default:
-                        warningMessage = "ipaLibrary.download"
-                    }
-                }
-                itunesResponce = await ImageCache.getITunesData(app.itunesLookup)
-                iconURL = await ImageCache.getOnlineImageURL(bundleID: app.bundleID,
-                                                             itunesLookup: app.itunesLookup)
-                if itunesResponce != nil {
-                    let screenshots: [String]
-                    if itunesResponce!.results[0].ipadScreenshotUrls.isEmpty {
-                        screenshots = itunesResponce!.results[0].screenshotUrls
-                    } else {
-                        screenshots = itunesResponce!.results[0].ipadScreenshotUrls
-                    }
-                    for string in screenshots {
-                        bannerImageURLs.append(URL(string: string))
-                    }
-                }
+        }
+        .task(priority: .userInitiated) {
+            if downloadVM.storeAppData == app {
+                ToastVM.shared.isShown = false
             }
+            await versionCompare()
+            await getData()
         }
         .onDisappear {
             ToastVM.shared.isShown = true
@@ -245,6 +225,41 @@ struct DetailStoreAppView: View {
             if downloadVM.storeAppData == app {
                 ToastVM.shared.isShown = false
             }
+        }
+    }
+    func versionCompare() async {
+        if let sourceApp = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == app.bundleID }) {
+            switch app.version.compare(sourceApp.info.bundleVersion, options: .numeric) {
+            case .orderedAscending:
+                dlButtonText = "ipaLibrary.detailed.dlolder"
+                warningMessage = "ipaLibrary.version.older"
+            case .orderedSame:
+                dlButtonText = "ipaLibrary.detailed.dlsame"
+                warningMessage = "ipaLibrary.version.same"
+            case .orderedDescending:
+                dlButtonText = "ipaLibrary.detailed.dlnewer"
+                warningMessage = "ipaLibrary.version.newer"
+            default:
+                warningMessage = "ipaLibrary.download"
+            }
+        }
+    }
+    func getData() async {
+        do {
+            itunesResponce = try DataCache.instance.readCodable(forKey: app.itunesLookup)
+        } catch {
+            print("Read error \(error.localizedDescription)")
+        }
+        if itunesResponce != nil {
+            if let array = DataCache.instance.readArray(forKey: app.bundleID + "scUrls") {
+                let screenshots = array.compactMap { String(describing: $0) }
+                for string in screenshots {
+                    bannerImageURLs.append(URL(string: string))
+                }
+            }
+            onlineIconURL = URL(string: itunesResponce!.results[0].artworkUrl512)
+        } else {
+            localIcon = await Cacher().getLocalIcon(bundleId: app.bundleID)
         }
     }
 }

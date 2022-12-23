@@ -5,6 +5,7 @@
 
 import AppKit
 import SwiftUI
+import DataCache
 
 struct PlayCoverMenuView: Commands {
     @Binding var isSigningSetupShown: Bool
@@ -93,7 +94,7 @@ struct PlayCoverViewMenuView: Commands {
         }
         CommandGroup(before: .sidebar) {
             Button("menubar.clearCache") {
-                ImageCache.clearCache()
+                DataCache.instance.cleanAll()
             }
             .keyboardShortcut("R", modifiers: [.command, .shift])
             Divider()

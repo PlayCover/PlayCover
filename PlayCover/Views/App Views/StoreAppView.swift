@@ -5,6 +5,8 @@
 //  Created by Isaac Marovitz on 07/08/2022.
 //
 import SwiftUI
+import DataCache
+import CachedAsyncImage
 
 struct StoreAppView: View {
     @Binding var selectedBackgroundColor: Color
@@ -97,8 +99,10 @@ struct StoreAppConditionalView: View {
     @Binding var selectedTextColor: Color
     @Binding var selected: StoreAppData?
 
-    @State var iconURL: URL?
     @State var app: StoreAppData
+    @State var itunesResponce: ITunesResponse?
+    @State var onlineIcon: URL?
+    @State var localIcon: NSImage?
     @State var isList: Bool
 
     @Binding var warningSymbol: String?
@@ -114,19 +118,27 @@ struct StoreAppConditionalView: View {
                         .help(NSLocalizedString(warningMessage ?? "ipaLibrary.download", comment: ""))
                         .padding(.leading, 15)
                     ZStack {
-                        AsyncImage(url: iconURL) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                        } placeholder: {
-                            ProgressView()
-                                .progressViewStyle(.circular)
+                        Group {
+                            CachedAsyncImage(url: onlineIcon) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            } placeholder: {
+                                if let image = localIcon {
+                                    Image(nsImage: image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                } else {
+                                    ProgressView()
+                                        .progressViewStyle(.circular)
+                                }
+                            }
                         }
-                            .frame(width: 30, height: 30)
-                            .cornerRadius(7.5)
-                            .shadow(radius: 1)
-                            .padding(.horizontal, 15)
-                            .padding(.vertical, 5)
+                        .frame(width: 30, height: 30)
+                        .cornerRadius(7.5)
+                        .shadow(radius: 1)
+                        .padding(.horizontal, 15)
+                        .padding(.vertical, 5)
                         if downloadVM.downloading && downloadVM.storeAppData == app {
                             ProgressView(value: downloadVM.progress)
                                 .progressViewStyle(.circular)
@@ -148,17 +160,25 @@ struct StoreAppConditionalView: View {
             } else {
                 VStack {
                     ZStack {
-                        AsyncImage(url: iconURL) { image in
+                        Group {
+                            CachedAsyncImage(url: onlineIcon) { image in
                                 image
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                             } placeholder: {
-                                ProgressView()
-                                    .progressViewStyle(.circular)
+                                if let image = localIcon {
+                                    Image(nsImage: image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                } else {
+                                    ProgressView()
+                                        .progressViewStyle(.circular)
+                                }
                             }
-                            .frame(width: 60, height: 60)
-                            .cornerRadius(15)
-                            .shadow(radius: 1)
+                        }
+                        .frame(width: 60, height: 60)
+                        .cornerRadius(15)
+                        .shadow(radius: 1)
                         if downloadVM.downloading && downloadVM.storeAppData == app {
                             VStack {
                                 Spacer()
@@ -188,8 +208,19 @@ struct StoreAppConditionalView: View {
             }
         }
         .task(priority: .userInitiated) {
-            iconURL = await ImageCache.getOnlineImageURL(bundleID: app.bundleID,
-                                                         itunesLookup: app.itunesLookup)
+            if !DataCache.instance.hasData(forKey: app.itunesLookup) {
+                await Cacher().resolveITunesData(app.itunesLookup)
+            }
+            do {
+                itunesResponce = try DataCache.instance.readCodable(forKey: app.itunesLookup)
+            } catch {
+                print("Read error \(error.localizedDescription)")
+            }
+            if itunesResponce != nil {
+                onlineIcon = URL(string: itunesResponce!.results[0].artworkUrl512)
+            } else {
+                localIcon = await Cacher().getLocalIcon(bundleId: app.bundleID)
+            }
         }
     }
 }
