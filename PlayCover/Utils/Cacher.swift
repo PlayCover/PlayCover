@@ -38,8 +38,9 @@ class Cacher {
 
     func resolveLocalIcon(_ app: PlayApp) async -> NSImage? {
         var appIcon: NSImage?
-        if cache.readString(forKey: app.info.bundleVersion) == app.info.bundleVersion
-            && cache.readImage(forKey: app.info.bundleIdentifier) != nil {
+        let compareStr = app.info.bundleIdentifier + app.info.bundleVersion
+        if cache.readImage(forKey: app.info.bundleIdentifier) != nil
+            && cache.readString(forKey: compareStr) != nil {
             if let image = cache.readImage(forKey: app.info.bundleIdentifier) {
                 appIcon = image
             }
@@ -50,7 +51,7 @@ class Cacher {
                     bestResImage = icon
                 }
             }
-            cache.write(string: app.info.bundleVersion, forKey: app.info.bundleVersion)
+            cache.write(string: compareStr, forKey: compareStr)
             cache.write(image: bestResImage!, forKey: app.info.bundleIdentifier)
             appIcon = cache.readImage(forKey: app.info.bundleIdentifier)
         }
