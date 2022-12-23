@@ -19,8 +19,12 @@ struct IPALibraryView: View {
     @State private var selected: StoreAppData?
     @State private var addSourcePresented = false
 
+    @State private var currentSubview = AnyView(EmptyView())
+    @State private var showingSubview = false
+
     var body: some View {
-        Group {
+        StackNavigationView(currentSubview: $currentSubview,
+                            showingSubview: $showingSubview) {
             if storeVM.sources.count == 0 {
                 VStack {
                     Spacer()
@@ -41,98 +45,57 @@ struct IPALibraryView: View {
                         .environmentObject(storeVM)
                 }
             } else {
-                if #available(macOS 13.0, *) {
-                    NavigationStack {
-                        ZStack {
-                            ScrollView {
-                                if !isList {
-                                    LazyVGrid(columns: gridLayout, alignment: .center) {
-                                        ForEach(storeVM.filteredApps, id: \.bundleID) { app in
-                                            NavigationLink(destination:
-                                                            DetailStoreAppView(app: app,
-                                                                               downloadVM: DownloadVM.shared,
-                                                                               installVM: InstallVM.shared)
-                                            ) {
-                                                StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                                             selectedTextColor: $selectedTextColor,
-                                                             selected: $selected,
-                                                             app: app,
-                                                             isList: isList)
-                                                .environmentObject(DownloadVM.shared)
-                                                .environmentObject(InstallVM.shared)
-                                            }
-                                            .buttonStyle(.plain)
-                                        }
-                                    }
-                                    .padding()
-                                    Spacer()
-                                } else {
-                                    VStack {
-                                        ForEach(storeVM.filteredApps, id: \.bundleID) { app in
-                                            NavigationLink(destination:
-                                                            DetailStoreAppView(app: app,
-                                                                               downloadVM: DownloadVM.shared,
-                                                                               installVM: InstallVM.shared)
-                                            ) {
-                                                StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                                             selectedTextColor: $selectedTextColor,
-                                                             selected: $selected,
-                                                             app: app,
-                                                             isList: isList)
-                                                .environmentObject(DownloadVM.shared)
-                                                .environmentObject(InstallVM.shared)
-                                            }
-                                            .buttonStyle(.plain)
-                                            Spacer()
-                                        }
-                                    }
-                                    .padding()
-                                }
-                            }
-                        }
-                        .searchable(text: $searchString, placement: .toolbar)
-                        .onChange(of: searchString) { value in
-                            uif.searchText = value
-                            storeVM.fetchApps()
-                        }
-                    }
-                } else {
-                    ZStack {
-                        ScrollView {
-                            if !isList {
-                                LazyVGrid(columns: gridLayout, alignment: .center) {
-                                    ForEach(storeVM.filteredApps, id: \.bundleID) { app in
+                ZStack {
+                    ScrollView {
+                        if !isList {
+                            LazyVGrid(columns: gridLayout, alignment: .center) {
+                                ForEach(storeVM.filteredApps, id: \.bundleID) { app in
+                                    Button {
+                                        showSubview(view: AnyView(DetailStoreAppView(app: app,
+                                                                                     downloadVM: DownloadVM.shared,
+                                                                                     installVM: InstallVM.shared)))
+                                    } label: {
                                         StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                                      selectedTextColor: $selectedTextColor,
                                                      selected: $selected,
                                                      app: app,
                                                      isList: isList)
                                         .environmentObject(DownloadVM.shared)
+                                        .environmentObject(InstallVM.shared)
                                     }
+                                    .buttonStyle(.plain)
                                 }
-                                .padding()
-                                Spacer()
-                            } else {
-                                VStack {
-                                    ForEach(storeVM.filteredApps, id: \.bundleID) { app in
+                            }
+                            .padding()
+                            Spacer()
+                        } else {
+                            VStack {
+                                ForEach(storeVM.filteredApps, id: \.bundleID) { app in
+                                    Button {
+                                        showSubview(view: AnyView(DetailStoreAppView(app: app,
+                                                                                     downloadVM: DownloadVM.shared,
+                                                                                     installVM: InstallVM.shared)))
+                                    } label: {
                                         StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                                      selectedTextColor: $selectedTextColor,
                                                      selected: $selected,
                                                      app: app,
                                                      isList: isList)
                                         .environmentObject(DownloadVM.shared)
+                                        .environmentObject(InstallVM.shared)
                                     }
+                                    .buttonStyle(.plain)
                                     Spacer()
                                 }
-                                .padding()
                             }
+                            .padding()
                         }
                     }
-                    .searchable(text: $searchString, placement: .toolbar)
-                    .onChange(of: searchString) { value in
-                        uif.searchText = value
-                        storeVM.fetchApps()
-                    }
+                }
+                .searchable(text: $searchString, placement: .toolbar)
+                .onChange(of: searchString) { value in
+                    uif.searchText = value
+                    storeVM.fetchApps()
                 }
             }
         }
@@ -174,5 +137,9 @@ struct IPALibraryView: View {
             AddSourceView(addSourceSheet: $addSourcePresented)
                 .environmentObject(storeVM)
         }
+    }
+    private func showSubview(view: AnyView) {
+        currentSubview = view
+        showingSubview = true
     }
 }

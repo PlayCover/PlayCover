@@ -24,38 +24,14 @@ struct StoreAppView: View {
     @EnvironmentObject var installVM: InstallVM
 
     var body: some View {
-        Group {
-            if #available(macOS 13.0, *) {
-                StoreAppConditionalView(selectedBackgroundColor: $selectedBackgroundColor,
-                                        selectedTextColor: $selectedTextColor,
-                                        selected: $selected,
-                                        app: app,
-                                        isList: isList,
-                                        warningSymbol: $warningSymbol,
-                                        warningMessage: $warningMessage)
-            } else {
-                StoreAppConditionalView(selectedBackgroundColor: $selectedBackgroundColor,
-                                        selectedTextColor: $selectedTextColor,
-                                        selected: $selected,
-                                        app: app,
-                                        isList: isList,
-                                        warningSymbol: $warningSymbol,
-                                        warningMessage: $warningMessage)
-                .onTapGesture {
-                    selected = app
-                }
-                .simultaneousGesture(TapGesture(count: 2).onEnded {
-                    if !downloadVM.downloading && !installVM.installing {
-                        if let url = URL(string: app.link) {
-                            let downloader = DownloadApp(url: url,
-                                                         app: app,
-                                                         warning: warningMessage)
-                            downloader.start()
-                        }
-                    }
-                })
-            }
-        }
+        StoreAppConditionalView(selectedBackgroundColor: $selectedBackgroundColor,
+                                selectedTextColor: $selectedTextColor,
+                                selected: $selected,
+                                app: app,
+                                isList: isList,
+                                warningSymbol: $warningSymbol,
+                                warningMessage: $warningMessage)
+        .environmentObject(downloadVM)
         .contextMenu {
             Button {
                 if let url = URL(string: app.link) {

@@ -31,12 +31,12 @@ class DownloadApp {
         self.warning = warning
     }
 
-    let dlVM = DownloadVM.shared
-    let inVM = InstallVM.shared
+    let downloadVM = DownloadVM.shared
+    let installVM = InstallVM.shared
     let downloader = DownloadManager.shared
 
     func start() {
-        if dlVM.downloading && inVM.installing {
+        if downloadVM.downloading && installVM.installing {
             Log.shared.error(PlayCoverError.waitDownload)
         } else {
             if let warningMessage = warning {
@@ -63,9 +63,9 @@ class DownloadApp {
 
     func cancel() {
         downloader.cancelAllDownloads()
-        dlVM.downloading = false
-        dlVM.progress = 0
-        dlVM.storeAppData = nil
+        downloadVM.downloading = false
+        downloadVM.progress = 0
+        downloadVM.storeAppData = nil
     }
 
     private func proceedDownload() {
@@ -73,19 +73,19 @@ class DownloadApp {
         downloader.addDownload(url: url,
                                destinationURL: path!,
                                onProgress: { progress in
-            self.dlVM.storeAppData = self.app
-            self.dlVM.downloading = true
+            self.downloadVM.storeAppData = self.app
+            self.downloadVM.downloading = true
             // progress is a Float
-            self.dlVM.progress = Double(progress)
+            self.downloadVM.progress = Double(progress)
         }, onCompletion: { error, fileURL in
             guard error == nil else {
-                self.dlVM.downloading = false
-                self.dlVM.progress = 0
-                self.dlVM.storeAppData = nil
+                self.downloadVM.downloading = false
+                self.downloadVM.progress = 0
+                self.downloadVM.storeAppData = nil
                 return Log.shared.error(error!)
             }
-            self.dlVM.downloading = false
-            self.dlVM.progress = 0
+            self.downloadVM.downloading = false
+            self.downloadVM.progress = 0
             self.proceedInstall(fileURL)
         })
     }
@@ -113,7 +113,7 @@ class DownloadApp {
                         NotifyService.shared.notify(
                             NSLocalizedString("notification.appInstalled", comment: ""),
                             NSLocalizedString("notification.appInstalled.message", comment: ""))
-                        self.dlVM.storeAppData = nil
+                        self.downloadVM.storeAppData = nil
                     }
                 })
             } catch {

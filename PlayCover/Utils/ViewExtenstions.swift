@@ -7,23 +7,50 @@
 
 import SwiftUI
 
-struct BadgeTextStyle: ViewModifier {
-    func body(content: Content) -> some View {
-        if #available(macOS 13.0, *) {
-            content
-                .textCase(.uppercase)
-                .font(.subheadline)
-                .bold()
-                .foregroundColor(Color(nsColor: .tertiaryLabelColor))
+struct StackNavigationView<RootContent>: View where RootContent: View {
+
+    @Binding var currentSubview: AnyView
+    @Binding var showingSubview: Bool
+
+    var body: some View {
+        VStack {
+            if !showingSubview {
+                rootView()
+                    .zIndex(-1)
+            } else {
+                StackNavigationSubview(isVisible: $showingSubview) {
+                    currentSubview
+                }
+            }
         }
     }
-}
 
-struct VerticalSpacer: View {
-    var body: some View {
-        Spacer()
-        Divider()
-            .frame(height: 50)
-        Spacer()
+    let rootView: () -> RootContent
+
+    init(currentSubview: Binding<AnyView>, showingSubview: Binding<Bool>,
+         @ViewBuilder rootView: @escaping () -> RootContent) {
+        self._currentSubview = currentSubview
+        self._showingSubview = showingSubview
+        self.rootView = rootView
+    }
+
+    private struct StackNavigationSubview<Content>: View where Content: View {
+        @Binding var isVisible: Bool
+        let contentView: () -> Content
+
+        var body: some View {
+            VStack {
+                contentView() // subview
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigation) {
+                    Button {
+                        isVisible = false
+                    } label: {
+                        Label("BACK", systemImage: "chevron.left")
+                    }
+                }
+            }
+        }
     }
 }

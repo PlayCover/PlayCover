@@ -12,13 +12,16 @@ import CachedAsyncImage
 struct DetailStoreAppView: View {
     @State var dlButtonText: LocalizedStringKey?
     @State var warningMessage: String?
-    @State var cache = DataCache.instance
+
     @State var app: StoreAppData
+    @State var itunesResponce: ITunesResponse?
+    @State var cache = DataCache.instance
+
     @State var onlineIconURL: URL?
     @State var localIcon: NSImage?
     @State var bannerImageURLs: [URL?] = []
-    @State var itunesResponce: ITunesResponse?
     @State var truncated = true
+
     @StateObject var downloadVM: DownloadVM
     @StateObject var installVM: InstallVM
 
@@ -210,9 +213,7 @@ struct DetailStoreAppView: View {
             if downloadVM.storeAppData == app {
                 ToastVM.shared.isShown = false
             }
-
             await versionCompare()
-
             await getData()
         }
         .onDisappear {
@@ -224,6 +225,7 @@ struct DetailStoreAppView: View {
             }
         }
     }
+
     func versionCompare() async {
         if let sourceApp = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == app.bundleID }) {
             switch app.version.compare(sourceApp.info.bundleVersion, options: .numeric) {
@@ -241,6 +243,7 @@ struct DetailStoreAppView: View {
             }
         }
     }
+
     func getData() async {
         if !cache.hasData(forKey: app.itunesLookup) {
             await Cacher().resolveITunesData(app.itunesLookup)
@@ -261,6 +264,24 @@ struct DetailStoreAppView: View {
         } else {
             localIcon = await Cacher().getLocalIcon(bundleId: app.bundleID)
         }
+    }
+}
+
+struct BadgeTextStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .textCase(.uppercase)
+            .font(.subheadline.bold())
+            .foregroundColor(Color(nsColor: .tertiaryLabelColor))
+    }
+}
+
+struct VerticalSpacer: View {
+    var body: some View {
+        Spacer()
+        Divider()
+            .frame(height: 50)
+        Spacer()
     }
 }
 
