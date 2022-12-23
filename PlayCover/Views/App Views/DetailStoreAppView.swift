@@ -210,7 +210,9 @@ struct DetailStoreAppView: View {
             if downloadVM.storeAppData == app {
                 ToastVM.shared.isShown = false
             }
+
             await versionCompare()
+
             await getData()
         }
         .onDisappear {
