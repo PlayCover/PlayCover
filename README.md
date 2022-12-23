@@ -127,7 +127,7 @@ Lucas Lee - playcover@lucas.icu
 
 These open source libraries were used to create this project.
 
-* [Inject](https://github.com/paradiseduo/inject)
+* [inject](https://github.com/paradiseduo/inject)
 * [PTFakeTouch](https://github.com/Ret70/PTFakeTouch)
 * [DownloadManager](https://github.com/shapedbyiris/download-manager)
 * [DataCache](https://github.com/huynguyencong/DataCache)
