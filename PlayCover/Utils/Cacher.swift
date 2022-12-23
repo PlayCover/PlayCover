@@ -30,8 +30,11 @@ class Cacher {
     }
 
     func resolveLocalIcon(_ app: PlayApp) async -> NSImage? {
-        if let image = DataCache.instance.readImage(forKey: app.info.bundleIdentifier) {
-            return image
+        var appIcon: NSImage?
+        if DataCache.instance.readString(forKey: app.info.bundleVersion) == app.info.bundleVersion {
+            if let image = DataCache.instance.readImage(forKey: app.info.bundleIdentifier) {
+                appIcon = image
+            }
         } else {
             var bestResImage: NSImage?
             if let assetsExtractor = try? AssetsExtractor(appUrl: app.url) {
@@ -39,9 +42,11 @@ class Cacher {
                     bestResImage = icon
                 }
             }
+            DataCache.instance.write(string: app.info.bundleVersion, forKey: app.info.bundleVersion)
             DataCache.instance.write(image: bestResImage!, forKey: app.info.bundleIdentifier)
-            return DataCache.instance.readImage(forKey: app.info.bundleIdentifier)
+            appIcon = DataCache.instance.readImage(forKey: app.info.bundleIdentifier)
         }
+        return appIcon
     }
 
     func getLocalIcon(bundleId: String) async -> NSImage? {

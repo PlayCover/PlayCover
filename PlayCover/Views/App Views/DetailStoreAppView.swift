@@ -164,7 +164,7 @@ struct DetailStoreAppView: View {
                 HStack {
                     Text(itunesResponce?.results[0].description
                          ?? NSLocalizedString("ipaLibrary.detailed.nodesc", comment: ""))
-                    .lineLimit(truncated ? 5 : nil)
+                    .lineLimit(truncated ? 10 : nil)
                     Spacer()
                     if itunesResponce != nil {
                         VStack {

@@ -23,7 +23,7 @@ struct VerticalSpacer: View {
     var body: some View {
         Spacer()
         Divider()
-            .frame(height: .infinity)
+            .frame(height: 50)
         Spacer()
     }
 }
