@@ -30,7 +30,7 @@ struct DetailStoreAppView: View {
             VStack {
                 HStack {
                     Group {
-                        CachedAsyncImage(url: onlineIconURL) { image in
+                        CachedAsyncImage(url: onlineIconURL, urlCache: .iconCache) { image in
                             image
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
@@ -181,7 +181,7 @@ struct DetailStoreAppView: View {
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(bannerImageURLs, id: \.self) { url in
-                            CachedAsyncImage(url: url) { image in
+                            CachedAsyncImage(url: url, urlCache: .screenshotCache) { image in
                                 image
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)

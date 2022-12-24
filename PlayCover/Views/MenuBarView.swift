@@ -96,6 +96,8 @@ struct PlayCoverViewMenuView: Commands {
             Button("menubar.clearCache") {
                 DataCache.instance.cleanAll()
                 URLCache.shared.removeAllCachedResponses()
+                URLCache.iconCache.removeAllCachedResponses()
+                URLCache.screenshotCache.removeAllCachedResponses()
                 do {
                     let cacheFolder = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
                      if FileManager.default.fileExists(atPath: cacheFolder.path) {

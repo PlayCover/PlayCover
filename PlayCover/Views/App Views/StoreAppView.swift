@@ -96,7 +96,7 @@ struct StoreAppConditionalView: View {
                         .padding(.leading, 15)
                     ZStack {
                         Group {
-                            CachedAsyncImage(url: onlineIcon) { image in
+                            CachedAsyncImage(url: onlineIcon, urlCache: .iconCache) { image in
                                 image
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
@@ -138,7 +138,7 @@ struct StoreAppConditionalView: View {
                 VStack {
                     ZStack {
                         Group {
-                            CachedAsyncImage(url: onlineIcon) { image in
+                            CachedAsyncImage(url: onlineIcon, urlCache: .iconCache) { image in
                                 image
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
