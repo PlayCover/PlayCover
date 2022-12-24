@@ -26,10 +26,10 @@
 		68E48B9C295709C000C39879 /* Cacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E48B9B295709BF00C39879 /* Cacher.swift */; };
 		68E48B9F29570A0400C39879 /* DataCache in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48B9E29570A0400C39879 /* DataCache */; };
 		68E48BA229570A2B00C39879 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48BA129570A2B00C39879 /* CachedAsyncImage */; };
+		68E48B9A295708C800C39879 /* Injection in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48B99295708C800C39879 /* Injection */; };
 		6E06193628B3C4090012C771 /* StoreGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193528B3C4090012C771 /* StoreGenshinAccountView.swift */; };
 		6E06193828B3C4240012C771 /* ChangeGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193728B3C4240012C771 /* ChangeGenshinAccountView.swift */; };
 		6E06193A28B3C42E0012C771 /* DeleteGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193928B3C42E0012C771 /* DeleteGenshinAccountView.swift */; };
-		6E174058294C2759002A63E0 /* Injection in Frameworks */ = {isa = PBXBuildFile; productRef = 6E174057294C2759002A63E0 /* Injection */; };
 		6E21233128F65F7600B4D75D /* GenshinUserDataURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E21233028F65F7600B4D75D /* GenshinUserDataURLs.swift */; };
 		6E3C8E1128AE1F330020BCEA /* xcode_install.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 6E3C8E1028AE1F250020BCEA /* xcode_install.scpt */; };
 		6E5C68BA289865C8008EC11B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5C68B9289865C8008EC11B /* MainView.swift */; };
@@ -189,8 +189,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E174058294C2759002A63E0 /* Injection in Frameworks */,
 				68E48B9F29570A0400C39879 /* DataCache in Frameworks */,
+				68E48B9A295708C800C39879 /* Injection in Frameworks */,
 				365AFB0628847B2E008B3542 /* Sparkle in Frameworks */,
 				68E48BA229570A2B00C39879 /* CachedAsyncImage in Frameworks */,
 				AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */,
@@ -466,9 +466,9 @@
 			packageProductDependencies = (
 				AA818CB4287ABEC3000BEE9D /* Yams */,
 				365AFB0528847B2E008B3542 /* Sparkle */,
-				6E174057294C2759002A63E0 /* Injection */,
 				68E48B9E29570A0400C39879 /* DataCache */,
 				68E48BA129570A2B00C39879 /* CachedAsyncImage */,
+				68E48B99295708C800C39879 /* Injection */,
 			);
 			productName = PlayCover;
 			productReference = 8783CFF726B8C52D00171041 /* PlayCover.app */;
@@ -517,9 +517,9 @@
 			packageReferences = (
 				AA818CB3287ABEC3000BEE9D /* XCRemoteSwiftPackageReference "Yams" */,
 				365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */,
-				6EC73F38293FCBD60047A07C /* XCRemoteSwiftPackageReference "inject" */,
 				68E48B9D29570A0400C39879 /* XCRemoteSwiftPackageReference "DataCache" */,
 				68E48BA029570A2B00C39879 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
+				68E48B98295708C800C39879 /* XCRemoteSwiftPackageReference "inject" */,
 			);
 			productRefGroup = 8783CFF826B8C52D00171041 /* Products */;
 			projectDirPath = "";
@@ -975,12 +975,12 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		6EC73F38293FCBD60047A07C /* XCRemoteSwiftPackageReference "inject" */ = {
+		68E48B98295708C800C39879 /* XCRemoteSwiftPackageReference "inject" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/paradiseduo/inject";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 		AA818CB3287ABEC3000BEE9D /* XCRemoteSwiftPackageReference "Yams" */ = {
@@ -1010,9 +1010,9 @@
 			package = 68E48BA029570A2B00C39879 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
 			productName = CachedAsyncImage;
 		};
-		6E174057294C2759002A63E0 /* Injection */ = {
+		68E48B99295708C800C39879 /* Injection */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6EC73F38293FCBD60047A07C /* XCRemoteSwiftPackageReference "inject" */;
+			package = 68E48B98295708C800C39879 /* XCRemoteSwiftPackageReference "inject" */;
 			productName = Injection;
 		};
 		AA818CB4287ABEC3000BEE9D /* Yams */ = {
