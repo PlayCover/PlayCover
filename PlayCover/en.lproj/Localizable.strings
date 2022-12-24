@@ -26,6 +26,19 @@
 "ipaLibrary.alert.download" = "Are you sure you want to download this version of %@?";
 "ipaLibrary.download" = "Download";
 
+"ipaLibrary.detailed.dlnew" = "Get";
+"ipaLibrary.detailed.dlsame" = "Reinstall";
+"ipaLibrary.detailed.dlolder" = "Downgrade";
+"ipaLibrary.detailed.dlnewer" = "Update";
+"ipaLibrary.detailed.nodesc" = "This app might be not on the App Store. Hence, no description is shown.";
+"ipaLibrary.detailed.more" = "Read more";
+"ipaLibrary.detailed.less" = "Show less";
+"ipaLibrary.detailed.apprating" = "Rating";
+"ipaLibrary.detailed.appversion" = "Version";
+"ipaLibrary.detailed.filesize" = "Size";
+"ipaLibrary.detailed.apppg" = "Age";
+"ipaLibrary.detailed.nil" = "Not Specified";
+
 "preferences.button.checkForUpdates" = "Check for Updates";
 "preferences.tab.updates" = "Updates";
 "preferences.toggle.automaticUpdates" = "Automatically check for updates";
@@ -73,6 +86,7 @@
 "storeAccount.alert.deleteAccount.button" = "Delete Account";
 
 "playapp.download" = "Downloading...";
+"playapp.install" = "Installing";
 "playapp.install.unzip" = "Extracting app from .ipa file...";
 "playapp.install.createWrapper" = "Creating app wrapper...";
 "playapp.install.installPlayTools" = "Installing PlayTools...";

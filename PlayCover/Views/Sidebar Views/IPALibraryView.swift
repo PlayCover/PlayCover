@@ -19,99 +19,123 @@ struct IPALibraryView: View {
     @State private var selected: StoreAppData?
     @State private var addSourcePresented = false
 
+    @State private var currentSubview = AnyView(EmptyView())
+    @State private var showingSubview = false
+
     var body: some View {
-        ZStack {
-            ScrollView {
-                if !isList {
-                    LazyVGrid(columns: gridLayout, alignment: .center) {
-                        ForEach(storeVM.filteredApps, id: \.bundleID) { app in
-                            StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                         selectedTextColor: $selectedTextColor,
-                                         selected: $selected,
-                                         app: app,
-                                         isList: isList)
-                            .environmentObject(DownloadVM.shared)
-                        }
-                    }
-                    .padding()
-                    Spacer()
-                } else {
+        StackNavigationView(currentSubview: $currentSubview,
+                            showingSubview: $showingSubview) {
+            Group {
+                if storeVM.sources.count == 0 {
                     VStack {
-                        ForEach(storeVM.filteredApps, id: \.bundleID) { app in
-                            StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                         selectedTextColor: $selectedTextColor,
-                                         selected: $selected,
-                                         app: app,
-                                         isList: isList)
-                            .environmentObject(DownloadVM.shared)
+                        Spacer()
+                        Text("ipaLibrary.noSources.title")
+                            .font(.title)
+                            .padding(.bottom, 2)
+                        Text("ipaLibrary.noSources.subtitle")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        Button("ipaLibrary.noSources.button") {
+                            addSourcePresented.toggle()
                         }
                         Spacer()
                     }
-                    .padding()
+                } else {
+                    ScrollView {
+                        if !isList {
+                            LazyVGrid(columns: gridLayout, alignment: .center) {
+                                ForEach(storeVM.filteredApps, id: \.bundleID) { app in
+                                    Button {
+                                        showSubview(view: AnyView(DetailStoreAppView(app: app,
+                                                                                     downloadVM: DownloadVM.shared,
+                                                                                     installVM: InstallVM.shared)))
+                                    } label: {
+                                        StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                                     selectedTextColor: $selectedTextColor,
+                                                     selected: $selected,
+                                                     app: app,
+                                                     isList: isList)
+                                        .environmentObject(DownloadVM.shared)
+                                        .environmentObject(InstallVM.shared)
+                                    }
+                                    .buttonStyle(.plain)
+                                }
+                            }
+                            .padding()
+                            Spacer()
+                        } else {
+                            VStack {
+                                ForEach(storeVM.filteredApps, id: \.bundleID) { app in
+                                    Button {
+                                        showSubview(view: AnyView(DetailStoreAppView(app: app,
+                                                                                     downloadVM: DownloadVM.shared,
+                                                                                     installVM: InstallVM.shared)))
+                                    } label: {
+                                        StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                                     selectedTextColor: $selectedTextColor,
+                                                     selected: $selected,
+                                                     app: app,
+                                                     isList: isList)
+                                        .environmentObject(DownloadVM.shared)
+                                        .environmentObject(InstallVM.shared)
+                                    }
+                                    .buttonStyle(.plain)
+                                    Spacer()
+                                }
+                            }
+                            .padding()
+                        }
+                    }
+                    .toolbar {
+                        ToolbarItem(placement: .primaryAction) {
+                            Button {
+                                storeVM.resolveSources()
+                            } label: {
+                                Image(systemName: "arrow.clockwise")
+                                    .help("playapp.refreshSources")
+                            }
+                            .disabled(storeVM.sources.count == 0)
+                        }
+                        ToolbarItem(placement: .primaryAction) {
+                            Spacer()
+                        }
+                        ToolbarItem(placement: .primaryAction) {
+                            Button {
+                                addSourcePresented.toggle()
+                            } label: {
+                                Image(systemName: "plus")
+                                    .help("playapp.addSource")
+                            }
+                        }
+                        ToolbarItem(placement: .primaryAction) {
+                            Picker("", selection: $isList) {
+                                Image(systemName: "square.grid.2x2")
+                                    .tag(false)
+                                Image(systemName: "list.bullet")
+                                    .tag(true)
+                            }
+                            .pickerStyle(.segmented)
+                        }
+                    }
+                    .searchable(text: $searchString, placement: .toolbar)
+                    .onChange(of: searchString) { value in
+                        uif.searchText = value
+                        storeVM.fetchApps()
+                    }
                 }
             }
-            if storeVM.sources.count == 0 {
-                VStack {
-                    Spacer()
-                    Text("ipaLibrary.noSources.title")
-                        .font(.title)
-                        .padding(.bottom, 2)
-                    Text("ipaLibrary.noSources.subtitle")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                    Button("ipaLibrary.noSources.button", action: {
-                        addSourcePresented.toggle()
-                    })
-                    Spacer()
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .navigationTitle("sidebar.ipaLibrary")
+            .onChange(of: isList, perform: { value in
+                UserDefaults.standard.set(value, forKey: "IPALibrayView")
+            })
+            .sheet(isPresented: $addSourcePresented) {
+                AddSourceView(addSourceSheet: $addSourcePresented)
+                    .environmentObject(storeVM)
             }
         }
-        .onTapGesture {
-            selected = nil
-        }
-        .navigationTitle("sidebar.ipaLibrary")
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button(action: {
-                    storeVM.resolveSources()
-                }, label: {
-                    Image(systemName: "arrow.clockwise")
-                        .help("playapp.refreshSources")
-                })
-                .disabled(storeVM.sources.count == 0)
-            }
-            ToolbarItem(placement: .primaryAction) {
-                Spacer()
-            }
-            ToolbarItem(placement: .primaryAction) {
-                Button(action: {
-                    addSourcePresented.toggle()
-                }, label: {
-                    Image(systemName: "plus")
-                        .help("playapp.addSource")
-                })
-            }
-            ToolbarItem(placement: .primaryAction) {
-                Picker("", selection: $isList) {
-                    Image(systemName: "square.grid.2x2")
-                        .tag(false)
-                    Image(systemName: "list.bullet")
-                        .tag(true)
-                }.pickerStyle(.segmented)
-            }
-        }
-        .searchable(text: $searchString, placement: .toolbar)
-        .onChange(of: searchString) { value in
-            uif.searchText = value
-            storeVM.fetchApps()
-        }
-        .onChange(of: isList, perform: { value in
-            UserDefaults.standard.set(value, forKey: "IPALibrayView")
-        })
-        .sheet(isPresented: $addSourcePresented) {
-            AddSourceView(addSourceSheet: $addSourcePresented)
-                .environmentObject(storeVM)
-        }
+    }
+    private func showSubview(view: AnyView) {
+        currentSubview = view
+        showingSubview = true
     }
 }

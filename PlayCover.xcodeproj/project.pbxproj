@@ -23,6 +23,8 @@
 		53F4D2A026C43C690020167C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29F26C43C690020167C /* Log.swift */; };
 		53F50C4926E3CA42007AD2D3 /* AppLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */; };
 		53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F5E74226C1D37E005AED1D /* FileExtensions.swift */; };
+		68EC0CC12957188900452C76 /* ViewExtenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EC0CC02957188900452C76 /* ViewExtenstions.swift */; };
+		68EC0CC3295718AA00452C76 /* DetailStoreAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EC0CC2295718AA00452C76 /* DetailStoreAppView.swift */; };
 		6E06193628B3C4090012C771 /* StoreGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193528B3C4090012C771 /* StoreGenshinAccountView.swift */; };
 		6E06193828B3C4240012C771 /* ChangeGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193728B3C4240012C771 /* ChangeGenshinAccountView.swift */; };
 		6E06193A28B3C42E0012C771 /* DeleteGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193928B3C42E0012C771 /* DeleteGenshinAccountView.swift */; };
@@ -109,6 +111,8 @@
 		53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLibraryView.swift; sourceTree = "<group>"; };
 		53F5E74226C1D37E005AED1D /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
 		6854C5E528D53C9500CE28A0 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
+		68EC0CC02957188900452C76 /* ViewExtenstions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExtenstions.swift; sourceTree = "<group>"; };
+		68EC0CC2295718AA00452C76 /* DetailStoreAppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailStoreAppView.swift; sourceTree = "<group>"; };
 		6E06193528B3C4090012C771 /* StoreGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreGenshinAccountView.swift; sourceTree = "<group>"; };
 		6E06193728B3C4240012C771 /* ChangeGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeGenshinAccountView.swift; sourceTree = "<group>"; };
 		6E06193928B3C42E0012C771 /* DeleteGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGenshinAccountView.swift; sourceTree = "<group>"; };
@@ -315,6 +319,7 @@
 				B17FD03F28C70C7300B1D4CA /* CoreUI.h */,
 				6EB4B57328C93E0600630890 /* LegacySettings.swift */,
 				6E40BC9128FDBDF300AB9CB9 /* ImageCache.swift */,
+				68EC0CC02957188900452C76 /* ViewExtenstions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -345,6 +350,7 @@
 			children = (
 				92EE06D3274EA604002C907B /* PlayAppView.swift */,
 				6E66B0D2289F5A010099B907 /* StoreAppView.swift */,
+				68EC0CC2295718AA00452C76 /* DetailStoreAppView.swift */,
 			);
 			path = "App Views";
 			sourceTree = "<group>";
@@ -622,6 +628,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E66B0D3289F5A010099B907 /* StoreAppView.swift in Sources */,
+				68EC0CC12957188900452C76 /* ViewExtenstions.swift in Sources */,
 				6ED6ACA628A96E570040D234 /* DeletePreferences.swift in Sources */,
 				6E66B0D528A0039D0099B907 /* ToastView.swift in Sources */,
 				92ECD8A3274E75CD00DB7AC6 /* Installer.swift in Sources */,
@@ -664,6 +671,7 @@
 				8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */,
 				6ED6379D28DAAAC100B506FA /* IPASourceSettings.swift in Sources */,
 				5314D1EE26C402EC00A0A727 /* Shell.swift in Sources */,
+				68EC0CC3295718AA00452C76 /* DetailStoreAppView.swift in Sources */,
 				6E7CA16528B4D02900216CD8 /* ITunesResponse.swift in Sources */,
 				6EF893D528F34CD1004AB6D9 /* NetworkVM.swift in Sources */,
 				8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */,
