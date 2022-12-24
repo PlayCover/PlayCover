@@ -24,12 +24,6 @@ class Cacher {
             let screenshotsArrayName = refreshedITunesData.results[0].bundleId + ".scUrls"
             do {
                 try cache.write(codable: refreshedITunesData, forKey: link)
-                if refreshedITunesData.results[0].ipadScreenshotUrls.isEmpty {
-                    screenshots = refreshedITunesData.results[0].screenshotUrls
-                } else {
-                    screenshots = refreshedITunesData.results[0].ipadScreenshotUrls
-                }
-                cache.write(array: screenshots, forKey: screenshotsArrayName)
             } catch {
                 print("Write error \(error.localizedDescription)")
             }
