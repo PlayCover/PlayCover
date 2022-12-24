@@ -25,27 +25,22 @@ struct IPALibraryView: View {
     var body: some View {
         StackNavigationView(currentSubview: $currentSubview,
                             showingSubview: $showingSubview) {
-            if storeVM.sources.count == 0 {
-                VStack {
-                    Spacer()
-                    Text("ipaLibrary.noSources.title")
-                        .font(.title)
-                        .padding(.bottom, 2)
-                    Text("ipaLibrary.noSources.subtitle")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                    Button("ipaLibrary.noSources.button", action: {
-                        addSourcePresented.toggle()
-                    })
-                    Spacer()
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .sheet(isPresented: $addSourcePresented) {
-                    AddSourceView(addSourceSheet: $addSourcePresented)
-                        .environmentObject(storeVM)
-                }
-            } else {
-                ZStack {
+            Group {
+                if storeVM.sources.count == 0 {
+                    VStack {
+                        Spacer()
+                        Text("ipaLibrary.noSources.title")
+                            .font(.title)
+                            .padding(.bottom, 2)
+                        Text("ipaLibrary.noSources.subtitle")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        Button("ipaLibrary.noSources.button") {
+                            addSourcePresented.toggle()
+                        }
+                        Spacer()
+                    }
+                } else {
                     ScrollView {
                         if !isList {
                             LazyVGrid(columns: gridLayout, alignment: .center) {
@@ -91,51 +86,52 @@ struct IPALibraryView: View {
                             .padding()
                         }
                     }
+                    .toolbar {
+                        ToolbarItem(placement: .primaryAction) {
+                            Button {
+                                storeVM.resolveSources()
+                            } label: {
+                                Image(systemName: "arrow.clockwise")
+                                    .help("playapp.refreshSources")
+                            }
+                            .disabled(storeVM.sources.count == 0)
+                        }
+                        ToolbarItem(placement: .primaryAction) {
+                            Spacer()
+                        }
+                        ToolbarItem(placement: .primaryAction) {
+                            Button {
+                                addSourcePresented.toggle()
+                            } label: {
+                                Image(systemName: "plus")
+                                    .help("playapp.addSource")
+                            }
+                        }
+                        ToolbarItem(placement: .primaryAction) {
+                            Picker("", selection: $isList) {
+                                Image(systemName: "square.grid.2x2")
+                                    .tag(false)
+                                Image(systemName: "list.bullet")
+                                    .tag(true)
+                            }
+                            .pickerStyle(.segmented)
+                        }
+                    }
+                    .searchable(text: $searchString, placement: .toolbar)
+                    .onChange(of: searchString) { value in
+                        uif.searchText = value
+                        storeVM.fetchApps()
+                    }
                 }
-                .searchable(text: $searchString, placement: .toolbar)
-                .onChange(of: searchString) { value in
-                    uif.searchText = value
-                    storeVM.fetchApps()
-                }
             }
-        }
-        .navigationTitle("sidebar.ipaLibrary")
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button(action: {
-                    storeVM.resolveSources()
-                }, label: {
-                    Image(systemName: "arrow.clockwise")
-                        .help("playapp.refreshSources")
-                })
-                .disabled(storeVM.sources.count == 0)
+            .navigationTitle("sidebar.ipaLibrary")
+            .onChange(of: isList, perform: { value in
+                UserDefaults.standard.set(value, forKey: "IPALibrayView")
+            })
+            .sheet(isPresented: $addSourcePresented) {
+                AddSourceView(addSourceSheet: $addSourcePresented)
+                    .environmentObject(storeVM)
             }
-            ToolbarItem(placement: .primaryAction) {
-                Spacer()
-            }
-            ToolbarItem(placement: .primaryAction) {
-                Button(action: {
-                    addSourcePresented.toggle()
-                }, label: {
-                    Image(systemName: "plus")
-                        .help("playapp.addSource")
-                })
-            }
-            ToolbarItem(placement: .primaryAction) {
-                Picker("", selection: $isList) {
-                    Image(systemName: "square.grid.2x2")
-                        .tag(false)
-                    Image(systemName: "list.bullet")
-                        .tag(true)
-                }.pickerStyle(.segmented)
-            }
-        }
-        .onChange(of: isList, perform: { value in
-            UserDefaults.standard.set(value, forKey: "IPALibrayView")
-        })
-        .sheet(isPresented: $addSourcePresented) {
-            AddSourceView(addSourceSheet: $addSourcePresented)
-                .environmentObject(storeVM)
         }
     }
     private func showSubview(view: AnyView) {
