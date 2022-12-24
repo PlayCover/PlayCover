@@ -129,6 +129,7 @@ These open source libraries were used to create this project.
 
 * [inject](https://github.com/paradiseduo/inject)
 * [PTFakeTouch](https://github.com/Ret70/PTFakeTouch)
+* [DownloadManager](https://github.com/shapedbyiris/download-manager)
 
 * Thanks to @iVoider for creating such a great project!
 
