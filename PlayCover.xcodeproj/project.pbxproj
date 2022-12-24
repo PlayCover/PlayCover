@@ -284,6 +284,7 @@
 			children = (
 				92ECD8A6274E769600DB7AC6 /* Utils */,
 				92ECD8A2274E75CD00DB7AC6 /* Installer.swift */,
+				68E48B96295704A600C39879 /* Downloader.swift */,
 			);
 			path = AppInstaller;
 			sourceTree = "<group>";
@@ -419,7 +420,6 @@
 			children = (
 				92ECD8A4274E763700DB7AC6 /* IPA.swift */,
 				92EE06DD274EC09F002C907B /* Entitlements.swift */,
-				68E48B96295704A600C39879 /* Downloader.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";

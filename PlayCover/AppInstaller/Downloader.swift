@@ -69,59 +69,53 @@ class DownloadApp {
     }
 
     private func proceedDownload() {
-        let path = NSURL.fileURL(withPathComponents: [NSTemporaryDirectory(), app.bundleID])
-        downloader.addDownload(url: url,
-                               destinationURL: path!,
-                               onProgress: { progress in
-            self.downloadVM.storeAppData = self.app
-            self.downloadVM.downloading = true
-            // progress is a Float
-            self.downloadVM.progress = Double(progress)
-        }, onCompletion: { error, fileURL in
-            guard error == nil else {
+        var tmpDir: URL?
+        do {
+            tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
+                                                 in: .userDomainMask,
+                                                 appropriateFor: URL(fileURLWithPath: "/Users"),
+                                                 create: true)
+            downloader.addDownload(url: url,
+                                   destinationURL: tmpDir!,
+                                   onProgress: { progress in
+                self.downloadVM.storeAppData = self.app
+                self.downloadVM.downloading = true
+                // progress is a Float
+                self.downloadVM.progress = Double(progress)
+            }, onCompletion: { error, fileURL in
+                guard error == nil else {
+                    self.downloadVM.downloading = false
+                    self.downloadVM.progress = 0
+                    self.downloadVM.storeAppData = nil
+                    return Log.shared.error(error!)
+                }
                 self.downloadVM.downloading = false
                 self.downloadVM.progress = 0
-                self.downloadVM.storeAppData = nil
-                return Log.shared.error(error!)
+                self.proceedInstall(fileURL)
+            })
+        } catch {
+            if let tmpDir = tmpDir {
+                FileManager.default.delete(at: tmpDir)
             }
-            self.downloadVM.downloading = false
-            self.downloadVM.progress = 0
-            self.proceedInstall(fileURL)
-        })
+            Log.shared.error(error)
+        }
     }
 
     private func proceedInstall(_ url: URL?) {
         if let url = url {
-            var tmpDir: URL?
-            do {
-                tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
-                                                     in: .userDomainMask,
-                                                     appropriateFor: URL(fileURLWithPath: "/Users"),
-                                                     create: true)
-                let tmpIpa = tmpDir!
-                    .appendingPathComponent(app.bundleID)
-                    .appendingPathExtension("ipa")
-
-                try FileManager.default.moveItem(at: url, to: tmpIpa)
-                uif.ipaUrl = tmpIpa
-                Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
-                    DispatchQueue.main.async {
-                        FileManager.default.delete(at: tmpDir!)
-                        AppsVM.shared.apps = []
-                        AppsVM.shared.fetchApps()
-                        StoreVM.shared.resolveSources()
-                        NotifyService.shared.notify(
-                            NSLocalizedString("notification.appInstalled", comment: ""),
-                            NSLocalizedString("notification.appInstalled.message", comment: ""))
-                        self.downloadVM.storeAppData = nil
-                    }
-                })
-            } catch {
-                if let tmpDir = tmpDir {
-                    FileManager.default.delete(at: tmpDir)
+            uif.ipaUrl = url
+            Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
+                DispatchQueue.main.async {
+                    FileManager.default.delete(at: url)
+                    AppsVM.shared.apps = []
+                    AppsVM.shared.fetchApps()
+                    StoreVM.shared.resolveSources()
+                    NotifyService.shared.notify(
+                        NSLocalizedString("notification.appInstalled", comment: ""),
+                        NSLocalizedString("notification.appInstalled.message", comment: ""))
+                    self.downloadVM.storeAppData = nil
                 }
-                Log.shared.error(error)
-            }
+            })
         }
     }
 }
