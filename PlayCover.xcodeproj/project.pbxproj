@@ -25,10 +25,10 @@
 		53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F5E74226C1D37E005AED1D /* FileExtensions.swift */; };
 		68EC0CC12957188900452C76 /* ViewExtenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EC0CC02957188900452C76 /* ViewExtenstions.swift */; };
 		68EC0CC3295718AA00452C76 /* DetailStoreAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EC0CC2295718AA00452C76 /* DetailStoreAppView.swift */; };
+		68E48B9A295708C800C39879 /* Injection in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48B99295708C800C39879 /* Injection */; };
 		6E06193628B3C4090012C771 /* StoreGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193528B3C4090012C771 /* StoreGenshinAccountView.swift */; };
 		6E06193828B3C4240012C771 /* ChangeGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193728B3C4240012C771 /* ChangeGenshinAccountView.swift */; };
 		6E06193A28B3C42E0012C771 /* DeleteGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193928B3C42E0012C771 /* DeleteGenshinAccountView.swift */; };
-		6E174058294C2759002A63E0 /* Injection in Frameworks */ = {isa = PBXBuildFile; productRef = 6E174057294C2759002A63E0 /* Injection */; };
 		6E21233128F65F7600B4D75D /* GenshinUserDataURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E21233028F65F7600B4D75D /* GenshinUserDataURLs.swift */; };
 		6E3C8E1128AE1F330020BCEA /* xcode_install.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 6E3C8E1028AE1F250020BCEA /* xcode_install.scpt */; };
 		6E40BC9228FDBDF300AB9CB9 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E40BC9128FDBDF300AB9CB9 /* ImageCache.swift */; };
@@ -191,7 +191,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E174058294C2759002A63E0 /* Injection in Frameworks */,
+				68E48B9A295708C800C39879 /* Injection in Frameworks */,
 				365AFB0628847B2E008B3542 /* Sparkle in Frameworks */,
 				AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */,
 				B17FD03C28C70C2100B1D4CA /* CoreUI.framework in Frameworks */,
@@ -468,7 +468,7 @@
 			packageProductDependencies = (
 				AA818CB4287ABEC3000BEE9D /* Yams */,
 				365AFB0528847B2E008B3542 /* Sparkle */,
-				6E174057294C2759002A63E0 /* Injection */,
+				68E48B99295708C800C39879 /* Injection */,
 			);
 			productName = PlayCover;
 			productReference = 8783CFF726B8C52D00171041 /* PlayCover.app */;
@@ -517,7 +517,7 @@
 			packageReferences = (
 				AA818CB3287ABEC3000BEE9D /* XCRemoteSwiftPackageReference "Yams" */,
 				365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */,
-				6EC73F38293FCBD60047A07C /* XCRemoteSwiftPackageReference "inject" */,
+				68E48B98295708C800C39879 /* XCRemoteSwiftPackageReference "inject" */,
 			);
 			productRefGroup = 8783CFF826B8C52D00171041 /* Products */;
 			projectDirPath = "";
@@ -959,12 +959,12 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		6EC73F38293FCBD60047A07C /* XCRemoteSwiftPackageReference "inject" */ = {
+		68E48B98295708C800C39879 /* XCRemoteSwiftPackageReference "inject" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/paradiseduo/inject";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 		AA818CB3287ABEC3000BEE9D /* XCRemoteSwiftPackageReference "Yams" */ = {
@@ -984,9 +984,9 @@
 			package = 365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */;
 			productName = Sparkle;
 		};
-		6E174057294C2759002A63E0 /* Injection */ = {
+		68E48B99295708C800C39879 /* Injection */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6EC73F38293FCBD60047A07C /* XCRemoteSwiftPackageReference "inject" */;
+			package = 68E48B98295708C800C39879 /* XCRemoteSwiftPackageReference "inject" */;
 			productName = Injection;
 		};
 		AA818CB4287ABEC3000BEE9D /* Yams */ = {
