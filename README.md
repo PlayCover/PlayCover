@@ -100,7 +100,8 @@ Distributed under the GPLv3 License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Reach out to the maintainers on the [Discord](https://discord.gg/rMv5qxGTGC).
+Email Lucas Lee at playcover@lucas.icu or reach out to the maintainers on the [Discord](https://discord.gg/rMv5qxGTGC).
+
 
 
 
