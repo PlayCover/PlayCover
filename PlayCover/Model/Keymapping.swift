@@ -178,7 +178,7 @@ class Keymapping {
                         if let keymap = LegacySettings.convertLegacyKeymapFile(selectedPath) {
                             if keymap.bundleIdentifier == self.keymap.bundleIdentifier {
                                 self.keymap = keymap
-                                success(false)
+                                success(true)
                             } else {
                                 if self.differentBundleIdKeymapAlert() {
                                     self.keymap = keymap
