@@ -453,10 +453,17 @@ struct MiscView: View {
                             if hasPlayTools ?? true {
                                 PlayTools.removeFromApp(app.executable)
                             } else {
-                                PlayTools.installInApp(app.executable)
+                                do {
+                                    try PlayTools.installInIPA(app.executable)
+                                } catch {
+                                    Log.shared.error(error)
+                                }
                             }
-                            AppsVM.shared.apps = []
-                            AppsVM.shared.fetchApps()
+
+                            DispatchQueue.main.async {
+                                AppsVM.shared.apps = []
+                                AppsVM.shared.fetchApps()
+                            }
                         }
                     }
                     Spacer()
