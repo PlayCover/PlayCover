@@ -222,7 +222,7 @@ struct MainView: View {
 
     func installXcodeCli() {
         if let path = Bundle.main.url(forResource: "xcode_install", withExtension: "scpt") {
-            DispatchQueue.global(qos: .userInteractive).async {
+            Task {
                 let task = Process()
                 let taskOutput = Pipe()
                 task.launchPath = "/usr/bin/osascript"
@@ -231,7 +231,7 @@ struct MainView: View {
                 task.launch()
                 task.waitUntilExit()
 
-                DispatchQueue.main.async {
+                Task { @MainActor in
                     let data = taskOutput.fileHandleForReading.readDataToEndOfFile()
                     if let output = String(data: data, encoding: .utf8) {
                         let trimmed = output.filter { !$0.isWhitespace }

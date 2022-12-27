@@ -213,7 +213,7 @@ struct GraphicsView: View {
                                 value: $customWidth,
                                 formatter: GraphicsView.number,
                                 onCommit: {
-                                    DispatchQueue.main.async {
+                                    Task { @MainActor in
                                         NSApp.keyWindow?.makeFirstResponder(nil)
                                     }
                                 })
@@ -232,7 +232,7 @@ struct GraphicsView: View {
                                 value: $customHeight,
                                 formatter: GraphicsView.number,
                                 onCommit: {
-                                    DispatchQueue.main.async {
+                                    Task { @MainActor in
                                         NSApp.keyWindow?.makeFirstResponder(nil)
                                     }
                                 })
@@ -449,7 +449,7 @@ struct MiscView: View {
                 HStack {
                     Button((hasPlayTools ?? true) ? "settings.removePlayTools" : "alert.install.injectPlayTools") {
                         closeView.toggle()
-                        DispatchQueue.global(qos: .userInitiated).async {
+                        Task(priority: .userInitiated) {
                             if hasPlayTools ?? true {
                                 PlayTools.removeFromApp(app.executable)
                             } else {
@@ -460,7 +460,7 @@ struct MiscView: View {
                                 }
                             }
 
-                            DispatchQueue.main.async {
+                            Task { @MainActor in
                                 AppsVM.shared.apps = []
                                 AppsVM.shared.fetchApps()
                             }

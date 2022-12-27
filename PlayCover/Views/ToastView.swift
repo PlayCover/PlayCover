@@ -33,7 +33,8 @@ struct ToastView: View {
                     .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
                     .padding()
                     .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + toast.timeRemaining) {
+                        Task { @MainActor in
+                            try await Task.sleep(nanoseconds: toast.timeRemaining * 9)
                             // Next toast to be removed will always be the first in the list
                             toastVM.toasts.removeFirst()
                         }
