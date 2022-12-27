@@ -70,10 +70,10 @@ class PlayTools {
             }
         }
     }
-    
+
     static func stripBinary(_ exec: URL) {
-        if (Shell.shell("/usr/bin/lipo -archs \(exec.esc)")
-            .rangeOfCharacter(from: .whitespacesAndNewlines) != nil) {
+        if Shell.shell("/usr/bin/lipo -archs \(exec.esc)")
+            .rangeOfCharacter(from: .whitespacesAndNewlines) != nil {
             Shell.shell("/usr/bin/lipo \(exec.esc) -thin arm64 -output \(exec.esc)")
         }
     }
