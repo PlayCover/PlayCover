@@ -68,14 +68,17 @@ struct PlayCoverViewMenuView: Commands {
                             if case .success(let url) = result {
                                 uif.ipaUrl = url
                                 Task {
-                                    await Installer.install(ipaUrl: uif.ipaUrl!, export: true, returnCompletion: { ipa in
+                                    await Installer.install(ipaUrl: uif.ipaUrl!,
+                                                            export: true,
+                                                            returnCompletion: { ipa in
                                         Task { @MainActor in
                                             if let ipa = ipa {
                                                 ipa.showInFinder()
                                                 let config = NSWorkspace.OpenConfiguration()
                                                 config.promptsUserIfNeeded = true
                                                 let url = NSWorkspace.shared
-                                                    .urlForApplication(withBundleIdentifier: "com.sideloadly.sideloadly")
+                                                    .urlForApplication(withBundleIdentifier:
+                                                                        "com.sideloadly.sideloadly")
                                                 if url != nil {
                                                     let unwrap = url.unsafelyUnwrapped
                                                     NSWorkspace.shared
