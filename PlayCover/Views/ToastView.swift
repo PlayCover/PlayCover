@@ -13,56 +13,59 @@ struct ToastView: View {
     @EnvironmentObject var downloadVM: DownloadVM
 
     var body: some View {
-        VStack(spacing: -20) {
-            Spacer()
-            ForEach(toastVM.toasts, id: \.self) { toast in
-                HStack {
-                    switch toast.toastType {
-                    case .notice:
-                        Image(systemName: "info.circle")
-                    case .error:
-                        Image(systemName: "exclamationmark.triangle")
-                    case .network:
-                        Image(systemName: "info.circle")
+        if toastVM.isShown {
+            VStack(spacing: -20) {
+                Spacer()
+                ForEach(toastVM.toasts, id: \.self) { toast in
+                    HStack {
+                        switch toast.toastType {
+                        case .notice:
+                            Image(systemName: "info.circle")
+                        case .error:
+                            Image(systemName: "exclamationmark.triangle")
+                        case .network:
+                            Image(systemName: "info.circle")
+                        }
+                        Text(toast.toastDetails)
                     }
-                    Text(toast.toastDetails)
-                }
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
-                .padding()
-                .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + toast.timeRemaining) {
-                        // Next toast to be removed will always be the first in the list
-                        toastVM.toasts.removeFirst()
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
+                    .padding()
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + toast.timeRemaining) {
+                            // Next toast to be removed will always be the first in the list
+                            toastVM.toasts.removeFirst()
+                        }
                     }
                 }
-            }
-            if installVM.installing {
-                VStack {
-                    Text(installVM.status)
-                    ProgressView(value: installVM.progress)
+                if installVM.installing {
+                    VStack {
+                        Text(installVM.status)
+                        ProgressView(value: installVM.progress)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
+                    .padding()
                 }
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
-                .padding()
-            }
-            if downloadVM.downloading {
-                VStack {
-                    Text("playapp.download")
-                    ProgressView(value: downloadVM.progress)
+                if downloadVM.downloading {
+                    VStack {
+                        Text("playapp.download") +
+                        Text(" \(downloadVM.storeAppData?.name ?? "")")
+                        ProgressView(value: downloadVM.progress)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(.regularMaterial, in:
+                                    RoundedRectangle(cornerRadius: 10))
+                    .padding()
                 }
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(.regularMaterial, in:
-                    RoundedRectangle(cornerRadius: 10))
-                .padding()
             }
+            .animation(.easeInOut(duration: 0.25), value: toastVM.toasts.count)
+            .animation(.easeInOut(duration: 0.25), value: installVM.installing)
+            .animation(.easeInOut(duration: 0.25), value: downloadVM.downloading)
         }
-        .animation(.easeInOut(duration: 0.25), value: toastVM.toasts.count)
-        .animation(.easeInOut(duration: 0.25), value: installVM.installing)
-        .animation(.easeInOut(duration: 0.25), value: downloadVM.downloading)
     }
 }
 

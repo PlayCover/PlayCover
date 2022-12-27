@@ -20,15 +20,16 @@ struct ButtonModel: Codable {
     var keyName: String
     var transform: KeyModelTransform
 
-    init(keyCode: Int, transform: KeyModelTransform) {
+    init(keyCode: Int, keyName: String, transform: KeyModelTransform) {
         self.keyCode = keyCode
-        self.keyName = KeyCodeNames.keyCodes[keyCode] ?? "Btn"
+        self.keyName = keyName.isEmpty ? KeyCodeNames.keyCodes[keyCode] ?? "Btn" : keyName
         self.transform = transform
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.init(keyCode: try container.decode(Int.self, forKey: .keyCode),
+                  keyName: try container.decodeIfPresent(String.self, forKey: .keyName) ?? "",
                   transform: try container.decode(KeyModelTransform.self, forKey: .transform))
     }
 }
@@ -41,12 +42,17 @@ struct JoystickModel: Codable {
     var keyName: String
     var transform: KeyModelTransform
 
-    init(upKeyCode: Int, rightKeyCode: Int, downKeyCode: Int, leftKeyCode: Int, transform: KeyModelTransform) {
+    init(upKeyCode: Int,
+         rightKeyCode: Int,
+         downKeyCode: Int,
+         leftKeyCode: Int,
+         keyName: String,
+         transform: KeyModelTransform) {
         self.upKeyCode = upKeyCode
         self.rightKeyCode = rightKeyCode
         self.downKeyCode = downKeyCode
         self.leftKeyCode = leftKeyCode
-        self.keyName = "Keyboard"
+        self.keyName = keyName
         self.transform = transform
     }
 
@@ -56,6 +62,7 @@ struct JoystickModel: Codable {
                   rightKeyCode: try container.decode(Int.self, forKey: .rightKeyCode),
                   downKeyCode: try container.decode(Int.self, forKey: .downKeyCode),
                   leftKeyCode: try container.decode(Int.self, forKey: .leftKeyCode),
+                  keyName: try container.decodeIfPresent(String.self, forKey: .keyName) ?? "Keyboard",
                   transform: try container.decode(KeyModelTransform.self, forKey: .transform))
     }
 }
@@ -64,14 +71,15 @@ struct MouseAreaModel: Codable {
     var keyName: String
     var transform: KeyModelTransform
 
-    init(transform: KeyModelTransform) {
-        self.keyName = "Mouse"
+    init(keyName: String, transform: KeyModelTransform) {
+        self.keyName = keyName
         self.transform = transform
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.init(transform: try container.decode(KeyModelTransform.self, forKey: .transform))
+        self.init(keyName: try container.decodeIfPresent(String.self, forKey: .keyName) ?? "Mouse",
+                  transform: try container.decode(KeyModelTransform.self, forKey: .transform))
     }
 }
 
@@ -170,7 +178,7 @@ class Keymapping {
                         if let keymap = LegacySettings.convertLegacyKeymapFile(selectedPath) {
                             if keymap.bundleIdentifier == self.keymap.bundleIdentifier {
                                 self.keymap = keymap
-                                success(false)
+                                success(true)
                             } else {
                                 if self.differentBundleIdKeymapAlert() {
                                     self.keymap = keymap
