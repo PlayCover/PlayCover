@@ -49,7 +49,7 @@ class AppsVM: ObservableObject {
             await updateApps(result)
         }
     }
-    
+
     @MainActor func updateApps(_ newApps: [PlayApp]) {
         self.apps.removeAll()
         var filteredApps = newApps
