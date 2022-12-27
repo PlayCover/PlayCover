@@ -86,29 +86,26 @@ class LegacySettings {
                     let xCoord = data[1] as? CGFloat ?? 0
                     let yCoord = data[2] as? CGFloat ?? 0
 
-                    let transform = KeyModelTransform(size: size,
-                                                      xCoord: xCoord,
-                                                      yCoord: yCoord)
+                    let transform = KeyModelTransform(size: size, xCoord: xCoord, yCoord: yCoord)
 
                     let keyCode = data[0] as? Int ?? 0
                     keymap.buttonModels.append(ButtonModel(keyCode: keyCode,
+                                                           keyName: KeyCodeNames.keyCodes[keyCode] ?? "Btn",
                                                            transform: transform))
                 } else if data.count == 2 {
                     let xCoord = data[0] as? CGFloat ?? 0
                     let yCoord = data[1] as? CGFloat ?? 0
 
-                    let transform = KeyModelTransform(size: 25,
-                                                      xCoord: xCoord,
-                                                      yCoord: yCoord)
-                    keymap.mouseAreaModel.append(MouseAreaModel(transform: transform))
+                    let transform = KeyModelTransform(size: 25, xCoord: xCoord, yCoord: yCoord)
+
+                    keymap.mouseAreaModel.append(MouseAreaModel(keyName: "Mouse", transform: transform))
                 } else if data.count == 8 {
                     let size = data[6] as? CGFloat ?? 5
                     let xCoord = data[4] as? CGFloat ?? 0
                     let yCoord = data[5] as? CGFloat ?? 0
 
-                    let transform = KeyModelTransform(size: size,
-                                                      xCoord: xCoord,
-                                                      yCoord: yCoord)
+                    let transform = KeyModelTransform(size: size, xCoord: xCoord, yCoord: yCoord)
+
                     let upKeyCode = data[0] as? Int ?? 0
                     let leftKeyCode = data[2] as? Int ?? 0
                     let rightKeyCode = data[3] as? Int ?? 0
@@ -117,18 +114,18 @@ class LegacySettings {
                                                               rightKeyCode: rightKeyCode,
                                                               downKeyCode: downKeyCode,
                                                               leftKeyCode: leftKeyCode,
+                                                              keyName: "Keyboard",
                                                               transform: transform))
                 } else if data.count == 5 {
                     let size = data[3] as? CGFloat ?? 5
                     let xCoord = data[1] as? CGFloat ?? 0
                     let yCoord = data[2] as? CGFloat ?? 0
 
-                    let transform = KeyModelTransform(size: size,
-                                                      xCoord: xCoord,
-                                                      yCoord: yCoord)
+                    let transform = KeyModelTransform(size: size, xCoord: xCoord, yCoord: yCoord)
 
                     let keyCode = data[0] as? Int ?? 0
                     keymap.draggableButtonModels.append(ButtonModel(keyCode: keyCode,
+                                                                    keyName: "Mouse",
                                                                     transform: transform))
                 }
             }
