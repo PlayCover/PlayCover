@@ -70,6 +70,13 @@ class PlayTools {
             }
         }
     }
+    
+    static func stripBinary(_ exec: URL) {
+        if (Shell.shell("/usr/bin/lipo -archs \(exec.esc)")
+            .rangeOfCharacter(from: .whitespacesAndNewlines) != nil) {
+            Shell.shell("/usr/bin/lipo \(exec.esc) -thin arm64 -output \(exec.esc)")
+        }
+    }
 
     static func replaceLibraries(atURL url: URL) throws {
         Log.shared.log("Replacing libswiftUIKit.dylib")
@@ -79,14 +86,20 @@ class PlayTools {
             url.path)
     }
 
-    static func installInIPA(_ exec: URL, _ payload: URL) throws {
+    static func installInIPA(_ exec: URL) throws {
+        stripBinary(exec)
         Inject.injectMachO(machoPath: exec.path,
                            cmdType: LC_Type.LOAD_DYLIB,
                            backup: false,
                            injectPath: playToolsPath.path,
                            finishHandle: { result in
             if result {
-                shell.signApp(exec)
+                do {
+                    try installPluginInIPA(exec.deletingLastPathComponent())
+                    shell.signApp(exec)
+                } catch {
+                    Log.shared.error(error)
+                }
             }
         })
     }
@@ -114,6 +127,7 @@ class PlayTools {
     }
 
     static func injectInIPA(_ exec: URL, payload: URL) throws {
+        stripBinary(exec)
         Inject.injectMachO(machoPath: exec.path,
                            cmdType: LC_Type.LOAD_DYLIB,
                            backup: false,
@@ -162,24 +176,6 @@ class PlayTools {
                     } catch {
                         Log.shared.error(error)
                     }
-                }
-            }
-        })
-    }
-
-    static func installInApp(_ exec: URL) {
-        Inject.injectMachO(machoPath: exec.path,
-                           cmdType: LC_Type.LOAD_DYLIB,
-                           backup: false,
-                           injectPath: playToolsPath.path,
-                           finishHandle: { result in
-            if result {
-                do {
-                    try installPluginInIPA(exec.deletingLastPathComponent())
-                    shell.signApp(exec)
-                } catch {
-                    Log.shared.error(error)
-
                 }
             }
         })
