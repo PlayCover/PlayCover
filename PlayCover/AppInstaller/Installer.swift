@@ -67,7 +67,7 @@ class Installer {
                     try PlayTools.injectInIPA(app.executable, payload: app.url)
                 } else if installPlayTools {
                     InstallVM.shared.next(.playtools, 0.55, 0.85)
-                    try PlayTools.installInIPA(app.executable, app.url)
+                    try PlayTools.installInIPA(app.executable)
                 }
 
                 for macho in machos {
@@ -100,10 +100,6 @@ class Installer {
                 } else {
                     finalURL = try wrap(app)
                     let installedApp = PlayApp(appUrl: finalURL)
-
-                    if installPlayTools {
-                        try PlayTools.installPluginInIPA(installedApp.url)
-                    }
 
                     installedApp.sign()
                 }
