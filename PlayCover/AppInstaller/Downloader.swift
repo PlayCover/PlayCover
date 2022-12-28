@@ -70,6 +70,8 @@ class DownloadApp {
     }
 
     private func proceedDownload() {
+        self.downloadVM.storeAppData = self.app
+        self.downloadVM.downloading = true
         var tmpDir: URL?
         do {
             tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
@@ -79,8 +81,6 @@ class DownloadApp {
             downloader.addDownload(url: url!,
                                    destinationURL: tmpDir!,
                                    onProgress: { progress in
-                self.downloadVM.storeAppData = self.app
-                self.downloadVM.downloading = true
                 // progress is a Float
                 self.downloadVM.progress = Double(progress)
             }, onCompletion: { error, fileURL in
