@@ -42,17 +42,6 @@ struct StoreAppView: View {
         .simultaneousGesture(TapGesture().onEnded {
             selected = app
         })
-        .contextMenu {
-            Button {
-                if let url = URL(string: app.link) {
-                    DownloadApp(url: url, app: app,
-                                warning: warningMessage).start()
-                }
-            } label: {
-                Text("ipaLibrary.download")
-            }
-            .disabled(downloadVM.downloading || installVM.installing)
-        }
         .environmentObject(downloadVM)
         .task(priority: .background) {
             if let sourceApp = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == app.bundleID }) {
