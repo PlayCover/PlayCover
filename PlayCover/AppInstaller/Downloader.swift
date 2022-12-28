@@ -108,7 +108,6 @@ class DownloadApp {
             Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
                 Task { @MainActor in
                     FileManager.default.delete(at: url)
-                    AppsVM.shared.apps = []
                     AppsVM.shared.fetchApps()
                     StoreVM.shared.resolveSources()
                     NotifyService.shared.notify(
