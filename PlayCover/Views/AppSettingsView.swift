@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DataCache
 
 // swiftlint:disable file_length
 struct AppSettingsView: View {
@@ -62,7 +63,7 @@ struct AppSettingsView: View {
                 }
             }
             .task(priority: .userInitiated) {
-                appIcon = await Cacher().resolveLocalIcon(viewModel.app)
+                appIcon = DataCache.instance.readImage(forKey: viewModel.app.info.bundleIdentifier)
             }
 
             TabView {

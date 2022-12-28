@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import DataCache
 
 struct PlayAppView: View {
     @Binding var selectedBackgroundColor: Color
@@ -267,7 +268,13 @@ struct PlayAppConditionalView: View {
             }
         }
         .task(priority: .userInitiated) {
-            appIcon = await Cacher().resolveLocalIcon(app)
+            let compareStr = app.info.bundleIdentifier + app.info.bundleVersion
+            if DataCache.instance.readImage(forKey: app.info.bundleIdentifier) != nil
+                && DataCache.instance.readString(forKey: compareStr) != nil {
+                appIcon = DataCache.instance.readImage(forKey: app.info.bundleIdentifier)
+            } else {
+                appIcon = await Cacher().resolveLocalIcon(app)
+            }
         }
         .task(priority: .background) {
             hasPlayTools = app.hasPlayTools()

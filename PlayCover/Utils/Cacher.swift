@@ -20,8 +20,6 @@ class Cacher {
 
     func resolveITunesData(_ link: String) async {
         if let refreshedITunesData = await getITunesData(link) {
-            let screenshots: [String]
-            let screenshotsArrayName = refreshedITunesData.results[0].bundleId + ".scUrls"
             do {
                 try cache.write(codable: refreshedITunesData, forKey: link)
             } catch {
@@ -31,30 +29,21 @@ class Cacher {
     }
 
     func resolveLocalIcon(_ app: PlayApp) async -> NSImage? {
-        var appIcon: NSImage?
+        var bestResImage: NSImage?
         let compareStr = app.info.bundleIdentifier + app.info.bundleVersion
-        if cache.readImage(forKey: app.info.bundleIdentifier) != nil
-            && cache.readString(forKey: compareStr) != nil {
-            if let image = cache.readImage(forKey: app.info.bundleIdentifier) {
-                appIcon = image
+        if let assetsExtractor = try? AssetsExtractor(appUrl: app.url) {
+            for icon in assetsExtractor.extractIcons() where checkImageDimensions(icon, bestResImage) {
+                bestResImage = icon
             }
-        } else {
-            var bestResImage: NSImage?
-            if let assetsExtractor = try? AssetsExtractor(appUrl: app.url) {
-                for icon in assetsExtractor.extractIcons() where checkImageDimensions(icon, bestResImage) {
-                    bestResImage = icon
-                }
-            }
-            cache.write(string: compareStr, forKey: compareStr)
-            cache.write(image: bestResImage!, forKey: app.info.bundleIdentifier)
-            appIcon = cache.readImage(forKey: app.info.bundleIdentifier)
         }
-        return appIcon
+        cache.write(string: compareStr, forKey: compareStr)
+        cache.write(image: bestResImage!, forKey: app.info.bundleIdentifier)
+        return cache.readImage(forKey: app.info.bundleIdentifier)
     }
 
     func getLocalIcon(bundleId: String) async -> NSImage? {
         if let app = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == bundleId }) {
-            return await resolveLocalIcon(app)
+            return cache.readImage(forKey: app.info.bundleIdentifier)
         } else {
             return nil
         }
