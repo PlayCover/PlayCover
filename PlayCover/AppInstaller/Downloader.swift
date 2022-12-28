@@ -21,11 +21,11 @@ import DownloadManager
 ///  More details: https://github.com/shapedbyiris/download-manager/blob/master/README.md
 
 class DownloadApp {
-    let url: URL
-    let app: StoreAppData
+    let url: URL?
+    let app: StoreAppData?
     let warning: String?
 
-    init(url: URL, app: StoreAppData, warning: String?) {
+    init(url: URL?, app: StoreAppData?, warning: String?) {
         self.url = url
         self.app = app
         self.warning = warning
@@ -36,15 +36,16 @@ class DownloadApp {
     let downloader = DownloadManager.shared
 
     func start() {
-        if downloadVM.downloading && installVM.installing {
-            Log.shared.error(PlayCoverError.waitDownload)
+        if !NetworkVM.isConnectedToNetwork() { return }
+        if installVM.installing {
+            Log.shared.error(PlayCoverError.waitInstallation)
         } else {
             if let warningMessage = warning {
                 let alert = NSAlert()
                 alert.messageText = NSLocalizedString(warningMessage, comment: "")
                 alert.informativeText = String(
                     format: NSLocalizedString("ipaLibrary.alert.download", comment: ""),
-                    arguments: [app.name]
+                    arguments: [app!.name]
                 )
                 alert.alertStyle = .warning
                 alert.addButton(withTitle: NSLocalizedString("button.Yes", comment: ""))
@@ -75,7 +76,7 @@ class DownloadApp {
                                                  in: .userDomainMask,
                                                  appropriateFor: URL(fileURLWithPath: "/Users"),
                                                  create: true)
-            downloader.addDownload(url: url,
+            downloader.addDownload(url: url!,
                                    destinationURL: tmpDir!,
                                    onProgress: { progress in
                 self.downloadVM.storeAppData = self.app
@@ -105,7 +106,7 @@ class DownloadApp {
         if let url = url {
             uif.ipaUrl = url
             Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
-                DispatchQueue.main.async {
+                Task { @MainActor in
                     FileManager.default.delete(at: url)
                     AppsVM.shared.apps = []
                     AppsVM.shared.fetchApps()

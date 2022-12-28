@@ -29,24 +29,31 @@ struct StoreAppView: View {
                                 isList: isList,
                                 warningSymbol: $warningSymbol,
                                 warningMessage: $warningMessage)
-        .environmentObject(downloadVM)
+        .gesture(TapGesture(count: 2).onEnded {
+            if let url = URL(string: app.link) {
+                if downloadVM.downloading {
+                    Log.shared.error(PlayCoverError.waitDownload)
+                } else {
+                    DownloadApp(url: url, app: app,
+                                warning: warningMessage).start()
+                }
+            }
+        })
+        .simultaneousGesture(TapGesture().onEnded {
+            selected = app
+        })
         .contextMenu {
-             Button {
-                 if let url = URL(string: app.link) {
-                     let downloader = DownloadApp(url: url,
-                                                  app: app,
-                                                  warning: warningMessage)
-                     if downloadVM.downloading {
-                         downloader.cancel()
-                     } else {
-                         downloader.start()
-                     }
-                 }
-             } label: {
-                 Text(downloadVM.downloading ? "ipaLibrary.cancelDL" : "ipaLibrary.download")
-             }
-             .disabled(installVM.installing)
-         }
+            Button {
+                if let url = URL(string: app.link) {
+                    DownloadApp(url: url, app: app,
+                                warning: warningMessage).start()
+                }
+            } label: {
+                Text("ipaLibrary.download")
+            }
+            .disabled(downloadVM.downloading || installVM.installing)
+        }
+        .environmentObject(downloadVM)
         .task(priority: .background) {
             if let sourceApp = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == app.bundleID }) {
                 switch app.version.compare(sourceApp.info.bundleVersion, options: .numeric) {
