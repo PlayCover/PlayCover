@@ -49,7 +49,7 @@ class Installer {
 
         InstallVM.shared.next(.begin, 0.0, 0.0)
 
-        Task {
+        Task(priority: .userInitiated) {
             let ipa = IPA(url: ipaUrl)
 
             do {
