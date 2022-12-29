@@ -41,7 +41,9 @@ class Cacher {
             }
         }
         cache.write(string: compareStr, forKey: compareStr)
-        cache.write(image: bestResImage!, forKey: app.info.bundleIdentifier)
+        if let image = bestResImage {
+            cache.write(image: image, forKey: app.info.bundleIdentifier)
+        }
         return cache.readImage(forKey: app.info.bundleIdentifier)
     }
 
