@@ -20,15 +20,11 @@ class Cacher {
 
     func resolveITunesData(_ link: String) async {
         if let refreshedITunesData = await getITunesData(link) {
-            do {
-                try cache.write(codable: refreshedITunesData, forKey: link)
-            } catch {
-                print("Write error \(error.localizedDescription)")
-            }
+            try? cache.write(codable: refreshedITunesData, forKey: link)
         }
     }
 
-    func resolveLocalIcon(_ app: PlayApp) async -> NSImage? {
+    func resolveLocalIcon(_ app: PlayApp) -> NSImage? {
         var bestResImage: NSImage?
         let compareStr = app.info.bundleIdentifier + app.info.bundleVersion
         if let assetsExtractor = try? AssetsExtractor(appUrl: app.url) {
@@ -41,7 +37,7 @@ class Cacher {
         return cache.readImage(forKey: app.info.bundleIdentifier)
     }
 
-    func getLocalIcon(bundleId: String) async -> NSImage? {
+    func getLocalIcon(bundleId: String) -> NSImage? {
         if let app = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == bundleId }) {
             return cache.readImage(forKey: app.info.bundleIdentifier)
         } else {

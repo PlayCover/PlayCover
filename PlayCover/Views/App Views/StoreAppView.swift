@@ -262,15 +262,11 @@ struct StoreAppConditionalView: View {
             if !cache.hasData(forKey: app.itunesLookup) {
                 await Cacher().resolveITunesData(app.itunesLookup)
             }
-            do {
-                itunesResponce = try cache.readCodable(forKey: app.itunesLookup)
-            } catch {
-                print("Read error \(error.localizedDescription)")
-            }
+            itunesResponce = try? cache.readCodable(forKey: app.itunesLookup)
             if itunesResponce != nil {
                 onlineIcon = URL(string: itunesResponce!.results[0].artworkUrl512)
             } else {
-                localIcon = await Cacher().getLocalIcon(bundleId: app.bundleID)
+                localIcon = Cacher().getLocalIcon(bundleId: app.bundleID)
             }
         }
     }

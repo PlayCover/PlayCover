@@ -275,7 +275,7 @@ struct PlayAppConditionalView: View {
                 && cache.readString(forKey: compareStr) != nil {
                 appIcon = cache.readImage(forKey: app.info.bundleIdentifier)
             } else {
-                appIcon = await Cacher().resolveLocalIcon(app)
+                appIcon = Cacher().resolveLocalIcon(app)
             }
         }
         .task(priority: .background) {
