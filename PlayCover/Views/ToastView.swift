@@ -53,7 +53,16 @@ struct ToastView: View {
                     VStack {
                         Text("playapp.download") +
                         Text(" \(downloadVM.storeAppData?.name ?? "")")
-                        ProgressView(value: downloadVM.progress)
+                        HStack {
+                            ProgressView(value: downloadVM.progress)
+                            Button {
+                                DownloadApp(url: nil, app: nil, warning: nil).cancel()
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .font(.title3)
+                            }
+                            .buttonStyle(.plain)
+                        }
                     }
                     .padding()
                     .frame(maxWidth: .infinity)

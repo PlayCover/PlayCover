@@ -31,6 +31,7 @@ struct IPALibraryView: View {
                                          app: app,
                                          isList: isList)
                             .environmentObject(DownloadVM.shared)
+                            .environmentObject(InstallVM.shared)
                         }
                     }
                     .padding()
@@ -44,6 +45,7 @@ struct IPALibraryView: View {
                                          app: app,
                                          isList: isList)
                             .environmentObject(DownloadVM.shared)
+                            .environmentObject(InstallVM.shared)
                         }
                         Spacer()
                     }
