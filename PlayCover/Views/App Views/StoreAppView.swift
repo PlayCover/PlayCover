@@ -5,6 +5,8 @@
 //  Created by Isaac Marovitz on 07/08/2022.
 //
 import SwiftUI
+import DataCache
+import CachedAsyncImage
 
 struct StoreAppView: View {
     @Binding var selectedBackgroundColor: Color
@@ -19,6 +21,7 @@ struct StoreAppView: View {
     @State var warningMessage: String?
 
     @EnvironmentObject var downloadVM: DownloadVM
+    @EnvironmentObject var installVM: InstallVM
 
     var body: some View {
         StoreAppConditionalView(selectedBackgroundColor: $selectedBackgroundColor,
@@ -30,7 +33,12 @@ struct StoreAppView: View {
                                 warningMessage: $warningMessage)
         .gesture(TapGesture(count: 2).onEnded {
             if let url = URL(string: app.link) {
-                downloadApp(url, app)
+                if downloadVM.downloading {
+                    Log.shared.error(PlayCoverError.waitDownload)
+                } else {
+                    DownloadApp(url: url, app: app,
+                                warning: warningMessage).start()
+                }
             }
         })
         .simultaneousGesture(TapGesture().onEnded {
@@ -56,89 +64,6 @@ struct StoreAppView: View {
             }
         }
     }
-
-    func downloadApp(_ url: URL, _ app: StoreAppData) {
-        if let warningMessage = warningMessage {
-            let alert = NSAlert()
-            alert.messageText = NSLocalizedString(warningMessage, comment: "")
-            alert.informativeText = String(format: NSLocalizedString("ipaLibrary.alert.download",
-                                                                     comment: ""),
-                                           arguments: [app.name])
-            alert.alertStyle = .warning
-            alert.addButton(withTitle: NSLocalizedString("button.Yes", comment: ""))
-            alert.addButton(withTitle: NSLocalizedString("button.No", comment: ""))
-
-            if alert.runModal() == .alertSecondButtonReturn {
-                return
-            }
-        }
-
-        if !downloadVM.downloading && !InstallVM.shared.installing {
-            lazy var urlSession = URLSession(configuration: .default, delegate: nil, delegateQueue: nil)
-            let downloadTask = urlSession.downloadTask(with: url, completionHandler: { url, urlResponse, error in
-                DispatchQueue.main.async {
-                    observation?.invalidate()
-                    downloadComplete(url, urlResponse, error)
-                }
-            })
-
-            observation = downloadTask.progress.observe(\.fractionCompleted) { progress, _ in
-                DispatchQueue.main.async {
-                    downloadVM.progress = progress.fractionCompleted
-                }
-            }
-
-            downloadTask.resume()
-            downloadVM.downloading = true
-            downloadVM.progress = 0
-            downloadVM.storeAppData = app
-        } else {
-            Log.shared.error(PlayCoverError.waitDownload)
-        }
-    }
-
-    func downloadComplete(_ url: URL?, _ urlResponce: URLResponse?, _ error: Error?) {
-        if error != nil {
-            Log.shared.error(error!)
-        }
-        if let url = url {
-            var tmpDir: URL?
-
-            do {
-                tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
-                                                     in: .userDomainMask,
-                                                     appropriateFor: URL(fileURLWithPath: "/Users"),
-                                                     create: true)
-
-                let tmpIpa = tmpDir!.appendingPathComponent(app.bundleID)
-                                    .appendingPathExtension("ipa")
-
-                try FileManager.default.moveItem(at: url, to: tmpIpa)
-                uif.ipaUrl = tmpIpa
-                Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
-                    DispatchQueue.main.async {
-                        FileManager.default.delete(at: tmpDir!)
-
-                        AppsVM.shared.apps = []
-                        AppsVM.shared.fetchApps()
-                        StoreVM.shared.resolveSources()
-                        NotifyService.shared.notify(
-                            NSLocalizedString("notification.appInstalled", comment: ""),
-                            NSLocalizedString("notification.appInstalled.message", comment: ""))
-                    }
-                })
-            } catch {
-                if let tmpDir = tmpDir {
-                    FileManager.default.delete(at: tmpDir)
-                }
-
-                Log.shared.error(error)
-            }
-        }
-        downloadVM.downloading = false
-        downloadVM.progress = 0
-        downloadVM.storeAppData = nil
-    }
 }
 
 struct StoreAppConditionalView: View {
@@ -146,14 +71,18 @@ struct StoreAppConditionalView: View {
     @Binding var selectedTextColor: Color
     @Binding var selected: StoreAppData?
 
-    @State var iconURL: URL?
     @State var app: StoreAppData
+    @State var itunesResponce: ITunesResponse?
+    @State var onlineIcon: URL?
+    @State var localIcon: NSImage?
     @State var isList: Bool
 
     @Binding var warningSymbol: String?
     @Binding var warningMessage: String?
 
     @EnvironmentObject var downloadVM: DownloadVM
+
+    @State private var cache = DataCache.instance
 
     var body: some View {
         Group {
@@ -163,19 +92,27 @@ struct StoreAppConditionalView: View {
                         .help(NSLocalizedString(warningMessage ?? "ipaLibrary.download", comment: ""))
                         .padding(.leading, 15)
                     ZStack {
-                        AsyncImage(url: iconURL) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                        } placeholder: {
-                            ProgressView()
-                                .progressViewStyle(.circular)
+                        Group {
+                            CachedAsyncImage(url: onlineIcon, urlCache: .iconCache) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            } placeholder: {
+                                if let image = localIcon {
+                                    Image(nsImage: image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                } else {
+                                    ProgressView()
+                                        .progressViewStyle(.circular)
+                                }
+                            }
                         }
-                            .frame(width: 30, height: 30)
-                            .cornerRadius(7.5)
-                            .shadow(radius: 1)
-                            .padding(.horizontal, 15)
-                            .padding(.vertical, 5)
+                        .frame(width: 30, height: 30)
+                        .cornerRadius(7.5)
+                        .shadow(radius: 1)
+                        .padding(.horizontal, 15)
+                        .padding(.vertical, 5)
                         if downloadVM.downloading && downloadVM.storeAppData == app {
                             ProgressView(value: downloadVM.progress)
                                 .progressViewStyle(.circular)
@@ -190,26 +127,32 @@ struct StoreAppConditionalView: View {
                         .foregroundColor(.secondary)
                 }
                 .contentShape(Rectangle())
-                .background(
-                    RoundedRectangle(cornerRadius: 4)
+                .background(RoundedRectangle(cornerRadius: 4)
                         .fill(selected?.bundleID == app.bundleID ?
                               selectedBackgroundColor : Color.clear)
-                        .brightness(-0.2)
-                )
+                        .brightness(-0.2))
             } else {
                 VStack {
                     ZStack {
-                        AsyncImage(url: iconURL) { image in
+                        Group {
+                            CachedAsyncImage(url: onlineIcon, urlCache: .iconCache) { image in
                                 image
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                             } placeholder: {
-                                ProgressView()
-                                    .progressViewStyle(.circular)
+                                if let image = localIcon {
+                                    Image(nsImage: image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                } else {
+                                    ProgressView()
+                                        .progressViewStyle(.circular)
+                                }
                             }
-                            .frame(width: 60, height: 60)
-                            .cornerRadius(15)
-                            .shadow(radius: 1)
+                        }
+                        .frame(width: 60, height: 60)
+                        .cornerRadius(15)
+                        .shadow(radius: 1)
                         if downloadVM.downloading && downloadVM.storeAppData == app {
                             VStack {
                                 Spacer()
@@ -239,8 +182,15 @@ struct StoreAppConditionalView: View {
             }
         }
         .task(priority: .userInitiated) {
-            iconURL = await ImageCache.getOnlineImageURL(bundleID: app.bundleID,
-                                                         itunesLookup: app.itunesLookup)
+            if !cache.hasData(forKey: app.itunesLookup) {
+                await Cacher().resolveITunesData(app.itunesLookup)
+            }
+            itunesResponce = try? cache.readCodable(forKey: app.itunesLookup)
+            if itunesResponce != nil {
+                onlineIcon = URL(string: itunesResponce!.results[0].artworkUrl512)
+            } else {
+                localIcon = Cacher().getLocalIcon(bundleId: app.bundleID)
+            }
         }
     }
 }

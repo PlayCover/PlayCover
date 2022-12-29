@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DataCache
 
 // swiftlint:disable file_length
 struct AppSettingsView: View {
@@ -16,21 +17,27 @@ struct AppSettingsView: View {
     @State var resetSettingsCompletedAlert = false
     @State var resetKmCompletedAlert = false
     @State var closeView = false
-    @State var iconURL: URL?
+    @State var appIcon: NSImage?
     @State var hasPlayTools: Bool?
+
+    @State private var cache = DataCache.instance
 
     var body: some View {
         VStack {
             HStack {
-                AsyncImage(url: iconURL) { image in
-                    image
-                        .resizable()
-                        .cornerRadius(10)
-                        .shadow(radius: 1)
-                } placeholder: {
-                    ProgressView()
-                        .progressViewStyle(.circular)
+                Group {
+                    if let image = appIcon {
+                        Image(nsImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    } else {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                            .frame(width: 60, height: 60)
+                    }
                 }
+                .cornerRadius(10)
+                .shadow(radius: 1)
                 .frame(width: 33, height: 33)
 
                 VStack {
@@ -58,9 +65,7 @@ struct AppSettingsView: View {
                 }
             }
             .task(priority: .userInitiated) {
-                iconURL = ImageCache.getLocalImageURL(bundleID: viewModel.app.info.bundleIdentifier,
-                                                      bundleURL: viewModel.app.url,
-                                                      primaryIconName: viewModel.app.info.primaryIconName)
+                appIcon = cache.readImage(forKey: viewModel.app.info.bundleIdentifier)
             }
 
             TabView {
