@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ITunesResult: Decodable {
+struct ITunesResult: Codable {
     var isGameCenterEnabled: Bool
     var supportedDevices: [String]
     var features: [String]
@@ -53,7 +53,25 @@ struct ITunesResult: Decodable {
     var userRatingCount: Int
 }
 
-struct ITunesResponse: Decodable {
+struct ITunesResponse: Codable {
     var resultCount: Int
     var results: [ITunesResult]
+}
+
+func getITunesData(_ itunesLookup: String) async -> ITunesResponse? {
+    if !NetworkVM.isConnectedToNetwork() { return nil }
+    guard let url = URL(string: itunesLookup) else { return nil }
+
+    do {
+        let (data, _) = try await URLSession.shared.data(for: URLRequest(url: url))
+        let decoder = JSONDecoder()
+        let jsonResult: ITunesResponse = try decoder.decode(ITunesResponse.self, from: data)
+        if jsonResult.resultCount > 0 {
+            return jsonResult
+        }
+    } catch {
+        print("Error getting iTunes data from URL: \(itunesLookup): \(error)")
+    }
+
+    return nil
 }

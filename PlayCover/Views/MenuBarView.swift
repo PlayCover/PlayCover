@@ -5,6 +5,7 @@
 
 import AppKit
 import SwiftUI
+import DataCache
 
 struct PlayCoverMenuView: Commands {
     @Binding var isSigningSetupShown: Bool
@@ -100,7 +101,16 @@ struct PlayCoverViewMenuView: Commands {
         }
         CommandGroup(before: .sidebar) {
             Button("menubar.clearCache") {
-                ImageCache.clearCache()
+                DataCache.instance.cleanAll()
+                URLCache.iconCache.removeAllCachedResponses()
+                do {
+                    let oldCacheFolder = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+                    if FileManager.default.fileExists(atPath: oldCacheFolder.path) {
+                        try FileManager.default.removeItem(at: oldCacheFolder)
+                    }
+                } catch {
+                    Log.shared.error(error)
+                }
             }
             .keyboardShortcut("R", modifiers: [.command, .shift])
             Divider()
