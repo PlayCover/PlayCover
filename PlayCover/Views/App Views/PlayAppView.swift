@@ -187,6 +187,8 @@ struct PlayAppConditionalView: View {
     @State var isList: Bool
     @State var hasPlayTools: Bool?
 
+    @State private var cache = DataCache.instance
+
     var body: some View {
         Group {
             if isList {
@@ -269,9 +271,9 @@ struct PlayAppConditionalView: View {
         }
         .task(priority: .userInitiated) {
             let compareStr = app.info.bundleIdentifier + app.info.bundleVersion
-            if DataCache.instance.readImage(forKey: app.info.bundleIdentifier) != nil
-                && DataCache.instance.readString(forKey: compareStr) != nil {
-                appIcon = DataCache.instance.readImage(forKey: app.info.bundleIdentifier)
+            if cache.readImage(forKey: app.info.bundleIdentifier) != nil
+                && cache.readString(forKey: compareStr) != nil {
+                appIcon = cache.readImage(forKey: app.info.bundleIdentifier)
             } else {
                 appIcon = await Cacher().resolveLocalIcon(app)
             }

@@ -97,9 +97,9 @@ struct PlayCoverViewMenuView: Commands {
                 DataCache.instance.cleanAll()
                  URLCache.iconCache.removeAllCachedResponses()
                  do {
-                     let cacheFolder = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
-                      if FileManager.default.fileExists(atPath: cacheFolder.path) {
-                          try FileManager.default.removeItem(at: cacheFolder)
+                     let oldCacheFolder = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+                      if FileManager.default.fileExists(atPath: oldCacheFolder.path) {
+                          try FileManager.default.removeItem(at: oldCacheFolder)
                       }
                   } catch {
                       Log.shared.error(error)

@@ -20,6 +20,8 @@ struct AppSettingsView: View {
     @State var appIcon: NSImage?
     @State var hasPlayTools: Bool?
 
+    @State private var cache = DataCache.instance
+
     var body: some View {
         VStack {
             HStack {
@@ -63,7 +65,7 @@ struct AppSettingsView: View {
                 }
             }
             .task(priority: .userInitiated) {
-                appIcon = DataCache.instance.readImage(forKey: viewModel.app.info.bundleIdentifier)
+                appIcon = cache.readImage(forKey: viewModel.app.info.bundleIdentifier)
             }
 
             TabView {

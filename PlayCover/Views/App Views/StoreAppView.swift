@@ -148,7 +148,6 @@ struct StoreAppConditionalView: View {
     @Binding var selectedTextColor: Color
     @Binding var selected: StoreAppData?
 
-    @State var cache = DataCache.instance
     @State var app: StoreAppData
     @State var itunesResponce: ITunesResponse?
     @State var onlineIcon: URL?
@@ -159,6 +158,8 @@ struct StoreAppConditionalView: View {
     @Binding var warningMessage: String?
 
     @EnvironmentObject var downloadVM: DownloadVM
+
+    @State private var cache = DataCache.instance
 
     var body: some View {
         Group {
