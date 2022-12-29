@@ -189,7 +189,7 @@
 "menubar.github" = "GitHub";
 "menubar.discord" = "Discord";
 "menubar.checkForUpdates" = "Check for Updates...";
-"menubar.clearCache" = "Clear Image Cache";
+"menubar.clearCache" = "Clear Cache";
 "menubar.configSigning" = "Configure Signing";
 
 "soundAlert.messageText" = "Incorrect Audio Settings Detected!";
