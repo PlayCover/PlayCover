@@ -33,10 +33,11 @@
 "ipaLibrary.detailed.nodesc" = "This app might be not on the App Store. Hence, no description is shown.";
 "ipaLibrary.detailed.more" = "Read more";
 "ipaLibrary.detailed.less" = "Show less";
-"ipaLibrary.detailed.apprating" = "Rating";
-"ipaLibrary.detailed.appversion" = "Version";
-"ipaLibrary.detailed.filesize" = "Size";
-"ipaLibrary.detailed.apppg" = "Age";
+"ipaLibrary.detailed.appGenre" = "Genre";
+"ipaLibrary.detailed.appRating" = "Rating";
+"ipaLibrary.detailed.appVersion" = "Version";
+"ipaLibrary.detailed.appSize" = "Size";
+"ipaLibrary.detailed.appAge" = "Age";
 "ipaLibrary.detailed.nil" = "Not Specified";
 
 "preferences.button.checkForUpdates" = "Check for Updates";

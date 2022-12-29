@@ -10,69 +10,59 @@ import DataCache
 import CachedAsyncImage
 
 struct DetailStoreAppView: View {
-    @State var dlButtonText: LocalizedStringKey?
-    @State var warningMessage: String?
-
     @State var app: StoreAppData
-    @State var itunesResponce: ITunesResponse?
-    @State var cache = DataCache.instance
-
-    @State var onlineIconURL: URL?
-    @State var localIcon: NSImage?
-    @State var bannerImageURLs: [URL?] = []
-    @State var truncated = true
 
     @StateObject var downloadVM: DownloadVM
     @StateObject var installVM: InstallVM
+
+    @State private var cache = DataCache.instance
+    @State private var itunesResponce: ITunesResponse?
+    @State private var onlineIconURL: URL?
+    @State private var bannerImageURLs: [URL?] = []
+    @State private var localIcon: NSImage?
+    @State private var truncated = true
+
+    @State private var downloadButtonText: LocalizedStringKey?
+    @State private var warningMessage: String?
 
     var body: some View {
         ScrollView {
             VStack {
                 HStack {
-                    Group {
-                        CachedAsyncImage(url: onlineIconURL, urlCache: .iconCache) { image in
-                            image
+                    CachedAsyncImage(url: onlineIconURL, urlCache: .iconCache) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    } placeholder: {
+                        if let image = localIcon {
+                            Image(nsImage: image)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                        } placeholder: {
-                            if let image = localIcon {
-                                Image(nsImage: image)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                            } else {
-                                ProgressView()
-                                    .progressViewStyle(.circular)
-                            }
+                        } else {
+                            ProgressView()
+                                .progressViewStyle(.circular)
                         }
                     }
                     .frame(width: 50, height: 50)
                     .cornerRadius(12)
                     .shadow(radius: 5)
                     .padding(10)
-                    VStack {
-                        HStack {
-                            Text(app.name)
-                                .font(.title.bold())
-                            Spacer()
-                        }
-                        HStack {
-                            Text(itunesResponce?.results[0].primaryGenreName
-                                 ?? NSLocalizedString("ipaLibrary.detailed.nil", comment: "")
-                            )
+                    VStack(alignment: .leading) {
+                        Text(app.name)
+                            .font(.title.bold())
+                        Text(itunesResponce?.results[0].artistName
+                             ?? NSLocalizedString("ipaLibrary.detailed.nil", comment: ""))
                             .font(.subheadline)
                             .foregroundColor(.secondary)
-                            Spacer()
-                        }
                     }
+                    Spacer()
                     Button {
                         if let url = URL(string: app.link) {
-                            let downloader = DownloadApp(url: url,
-                                                         app: app,
-                                                         warning: warningMessage)
                             if downloadVM.downloading && downloadVM.storeAppData == app {
-                                downloader.cancel()
+                                DownloadApp(url: nil, app: nil, warning: nil).cancel()
                             } else {
-                                downloader.start()
+                                DownloadApp(url: url, app: app,
+                                            warning: warningMessage).start()
                             }
                         }
                     } label: {
@@ -96,7 +86,7 @@ struct DetailStoreAppView: View {
                                 Capsule()
                                     .fill(.blue)
                                     .frame(width: 80, height: 25)
-                                Text(dlButtonText ?? "ipaLibrary.detailed.dlnew")
+                                Text(downloadButtonText ?? "ipaLibrary.detailed.dlnew")
                                     .minimumScaleFactor(0.5)
                                     .font(.subheadline.bold())
                                     .textCase(.uppercase)
@@ -108,61 +98,64 @@ struct DetailStoreAppView: View {
                     .buttonStyle(.plain)
                     .disabled(installVM.installing ||
                               (downloadVM.downloading && downloadVM.storeAppData != app))
-                    Spacer()
                 }
                 Divider()
                 HStack {
-                    Spacer()
                     VStack {
-                        Text("ipaLibrary.detailed.apprating")
+                        Text("ipaLibrary.detailed.appGenre")
+                            .modifier(BadgeTextStyle())
+                        Text(itunesResponce?.results[0].primaryGenreName
+                             ?? NSLocalizedString("ipaLibrary.detailed.nil", comment: ""))
+                            .font(itunesResponce == nil ? .subheadline : .title2.bold())
+                            .padding(.top, 1)
+                    }
+                    .padding(.leading)
+                    VerticalSpacer()
+                    VStack {
+                        Text("ipaLibrary.detailed.appRating")
                             .modifier(BadgeTextStyle())
                         let average = itunesResponce?.results[0].averageUserRating ?? 0
                         let rating = String(format: "%.1f", round(average * 10) / 10.0)
                         Text(itunesResponce == nil
-                             ? NSLocalizedString("ipaLibrary.detailed.nil", comment: "")
-                             : rating)
-                        .font(itunesResponce == nil
-                              ? .subheadline : .title2.bold())
+                             ? NSLocalizedString("ipaLibrary.detailed.nil", comment: "") : rating)
+                        .font(itunesResponce == nil ? .subheadline : .title2.bold())
                         .padding(.top, 1)
                     }
                     VerticalSpacer()
                     VStack {
-                        Text("ipaLibrary.detailed.appversion")
+                        Text("ipaLibrary.detailed.appVersion")
                             .modifier(BadgeTextStyle())
                         Text(app.version)
                             .font(.title2.bold()) .padding(.top, 1)
                     }
                     VerticalSpacer()
                     VStack {
-                        Text("ipaLibrary.detailed.filesize")
+                        Text("ipaLibrary.detailed.appSize")
                             .modifier(BadgeTextStyle())
                         let size = ByteCountFormatter.string(
                             fromByteCount: Int64(itunesResponce?.results[0].fileSizeBytes ?? "0") ?? 0,
                             countStyle: .file)
                         Text(itunesResponce == nil
-                             ? NSLocalizedString("ipaLibrary.detailed.nil", comment: "")
-                             : size)
-                        .font(itunesResponce == nil
-                              ? .subheadline : .title2.bold())
+                             ? NSLocalizedString("ipaLibrary.detailed.nil", comment: "") : size)
+                        .font(itunesResponce == nil ? .subheadline : .title2.bold())
                         .padding(.top, 1)
                     }
                     VerticalSpacer()
                     VStack {
-                        Text("ipaLibrary.detailed.apppg")
+                        Text("ipaLibrary.detailed.appAge")
                             .modifier(BadgeTextStyle())
                         Text(itunesResponce?.results[0].trackContentRating
                              ?? NSLocalizedString("ipaLibrary.detailed.nil", comment: ""))
-                            .font(itunesResponce == nil
-                                  ? .subheadline : .title2.bold())
+                            .font(itunesResponce == nil ? .subheadline : .title2.bold())
                             .padding(.top, 1)
                     }
-                    Spacer()
+                    .padding(.trailing)
                 }
                 .padding()
                 HStack {
                     Text(itunesResponce?.results[0].description
                          ?? NSLocalizedString("ipaLibrary.detailed.nodesc", comment: ""))
-                    .lineLimit(truncated ? 9 : nil)
+                        .lineLimit(truncated ? 9 : nil)
                     Spacer()
                     if itunesResponce != nil {
                         VStack {
@@ -178,7 +171,7 @@ struct DetailStoreAppView: View {
                         }
                     }
                 }
-                ScrollView(.horizontal) {
+                ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(bannerImageURLs, id: \.self) { url in
                             CachedAsyncImage(url: url, urlCache: .screenshotCache) { image in
@@ -213,7 +206,7 @@ struct DetailStoreAppView: View {
             if downloadVM.storeAppData == app {
                 ToastVM.shared.isShown = false
             }
-            await versionCompare()
+            versionCompare()
             await getData()
         }
         .onDisappear {
@@ -226,17 +219,17 @@ struct DetailStoreAppView: View {
         }
     }
 
-    func versionCompare() async {
+    func versionCompare() {
         if let sourceApp = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == app.bundleID }) {
             switch app.version.compare(sourceApp.info.bundleVersion, options: .numeric) {
             case .orderedAscending:
-                dlButtonText = "ipaLibrary.detailed.dlolder"
+                downloadButtonText = "ipaLibrary.detailed.dlolder"
                 warningMessage = "ipaLibrary.version.older"
             case .orderedSame:
-                dlButtonText = "ipaLibrary.detailed.dlsame"
+                downloadButtonText = "ipaLibrary.detailed.dlsame"
                 warningMessage = "ipaLibrary.version.same"
             case .orderedDescending:
-                dlButtonText = "ipaLibrary.detailed.dlnewer"
+                downloadButtonText = "ipaLibrary.detailed.dlnewer"
                 warningMessage = "ipaLibrary.version.newer"
             default:
                 warningMessage = "ipaLibrary.download"
@@ -245,14 +238,7 @@ struct DetailStoreAppView: View {
     }
 
     func getData() async {
-        if !cache.hasData(forKey: app.itunesLookup) {
-            await Cacher().resolveITunesData(app.itunesLookup)
-        }
-        do {
-            itunesResponce = try cache.readCodable(forKey: app.itunesLookup)
-        } catch {
-            print("Read error \(error.localizedDescription)")
-        }
+        itunesResponce = try? cache.readCodable(forKey: app.itunesLookup)
         if itunesResponce != nil {
             if let array = cache.readArray(forKey: app.bundleID + ".scUrls") {
                 let screenshots = array.compactMap { String(describing: $0) }
@@ -262,17 +248,8 @@ struct DetailStoreAppView: View {
             }
             onlineIconURL = URL(string: itunesResponce!.results[0].artworkUrl512)
         } else {
-            localIcon = await Cacher().getLocalIcon(bundleId: app.bundleID)
+            localIcon = Cacher().getLocalIcon(bundleId: app.bundleID)
         }
-    }
-}
-
-struct BadgeTextStyle: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .textCase(.uppercase)
-            .font(.subheadline.bold())
-            .foregroundColor(Color(nsColor: .tertiaryLabelColor))
     }
 }
 
@@ -282,6 +259,15 @@ struct VerticalSpacer: View {
         Divider()
             .frame(height: 50)
         Spacer()
+    }
+}
+
+struct BadgeTextStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .textCase(.uppercase)
+            .font(.subheadline.bold())
+            .foregroundColor(Color(nsColor: .tertiaryLabelColor))
     }
 }
 

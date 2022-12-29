@@ -31,19 +31,17 @@ struct StoreAppView: View {
                                 isList: isList,
                                 warningSymbol: $warningSymbol,
                                 warningMessage: $warningMessage)
-        .gesture(TapGesture(count: 2).onEnded {
-            if let url = URL(string: app.link) {
-                if downloadVM.downloading {
-                    Log.shared.error(PlayCoverError.waitDownload)
-                } else {
+        .contextMenu {
+            Button {
+                if let url = URL(string: app.link) {
                     DownloadApp(url: url, app: app,
                                 warning: warningMessage).start()
                 }
+            } label: {
+                Text("ipaLibrary.download")
             }
-        })
-        .simultaneousGesture(TapGesture().onEnded {
-            selected = app
-        })
+            .disabled(downloadVM.downloading || installVM.installing)
+        }
         .environmentObject(downloadVM)
         .task(priority: .background) {
             if let sourceApp = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == app.bundleID }) {
@@ -182,7 +180,8 @@ struct StoreAppConditionalView: View {
             }
         }
         .task(priority: .userInitiated) {
-            if !cache.hasData(forKey: app.itunesLookup) {
+            if !cache.hasData(forKey: app.itunesLookup)
+                && cache.readArray(forKey: app.bundleID + ".scUrls") == nil {
                 await Cacher().resolveITunesData(app.itunesLookup)
             }
             itunesResponce = try? cache.readCodable(forKey: app.itunesLookup)
