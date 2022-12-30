@@ -162,13 +162,6 @@ class PlayApp: BaseApp {
         }
     }
 
-    func largerImage(image imageA: NSImage, compareTo imageB: NSImage?) -> NSImage {
-        if imageA.size.height > imageB?.size.height ?? -1 {
-            return imageA
-        }
-        return imageB!
-    }
-
     var prohibitedToPlay: Bool {
         PlayApp.PROHIBITED_APPS.contains(info.bundleIdentifier)
     }

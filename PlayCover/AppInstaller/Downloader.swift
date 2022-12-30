@@ -84,11 +84,11 @@ class DownloadApp {
                 // progress is a Float
                 self.downloadVM.progress = Double(progress)
             }, onCompletion: { error, fileURL in
-                guard error == nil else {
+                if let error = error {
                     self.downloadVM.downloading = false
                     self.downloadVM.progress = 0
                     self.downloadVM.storeAppData = nil
-                    return Log.shared.error(error!)
+                    return Log.shared.error(error)
                 }
                 self.downloadVM.downloading = false
                 self.downloadVM.progress = 0

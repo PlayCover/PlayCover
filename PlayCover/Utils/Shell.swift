@@ -36,10 +36,12 @@ class Shell: ObservableObject {
             if pipeStdErr {
                 throw output
             } else {
-                let errOutput: String
+                var errOutput = ""
                 do {
                     let errData = try errPipe.fileHandleForReading.readToEnd() ?? Data()
-                    errOutput = String(data: errData, encoding: .utf8)!
+                    if let errString = String(data: errData, encoding: .utf8) {
+                        errOutput = errString
+                    }
                 } catch {
                     errOutput = "Command '\(command)' failed to execute."
                 }
@@ -189,13 +191,15 @@ class Shell: ObservableObject {
         task.launch()
 
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data: data, encoding: .utf8)!
+        if let output = String(data: data, encoding: .utf8) {
+            if print {
+                Log.shared.log(output)
+            }
 
-        if print {
-            Log.shared.log(output)
+            return output
+        } else {
+            return ""
         }
-
-        return output
     }
 }
 
