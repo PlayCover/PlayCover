@@ -23,7 +23,6 @@ struct DetailStoreAppView: View {
     @State private var truncated = true
 
     @State private var downloadButtonText: LocalizedStringKey?
-    @State private var warningMessage: String?
 
     var body: some View {
         ScrollView {
@@ -62,7 +61,7 @@ struct DetailStoreAppView: View {
                                 DownloadApp(url: nil, app: nil, warning: nil).cancel()
                             } else {
                                 DownloadApp(url: url, app: app,
-                                            warning: warningMessage).start()
+                                            warning: nil).start()
                             }
                         }
                     } label: {
@@ -224,15 +223,10 @@ struct DetailStoreAppView: View {
             switch app.version.compare(sourceApp.info.bundleVersion, options: .numeric) {
             case .orderedAscending:
                 downloadButtonText = "ipaLibrary.detailed.dlolder"
-                warningMessage = "ipaLibrary.version.older"
             case .orderedSame:
                 downloadButtonText = "ipaLibrary.detailed.dlsame"
-                warningMessage = "ipaLibrary.version.same"
             case .orderedDescending:
                 downloadButtonText = "ipaLibrary.detailed.dlnewer"
-                warningMessage = "ipaLibrary.version.newer"
-            default:
-                warningMessage = "ipaLibrary.download"
             }
         }
     }
