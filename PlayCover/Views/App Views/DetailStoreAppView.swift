@@ -17,7 +17,7 @@ struct DetailStoreAppView: View {
 
     @State private var cache = DataCache.instance
     @State private var itunesResponce: ITunesResponse?
-    @State private var onlineIconURL: URL?
+    @State private var onlineIcon: URL?
     @State private var bannerImageURLs: [URL?] = []
     @State private var localIcon: NSImage?
     @State private var truncated = true
@@ -28,7 +28,7 @@ struct DetailStoreAppView: View {
         ScrollView {
             VStack {
                 HStack {
-                    CachedAsyncImage(url: onlineIconURL, urlCache: .iconCache) { image in
+                    CachedAsyncImage(url: onlineIcon, urlCache: .iconCache) { image in
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -232,6 +232,10 @@ struct DetailStoreAppView: View {
     }
 
     func getData() async {
+        if !cache.hasData(forKey: app.itunesLookup)
+            && cache.readArray(forKey: app.bundleID + ".scUrls") == nil {
+            await Cacher().resolveITunesData(app.itunesLookup)
+        }
         itunesResponce = try? cache.readCodable(forKey: app.itunesLookup)
         if itunesResponce != nil {
             if let array = cache.readArray(forKey: app.bundleID + ".scUrls") {
@@ -240,7 +244,9 @@ struct DetailStoreAppView: View {
                     bannerImageURLs.append(URL(string: string))
                 }
             }
-            onlineIconURL = URL(string: itunesResponce!.results[0].artworkUrl512)
+            if let url = itunesResponce?.results[0].artworkUrl512 {
+                onlineIcon = URL(string: url)
+            }
         } else {
             localIcon = Cacher().getLocalIcon(bundleId: app.bundleID)
         }
