@@ -8,8 +8,8 @@
 import Foundation
 
 struct PlayRules: Decodable {
-    var blacklist: [String]?
-    var whitelist: [String]?
+    var blocklist: [String]?
+    var greenlist: [String]?
     var allow: [String]?
     var bypass: [String]?
 
