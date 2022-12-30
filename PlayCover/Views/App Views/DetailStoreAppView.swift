@@ -9,6 +9,7 @@ import SwiftUI
 import DataCache
 import CachedAsyncImage
 
+// swiftlint:disable type_body_length
 struct DetailStoreAppView: View {
     @State var app: StoreAppData
 
@@ -153,9 +154,27 @@ struct DetailStoreAppView: View {
                 }
                 .padding()
                 HStack {
-                    Text(itunesResponce?.results[0].description
-                         ?? NSLocalizedString("ipaLibrary.detailed.nodesc", comment: ""))
+                    VStack(alignment: .leading) {
+                        if let installInfo = app.installInfo?[0] {
+                            VStack(alignment: .leading, spacing: 5.0) {
+                                Text("ipaLibrary.detailed.sourceNotes")
+                                if installInfo.diabledSIP {
+                                    Text("ipaLibrary.detailed.disabledSIP")
+                                }
+                                if installInfo.noPlayTools {
+                                    Text("ipaLibrary.detailed.noPlayTools")
+                                }
+                                if installInfo.signingSetup {
+                                    Text("ipaLibrary.detailed.confgureSigning")
+                                }
+                            }
+                            .font(.subheadline)
+                            Divider()
+                        }
+                        Text(itunesResponce?.results[0].description
+                             ?? NSLocalizedString("ipaLibrary.detailed.nodesc", comment: ""))
                         .lineLimit(truncated ? 9 : nil)
+                    }
                     Spacer()
                     if itunesResponce != nil {
                         VStack {
@@ -278,7 +297,8 @@ struct DetailStoreAppView_Preview: PreviewProvider {
                 bundleID: "com.miHoYo.GenshinImpact",
                 name: "Genshin Impact", version: "3.3.0",
                 itunesLookup: "http://itunes.apple.com/lookup?bundleId=com.miHoYo.GenshinImpact",
-                link: "https://repo.amrsm.ir/ipa/Genshin-Impact_3.3.0.ipa"
+                link: "https://repo.amrsm.ir/ipa/Genshin-Impact_3.3.0.ipa",
+                installInfo: [InstallInfo(diabledSIP: true, noPlayTools: true, signingSetup: true)]
             ),
             downloadVM: DownloadVM.shared, installVM: InstallVM.shared
         )

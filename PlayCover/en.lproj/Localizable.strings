@@ -39,6 +39,11 @@
 "ipaLibrary.detailed.appSize" = "Size";
 "ipaLibrary.detailed.appAge" = "Age";
 "ipaLibrary.detailed.nil" = "Not Specified";
+"ipaLibrary.detailed.sourceNotes" = "Installation notes provided by IPA Source:";
+"ipaLibrary.detailed.disabledSIP" = "• This app only works while SIP is disabled or partially enabled.";
+"ipaLibrary.detailed.noPlayTools" = "• PlayTools should not or better not be installed in this App/Game.";
+"ipaLibrary.detailed.confgureSigning" = "• In order to Log In into your account for this App/Game you need to do the setup steps instructed in MenuBar > PlayCover > Configure Signing or PlayCover Docs";
+
 
 "preferences.button.checkForUpdates" = "Check for Updates";
 "preferences.tab.updates" = "Updates";
