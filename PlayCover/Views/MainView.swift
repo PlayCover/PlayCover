@@ -201,8 +201,10 @@ struct MainView: View {
                             .tint(Color.gray)
                             .controlSize(.large)
                             Button("xcode.install.failed.altButton") {
-                                NSWorkspace.shared.open(URL(string:
-                                    "https://docs.playcover.io/getting_started/alt_xcode_cli_install")!)
+                                if let url = URL(string:
+                                                    "https://docs.playcover.io/getting_started/alt_xcode_cli_install") {
+                                    NSWorkspace.shared.open(url)
+                                }
                             }
                             .buttonStyle(.borderedProminent)
                             .tint(.accentColor)
@@ -285,8 +287,12 @@ struct SplitViewAccessor: NSViewRepresentable {
             var sview = superview
 
             // Find split view through hierarchy
-            while sview != nil, !sview!.isKind(of: NSSplitView.self) {
-                sview = sview?.superview
+            if var sview = sview {
+                while !sview.isKind(of: NSSplitView.self) {
+                    if let superView = sview.superview {
+                        sview = superView
+                    }
+                }
             }
             guard let sview = sview as? NSSplitView else { return }
 

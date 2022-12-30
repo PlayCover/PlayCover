@@ -78,22 +78,24 @@ class DownloadApp {
                                                  in: .userDomainMask,
                                                  appropriateFor: URL(fileURLWithPath: "/Users"),
                                                  create: true)
-            downloader.addDownload(url: url!,
-                                   destinationURL: tmpDir!,
-                                   onProgress: { progress in
-                // progress is a Float
-                self.downloadVM.progress = Double(progress)
-            }, onCompletion: { error, fileURL in
-                if let error = error {
+            if let downloadUrl = url, let tmpURL = tmpDir {
+                downloader.addDownload(url: downloadUrl,
+                                       destinationURL: tmpURL,
+                                       onProgress: { progress in
+                    // progress is a Float
+                    self.downloadVM.progress = Double(progress)
+                }, onCompletion: { error, fileURL in
+                    if let error = error {
+                        self.downloadVM.downloading = false
+                        self.downloadVM.progress = 0
+                        self.downloadVM.storeAppData = nil
+                        return Log.shared.error(error)
+                    }
                     self.downloadVM.downloading = false
                     self.downloadVM.progress = 0
-                    self.downloadVM.storeAppData = nil
-                    return Log.shared.error(error)
-                }
-                self.downloadVM.downloading = false
-                self.downloadVM.progress = 0
-                self.proceedInstall(fileURL)
-            })
+                    self.proceedInstall(fileURL)
+                })
+            }
         } catch {
             if let tmpDir = tmpDir {
                 FileManager.default.delete(at: tmpDir)

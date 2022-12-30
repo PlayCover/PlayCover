@@ -95,21 +95,27 @@ class StoreVM: ObservableObject {
                     if StoreVM.checkAvaliability(url: url) {
                         do {
                             let contents = try String(contentsOf: url)
-                            let jsonData = contents.data(using: .utf8)!
-                            do {
-                                let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self, from: jsonData)
-                                if data.count > 0 {
+                            if let jsonData = contents.data(using: .utf8) {
+                                do {
+                                    let data: [StoreAppData] = try JSONDecoder()
+                                        .decode([StoreAppData].self, from: jsonData)
+                                    if data.count > 0 {
+                                        DispatchQueue.main.async {
+                                            self.sources[index].status = .valid
+                                            self.appendAppData(data)
+                                        }
+                                        return
+                                    }
+                                } catch {
                                     DispatchQueue.main.async {
-                                        self.sources[index].status = .valid
-                                        self.appendAppData(data)
+                                        self.sources[index].status = .badjson
                                     }
                                     return
                                 }
-                            } catch {
+                            } else {
                                 DispatchQueue.main.async {
                                     self.sources[index].status = .badjson
                                 }
-                                return
                             }
                         } catch {
                             DispatchQueue.main.async {
@@ -136,22 +142,30 @@ class StoreVM: ObservableObject {
 
     func moveSourceUp(_ selected: inout Set<UUID>) {
         let selectedData = self.sources.filter({ selected.contains($0.id) })
-        var index = self.sources.firstIndex(of: selectedData.first!)! - 1
-        self.sources.removeAll(where: { selected.contains($0.id) })
-        if index < 0 {
-            index = 0
+        if let first =  selectedData.first {
+            if var index = self.sources.firstIndex(of: first) {
+                index -= 1
+                self.sources.removeAll(where: { selected.contains($0.id) })
+                if index < 0 {
+                    index = 0
+                }
+                self.sources.insert(contentsOf: selectedData, at: index)
+            }
         }
-        self.sources.insert(contentsOf: selectedData, at: index)
     }
 
     func moveSourceDown(_ selected: inout Set<UUID>) {
         let selectedData = self.sources.filter({ selected.contains($0.id) })
-        var index = self.sources.firstIndex(of: selectedData.first!)! + 1
-        self.sources.removeAll(where: { selected.contains($0.id) })
-        if index > self.sources.endIndex {
-            index = self.sources.endIndex
+        if let first = selectedData.first {
+            if var index = self.sources.firstIndex(of: first) {
+                index += 1
+                self.sources.removeAll(where: { selected.contains($0.id) })
+                if index > self.sources.endIndex {
+                    index = self.sources.endIndex
+                }
+                self.sources.insert(contentsOf: selectedData, at: index)
+            }
         }
-        self.sources.insert(contentsOf: selectedData, at: index)
     }
 
     func appendSourceData(_ data: SourceData) {
