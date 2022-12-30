@@ -40,12 +40,12 @@ class DownloadApp {
         if installVM.installing {
             Log.shared.error(PlayCoverError.waitInstallation)
         } else {
-            if let warningMessage = warning {
+            if let warningMessage = warning, let unwrappedApp = app {
                 let alert = NSAlert()
                 alert.messageText = NSLocalizedString(warningMessage, comment: "")
                 alert.informativeText = String(
                     format: NSLocalizedString("ipaLibrary.alert.download", comment: ""),
-                    arguments: [app!.name]
+                    arguments: [unwrappedApp.name]
                 )
                 alert.alertStyle = .warning
                 alert.addButton(withTitle: NSLocalizedString("button.Yes", comment: ""))
@@ -105,7 +105,7 @@ class DownloadApp {
     private func proceedInstall(_ url: URL?) {
         if let url = url {
             uif.ipaUrl = url
-            Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
+            Installer.install(ipaUrl: url, export: false, returnCompletion: { _ in
                 Task { @MainActor in
                     FileManager.default.delete(at: url)
                     AppsVM.shared.fetchApps()

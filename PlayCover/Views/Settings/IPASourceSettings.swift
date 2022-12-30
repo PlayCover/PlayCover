@@ -203,8 +203,8 @@ struct AddSourceView: View {
                     Text("button.Cancel")
                 })
                 Button(action: {
-                    if newSourceURL != nil {
-                        storeVM.appendSourceData(SourceData(source: newSourceURL!.absoluteString))
+                    if let sourceURL = newSourceURL {
+                        storeVM.appendSourceData(SourceData(source: sourceURL.absoluteString))
                         addSourceSheet.toggle()
                     }
                 }, label: {

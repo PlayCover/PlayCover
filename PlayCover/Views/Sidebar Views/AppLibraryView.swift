@@ -95,7 +95,9 @@ struct AppLibraryView: View {
             UserDefaults.standard.set(value, forKey: "AppLibrayView")
         })
         .sheet(isPresented: $showSettings) {
-            AppSettingsView(viewModel: AppSettingsVM(app: selected!))
+            if let unwrappedSelected = selected {
+                AppSettingsView(viewModel: AppSettingsVM(app: unwrappedSelected))
+            }
         }
         .onAppear {
             showLegacyConvertAlert = LegacySettings.doesMonolithExist
@@ -153,15 +155,17 @@ struct AppLibraryView: View {
     }
 
     private func installApp() {
-        Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
-            DispatchQueue.main.async {
-                appsVM.apps = []
-                appsVM.fetchApps()
-                NotifyService.shared.notify(
-                    NSLocalizedString("notification.appInstalled", comment: ""),
-                    NSLocalizedString("notification.appInstalled.message", comment: ""))
-            }
-        })
+        if let url = uif.ipaUrl {
+            Installer.install(ipaUrl: url, export: false, returnCompletion: { _ in
+                DispatchQueue.main.async {
+                    appsVM.apps = []
+                    appsVM.fetchApps()
+                    NotifyService.shared.notify(
+                        NSLocalizedString("notification.appInstalled", comment: ""),
+                        NSLocalizedString("notification.appInstalled.message", comment: ""))
+                }
+            })
+        }
     }
 
     private func selectFile() {
