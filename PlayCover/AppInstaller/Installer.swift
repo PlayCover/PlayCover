@@ -36,7 +36,7 @@ class Installer {
     }
 
     // swiftlint:disable function_body_length
-    static func install(ipaUrl: URL, export: Bool, returnCompletion: @escaping (URL?) -> Void) {
+    @MainActor static func install(ipaUrl: URL, export: Bool, returnCompletion: @escaping (URL?) -> Void) {
         // If (the option key is held or the install playtools popup settings is true) and its not an export,
         //    then show the installer dialog
         let installPlayTools: Bool
@@ -49,7 +49,7 @@ class Installer {
 
         InstallVM.shared.next(.begin, 0.0, 0.0)
 
-        DispatchQueue.global(qos: .userInitiated).async {
+        Task(priority: .userInitiated) {
             let ipa = IPA(url: ipaUrl)
 
             do {

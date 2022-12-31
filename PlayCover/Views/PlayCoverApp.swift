@@ -11,7 +11,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             if url.pathExtension == "ipa" {
                 uif.ipaUrl = url
                 Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
-                    DispatchQueue.main.async {
+                    Task { @MainActor in
                         AppsVM.shared.apps = []
                         AppsVM.shared.fetchApps()
                         NotifyService.shared.notify(
@@ -42,7 +42,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc func powerStateChanged(_ notification: Notification) {
         if ProcessInfo.processInfo.isLowPowerModeEnabled {
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 self.powerModal()
             }
         }

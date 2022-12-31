@@ -16,6 +16,7 @@ enum InstallStepsNative: String {
          failed = "playapp.install.failed"
 }
 
+@MainActor
 class InstallVM: ObservableObject {
 
     @Published var status: String = NSLocalizedString(InstallStepsNative.begin.rawValue, comment: "")
@@ -25,28 +26,20 @@ class InstallVM: ObservableObject {
     static let shared = InstallVM()
 
     func next(_ step: InstallStepsNative, _ startProgress: Double, _ stopProgress: Double) {
-        DispatchQueue.main.async {
+        Task { @MainActor in
             self.progress = startProgress
             self.status = NSLocalizedString(step.rawValue, comment: "")
             if step == .begin {
                 self.installing = true
             } else if step == .finish || step == .failed {
                 self.progress = 1.0
-                DispatchQueue.global(qos: .userInteractive).async {
-                    usleep(1500000)
-                    DispatchQueue.main.async {
-                        self.installing = false
-                    }
-                }
+                try await Task.sleep(nanoseconds: 1500000000)
+                self.installing = false
             }
-            DispatchQueue.global(qos: .userInitiated).async {
-                while self.status == NSLocalizedString(step.rawValue, comment: "") {
-                    usleep(50000)
-                    DispatchQueue.main.async {
-                        if self.progress < stopProgress {
-                            self.progress += 0.002
-                        }
-                    }
+            while self.status == NSLocalizedString(step.rawValue, comment: "") {
+                try await Task.sleep(nanoseconds: 50000000)
+                if self.progress < stopProgress {
+                    self.progress += 0.002
                 }
             }
         }
