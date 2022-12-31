@@ -33,7 +33,8 @@ struct ToastView: View {
                     .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
                     .padding()
                     .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + toast.timeRemaining) {
+                        Task { @MainActor in
+                            try await Task.sleep(nanoseconds: toast.timeRemaining * 9)
                             // Next toast to be removed will always be the first in the list
                             toastVM.toasts.removeFirst()
                         }
@@ -53,7 +54,16 @@ struct ToastView: View {
                     VStack {
                         Text("playapp.download") +
                         Text(" \(downloadVM.storeAppData?.name ?? "")")
-                        ProgressView(value: downloadVM.progress)
+                        HStack {
+                            ProgressView(value: downloadVM.progress)
+                            Button {
+                                DownloadApp(url: nil, app: nil, warning: nil).cancel()
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .font(.title3)
+                            }
+                            .buttonStyle(.plain)
+                        }
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
