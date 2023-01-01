@@ -16,7 +16,6 @@ enum InstallStepsNative: String {
          failed = "playapp.install.failed"
 }
 
-@MainActor
 class InstallVM: ObservableObject {
 
     @Published var status: String = NSLocalizedString(InstallStepsNative.begin.rawValue, comment: "")

@@ -60,7 +60,7 @@ struct PlayCoverViewMenuView: Commands {
         CommandGroup(replacing: .importExport) {
             Button("menubar.exportToSideloady") {
                 Task {
-                    if await InstallVM.shared.installing {
+                    if InstallVM.shared.installing {
                         Log.shared.error(PlayCoverError.waitInstallation)
                     } else if DownloadVM.shared.downloading {
                         Log.shared.error(PlayCoverError.waitDownload)
@@ -69,7 +69,7 @@ struct PlayCoverViewMenuView: Commands {
                             if case .success(let url) = result {
                                 uif.ipaUrl = url
                                 Task {
-                                    await Installer.install(ipaUrl: uif.ipaUrl!,
+                                    Installer.install(ipaUrl: uif.ipaUrl!,
                                                             export: true,
                                                             returnCompletion: { ipa in
                                         Task { @MainActor in
