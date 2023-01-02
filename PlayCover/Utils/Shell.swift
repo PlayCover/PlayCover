@@ -147,8 +147,8 @@ class Shell: ObservableObject {
                 Log.shared.log("Error creating app alias directory: \(error)")
         }
 
-        if let scriptPath = Bundle.main.url(forResource: "appAlias", withExtension: "scpt") {
-            DispatchQueue.global(qos: .utility).async {
+        Task(priority: .utility) {
+            if let scriptPath = Bundle.main.url(forResource: "appAlias", withExtension: "scpt") {
                 let process = Process()
                 process.launchPath = "/usr/bin/osascript"
                 process.arguments = ["\(scriptPath.path)", "\(app.url.path)", app.name]
