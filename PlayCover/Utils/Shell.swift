@@ -139,15 +139,14 @@ class Shell: ObservableObject {
     }
 
     static func createAlias(_ app: PlayApp) {
-        if !FileManager.default.fileExists(atPath: app.aliasDirectory.path) {
-            do {
-                try FileManager.default.createDirectory(atPath: app.aliasDirectory.path,
-                                                        withIntermediateDirectories: true,
-                                                        attributes: nil)
-            } catch {
+        do {
+            try FileManager.default.createDirectory(atPath: PlayApp.aliasDirectory.path,
+                                                    withIntermediateDirectories: true,
+                                                    attributes: nil)
+        } catch {
                 Log.shared.log("Error creating app alias directory: \(error)")
-            }
         }
+
         if let scriptPath = Bundle.main.url(forResource: "appAlias", withExtension: "scpt") {
             DispatchQueue.global(qos: .utility).async {
                 let process = Process()

@@ -107,18 +107,11 @@ class PlayApp: BaseApp {
         }
     }
 
-    var aliasDirectory: URL {
-        return FileManager.default.homeDirectoryForCurrentUser
+    static let aliasDirectory = FileManager.default.homeDirectoryForCurrentUser
             .appendingPathComponent("Applications")
             .appendingPathComponent("PlayCover")
-    }
 
-    var aliasURL: URL {
-        return FileManager.default.homeDirectoryForCurrentUser
-            .appendingPathComponent("Applications")
-            .appendingPathComponent("PlayCover")
-            .appendingPathComponent(name)
-    }
+    lazy var aliasURL = PlayApp.aliasDirectory.appendingPathComponent(name)
 
     lazy var settings = AppSettings(info, container: container)
 
@@ -156,9 +149,7 @@ class PlayApp: BaseApp {
     }
 
     func removeAlias() {
-        if FileManager.default.fileExists(atPath: aliasURL.path) {
-            FileManager.default.delete(at: aliasURL)
-        }
+        FileManager.default.delete(at: aliasURL)
     }
 
     func deleteApp() {
