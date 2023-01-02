@@ -16,7 +16,7 @@ func storeUserData(folderName: String, accountRegion: String, app: PlayApp) {
     let gameDataPath = GenshinUserDataURLs.getGameDataPath(bundleID: bundleID)
 
     // Path to the folder where the data will be stored check if exists and if not create it
-    let store = GenshinUserDataURLs.getStorePath(folderName: folderName)
+    let store = GenshinUserDataURLs.getStorePath()
     let storePath = isGlobalVersion
                     ? store.appendingPathComponent(folderName)
                     : store.appendingPathComponent("Yuanshen \(folderName)")
