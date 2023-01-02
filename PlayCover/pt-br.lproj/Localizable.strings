@@ -151,7 +151,7 @@
 "preferences.popover.badurl" = "URL Inválida!";
 "preferences.popover.badjson" = "JSON Inválido ou Não Encontrado!";
 "preferences.textfield.url" = "URL da Fonte...";
-"playapp.download" = "Baixando...";
+"playapp.download" = "Baixando";
 "error.waitDownload" = "Por favor, aguarde o término do download atual!";
 "preferences.toggle.removeEntitlements" = "Remover permissões";
 "preferences.tab.uninstall" = "Desinstalação";
