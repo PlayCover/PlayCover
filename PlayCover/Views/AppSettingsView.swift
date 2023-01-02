@@ -465,6 +465,7 @@ struct MiscView: View {
                     }
                     Spacer()
                     Button((hasAlias ?? true) ? "settings.removeAlias" : "settings.createAlias") {
+                        closeView.toggle()
                         if !(hasAlias ?? true) {
                             shell.createAlias(app)
                             hasAlias = true
