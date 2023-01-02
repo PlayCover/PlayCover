@@ -144,7 +144,7 @@ class Shell: ObservableObject {
                                                     withIntermediateDirectories: true,
                                                     attributes: nil)
         } catch {
-                Log.shared.log("Error creating app alias directory: \(error)")
+            Log.shared.log("Error creating app alias directory: \(error)")
         }
 
         Task(priority: .utility) {
