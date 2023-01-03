@@ -82,7 +82,7 @@ struct PlayCoverViewMenuView: Commands {
                                                                         "com.sideloadly.sideloadly")
                                                 if url != nil {
                                                     let unwrap = url.unsafelyUnwrapped
-                                                    NSWorkspace.shared
+                                                    try await NSWorkspace.shared
                                                         .open([ipa], withApplicationAt: unwrap, configuration: config)
                                                 } else {
                                                     Log.shared.error("Could not find Sideloadly!")
