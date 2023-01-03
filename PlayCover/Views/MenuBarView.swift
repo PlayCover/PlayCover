@@ -103,13 +103,11 @@ struct PlayCoverViewMenuView: Commands {
             Button("menubar.clearCache") {
                 DataCache.instance.cleanAll()
                 URLCache.iconCache.removeAllCachedResponses()
-                do {
-                    let oldCacheFolder = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
-                    if FileManager.default.fileExists(atPath: oldCacheFolder.path) {
-                        try FileManager.default.removeItem(at: oldCacheFolder)
-                    }
-                } catch {
-                    Log.shared.error(error)
+
+                if let cacheDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first,
+                   let bundleID = Bundle.main.bundleIdentifier {
+                    FileManager.default.delete(at: cacheDir.appendingPathComponent(bundleID)
+                        .appendingPathComponent("Image Cache"))
                 }
             }
             .keyboardShortcut("R", modifiers: [.command, .shift])
