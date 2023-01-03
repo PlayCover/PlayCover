@@ -62,7 +62,7 @@
 "storeAccount.alert.restoreAccount.msg" = "Bu sizin şu anki hesabınızın yerine geçecektir.";
 "storeAccount.alert.deleteAccount" = "Hesabı silmek istediğinize emin misiniz?";
 "storeAccount.alert.deleteAccount.button" = "Hesabı Sil";
-"playapp.download" = "Yükleniyor...";
+"playapp.download" = "Yükleniyor";
 "playapp.install.unzip" = ".ipa dosyasından uygulama çıkartılıyor...";
 "playapp.install.createWrapper" = "Uygulama \"wrapper\"ı yapılıyor...";
 "playapp.install.installPlayTools" = "PlayTools indiriliyor...";

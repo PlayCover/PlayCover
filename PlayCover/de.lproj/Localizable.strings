@@ -319,7 +319,7 @@
 "preferences.popover.badurl" = "URL Ungültig!";
 "preferences.popover.badjson" = "JSON Ungültig oder nicht gefunden worden!";
 "preferences.textfield.url" = "URL Quelle...";
-"playapp.download" = "Wird Installiert...";
+"playapp.download" = "Wird Installiert";
 "preferences.toggle.clearAppData" = "Daten löschen";
 "alert.supression" = "Du kannst dies in den PlayCover Einstellungen ändern";
 "menubar.clearCache" = "Bild Cache löschen";
