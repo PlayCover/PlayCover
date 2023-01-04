@@ -44,7 +44,7 @@ class PlayTools {
     }
 
     static func installOnSystem() {
-        DispatchQueue.global(qos: .background).async {
+        Task(priority: .background) {
             do {
                 Log.shared.log("Installing PlayTools")
 
@@ -134,7 +134,7 @@ class PlayTools {
                            injectPath: "@executable_path/Frameworks/PlayTools.dylib",
                            finishHandle: { result in
             if result {
-                DispatchQueue.global(qos: .background).async {
+                Task(priority: .background) {
                     do {
                         if !FileManager.default.fileExists(atPath: payload.appendingPathComponent("Frameworks").path) {
                             try FileManager.default.createDirectory(

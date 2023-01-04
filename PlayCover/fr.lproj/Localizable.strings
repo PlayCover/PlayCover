@@ -318,7 +318,7 @@
 "preferences.popover.badurl" = "Lien invalide !";
 "preferences.popover.badjson" = "JSON invalide ou introuvable !";
 "preferences.textfield.url" = "URL source...";
-"playapp.download" = "Téléchargement en cours...";
+"playapp.download" = "Téléchargement en cours";
 "error.waitDownload" = "Veuillez attendre la fin du téléchargement en cours !";
 "preferences.toggle.clearAppData" = "Effacer les données";
 "preferences.tab.uninstall" = "Désinstaller";

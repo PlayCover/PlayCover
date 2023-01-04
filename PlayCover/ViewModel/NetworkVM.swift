@@ -5,37 +5,6 @@
 //  Created by Isaac Marovitz on 09/10/2022.
 //
 
-// import Network
-
-// I wanted to use the Network API for this, but it's completely missing
-// so shitty old API it is :D
-
-/*class NetworkVM: ObservableObject {
-
-    static let shared = NetworkVM()
-
-    @Published var networkConnection = false
-
-    private init() {
-        configureNetworkMonitor()
-    }
-
-    func configureNetworkMonitor() {
-        let monitor = NWPathMonitor()
-
-        monitor.pathUpdateHandler = { path in
-            if path.status != .satisfied {
-                self.networkConnection = false
-            } else {
-                self.networkConnection = true
-            }
-        }
-
-        monitor.start(queue: DispatchQueue.global(qos: .background))
-    }
-}
-*/
-
 import SystemConfiguration
 import Foundation
 

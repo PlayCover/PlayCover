@@ -224,7 +224,7 @@ struct AddSourceView: View {
 
     func validateSource(_ source: String) {
         sourceValidationState = .checking
-        DispatchQueue.global(qos: .userInteractive).async {
+        Task {
             if let url = URL(string: source) {
                 newSourceURL = url
                 if StoreVM.checkAvaliability(url: newSourceURL!) {

@@ -72,7 +72,7 @@ class SoundDeviceService {
         if let sampleRate = getSampleRate(device) {
             if sampleRate == 48000.0 || sampleRate == 44100.0 { return }
         }
-        DispatchQueue.main.async {
+        Task { @MainActor in
             let alert = NSAlert()
             alert.messageText = NSLocalizedString("soundAlert.messageText", comment: "")
             alert.informativeText = NSLocalizedString("soundAlert.informativeText", comment: "")
