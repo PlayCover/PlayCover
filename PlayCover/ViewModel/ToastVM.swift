@@ -21,7 +21,7 @@ class ToastVM: ObservableObject {
 struct ToastInfo: Hashable {
     let toastType: ToastType
     let toastDetails: String
-    let timeRemaining: Double
+    let timeRemaining: UInt64
 }
 
 enum ToastType {

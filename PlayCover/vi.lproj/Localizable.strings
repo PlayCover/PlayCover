@@ -159,7 +159,7 @@
 "preferences.popover.badurl" = "URL không hợp lệ!";
 "preferences.popover.badjson" = "File JSON không đúng hoặc không tồn tại!";
 "preferences.textfield.url" = "URL nguồn...";
-"playapp.download" = "Đang tải xuống ...";
+"playapp.download" = "Đang tải xuống";
 "error.waitDownload" = "Vui lòng đợi quá trình tải xuống hiện tại kết thúc!";
 "preferences.prune.alert" = "Bạn muốn dọn dẹp tệp tin?";
 "menubar.clearCache" = "Xóa bộ nhớ đệm";

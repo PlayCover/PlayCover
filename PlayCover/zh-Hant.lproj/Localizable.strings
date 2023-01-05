@@ -298,7 +298,7 @@
 "preferences.popover.badurl" = "無效的鏈結!";
 "preferences.popover.badjson" = "JSON 無效或不存在！";
 "preferences.textfield.url" = "來源URL鏈結...";
-"playapp.download" = "下載中...";
+"playapp.download" = "下載中";
 "error.waitDownload" = "請等待下載完成！";
 "preferences.tab.uninstall" = "解除安裝";
 "preferences.whenUninstalling" = "解除安裝同時：";

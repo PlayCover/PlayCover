@@ -318,7 +318,7 @@
 "preferences.popover.badurl" = "链接错误!";
 "preferences.popover.badjson" = "JSON 无效或未找到!";
 "preferences.textfield.url" = "来源 URL 链接...";
-"playapp.download" = "现在下载中...";
+"playapp.download" = "现在下载中";
 "error.waitDownload" = "请等待下载完成!";
 "preferences.button.pruneFiles" = "未使用的文件";
 "playapp.install.failed" = "失败";

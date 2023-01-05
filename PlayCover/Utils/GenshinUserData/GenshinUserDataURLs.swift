@@ -31,12 +31,11 @@ class GenshinUserDataURLs {
             .appendingPathComponent("Documents")
     }
 
-    static func getStorePath(folderName: String) -> URL {
+    static func getStorePath() -> URL {
         return FileManager.default.homeDirectoryForCurrentUser
             .appendingPathComponent("Library")
             .appendingPathComponent("Containers")
             .appendingPathComponent("io.playcover.PlayCover")
             .appendingPathComponent("Storage")
-            .appendingPathComponent(folderName)
     }
 }

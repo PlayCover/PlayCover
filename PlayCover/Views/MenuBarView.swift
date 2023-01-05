@@ -59,34 +59,41 @@ struct PlayCoverViewMenuView: Commands {
         CommandGroup(replacing: .newItem) {}
         CommandGroup(replacing: .importExport) {
             Button("menubar.exportToSideloady") {
-                if InstallVM.shared.installing {
-                    Log.shared.error(PlayCoverError.waitInstallation)
-                } else if DownloadVM.shared.downloading {
-                    Log.shared.error(PlayCoverError.waitDownload)
-                } else {
-                    NSOpenPanel.selectIPA { result in
-                        if case .success(let url) = result {
-                            uif.ipaUrl = url
-                            Installer.install(ipaUrl: uif.ipaUrl!, export: true, returnCompletion: { ipa in
-                                DispatchQueue.main.async {
-                                    if let ipa = ipa {
-                                        ipa.showInFinder()
-                                        let config = NSWorkspace.OpenConfiguration()
-                                        config.promptsUserIfNeeded = true
-                                        let url = NSWorkspace.shared
-                                            .urlForApplication(withBundleIdentifier: "com.sideloadly.sideloadly")
-                                        if url != nil {
-                                            let unwrap = url.unsafelyUnwrapped
-                                            NSWorkspace.shared
-                                                .open([ipa], withApplicationAt: unwrap, configuration: config)
-                                        } else {
-                                            Log.shared.error("Could not find Sideloadly!")
+                Task {
+                    if InstallVM.shared.installing {
+                        Log.shared.error(PlayCoverError.waitInstallation)
+                    } else if DownloadVM.shared.downloading {
+                        Log.shared.error(PlayCoverError.waitDownload)
+                    } else {
+                        await NSOpenPanel.selectIPA { result in
+                            if case .success(let url) = result {
+                                uif.ipaUrl = url
+                                Task {
+                                    Installer.install(ipaUrl: uif.ipaUrl!,
+                                                            export: true,
+                                                            returnCompletion: { ipa in
+                                        Task { @MainActor in
+                                            if let ipa = ipa {
+                                                ipa.showInFinder()
+                                                let config = NSWorkspace.OpenConfiguration()
+                                                config.promptsUserIfNeeded = true
+                                                let url = NSWorkspace.shared
+                                                    .urlForApplication(withBundleIdentifier:
+                                                                        "com.sideloadly.sideloadly")
+                                                if url != nil {
+                                                    let unwrap = url.unsafelyUnwrapped
+                                                    try await NSWorkspace.shared
+                                                        .open([ipa], withApplicationAt: unwrap, configuration: config)
+                                                } else {
+                                                    Log.shared.error("Could not find Sideloadly!")
+                                                }
+                                            } else {
+                                                Log.shared.error("Could not find file!")
+                                            }
                                         }
-                                    } else {
-                                        Log.shared.error("Could not find file!")
-                                    }
+                                    })
                                 }
-                            })
+                            }
                         }
                     }
                 }
@@ -97,13 +104,10 @@ struct PlayCoverViewMenuView: Commands {
                 DataCache.instance.cleanAll()
                 URLCache.iconCache.removeAllCachedResponses()
                 URLCache.screenshotCache.removeAllCachedResponses()
-                do {
-                    let oldCacheFolder = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
-                    if FileManager.default.fileExists(atPath: oldCacheFolder.path) {
-                        try FileManager.default.removeItem(at: oldCacheFolder)
-                    }
-                } catch {
-                    Log.shared.error(error)
+                if let cacheDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first,
+                   let bundleID = Bundle.main.bundleIdentifier {
+                    FileManager.default.delete(at: cacheDir.appendingPathComponent(bundleID)
+                        .appendingPathComponent("Image Cache"))
                 }
             }
             .keyboardShortcut("R", modifiers: [.command, .shift])

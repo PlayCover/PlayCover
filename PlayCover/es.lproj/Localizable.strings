@@ -318,7 +318,7 @@
 "preferences.popover.badurl" = "¡URL no válido!";
 "preferences.popover.badjson" = "¡JSON no válido o no encontrado!";
 "preferences.textfield.url" = "URL de origen...";
-"playapp.download" = "Descargando...";
+"playapp.download" = "Descargando";
 "error.waitDownload" = "¡Por favor espere a que finalice la descarga!";
 "preferences.tab.uninstall" = "Desinstalar";
 "preferences.whenUninstalling" = "Al desinstalar:";
@@ -332,7 +332,7 @@
 "preferences.prune.message" = "Esto eliminará todos los archivos que no se utilicen, incluidos los de configuración, mapeo de teclas, permisos, y datos de la aplicación";
 "playapp.install.failed" = "Error";
 "alert.supression" = "Puede cambiar esto en la configuración de PlayCover";
-"menubar.clearCache" = "Borrar la caché de imágenes";
+"menubar.clearCache" = "Borrar la caché";
 "preferences.tab.install" = "Instalar";
 "preferences.toggle.showInstallPopup" = "Mostrar ventana de instalación de PlayTools";
 "preferences.toggle.alwaysInstallPlayTools" = "Instalar siempre PlayTools";

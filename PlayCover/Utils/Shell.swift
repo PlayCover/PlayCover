@@ -119,9 +119,9 @@ class Shell: ObservableObject {
     }
 
     static func lldb(_ url: URL, withTerminalWindow: Bool = false) {
-        var command = "/usr/bin/lldb -o run \(url.esc) -o exit"
+        Task(priority: .utility) {
+            var command = "/usr/bin/lldb -o run \(url.esc) -o exit"
 
-        DispatchQueue.global(qos: .utility).async {
             if withTerminalWindow {
                 command = command.replacingOccurrences(of: "\\", with: "\\\\")
                 let osascript = """

@@ -90,7 +90,7 @@ class StoreVM: ObservableObject {
         apps.removeAll()
         for index in 0..<sources.endIndex {
             sources[index].status = .checking
-            DispatchQueue.global(qos: .userInteractive).async {
+            Task {
                 if let url = URL(string: self.sources[index].source) {
                     if StoreVM.checkAvaliability(url: url) {
                         do {
@@ -99,27 +99,27 @@ class StoreVM: ObservableObject {
                             do {
                                 let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self, from: jsonData)
                                 if data.count > 0 {
-                                    DispatchQueue.main.async {
+                                    Task { @MainActor in
                                         self.sources[index].status = .valid
                                         self.appendAppData(data)
                                     }
                                     return
                                 }
                             } catch {
-                                DispatchQueue.main.async {
+                                Task { @MainActor in
                                     self.sources[index].status = .badjson
                                 }
                                 return
                             }
                         } catch {
-                            DispatchQueue.main.async {
+                            Task { @MainActor in
                                 self.sources[index].status = .badurl
                             }
                             return
                         }
                     }
                 }
-                DispatchQueue.main.async {
+                Task { @MainActor in
                     self.sources[index].status = .badurl
                 }
                 return
