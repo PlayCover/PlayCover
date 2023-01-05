@@ -34,7 +34,7 @@ struct ToastView: View {
                     .padding()
                     .onAppear {
                         Task { @MainActor in
-                            try await Task.sleep(nanoseconds: toast.timeRemaining * 9)
+                            try await Task.sleep(nanoseconds: toast.timeRemaining * 1000000000)
                             // Next toast to be removed will always be the first in the list
                             toastVM.toasts.removeFirst()
                         }
