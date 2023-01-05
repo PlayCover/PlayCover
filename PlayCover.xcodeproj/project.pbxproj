@@ -113,6 +113,7 @@
 		53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLibraryView.swift; sourceTree = "<group>"; };
 		53F5E74226C1D37E005AED1D /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
 		6854C5E528D53C9500CE28A0 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
+		68C79E67296741580041DBC9 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		68E48B96295704A600C39879 /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Downloader.swift; path = PlayCover/AppInstaller/Downloader.swift; sourceTree = SOURCE_ROOT; };
 		68E48B9B295709BF00C39879 /* Cacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cacher.swift; sourceTree = "<group>"; };
 		6E06193528B3C4090012C771 /* StoreGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreGenshinAccountView.swift; sourceTree = "<group>"; };
@@ -518,6 +519,7 @@
 				fa,
 				tr,
 				ro,
+				hi,
 			);
 			mainGroup = 8783CFEE26B8C52D00171041;
 			packageReferences = (
@@ -725,6 +727,7 @@
 				6854C5E528D53C9500CE28A0 /* fa */,
 				6E692F1C290B34890090D9EC /* tr */,
 				6E692F1D290B349F0090D9EC /* ro */,
+				68C79E67296741580041DBC9 /* hi */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
