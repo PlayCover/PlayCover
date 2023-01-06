@@ -94,4 +94,16 @@ extension URL {
             }
         }
     }
+
+    func appendingEscapedPathComponent(_ pathComponent: String) -> URL {
+        let esc = [("/", ":")]
+
+        var newPathComponent = pathComponent
+
+        for (find, replace) in esc {
+            newPathComponent = newPathComponent.replacingOccurrences(of: find, with: replace)
+        }
+
+        return self.appendingPathComponent(newPathComponent)
+    }
 }

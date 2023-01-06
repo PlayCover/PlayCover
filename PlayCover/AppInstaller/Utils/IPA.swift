@@ -50,7 +50,7 @@ public class IPA {
 
     func packIPABack(app: URL) throws -> URL {
         let newIpa = getDocumentsDirectory()
-            .appendingPathComponent(app.deletingPathExtension().lastPathComponent).appendingPathExtension("ipa")
+            .appendingEscapedPathComponent(app.deletingPathExtension().lastPathComponent).appendingPathExtension("ipa")
         try Shell.zip(
             ipa: newIpa,
             name: app.deletingPathExtension().lastPathComponent,
