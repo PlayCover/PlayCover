@@ -312,7 +312,7 @@
 "preferences.prune.message" = "這將刪除所有未使用的檔案，包括設定、鍵盤映射、授權和應用程式數據";
 "playapp.install.failed" = "失敗";
 "alert.supression" = "你可以在 PlayCover 偏好設定中更改";
-"menubar.clearCache" = "清理圖片緩存";
+"menubar.clearCache" = "清理緩存";
 "preferences.tab.install" = "安裝";
 "preferences.toggle.showInstallPopup" = "顯示安裝 PlayTools 彈窗";
 "preferences.toggle.alwaysInstallPlayTools" = "總是安裝 PlayTools";
