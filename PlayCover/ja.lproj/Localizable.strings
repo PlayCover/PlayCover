@@ -320,7 +320,7 @@
 "preferences.textfield.url" = "ソースのURL...";
 "playapp.download" = "ダウンロード中";
 "error.waitDownload" = "ダウンロードが終了するまでお待ちください!";
-"menubar.clearCache" = "画像キャッシュをクリア";
+"menubar.clearCache" = "キャッシュをクリア";
 "preferences.tab.uninstall" = "アンインストール";
 "preferences.whenUninstalling" = "アンインストール時:";
 "preferences.toggle.showUninstall" = "警告を表示";
