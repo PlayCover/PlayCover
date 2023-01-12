@@ -11,11 +11,11 @@ func deletePreferences(app: String) {
     let plistURL = FileManager.default.homeDirectoryForCurrentUser
         .appendingPathComponent("Library")
         .appendingPathComponent("Containers")
-        .appendingPathComponent(app)
+        .appendingEscapedPathComponent(app)
         .appendingPathComponent("Data")
         .appendingPathComponent("Library")
         .appendingPathComponent("Preferences")
-        .appendingPathComponent(app)
+        .appendingEscapedPathComponent(app)
         .appendingPathExtension("plist")
 
     guard FileManager.default.fileExists(atPath: plistURL.path) else { return }
