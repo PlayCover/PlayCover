@@ -164,7 +164,9 @@ struct DetailStoreAppView: View {
                         VStack {
                             Spacer()
                             Button {
-                                truncated.toggle()
+                                withAnimation {
+                                    truncated.toggle()
+                                }
                             } label: {
                                 Text(truncated ? "ipaLibrary.detailed.more" : "ipaLibrary.detailed.less")
                                     .foregroundColor(.accentColor)
