@@ -21,13 +21,14 @@ struct DetailStoreAppView: View {
     @State private var onlineIconURL: URL?
     @State private var bannerImageURLs: [URL?] = []
     @State private var localIcon: NSImage?
+    @State private var showInstallInfo = false
     @State private var truncated = true
 
     @State private var downloadButtonText: LocalizedStringKey?
     @State private var warningMessage: String?
 
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             VStack {
                 HStack {
                     CachedAsyncImage(url: onlineIconURL, urlCache: .iconCache) { image in
@@ -153,40 +154,75 @@ struct DetailStoreAppView: View {
                     .padding(.trailing)
                 }
                 .padding()
-                HStack {
-                    VStack(alignment: .leading) {
-                        if let installInfo = app.installInfo?[0] {
-                            VStack(alignment: .leading, spacing: 5.0) {
-                                Text("ipaLibrary.detailed.sourceNotes")
-                                if installInfo.diabledSIP {
-                                    Text("ipaLibrary.detailed.disabledSIP")
-                                }
-                                if installInfo.noPlayTools {
-                                    Text("ipaLibrary.detailed.noPlayTools")
-                                }
-                                if installInfo.signingSetup {
-                                    Text("ipaLibrary.detailed.confgureSigning")
-                                }
+                Divider()
+                VStack {
+                    if let installInfo = app.installInfo?[0] {
+                        let sipBool = installInfo.diabledSIP
+                        let playtoolsBool = installInfo.noPlayTools
+                        let signinBool = installInfo.signingSetup
+                        Button {
+                            withAnimation {
+                                showInstallInfo.toggle()
                             }
-                            .font(.subheadline)
-                            Divider()
+                        } label: {
+                            HStack {
+                                Text("ipaLibrary.detailed.sourceNotes")
+                                Spacer()
+                                Image(systemName: showInstallInfo
+                                      ? "chevron.up"
+                                      : "chevron.down")
+                            }
+                            .padding(.vertical, 1)
                         }
+                        .buttonStyle(.plain)
+                        if showInstallInfo {
+                            HStack(spacing: 10.0) {
+                                InformativeBadge(
+                                    iconIsWarning: sipBool,
+                                    titleToShow: "ipaLibrary.detailed.sipLabelTitle",
+                                    descriptionToShow: sipBool
+                                    ? "ipaLibrary.detailed.disabledSIPDesc"
+                                    : "ipaLibrary.detailed.enabledSIPDesc"
+                                )
+                                InformativeBadge(
+                                    iconIsWarning: playtoolsBool,
+                                    titleToShow: "ipaLibrary.detailed.playoolsLabelTitle",
+                                    descriptionToShow: playtoolsBool
+                                    ? "ipaLibrary.detailed.noPlayToolsDesc"
+                                    : "ipaLibrary.detailed.withPlayToolsDesc"
+                                )
+                                InformativeBadge(
+                                    iconIsWarning: signinBool,
+                                    titleToShow: "ipaLibrary.detailed.signinLabelTitle",
+                                    descriptionToShow: signinBool
+                                    ? "ipaLibrary.detailed.confgureSigningDesc"
+                                    : "ipaLibrary.detailed.noConfgureSigningDesc"
+                                )
+                            }
+                            .padding(.top, 1)
+                        }
+                        Divider()
+                            .padding(.top, 1)
+                    }
+                    HStack {
                         Text(itunesResponce?.results[0].description
                              ?? NSLocalizedString("ipaLibrary.detailed.nodesc", comment: ""))
-                        .lineLimit(truncated ? 9 : nil)
-                    }
-                    Spacer()
-                    if itunesResponce != nil {
-                        VStack {
-                            Spacer()
-                            Button {
-                                truncated.toggle()
-                            } label: {
-                                Text(truncated ? "ipaLibrary.detailed.more" : "ipaLibrary.detailed.less")
-                                    .foregroundColor(.accentColor)
-                                    .padding(.leading, 5)
+                        .lineLimit(truncated ? 7 : nil)
+                        Spacer()
+                        if itunesResponce != nil {
+                            VStack {
+                                Spacer()
+                                Button {
+                                    withAnimation {
+                                        truncated.toggle()
+                                    }
+                                } label: {
+                                    Text(truncated ? "ipaLibrary.detailed.more" : "ipaLibrary.detailed.less")
+                                        .foregroundColor(.accentColor)
+                                        .padding(.leading, 5)
+                                }
+                                .buttonStyle(.plain)
                             }
-                            .buttonStyle(.plain)
                         }
                     }
                 }
@@ -281,6 +317,31 @@ struct VerticalSpacer: View {
     }
 }
 
+struct InformativeBadge: View {
+    @State var iconIsWarning: Bool
+    @State var titleToShow: LocalizedStringKey
+    @State var descriptionToShow: LocalizedStringKey
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15)
+                .fill(.regularMaterial)
+                .frame(width: 175, height: 80)
+            VStack(alignment: .center, spacing: 5.0) {
+                Image(systemName: iconIsWarning
+                      ? "exclamationmark.octagon.fill"
+                      : "checkmark.diamond.fill")
+                Text(titleToShow)
+                    .font(.callout)
+                    .multilineTextAlignment(.center)
+                Text(descriptionToShow)
+                    .font(.caption2)
+                    .multilineTextAlignment(.center)
+            }
+            .frame(width: 150)
+        }
+    }
+}
+
 struct BadgeTextStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -298,7 +359,7 @@ struct DetailStoreAppView_Preview: PreviewProvider {
                 name: "Genshin Impact", version: "3.3.0",
                 itunesLookup: "http://itunes.apple.com/lookup?bundleId=com.miHoYo.GenshinImpact",
                 link: "https://repo.amrsm.ir/ipa/Genshin-Impact_3.3.0.ipa",
-                installInfo: [InstallInfo(diabledSIP: true, noPlayTools: true, signingSetup: true)]
+                installInfo: [InstallInfo(diabledSIP: false, noPlayTools: false, signingSetup: true)]
             ),
             downloadVM: DownloadVM.shared, installVM: InstallVM.shared
         )
