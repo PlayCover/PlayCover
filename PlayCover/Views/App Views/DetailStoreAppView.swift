@@ -38,12 +38,16 @@ struct DetailStoreAppView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                         } else {
-                            ProgressView()
-                                .progressViewStyle(.circular)
+                            Rectangle()
+                                .fill(.regularMaterial)
+                                .overlay {
+                                    ProgressView()
+                                        .progressViewStyle(.circular)
+                                }
                         }
                     }
                     .frame(width: 50, height: 50)
-                    .cornerRadius(12)
+                    .cornerRadius(15)
                     .shadow(radius: 5)
                     .padding(10)
                     VStack(alignment: .leading) {
@@ -66,32 +70,32 @@ struct DetailStoreAppView: View {
                         }
                     } label: {
                         if downloadVM.downloading && downloadVM.storeAppData == app {
-                            ZStack {
-                                ProgressView("playapp.download", value: downloadVM.progress)
-                                    .progressViewStyle(.circular)
-                                    .font(.caption2)
-                                    .textCase(.uppercase)
-                                Image(systemName: "stop.fill")
-                                    .foregroundColor(.blue)
-                                    .padding(.bottom, 21)
-                            }
+                            ProgressView("playapp.download", value: downloadVM.progress)
+                                .progressViewStyle(.circular)
+                                .font(.caption2)
+                                .textCase(.uppercase)
+                                .overlay {
+                                    Image(systemName: "stop.fill")
+                                        .foregroundColor(.blue)
+                                        .padding(.bottom, 21)
+                                }
                         } else if installVM.installing && downloadVM.storeAppData == app {
                             ProgressView("playapp.install", value: installVM.progress)
                                 .progressViewStyle(.circular)
                                 .font(.caption2)
                                 .textCase(.uppercase)
                         } else {
-                            ZStack(alignment: .center) {
-                                Capsule()
-                                    .fill(.blue)
-                                    .frame(width: 80, height: 25)
-                                Text(downloadButtonText ?? "ipaLibrary.detailed.dlnew")
-                                    .minimumScaleFactor(0.5)
-                                    .font(.subheadline.bold())
-                                    .textCase(.uppercase)
-                                    .foregroundColor(.white)
-                                    .frame(width: 60, height: 25)
-                            }
+                            Capsule()
+                                .fill(.blue)
+                                .frame(width: 80, height: 25)
+                                .overlay {
+                                    Text(downloadButtonText ?? "ipaLibrary.detailed.dlnew")
+                                        .minimumScaleFactor(0.5)
+                                        .font(.subheadline.bold())
+                                        .textCase(.uppercase)
+                                        .foregroundColor(.white)
+                                        .frame(width: 60, height: 25)
+                                }
                         }
                     }
                     .buttonStyle(.plain)
@@ -177,21 +181,20 @@ struct DetailStoreAppView: View {
                                 image
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .cornerRadius(5)
-                                    .shadow(radius: 5)
-                                    .padding(5)
                             } placeholder: {
-                                ZStack(alignment: .center) {
-                                    RoundedRectangle(cornerRadius: 5)
-                                        .fill(.regularMaterial)
-                                        .shadow(radius: 5)
-                                        .padding(5)
-                                        .frame(width: 200, height: 170)
-                                    ProgressView()
-                                }
+                                Rectangle()
+                                    .fill(.regularMaterial)
+                                    .frame(width: 220, height: 170)
+                                    .overlay {
+                                        ProgressView()
+                                            .progressViewStyle(.circular)
+                                    }
                             }
                         }
                     }
+                    .padding(5)
+                    .shadow(radius: 5)
+                    .cornerRadius(5)
                     .ignoresSafeArea(edges: .trailing)
                     .background(.ultraThinMaterial)
                     .frame(height: 180)
@@ -233,7 +236,7 @@ struct DetailStoreAppView: View {
 
     func getData() async {
         if !cache.hasData(forKey: app.itunesLookup)
-            && cache.readArray(forKey: app.bundleID + ".scUrls") == nil {
+            || cache.readArray(forKey: app.bundleID + ".scUrls") == nil {
             await Cacher().resolveITunesData(app.itunesLookup)
         }
         itunesResponce = try? cache.readCodable(forKey: app.itunesLookup)

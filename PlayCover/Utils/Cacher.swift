@@ -38,8 +38,9 @@ class Cacher {
 
         do {
             try app.url.enumerateContents { file, _ in
-                if file.lastPathComponent.contains(app.info.primaryIconName), let icon = NSImage(contentsOf: file),
-                    checkImageDimensions(icon, bestResImage) {
+                if file.lastPathComponent.contains(app.info.primaryIconName),
+                   let icon = NSImage(contentsOf: file),
+                   checkImageDimensions(icon, bestResImage) {
                     bestResImage = icon
                 }
             }
