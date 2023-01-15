@@ -322,7 +322,7 @@
 "playapp.download" = "Wird Installiert";
 "preferences.toggle.clearAppData" = "Daten löschen";
 "alert.supression" = "Du kannst dies in den PlayCover Einstellungen ändern";
-"menubar.clearCache" = "Bild Cache löschen";
+"menubar.clearCache" = "Cache löschen";
 "preferences.tab.uninstall" = "Deinstallieren";
 "preferences.whenUninstalling" = "Beim deinstallieren:";
 "preferences.toggle.showUninstall" = "Warnungs popup zeigen";

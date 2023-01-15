@@ -165,7 +165,7 @@
 "preferences.prune.message" = "Isso irá excluir todos os arquivos não utilizados, incluindo configurações, mapeamento de teclas, permissões e dados do aplicativo";
 "playapp.install.failed" = "Erro";
 "alert.supression" = "Isso pode ser alterado nas configurações do PlayCover";
-"menubar.clearCache" = "Excluir cache de imagens";
+"menubar.clearCache" = "Excluir cache";
 "button.No" = "Não";
 "preferences.tab.install" = "Instalação";
 "preferences.toggle.showInstallPopup" = "Mostrar popup de instalação do PlayTools";
