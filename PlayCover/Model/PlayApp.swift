@@ -115,7 +115,7 @@ class PlayApp: BaseApp {
 
     func hasPlayTools() -> Bool {
         do {
-            return try PlayTools.installedInExec(atURL: url.appendingPathComponent(info.executableName))
+            return try PlayTools.installedInExec(atURL: url.appendingEscapedPathComponent(info.executableName))
         } catch {
             Log.shared.error(error)
             return true
@@ -150,7 +150,7 @@ class PlayApp: BaseApp {
                                                   appropriateFor: URL(fileURLWithPath: "/Users"),
                                                   create: true)
             let tmpEnts = tmpDir
-                .appendingPathComponent(ProcessInfo().globallyUniqueString)
+                .appendingEscapedPathComponent(ProcessInfo().globallyUniqueString)
                 .appendingPathExtension("plist")
             let conf = try Entitlements.composeEntitlements(self)
             try conf.store(tmpEnts)

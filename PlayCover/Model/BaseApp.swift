@@ -14,7 +14,7 @@ public class BaseApp {
     public var url: URL
 
     public var executable: URL {
-        url.appendingPathComponent(info.executableName)
+        url.appendingEscapedPathComponent(info.executableName)
     }
 
     public var entitlements: URL {
