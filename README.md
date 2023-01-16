@@ -7,8 +7,9 @@
 [![Discord][discord-shield]][discord-url]
 [![Translated][translated-shield]][translated-url]
 </h1>
-<!-- PROJECT LOGO -->
+
 <br />
+
 <div align="center">
   <a href="https://github.com/PlayCover/PlayCover">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
@@ -30,8 +31,6 @@
   </p>
 </div>
 
-<!-- ABOUT THE PROJECT -->
-
 ## About The Project
 
 PlayCover is all about allowing you to run iOS apps and games on Apple Silicon devices running macOS 12.0 or newer. It works by putting applications through a wrapper which imitates an iPhone/iPad. This allows the apps to run natively and perform very well. It also allows you to map custom touch controls to keyboard, which is not possible in alternative sideloading methods such as Sideloadly. These controls include all the essentials, from WASD, camera movement, left and right clicks, and individual keymapping, similar to a popular Android emulator’s keymapping system called Bluestacks.
@@ -40,58 +39,6 @@ Unfortunately, not all apps and games are supported, and some may have bugs.
 
 ![Fancy logo](./images/dark.png#gh-dark-mode-only)
 ![Fancy logo](./images/light.png#gh-light-mode-only)
-
-<!-- GETTING STARTED -->
-
-## Getting Started
-
-<!-- This is a quick start guide to using PlayCover.
-
-A more detailed guide can be found on our [docs](https://docs.playcover.io) -->
-
-### Prerequisites
-
-At the moment, PlayCover can only run on Apple Silicon Macs. Devices with the following chips are supported:
-
--   M1
--   M1 Pro
--   M1 Max
--   M1 Ultra
--   M2
-
-If you have an Intel Mac, you can explore alternatives like Bootcamp or android emulators.
-
-### Download
-
--   #### Github
-
-    You can download stable releases [here](https://github.com/PlayCover/PlayCover/releases)
-
--   #### HomeBrew
-
-    We host a [Homebrew](https://brew.sh) tap with the [PlayCover cask](https://github.com/PlayCover/homebrew-playcover/blob/master/Casks/playcover-community.rb). To install from it:
-
-        1. Tap `PlayCover/playcover` with `brew tap PlayCover/playcover`.
-        2. Install PlayCover with `brew install --cask playcover-community`.
-
-<!--
-To uninstall:
-3. Remove PlayCover using `brew uninstall --cask playcover-community`;
-4. Untap `PlayCover/playcover` with `brew untap PlayCover/playcover`. -->
-
-### Installation
-
-You can download stable releases [here](https://github.com/PlayCover/PlayCover/releases), or build from source by following the instructions in the Documentation.
-
-<!-- USAGE EXAMPLES -->
-
-<!-- ## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_ -->
-
-<!-- CONTRIBUTING -->
 
 ## Contributing
 
@@ -103,15 +50,11 @@ If you have a suggestion that would make this better, please fork the repo and c
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<!-- CONTACT -->
-
 ## Contact
 
 All formal inqueries are done via [email](mailto:contact@playcover.io).
 
 Any informal inqueries can be done via our [Discord](https://discord.gg/RNCHsQHr3S) or [Twitter](https://twitter.com/playcoverapp).
-
-<!-- ACKNOWLEDGMENTS -->
 
 ## Libraries Used
 
@@ -127,8 +70,6 @@ These open source libraries were used to create this project.
 -   [SwiftUI CachedAsyncImage](https://github.com/lorenzofiamingo/swiftui-cached-async-image)
 
 <p align="right"><a href="#top">⬆️ Back to top️</a></p>
-
-<!-- MARKDOWN LINKS & IMAGES -->
 
 [contributors-shield]: https://img.shields.io/github/contributors/PlayCover/PlayCover.svg?style=for-the-badge
 [contributors-url]: https://github.com/PlayCover/PlayCover/graphs/contributors
