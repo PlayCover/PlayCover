@@ -28,7 +28,7 @@ struct DetailStoreAppView: View {
     @State private var warningMessage: String?
 
     var body: some View {
-        ScrollView(showsIndicators: false) {
+        ScrollView {
             VStack {
                 HStack {
                     CachedAsyncImage(url: onlineIconURL, urlCache: .iconCache) { image in
