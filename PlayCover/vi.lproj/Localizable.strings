@@ -220,3 +220,4 @@
 "alert.differentBundleIdKeymap.message" = "Keymap này có thể đã được tạo cho một ứng dụng khác.";
 "alert.differentBundleIdKeymap.text" = "Bạn có chắc chắn muốn nhập keymap này không?";
 "settings.toggle.lldbWithTerminal" = "Mở trong Terminal";
+"settings.unavailable.hud" = "Metal HUD unavailable";
