@@ -1,12 +1,12 @@
 <div id="top"></div>
 
-[![Contributors][contributors-shield]][contributors-url]
+‎<h1 align="center">[![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![MIT License][license-shield]][license-url]
 [![Discord][discord-shield]][discord-url]
 [![Translated][translated-shield]][translated-url]
-
+</h1>
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
