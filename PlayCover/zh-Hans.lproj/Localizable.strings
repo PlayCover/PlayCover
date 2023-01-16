@@ -323,7 +323,7 @@
 "preferences.button.pruneFiles" = "未使用的文件";
 "playapp.install.failed" = "失败";
 "alert.supression" = "你可以在 PlayCover 偏好设置中更改";
-"menubar.clearCache" = "清除图像缓存";
+"menubar.clearCache" = "清除缓存";
 "preferences.tab.uninstall" = "卸载";
 "preferences.whenUninstalling" = "卸载同时:";
 "preferences.toggle.showUninstall" = "显示警告弹框";
