@@ -283,7 +283,7 @@
 "settings.info.bundleName" = "번들 이름:";
 "settings.info.bundleIdentifier" = "번들 식별자:";
 "settings.info.executableName" = "실행 파일 이름:";
-"settings.info.minimumOSVersion" = "최소지원 OS 버전:";
+"settings.info.minimumOSVersion" = "최소 OS 버전:";
 "settings.info.url" = "경로:";
 "settings.resetSettings" = "설정 초기화";
 "settings.resetKm" = "키매핑 초기화";
@@ -332,7 +332,7 @@
 "preferences.button.pruneFiles" = "파일 정리";
 "preferences.prune.alert" = "모든 파일을 정리하시겠습니까?";
 "preferences.prune.message" = "이는 설정, 키매핑, 권한, 앱데이터를 포함한 모든 불필요한 것들을 제거합니다";
-"menubar.clearCache" = "이미지 캐시 제거";
+"menubar.clearCache" = "캐시 제거";
 "preferences.tab.install" = "설치";
 "preferences.toggle.showInstallPopup" = "PlayTools 설치 팝업 보기";
 "preferences.toggle.alwaysInstallPlayTools" = "항상 PlayTools 설치";

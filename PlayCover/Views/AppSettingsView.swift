@@ -431,14 +431,15 @@ struct MiscView: View {
                                 }.padding(.bottom)
                             }
                         }
-                    Spacer()
                 }.disabled(!(hasPlayTools ?? true))
+                Spacer()
+                    .frame(height: 20)
                 HStack {
                     HStack {
-                        if #available(macOS 13.0, *) {
-                            Toggle("settings.toggle.hud", isOn: $settings.metalHudEnabled)
-                            Spacer()
-                        }
+                        Toggle("settings.toggle.hud", isOn: $settings.metalHudEnabled)
+                            .disabled(!isVenturaGreater())
+                            .help(!isVenturaGreater() ? "settings.unavailable.hud" : "")
+                        Spacer()
                         HStack {
                             Text("settings.text.debugger")
                             VStack {
@@ -475,6 +476,14 @@ struct MiscView: View {
                 }
             }
             .padding()
+        }
+    }
+
+    func isVenturaGreater() -> Bool {
+        if #available(macOS 13.0, *) {
+            return true
+        } else {
+            return false
         }
     }
 }

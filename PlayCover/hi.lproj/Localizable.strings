@@ -1,128 +1,119 @@
-"playapp.add" = "Add app";
-"playapp.addSource" = "Add source";
-"playapp.settings" = "Settings";
-"playapp.showInFinder" = "Show in Finder";
-"playapp.openCache" = "Open App Data";
-"playapp.clearCache" = "Clear App Data";
-"playapp.importKm" = "Import Keymapping";
-"playapp.exportKm" = "Export Keymapping";
-"playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
-"playapp.delete" = "Uninstall App";
-"playapp.deleteConfirm" = "Uninstall";
-"playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
-"playapp.storeCurrentAccount" = "Store Account";
-"playapp.activateAccount" = "Switch Account";
-"playapp.deleteAccount" = "Delete Account";
-"playapp.clearPreferences" = "Clear App Preferences";
-"playapp.refreshSources" = "Refresh Sources";
-
-"ipaLibrary.noSources.title" = "No IPA Sources Added";
-"ipaLibrary.noSources.subtitle" = "You currently have no IPA Sources added. Click the button below to add one.";
-"ipaLibrary.noSources.button" = "Add Source";
-"ipaLibrary.noNetworkConnection.toast" = "No internet connection!";
-"ipaLibrary.version.older" = "This version is older than the one you have installed";
-"ipaLibrary.version.same" = "App already installed";
-"ipaLibrary.version.newer" = "This version is newer than the version you have installed";
-"ipaLibrary.alert.download" = "Are you sure you want to download this version of %@?";
-"ipaLibrary.download" = "Download";
-
-"preferences.button.checkForUpdates" = "Check for Updates";
-"preferences.tab.updates" = "Updates";
-"preferences.toggle.automaticUpdates" = "Automatically check for updates";
-"preferences.tab.uninstall" = "Uninstall";
-"preferences.whenUninstalling" = "When uninstalling:";
-"preferences.toggle.showUninstall" = "Show warning popup";
-"preferences.toggle.clearAppData" = "Clear data";
-"preferences.toggle.removeKeymap" = "Remove keymap";
-"preferences.toggle.removeSetting" = "Remove settings";
-"preferences.toggle.removeEntitlements" = "Remove entitlements";
-"preferences.button.pruneFiles" = "Prune Files";
-"preferences.prune.alert" = "Are you sure you want to prune all files?";
-"preferences.prune.message" = "This will remove all unused files including settings, keymappings, entitlements, and app data";
-"preferences.tab.ipasource" = "IPA Sources";
-"preferences.button.addSource" = "Add Source";
-"preferences.button.deleteSource" = "Delete Source";
-"preferences.button.moveSourceUp" = "Move Source Up";
-"preferences.button.moveSourceDown" = "Move Source Down";
-"preferences.popover.valid" = "Link Valid";
-"preferences.popover.badurl"  = "URL Invalid!";
-"preferences.popover.badjson" = "JSON Invalid or Not Found!";
-"preferences.textfield.url" = "Source URL...";
-"preferences.tab.install" = "Install";
-"preferences.toggle.showInstallPopup" = "Show install PlayTools popup";
-"preferences.toggle.alwaysInstallPlayTools" = "Always install PlayTools";
-
-"sidebar.appLibrary" = "App Library";
-"sidebar.ipaLibrary" = "IPA Library";
-
-"storeAccount.selectAccRegion" = "Select account region";
-"storeAccount.selectAccRegion.usa" = "America";
-"storeAccount.selectAccRegion.euro" = "Europe";
-"storeAccount.selectAccRegion.asia" = "Asia";
-"storeAccount.selectAccRegion.cht" = "TW, HK, MO";
-"storeAccount.nameOfAcc" = "Name of your account";
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "Name of account...";
-"storeAccount.store" = "Store account";
-"storeAccount.selectAcc" = "Select an account";
-"storeAccount.storeAcc" = "Store an account";
-"storeAccount.deleteAcc" = "Delete an account";
-"storeAccount.alert.restoreAccount" = "Really Restore Account?";
-"storeAccount.alert.restoreAccount.button" = "Restore Account";
-"storeAccount.alert.restoreAccount.msg" = "This will override your currently signed-in account.";
-"storeAccount.alert.deleteAccount" = "Really Delete Account?";
-"storeAccount.alert.deleteAccount.button" = "Delete Account";
-
-"playapp.download" = "Downloading";
-"playapp.install.unzip" = "Extracting app from .ipa file...";
-"playapp.install.createWrapper" = "Creating app wrapper...";
-"playapp.install.installPlayTools" = "Installing PlayTools...";
-"playapp.install.signing" = "Signing app...";
-"playapp.install.addToLib" = "Adding app to library...";
-"playapp.install.copy" = "Copying app...";
-"playapp.install.finished" = "Finished";
-"playapp.install.failed" = "Failed";
-
-"alert.appCacheCleared" = "App data has been cleared!";
-"alert.kmImported" = "Keymapping imported!";
-"alert.errorImportKm" = "Error occured when importing!";
-"alert.app.delete" = "All app data will be erased. You may need to download app files again. Do you wish to continue?";
-"alert.app.preferences" = "All in-app preferences will be deleted. Do you wish to continue?";
-"alert.restart" = "Please restart PlayCover.";
-"alert.error" = "An error occurred!";
-"alert.success" = "Success";
-"alert.moveAppToApplications.title" = "Move to Applications folder?";
-"alert.moveAppToApplications.subtitle" = "PlayCover must be in the Applications folder to run correctly. Press the button below to move PlayCover automatically.";
-"alert.moveAppToApplications.move" = "Move to Applications folder";
-"alert.storeAccount.regionIsNotValid" = "The current account is set to a different Region. Launch the game, Change the region, and pass through the gates to save. Then try again";
-"alert.legacyImport.title" = "Legacy App Settings Detected!";
-"alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
-"alert.wrongFileType.title" = "Wrong file type!";
-"alert.wrongFileType.subtitle" = "PlayCover can only install valid .ipa files.";
-"alert.install.injectPlayTools" = "Inject PlayTools";
-"alert.install.injectPlayToolsQuestion" = "Do you want to inject PlayTools into this application?";
-"alert.install.playToolsInformative" = "PlayTools is a tool that allows you to bind keys to screen touches, custom display resolutions, and more, but it may break certain apps";
-"alert.supression" = "You can change this in the PlayCover preferences";
-"alert.differentBundleIdKeymap.message" = "The keymap may have been created for another application.";
-"alert.differentBundleIdKeymap.text" = "Are you sure you want to import this keymap?";
-"alert.power.title" = "Low Power Mode Enabled!";
-"alert.power.subtitle" = "Some apps will not work with Low Power Mode enabled. It is recommended to disable it.";
-
-"button.OK" = "OK";
-"button.Proceed" = "Proceed";
-"button.Cancel" = "Cancel";
-"button.Close" = "Close";
-"button.Install" = "Install";
-"button.Quit" = "Quit";
+"playapp.add" = "ऐप जोड़ें";
+"playapp.addSource" = "स्रोत जोड़ें";
+"playapp.settings" = "सेटिंग";
+"playapp.showInFinder" = "फ़ाइंडर में दिखाएँ";
+"playapp.openCache" = "ऐप डेटा खोलें";
+"playapp.clearCache" = "ऐप डेटा साफ़ करें";
+"playapp.importKm" = "कीमैपिंग आयात करें";
+"playapp.exportKm" = "कीमैपिंग निर्यात करें";
+"playapp.exportKmPanel.fieldLabel" = "प्लेमैप का नाम:";
+"playapp.delete" = "ऐप अनइंस्टॉल करें";
+"playapp.deleteConfirm" = "अनइंस्टॉल";
+"playapp.deleteMessage" = "क्या आप %@ को अनइंस्टॉल करना चाहते हैं?";
+"playapp.storeCurrentAccount" = "स्टोर खाता";
+"playapp.activateAccount" = "खाता बदलें";
+"playapp.deleteAccount" = "खाता हटा दो";
+"playapp.clearPreferences" = "ऐप वरीयताएँ साफ़ करें";
+"playapp.refreshSources" = "स्रोत ताज़ा करें";
+"ipaLibrary.noSources.title" = "कोई IPA स्रोत नहीं जोड़ा गया";
+"ipaLibrary.noSources.subtitle" = "आपके पास कोई IPA स्रोत नहीं है। एक जोड़ने के लिए नीचे दिए गए बटन पर क्लिक करें।";
+"ipaLibrary.noSources.button" = "स्रोत जोड़ें";
+"ipaLibrary.noNetworkConnection.toast" = "कोई इंटरनेट कनेक्शन नहीं है!";
+"ipaLibrary.version.older" = "यह संस्करण आपके द्वारा इंस्टॉल किए गए संस्करण से पुराना है";
+"ipaLibrary.version.same" = "ऐप पहले से इंस्टॉल है";
+"ipaLibrary.version.newer" = "यह संस्करण आपके द्वारा इंस्टॉल किए गए संस्करण से नया है";
+"ipaLibrary.alert.download" = "क्या आप वाकई में %@ का यह संस्करण डाउनलोड करना चाहते हैं?";
+"ipaLibrary.download" = "डाउनलोड";
+"preferences.button.checkForUpdates" = "अपडेट के लिए जाँच";
+"preferences.tab.updates" = "अपडेट";
+"preferences.toggle.automaticUpdates" = "अपडेट के लिए स्वचालित रूप से जांचें";
+"preferences.tab.uninstall" = "अनइंस्टॉल";
+"preferences.whenUninstalling" = "अनइंस्टॉल करते समय:";
+"preferences.toggle.showUninstall" = "चेतावनी पॉपअप दिखाएं";
+"preferences.toggle.clearAppData" = "डेटा क्लियर कर दें";
+"preferences.toggle.removeKeymap" = "कीमैप हटाएं";
+"preferences.toggle.removeSetting" = "सेटिंग हटाएं";
+"preferences.toggle.removeEntitlements" = "अधिकार हटाओ";
+"preferences.button.pruneFiles" = "छँटाई फ़ाइलें";
+"preferences.prune.alert" = "क्या आप वाकई सभी फाइलों में छंटाई करना चाहते हैं?";
+"preferences.prune.message" = "यह सेटिंग्स, कीमैपिंग, एंटाइटेलमेंट और ऐप डेटा सहित सभी अप्रयुक्त फ़ाइलों को हटा देगा";
+"preferences.tab.ipasource" = "IPA स्रोत";
+"preferences.button.addSource" = "स्रोत जोड़ें";
+"preferences.button.deleteSource" = "स्रोत हटाएं";
+"preferences.button.moveSourceUp" = "स्रोत ऊपर ले जाएँ";
+"preferences.button.moveSourceDown" = "स्रोत को नीचे ले जाएँ";
+"preferences.popover.valid" = "लिंक मान्य";
+"preferences.popover.badurl" = "URL अमान्य!";
+"preferences.popover.badjson" = "JSON अमान्य या नहीं मिला!";
+"preferences.textfield.url" = "स्रोत URL...";
+"preferences.tab.install" = "इंस्टॉल";
+"preferences.toggle.showInstallPopup" = "Install PlayTools popup दिखाएं";
+"preferences.toggle.alwaysInstallPlayTools" = "PlayTools को हमेशा इंस्टॉल करें";
+"sidebar.appLibrary" = "ऐप लाइब्रेरी";
+"sidebar.ipaLibrary" = "IPA लाइब्रेरी";
+"storeAccount.selectAccRegion" = "खाता क्षेत्र चुनें";
+"storeAccount.selectAccRegion.usa" = "अमेरिका";
+"storeAccount.selectAccRegion.euro" = "यूरोप";
+"storeAccount.selectAccRegion.asia" = "एशिया";
+"storeAccount.selectAccRegion.cht" = "ताइवान, हांगकांग और मकाऊ";
+"storeAccount.nameOfAcc" = "आपके खाते का नाम";
+"storeAccount.nameOfAcc.textfieldPlaceholder" = "आपके खाते का नाम...";
+"storeAccount.store" = "खाता स्टोर करें";
+"storeAccount.selectAcc" = "खाता चुनें";
+"storeAccount.storeAcc" = "खाता स्टोर करें";
+"storeAccount.deleteAcc" = "खाता हटाएं";
+"storeAccount.alert.restoreAccount" = "वाक़ई खाता पुनर्स्थापित करें?";
+"storeAccount.alert.restoreAccount.button" = "खाता पुनर्स्थापित करें";
+"storeAccount.alert.restoreAccount.msg" = "यह आपके वर्तमान में साइन-इन खाते को ओवरराइड कर देगा।";
+"storeAccount.alert.deleteAccount" = "वाक़ई खाता हटाएं?";
+"storeAccount.alert.deleteAccount.button" = "खाता हटा दो";
+"playapp.download" = "डाउनलोडिंग";
+"playapp.install.unzip" = ".ipa फ़ाइल से ऐप निकाला जा रहा है...";
+"playapp.install.createWrapper" = "ऐप रैपर बनाया जा रहा है...";
+"playapp.install.installPlayTools" = "PlayTools इंस्टॉल हो रहे हैं...";
+"playapp.install.signing" = "साइनिंग ऐप...";
+"playapp.install.addToLib" = "लाइब्रेरी में ऐप जोड़ा जा रहा है...";
+"playapp.install.copy" = "ऐप्लिकेशन कॉपी किया जा रहा है...";
+"playapp.install.finished" = "खत्म";
+"playapp.install.failed" = "अनुत्तीर्ण";
+"alert.appCacheCleared" = "ऐप डेटा साफ़ कर दिया गया है!";
+"alert.kmImported" = "कीमैपिंग आयात की गई!";
+"alert.errorImportKm" = "आयात करते समय त्रुटि हुई!";
+"alert.app.delete" = "ऐप्लिकेशन का सारा डेटा मिटा दिया जाएगा. आपको ऐप फ़ाइलों को फिर से डाउनलोड करने की आवश्यकता हो सकती है। क्या आप जारी रखना चाहते हैं?";
+"alert.app.preferences" = "सभी इन-ऐप प्राथमिकताएं हटा दी जाएंगी। क्या आप जारी रखना चाहते हैं?";
+"alert.restart" = "कृपया PlayCover को रीस्टार्ट् करें।";
+"alert.error" = "एक त्रुटि पाई गई!";
+"alert.success" = "सफलता";
+"alert.moveAppToApplications.title" = "ऐप्लिकेशन फ़ोल्डर में ले जाएं?";
+"alert.moveAppToApplications.subtitle" = "PlayCover ठीक से चलने के लिए एप्लिकेशन फ़ोल्डर में होना चाहिए। PlayCover को स्वचालित रूप से स्थानांतरित करने के लिए नीचे दिए गए बटन को दबाएं।";
+"alert.moveAppToApplications.move" = "एप्लिकेशन फ़ोल्डर में ले जाएं";
+"alert.storeAccount.regionIsNotValid" = "चालू खाता एक अलग क्षेत्र के लिए सेट है। गेम लॉन्च करें, क्षेत्र बदलें, और सेव करने के लिए गेट से गुजरें। फिर दोबारा कोशिश करें";
+"alert.legacyImport.title" = "लीगेसी ऐप सेटिंग्स का पता चला!";
+"alert.legacyImport.subtitle" = "लीगेसी सेटिंग्स और कीमैपिंग फाइलों का पता चला। क्या आप इन फ़ाइलों को नए स्वरूप में बदलना चाहेंगे?";
+"alert.wrongFileType.title" = "गलत फ़ाइल प्रकार!";
+"alert.wrongFileType.subtitle" = "PlayCover केवल मान्य .ipa फ़ाइलें ही स्थापित कर सकता है।";
+"alert.install.injectPlayTools" = "PlayTools इंजेक्ट करें";
+"alert.install.injectPlayToolsQuestion" = "क्या आप इस ऐप में PlayTools इंजेक्ट करना चाहते हैं?";
+"alert.install.playToolsInformative" = "PlayTools एक ऐसा टूल है जो आपको स्क्रीन टच, कस्टम डिस्प्ले रेज़ोल्यूशन, और बहुत कुछ के लिए कुंजियों को बाइंड करने की अनुमति देता है, लेकिन यह कुछ ऐप्स को तोड़ सकता है";
+"alert.supression" = "आप इसे PlayCover preferences में बदल सकते हैं";
+"alert.differentBundleIdKeymap.message" = "हो सकता है कि यह कीमैप किसी अन्य ऐप के लिए बनाया गया हो।";
+"alert.differentBundleIdKeymap.text" = "क्या आप वाकई इस कीमैप को आयात करना चाहते हैं?";
+"alert.power.title" = "लो पावर मोड सक्षम!";
+"alert.power.subtitle" = "लो पावर मोड सक्षम होने पर कुछ ऐप काम नहीं करेंगे। लो पावर मोड को अक्षम करने की अनुशंसा की जाती है।";
+"button.OK" = "ठीक है";
+"button.Proceed" = "आगे बढ़ो";
+"button.Cancel" = "रद्द करो";
+"button.Close" = "बंद करो";
+"button.Install" = "इंस्टॉल";
+"button.Quit" = "बंद करो";
 "button.Convert" = "Convert";
 "button.Yes" = "Yes";
 "button.No" = "No";
 "button.Help" = "Help";
 "button.Dismiss" = "Dismiss";
-
 "state.enabled" = "Enabled";
 "state.disabled" = "Disabled";
 "state.pendingReboot" = "Pending Reboot";
-
 "error.corruptedIPA" = "This .ipa file is corrupted. It does not contains \"Info.plist\" file.";
 "error.waitInstallation" = "Please wait for the current installation to finish!";
 "error.waitDownload" = "Please wait for the current download to finish!";
@@ -131,23 +122,19 @@
 "error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";
 "error.appMaliciousProhibited" = "This App behaves maliciously on Macs, and using it can leave your device in an unbootable state, therefore it is blocked from PlayCover. (Uninstalling...)";
 "error.noGenshinAccount" = "We couldn't find a Genshin account! Are you signed into an account in-app?";
-
 "menubar.exportToSideloady" = "Export to Sideloadly";
-
 "settings.title" = "%@ Settings";
 "settings.tab.info" = "Info";
-
 "settings.tab.km" = "Keymapping";
 "settings.toggle.km" = "Keymapping";
 "settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
 "settings.toggle.mm" = "Mouse mapping";
 "settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
-
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";
 "settings.picker.adaptiveRes" = "Resolution:";
-"settings.picker.adaptiveRes.help" ="Changes the app's window resolution";
+"settings.picker.adaptiveRes.help" = "Changes the app's window resolution";
 "settings.picker.adaptiveRes.0" = "App Default";
 "settings.picker.adaptiveRes.1" = "Auto (Based on Display)";
 "settings.picker.adaptiveRes.5" = "Custom";
@@ -158,13 +145,10 @@
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
 "settings.noPlayTools" = "PlayTools is not installed in this app";
-
 "settings.tab.jbBypass" = "Jailbreak Bypass";
 "settings.toggle.jbBypass" = "Enable Jailbreak Bypass (Alpha)";
 "settings.toggle.jbBypass.help" = "Attempts to bypass Jailbreak Detection in some games (Not guaranteed to work all the time)";
-
 "settings.removePlayTools" = "Remove PlayTools";
-
 "settings.info.displayName" = "Display name:";
 "settings.info.bundleName" = "Bundle name:";
 "settings.info.bundleIdentifier" = "Bundle identifier:";
@@ -173,16 +157,12 @@
 "settings.info.minimumOSVersion" = "Minimum OS version:";
 "settings.info.playTools" = "PlayTools installed:";
 "settings.info.url" = "URL:";
-
 "settings.resetSettings" = "Reset settings";
 "settings.resetKm" = "Reset keymapping";
-
 "settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
 "settings.resetKmCompleted" = "Keymapping has been reset!";
-
 "notification.appInstalled" = "App installed!";
 "notification.appInstalled.message" = "Check it out in PlayCover!";
-
 "menubar.log.copy" = "Copy Logs";
 "menubar.documentation" = "Documentation";
 "menubar.website" = "Website";
@@ -191,12 +171,10 @@
 "menubar.checkForUpdates" = "Check for Updates...";
 "menubar.clearCache" = "Clear Cache";
 "menubar.configSigning" = "Configure Signing";
-
 "soundAlert.messageText" = "Incorrect Audio Settings Detected!";
 "soundAlert.informativeText" = "Your current output device does not have a sample rate of 48 or 44.1 KHz! Crashes may occur. Would you like to change your current output device's sample rate to 48 KHz?";
 "soundAlert.successText" = "Current output device sample rate set to 48 KHz";
 "soundAlert.failureText" = "Failed to set current output device's sample rate to 48 KHz. You can manually set sample rate in the Audio MIDI Setup app";
-
 "xcode.install.message" = "You need to install Xcode Command Line Tools and restart PlayCover";
 "xcode.install.success" = "Xcode Command Line Tools installation succeeded";
 "xcode.install.failed" = "Automatic Xcode Command Line Tools intallation failed";
@@ -204,7 +182,6 @@
 "xcode.install.progress.subtext" = "This may take around 5-10 minutes depending on your internet speed";
 "xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
 "xcode.install.failed.altButton" = "Alternate Instructions";
-
 "settings.tab.misc" = "Misc";
 "settings.button.discord" = "Custom Discord activity";
 "settings.button.clearActivity" = "Clear custom activity";
@@ -220,10 +197,8 @@
 "settings.text.debugger" = "Debugger:";
 "settings.toggle.lldb" = "Open with LLDB";
 "settings.toggle.lldbWithTerminal" = "Open in terminal";
-
 "configSigning.header" = "Configure Package Signing";
 "configSigning.subtext" = "Package Signing helps fixing issues with apps that rely on \ncorrect Team IDs for operations like authorization. \nThere may be security risks associated with enabling this feature.\n\n As such, we recommend disabling it when it's not necessary";
-
 "configSigning.info.SIP" = "SIP is required to be fully to partially disabled in order for AMFI to be turned off.";
 "configSigning.info.SIPHeader" = "System Integrity Protection";
 "configSigning.info.AMFI" = "AMFI is required to be turned off in order to allow fake signing of apps, allowing them to run with the correct Team ID";
@@ -235,6 +210,5 @@
 "configSigning.step.disableAMFI" = "Please disable AMFI";
 "configSigning.step.AMFIreboot" = "AMFI Disabled. Please reboot";
 "configSigning.step.complete" = "Package Signing has been configured successfully";
-
 "configSigning.alert.copied" = "Command Copied!";
 "configSigning.alert.info" = "Please paste and run the command in Terminal.app. Your Mac will reboot after";

@@ -332,7 +332,7 @@
 "preferences.prune.message" = "Cela supprimera tous les fichiers inutilisés, y compris les paramètres, le mappage de touches, les autorisations et les données d'application";
 "playapp.install.failed" = "Échoué";
 "alert.supression" = "Vous pouvez modifier cela dans les préférences PlayCover";
-"menubar.clearCache" = "Effacer le cache d'images";
+"menubar.clearCache" = "Effacer le cache";
 "preferences.tab.install" = "Installer";
 "alert.install.injectPlayTools" = "Injecter PlayTools";
 "preferences.toggle.showInstallPopup" = "Afficher la fenêtre d'installation de PlayTools";
