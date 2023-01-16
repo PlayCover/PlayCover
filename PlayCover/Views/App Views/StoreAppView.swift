@@ -32,19 +32,17 @@ struct StoreAppView: View {
                                 isList: isList,
                                 warningSymbol: $warningSymbol,
                                 warningMessage: $warningMessage)
-        .gesture(TapGesture(count: 2).onEnded {
-            if let url = URL(string: app.link) {
-                if downloadVM.downloading {
-                    Log.shared.error(PlayCoverError.waitDownload)
-                } else {
+        .contextMenu {
+            Button {
+                if let url = URL(string: app.link) {
                     DownloadApp(url: url, app: app,
                                 warning: warningMessage).start()
                 }
+            } label: {
+                Text("ipaLibrary.download")
             }
-        })
-        .simultaneousGesture(TapGesture().onEnded {
-            selected = app
-        })
+            .disabled(downloadVM.downloading || installVM.installing)
+        }
         .environmentObject(downloadVM)
         .task(priority: .background) {
             if let sourceApp = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == app.bundleID }) {
@@ -104,12 +102,16 @@ struct StoreAppConditionalView: View {
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                 } else {
-                                    ProgressView()
-                                        .progressViewStyle(.circular)
+                                    Rectangle()
+                                        .fill(.regularMaterial)
+                                        .overlay {
+                                            ProgressView()
+                                                .progressViewStyle(.circular)
+                                        }
                                 }
                             }
                         }
-                        .frame(width: 30, height: 30)
+                        .frame(width: 40, height: 40)
                         .cornerRadius(7.5)
                         .shadow(radius: 1)
                         .padding(.horizontal, 15)
@@ -146,8 +148,12 @@ struct StoreAppConditionalView: View {
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                 } else {
-                                    ProgressView()
-                                        .progressViewStyle(.circular)
+                                    Rectangle()
+                                        .fill(.regularMaterial)
+                                        .overlay {
+                                            ProgressView()
+                                                .progressViewStyle(.circular)
+                                        }
                                 }
                             }
                         }
@@ -183,12 +189,15 @@ struct StoreAppConditionalView: View {
             }
         }
         .task(priority: .userInitiated) {
-            if !cache.hasData(forKey: app.itunesLookup) {
+            if !cache.hasData(forKey: app.itunesLookup)
+                || cache.readArray(forKey: app.bundleID + ".scUrls") == nil {
                 await Cacher().resolveITunesData(app.itunesLookup)
             }
             itunesResponce = try? cache.readCodable(forKey: app.itunesLookup)
             if itunesResponce != nil {
-                onlineIcon = URL(string: itunesResponce!.results[0].artworkUrl512)
+                if let url = itunesResponce?.results[0].artworkUrl512 {
+                    onlineIcon = URL(string: url)
+                }
             } else {
                 localIcon = Cacher().getLocalIcon(bundleId: app.bundleID)
             }
