@@ -157,9 +157,6 @@ struct DetailStoreAppView: View {
                 Divider()
                 VStack {
                     if let installInfo = app.installInfo?[0] {
-                        let sipBool = installInfo.diabledSIP
-                        let playtoolsBool = installInfo.noPlayTools
-                        let signinBool = installInfo.signingSetup
                         Button {
                             withAnimation {
                                 showInstallInfo.toggle()
@@ -176,30 +173,36 @@ struct DetailStoreAppView: View {
                         }
                         .buttonStyle(.plain)
                         if showInstallInfo {
-                            HStack(spacing: 10.0) {
+                            HStack {
+                                Spacer()
+                                Spacer()
                                 InformativeBadge(
-                                    iconIsWarning: sipBool,
+                                    iconIsWarning: installInfo.diabledSIP,
                                     titleToShow: "ipaLibrary.detailed.sipLabelTitle",
-                                    descriptionToShow: sipBool
+                                    descriptionToShow: installInfo.diabledSIP
                                     ? "ipaLibrary.detailed.disabledSIPDesc"
                                     : "ipaLibrary.detailed.enabledSIPDesc"
                                 )
+                                Spacer()
                                 InformativeBadge(
-                                    iconIsWarning: playtoolsBool,
+                                    iconIsWarning: installInfo.noPlayTools,
                                     titleToShow: "ipaLibrary.detailed.playoolsLabelTitle",
-                                    descriptionToShow: playtoolsBool
+                                    descriptionToShow: installInfo.noPlayTools
                                     ? "ipaLibrary.detailed.noPlayToolsDesc"
                                     : "ipaLibrary.detailed.withPlayToolsDesc"
                                 )
+                                Spacer()
                                 InformativeBadge(
-                                    iconIsWarning: signinBool,
+                                    iconIsWarning: installInfo.signingSetup,
                                     titleToShow: "ipaLibrary.detailed.signinLabelTitle",
-                                    descriptionToShow: signinBool
+                                    descriptionToShow: installInfo.signingSetup
                                     ? "ipaLibrary.detailed.confgureSigningDesc"
                                     : "ipaLibrary.detailed.noConfgureSigningDesc"
                                 )
+                                Spacer()
+                                Spacer()
                             }
-                            .padding(.top, 1)
+                            .padding(.vertical)
                         }
                         Divider()
                             .padding(.top, 1)
@@ -225,6 +228,7 @@ struct DetailStoreAppView: View {
                             }
                         }
                     }
+                    .padding(.top, 5)
                 }
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
@@ -324,8 +328,9 @@ struct InformativeBadge: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15)
-                .fill(.regularMaterial)
+                .fill(.ultraThickMaterial)
                 .frame(width: 175, height: 80)
+                .shadow(radius: 1)
             VStack(alignment: .center, spacing: 5.0) {
                 Image(systemName: iconIsWarning
                       ? "exclamationmark.octagon.fill"
