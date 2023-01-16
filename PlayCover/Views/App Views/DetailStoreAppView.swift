@@ -48,8 +48,9 @@ struct DetailStoreAppView: View {
                     }
                     .frame(width: 50, height: 50)
                     .cornerRadius(15)
-                    .shadow(radius: 5)
-                    .padding(10)
+                    .shadow(radius: 2.5)
+                    .padding([.top, .bottom, .trailing], 10)
+                    .padding(.leading)
                     VStack(alignment: .leading) {
                         Text(app.name)
                             .font(.title.bold())
@@ -98,12 +99,14 @@ struct DetailStoreAppView: View {
                                 }
                         }
                     }
+                    .padding(.trailing)
                     .buttonStyle(.plain)
                     .disabled(installVM.installing ||
                               (downloadVM.downloading && downloadVM.storeAppData != app))
                 }
                 Divider()
                 HStack {
+                    Spacer()
                     Group {
                         VStack {
                             Text("ipaLibrary.detailed.appGenre")
@@ -113,8 +116,7 @@ struct DetailStoreAppView: View {
                             .font(itunesResponce == nil ? .subheadline : .title2.bold())
                             .padding(.top, 1)
                         }
-                        Divider()
-                            .frame(height: 50)
+                        VerticalSpacer()
                         VStack {
                             Text("ipaLibrary.detailed.appRating")
                                 .modifier(BadgeTextStyle())
@@ -125,16 +127,14 @@ struct DetailStoreAppView: View {
                             .font(itunesResponce == nil ? .subheadline : .title2.bold())
                             .padding(.top, 1)
                         }
-                        Divider()
-                            .frame(height: 50)
+                        VerticalSpacer()
                         VStack {
                             Text("ipaLibrary.detailed.appVersion")
                                 .modifier(BadgeTextStyle())
                             Text(app.version)
                                 .font(.title2.bold()) .padding(.top, 1)
                         }
-                        Divider()
-                            .frame(height: 50)
+                        VerticalSpacer()
                         VStack {
                             Text("ipaLibrary.detailed.appSize")
                                 .modifier(BadgeTextStyle())
@@ -146,8 +146,7 @@ struct DetailStoreAppView: View {
                             .font(itunesResponce == nil ? .subheadline : .title2.bold())
                             .padding(.top, 1)
                         }
-                        Divider()
-                            .frame(height: 50)
+                        VerticalSpacer()
                         VStack {
                             Text("ipaLibrary.detailed.appAge")
                                 .modifier(BadgeTextStyle())
@@ -157,7 +156,7 @@ struct DetailStoreAppView: View {
                             .padding(.top, 1)
                         }
                     }
-                    .padding(.horizontal)
+                    Spacer()
                 }
                 .padding()
                 HStack {
@@ -200,7 +199,7 @@ struct DetailStoreAppView: View {
                         }
                     }
                     .padding(5)
-                    .shadow(radius: 5)
+                    .shadow(radius: 2.5)
                     .cornerRadius(5)
                     .ignoresSafeArea(edges: .trailing)
                     .background(.ultraThinMaterial)
@@ -262,6 +261,15 @@ struct DetailStoreAppView: View {
         }
     }
 }
+
+struct VerticalSpacer: View {
+     var body: some View {
+         Spacer()
+         Divider()
+             .frame(height: 50)
+         Spacer()
+     }
+ }
 
 struct BadgeTextStyle: ViewModifier {
     func body(content: Content) -> some View {
