@@ -190,7 +190,7 @@ struct StoreAppConditionalView: View {
         }
         .task(priority: .userInitiated) {
             if !cache.hasData(forKey: app.itunesLookup)
-                && cache.readArray(forKey: app.bundleID + ".scUrls") == nil {
+                || cache.readArray(forKey: app.bundleID + ".scUrls") == nil {
                 await Cacher().resolveITunesData(app.itunesLookup)
             }
             itunesResponce = try? cache.readCodable(forKey: app.itunesLookup)
