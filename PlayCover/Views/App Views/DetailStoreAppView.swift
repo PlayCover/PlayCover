@@ -104,55 +104,60 @@ struct DetailStoreAppView: View {
                 }
                 Divider()
                 HStack {
-                    VStack {
-                        Text("ipaLibrary.detailed.appGenre")
-                            .modifier(BadgeTextStyle())
-                        Text(itunesResponce?.results[0].primaryGenreName
-                             ?? NSLocalizedString("ipaLibrary.detailed.nil", comment: ""))
+                    Group {
+                        VStack {
+                            Text("ipaLibrary.detailed.appGenre")
+                                .modifier(BadgeTextStyle())
+                            Text(itunesResponce?.results[0].primaryGenreName
+                                 ?? NSLocalizedString("ipaLibrary.detailed.nil", comment: ""))
                             .font(itunesResponce == nil ? .subheadline : .title2.bold())
                             .padding(.top, 1)
-                    }
-                    .padding(.leading)
-                    VerticalSpacer()
-                    VStack {
-                        Text("ipaLibrary.detailed.appRating")
-                            .modifier(BadgeTextStyle())
-                        let average = itunesResponce?.results[0].averageUserRating ?? 0
-                        let rating = String(format: "%.1f", round(average * 10) / 10.0)
-                        Text(itunesResponce == nil
-                             ? NSLocalizedString("ipaLibrary.detailed.nil", comment: "") : rating)
-                        .font(itunesResponce == nil ? .subheadline : .title2.bold())
-                        .padding(.top, 1)
-                    }
-                    VerticalSpacer()
-                    VStack {
-                        Text("ipaLibrary.detailed.appVersion")
-                            .modifier(BadgeTextStyle())
-                        Text(app.version)
-                            .font(.title2.bold()) .padding(.top, 1)
-                    }
-                    VerticalSpacer()
-                    VStack {
-                        Text("ipaLibrary.detailed.appSize")
-                            .modifier(BadgeTextStyle())
-                        let size = ByteCountFormatter.string(
-                            fromByteCount: Int64(itunesResponce?.results[0].fileSizeBytes ?? "0") ?? 0,
-                            countStyle: .file)
-                        Text(itunesResponce == nil
-                             ? NSLocalizedString("ipaLibrary.detailed.nil", comment: "") : size)
-                        .font(itunesResponce == nil ? .subheadline : .title2.bold())
-                        .padding(.top, 1)
-                    }
-                    VerticalSpacer()
-                    VStack {
-                        Text("ipaLibrary.detailed.appAge")
-                            .modifier(BadgeTextStyle())
-                        Text(itunesResponce?.results[0].trackContentRating
-                             ?? NSLocalizedString("ipaLibrary.detailed.nil", comment: ""))
+                        }
+                        Divider()
+                            .frame(height: 50)
+                        VStack {
+                            Text("ipaLibrary.detailed.appRating")
+                                .modifier(BadgeTextStyle())
+                            let average = itunesResponce?.results[0].averageUserRating ?? 0
+                            let rating = String(format: "%.1f", round(average * 10) / 10.0)
+                            Text(itunesResponce == nil
+                                 ? NSLocalizedString("ipaLibrary.detailed.nil", comment: "") : rating)
                             .font(itunesResponce == nil ? .subheadline : .title2.bold())
                             .padding(.top, 1)
+                        }
+                        Divider()
+                            .frame(height: 50)
+                        VStack {
+                            Text("ipaLibrary.detailed.appVersion")
+                                .modifier(BadgeTextStyle())
+                            Text(app.version)
+                                .font(.title2.bold()) .padding(.top, 1)
+                        }
+                        Divider()
+                            .frame(height: 50)
+                        VStack {
+                            Text("ipaLibrary.detailed.appSize")
+                                .modifier(BadgeTextStyle())
+                            let size = ByteCountFormatter.string(
+                                fromByteCount: Int64(itunesResponce?.results[0].fileSizeBytes ?? "0") ?? 0,
+                                countStyle: .file)
+                            Text(itunesResponce == nil
+                                 ? NSLocalizedString("ipaLibrary.detailed.nil", comment: "") : size)
+                            .font(itunesResponce == nil ? .subheadline : .title2.bold())
+                            .padding(.top, 1)
+                        }
+                        Divider()
+                            .frame(height: 50)
+                        VStack {
+                            Text("ipaLibrary.detailed.appAge")
+                                .modifier(BadgeTextStyle())
+                            Text(itunesResponce?.results[0].trackContentRating
+                                 ?? NSLocalizedString("ipaLibrary.detailed.nil", comment: ""))
+                            .font(itunesResponce == nil ? .subheadline : .title2.bold())
+                            .padding(.top, 1)
+                        }
                     }
-                    .padding(.trailing)
+                    .padding(.horizontal)
                 }
                 .padding()
                 HStack {
@@ -255,15 +260,6 @@ struct DetailStoreAppView: View {
         } else {
             localIcon = Cacher().getLocalIcon(bundleId: app.bundleID)
         }
-    }
-}
-
-struct VerticalSpacer: View {
-    var body: some View {
-        Spacer()
-        Divider()
-            .frame(height: 50)
-        Spacer()
     }
 }
 
