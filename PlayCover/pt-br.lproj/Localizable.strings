@@ -39,7 +39,7 @@
 "playapp.install.signing" = "Assinando aplicativo...";
 "playapp.install.addToLib" = "Adicionando aplicativo à biblioteca...";
 "playapp.install.copy" = "Copiando aplicativo...";
-"playapp.install.finished" = "Finalizado";
+"playapp.progress.finished" = "Finalizado";
 "alert.appCacheCleared" = "Os dados do aplicativo foram excluídos!";
 "alert.kmImported" = "Mapeamento de teclas importado!";
 "alert.errorImportKm" = "Ocorreu um erro ao importar!";
@@ -151,7 +151,7 @@
 "preferences.popover.badurl" = "URL Inválida!";
 "preferences.popover.badjson" = "JSON Inválido ou Não Encontrado!";
 "preferences.textfield.url" = "URL da Fonte...";
-"playapp.download" = "Baixando";
+"playapp.download.downloading" = "Baixando";
 "error.waitDownload" = "Por favor, aguarde o término do download atual!";
 "preferences.toggle.removeEntitlements" = "Remover permissões";
 "preferences.tab.uninstall" = "Desinstalação";
@@ -163,7 +163,7 @@
 "preferences.button.pruneFiles" = "Excluir arquivos";
 "preferences.prune.alert" = "Tem certeza de que deseja excluir todos os arquivos?";
 "preferences.prune.message" = "Isso irá excluir todos os arquivos não utilizados, incluindo configurações, mapeamento de teclas, permissões e dados do aplicativo";
-"playapp.install.failed" = "Erro";
+"playapp.progress.failed" = "Erro";
 "alert.supression" = "Isso pode ser alterado nas configurações do PlayCover";
 "menubar.clearCache" = "Excluir cache";
 "button.No" = "Não";

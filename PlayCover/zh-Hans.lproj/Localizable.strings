@@ -107,7 +107,7 @@
 "playapp.install.createWrapper" = "正在包装应用...";
 
 /* (No Comment) */
-"playapp.install.finished" = "完成";
+"playapp.progress.finished" = "完成";
 
 /* (No Comment) */
 "playapp.install.installPlayTools" = "正在安装 PlayTools...";
@@ -318,10 +318,10 @@
 "preferences.popover.badurl" = "链接错误!";
 "preferences.popover.badjson" = "JSON 无效或未找到!";
 "preferences.textfield.url" = "来源 URL 链接...";
-"playapp.download" = "现在下载中";
+"playapp.download.downloading" = "现在下载中";
 "error.waitDownload" = "请等待下载完成!";
 "preferences.button.pruneFiles" = "未使用的文件";
-"playapp.install.failed" = "失败";
+"playapp.progress.failed" = "失败";
 "alert.supression" = "你可以在 PlayCover 偏好设置中更改";
 "menubar.clearCache" = "清除缓存";
 "preferences.tab.uninstall" = "卸载";

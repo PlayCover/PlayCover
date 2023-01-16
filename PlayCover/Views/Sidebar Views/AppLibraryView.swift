@@ -8,6 +8,7 @@ import SwiftUI
 struct AppLibraryView: View {
     @EnvironmentObject var appsVM: AppsVM
     @EnvironmentObject var installVM: InstallVM
+    @EnvironmentObject var downloadVM: DownloadVM
 
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
@@ -65,9 +66,9 @@ struct AppLibraryView: View {
             }
             ToolbarItem(placement: .primaryAction) {
                 Button(action: {
-                    if installVM.installing {
+                    if installVM.inProgress {
                         Log.shared.error(PlayCoverError.waitInstallation)
-                    } else if DownloadVM.shared.downloading {
+                    } else if downloadVM.inProgress {
                         Log.shared.error(PlayCoverError.waitDownload)
                     } else {
                         selectFile()
@@ -101,10 +102,10 @@ struct AppLibraryView: View {
             showLegacyConvertAlert = LegacySettings.doesMonolithExist
         }
         .onDrop(of: ["public.url", "public.file-url"], isTargeted: nil) { (items) -> Bool in
-            if installVM.installing {
+            if installVM.inProgress {
                 Log.shared.error(PlayCoverError.waitInstallation)
                 return false
-            } else if DownloadVM.shared.downloading {
+            } else if downloadVM.inProgress {
                 Log.shared.error(PlayCoverError.waitDownload)
                 return false
             } else if let item = items.first {

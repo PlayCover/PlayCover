@@ -107,7 +107,7 @@
 "playapp.install.createWrapper" = "Создание оболочки приложения...";
 
 /* (No Comment) */
-"playapp.install.finished" = "Завершено";
+"playapp.progress.finished" = "Завершено";
 
 /* (No Comment) */
 "playapp.install.installPlayTools" = "Установка PlayTools...";
@@ -318,7 +318,7 @@
 "preferences.popover.badurl" = "URL неверен!";
 "preferences.popover.badjson" = "Файл JSON неверен или не найден!";
 "preferences.textfield.url" = "URL источника...";
-"playapp.download" = "Скачивание...";
+"playapp.download.downloading" = "Скачивание...";
 "error.waitDownload" = "Пожалуйста, подождите окончания текущей загрузки!";
 "preferences.tab.uninstall" = "Удалить";
 "menubar.clearCache" = "Очистить кэш изображений";
@@ -331,7 +331,7 @@
 "preferences.button.pruneFiles" = "Prune files";
 "preferences.prune.alert" = "Вы уверены, что хотите удалить все файлы?";
 "preferences.prune.message" = "Это действие удалит все неиспользуемые файлы, включая настройки, кеймаппы, разрешения прав и данные приложения";
-"playapp.install.failed" = "Произошла ошибка";
+"playapp.progress.failed" = "Произошла ошибка";
 "alert.supression" = "Вы можете изменить это в настройках PlayCover";
 "alert.install.injectPlayTools" = "Внедрить PlayTools";
 "button.Yes" = "Да";
