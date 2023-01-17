@@ -374,7 +374,7 @@
 "ipaLibrary.version.older" = "Esta versión es más vieja que la instalada actualmente";
 "ipaLibrary.version.newer" = "Esta versión es más nueva que la instalada actualmente";
 "ipaLibrary.alert.download" = "¿Confirma que quiere descargar esta versión de %@?";
-"alert.differentBundleIdKeymap.message" = "Esta asignación de teclas pudo haberse creado para otra aplicación.";
+"alert.differentBundleIdKeymap.message" = "Esta asignación de teclas pudo haber sido creada para otra aplicación.";
 "alert.differentBundleIdKeymap.text" = "¿Confirma que quiere importar esta asignación de teclas?";
 "settings.text.debugger" = "Depurador:";
 "settings.toggle.lldb" = "Abrir con LLDB";
