@@ -77,7 +77,7 @@ class PlayTools {
         let binary = try Data(contentsOf: exec)
         var header = binary.extract(fat_header.self)
         var offset = MemoryLayout.size(ofValue: header)
-        
+
         if header.magic == FAT_MAGIC || header.magic == FAT_MAGIC_64 {
             // Make sure the endianness is correct
             swap_fat_header(&header, NXHostByteOrder())
@@ -99,7 +99,7 @@ class PlayTools {
 
                 offset += Int(MemoryLayout.size(ofValue: arch))
             }
-            
+
             throw PlayCoverError.failedToStripBinary
         } else {
             print("Binary already thin")
