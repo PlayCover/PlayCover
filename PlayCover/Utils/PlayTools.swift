@@ -79,7 +79,7 @@ class PlayTools {
         var header = binary.extract(fat_header.self)
         var offset = MemoryLayout.size(ofValue: header)
         let shouldSwap = header.magic == FAT_CIGAM
-        
+
         if header.magic == FAT_MAGIC || header.magic == FAT_CIGAM {
             // Make sure the endianness is correct
             if shouldSwap {
@@ -247,20 +247,20 @@ class PlayTools {
         var offset = MemoryLayout.size(ofValue: header)
         let shouldSwap = header.magic == MH_CIGAM_64
 
-        if (shouldSwap) {
+        if shouldSwap {
             swap_mach_header_64(&header, NXHostByteOrder())
         }
 
         for _ in 0..<header.ncmds {
             var loadCommand = binary.extract(load_command.self, offset: offset)
-            if (shouldSwap) {
+            if shouldSwap {
                 swap_load_command(&loadCommand, NXHostByteOrder())
             }
 
             switch loadCommand.cmd {
             case UInt32(LC_ENCRYPTION_INFO_64):
                 var infoCommand = binary.extract(encryption_info_command_64.self, offset: offset)
-                if (shouldSwap) {
+                if shouldSwap {
                     swap_encryption_command_64(&infoCommand, NXHostByteOrder())
                 }
 
@@ -282,20 +282,20 @@ class PlayTools {
         var offset = MemoryLayout.size(ofValue: header)
         let shouldSwap = header.magic == MH_CIGAM_64
 
-        if (shouldSwap) {
+        if shouldSwap {
             swap_mach_header_64(&header, NXHostByteOrder())
         }
 
         for _ in 0..<header.ncmds {
             var loadCommand = binary.extract(load_command.self, offset: offset)
-            if (shouldSwap) {
+            if shouldSwap {
                 swap_load_command(&loadCommand, NXHostByteOrder())
             }
 
             switch loadCommand.cmd {
             case UInt32(LC_LOAD_DYLIB):
                 var dylibCommand = binary.extract(dylib_command.self, offset: offset)
-                if (shouldSwap) {
+                if shouldSwap {
                     swap_dylib_command(&dylibCommand, NXHostByteOrder())
                 }
 
@@ -321,26 +321,27 @@ class PlayTools {
             && isValidArch(playToolsPath)
     }
 
+    // TOOD: Fix
     static func isValidArch(_ url: URL) throws -> Bool {
         let binary = try Data(contentsOf: url)
         var header = binary.extract(mach_header_64.self)
         var offset = MemoryLayout.size(ofValue: header)
         let shouldSwap = header.magic == MH_CIGAM_64
 
-        if (shouldSwap) {
+        if shouldSwap {
             swap_mach_header_64(&header, NXHostByteOrder())
         }
 
         for _ in 0..<header.ncmds {
             var loadCommand = binary.extract(load_command.self, offset: offset)
-            if (shouldSwap) {
+            if shouldSwap {
                 swap_load_command(&loadCommand, NXHostByteOrder())
             }
 
             switch loadCommand.cmd {
             case UInt32(LC_BUILD_VERSION):
                 var versionCommand = binary.extract(build_version_command.self, offset: offset)
-                if (shouldSwap) {
+                if shouldSwap {
                     swap_build_version_command(&versionCommand, NXHostByteOrder())
                 }
 
