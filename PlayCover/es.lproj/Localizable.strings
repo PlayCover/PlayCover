@@ -14,7 +14,7 @@
 "alert.errorImportKm" = "¡Ocurrió un error al importar!";
 
 /* (No Comment) */
-"alert.kmImported" = "¡Mapeo de teclas importado!";
+"alert.kmImported" = "¡Asignación de teclas importada!";
 
 /* (No Comment) */
 "alert.moveAppToApplications.move" = "Mover a /Applications";
