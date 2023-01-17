@@ -379,3 +379,4 @@
 "ipaLibrary.download" = "다운로드";
 "alert.differentBundleIdKeymap.message" = "이 키매핑은 다른 앱을 위해 만들어졌을수도 있습니다.";
 "alert.differentBundleIdKeymap.text" = "정말로 이 키매핑을 불러오시겠습니까?";
+"settings.unavailable.hud" = "Metal HUD unavailable";
