@@ -93,7 +93,7 @@ class PlayTools {
                 }
 
                 if arch.cputype == CPU_TYPE_ARM64 {
-                    print("Found ARM64 arch")
+                    print("Found ARM64 arch in fat binary")
 
                     let thinBinary = binary
                         .subdata(in: Int(arch.offset)..<Int(arch.offset+arch.size))
@@ -243,9 +243,36 @@ class PlayTools {
 
     static func isMachoEncrypted(atURL url: URL) throws -> Bool {
         let binary = try Data(contentsOf: url)
-        var header = binary.extract(mach_header_64.self)
+        var header = binary.extract(fat_header.self)
         var offset = MemoryLayout.size(ofValue: header)
-        let shouldSwap = header.magic == MH_CIGAM_64
+        var shouldSwap = header.magic == FAT_CIGAM
+
+        if header.magic == FAT_MAGIC || header.magic == FAT_CIGAM {
+            if shouldSwap {
+                swap_fat_header(&header, NXHostByteOrder())
+            }
+
+            for _ in 0..<header.nfat_arch {
+                var arch = binary.extract(fat_arch.self, offset: offset)
+                if shouldSwap {
+                    swap_fat_arch(&arch, 1, NXHostByteOrder())
+                }
+
+                if arch.cputype == CPU_TYPE_ARM64 {
+                    return try isSlimMachoEncrypted(offset: Int(arch.offset), binary: binary)
+                }
+            }
+        } else {
+            return try isSlimMachoEncrypted(offset: 0, binary: binary)
+        }
+
+        return false
+    }
+
+    static func isSlimMachoEncrypted(offset: Int, binary: Data) throws -> Bool {
+        var header = binary.extract(mach_header_64.self, offset: offset)
+        var offset = MemoryLayout.size(ofValue: header)
+        var shouldSwap = header.magic == MH_CIGAM_64
 
         if shouldSwap {
             swap_mach_header_64(&header, NXHostByteOrder())
@@ -264,9 +291,7 @@ class PlayTools {
                     swap_encryption_command_64(&infoCommand, NXHostByteOrder())
                 }
 
-                if infoCommand.cryptid != 0 {
-                    return true
-                }
+                return infoCommand.cryptid != 0
             default:
                 break
             }
