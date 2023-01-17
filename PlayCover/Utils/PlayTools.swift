@@ -73,23 +73,33 @@ class PlayTools {
         }
     }
 
-    static func stripBinary(_ exec: URL) {
-        if Shell.shell("/usr/bin/lipo -archs \(exec.esc)")
-            .rangeOfCharacter(from: .whitespacesAndNewlines) != nil {
-            Shell.shell("/usr/bin/lipo \(exec.esc) -thin arm64 -output \(exec.esc)")
+    static func stripBinary(_ exec: URL) throws {
+        let binary = try Data(contentsOf: exec)
+        var header = binary.extract(fat_header.self)
+        var offset = MemoryLayout.size(ofValue: header)
+
+        // Make sure the endianness is correct
+        swap_fat_header(&header, NXHostByteOrder())
+
+        for _ in 0..<header.nfat_arch {
+            var arch = binary.extract(fat_arch.self, offset: offset)
+            swap_fat_arch(&arch, 1, NXHostByteOrder())
+
+            if arch.cputype == CPU_TYPE_ARM64 {
+                let thinBinary = binary
+                    .subdata(in: Int(arch.offset)..<Int(arch.offset+arch.size))
+                try FileManager.default.removeItem(at: exec)
+                FileManager.default.createFile(atPath: exec.path, contents: thinBinary)
+
+                return
+            }
+
+            offset += Int(MemoryLayout.size(ofValue: arch))
         }
     }
 
-    static func replaceLibraries(atURL url: URL) throws {
-        Log.shared.log("Replacing libswiftUIKit.dylib")
-        try shell.shello(
-            install_name_tool.path,
-            "-change", "@rpath/libswiftUIKit.dylib", "/System/iOSSupport/usr/lib/swift/libswiftUIKit.dylib",
-            url.path)
-    }
-
     static func installInIPA(_ exec: URL) throws {
-        stripBinary(exec)
+        try stripBinary(exec)
         Inject.injectMachO(machoPath: exec.path,
                            cmdType: LC_Type.LOAD_DYLIB,
                            backup: false,
@@ -129,7 +139,7 @@ class PlayTools {
     }
 
     static func injectInIPA(_ exec: URL, payload: URL) throws {
-        stripBinary(exec)
+        try stripBinary(exec)
         Inject.injectMachO(machoPath: exec.path,
                            cmdType: LC_Type.LOAD_DYLIB,
                            backup: false,
@@ -312,12 +322,6 @@ class PlayTools {
     private static var vtool: URL {
         get throws {
             try binPath("vtool")
-        }
-    }
-
-    private static var install_name_tool: URL {
-        get throws {
-            try binPath("install_name_tool")
         }
     }
 }
