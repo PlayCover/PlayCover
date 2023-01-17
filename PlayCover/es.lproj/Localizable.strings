@@ -296,7 +296,7 @@
 "settings.tab.misc" = "Varios";
 "settings.info.bundleVersion" = "Versión del paquete:";
 "alert.legacyImport.title" = "¡Se ha encontrado una configuración antigua!";
-"alert.legacyImport.subtitle" = "Se encontraron configuraciones y archivos de asignación de teclas antiguos. ¿Quiere convertirlos al formato nuevo?";
+"alert.legacyImport.subtitle" = "Se encontraron configuraciones y archivos de asignación de teclas antiguos. ¿Desea convertirlos al nuevo formato?";
 "button.Convert" = "Convertir";
 "playapp.deleteConfirm" = "Desinstalar";
 "playapp.deleteMessage" = "¿Confirma que quiere desinstalar %@?";
