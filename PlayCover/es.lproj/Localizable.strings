@@ -290,7 +290,7 @@
 "settings.resetKm" = "Restablecer asignación de teclas";
 "settings.toggle.hud" = "HUD de Metal";
 "settings.resetSettingsCompleted" = "¡La configuración se ha revertido a la predeterminada!";
-"settings.resetKmCompleted" = "¡El mapa de teclas se ha reiniciado!";
+"settings.resetKmCompleted" = "¡La asignación de teclas se ha restablecido!";
 "xcode.install.failed.altInstructions" = "Haga clic en el botón de abajo para ver las instrucciones de instalación alternativas";
 "xcode.install.failed.altButton" = "Instrucciones alternativas";
 "settings.tab.misc" = "Varios";
