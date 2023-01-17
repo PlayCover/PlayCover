@@ -81,7 +81,7 @@ class PlayTools {
 
         if header.magic == FAT_MAGIC {
             for _ in 0..<header.nfat_arch {
-                var arch = binary.extract(fat_arch.self, offset: offset)
+                let arch = binary.extract(fat_arch.self, offset: offset)
 
                 if arch.cputype == CPU_TYPE_ARM64 {
                     print("Found ARM64 arch")
@@ -305,9 +305,7 @@ class PlayTools {
         var offset = MemoryLayout.size(ofValue: header)
 
         for _ in 0..<header.ncmds {
-            print(offset)
             let loadCommand = binary.extract(load_command.self, offset: offset)
-            print(loadCommand.cmdsize)
             switch loadCommand.cmd {
             case UInt32(LC_LOAD_DYLIB):
                 let dylibCommand = binary.extract(dylib_command.self, offset: offset)
