@@ -379,3 +379,4 @@
 "settings.toggle.lldb" = "Ouvrir avec LLDB";
 "alert.differentBundleIdKeymap.message" = "Le keymap peut avoir été créé pour une autre application.";
 "settings.toggle.lldbWithTerminal" = "Ouvrir dans le terminal";
+"settings.unavailable.hud" = "Metal HUD unavailable";

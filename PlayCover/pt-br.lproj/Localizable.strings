@@ -212,3 +212,4 @@
 "ipaLibrary.alert.download" = "Tem certeza de que deseja baixar essa versão de %@?";
 "alert.differentBundleIdKeymap.message" = "Esse mapeamento de teclas foi criado para outra aplicação.";
 "alert.differentBundleIdKeymap.text" = "Tem certeza de que deseja importar esse mapeamento?";
+"settings.unavailable.hud" = "Metal HUD unavailable";

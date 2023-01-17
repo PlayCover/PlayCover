@@ -56,7 +56,7 @@ class AppSettings {
         self.info = info
         self.container = container
         settingsUrl = AppSettings.appSettingsDir.appendingPathComponent(info.bundleIdentifier)
-                                                .appendingPathExtension(".plist")
+                                                .appendingPathExtension("plist")
         settings = AppSettingsData()
         if !decode() {
             encode()
