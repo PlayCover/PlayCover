@@ -22,6 +22,8 @@ struct AppSettingsData: Codable {
     var bypass = false
     var discordActivity = DiscordActivity()
     var version = "2.0.0"
+    var playChain = false
+    var playChainDebugging = false
 }
 
 class AppSettings {

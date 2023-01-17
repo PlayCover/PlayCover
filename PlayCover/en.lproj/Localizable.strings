@@ -221,6 +221,9 @@
 "settings.text.debugger" = "Debugger:";
 "settings.toggle.lldb" = "Open with LLDB";
 "settings.toggle.lldbWithTerminal" = "Open in terminal";
+"settings.playChain.enable" = "Enable PlayChain (experimental)";
+"settings.playChain.help" = "Enable PlayChain support for this application, allowing it to (partially) use Apple Keychain Services";
+"settings.playChain.debugging" = "PlayChain debugging";
 
 "configSigning.header" = "Configure Package Signing";
 "configSigning.subtext" = "Package Signing helps fixing issues with apps that rely on \ncorrect Team IDs for operations like authorization. \nThere may be security risks associated with enabling this feature.\n\n As such, we recommend disabling it when it's not necessary";
