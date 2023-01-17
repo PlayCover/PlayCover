@@ -268,14 +268,27 @@ class PlayTools {
     static func isInstalled() throws -> Bool {
         try FileManager.default.fileExists(atPath: playToolsPath.path)
             && FileManager.default.fileExists(atPath: akInterfacePath.path)
-            && isValidArch(playToolsPath.path)
+            && isValidArch(playToolsPath)
     }
 
-    static func isValidArch(_ path: String) throws -> Bool {
-        guard let output = try? shell.shello(vtool.path, "-show-build", path) else {
-            return false
+    static func isValidArch(_ url: URL) throws -> Bool {
+        let binary = try Data(contentsOf: url)
+        let header = binary.extract(mach_header_64.self)
+        var offset = MemoryLayout.size(ofValue: header)
+
+        for _ in 0..<header.ncmds {
+            let loadCommand = binary.extract(load_command.self, offset: offset)
+            switch loadCommand.cmd {
+            case UInt32(LC_BUILD_VERSION):
+                let versionCommand = binary.extract(build_version_command.self, offset: offset)
+                return versionCommand.platform == PLATFORM_MACCATALYST
+            default:
+                break
+            }
+            offset += Int(loadCommand.cmdsize)
         }
-        return output.contains("MACCATALYST")
+
+        return false
     }
 
 	static func fetchEntitlements(_ exec: URL) throws -> String {
