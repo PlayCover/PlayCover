@@ -212,3 +212,4 @@
 "settings.text.debugger" = "Debugger:";
 "settings.toggle.lldb" = "LLDB ile aç";
 "settings.toggle.lldbWithTerminal" = "Terminal'de aç";
+"settings.unavailable.hud" = "Metal HUD unavailable";

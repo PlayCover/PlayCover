@@ -379,3 +379,4 @@
 "ipaLibrary.alert.download" = "您确定您要下载这个版本的 %@ 吗?";
 "ipaLibrary.download" = "下载";
 "settings.toggle.lldbWithTerminal" = "在终端里打开";
+"settings.unavailable.hud" = "Metal HUD unavailable";

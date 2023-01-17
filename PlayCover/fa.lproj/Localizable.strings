@@ -220,3 +220,4 @@
 "ipaLibrary.download" = "بارگیری";
 "alert.differentBundleIdKeymap.message" = "این Keymap برای برنامه‌ای دیگر ساخته شده است.";
 "settings.text.debugger" = "اشکال‌زدا:";
+"settings.unavailable.hud" = "Metal HUD unavailable";

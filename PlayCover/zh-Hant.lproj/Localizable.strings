@@ -359,3 +359,4 @@
 "settings.text.debugger" = "調試器：";
 "settings.toggle.lldb" = "用 LLDB 高性能調試器打開";
 "settings.toggle.lldbWithTerminal" = "用終端打開";
+"settings.unavailable.hud" = "Metal HUD unavailable";
