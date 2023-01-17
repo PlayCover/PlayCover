@@ -78,7 +78,26 @@ class PlayTools {
         var header = binary.extract(fat_header.self)
         var offset = MemoryLayout.size(ofValue: header)
 
-        if header.magic == FAT_MAGIC || header.magic == FAT_MAGIC_64 {
+        if header.magic == FAT_MAGIC {
+            for _ in 0..<header.nfat_arch {
+                var arch = binary.extract(fat_arch.self, offset: offset)
+
+                if arch.cputype == CPU_TYPE_ARM64 {
+                    print("Found ARM64 arch")
+
+                    let thinBinary = binary
+                        .subdata(in: Int(arch.offset)..<Int(arch.offset+arch.size))
+                    try FileManager.default.removeItem(at: exec)
+                    FileManager.default.createFile(atPath: exec.path, contents: thinBinary)
+
+                    return
+                }
+
+                offset += Int(MemoryLayout.size(ofValue: arch))
+            }
+
+            throw PlayCoverError.failedToStripBinary
+        } else if header.magic == FAT_CIGAM {
             // Make sure the endianness is correct
             swap_fat_header(&header, NXHostByteOrder())
 
@@ -237,21 +256,43 @@ class PlayTools {
 
     static func isMachoEncrypted(atURL url: URL) throws -> Bool {
         let binary = try Data(contentsOf: url)
-        let header = binary.extract(mach_header_64.self)
+        var header = binary.extract(mach_header_64.self)
         var offset = MemoryLayout.size(ofValue: header)
 
-        for _ in 0..<header.ncmds {
-            let loadCommand = binary.extract(load_command.self, offset: offset)
-            switch loadCommand.cmd {
-            case UInt32(LC_ENCRYPTION_INFO_64):
-                let infoCommand = binary.extract(encryption_info_command_64.self, offset: offset)
-                if infoCommand.cryptid != 0 {
-                    return true
+        if header.magic == MH_MAGIC_64 {
+            for _ in 0..<header.ncmds {
+                let loadCommand = binary.extract(load_command.self, offset: offset)
+                switch loadCommand.cmd {
+                case UInt32(LC_ENCRYPTION_INFO_64):
+                    let infoCommand = binary.extract(encryption_info_command_64.self, offset: offset)
+                    if infoCommand.cryptid != 0 {
+                        return true
+                    }
+                default:
+                    break
                 }
-            default:
-                break
+                offset += Int(loadCommand.cmdsize)
             }
-            offset += Int(loadCommand.cmdsize)
+        } else if header.magic == MH_CIGAM_64 {
+            swap_mach_header_64(&header, NXHostByteOrder())
+
+            for _ in 0..<header.ncmds {
+                var loadCommand = binary.extract(load_command.self, offset: offset)
+                swap_load_command(&loadCommand, NXHostByteOrder())
+
+                switch loadCommand.cmd {
+                case UInt32(LC_ENCRYPTION_INFO_64):
+                    var infoCommand = binary.extract(encryption_info_command_64.self, offset: offset)
+                    swap_encryption_command_64(&infoCommand, NXHostByteOrder())
+
+                    if infoCommand.cryptid != 0 {
+                        return true
+                    }
+                default:
+                    break
+                }
+                offset += Int(loadCommand.cmdsize)
+            }
         }
 
         return false
@@ -263,7 +304,9 @@ class PlayTools {
         var offset = MemoryLayout.size(ofValue: header)
 
         for _ in 0..<header.ncmds {
+            print(offset)
             let loadCommand = binary.extract(load_command.self, offset: offset)
+            print(loadCommand.cmdsize)
             switch loadCommand.cmd {
             case UInt32(LC_LOAD_DYLIB):
                 let dylibCommand = binary.extract(dylib_command.self, offset: offset)
