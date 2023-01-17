@@ -39,6 +39,16 @@
 "ipaLibrary.detailed.appSize" = "Size";
 "ipaLibrary.detailed.appAge" = "Age";
 "ipaLibrary.detailed.nil" = "Not Specified";
+"ipaLibrary.detailed.sourceNotes" = "Installation notes provided by IPA Source";
+"ipaLibrary.detailed.sipLabelTitle" = "SIP Requirement";
+"ipaLibrary.detailed.disabledSIPDesc" = "Only works while SIP is disabled or partially enabled";
+"ipaLibrary.detailed.enabledSIPDesc" = "This app/game works fine while SIP is enabled";
+"ipaLibrary.detailed.playoolsLabelTitle" = "PlayTools State";
+"ipaLibrary.detailed.noPlayToolsDesc" = "PlayTools should not or better not be injected";
+"ipaLibrary.detailed.withPlayToolsDesc" = "PlayTools can safely be injected";
+"ipaLibrary.detailed.signinLabelTitle" = "Sign-In Flow";
+"ipaLibrary.detailed.confgureSigningDesc" = "You need follow Configure Signing steps for Signing-In";
+"ipaLibrary.detailed.noConfgureSigningDesc" = "Doing Configure Signing is not needed for Signing-In";
 
 "preferences.button.checkForUpdates" = "Check for Updates";
 "preferences.tab.updates" = "Updates";
