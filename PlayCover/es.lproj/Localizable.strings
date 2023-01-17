@@ -332,7 +332,7 @@
 "preferences.prune.message" = "Esto eliminará todos los archivos que no se utilicen, incluidos los de configuración, asignación de teclas, permisos y datos de la aplicación";
 "playapp.install.failed" = "Error";
 "alert.supression" = "Puede cambiar esto en la configuración de PlayCover";
-"menubar.clearCache" = "Eliminar antememoria";
+"menubar.clearCache" = "Borrar la caché";
 "preferences.tab.install" = "Instalar";
 "preferences.toggle.showInstallPopup" = "Mostrar ventana de instalación de PlayTools";
 "preferences.toggle.alwaysInstallPlayTools" = "Instalar siempre PlayTools";
