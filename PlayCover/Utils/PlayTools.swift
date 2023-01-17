@@ -7,6 +7,7 @@ import Foundation
 import injection
 
 // swiftlint:disable type_body_length
+// swiftlint:disable file_length
 
 class PlayTools {
     private static let frameworksURL = FileManager.default.homeDirectoryForCurrentUser
