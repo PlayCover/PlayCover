@@ -77,24 +77,32 @@ class PlayTools {
         let binary = try Data(contentsOf: exec)
         var header = binary.extract(fat_header.self)
         var offset = MemoryLayout.size(ofValue: header)
+        
+        if header.magic == FAT_MAGIC || header.magic == FAT_MAGIC_64 {
+            // Make sure the endianness is correct
+            swap_fat_header(&header, NXHostByteOrder())
 
-        // Make sure the endianness is correct
-        swap_fat_header(&header, NXHostByteOrder())
+            for _ in 0..<header.nfat_arch {
+                var arch = binary.extract(fat_arch.self, offset: offset)
+                swap_fat_arch(&arch, 1, NXHostByteOrder())
 
-        for _ in 0..<header.nfat_arch {
-            var arch = binary.extract(fat_arch.self, offset: offset)
-            swap_fat_arch(&arch, 1, NXHostByteOrder())
+                if arch.cputype == CPU_TYPE_ARM64 {
+                    print("Found ARM64 arch")
 
-            if arch.cputype == CPU_TYPE_ARM64 {
-                let thinBinary = binary
-                    .subdata(in: Int(arch.offset)..<Int(arch.offset+arch.size))
-                try FileManager.default.removeItem(at: exec)
-                FileManager.default.createFile(atPath: exec.path, contents: thinBinary)
+                    let thinBinary = binary
+                        .subdata(in: Int(arch.offset)..<Int(arch.offset+arch.size))
+                    try FileManager.default.removeItem(at: exec)
+                    FileManager.default.createFile(atPath: exec.path, contents: thinBinary)
 
-                return
+                    return
+                }
+
+                offset += Int(MemoryLayout.size(ofValue: arch))
             }
-
-            offset += Int(MemoryLayout.size(ofValue: arch))
+            
+            throw PlayCoverError.failedToStripBinary
+        } else {
+            print("Binary already thin")
         }
     }
 
