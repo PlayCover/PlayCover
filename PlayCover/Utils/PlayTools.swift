@@ -270,8 +270,9 @@ class PlayTools {
     }
 
     static func isSlimMachoEncrypted(offset: Int, binary: Data) throws -> Bool {
+        var offset = offset
         var header = binary.extract(mach_header_64.self, offset: offset)
-        var offset = MemoryLayout.size(ofValue: header)
+        offset += MemoryLayout.size(ofValue: header)
         var shouldSwap = header.magic == MH_CIGAM_64
 
         if shouldSwap {
@@ -343,15 +344,43 @@ class PlayTools {
     static func isInstalled() throws -> Bool {
         try FileManager.default.fileExists(atPath: playToolsPath.path)
             && FileManager.default.fileExists(atPath: akInterfacePath.path)
-            && isValidArch(playToolsPath)
+            && isMachoValidArch(playToolsPath)
     }
 
-    // TOOD: Fix
-    static func isValidArch(_ url: URL) throws -> Bool {
+    static func isMachoValidArch(_ url: URL) throws -> Bool {
+        print(url.path)
         let binary = try Data(contentsOf: url)
-        var header = binary.extract(mach_header_64.self)
+        var header = binary.extract(fat_header.self)
         var offset = MemoryLayout.size(ofValue: header)
-        let shouldSwap = header.magic == MH_CIGAM_64
+        let shouldSwap = header.magic == FAT_CIGAM
+
+        if header.magic == FAT_MAGIC || header.magic == FAT_CIGAM {
+            if shouldSwap {
+                swap_fat_header(&header, NXHostByteOrder())
+            }
+
+            for _ in 0..<header.nfat_arch {
+                var arch = binary.extract(fat_arch.self, offset: offset)
+                if shouldSwap {
+                    swap_fat_arch(&arch, 1, NXHostByteOrder())
+                }
+
+                if arch.cputype == CPU_TYPE_ARM64 {
+                    return try isSlimMachoValidArch(offset: Int(arch.offset), binary: binary)
+                }
+            }
+        } else {
+            return try isSlimMachoValidArch(offset: 0, binary: binary)
+        }
+
+        return false
+    }
+
+    static func isSlimMachoValidArch(offset: Int, binary: Data) throws -> Bool {
+        var offset = offset
+        var header = binary.extract(mach_header_64.self, offset: offset)
+        offset += MemoryLayout.size(ofValue: header)
+        var shouldSwap = header.magic == MH_CIGAM_64
 
         if shouldSwap {
             swap_mach_header_64(&header, NXHostByteOrder())
