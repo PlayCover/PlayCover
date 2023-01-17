@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import NavigationStack
 import DataCache
 import CachedAsyncImage
 
+// swiftlint:disable type_body_length
 struct DetailStoreAppView: View {
     @State var app: StoreAppData
 
@@ -56,8 +58,8 @@ struct DetailStoreAppView: View {
                             .font(.title.bold())
                         Text(itunesResponce?.results[0].artistName
                              ?? NSLocalizedString("ipaLibrary.detailed.nil", comment: ""))
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
                     }
                     Spacer()
                     Button {
@@ -65,8 +67,7 @@ struct DetailStoreAppView: View {
                             if downloadVM.downloading && downloadVM.storeAppData == app {
                                 DownloadApp(url: nil, app: nil, warning: nil).cancel()
                             } else {
-                                DownloadApp(url: url, app: app,
-                                            warning: nil).start()
+                                DownloadApp(url: url, app: app, warning: nil).start()
                             }
                         }
                     } label: {
@@ -162,7 +163,7 @@ struct DetailStoreAppView: View {
                 HStack {
                     Text(itunesResponce?.results[0].description
                          ?? NSLocalizedString("ipaLibrary.detailed.nodesc", comment: ""))
-                        .lineLimit(truncated ? 9 : nil)
+                    .lineLimit(truncated ? 9 : nil)
                     Spacer()
                     if itunesResponce != nil {
                         VStack {
@@ -208,7 +209,24 @@ struct DetailStoreAppView: View {
                 Spacer()
             }
             .padding()
-            .navigationTitle(app.name)
+        }
+        .navigationTitle(app.name)
+        .toolbar {
+            ToolbarItem(placement: .navigation) {
+                Spacer()
+            }
+            ToolbarItem(placement: .navigation) {
+                PopView {
+                    Image(systemName: "chevron.left")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .clipShape(Rectangle())
+                        .frame(width: 12.5, height: 12.5)
+                }
+            }
+            ToolbarItem(placement: .navigation) {
+                Spacer()
+            }
         }
         .task(priority: .userInitiated) {
             if downloadVM.storeAppData == app {

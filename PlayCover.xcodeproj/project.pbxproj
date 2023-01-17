@@ -23,6 +23,7 @@
 		53F4D2A026C43C690020167C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29F26C43C690020167C /* Log.swift */; };
 		53F50C4926E3CA42007AD2D3 /* AppLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */; };
 		53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F5E74226C1D37E005AED1D /* FileExtensions.swift */; };
+		68493FBB29775CC3009E3541 /* NavigationStack in Frameworks */ = {isa = PBXBuildFile; productRef = 68493FBA29775CC3009E3541 /* NavigationStack */; };
 		68E48B952957046D00C39879 /* DownloadManager in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48B942957046D00C39879 /* DownloadManager */; };
 		68E48B97295704A600C39879 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E48B96295704A600C39879 /* Downloader.swift */; };
 		68E48B9A295708C800C39879 /* Injection in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48B99295708C800C39879 /* Injection */; };
@@ -202,6 +203,7 @@
 				365AFB0628847B2E008B3542 /* Sparkle in Frameworks */,
 				68E48BA229570A2B00C39879 /* CachedAsyncImage in Frameworks */,
 				AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */,
+				68493FBB29775CC3009E3541 /* NavigationStack in Frameworks */,
 				68E48B952957046D00C39879 /* DownloadManager in Frameworks */,
 				B17FD03C28C70C2100B1D4CA /* CoreUI.framework in Frameworks */,
 			);
@@ -482,6 +484,7 @@
 				68E48B9E29570A0400C39879 /* DataCache */,
 				68E48BA129570A2B00C39879 /* CachedAsyncImage */,
 				68E48B99295708C800C39879 /* Injection */,
+				68493FBA29775CC3009E3541 /* NavigationStack */,
 			);
 			productName = PlayCover;
 			productReference = 8783CFF726B8C52D00171041 /* PlayCover.app */;
@@ -535,6 +538,7 @@
 				68E48B9D29570A0400C39879 /* XCRemoteSwiftPackageReference "DataCache" */,
 				68E48BA029570A2B00C39879 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				68E48B98295708C800C39879 /* XCRemoteSwiftPackageReference "inject" */,
+				68493FB929775CC3009E3541 /* XCRemoteSwiftPackageReference "swiftui-navigation-stack" */,
 			);
 			productRefGroup = 8783CFF826B8C52D00171041 /* Products */;
 			projectDirPath = "";
@@ -981,6 +985,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		68493FB929775CC3009E3541 /* XCRemoteSwiftPackageReference "swiftui-navigation-stack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/matteopuc/swiftui-navigation-stack.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		68E48B932957046D00C39879 /* XCRemoteSwiftPackageReference "download-manager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/shapedbyiris/download-manager.git";
@@ -1029,6 +1041,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */;
 			productName = Sparkle;
+		};
+		68493FBA29775CC3009E3541 /* NavigationStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68493FB929775CC3009E3541 /* XCRemoteSwiftPackageReference "swiftui-navigation-stack" */;
+			productName = NavigationStack;
 		};
 		68E48B942957046D00C39879 /* DownloadManager */ = {
 			isa = XCSwiftPackageProductDependency;
