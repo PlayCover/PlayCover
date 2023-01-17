@@ -6,6 +6,8 @@
 import Foundation
 import injection
 
+// swiftlint:disable type_body_length
+
 class PlayTools {
     private static let frameworksURL = FileManager.default.homeDirectoryForCurrentUser
         .appendingPathComponent("Library")
@@ -216,17 +218,51 @@ class PlayTools {
     }
 
     static func isMachoEncrypted(atURL url: URL) throws -> Bool {
-        // Split output into blocks
-        let otoolOutput = try shell.shello(otool.path, "-l", url.path).components(separatedBy: "Load command")
-        // Check specifically for encryption info on the 64 bit block
-        for block in otoolOutput where (block.contains("LC_ENCRYPTION_INFO_64") && block.contains("cryptid 1")) {
-            return true
+        let binary = try Data(contentsOf: url)
+        let header = binary.extract(mach_header_64.self)
+        var offset = MemoryLayout.size(ofValue: header)
+
+        for _ in 0..<header.ncmds {
+            let loadCommand = binary.extract(load_command.self, offset: offset)
+            switch loadCommand.cmd {
+            case UInt32(LC_ENCRYPTION_INFO_64):
+                let infoCommand = binary.extract(encryption_info_command_64.self, offset: offset)
+                if infoCommand.cryptid != 0 {
+                    return true
+                }
+            default:
+                break
+            }
+            offset += Int(loadCommand.cmdsize)
         }
+
         return false
     }
 
     static func installedInExec(atURL url: URL) throws -> Bool {
-        try shell.shello(print: false, otool.path, "-L", url.path).contains(playToolsPath.esc)
+        let binary = try Data(contentsOf: url)
+        let header = binary.extract(mach_header_64.self)
+        var offset = MemoryLayout.size(ofValue: header)
+
+        for _ in 0..<header.ncmds {
+            let loadCommand = binary.extract(load_command.self, offset: offset)
+            switch loadCommand.cmd {
+            case UInt32(LC_LOAD_DYLIB):
+                let dylibCommand = binary.extract(dylib_command.self, offset: offset)
+                let dylibName = String.init(data: binary,
+                                            offset: offset,
+                                            commandSize: Int(dylibCommand.cmdsize),
+                                            loadCommandString: dylibCommand.dylib.name)
+                if dylibName == playToolsPath.esc {
+                    return true
+                }
+            default:
+                break
+            }
+            offset += Int(loadCommand.cmdsize)
+        }
+
+        return false
     }
 
     static func isInstalled() throws -> Bool {
@@ -266,12 +302,6 @@ class PlayTools {
         }
     }
 
-    private static var otool: URL {
-        get throws {
-            try binPath("otool")
-        }
-    }
-
     private static var install_name_tool: URL {
         get throws {
             try binPath("install_name_tool")
@@ -282,5 +312,28 @@ class PlayTools {
 extension URL {
     func setBinaryPosixPermissions(_ permissions: Int) throws {
         try FileManager.default.setAttributes([.posixPermissions: permissions], ofItemAtPath: path)
+    }
+}
+
+extension Data {
+    func extract<T>(_ type: T.Type, offset: Int = 0) -> T {
+        let data = self[offset..<offset + MemoryLayout<T>.size]
+        return data.withUnsafeBytes { dataBytes in
+            dataBytes.baseAddress!
+                .assumingMemoryBound(to: UInt8.self)
+                .withMemoryRebound(to: T.self, capacity: 1) { (pointer) -> T in
+                return pointer.pointee
+            }
+        }
+    }
+}
+
+extension String {
+    init(data: Data, offset: Int, commandSize: Int, loadCommandString: lc_str) {
+        let loadCommandStringOffset = Int(loadCommandString.offset)
+        let stringOffset = offset + loadCommandStringOffset
+        let length = commandSize - loadCommandStringOffset
+        self = String(data: data[stringOffset..<(stringOffset + length)],
+                      encoding: .utf8)!.trimmingCharacters(in: .controlCharacters)
     }
 }
