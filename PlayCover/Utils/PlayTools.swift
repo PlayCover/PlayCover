@@ -339,8 +339,8 @@ class PlayTools {
         var versionCommand = build_version_command(cmd: UInt32(LC_BUILD_VERSION),
                                                    cmdsize: 24,
                                                    platform: UInt32(PLATFORM_MACCATALYST),
-                                                   minos: 11 << 2,
-                                                   sdk: 14 << 2,
+                                                   minos: 0x00000b00,
+                                                   sdk: 0x00000e00,
                                                    ntools: 0)
 
         var zero: UInt = 0
