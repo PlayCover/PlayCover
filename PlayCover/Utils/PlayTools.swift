@@ -8,6 +8,7 @@ import injection
 
 // swiftlint:disable type_body_length
 // swiftlint:disable file_length
+// swiftlint:disable function_body_length
 
 class PlayTools {
     private static let frameworksURL = FileManager.default.homeDirectoryForCurrentUser
@@ -98,7 +99,7 @@ class PlayTools {
                     let thinBinary = binary
                         .subdata(in: Int(arch.offset)..<Int(arch.offset+arch.size))
                     try FileManager.default.removeItem(at: exec)
-                    FileManager.default.createFile(atPath: exec.path, contents: thinBinary)
+                    try thinBinary.write(to: exec)
 
                     return
                 }
@@ -233,12 +234,121 @@ class PlayTools {
     }
 
     static func convertMacho(_ macho: URL) throws {
-        Log.shared.log("Converting \(macho.lastPathComponent) binary")
-        try shell.shello(
-            vtool.path,
-            "-set-build-version", "maccatalyst", "11.0", "14.0",
-            "-replace", "-output",
-            macho.path, macho.path)
+        print(macho.path)
+        try stripBinary(macho)
+        try removeOldCommand(macho)
+        try injectNewCommand(macho)
+    }
+
+    static func removeOldCommand(_ url: URL) throws {
+        var binary = try Data(contentsOf: url)
+        var newheader: mach_header_64
+        var newHeaderData: Data?
+        var machoRange: Range<Data.Index>?
+        var start: Int?
+        var size: Int?
+        var end: Int?
+
+        let header = binary.extract(mach_header_64.self)
+        var offset = MemoryLayout.size(ofValue: header)
+
+        for _ in 0..<header.ncmds {
+            let loadCommand = binary.extract(load_command.self, offset: offset)
+            switch UInt32(loadCommand.cmd) {
+            case UInt32(LC_VERSION_MIN_IPHONEOS), UInt32(LC_VERSION_MIN_MACOSX):
+                let versionCommand = binary.extract(version_min_command.self, offset: offset)
+
+                start = offset
+                size = Int(versionCommand.cmdsize)
+                newheader = mach_header_64(magic: header.magic,
+                                           cputype: header.cputype,
+                                           cpusubtype: header.cpusubtype,
+                                           filetype: header.filetype,
+                                           ncmds: header.ncmds - 1,
+                                           sizeofcmds: header.sizeofcmds - UInt32(versionCommand.cmdsize),
+                                           flags: header.flags,
+                                           reserved: header.reserved)
+                newHeaderData = Data(bytes: &newheader, count: MemoryLayout<mach_header_64>.size)
+                machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
+            case UInt32(LC_BUILD_VERSION):
+                break
+            default:
+                break
+            }
+            offset += Int(loadCommand.cmdsize)
+        }
+        end = offset
+
+        if let start = start,
+           let end = end,
+           let size = size,
+           let machoRange = machoRange,
+           let newHeaderData = newHeaderData {
+            let subrangeNew = Range(NSRange(location: start + size, length: end - start - size))!
+            let subrangeOld = Range(NSRange(location: start, length: end - start))!
+            var zero: UInt = 0
+            var commandData = Data()
+            commandData.append(binary.subdata(in: subrangeNew))
+            commandData.append(Data(bytes: &zero, count: size))
+
+            binary.replaceSubrange(subrangeOld, with: commandData)
+            binary.replaceSubrange(machoRange, with: newHeaderData)
+            try binary.write(to: url)
+        }
+    }
+
+    static func injectNewCommand(_ url: URL) throws {
+        var binary = try Data(contentsOf: url)
+        let header = binary.extract(mach_header_64.self)
+        let length = MemoryLayout<build_version_command>.size
+        let padding = (8 - (length % 8))
+        let cmdSize = length + padding
+
+        var start = 0
+        var end = cmdSize
+        var subData: Data
+        var newHeaderData: Data
+        var machoRange: Range<Data.Index>
+
+        start = Int(header.sizeofcmds)+Int(MemoryLayout<mach_header_64>.size)
+        end += start
+        subData = binary[start..<end]
+
+        var newheader = mach_header_64(magic: header.magic,
+                                       cputype: header.cputype,
+                                       cpusubtype: header.cpusubtype,
+                                       filetype: header.filetype,
+                                       ncmds: header.ncmds + 1,
+                                       sizeofcmds: header.sizeofcmds + UInt32(cmdSize),
+                                       flags: header.flags,
+                                       reserved: header.reserved)
+        newHeaderData = Data(bytes: &newheader, count: MemoryLayout<mach_header_64>.size)
+        machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
+
+        let testString = String(data: subData, encoding: .utf8)?
+            .trimmingCharacters(in: .controlCharacters)
+        if testString != "" && testString != nil {
+            print("Not enough space in binary!")
+            return
+        }
+
+        var versionCommand = build_version_command(cmd: UInt32(LC_BUILD_VERSION),
+                                                   cmdsize: 24,
+                                                   platform: UInt32(PLATFORM_MACCATALYST),
+                                                   minos: 11,
+                                                   sdk: 14,
+                                                   ntools: 0)
+
+        var zero: UInt = 0
+        var commandData = Data()
+        commandData.append(Data(bytes: &versionCommand, count: MemoryLayout<build_version_command>.size))
+        commandData.append(Data(bytes: &zero, count: padding))
+
+        let subrange = Range(NSRange(location: start, length: commandData.count))!
+        binary.replaceSubrange(subrange, with: commandData)
+
+        binary.replaceSubrange(machoRange, with: newHeaderData)
+        try binary.write(to: url)
     }
 
     static func isMachoEncrypted(atURL url: URL) throws -> Bool {
