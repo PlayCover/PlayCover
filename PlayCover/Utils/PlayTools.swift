@@ -273,6 +273,7 @@ class PlayTools {
                 newHeaderData = Data(bytes: &newheader, count: MemoryLayout<mach_header_64>.size)
                 machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
             case UInt32(LC_BUILD_VERSION):
+                // TODO: Similar thing as other one
                 break
             default:
                 break
