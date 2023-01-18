@@ -325,8 +325,8 @@ class PlayTools {
                                                    sdk: 0x000e0000,
                                                    ntools: 0)
 
-        var start = Int(header.sizeofcmds)+Int(MemoryLayout<mach_header_64>.size)
-        var subData = binary[start..<start + Int(versionCommand.cmdsize)]
+        let start = Int(header.sizeofcmds)+Int(MemoryLayout<mach_header_64>.size)
+        let subData = binary[start..<start + Int(versionCommand.cmdsize)]
 
         var newheader = mach_header_64(magic: header.magic,
                                        cputype: header.cputype,
@@ -336,8 +336,8 @@ class PlayTools {
                                        sizeofcmds: header.sizeofcmds + versionCommand.cmdsize,
                                        flags: header.flags,
                                        reserved: header.reserved)
-        var newHeaderData = Data(bytes: &newheader, count: MemoryLayout<mach_header_64>.size)
-        var machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
+        let newHeaderData = Data(bytes: &newheader, count: MemoryLayout<mach_header_64>.size)
+        let machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
 
         let testString = String(data: subData, encoding: .utf8)?
             .trimmingCharacters(in: .controlCharacters)
