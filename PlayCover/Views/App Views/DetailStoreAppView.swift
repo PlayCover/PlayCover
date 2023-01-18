@@ -169,24 +169,30 @@ struct DetailStoreAppView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(bannerImageURLs, id: \.self) { url in
-                            CachedAsyncImage(url: url, urlCache: .screenshotCache) { image in
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                            } placeholder: {
-                                Rectangle()
-                                    .fill(.regularMaterial)
-                                    .frame(width: 220, height: 170)
-                                    .overlay {
-                                        ProgressView()
-                                            .progressViewStyle(.circular)
-                                    }
+                            Button {
+                                presentedBannerURL = url
+                                bannerIsPresented = true
+                            } label: {
+                                CachedAsyncImage(url: url, urlCache: .screenshotCache) { image in
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                } placeholder: {
+                                    Rectangle()
+                                        .fill(.regularMaterial)
+                                        .frame(width: 220, height: 170)
+                                        .overlay {
+                                            ProgressView()
+                                                .progressViewStyle(.circular)
+                                        }
+                                }
                             }
+                            .buttonStyle(.plain)
                         }
                     }
-                    .padding(5)
+                    .padding(7.5)
                     .shadow(radius: 2.5)
-                    .cornerRadius(5)
+                    .cornerRadius(10)
                     .ignoresSafeArea(edges: .trailing)
                     .background(.ultraThinMaterial)
                     .frame(height: 180)
@@ -267,8 +273,8 @@ struct DetailStoreAppView: View {
                 onlineIcon = URL(string: url)
             }
             appGenre = itunesResponce?.results[0].primaryGenreName ?? ""
-            appRating = String(
-                format: "%.1f", round(itunesResponce?.results[0].averageUserRating ?? 0 * 10) / 10.0
+            appRating = String(format: "%.1f", round(
+                (itunesResponce?.results[0].averageUserRating ?? 0) * 10) / 10.0
             )
             appSize = ByteCountFormatter.string(
                 fromByteCount: Int64(itunesResponce?.results[0].fileSizeBytes ?? "0") ?? 0,

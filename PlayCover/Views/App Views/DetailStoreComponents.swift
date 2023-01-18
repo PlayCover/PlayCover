@@ -77,6 +77,7 @@ struct EnlargedBanner: View {
                         Image(systemName: "xmark.circle.fill")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
+                            .foregroundColor(.white)
                             .frame(width: 25, height: 25)
                             .shadow(radius: 5)
                     }
@@ -84,7 +85,7 @@ struct EnlargedBanner: View {
                     .padding()
                 }
                 Spacer()
-                var currentIndex = bannerImageURLs.firstIndex { url in
+                let currentIndex = bannerImageURLs.firstIndex { url in
                     url == presentedBannerURL
                 }
                 HStack {
@@ -99,6 +100,7 @@ struct EnlargedBanner: View {
                         Image(systemName: "chevron.backward.circle.fill")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
+                            .foregroundColor(.white)
                             .frame(width: 25, height: 25)
                             .shadow(radius: 5)
                     }
@@ -116,6 +118,7 @@ struct EnlargedBanner: View {
                         Image(systemName: "chevron.forward.circle.fill")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
+                            .foregroundColor(.white)
                             .frame(width: 25, height: 25)
                             .shadow(radius: 5)
                     }
