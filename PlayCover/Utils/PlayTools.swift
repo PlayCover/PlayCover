@@ -304,37 +304,6 @@ class PlayTools {
     static func injectNewCommand(_ url: URL) throws {
         var binary = try Data(contentsOf: url)
         let header = binary.extract(mach_header_64.self)
-        let length = MemoryLayout<build_version_command>.size
-        let padding = (8 - (length % 8))
-        let cmdSize = length + padding
-
-        var start = 0
-        var end = cmdSize
-        var subData: Data
-        var newHeaderData: Data
-        var machoRange: Range<Data.Index>
-
-        start = Int(header.sizeofcmds)+Int(MemoryLayout<mach_header_64>.size)
-        end += start
-        subData = binary[start..<end]
-
-        var newheader = mach_header_64(magic: header.magic,
-                                       cputype: header.cputype,
-                                       cpusubtype: header.cpusubtype,
-                                       filetype: header.filetype,
-                                       ncmds: header.ncmds + 1,
-                                       sizeofcmds: header.sizeofcmds + UInt32(cmdSize),
-                                       flags: header.flags,
-                                       reserved: header.reserved)
-        newHeaderData = Data(bytes: &newheader, count: MemoryLayout<mach_header_64>.size)
-        machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
-
-        let testString = String(data: subData, encoding: .utf8)?
-            .trimmingCharacters(in: .controlCharacters)
-        if testString != "" && testString != nil {
-            print("Not enough space in binary!")
-            return
-        }
 
         var versionCommand = build_version_command(cmd: UInt32(LC_BUILD_VERSION),
                                                    cmdsize: 24,
@@ -343,10 +312,29 @@ class PlayTools {
                                                    sdk: 0x000e0000,
                                                    ntools: 0)
 
-        var zero: UInt = 0
+        var start = Int(header.sizeofcmds)+Int(MemoryLayout<mach_header_64>.size)
+        var subData = binary[start..<start + Int(versionCommand.cmdsize)]
+
+        var newheader = mach_header_64(magic: header.magic,
+                                       cputype: header.cputype,
+                                       cpusubtype: header.cpusubtype,
+                                       filetype: header.filetype,
+                                       ncmds: header.ncmds + 1,
+                                       sizeofcmds: header.sizeofcmds + versionCommand.cmdsize,
+                                       flags: header.flags,
+                                       reserved: header.reserved)
+        var newHeaderData = Data(bytes: &newheader, count: MemoryLayout<mach_header_64>.size)
+        var machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
+
+        let testString = String(data: subData, encoding: .utf8)?
+            .trimmingCharacters(in: .controlCharacters)
+        if testString != "" && testString != nil {
+            print("Not enough space in binary!")
+            return
+        }
+
         var commandData = Data()
         commandData.append(Data(bytes: &versionCommand, count: MemoryLayout<build_version_command>.size))
-        commandData.append(Data(bytes: &zero, count: padding))
 
         let subrange = Range(NSRange(location: start, length: commandData.count))!
         binary.replaceSubrange(subrange, with: commandData)
@@ -359,8 +347,8 @@ class PlayTools {
     static func isMachoEncrypted(atURL url: URL) throws -> Bool {
         let binary = try Data(contentsOf: url)
         var header = binary.extract(fat_header.self)
-        var offset = MemoryLayout.size(ofValue: header)
-        var shouldSwap = header.magic == FAT_CIGAM
+        let offset = MemoryLayout.size(ofValue: header)
+        let shouldSwap = header.magic == FAT_CIGAM
 
         if header.magic == FAT_MAGIC || header.magic == FAT_CIGAM {
             if shouldSwap {
