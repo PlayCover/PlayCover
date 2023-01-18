@@ -273,7 +273,20 @@ class PlayTools {
                 newHeaderData = Data(bytes: &newheader, count: MemoryLayout<mach_header_64>.size)
                 machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
             case UInt32(LC_BUILD_VERSION):
-                // TODO: Similar thing as other one
+                let versionCommand = binary.extract(build_version_command.self, offset: offset)
+
+                start = offset
+                size = Int(versionCommand.cmdsize)
+                newheader = mach_header_64(magic: header.magic,
+                                           cputype: header.cputype,
+                                           cpusubtype: header.cpusubtype,
+                                           filetype: header.filetype,
+                                           ncmds: header.ncmds - 1,
+                                           sizeofcmds: header.sizeofcmds - UInt32(versionCommand.cmdsize),
+                                           flags: header.flags,
+                                           reserved: header.reserved)
+                newHeaderData = Data(bytes: &newheader, count: MemoryLayout<mach_header_64>.size)
+                machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
                 break
             default:
                 break
@@ -376,7 +389,7 @@ class PlayTools {
         var offset = offset
         var header = binary.extract(mach_header_64.self, offset: offset)
         offset += MemoryLayout.size(ofValue: header)
-        var shouldSwap = header.magic == MH_CIGAM_64
+        let shouldSwap = header.magic == MH_CIGAM_64
 
         if shouldSwap {
             swap_mach_header_64(&header, NXHostByteOrder())
@@ -454,7 +467,7 @@ class PlayTools {
         print(url.path)
         let binary = try Data(contentsOf: url)
         var header = binary.extract(fat_header.self)
-        var offset = MemoryLayout.size(ofValue: header)
+        let offset = MemoryLayout.size(ofValue: header)
         let shouldSwap = header.magic == FAT_CIGAM
 
         if header.magic == FAT_MAGIC || header.magic == FAT_CIGAM {
@@ -483,7 +496,7 @@ class PlayTools {
         var offset = offset
         var header = binary.extract(mach_header_64.self, offset: offset)
         offset += MemoryLayout.size(ofValue: header)
-        var shouldSwap = header.magic == MH_CIGAM_64
+        let shouldSwap = header.magic == MH_CIGAM_64
 
         if shouldSwap {
             swap_mach_header_64(&header, NXHostByteOrder())
