@@ -75,8 +75,12 @@ class Shell: ObservableObject {
     }
 
 	static let isXcodeCliToolsInstalled: Bool = {
-        let trimmedPath = getPath(path: "xcode-select -p")?.split(separator: "\n").last?.trimmingCharacters(in: .whitespacesAndNewlines)
-        if trimmedPath == nil {return false} else {
+        let trimmedPath = getPath(path: "xcode-select -p")?
+            .split(separator: "\n").last?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmedPath == nil {
+            return false
+        } else {
             let toolsPath = trimmedPath!.appending("/usr/bin/notarytool")
             return FileManager.default.fileExists(atPath: toolsPath)
         }
