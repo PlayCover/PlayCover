@@ -95,22 +95,6 @@ To uninstall:
 
 Distributed under the GPLv3 License. See `LICENSE` for more information.
 
-### Disclaimer
-
-- This fork has been created by the community to support the development of PlayCover, since the original project became non-free and non-open-source.
-- This fork is not affiliated with the original project, nor the original author.
-- This fork is not affiliated with the website <https://playcover.me>.
-- If you have any questions, please ask the community for help first.
-- The original project is under GNU General Public License v3.0, so there is no legal issue to fork it and redistribute.
-
-If anyone feels like this fork somehow violates the copyright (e.g., the logo), please open an issue.
-
-Many things are under construction, so please be patient. Any contribution is welcome.
-
-This fork will always stay open-source and maintained by the community.
-
-<p align="right"><a href="#top">⬆️ Back to top️</a></p>
-
 
 
 <!-- CONTACT -->
@@ -118,7 +102,8 @@ This fork will always stay open-source and maintained by the community.
 
 Lucas Lee - playcover@lucas.icu
 
-<p align="right"><a href="#top">⬆️ Back to top️</a></p>
+Depal - depal@playcover.io
+
 
 
 
@@ -129,6 +114,9 @@ These open source libraries were used to create this project.
 
 * [inject](https://github.com/paradiseduo/inject)
 * [PTFakeTouch](https://github.com/Ret70/PTFakeTouch)
+* [DownloadManager](https://github.com/shapedbyiris/download-manager)
+* [DataCache](https://github.com/huynguyencong/DataCache)
+* [SwiftUI CachedAsyncImage](https://github.com/lorenzofiamingo/swiftui-cached-async-image)
 
 * Thanks to @iVoider for creating such a great project!
 

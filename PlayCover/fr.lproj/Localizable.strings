@@ -318,7 +318,7 @@
 "preferences.popover.badurl" = "Lien invalide !";
 "preferences.popover.badjson" = "JSON invalide ou introuvable !";
 "preferences.textfield.url" = "URL source...";
-"playapp.download" = "Téléchargement en cours...";
+"playapp.download" = "Téléchargement en cours";
 "error.waitDownload" = "Veuillez attendre la fin du téléchargement en cours !";
 "preferences.toggle.clearAppData" = "Effacer les données";
 "preferences.tab.uninstall" = "Désinstaller";
@@ -332,7 +332,7 @@
 "preferences.prune.message" = "Cela supprimera tous les fichiers inutilisés, y compris les paramètres, le mappage de touches, les autorisations et les données d'application";
 "playapp.install.failed" = "Échoué";
 "alert.supression" = "Vous pouvez modifier cela dans les préférences PlayCover";
-"menubar.clearCache" = "Effacer le cache d'images";
+"menubar.clearCache" = "Effacer le cache";
 "preferences.tab.install" = "Installer";
 "alert.install.injectPlayTools" = "Injecter PlayTools";
 "preferences.toggle.showInstallPopup" = "Afficher la fenêtre d'installation de PlayTools";
@@ -379,3 +379,4 @@
 "settings.toggle.lldb" = "Ouvrir avec LLDB";
 "alert.differentBundleIdKeymap.message" = "Le keymap peut avoir été créé pour une autre application.";
 "settings.toggle.lldbWithTerminal" = "Ouvrir dans le terminal";
+"settings.unavailable.hud" = "Metal HUD unavailable";

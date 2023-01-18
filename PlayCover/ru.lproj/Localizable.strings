@@ -77,7 +77,7 @@
 "notification.appInstalled.message" = "Проверьте в PlayCover!";
 
 /* (No Comment) */
-"playapp.activateAccount" = "Восстановить аккаунт";
+"playapp.activateAccount" = "Сменить аккаунт";
 
 /* (No Comment) */
 "playapp.clearCache" = "Очистить Данные Приложения";
@@ -128,7 +128,7 @@
 "playapp.showInFinder" = "Показать в Finder";
 
 /* (No Comment) */
-"playapp.storeCurrentAccount" = "Сохранить текущую учетную запись";
+"playapp.storeCurrentAccount" = "Сохранить аккаунт";
 
 /* (No Comment) */
 "preferences.button.checkForUpdates" = "Проверка наличия обновлений";
@@ -137,7 +137,7 @@
 "preferences.tab.updates" = "Обновления";
 
 /* (No Comment) */
-"preferences.toggle.automaticUpdates" = "Автоматически проверять наличие обновлений";
+"preferences.toggle.automaticUpdates" = "Автоматическая проверка наличия обновлений";
 
 /* (No Comment) */
 "settings.button.discord" = "Custom Discord activity";
@@ -371,11 +371,12 @@
 "alert.power.subtitle" = "Some apps will not work with Low Power Mode enabled. It is recommended to disable it.";
 "ipaLibrary.download" = "Download";
 "alert.differentBundleIdKeymap.message" = "The keymap may have been created for another application.";
-"ipaLibrary.version.older" = "This version is older than the one you have installed";
-"ipaLibrary.version.same" = "App already installed";
-"ipaLibrary.version.newer" = "This version is newer than the version you have installed";
+"ipaLibrary.version.older" = "Эта версия старше установленной";
+"ipaLibrary.version.same" = "Приложение уже установлено";
+"ipaLibrary.version.newer" = "Эта версия новее, чем версия, которую вы установили";
 "ipaLibrary.alert.download" = "Are you sure you want to download this version of %@?";
 "alert.differentBundleIdKeymap.text" = "Are you sure you want to import this keymap?";
 "settings.text.debugger" = "Debugger:";
 "settings.toggle.lldb" = "Open with LLDB";
 "settings.toggle.lldbWithTerminal" = "Open in terminal";
+"settings.unavailable.hud" = "Metal HUD unavailable";

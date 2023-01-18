@@ -379,3 +379,4 @@
 "settings.text.debugger" = "Debugger:";
 "settings.toggle.lldb" = "Open with LLDB";
 "settings.toggle.lldbWithTerminal" = "Open in terminal";
+"settings.unavailable.hud" = "Metal HUD unavailable";

@@ -319,10 +319,10 @@
 "preferences.popover.badurl" = "URL Ungültig!";
 "preferences.popover.badjson" = "JSON Ungültig oder nicht gefunden worden!";
 "preferences.textfield.url" = "URL Quelle...";
-"playapp.download" = "Wird Installiert...";
+"playapp.download" = "Wird Installiert";
 "preferences.toggle.clearAppData" = "Daten löschen";
 "alert.supression" = "Du kannst dies in den PlayCover Einstellungen ändern";
-"menubar.clearCache" = "Bild Cache löschen";
+"menubar.clearCache" = "Cache löschen";
 "preferences.tab.uninstall" = "Deinstallieren";
 "preferences.whenUninstalling" = "Beim deinstallieren:";
 "preferences.toggle.showUninstall" = "Warnungs popup zeigen";
@@ -379,3 +379,4 @@
 "alert.differentBundleIdKeymap.text" = "Bist du dir sicher dass du diese Tastaturbelegung importieren willst?";
 "settings.toggle.lldb" = "Öffnen mit LLDB";
 "settings.toggle.lldbWithTerminal" = "Im Terminal öffnen";
+"settings.unavailable.hud" = "Metal HUD unavailable";

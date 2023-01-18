@@ -75,17 +75,20 @@ class Shell: ObservableObject {
     }
 
 	static let isXcodeCliToolsInstalled: Bool = {
-        let toolsPath = try? sh("xcode-select -p")
-        if let toolsPath = toolsPath?.trimmingCharacters(in: .whitespacesAndNewlines) {
-            if FileManager.default.fileExists(atPath:
-                toolsPath.appending("/usr/bin/notarytool")) { // This executable is gaurenteed
-                                                              // to exist weather it's the CLT or the full xcode
-                return true
-            }
+        let trimmedPath = getPath(path: "xcode-select -p")?
+            .split(separator: "\n").last?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmedPath == nil {
+            return false
+        } else {
+            let toolsPath = trimmedPath!.appending("/usr/bin/notarytool")
+            return FileManager.default.fileExists(atPath: toolsPath)
         }
-
-		return false
 	}()
+
+    static func getPath(path: String) -> String? {
+        return try? sh(path)
+    }
 
     static func isMachoSigned(_ exec: URL) -> Bool {
         !shell("/usr/bin/codesign -dv \(exec.esc)").contains("code object is not signed at all")
@@ -106,7 +109,7 @@ class Shell: ObservableObject {
     static func zip(ipa: URL, name: String, payload: URL) throws {
         shell("cd \(payload.esc) && zip -r \(name.esc).ipa Payload")
         try FileManager.default
-            .moveItem(at: payload.appendingPathComponent(name).appendingPathExtension("ipa"), to: ipa)
+            .moveItem(at: payload.appendingEscapedPathComponent(name).appendingPathExtension("ipa"), to: ipa)
     }
 
     static func signAppWith(_ exec: URL, entitlements: URL) {
@@ -119,9 +122,9 @@ class Shell: ObservableObject {
     }
 
     static func lldb(_ url: URL, withTerminalWindow: Bool = false) {
-        var command = "/usr/bin/lldb -o run \(url.esc) -o exit"
+        Task(priority: .utility) {
+            var command = "/usr/bin/lldb -o run \(url.esc) -o exit"
 
-        DispatchQueue.global(qos: .utility).async {
             if withTerminalWindow {
                 command = command.replacingOccurrences(of: "\\", with: "\\\\")
                 let osascript = """

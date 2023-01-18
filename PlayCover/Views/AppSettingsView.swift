@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DataCache
 
 // swiftlint:disable file_length
 struct AppSettingsView: View {
@@ -16,21 +17,27 @@ struct AppSettingsView: View {
     @State var resetSettingsCompletedAlert = false
     @State var resetKmCompletedAlert = false
     @State var closeView = false
-    @State var iconURL: URL?
+    @State var appIcon: NSImage?
     @State var hasPlayTools: Bool?
+
+    @State private var cache = DataCache.instance
 
     var body: some View {
         VStack {
             HStack {
-                AsyncImage(url: iconURL) { image in
-                    image
-                        .resizable()
-                        .cornerRadius(10)
-                        .shadow(radius: 1)
-                } placeholder: {
-                    ProgressView()
-                        .progressViewStyle(.circular)
+                Group {
+                    if let image = appIcon {
+                        Image(nsImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    } else {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                            .frame(width: 60, height: 60)
+                    }
                 }
+                .cornerRadius(10)
+                .shadow(radius: 1)
                 .frame(width: 33, height: 33)
 
                 VStack {
@@ -58,9 +65,7 @@ struct AppSettingsView: View {
                 }
             }
             .task(priority: .userInitiated) {
-                iconURL = ImageCache.getLocalImageURL(bundleID: viewModel.app.info.bundleIdentifier,
-                                                      bundleURL: viewModel.app.url,
-                                                      primaryIconName: viewModel.app.info.primaryIconName)
+                appIcon = cache.readImage(forKey: viewModel.app.info.bundleIdentifier)
             }
 
             TabView {
@@ -213,7 +218,7 @@ struct GraphicsView: View {
                                 value: $customWidth,
                                 formatter: GraphicsView.number,
                                 onCommit: {
-                                    DispatchQueue.main.async {
+                                    Task { @MainActor in
                                         NSApp.keyWindow?.makeFirstResponder(nil)
                                     }
                                 })
@@ -232,7 +237,7 @@ struct GraphicsView: View {
                                 value: $customHeight,
                                 formatter: GraphicsView.number,
                                 onCommit: {
-                                    DispatchQueue.main.async {
+                                    Task { @MainActor in
                                         NSApp.keyWindow?.makeFirstResponder(nil)
                                     }
                                 })
@@ -426,14 +431,15 @@ struct MiscView: View {
                                 }.padding(.bottom)
                             }
                         }
-                    Spacer()
                 }.disabled(!(hasPlayTools ?? true))
+                Spacer()
+                    .frame(height: 20)
                 HStack {
                     HStack {
-                        if #available(macOS 13.0, *) {
-                            Toggle("settings.toggle.hud", isOn: $settings.metalHudEnabled)
-                            Spacer()
-                        }
+                        Toggle("settings.toggle.hud", isOn: $settings.metalHudEnabled)
+                            .disabled(!isVenturaGreater())
+                            .help(!isVenturaGreater() ? "settings.unavailable.hud" : "")
+                        Spacer()
                         HStack {
                             Text("settings.text.debugger")
                             VStack {
@@ -449,7 +455,7 @@ struct MiscView: View {
                 HStack {
                     Button((hasPlayTools ?? true) ? "settings.removePlayTools" : "alert.install.injectPlayTools") {
                         closeView.toggle()
-                        DispatchQueue.global(qos: .userInitiated).async {
+                        Task(priority: .userInitiated) {
                             if hasPlayTools ?? true {
                                 PlayTools.removeFromApp(app.executable)
                             } else {
@@ -460,7 +466,7 @@ struct MiscView: View {
                                 }
                             }
 
-                            DispatchQueue.main.async {
+                            Task { @MainActor in
                                 AppsVM.shared.apps = []
                                 AppsVM.shared.fetchApps()
                             }
@@ -470,6 +476,14 @@ struct MiscView: View {
                 }
             }
             .padding()
+        }
+    }
+
+    func isVenturaGreater() -> Bool {
+        if #available(macOS 13.0, *) {
+            return true
+        } else {
+            return false
         }
     }
 }

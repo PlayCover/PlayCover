@@ -11,7 +11,7 @@ class Log: ObservableObject {
     static let shared = Log()
 
     func error(_ err: Error) {
-        DispatchQueue.main.async {
+        Task { @MainActor in
             self.dialog(
                 question: NSLocalizedString("alert.error", comment: ""),
                 text: err.localizedDescription,
@@ -20,7 +20,7 @@ class Log: ObservableObject {
     }
 
     func msg(_ msg: String) {
-        DispatchQueue.main.async {
+        Task { @MainActor in
             self.log(msg)
             self.dialog(
                 question: NSLocalizedString("alert.success", comment: ""),

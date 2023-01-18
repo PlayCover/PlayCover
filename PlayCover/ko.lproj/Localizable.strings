@@ -283,7 +283,7 @@
 "settings.info.bundleName" = "번들 이름:";
 "settings.info.bundleIdentifier" = "번들 식별자:";
 "settings.info.executableName" = "실행 파일 이름:";
-"settings.info.minimumOSVersion" = "최소지원 OS 버전:";
+"settings.info.minimumOSVersion" = "최소 OS 버전:";
 "settings.info.url" = "경로:";
 "settings.resetSettings" = "설정 초기화";
 "settings.resetKm" = "키매핑 초기화";
@@ -318,7 +318,7 @@
 "preferences.popover.badurl" = "URL이 유효하지 않습니다!";
 "preferences.popover.badjson" = "JSON이 유효하지 않거나 찾을 수 없습니다!";
 "preferences.textfield.url" = "소스 URL...";
-"playapp.download" = "다운로드 중...";
+"playapp.download" = "다운로드 중";
 "error.waitDownload" = "현재 다운로드가 끝날 때까지 기다려 주세요!";
 "playapp.install.failed" = "실패함";
 "alert.supression" = "PlayCover 환경설정에서 변경할 수 있습니다";
@@ -332,7 +332,7 @@
 "preferences.button.pruneFiles" = "파일 정리";
 "preferences.prune.alert" = "모든 파일을 정리하시겠습니까?";
 "preferences.prune.message" = "이는 설정, 키매핑, 권한, 앱데이터를 포함한 모든 불필요한 것들을 제거합니다";
-"menubar.clearCache" = "이미지 캐시 제거";
+"menubar.clearCache" = "캐시 제거";
 "preferences.tab.install" = "설치";
 "preferences.toggle.showInstallPopup" = "PlayTools 설치 팝업 보기";
 "preferences.toggle.alwaysInstallPlayTools" = "항상 PlayTools 설치";
@@ -379,3 +379,4 @@
 "ipaLibrary.download" = "다운로드";
 "alert.differentBundleIdKeymap.message" = "이 키매핑은 다른 앱을 위해 만들어졌을수도 있습니다.";
 "alert.differentBundleIdKeymap.text" = "정말로 이 키매핑을 불러오시겠습니까?";
+"settings.unavailable.hud" = "Metal HUD unavailable";

@@ -49,7 +49,7 @@ class Installer {
 
         InstallVM.shared.next(.begin, 0.0, 0.0)
 
-        DispatchQueue.global(qos: .userInitiated).async {
+        Task(priority: .userInitiated) {
             let ipa = IPA(url: ipaUrl)
 
             do {
@@ -128,7 +128,7 @@ class Installer {
                 continue
             }
 
-            let entryURL = folderURL.appendingPathComponent(entry)
+            let entryURL = folderURL.appendingEscapedPathComponent(entry)
             var isDirectory: ObjCBool = false
 
             guard FileManager.default.fileExists(atPath: entryURL.path, isDirectory: &isDirectory),
@@ -206,7 +206,7 @@ class Installer {
             .appendingPathComponent("Info")
             .appendingPathExtension("plist"))
         let location = PlayTools.playCoverContainer
-            .appendingPathComponent(info.displayName)
+            .appendingEscapedPathComponent(info.displayName)
             .appendingPathExtension("app")
         if FileManager.default.fileExists(atPath: location.path) {
             try FileManager.default.removeItem(at: location)

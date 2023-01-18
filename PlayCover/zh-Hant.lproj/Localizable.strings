@@ -298,7 +298,7 @@
 "preferences.popover.badurl" = "無效的鏈結!";
 "preferences.popover.badjson" = "JSON 無效或不存在！";
 "preferences.textfield.url" = "來源URL鏈結...";
-"playapp.download" = "下載中...";
+"playapp.download" = "下載中";
 "error.waitDownload" = "請等待下載完成！";
 "preferences.tab.uninstall" = "解除安裝";
 "preferences.whenUninstalling" = "解除安裝同時：";
@@ -312,7 +312,7 @@
 "preferences.prune.message" = "這將刪除所有未使用的檔案，包括設定、鍵盤映射、授權和應用程式數據";
 "playapp.install.failed" = "失敗";
 "alert.supression" = "你可以在 PlayCover 偏好設定中更改";
-"menubar.clearCache" = "清理圖片緩存";
+"menubar.clearCache" = "清理緩存";
 "preferences.tab.install" = "安裝";
 "preferences.toggle.showInstallPopup" = "顯示安裝 PlayTools 彈窗";
 "preferences.toggle.alwaysInstallPlayTools" = "總是安裝 PlayTools";
@@ -359,3 +359,4 @@
 "settings.text.debugger" = "調試器：";
 "settings.toggle.lldb" = "用 LLDB 高性能調試器打開";
 "settings.toggle.lldbWithTerminal" = "用終端打開";
+"settings.unavailable.hud" = "Metal HUD unavailable";

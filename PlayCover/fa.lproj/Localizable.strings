@@ -159,7 +159,7 @@
 "preferences.popover.badurl" = "پیوند معتبر نیست!";
 "preferences.popover.badjson" = "پرونده JSON اعتبار نداشته و یا یافت نشد!";
 "preferences.textfield.url" = "پیوند مخزن را وارد کنید...";
-"playapp.download" = "در حال بارگیری...";
+"playapp.download" = "در حال بارگیری";
 "error.waitDownload" = "لطفاً پس از پایان یافتن روند بارگیری در حال انجام، تلاش کنید!";
 "preferences.tab.uninstall" = "گزینه‌های حذف برنامه";
 "playapp.install.failed" = "موفقیت‌آمیز نبود";
@@ -173,7 +173,7 @@
 "preferences.prune.alert" = "از پاک کردن پرونده‌های بلااستفاده مطمئن هستید؟";
 "preferences.prune.message" = "با این کار تمامی پیکربندی‌ها، Keymapها، دسترسی‌سازها و داده‌های برنامه‌هایی که در گذشته حذف شده‌اند و در PlayCover بلااستفاده باقی‌مانده‌اند، پاک خواهد شد";
 "alert.supression" = "این مورد را می‌توانید در پیکربندی PlayCover تغییر دهید";
-"menubar.clearCache" = "تصاویر Cacheشده را پاک کن";
+"menubar.clearCache" = "Cache را پاک‌سازی کن";
 "settings.removePlayTools" = "حذف PlayTools از برنامه";
 "settings.info.playTools" = "PlayTools نصب است:";
 "preferences.tab.install" = "گزینه‌های نصب برنامه";
@@ -220,3 +220,4 @@
 "ipaLibrary.download" = "بارگیری";
 "alert.differentBundleIdKeymap.message" = "این Keymap برای برنامه‌ای دیگر ساخته شده است.";
 "settings.text.debugger" = "اشکال‌زدا:";
+"settings.unavailable.hud" = "Metal HUD unavailable";

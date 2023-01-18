@@ -318,9 +318,9 @@
 "preferences.popover.badurl" = "無効なURL!";
 "preferences.popover.badjson" = "JSONファイルが無効であるか見つかりません!";
 "preferences.textfield.url" = "ソースのURL...";
-"playapp.download" = "ダウンロード中...";
+"playapp.download" = "ダウンロード中";
 "error.waitDownload" = "ダウンロードが終了するまでお待ちください!";
-"menubar.clearCache" = "画像キャッシュをクリア";
+"menubar.clearCache" = "キャッシュをクリア";
 "preferences.tab.uninstall" = "アンインストール";
 "preferences.whenUninstalling" = "アンインストール時:";
 "preferences.toggle.showUninstall" = "警告を表示";
@@ -379,3 +379,4 @@
 "alert.differentBundleIdKeymap.text" = "このキーマップをインポートしてもよろしいですか?";
 "settings.toggle.lldb" = "LLDBで開く";
 "settings.toggle.lldbWithTerminal" = "ターミナルで開く";
+"settings.unavailable.hud" = "Metal HUD unavailable";

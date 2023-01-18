@@ -224,7 +224,7 @@ struct AddSourceView: View {
 
     func validateSource(_ source: String) {
         sourceValidationState = .checking
-        DispatchQueue.global(qos: .userInteractive).async {
+        Task {
             if let url = URL(string: source) {
                 newSourceURL = url
                 if StoreVM.checkAvaliability(url: newSourceURL!) {
@@ -232,8 +232,7 @@ struct AddSourceView: View {
                         if newSourceURL!.scheme == nil {
                             newSourceURL = URL(string: "https://" + newSourceURL!.absoluteString)!
                         }
-                        let contents = try String(contentsOf: newSourceURL!)
-                        let jsonData = contents.data(using: .utf8)!
+                        let (jsonData, _) = try await URLSession.shared.data(for: URLRequest(url: newSourceURL!))
                         do {
                             let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self, from: jsonData)
                             if data.count > 0 {

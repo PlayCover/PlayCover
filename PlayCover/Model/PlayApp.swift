@@ -75,7 +75,7 @@ class PlayApp: BaseApp {
                 guard error == nil else { return }
                 if self.settings.settings.disableTimeout {
                     // Yeet into a thread
-                    DispatchQueue.global().async {
+                    Task {
                         debugPrint("Disabling timeout...")
                         let reason = "PlayCover: " + self.name + " disabled screen timeout" as CFString
                         var assertionID: IOPMAssertionID = 0
@@ -86,7 +86,7 @@ class PlayApp: BaseApp {
                             &assertionID)
                         if success == kIOReturnSuccess {
                             while true { // Run a loop until the app closes
-                                Thread.sleep(forTimeInterval: 10) // Wait 10s
+                                try await Task.sleep(nanoseconds: 10000000000) // Sleep for 10 seconds
                                 guard
                                     let isFinish = runningApp?.isTerminated,
                                     !isFinish else { break }
@@ -115,7 +115,7 @@ class PlayApp: BaseApp {
 
     func hasPlayTools() -> Bool {
         do {
-            return try PlayTools.installedInExec(atURL: url.appendingPathComponent(info.executableName))
+            return try PlayTools.installedInExec(atURL: url.appendingEscapedPathComponent(info.executableName))
         } catch {
             Log.shared.error(error)
             return true
@@ -150,7 +150,7 @@ class PlayApp: BaseApp {
                                                   appropriateFor: URL(fileURLWithPath: "/Users"),
                                                   create: true)
             let tmpEnts = tmpDir
-                .appendingPathComponent(ProcessInfo().globallyUniqueString)
+                .appendingEscapedPathComponent(ProcessInfo().globallyUniqueString)
                 .appendingPathExtension("plist")
             let conf = try Entitlements.composeEntitlements(self)
             try conf.store(tmpEnts)

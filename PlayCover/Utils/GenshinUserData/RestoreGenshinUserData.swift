@@ -12,7 +12,7 @@ func restoreUserData(folderName: String, app: PlayApp) {
     let isGlobalVersion = bundleID == "com.miHoYo.GenshinImpact"
 
     let gameDataPath = GenshinUserDataURLs.getGameDataPath(bundleID: bundleID)
-    let storePath = GenshinUserDataURLs.getStorePath(folderName: folderName)
+    let storePath = GenshinUserDataURLs.getStorePath().appendingEscapedPathComponent(folderName)
 
     let accountInfoPlistURL = gameDataPath.appendingPathComponent(GenshinUserDataURLs.accountInfoPlist)
     let kibanaReportArrayKeyURL = gameDataPath.appendingPathComponent(GenshinUserDataURLs.kibanaReportArrayKey)
