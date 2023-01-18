@@ -234,9 +234,12 @@ class PlayTools {
     }
 
     static func convertMacho(_ macho: URL) throws {
-        print(macho.path)
+        print("Converting MachO at \(macho.path)")
+        print("Stripping MachO")
         try stripBinary(macho)
+        print("Removing old version command from MachO")
         try removeOldCommand(macho)
+        print("Injecting new version command in MachO")
         try injectNewCommand(macho)
     }
 
@@ -293,6 +296,7 @@ class PlayTools {
 
             binary.replaceSubrange(subrangeOld, with: commandData)
             binary.replaceSubrange(machoRange, with: newHeaderData)
+            try FileManager.default.removeItem(at: url)
             try binary.write(to: url)
         }
     }
@@ -335,8 +339,10 @@ class PlayTools {
         var versionCommand = build_version_command(cmd: UInt32(LC_BUILD_VERSION),
                                                    cmdsize: 24,
                                                    platform: UInt32(PLATFORM_MACCATALYST),
-                                                   minos: 11,
-                                                   sdk: 14,
+                                                   // 11.0
+                                                   minos: 2816,
+                                                   // 14.0
+                                                   sdk: 234881024,
                                                    ntools: 0)
 
         var zero: UInt = 0
@@ -348,6 +354,7 @@ class PlayTools {
         binary.replaceSubrange(subrange, with: commandData)
 
         binary.replaceSubrange(machoRange, with: newHeaderData)
+        try FileManager.default.removeItem(at: url)
         try binary.write(to: url)
     }
 
