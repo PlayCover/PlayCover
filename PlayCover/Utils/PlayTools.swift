@@ -538,16 +538,6 @@ class PlayTools {
             }
         }
 	}
-
-    private static func binPath(_ bin: String) throws -> URL {
-        URL(fileURLWithPath: try shell.sh("which \(bin)", print: false).trimmingCharacters(in: .newlines))
-    }
-
-    private static var vtool: URL {
-        get throws {
-            try binPath("vtool")
-        }
-    }
 }
 
 extension URL {
