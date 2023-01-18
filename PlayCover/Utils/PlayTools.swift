@@ -8,6 +8,7 @@ import injection
 
 // swiftlint:disable type_body_length
 // swiftlint:disable file_length
+// swiftlint:disable function_body_length
 
 class PlayTools {
     private static let frameworksURL = FileManager.default.homeDirectoryForCurrentUser
@@ -287,7 +288,6 @@ class PlayTools {
                                            reserved: header.reserved)
                 newHeaderData = Data(bytes: &newheader, count: MemoryLayout<mach_header_64>.size)
                 machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
-                break
             default:
                 break
             }
