@@ -419,6 +419,7 @@ class PlayTools {
     }
 
     static func installedInExec(atURL url: URL) throws -> Bool {
+        try stripBinary(url)
         let binary = try Data(contentsOf: url)
         var header = binary.extract(mach_header_64.self)
         var offset = MemoryLayout.size(ofValue: header)
@@ -464,7 +465,6 @@ class PlayTools {
     }
 
     static func isMachoValidArch(_ url: URL) throws -> Bool {
-        print(url.path)
         let binary = try Data(contentsOf: url)
         var header = binary.extract(fat_header.self)
         let offset = MemoryLayout.size(ofValue: header)
