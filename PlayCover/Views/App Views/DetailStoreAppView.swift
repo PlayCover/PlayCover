@@ -36,7 +36,7 @@ struct DetailStoreAppView: View {
     @State private var downloadButtonText: LocalizedStringKey?
 
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             VStack {
                 HStack {
                     CachedAsyncImage(url: onlineIcon, urlCache: .iconCache) { image in
@@ -118,27 +118,27 @@ struct DetailStoreAppView: View {
                 HStack {
                     Spacer()
                     Group {
-                        BadgeView(lookupIsNil: $lookupIsNil,
+                        LookupBadgeView(lookupIsNil: $lookupIsNil,
                                   badgeInfo: $appGenre,
                                   badgeText: "ipaLibrary.detailed.appGenre",
                                   dataIsFromSource: false)
                         VerticalSpacer()
-                        BadgeView(lookupIsNil: $lookupIsNil,
+                        LookupBadgeView(lookupIsNil: $lookupIsNil,
                                   badgeInfo: $appRating,
                                   badgeText: "ipaLibrary.detailed.appRating",
                                   dataIsFromSource: false)
                         VerticalSpacer()
-                        BadgeView(lookupIsNil: $lookupIsNil,
+                        LookupBadgeView(lookupIsNil: $lookupIsNil,
                                   badgeInfo: $appVersion,
                                   badgeText: "ipaLibrary.detailed.appVersion",
                                   dataIsFromSource: true)
                         VerticalSpacer()
-                        BadgeView(lookupIsNil: $lookupIsNil,
+                        LookupBadgeView(lookupIsNil: $lookupIsNil,
                                   badgeInfo: $appSize,
                                   badgeText: "ipaLibrary.detailed.appSize",
                                   dataIsFromSource: false)
                         VerticalSpacer()
-                        BadgeView(lookupIsNil: $lookupIsNil,
+                        LookupBadgeView(lookupIsNil: $lookupIsNil,
                                   badgeInfo: $appAge,
                                   badgeText: "ipaLibrary.detailed.appAge",
                                   dataIsFromSource: false)
@@ -146,6 +146,7 @@ struct DetailStoreAppView: View {
                     Spacer()
                 }
                 .padding()
+                Divider()
                 VStack {
                      if let installInfo = app.installInfo?[0] {
                          Button {
@@ -167,28 +168,28 @@ struct DetailStoreAppView: View {
                              HStack {
                                  Spacer()
                                  Spacer()
-                                 InformativeBadge(
+                                 InformativeLabelView(
                                      iconIsWarning: installInfo.diabledSIP,
                                      titleToShow: "ipaLibrary.detailed.sipLabelTitle",
                                      descriptionToShow: installInfo.diabledSIP
-                                     ? "ipaLibrary.detailed.disabledSIPDesc"
-                                     : "ipaLibrary.detailed.enabledSIPDesc"
+                                        ? "ipaLibrary.detailed.disabledSIPDesc"
+                                        : "ipaLibrary.detailed.enabledSIPDesc"
                                  )
                                  Spacer()
-                                 InformativeBadge(
+                                 InformativeLabelView(
                                      iconIsWarning: installInfo.noPlayTools,
                                      titleToShow: "ipaLibrary.detailed.playoolsLabelTitle",
                                      descriptionToShow: installInfo.noPlayTools
-                                     ? "ipaLibrary.detailed.noPlayToolsDesc"
-                                     : "ipaLibrary.detailed.withPlayToolsDesc"
+                                        ? "ipaLibrary.detailed.noPlayToolsDesc"
+                                        : "ipaLibrary.detailed.withPlayToolsDesc"
                                  )
                                  Spacer()
-                                 InformativeBadge(
+                                 InformativeLabelView(
                                      iconIsWarning: installInfo.signingSetup,
                                      titleToShow: "ipaLibrary.detailed.signinLabelTitle",
                                      descriptionToShow: installInfo.signingSetup
-                                     ? "ipaLibrary.detailed.confgureSigningDesc"
-                                     : "ipaLibrary.detailed.noConfgureSigningDesc"
+                                        ? "ipaLibrary.detailed.confgureSigningDesc"
+                                        : "ipaLibrary.detailed.noConfgureSigningDesc"
                                  )
                                  Spacer()
                                  Spacer()
@@ -201,7 +202,7 @@ struct DetailStoreAppView: View {
                      HStack {
                          Text(itunesResponce?.results[0].description
                               ?? NSLocalizedString("ipaLibrary.detailed.nodesc", comment: ""))
-                         .lineLimit(truncated ? 7 : nil)
+                         .lineLimit(truncated ? 8 : nil)
                          Spacer()
                          if itunesResponce != nil {
                              VStack {
@@ -342,32 +343,6 @@ struct DetailStoreAppView: View {
     }
 }
 
-struct InformativeBadge: View {
-     @State var iconIsWarning: Bool
-     @State var titleToShow: LocalizedStringKey
-     @State var descriptionToShow: LocalizedStringKey
-     var body: some View {
-         ZStack {
-             RoundedRectangle(cornerRadius: 15)
-                 .fill(.ultraThickMaterial)
-                 .frame(width: 175, height: 80)
-                 .shadow(radius: 1)
-             VStack(alignment: .center, spacing: 5.0) {
-                 Image(systemName: iconIsWarning
-                       ? "exclamationmark.octagon.fill"
-                       : "checkmark.diamond.fill")
-                 Text(titleToShow)
-                     .font(.callout)
-                     .multilineTextAlignment(.center)
-                 Text(descriptionToShow)
-                     .font(.caption2)
-                     .multilineTextAlignment(.center)
-             }
-             .frame(width: 150)
-         }
-     }
- }
- 
 struct DetailStoreAppView_Preview: PreviewProvider {
     static var previews: some View {
         DetailStoreAppView(
