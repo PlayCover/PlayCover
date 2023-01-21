@@ -379,3 +379,4 @@
 "alert.differentBundleIdKeymap.text" = "このキーマップをインポートしてもよろしいですか?";
 "settings.toggle.lldb" = "LLDBで開く";
 "settings.toggle.lldbWithTerminal" = "ターミナルで開く";
+"settings.unavailable.hud" = "Metal HUD unavailable";

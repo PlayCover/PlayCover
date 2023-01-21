@@ -8,19 +8,19 @@
 "alert.appCacheCleared" = "¡Se borraron los datos de la aplicación!";
 
 /* (No Comment) */
-"alert.error" = "¡Ocurrió un error!";
+"alert.error" = "¡Se ha producido un error!";
 
 /* (No Comment) */
 "alert.errorImportKm" = "¡Ocurrió un error al importar!";
 
 /* (No Comment) */
-"alert.kmImported" = "Mapeo de teclas importado!";
+"alert.kmImported" = "¡Asignación de teclas importada!";
 
 /* (No Comment) */
 "alert.moveAppToApplications.move" = "Mover a /Applications";
 
 /* (No Comment) */
-"alert.restart" = "Por favor reinicie PlayCover.";
+"alert.restart" = "Reinicie PlayCover.";
 
 /* (No Comment) */
 "alert.storeAccount.regionIsNotValid" = "La cuenta actual está configurada en una región diferente. Inicie el juego, cambie la región y pase por la puerta para guardar. Después vuelva a intentarlo";
@@ -68,7 +68,7 @@
 "menubar.log.copy" = "Copiar registros";
 
 /* (No Comment) */
-"menubar.website" = "Página web";
+"menubar.website" = "Sitio web";
 
 /* (No Comment) */
 "notification.appInstalled" = "¡Aplicación instalada!";
@@ -92,10 +92,10 @@
 "playapp.deleteAccount" = "Eliminar cuenta";
 
 /* (No Comment) */
-"playapp.exportKm" = "Exportar mapeo de teclas";
+"playapp.exportKm" = "Exportar asignación de teclas";
 
 /* (No Comment) */
-"playapp.importKm" = "Importar mapeo de teclas";
+"playapp.importKm" = "Importar asignación de teclas";
 
 /* (No Comment) */
 "playapp.install.addToLib" = "Añadiendo aplicación a la biblioteca...";
@@ -116,13 +116,13 @@
 "playapp.install.signing" = "Firmando la aplicación...";
 
 /* (No Comment) */
-"playapp.install.unzip" = "Extrayendo la aplicación...";
+"playapp.install.unzip" = "Extrayendo la aplicación del archivo .ipa…";
 
 /* (No Comment) */
 "playapp.openCache" = "Abrir datos de la aplicación";
 
 /* (No Comment) */
-"playapp.settings" = "Preferencias de la aplicación";
+"playapp.settings" = "Configuración";
 
 /* (No Comment) */
 "playapp.showInFinder" = "Mostrar en el Finder";
@@ -188,7 +188,7 @@
 "settings.toggle.jbBypass" = "Activar el Jailbreak Bypass (Alpha)";
 
 /* (No Comment) */
-"settings.toggle.km" = "Mapeo de teclas";
+"settings.toggle.km" = "Asignación de teclas";
 
 /* (No Comment) */
 "soundAlert.failureText" = "Hubo un error al establecer la frecuencia de muestreo a 48 KHz en el dispositivo de salida. Puedes hacer esto manualmente en la aplicación Configuración de Audio MIDI";
@@ -227,7 +227,7 @@
 "storeAccount.selectAccRegion.euro" = "Europa";
 
 /* (No Comment) */
-"storeAccount.selectAccRegion.usa" = "America";
+"storeAccount.selectAccRegion.usa" = "América";
 
 /* (No Comment) */
 "storeAccount.store" = "Guardar cuenta";
@@ -256,10 +256,10 @@
 "settings.info.bundleName" = "Nombre del paquete:";
 "playapp.exportKmPanel.fieldLabel" = "Nombre del PlayMap:";
 "sidebar.appLibrary" = "Aplicaciones";
-"storeAccount.alert.restoreAccount" = "¿Está seguro de que quiere restaurar la cuenta?";
+"storeAccount.alert.restoreAccount" = "¿Confirma que quiere restaurar la cuenta?";
 "storeAccount.alert.restoreAccount.button" = "Restaurar cuenta";
 "storeAccount.alert.restoreAccount.msg" = "Esto anulará la sesión de su cuenta actual.";
-"storeAccount.alert.deleteAccount" = "¿Está seguro de que quiere eliminar la cuenta?";
+"storeAccount.alert.deleteAccount" = "¿Confirma que quiere eliminar la cuenta?";
 "storeAccount.alert.deleteAccount.button" = "Eliminar cuenta";
 "alert.moveAppToApplications.title" = "Mover a la carpeta de Aplicaciones?";
 "alert.moveAppToApplications.subtitle" = "PlayCover debe estar en la carpeta de Aplicaciones para funcionar correctamente. Presione el botón de abajo para mover PlayCover automáticamente.";
@@ -269,9 +269,9 @@
 "error.appProhibited" = "¡Usar esta aplicación a través de PlayCover probablemente resultará en una prohibición!";
 "error.noGenshinAccount" = "¡No se pudo encontrar una cuenta de Genshin! ¿Ha iniciado sesión en una cuenta en la aplicación?";
 "settings.tab.info" = "Info";
-"settings.tab.km" = "Mapeo de teclas";
+"settings.tab.km" = "Asignación de teclas";
 "settings.toggle.km.help" = "Añade soporte para teclado en juegos exclusivamente táctiles. Utilice Command + K para abrir el editor.";
-"settings.toggle.mm" = "Mapeo de ratón";
+"settings.toggle.mm" = "Asignación de ratón";
 "settings.toggle.mm.help" = "Añade controles de ratón que emulen movimientos táctiles. Usa Comando + K para abrir el editor.";
 "settings.picker.adaptiveRes" = "Resolución:";
 "settings.picker.adaptiveRes.help" = "Cambia la resolución de la ventana de la aplicación";
@@ -287,19 +287,19 @@
 "settings.info.minimumOSVersion" = "Versión mínima del sistema operativo:";
 "settings.info.url" = "URL:";
 "settings.resetSettings" = "Restablecer configuración";
-"settings.resetKm" = "Restablecer el mapeo de teclas";
+"settings.resetKm" = "Restablecer asignación de teclas";
 "settings.toggle.hud" = "HUD de Metal";
 "settings.resetSettingsCompleted" = "¡La configuración se ha revertido a la predeterminada!";
-"settings.resetKmCompleted" = "¡Se ha restablecido el mapeo de teclas!";
+"settings.resetKmCompleted" = "¡La asignación de teclas se ha restablecido!";
 "xcode.install.failed.altInstructions" = "Haga clic en el botón de abajo para ver las instrucciones de instalación alternativas";
 "xcode.install.failed.altButton" = "Instrucciones alternativas";
 "settings.tab.misc" = "Varios";
 "settings.info.bundleVersion" = "Versión del paquete:";
 "alert.legacyImport.title" = "¡Se ha encontrado una configuración antigua!";
-"alert.legacyImport.subtitle" = "Se encontraron configuraciones y archivos de mapeo de teclas antiguos. ¿Desea cambiarlos al nuevo formato?";
+"alert.legacyImport.subtitle" = "Se encontraron configuraciones y archivos de asignación de teclas antiguos. ¿Desea convertirlos al nuevo formato?";
 "button.Convert" = "Convertir";
 "playapp.deleteConfirm" = "Desinstalar";
-"playapp.deleteMessage" = "¿Estás seguro de que quieres desinstalar %@?";
+"playapp.deleteMessage" = "¿Confirma que quiere desinstalar %@?";
 "settings.text.detectedResolution" = "Resolución detectada:";
 "playapp.add" = "Añadir aplicación";
 "alert.wrongFileType.title" = "¡Tipo de archivo incorrecto!";
@@ -323,13 +323,13 @@
 "preferences.tab.uninstall" = "Desinstalar";
 "preferences.whenUninstalling" = "Al desinstalar:";
 "preferences.toggle.showUninstall" = "Mostrar ventana emergente de aviso";
-"preferences.toggle.clearAppData" = "Borrar datos";
-"preferences.toggle.removeKeymap" = "Eliminar mapeo de teclas";
+"preferences.toggle.clearAppData" = "Eliminar datos";
+"preferences.toggle.removeKeymap" = "Eliminar asignación de teclas";
 "preferences.toggle.removeSetting" = "Eliminar la configuración";
 "preferences.toggle.removeEntitlements" = "Eliminar permisos";
 "preferences.button.pruneFiles" = "Limpiar archivos";
-"preferences.prune.alert" = "¿Estás seguro de que quieres limpiar todos los archivos?";
-"preferences.prune.message" = "Esto eliminará todos los archivos que no se utilicen, incluidos los de configuración, mapeo de teclas, permisos, y datos de la aplicación";
+"preferences.prune.alert" = "¿Confirma que quiere limpiar todos los archivos?";
+"preferences.prune.message" = "Esto eliminará todos los archivos que no se utilicen, incluidos los de configuración, asignación de teclas, permisos y datos de la aplicación";
 "playapp.install.failed" = "Error";
 "alert.supression" = "Puede cambiar esto en la configuración de PlayCover";
 "menubar.clearCache" = "Borrar la caché";
@@ -342,7 +342,7 @@
 "settings.noPlayTools" = "PlayTools no está instalado en esta aplicación";
 "settings.removePlayTools" = "Desinstalar PlayTools";
 "settings.info.playTools" = "PlayTools instalado:";
-"playapp.refreshSources" = "Refrescar fuentes";
+"playapp.refreshSources" = "Actualizar fuentes";
 "error.appMaliciousProhibited" = "Esta aplicación se comporta maliciosamente en Mac, y usarla puede dejar su computadora en un estado de no arranque. Por ello es bloqueada por PlayCover. (Desinstalando...)";
 "alert.install.injectPlayToolsQuestion" = "¿Quiere inyectar PlayTools en esta aplicación?";
 "alert.install.playToolsInformative" = "PlayTools es una herramienta que permite asignar teclas a toques en la pantalla, configurar resoluciones personalizadas, y más. Puede impactar negativamente el funcionamiento de algunas aplicaciones";
@@ -373,9 +373,10 @@
 "ipaLibrary.download" = "Descargar";
 "ipaLibrary.version.older" = "Esta versión es más vieja que la instalada actualmente";
 "ipaLibrary.version.newer" = "Esta versión es más nueva que la instalada actualmente";
-"ipaLibrary.alert.download" = "¿Está seguro de que quiere descargar una nueva versión de %@?";
-"alert.differentBundleIdKeymap.message" = "Este mapeo de teclas pudo haber sido creado para otra aplicación.";
-"alert.differentBundleIdKeymap.text" = "¿Está seguro de que quiere importar este mapeo de teclas?";
+"ipaLibrary.alert.download" = "¿Confirma que quiere descargar esta versión de %@?";
+"alert.differentBundleIdKeymap.message" = "Esta asignación de teclas pudo haber sido creada para otra aplicación.";
+"alert.differentBundleIdKeymap.text" = "¿Confirma que quiere importar esta asignación de teclas?";
 "settings.text.debugger" = "Depurador:";
 "settings.toggle.lldb" = "Abrir con LLDB";
 "settings.toggle.lldbWithTerminal" = "Abrir en terminal";
+"settings.unavailable.hud" = "Metal HUD no disponible";
