@@ -64,13 +64,11 @@ struct PlayCoverApp: App {
     @StateObject var updaterViewModel = UpdaterViewModel()
     var storeVM = StoreVM.shared
 
-    @State var xcodeCliInstalled = shell.isXcodeCliToolsInstalled
     @State var isSigningSetupShown = false
 
     var body: some Scene {
         WindowGroup {
-            MainView(xcodeCliInstalled: $xcodeCliInstalled,
-                     isSigningSetupShown: $isSigningSetupShown)
+            MainView(isSigningSetupShown: $isSigningSetupShown)
                 .environmentObject(InstallVM.shared)
                 .environmentObject(AppsVM.shared)
                 .environmentObject(storeVM)
