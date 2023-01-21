@@ -17,7 +17,7 @@ struct VerticalSpacer: View {
      }
  }
 
-struct BadgeView: View {
+struct LookupBadgeView: View {
     @Binding var lookupIsNil: Bool
     @Binding var badgeInfo: String
 
@@ -44,6 +44,32 @@ struct BadgeView: View {
         }
     }
 }
+
+struct InformativeLabelView: View {
+     @State var iconIsWarning: Bool
+     @State var titleToShow: LocalizedStringKey
+     @State var descriptionToShow: LocalizedStringKey
+     var body: some View {
+         ZStack {
+             RoundedRectangle(cornerRadius: 15)
+                 .fill(.ultraThickMaterial)
+                 .frame(width: 175, height: 80)
+                 .shadow(radius: 1)
+             VStack(alignment: .center, spacing: 5.0) {
+                 Image(systemName: iconIsWarning
+                       ? "exclamationmark.octagon.fill"
+                       : "checkmark.diamond.fill")
+                 Text(titleToShow)
+                     .font(.callout)
+                     .multilineTextAlignment(.center)
+                 Text(descriptionToShow)
+                     .font(.caption2)
+                     .multilineTextAlignment(.center)
+             }
+             .frame(width: 150)
+         }
+     }
+ }
 
 struct EnlargedBanner: View {
     @Environment(\.presentationMode) private var presentationMode

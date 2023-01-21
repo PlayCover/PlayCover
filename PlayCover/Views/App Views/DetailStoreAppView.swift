@@ -22,6 +22,7 @@ struct DetailStoreAppView: View {
     @State private var lookupIsNil = true
     @State private var onlineIcon: URL?
     @State private var localIcon: NSImage?
+    @State private var showInstallInfo = false
     @State private var appGenre = ""
     @State private var appRating = ""
     @State private var appVersion = ""
@@ -35,7 +36,7 @@ struct DetailStoreAppView: View {
     @State private var downloadButtonText: LocalizedStringKey?
 
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             VStack {
                 HStack {
                     CachedAsyncImage(url: onlineIcon, urlCache: .iconCache) { image in
@@ -117,27 +118,27 @@ struct DetailStoreAppView: View {
                 HStack {
                     Spacer()
                     Group {
-                        BadgeView(lookupIsNil: $lookupIsNil,
+                        LookupBadgeView(lookupIsNil: $lookupIsNil,
                                   badgeInfo: $appGenre,
                                   badgeText: "ipaLibrary.detailed.appGenre",
                                   dataIsFromSource: false)
                         VerticalSpacer()
-                        BadgeView(lookupIsNil: $lookupIsNil,
+                        LookupBadgeView(lookupIsNil: $lookupIsNil,
                                   badgeInfo: $appRating,
                                   badgeText: "ipaLibrary.detailed.appRating",
                                   dataIsFromSource: false)
                         VerticalSpacer()
-                        BadgeView(lookupIsNil: $lookupIsNil,
+                        LookupBadgeView(lookupIsNil: $lookupIsNil,
                                   badgeInfo: $appVersion,
                                   badgeText: "ipaLibrary.detailed.appVersion",
                                   dataIsFromSource: true)
                         VerticalSpacer()
-                        BadgeView(lookupIsNil: $lookupIsNil,
+                        LookupBadgeView(lookupIsNil: $lookupIsNil,
                                   badgeInfo: $appSize,
                                   badgeText: "ipaLibrary.detailed.appSize",
                                   dataIsFromSource: false)
                         VerticalSpacer()
-                        BadgeView(lookupIsNil: $lookupIsNil,
+                        LookupBadgeView(lookupIsNil: $lookupIsNil,
                                   badgeInfo: $appAge,
                                   badgeText: "ipaLibrary.detailed.appAge",
                                   dataIsFromSource: false)
@@ -145,27 +146,82 @@ struct DetailStoreAppView: View {
                     Spacer()
                 }
                 .padding()
-                HStack {
-                    Text(itunesResponce?.results[0].description
-                         ?? NSLocalizedString("ipaLibrary.detailed.nodesc", comment: ""))
-                    .lineLimit(truncated ? 9 : nil)
-                    Spacer()
-                    if itunesResponce != nil {
-                        VStack {
-                            Spacer()
-                            Button {
-                                withAnimation {
-                                    truncated.toggle()
-                                }
-                            } label: {
-                                Text(truncated ? "ipaLibrary.detailed.more" : "ipaLibrary.detailed.less")
-                                    .foregroundColor(.accentColor)
-                                    .padding(.leading, 5)
-                            }
-                            .buttonStyle(.plain)
-                        }
-                    }
-                }
+                Divider()
+                VStack {
+                     if let installInfo = app.installInfo?[0] {
+                         Button {
+                             withAnimation {
+                                 showInstallInfo.toggle()
+                             }
+                         } label: {
+                             HStack {
+                                 Text("ipaLibrary.detailed.sourceNotes")
+                                 Spacer()
+                                 Image(systemName: showInstallInfo
+                                       ? "chevron.up"
+                                       : "chevron.down")
+                             }
+                             .padding(.vertical, 1)
+                         }
+                         .buttonStyle(.plain)
+                         if showInstallInfo {
+                             HStack {
+                                 Spacer()
+                                 Spacer()
+                                 InformativeLabelView(
+                                     iconIsWarning: installInfo.diabledSIP,
+                                     titleToShow: "ipaLibrary.detailed.sipLabelTitle",
+                                     descriptionToShow: installInfo.diabledSIP
+                                        ? "ipaLibrary.detailed.disabledSIPDesc"
+                                        : "ipaLibrary.detailed.enabledSIPDesc"
+                                 )
+                                 Spacer()
+                                 InformativeLabelView(
+                                     iconIsWarning: installInfo.noPlayTools,
+                                     titleToShow: "ipaLibrary.detailed.playoolsLabelTitle",
+                                     descriptionToShow: installInfo.noPlayTools
+                                        ? "ipaLibrary.detailed.noPlayToolsDesc"
+                                        : "ipaLibrary.detailed.withPlayToolsDesc"
+                                 )
+                                 Spacer()
+                                 InformativeLabelView(
+                                     iconIsWarning: installInfo.signingSetup,
+                                     titleToShow: "ipaLibrary.detailed.signinLabelTitle",
+                                     descriptionToShow: installInfo.signingSetup
+                                        ? "ipaLibrary.detailed.confgureSigningDesc"
+                                        : "ipaLibrary.detailed.noConfgureSigningDesc"
+                                 )
+                                 Spacer()
+                                 Spacer()
+                             }
+                             .padding(.vertical)
+                         }
+                         Divider()
+                             .padding(.top, 1)
+                     }
+                     HStack {
+                         Text(itunesResponce?.results[0].description
+                              ?? NSLocalizedString("ipaLibrary.detailed.nodesc", comment: ""))
+                         .lineLimit(truncated ? 8 : nil)
+                         Spacer()
+                         if itunesResponce != nil {
+                             VStack {
+                                 Spacer()
+                                 Button {
+                                     withAnimation {
+                                         truncated.toggle()
+                                     }
+                                 } label: {
+                                     Text(truncated ? "ipaLibrary.detailed.more" : "ipaLibrary.detailed.less")
+                                         .foregroundColor(.accentColor)
+                                         .padding(.leading, 5)
+                                 }
+                                 .buttonStyle(.plain)
+                             }
+                         }
+                     }
+                     .padding(.top, 5)
+                 }
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(bannerImageURLs, id: \.self) { url in
@@ -294,7 +350,8 @@ struct DetailStoreAppView_Preview: PreviewProvider {
                 bundleID: "com.miHoYo.GenshinImpact",
                 name: "Genshin Impact", version: "3.3.0",
                 itunesLookup: "http://itunes.apple.com/lookup?bundleId=com.miHoYo.GenshinImpact",
-                link: "https://repo.amrsm.ir/ipa/Genshin-Impact_3.3.0.ipa"
+                link: "https://repo.amrsm.ir/ipa/Genshin-Impact_3.3.0.ipa",
+                installInfo: [InstallInfo(diabledSIP: false, noPlayTools: false, signingSetup: true)]
             ),
             downloadVM: DownloadVM.shared, installVM: InstallVM.shared
         )
