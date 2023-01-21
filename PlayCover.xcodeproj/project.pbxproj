@@ -23,13 +23,14 @@
 		53F4D2A026C43C690020167C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29F26C43C690020167C /* Log.swift */; };
 		53F50C4926E3CA42007AD2D3 /* AppLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */; };
 		53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F5E74226C1D37E005AED1D /* FileExtensions.swift */; };
+		682EF0DC297881F500F80CA9 /* DetailStoreComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682EF0DB297881F500F80CA9 /* DetailStoreComponents.swift */; };
+		68493FBB29775CC3009E3541 /* NavigationStack in Frameworks */ = {isa = PBXBuildFile; productRef = 68493FBA29775CC3009E3541 /* NavigationStack */; };
 		68E48B952957046D00C39879 /* DownloadManager in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48B942957046D00C39879 /* DownloadManager */; };
 		68E48B97295704A600C39879 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E48B96295704A600C39879 /* Downloader.swift */; };
 		68E48B9A295708C800C39879 /* Injection in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48B99295708C800C39879 /* Injection */; };
 		68E48B9C295709C000C39879 /* Cacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E48B9B295709BF00C39879 /* Cacher.swift */; };
 		68E48B9F29570A0400C39879 /* DataCache in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48B9E29570A0400C39879 /* DataCache */; };
 		68E48BA229570A2B00C39879 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48BA129570A2B00C39879 /* CachedAsyncImage */; };
-		68EC0CC12957188900452C76 /* ViewExtenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EC0CC02957188900452C76 /* ViewExtenstions.swift */; };
 		68EC0CC3295718AA00452C76 /* DetailStoreAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EC0CC2295718AA00452C76 /* DetailStoreAppView.swift */; };
 		6E06193628B3C4090012C771 /* StoreGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193528B3C4090012C771 /* StoreGenshinAccountView.swift */; };
 		6E06193828B3C4240012C771 /* ChangeGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193728B3C4240012C771 /* ChangeGenshinAccountView.swift */; };
@@ -114,11 +115,11 @@
 		53F4D29F26C43C690020167C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLibraryView.swift; sourceTree = "<group>"; };
 		53F5E74226C1D37E005AED1D /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
+		682EF0DB297881F500F80CA9 /* DetailStoreComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStoreComponents.swift; sourceTree = "<group>"; };
 		6854C5E528D53C9500CE28A0 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
 		68C79E67296741580041DBC9 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		68E48B96295704A600C39879 /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Downloader.swift; path = PlayCover/AppInstaller/Downloader.swift; sourceTree = SOURCE_ROOT; };
 		68E48B9B295709BF00C39879 /* Cacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cacher.swift; sourceTree = "<group>"; };
-		68EC0CC02957188900452C76 /* ViewExtenstions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExtenstions.swift; sourceTree = "<group>"; };
 		68EC0CC2295718AA00452C76 /* DetailStoreAppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailStoreAppView.swift; sourceTree = "<group>"; };
 		6E06193528B3C4090012C771 /* StoreGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreGenshinAccountView.swift; sourceTree = "<group>"; };
 		6E06193728B3C4240012C771 /* ChangeGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeGenshinAccountView.swift; sourceTree = "<group>"; };
@@ -202,6 +203,7 @@
 				365AFB0628847B2E008B3542 /* Sparkle in Frameworks */,
 				68E48BA229570A2B00C39879 /* CachedAsyncImage in Frameworks */,
 				AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */,
+				68493FBB29775CC3009E3541 /* NavigationStack in Frameworks */,
 				68E48B952957046D00C39879 /* DownloadManager in Frameworks */,
 				B17FD03C28C70C2100B1D4CA /* CoreUI.framework in Frameworks */,
 			);
@@ -329,7 +331,6 @@
 				B17FD04628C7B0D900B1D4CA /* AssetsExtractor.swift */,
 				B17FD03F28C70C7300B1D4CA /* CoreUI.h */,
 				6EB4B57328C93E0600630890 /* LegacySettings.swift */,
-				68EC0CC02957188900452C76 /* ViewExtenstions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -361,6 +362,7 @@
 				92EE06D3274EA604002C907B /* PlayAppView.swift */,
 				6E66B0D2289F5A010099B907 /* StoreAppView.swift */,
 				68EC0CC2295718AA00452C76 /* DetailStoreAppView.swift */,
+				682EF0DB297881F500F80CA9 /* DetailStoreComponents.swift */,
 			);
 			path = "App Views";
 			sourceTree = "<group>";
@@ -482,6 +484,7 @@
 				68E48B9E29570A0400C39879 /* DataCache */,
 				68E48BA129570A2B00C39879 /* CachedAsyncImage */,
 				68E48B99295708C800C39879 /* Injection */,
+				68493FBA29775CC3009E3541 /* NavigationStack */,
 			);
 			productName = PlayCover;
 			productReference = 8783CFF726B8C52D00171041 /* PlayCover.app */;
@@ -535,6 +538,7 @@
 				68E48B9D29570A0400C39879 /* XCRemoteSwiftPackageReference "DataCache" */,
 				68E48BA029570A2B00C39879 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				68E48B98295708C800C39879 /* XCRemoteSwiftPackageReference "inject" */,
+				68493FB929775CC3009E3541 /* XCRemoteSwiftPackageReference "swiftui-navigation-stack" */,
 			);
 			productRefGroup = 8783CFF826B8C52D00171041 /* Products */;
 			projectDirPath = "";
@@ -648,7 +652,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E66B0D3289F5A010099B907 /* StoreAppView.swift in Sources */,
-				68EC0CC12957188900452C76 /* ViewExtenstions.swift in Sources */,
 				6ED6ACA628A96E570040D234 /* DeletePreferences.swift in Sources */,
 				6E66B0D528A0039D0099B907 /* ToastView.swift in Sources */,
 				92ECD8A3274E75CD00DB7AC6 /* Installer.swift in Sources */,
@@ -660,6 +663,7 @@
 				3665EF8928832400007CF915 /* PlayCoverSettingsView.swift in Sources */,
 				9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */,
 				92ECD8AE274E787200DB7AC6 /* AppInfo.swift in Sources */,
+				682EF0DC297881F500F80CA9 /* DetailStoreComponents.swift in Sources */,
 				928C01D9272E162C007EB2DF /* InstallVM.swift in Sources */,
 				6E06193628B3C4090012C771 /* StoreGenshinAccountView.swift in Sources */,
 				53F4D2A026C43C690020167C /* Log.swift in Sources */,
@@ -981,6 +985,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		68493FB929775CC3009E3541 /* XCRemoteSwiftPackageReference "swiftui-navigation-stack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/matteopuc/swiftui-navigation-stack.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		68E48B932957046D00C39879 /* XCRemoteSwiftPackageReference "download-manager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/shapedbyiris/download-manager.git";
@@ -1029,6 +1041,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */;
 			productName = Sparkle;
+		};
+		68493FBA29775CC3009E3541 /* NavigationStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68493FB929775CC3009E3541 /* XCRemoteSwiftPackageReference "swiftui-navigation-stack" */;
+			productName = NavigationStack;
 		};
 		68E48B942957046D00C39879 /* DownloadManager */ = {
 			isa = XCSwiftPackageProductDependency;
