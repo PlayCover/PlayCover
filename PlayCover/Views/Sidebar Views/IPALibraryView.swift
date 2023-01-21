@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import NavigationStack
 
 struct IPALibraryView: View {
     @EnvironmentObject var storeVM: StoreVM
@@ -18,10 +17,15 @@ struct IPALibraryView: View {
     @State private var searchString = ""
     @State private var isList = UserDefaults.standard.bool(forKey: "IPALibrayView")
     @State private var selected: StoreAppData?
+    @State private var detailIsActive = false
     @State private var addSourcePresented = false
 
+    @State private var currentSubview = AnyView(EmptyView())
+    @State private var showingSubview = false
+
     var body: some View {
-        NavigationStackView {
+        StackNavigationView(currentSubview: $currentSubview,
+                              showingSubview: $showingSubview) {
             Group {
                 if storeVM.sources.count == 0 {
                     VStack {
@@ -42,9 +46,12 @@ struct IPALibraryView: View {
                         if !isList {
                             LazyVGrid(columns: gridLayout, alignment: .center) {
                                 ForEach(storeVM.filteredApps, id: \.bundleID) { app in
-                                    PushView(destination: DetailStoreAppView(app: app,
-                                                                             downloadVM: DownloadVM.shared,
-                                                                             installVM: InstallVM.shared)) {
+                                    Button {
+                                        currentSubview = AnyView(DetailStoreAppView(app: app,
+                                                                                      downloadVM: DownloadVM.shared,
+                                                                                      installVM: InstallVM.shared))
+                                        showingSubview = true
+                                     } label: {
                                         StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                                      selectedTextColor: $selectedTextColor,
                                                      selected: $selected,
@@ -53,6 +60,7 @@ struct IPALibraryView: View {
                                         .environmentObject(DownloadVM.shared)
                                         .environmentObject(InstallVM.shared)
                                     }
+                                     .buttonStyle(.plain)
                                 }
                             }
                             .padding()
@@ -60,9 +68,12 @@ struct IPALibraryView: View {
                         } else {
                             VStack {
                                 ForEach(storeVM.filteredApps, id: \.bundleID) { app in
-                                    PushView(destination: DetailStoreAppView(app: app,
-                                                                             downloadVM: DownloadVM.shared,
-                                                                             installVM: InstallVM.shared)) {
+                                    Button {
+                                        currentSubview = AnyView(DetailStoreAppView(app: app,
+                                                                                      downloadVM: DownloadVM.shared,
+                                                                                      installVM: InstallVM.shared))
+                                        showingSubview = true
+                                     } label: {
                                         StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                                      selectedTextColor: $selectedTextColor,
                                                      selected: $selected,
@@ -71,6 +82,7 @@ struct IPALibraryView: View {
                                         .environmentObject(DownloadVM.shared)
                                         .environmentObject(InstallVM.shared)
                                     }
+                                     .buttonStyle(.plain)
                                     Spacer()
                                 }
                             }

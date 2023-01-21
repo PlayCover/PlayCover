@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import NavigationStack
 import DataCache
 import CachedAsyncImage
 
@@ -263,23 +262,6 @@ struct DetailStoreAppView: View {
             }
         }
         .navigationTitle(app.name)
-        .toolbar {
-            ToolbarItem(placement: .navigation) {
-                Spacer()
-            }
-            ToolbarItem(placement: .navigation) {
-                PopView {
-                    Image(systemName: "chevron.left")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .clipShape(Rectangle())
-                        .frame(width: 12.5, height: 12.5)
-                }
-            }
-            ToolbarItem(placement: .navigation) {
-                Spacer()
-            }
-        }
         .task(priority: .userInitiated) {
             if downloadVM.storeAppData == app {
                 ToastVM.shared.isShown = false
