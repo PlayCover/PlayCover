@@ -33,7 +33,6 @@ extension FileManager {
 }
 
 extension NSOpenPanel {
-
     static func selectIPA(completion: @escaping (_ result: Result<URL, Error>) -> Void) {
         let panel = NSOpenPanel()
         panel.allowsMultipleSelection = false
