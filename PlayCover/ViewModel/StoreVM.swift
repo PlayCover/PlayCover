@@ -182,10 +182,17 @@ class StoreVM: ObservableObject {
     }
 }
 
-struct StoreAppData: Codable, Equatable {
+struct StoreAppData: Codable, Equatable, Hashable {
     var bundleID: String
     let name: String
     let version: String
     let itunesLookup: String
     let link: String
-}
+    let installInfo: [InstallInfo]?
+ }
+
+ struct InstallInfo: Codable, Equatable, Hashable {
+     let diabledSIP: Bool
+     let noPlayTools: Bool
+     let signingSetup: Bool
+ }

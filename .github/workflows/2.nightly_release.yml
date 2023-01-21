@@ -45,13 +45,13 @@ jobs:
         shell: bash
         run: |
           create-dmg ./output/PlayCover.app ./output
-          mv ./output/*.dmg ./output/PlayCover_nightly_${{ github.run_number }}.dmg
+          mv ./output/*.dmg ./output/PlayCover_test_run_${{ github.run_number }}.dmg
 
       - name: Notarize DMG
         continue-on-error: true
         shell: bash
         run: |
-          fastlane notarize_dmg package:output/PlayCover_nightly_${{ github.run_number }}.dmg
+          fastlane notarize_dmg package:output/PlayCover_test_run_${{ github.run_number }}.dmg
 
       - name: Clean Up
         shell: bash
@@ -60,5 +60,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: PlayCover_nightly_${{ github.run_number }}.dmg
-          path: output/PlayCover_nightly_${{ github.run_number }}.dmg
+          name: PlayCover_test_run_${{ github.run_number }}.dmg
+          path: output/PlayCover_test_run_${{ github.run_number }}.dmg
