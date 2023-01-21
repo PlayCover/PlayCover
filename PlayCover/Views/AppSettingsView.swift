@@ -450,6 +450,13 @@ struct MiscView: View {
                         }
                     }
                 }
+                HStack(alignment: .center) {
+                    Toggle("settings.playChain.enable", isOn: $settings.settings.playChain)
+                        .help("settings.playChain.help")
+                        .disabled(!(hasPlayTools ?? true))
+                    Spacer()
+                    Toggle("settings.playChain.debugging", isOn: $settings.settings.playChainDebugging)
+                }
                 Spacer()
                     .frame(height: 20)
                 HStack {
