@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import NavigationStack
 import DataCache
 import CachedAsyncImage
 
+// swiftlint:disable type_body_length
 struct DetailStoreAppView: View {
     @State var app: StoreAppData
 
@@ -17,10 +19,18 @@ struct DetailStoreAppView: View {
 
     @State private var cache = DataCache.instance
     @State private var itunesResponce: ITunesResponse?
+    @State private var lookupIsNil = true
     @State private var onlineIcon: URL?
-    @State private var bannerImageURLs: [URL?] = []
     @State private var localIcon: NSImage?
+    @State private var appGenre = ""
+    @State private var appRating = ""
+    @State private var appVersion = ""
+    @State private var appSize = ""
+    @State private var appAge = ""
     @State private var truncated = true
+    @State private var bannerImageURLs: [URL?] = []
+    @State private var presentedBannerURL: URL?
+    @State private var bannerIsPresented = false
 
     @State private var downloadButtonText: LocalizedStringKey?
 
@@ -56,8 +66,8 @@ struct DetailStoreAppView: View {
                             .font(.title.bold())
                         Text(itunesResponce?.results[0].artistName
                              ?? NSLocalizedString("ipaLibrary.detailed.nil", comment: ""))
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
                     }
                     Spacer()
                     Button {
@@ -65,8 +75,7 @@ struct DetailStoreAppView: View {
                             if downloadVM.downloading && downloadVM.storeAppData == app {
                                 DownloadApp(url: nil, app: nil, warning: nil).cancel()
                             } else {
-                                DownloadApp(url: url, app: app,
-                                            warning: nil).start()
+                                DownloadApp(url: url, app: app, warning: nil).start()
                             }
                         }
                     } label: {
@@ -108,53 +117,30 @@ struct DetailStoreAppView: View {
                 HStack {
                     Spacer()
                     Group {
-                        VStack {
-                            Text("ipaLibrary.detailed.appGenre")
-                                .modifier(BadgeTextStyle())
-                            Text(itunesResponce?.results[0].primaryGenreName
-                                 ?? NSLocalizedString("ipaLibrary.detailed.nil", comment: ""))
-                            .font(itunesResponce == nil ? .subheadline : .title2.bold())
-                            .padding(.top, 1)
-                        }
+                        BadgeView(lookupIsNil: $lookupIsNil,
+                                  badgeInfo: $appGenre,
+                                  badgeText: "ipaLibrary.detailed.appGenre",
+                                  dataIsFromSource: false)
                         VerticalSpacer()
-                        VStack {
-                            Text("ipaLibrary.detailed.appRating")
-                                .modifier(BadgeTextStyle())
-                            let average = itunesResponce?.results[0].averageUserRating ?? 0
-                            let rating = String(format: "%.1f", round(average * 10) / 10.0)
-                            Text(itunesResponce == nil
-                                 ? NSLocalizedString("ipaLibrary.detailed.nil", comment: "") : rating)
-                            .font(itunesResponce == nil ? .subheadline : .title2.bold())
-                            .padding(.top, 1)
-                        }
+                        BadgeView(lookupIsNil: $lookupIsNil,
+                                  badgeInfo: $appRating,
+                                  badgeText: "ipaLibrary.detailed.appRating",
+                                  dataIsFromSource: false)
                         VerticalSpacer()
-                        VStack {
-                            Text("ipaLibrary.detailed.appVersion")
-                                .modifier(BadgeTextStyle())
-                            Text(app.version)
-                                .font(.title2.bold()) .padding(.top, 1)
-                        }
+                        BadgeView(lookupIsNil: $lookupIsNil,
+                                  badgeInfo: $appVersion,
+                                  badgeText: "ipaLibrary.detailed.appVersion",
+                                  dataIsFromSource: true)
                         VerticalSpacer()
-                        VStack {
-                            Text("ipaLibrary.detailed.appSize")
-                                .modifier(BadgeTextStyle())
-                            let size = ByteCountFormatter.string(
-                                fromByteCount: Int64(itunesResponce?.results[0].fileSizeBytes ?? "0") ?? 0,
-                                countStyle: .file)
-                            Text(itunesResponce == nil
-                                 ? NSLocalizedString("ipaLibrary.detailed.nil", comment: "") : size)
-                            .font(itunesResponce == nil ? .subheadline : .title2.bold())
-                            .padding(.top, 1)
-                        }
+                        BadgeView(lookupIsNil: $lookupIsNil,
+                                  badgeInfo: $appSize,
+                                  badgeText: "ipaLibrary.detailed.appSize",
+                                  dataIsFromSource: false)
                         VerticalSpacer()
-                        VStack {
-                            Text("ipaLibrary.detailed.appAge")
-                                .modifier(BadgeTextStyle())
-                            Text(itunesResponce?.results[0].trackContentRating
-                                 ?? NSLocalizedString("ipaLibrary.detailed.nil", comment: ""))
-                            .font(itunesResponce == nil ? .subheadline : .title2.bold())
-                            .padding(.top, 1)
-                        }
+                        BadgeView(lookupIsNil: $lookupIsNil,
+                                  badgeInfo: $appAge,
+                                  badgeText: "ipaLibrary.detailed.appAge",
+                                  dataIsFromSource: false)
                     }
                     Spacer()
                 }
@@ -162,7 +148,7 @@ struct DetailStoreAppView: View {
                 HStack {
                     Text(itunesResponce?.results[0].description
                          ?? NSLocalizedString("ipaLibrary.detailed.nodesc", comment: ""))
-                        .lineLimit(truncated ? 9 : nil)
+                    .lineLimit(truncated ? 9 : nil)
                     Spacer()
                     if itunesResponce != nil {
                         VStack {
@@ -183,24 +169,30 @@ struct DetailStoreAppView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(bannerImageURLs, id: \.self) { url in
-                            CachedAsyncImage(url: url, urlCache: .screenshotCache) { image in
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                            } placeholder: {
-                                Rectangle()
-                                    .fill(.regularMaterial)
-                                    .frame(width: 220, height: 170)
-                                    .overlay {
-                                        ProgressView()
-                                            .progressViewStyle(.circular)
-                                    }
+                            Button {
+                                presentedBannerURL = url
+                                bannerIsPresented = true
+                            } label: {
+                                CachedAsyncImage(url: url, urlCache: .screenshotCache) { image in
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                } placeholder: {
+                                    Rectangle()
+                                        .fill(.regularMaterial)
+                                        .frame(width: 220, height: 170)
+                                        .overlay {
+                                            ProgressView()
+                                                .progressViewStyle(.circular)
+                                        }
+                                }
                             }
+                            .buttonStyle(.plain)
                         }
                     }
-                    .padding(5)
+                    .padding(7.5)
                     .shadow(radius: 2.5)
-                    .cornerRadius(5)
+                    .cornerRadius(10)
                     .ignoresSafeArea(edges: .trailing)
                     .background(.ultraThinMaterial)
                     .frame(height: 180)
@@ -208,7 +200,29 @@ struct DetailStoreAppView: View {
                 Spacer()
             }
             .padding()
-            .navigationTitle(app.name)
+            .sheet(isPresented: $bannerIsPresented) {
+                EnlargedBanner(presentedBannerURL: $presentedBannerURL,
+                               bannerImageURLs: $bannerImageURLs,
+                               bannerIsPresented: $bannerIsPresented)
+            }
+        }
+        .navigationTitle(app.name)
+        .toolbar {
+            ToolbarItem(placement: .navigation) {
+                Spacer()
+            }
+            ToolbarItem(placement: .navigation) {
+                PopView {
+                    Image(systemName: "chevron.left")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .clipShape(Rectangle())
+                        .frame(width: 12.5, height: 12.5)
+                }
+            }
+            ToolbarItem(placement: .navigation) {
+                Spacer()
+            }
         }
         .task(priority: .userInitiated) {
             if downloadVM.storeAppData == app {
@@ -241,12 +255,14 @@ struct DetailStoreAppView: View {
     }
 
     func getData() async {
+        appVersion = app.version
         if !cache.hasData(forKey: app.itunesLookup)
             || cache.readArray(forKey: app.bundleID + ".scUrls") == nil {
             await Cacher().resolveITunesData(app.itunesLookup)
         }
         itunesResponce = try? cache.readCodable(forKey: app.itunesLookup)
         if itunesResponce != nil {
+            lookupIsNil = false
             if let array = cache.readArray(forKey: app.bundleID + ".scUrls") {
                 let screenshots = array.compactMap { String(describing: $0) }
                 for string in screenshots {
@@ -256,27 +272,18 @@ struct DetailStoreAppView: View {
             if let url = itunesResponce?.results[0].artworkUrl512 {
                 onlineIcon = URL(string: url)
             }
+            appGenre = itunesResponce?.results[0].primaryGenreName ?? ""
+            appRating = String(format: "%.1f", round(
+                (itunesResponce?.results[0].averageUserRating ?? 0) * 10) / 10.0
+            )
+            appSize = ByteCountFormatter.string(
+                fromByteCount: Int64(itunesResponce?.results[0].fileSizeBytes ?? "0") ?? 0,
+                countStyle: .file
+            )
+            appAge = itunesResponce?.results[0].trackContentRating ?? ""
         } else {
             localIcon = Cacher().getLocalIcon(bundleId: app.bundleID)
         }
-    }
-}
-
-struct VerticalSpacer: View {
-     var body: some View {
-         Spacer()
-         Divider()
-             .frame(height: 50)
-         Spacer()
-     }
- }
-
-struct BadgeTextStyle: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .textCase(.uppercase)
-            .font(.subheadline.bold())
-            .foregroundColor(Color(nsColor: .tertiaryLabelColor))
     }
 }
 
