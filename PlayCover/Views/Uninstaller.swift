@@ -20,6 +20,9 @@ class Uninstaller {
         PlayTools.playCoverContainer.appendingPathComponent("Entitlements"),
         PlayTools.playCoverContainer.appendingPathComponent("Keymapping")
     ]
+    private static let otherPruneURLs: [URL] = [
+        PlayApp.aliasDirectory
+    ]
     private static let cacheURLs: [URL] = [
         Uninstaller.libraryUrl.appendingPathComponent("Containers"),
         Uninstaller.libraryUrl.appendingPathComponent("Application Scripts"),
@@ -135,6 +138,7 @@ class Uninstaller {
 
     static func pruneFiles() {
         let bundleIds = AppsVM.shared.apps.map { $0.info.bundleIdentifier }
+        let appNames = AppsVM.shared.apps.map { $0.info.displayName }
 
         for url in pruneURLs {
             do {
@@ -143,6 +147,19 @@ class Uninstaller {
                     if !bundleIds.contains(bundleId) {
                         clearExternalCache(bundleId)
 
+                        FileManager.default.delete(at: file)
+                    }
+                }
+            } catch {
+                Log.shared.error(error)
+            }
+        }
+
+        for url in otherPruneURLs {
+            do {
+                try url.enumerateContents { file, _ in
+                    let appName = file.deletingPathExtension().lastPathComponent
+                    if !appNames.contains(appName) {
                         FileManager.default.delete(at: file)
                     }
                 }
