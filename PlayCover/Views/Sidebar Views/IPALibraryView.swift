@@ -17,7 +17,6 @@ struct IPALibraryView: View {
     @State private var searchString = ""
     @State private var isList = UserDefaults.standard.bool(forKey: "IPALibrayView")
     @State private var selected: StoreAppData?
-    @State private var detailIsActive = false
     @State private var addSourcePresented = false
 
     @State private var currentSubview = AnyView(EmptyView())
