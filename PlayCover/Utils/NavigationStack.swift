@@ -11,7 +11,7 @@ enum StackNavigationTransition: Equatable {
     static func == (lhs: StackNavigationTransition, rhs: StackNavigationTransition) -> Bool {
         lhs.id == rhs.id
     }
-    
+
     case none, defaultTranisition, custom(AnyTransition)
 
     var id: String {
