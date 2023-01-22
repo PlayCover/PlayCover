@@ -25,7 +25,8 @@ struct IPALibraryView: View {
 
     var body: some View {
         StackNavigationView(currentSubview: $currentSubview,
-                              showingSubview: $showingSubview) {
+                            showingSubview: $showingSubview,
+                            transition: .defaultTranisition) {
             Group {
                 if storeVM.sources.count == 0 {
                     VStack {
@@ -48,10 +49,12 @@ struct IPALibraryView: View {
                                 ForEach(storeVM.filteredApps, id: \.bundleID) { app in
                                     Button {
                                         currentSubview = AnyView(DetailStoreAppView(app: app,
-                                                                                      downloadVM: DownloadVM.shared,
-                                                                                      installVM: InstallVM.shared))
-                                        showingSubview = true
-                                     } label: {
+                                                                                    downloadVM: DownloadVM.shared,
+                                                                                    installVM: InstallVM.shared))
+                                        withAnimation(.spring()) {
+                                            showingSubview = true
+                                        }
+                                    } label: {
                                         StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                                      selectedTextColor: $selectedTextColor,
                                                      selected: $selected,
@@ -60,7 +63,7 @@ struct IPALibraryView: View {
                                         .environmentObject(DownloadVM.shared)
                                         .environmentObject(InstallVM.shared)
                                     }
-                                     .buttonStyle(.plain)
+                                    .buttonStyle(.plain)
                                 }
                             }
                             .padding()
@@ -70,10 +73,12 @@ struct IPALibraryView: View {
                                 ForEach(storeVM.filteredApps, id: \.bundleID) { app in
                                     Button {
                                         currentSubview = AnyView(DetailStoreAppView(app: app,
-                                                                                      downloadVM: DownloadVM.shared,
-                                                                                      installVM: InstallVM.shared))
-                                        showingSubview = true
-                                     } label: {
+                                                                                    downloadVM: DownloadVM.shared,
+                                                                                    installVM: InstallVM.shared))
+                                        withAnimation(.spring()) {
+                                            showingSubview = true
+                                        }
+                                    } label: {
                                         StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                                      selectedTextColor: $selectedTextColor,
                                                      selected: $selected,
@@ -82,7 +87,7 @@ struct IPALibraryView: View {
                                         .environmentObject(DownloadVM.shared)
                                         .environmentObject(InstallVM.shared)
                                     }
-                                     .buttonStyle(.plain)
+                                    .buttonStyle(.plain)
                                     Spacer()
                                 }
                             }
