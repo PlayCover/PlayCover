@@ -204,10 +204,11 @@ struct PlayAppConditionalView: View {
                                 .overlay {
                                     ProgressView()
                                         .progressViewStyle(.circular)
+                                        .controlSize(.small)
                                 }
                         }
                     }
-                    .frame(width: 40, height: 40)
+                    .frame(width: 30, height: 30)
                     .cornerRadius(7.5)
                     .shadow(radius: 1)
                     .padding(.horizontal, 15)

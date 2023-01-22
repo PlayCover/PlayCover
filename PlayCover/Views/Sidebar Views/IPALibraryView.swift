@@ -50,7 +50,7 @@ struct IPALibraryView: View {
                                         currentSubview = AnyView(DetailStoreAppView(app: app,
                                                                                     downloadVM: DownloadVM.shared,
                                                                                     installVM: InstallVM.shared))
-                                        withAnimation(.spring()) {
+                                        withAnimation(.easeOut(duration: 0.3)) {
                                             showingSubview = true
                                         }
                                     } label: {
@@ -74,7 +74,7 @@ struct IPALibraryView: View {
                                         currentSubview = AnyView(DetailStoreAppView(app: app,
                                                                                     downloadVM: DownloadVM.shared,
                                                                                     installVM: InstallVM.shared))
-                                        withAnimation(.spring()) {
+                                        withAnimation(.easeIn(duration: 0.3)) {
                                             showingSubview = true
                                         }
                                     } label: {
