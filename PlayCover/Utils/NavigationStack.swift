@@ -29,7 +29,7 @@ enum StackNavigationTransition: Equatable {
             return AnyTransition.identity
         case .defaultTranisition:
             /// In this case you need to wrap `showingSubview = true` in the
-            /// root of the view view in a `withAnimation(.spring()) { ... }`
+            /// root of the view view in a `withAnimation(.easeOut(duration: 0.3)) { ... }`
             return AnyTransition.move(edge: .trailing)
         case .custom(let transition):
             return transition
@@ -73,7 +73,7 @@ struct StackNavigationView<RootContent>: View where RootContent: View {
                                 currentSubview = AnyView(EmptyView())
                                 switch transition {
                                 case .defaultTranisition:
-                                    withAnimation(.spring()) {
+                                    withAnimation(.easeOut(duration: 0.3)) {
                                         showingSubview = false
                                     }
                                 default:
