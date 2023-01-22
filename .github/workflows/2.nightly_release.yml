@@ -19,9 +19,6 @@ jobs:
           bundle install
           npm install --global create-dmg
 
-      - name: Select Xcode version
-        run: sudo xcode-select -s '/Applications/Xcode_13.4.1.app/Contents/Developer'
-
       - name: Set build number
         shell: bash
         run: |
