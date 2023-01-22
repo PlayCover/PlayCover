@@ -49,6 +49,9 @@
 "ipaLibrary.detailed.signinLabelTitle" = "Sign-In Flow";
 "ipaLibrary.detailed.confgureSigningDesc" = "You need follow Configure Signing steps for Signing-In";
 "ipaLibrary.detailed.noConfgureSigningDesc" = "Doing Configure Signing is not needed for Signing-In";
+"ipaLibrary.detailed.playchainLabelTitle" = "PlayChain Compatibility";
+"ipaLibrary.detailed.playchainOkDesc" = "Avoid Configure Signing steps by using PlayChain";
+"ipaLibrary.detailed.noPlaychainDesc" = "Does not work or hasn't been tested in this app/game";
 
 "preferences.button.checkForUpdates" = "Check for Updates";
 "preferences.tab.updates" = "Updates";

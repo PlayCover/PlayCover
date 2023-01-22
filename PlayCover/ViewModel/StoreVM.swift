@@ -195,4 +195,5 @@ struct StoreAppData: Codable, Equatable, Hashable {
      let diabledSIP: Bool
      let noPlayTools: Bool
      let signingSetup: Bool
+     let playchainOk: Bool
  }

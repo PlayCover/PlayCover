@@ -8,17 +8,18 @@
 import SwiftUI
 
 enum StackNavigationTransition: Equatable {
-    static func == (lhs: StackNavigationTransition, rhs: StackNavigationTransition) -> Bool {
-        lhs.id == rhs.id
-    }
-
     case none, defaultTranisition, custom(AnyTransition)
 
-    var id: String {
-        switch self {
-        case .none: return "none"
-        case .defaultTranisition: return "default"
-        case .custom: return "custom"
+    static func == (lhs: StackNavigationTransition, rhs: StackNavigationTransition) -> Bool {
+        switch (lhs, rhs) {
+        case (.none, .none):
+            return true
+        case (.defaultTranisition, .defaultTranisition):
+            return true
+        case (.custom, .custom):
+            return true
+        default:
+            return false
         }
     }
 
@@ -37,78 +38,53 @@ enum StackNavigationTransition: Equatable {
 }
 
 struct StackNavigationView<RootContent>: View where RootContent: View {
-    let rootView: () -> RootContent
+    let rootView: RootContent
+    let transition: StackNavigationTransition
 
     @Binding var currentSubview: AnyView
     @Binding var showingSubview: Bool
-    @State var transition: StackNavigationTransition
 
     init(currentSubview: Binding<AnyView>,
          showingSubview: Binding<Bool>,
          transition: StackNavigationTransition,
-         @ViewBuilder rootView: @escaping () -> RootContent) {
+         @ViewBuilder rootView: () -> RootContent
+    ) {
+        self.rootView = rootView()
+        self.transition = transition
         self._currentSubview = currentSubview
         self._showingSubview = showingSubview
-        self.transition = transition
-        self.rootView = rootView
     }
 
     var body: some View {
         VStack {
             if !showingSubview {
-                rootView()
+                rootView
                     .zIndex(-1)
                     .transition(transition == .defaultTranisition
                                 ? .move(edge: .leading)
                                 : transition.anyTransition)
             } else {
-                StackNavigationSubview(currentSubview: $currentSubview,
-                                       isVisible: $showingSubview,
-                                       transition: transition) {
-                    currentSubview
-                        .transition(transition.anyTransition)
-                        .zIndex(1)
-                }
-            }
-        }
-    }
-
-    private struct StackNavigationSubview<Content>: View where Content: View {
-        let subviewContent: () -> Content
-
-        @Binding var currentSubview: AnyView
-        @Binding var isVisible: Bool
-        @State var transition: StackNavigationTransition
-
-        init(currentSubview: Binding<AnyView>,
-             isVisible: Binding<Bool>,
-             transition: StackNavigationTransition,
-             subviewContent: @escaping () -> Content) {
-            self.subviewContent = subviewContent
-            self._currentSubview = currentSubview
-            self._isVisible = isVisible
-            self.transition = transition
-        }
-
-        var body: some View {
-            subviewContent() // subview
-                .toolbar {
-                    ToolbarItem(placement: .navigation) {
-                        Button {
-                            currentSubview = AnyView(EmptyView())
-                            switch transition {
-                            case .defaultTranisition:
-                                withAnimation(.spring()) {
-                                    isVisible = false
+                currentSubview
+                    .transition(transition.anyTransition)
+                    .zIndex(1)
+                    .toolbar {
+                        ToolbarItem(placement: .navigation) {
+                            Button {
+                                currentSubview = AnyView(EmptyView())
+                                switch transition {
+                                case .defaultTranisition:
+                                    withAnimation(.spring()) {
+                                        showingSubview = false
+                                    }
+                                default:
+                                    showingSubview = false
                                 }
-                            default:
-                                isVisible = false
+                            } label: {
+                                Label("BACK", systemImage: "chevron.left")
                             }
-                        } label: {
-                            Label("BACK", systemImage: "chevron.left")
                         }
                     }
-                }
+            }
         }
     }
 }
