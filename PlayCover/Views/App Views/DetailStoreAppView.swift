@@ -166,31 +166,39 @@ struct DetailStoreAppView: View {
                          if showInstallInfo {
                              HStack {
                                  Spacer()
-                                 Spacer()
-                                 InformativeLabelView(
-                                     iconIsWarning: installInfo.diabledSIP,
-                                     titleToShow: "ipaLibrary.detailed.sipLabelTitle",
-                                     descriptionToShow: installInfo.diabledSIP
+                                 Group {
+                                     InformativeLabelView(
+                                        iconIsWarning: installInfo.diabledSIP,
+                                        titleToShow: "ipaLibrary.detailed.sipLabelTitle",
+                                        descriptionToShow: installInfo.diabledSIP
                                         ? "ipaLibrary.detailed.disabledSIPDesc"
                                         : "ipaLibrary.detailed.enabledSIPDesc"
-                                 )
-                                 Spacer()
-                                 InformativeLabelView(
-                                     iconIsWarning: installInfo.noPlayTools,
-                                     titleToShow: "ipaLibrary.detailed.playoolsLabelTitle",
-                                     descriptionToShow: installInfo.noPlayTools
+                                     )
+                                     Spacer()
+                                     InformativeLabelView(
+                                        iconIsWarning: installInfo.noPlayTools,
+                                        titleToShow: "ipaLibrary.detailed.playoolsLabelTitle",
+                                        descriptionToShow: installInfo.noPlayTools
                                         ? "ipaLibrary.detailed.noPlayToolsDesc"
                                         : "ipaLibrary.detailed.withPlayToolsDesc"
-                                 )
-                                 Spacer()
-                                 InformativeLabelView(
-                                     iconIsWarning: installInfo.signingSetup,
-                                     titleToShow: "ipaLibrary.detailed.signinLabelTitle",
-                                     descriptionToShow: installInfo.signingSetup
+                                     )
+                                     Spacer()
+                                     InformativeLabelView(
+                                        iconIsWarning: installInfo.signingSetup,
+                                        titleToShow: "ipaLibrary.detailed.signinLabelTitle",
+                                        descriptionToShow: installInfo.signingSetup
                                         ? "ipaLibrary.detailed.confgureSigningDesc"
                                         : "ipaLibrary.detailed.noConfgureSigningDesc"
-                                 )
-                                 Spacer()
+                                     )
+                                     Spacer()
+                                     InformativeLabelView(
+                                        iconIsWarning: !installInfo.playchainOk,
+                                        titleToShow: "ipaLibrary.detailed.playchainLabelTitle",
+                                        descriptionToShow: installInfo.playchainOk
+                                        ? "ipaLibrary.detailed.playchainOkDesc"
+                                        : "ipaLibrary.detailed.noPlaychainDesc"
+                                     )
+                                 }
                                  Spacer()
                              }
                              .padding(.vertical)
@@ -333,7 +341,7 @@ struct DetailStoreAppView_Preview: PreviewProvider {
                 name: "Genshin Impact", version: "3.3.0",
                 itunesLookup: "http://itunes.apple.com/lookup?bundleId=com.miHoYo.GenshinImpact",
                 link: "https://repo.amrsm.ir/ipa/Genshin-Impact_3.3.0.ipa",
-                installInfo: [InstallInfo(diabledSIP: false, noPlayTools: false, signingSetup: true)]
+                installInfo: [InstallInfo(diabledSIP: false, noPlayTools: false, signingSetup: true, playchainOk: true)]
             ),
             downloadVM: DownloadVM.shared, installVM: InstallVM.shared
         )
