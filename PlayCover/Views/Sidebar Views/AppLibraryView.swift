@@ -14,7 +14,7 @@ struct AppLibraryView: View {
 
     @State private var gridLayout = [GridItem(.adaptive(minimum: 130, maximum: .infinity))]
     @State private var searchString = ""
-    @State private var isList = UserDefaults.standard.bool(forKey: "AppLibrayView")
+    @State private var isList = UserDefaults.standard.bool(forKey: "AppLibraryView")
     @State private var selected: PlayApp?
     @State private var showSettings = false
     @State private var showLegacyConvertAlert = false
@@ -92,7 +92,7 @@ struct AppLibraryView: View {
             appsVM.fetchApps()
         })
         .onChange(of: isList, perform: { value in
-            UserDefaults.standard.set(value, forKey: "AppLibrayView")
+            UserDefaults.standard.set(value, forKey: "AppLibraryView")
         })
         .sheet(isPresented: $showSettings) {
             AppSettingsView(viewModel: AppSettingsVM(app: selected!))
