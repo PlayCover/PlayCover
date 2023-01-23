@@ -140,8 +140,8 @@ class Uninstaller {
         let bundleIds = AppsVM.shared.apps.map { $0.info.bundleIdentifier }
         let appNames = AppsVM.shared.apps.map { $0.info.displayName }
 
-        for url in pruneURLs {
-            do {
+        do {
+            for url in pruneURLs {
                 try url.enumerateContents { file, _ in
                     let bundleId = file.deletingPathExtension().lastPathComponent
                     if !bundleIds.contains(bundleId) {
@@ -150,22 +150,17 @@ class Uninstaller {
                         FileManager.default.delete(at: file)
                     }
                 }
-            } catch {
-                Log.shared.error(error)
             }
-        }
-
-        for url in otherPruneURLs {
-            do {
+            for url in otherPruneURLs {
                 try url.enumerateContents { file, _ in
                     let appName = file.deletingPathExtension().lastPathComponent
                     if !appNames.contains(appName) {
                         FileManager.default.delete(at: file)
                     }
                 }
-            } catch {
-                Log.shared.error(error)
             }
+        } catch {
+            Log.shared.error(error)
         }
     }
 }
