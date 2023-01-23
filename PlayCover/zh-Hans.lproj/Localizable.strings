@@ -20,7 +20,7 @@
 "alert.moveAppToApplications.move" = "移进应用程序文件夹";
 
 /* (No Comment) */
-"alert.restart" = "请重启 PlayCover.";
+"alert.restart" = "请重启 PlayCover。";
 
 /* (No Comment) */
 "alert.storeAccount.regionIsNotValid" = "此账号现所在的服务器与选项不符。 打开游戏，更改服区并进入大门后保存，然后再试";
@@ -107,7 +107,7 @@
 "playapp.install.createWrapper" = "正在包装应用...";
 
 /* (No Comment) */
-"playapp.install.finished" = "完成";
+"playapp.install.finished" = "安装完成";
 
 /* (No Comment) */
 "playapp.install.installPlayTools" = "正在安装 PlayTools...";
@@ -234,42 +234,27 @@
 
 /* (No Comment) */
 "storeAccount.storeAcc" = "保存一个账号";
-
-/* (No Comment) */
-"xcode.install.failed" = "Xcode 命令行工具自动安装失败";
-
-/* (No Comment) */
-"xcode.install.message" = "您需要安装 Xcode 命令行工具并重启 PlayCover";
-
-/* (No Comment) */
-"xcode.install.progress" = "正在安装 Xcode 命令行工具";
-
-/* (No Comment) */
-"xcode.install.progress.subtext" = "根据网络速度，此操作可能需要 5-10 分钟";
-
-/* (No Comment) */
-"xcode.install.success" = "Xcode 命令行工具安装成功";
 "button.Quit" = "退出";
 "error.appProhibited" = "通过 PlayCover 使用这个应用程序很可能会导致帐号被封停！";
 "settings.title" = "%@ 设定";
 "playapp.exportKmPanel.fieldLabel" = "PlayMap 名称：";
 "sidebar.appLibrary" = "App 库";
-"sidebar.ipaLibrary" = "IPA 库";
+"sidebar.ipaLibrary" = "IPA 资源库";
 "storeAccount.alert.restoreAccount" = "确定要重置帐号吗？";
 "storeAccount.alert.restoreAccount.button" = "重置帐号";
 "storeAccount.alert.restoreAccount.msg" = "这将会覆盖当前已登录账户。";
 "storeAccount.alert.deleteAccount" = "确认是否删除账户？";
 "storeAccount.alert.deleteAccount.button" = "删除账户";
 "alert.moveAppToApplications.title" = "是否移动至应用程序文件夹？";
-"settings.toggle.mm" = "鼠标映射";
+"settings.toggle.mm" = "启用鼠标映射";
 "alert.moveAppToApplications.subtitle" = "PlayCover必须在应用程序文件夹下才能正常运行。点击下方按钮将会自动移动PlayCover至应用程序文件夹。";
 "error.appEncrypted" = "此应用已被加密！请使用未加密的 ipa 文件。 现已不再支持来自 iMazing 的 ipa！";
 "error.appCorrupted" = "此 ipa 文件是错误的。请尝试使用其他 ipa 文件。";
 "error.noGenshinAccount" = "我们没有找到原神帐户！ 您是否已登录帐户？";
-"settings.tab.info" = "信息";
+"settings.tab.info" = "详细信息";
 "settings.tab.km" = "键盘映射";
-"settings.toggle.km.help" = "为仅支持触摸游戏添加键盘的支持，使用 Command + K 打开编辑菜单。";
-"settings.toggle.mm.help" = "增加使用鼠标控制模拟触摸动作。使用 Command + K 来打开编辑器菜单。";
+"settings.toggle.km.help" = "为仅支持触摸游戏添加键盘支持，使用 Command + K 打开编辑菜单。";
+"settings.toggle.mm.help" = "添加鼠标控制模拟触摸动作。使用 Command + K 来打开编辑器菜单。";
 "settings.tab.graphics" = "图像设置";
 "settings.picker.adaptiveRes" = "分辨率：";
 "settings.picker.adaptiveRes.help" = "修改应用程序的窗口分辨率";
@@ -290,8 +275,6 @@
 "settings.resetKm" = "重置键盘映射";
 "settings.resetSettingsCompleted" = "设定已被重置为默认值！";
 "settings.resetKmCompleted" = "键盘映射已重置！";
-"xcode.install.failed.altInstructions" = "点击下方按钮以查看额外安装说明";
-"xcode.install.failed.altButton" = "额外安装说明";
 "settings.tab.misc" = "杂项";
 "settings.toggle.hud" = "启用 Metal 性能面板";
 "settings.info.bundleVersion" = "Bundle 版本号：";
@@ -304,10 +287,10 @@
 "playapp.add" = "添加应用";
 "alert.wrongFileType.title" = "错误的文件类型!";
 "alert.wrongFileType.subtitle" = "PlayCover 只可以安装有效的 .ipa 文件。";
-"playapp.addSource" = "添加源";
-"ipaLibrary.noSources.title" = "没有添加 ipa 源";
-"ipaLibrary.noSources.subtitle" = "您目前没有添加 ipa 源。点击下面的按钮来添加一个。";
-"ipaLibrary.noSources.button" = "添加源";
+"playapp.addSource" = "添加来源";
+"ipaLibrary.noSources.title" = "尚未添加 IPA 来源";
+"ipaLibrary.noSources.subtitle" = "您目前没有添加 IPA 来源。点击下面的按钮来添加一个。";
+"ipaLibrary.noSources.button" = "添加来源";
 "ipaLibrary.noNetworkConnection.toast" = "没有网络连接!";
 "preferences.tab.ipasource" = "IPA 来源";
 "preferences.button.addSource" = "添加来源";
@@ -315,21 +298,21 @@
 "preferences.button.moveSourceUp" = "上移来源";
 "preferences.button.moveSourceDown" = "下移来源";
 "preferences.popover.valid" = "链接有效";
-"preferences.popover.badurl" = "链接错误!";
+"preferences.popover.badurl" = "链接无效!";
 "preferences.popover.badjson" = "JSON 无效或未找到!";
 "preferences.textfield.url" = "来源 URL 链接...";
-"playapp.download" = "现在下载中";
+"playapp.download" = "下载中";
 "error.waitDownload" = "请等待下载完成!";
-"preferences.button.pruneFiles" = "未使用的文件";
-"playapp.install.failed" = "失败";
+"preferences.button.pruneFiles" = "删除未使用的文件";
+"playapp.install.failed" = "安装失败";
 "alert.supression" = "你可以在 PlayCover 偏好设置中更改";
 "menubar.clearCache" = "清除缓存";
 "preferences.tab.uninstall" = "卸载";
-"preferences.whenUninstalling" = "卸载同时:";
-"preferences.toggle.showUninstall" = "显示警告弹框";
-"preferences.toggle.clearAppData" = "清理 APP 数据";
-"preferences.toggle.removeKeymap" = "移除按键映射";
-"preferences.toggle.removeSetting" = "移除设置";
+"preferences.whenUninstalling" = "在卸载同时:";
+"preferences.toggle.showUninstall" = "显示警告弹窗";
+"preferences.toggle.clearAppData" = "清除应用数据";
+"preferences.toggle.removeKeymap" = "移除键盘映射";
+"preferences.toggle.removeSetting" = "清除设置";
 "preferences.toggle.removeEntitlements" = "移除授权";
 "preferences.prune.alert" = "您确定要删除所有未使用的文件吗？";
 "preferences.prune.message" = "这将删除所有未使用的文件，包括设置、按键映射、授权和应用程序数据";
@@ -379,4 +362,8 @@
 "ipaLibrary.alert.download" = "您确定您要下载这个版本的 %@ 吗?";
 "ipaLibrary.download" = "下载";
 "settings.toggle.lldbWithTerminal" = "在终端里打开";
-"settings.unavailable.hud" = "Metal HUD unavailable";
+"settings.unavailable.hud" = "Metal HUD 不可用";
+"error.failedToStripBinary" = "无法在通用二进制文件中检索到 ARM64 架构！";
+"settings.playChain.enable" = "启用 PlayChain (试验阶段)";
+"settings.playChain.help" = "在此应用启用 PlayChain 将使应用（部分）使用 Apple Keychain 服务";
+"settings.playChain.debugging" = "PlayChain 调试";

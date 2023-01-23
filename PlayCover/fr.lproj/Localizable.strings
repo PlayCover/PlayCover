@@ -234,21 +234,6 @@
 
 /* (No Comment) */
 "storeAccount.storeAcc" = "Sauvegarder un compte";
-
-/* (No Comment) */
-"xcode.install.failed" = "Échec de l'installation de Xcode Command Line Tools";
-
-/* (No Comment) */
-"xcode.install.message" = "Veuiller installer Xcode Command Line Tools et redémarrer PlayCover";
-
-/* (No Comment) */
-"xcode.install.progress" = "Installation de Xcode Command Line Tools";
-
-/* (No Comment) */
-"xcode.install.progress.subtext" = "Ceci peut prendre environ 5 à 10 minutes selon la vitesse d'Internet";
-
-/* (No Comment) */
-"xcode.install.success" = "Succès de l'installation de Xcode Command Line Tools";
 "sidebar.appLibrary" = "Bibliothèque d'Apps";
 "button.Quit" = "Quitter";
 "settings.title" = "Paramètres de %@";
@@ -267,7 +252,7 @@
 "error.appProhibited" = "L'utilisation de cette application via PlayCover entraînera probablement une ban !";
 "error.noGenshinAccount" = "Nous n'avons pas trouvé de compte Genshin ! Êtes-vous connecté à un compte dans l'application ?";
 "settings.tab.info" = "Info";
-"settings.tab.km" = "Mappage de touches";
+"settings.tab.km" = "Touches";
 "settings.toggle.km.help" = "Ajoutez le mappage de touches aux jeux tactiles uniquement. Utilisez Commande + K pour ouvrir le menu de l'éditeur.";
 "settings.toggle.mm" = "Mappage de la souris";
 "settings.toggle.mm.help" = "Ajoutez des commandes de souris qui simule les mouvements tactiles. Utilisez Commande + K pour ouvrir le menu de l'éditeur.";
@@ -290,8 +275,6 @@
 "settings.resetKm" = "Réinitialiser le mappage de touches";
 "settings.resetSettingsCompleted" = "Les paramètres ont été réinitialisés !";
 "settings.resetKmCompleted" = "Le mappage de touches a été réinitialisé !";
-"xcode.install.failed.altInstructions" = "Cliquez sur le bouton ci-dessous pour voir d'autres instructions d'installation";
-"xcode.install.failed.altButton" = "Instructions Alternatives";
 "settings.tab.misc" = "Autre";
 "settings.toggle.hud" = "Metal HUD";
 "settings.info.bundleVersion" = "Version de l'app :";
@@ -380,3 +363,7 @@
 "alert.differentBundleIdKeymap.message" = "Le keymap peut avoir été créé pour une autre application.";
 "settings.toggle.lldbWithTerminal" = "Ouvrir dans le terminal";
 "settings.unavailable.hud" = "Metal HUD unavailable";
+"error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
+"settings.playChain.enable" = "Enable PlayChain (experimental)";
+"settings.playChain.help" = "Enable PlayChain support for this application, allowing it to (partially) use Apple Keychain Services";
+"settings.playChain.debugging" = "PlayChain debugging";

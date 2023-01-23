@@ -234,21 +234,6 @@
 
 /* (No Comment) */
 "storeAccount.storeAcc" = "アカウントを保存";
-
-/* (No Comment) */
-"xcode.install.failed" = "Xcodeコマンドラインツールのインストールに失敗しました";
-
-/* (No Comment) */
-"xcode.install.message" = "XcodeコマンドラインツールをインストールしてPlayCoverを再起動してください";
-
-/* (No Comment) */
-"xcode.install.progress" = "Xcodeコマンドラインツールをインストールしています";
-
-/* (No Comment) */
-"xcode.install.progress.subtext" = "5〜10分ほどかかります(インターネットの環境によって変化します)";
-
-/* (No Comment) */
-"xcode.install.success" = "Xcodeコマンドラインツールのインストールが完了しました";
 "settings.resetKmCompleted" = "キーマップは初期化されました！";
 "settings.tab.misc" = "その他";
 "playapp.exportKmPanel.fieldLabel" = "キーマップの名前:";
@@ -291,8 +276,6 @@
 "settings.resetSettings" = "設定をリセット";
 "settings.resetKm" = "キーマップをリセット";
 "settings.resetSettingsCompleted" = "設定は初期化されました！";
-"xcode.install.failed.altInstructions" = "下のボタンをクリックして、別のインストール手順を確認してください";
-"xcode.install.failed.altButton" = "別の手法の説明";
 "settings.toggle.hud" = "Metal HUD";
 "settings.info.bundleVersion" = "バンドルバージョン:";
 "playapp.deleteConfirm" = "アンインストール";
@@ -379,4 +362,8 @@
 "alert.differentBundleIdKeymap.text" = "このキーマップをインポートしてもよろしいですか?";
 "settings.toggle.lldb" = "LLDBで開く";
 "settings.toggle.lldbWithTerminal" = "ターミナルで開く";
-"settings.unavailable.hud" = "Metal HUD unavailable";
+"settings.unavailable.hud" = "Metal HUDは利用できません";
+"error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
+"settings.playChain.enable" = "Enable PlayChain (experimental)";
+"settings.playChain.help" = "Enable PlayChain support for this application, allowing it to (partially) use Apple Keychain Services";
+"settings.playChain.debugging" = "PlayChain debugging";

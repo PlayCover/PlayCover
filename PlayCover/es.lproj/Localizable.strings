@@ -191,16 +191,16 @@
 "settings.toggle.km" = "Asignación de teclas";
 
 /* (No Comment) */
-"soundAlert.failureText" = "Hubo un error al establecer la frecuencia de muestreo a 48 KHz en el dispositivo de salida. Puedes hacer esto manualmente en la aplicación Configuración de Audio MIDI";
+"soundAlert.failureText" = "Hubo un error al establecer la frecuencia de muestreo a 48 kHz en el dispositivo de salida. Puedes hacer esto manualmente en la aplicación Configuración de Audio MIDI";
 
 /* (No Comment) */
-"soundAlert.informativeText" = "Su dispositivo de salida actual no tiene una frecuencia de muestreo de 48 o 44,1 KHz. Pueden producirse errores. ¿Desea cambiar la frecuencia de muestreo de su dispositivo de salida actual a 48 KHz?";
+"soundAlert.informativeText" = "Su dispositivo de salida actual no tiene una frecuencia de muestreo de 48 o 44,1 kHz. Pueden producirse errores. ¿Desea cambiar la frecuencia de muestreo de su dispositivo de salida actual a 48 kHz?";
 
 /* (No Comment) */
 "soundAlert.messageText" = "¡Se ha detectado una configuración de audio incorrecta!";
 
 /* (No Comment) */
-"soundAlert.successText" = "Frecuencia de muestreo establecida en 48 KHz";
+"soundAlert.successText" = "Frecuencia de muestreo establecida en 48 kHz";
 
 /* (No Comment) */
 "storeAccount.deleteAcc" = "Eliminar una cuenta";
@@ -234,21 +234,6 @@
 
 /* (No Comment) */
 "storeAccount.storeAcc" = "Guardar una cuenta";
-
-/* (No Comment) */
-"xcode.install.failed" = "Error en la instalación automática de Xcode Command Line Tools";
-
-/* (No Comment) */
-"xcode.install.message" = "Tiene que instalar Xcode Command Line Tools y reiniciar PlayCover";
-
-/* (No Comment) */
-"xcode.install.progress" = "Instalando Xcode Command Line Tools";
-
-/* (No Comment) */
-"xcode.install.progress.subtext" = "Esto puede tardar alrededor de 5 a 10 minutos, dependiendo de su velocidad de Internet";
-
-/* (No Comment) */
-"xcode.install.success" = "La instalación de Xcode Command Line Tools se ha realizado con éxito";
 "sidebar.ipaLibrary" = "Galería de IPA";
 "settings.title" = "Configuración de %@";
 "settings.tab.graphics" = "Gráficos";
@@ -291,8 +276,6 @@
 "settings.toggle.hud" = "HUD de Metal";
 "settings.resetSettingsCompleted" = "¡La configuración se ha revertido a la predeterminada!";
 "settings.resetKmCompleted" = "¡La asignación de teclas se ha restablecido!";
-"xcode.install.failed.altInstructions" = "Haga clic en el botón de abajo para ver las instrucciones de instalación alternativas";
-"xcode.install.failed.altButton" = "Instrucciones alternativas";
 "settings.tab.misc" = "Varios";
 "settings.info.bundleVersion" = "Versión del paquete:";
 "alert.legacyImport.title" = "¡Se ha encontrado una configuración antigua!";
@@ -332,7 +315,7 @@
 "preferences.prune.message" = "Esto eliminará todos los archivos que no se utilicen, incluidos los de configuración, asignación de teclas, permisos y datos de la aplicación";
 "playapp.install.failed" = "Error";
 "alert.supression" = "Puede cambiar esto en la configuración de PlayCover";
-"menubar.clearCache" = "Borrar la caché";
+"menubar.clearCache" = "Eliminar antememoria";
 "preferences.tab.install" = "Instalar";
 "preferences.toggle.showInstallPopup" = "Mostrar ventana de instalación de PlayTools";
 "preferences.toggle.alwaysInstallPlayTools" = "Instalar siempre PlayTools";
@@ -365,7 +348,7 @@
 "button.Dismiss" = "Ignorar";
 "configSigning.header" = "Configurar firma de paquetes";
 "configSigning.info.AMFI" = "Se require deshabilitar AMFI para permitir la firma falsa de aplicaciones, permitiendo así su ejecución con el ID de Equipo correcto";
-"configSigning.info.AMFIHeader" = "Apple Mobile File Integrity";
+"configSigning.info.AMFIHeader" = "Protección de la integridad del sistema de Apple";
 "configSigning.action.shutdown" = "Apagar mi Mac";
 "alert.power.title" = "¡Modo de bajo consumo activado!";
 "alert.power.subtitle" = "Algunas aplicaciones no funcionarán con el modo de bajo consumo activado. Se recomienda desactivarlo.";
@@ -380,3 +363,7 @@
 "settings.toggle.lldb" = "Abrir con LLDB";
 "settings.toggle.lldbWithTerminal" = "Abrir en terminal";
 "settings.unavailable.hud" = "Metal HUD no disponible";
+"error.failedToStripBinary" = "¡No se pudo encontrar el arch ARM64 en binario para multiarquitectura!";
+"settings.playChain.enable" = "Activar PlayChain (experimental)";
+"settings.playChain.help" = "Habilitar la compatibilidad con PlayChain para esta aplicación, lo que le permite utilizar (parcialmente) los servicios de Keychain de Apple»";
+"settings.playChain.debugging" = "Depuración de PlayChain";

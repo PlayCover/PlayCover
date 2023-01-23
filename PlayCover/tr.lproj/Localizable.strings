@@ -157,13 +157,6 @@
 "soundAlert.informativeText" = "Şu anki ses cihazınız 48 veya 44.1 KHz'yi desteklemiyor. Çökmeler yaşanabilir. Ses cihazınızın sample rate'ini 48KHz'ye değiştirmek istermisiniz?";
 "soundAlert.successText" = "48 KHz'ye ayarlandı";
 "soundAlert.failureText" = "48KHz'ye değiştirilmesinde bir hata çıktı. Audio MIDI uygulamasında manuel olarak değiştirebilirsiniz";
-"xcode.install.message" = "Xcode Command Line Tools'u indirin ve PlayCover'ı yeniden başlatın";
-"xcode.install.success" = "Xcode Command Line Tools başarıyla indirildi";
-"xcode.install.failed" = "Otomatik Xcode Command Line Tools indirilmesi başarısız oldu";
-"xcode.install.progress" = "Xcode Command Line Tools indiriliyor";
-"xcode.install.progress.subtext" = "İnternet hızınıza göre yaklaşık 5-10 dakika alabilir";
-"xcode.install.failed.altInstructions" = "Alternatif indirme klavuzu için aşağıya tıklayın";
-"xcode.install.failed.altButton" = "Alternatif Klavuz";
 "settings.tab.misc" = "Öbür";
 "settings.button.discord" = "Özelleştirilmiş Discord aktivitesi";
 "settings.button.clearActivity" = "Özelleştirilmiş aktiviteyi sıfırla";
@@ -213,3 +206,7 @@
 "settings.toggle.lldb" = "LLDB ile aç";
 "settings.toggle.lldbWithTerminal" = "Terminal'de aç";
 "settings.unavailable.hud" = "Metal HUD unavailable";
+"error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
+"settings.playChain.enable" = "Enable PlayChain (experimental)";
+"settings.playChain.help" = "Enable PlayChain support for this application, allowing it to (partially) use Apple Keychain Services";
+"settings.playChain.debugging" = "PlayChain debugging";
