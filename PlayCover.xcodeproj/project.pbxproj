@@ -170,8 +170,6 @@
 		AA818CBD287AC237000BEE9D /* input.xcfilelist */ = {isa = PBXFileReference; lastKnownFileType = text.xcfilelist; path = input.xcfilelist; sourceTree = "<group>"; };
 		AA818CBF287AC274000BEE9D /* output.xcfilelist */ = {isa = PBXFileReference; lastKnownFileType = text.xcfilelist; path = output.xcfilelist; sourceTree = "<group>"; };
 		AA970FD228793A310099A5D0 /* PlayCoverRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayCoverRelease.entitlements; sourceTree = "<group>"; };
-		AAE8809E287ACE9F00FBB23C /* cp_frameworks.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = cp_frameworks.sh; sourceTree = "<group>"; };
-		AAE8809F287ACE9F00FBB23C /* bootstrap.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = bootstrap.sh; sourceTree = "<group>"; };
 		ABED59822887A32F004D782B /* MenuBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		ABF0BA1A285F9ED200FC5259 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B1084E1E28AA80F400E399FA /* AppSettingsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsVM.swift; sourceTree = "<group>"; };
@@ -368,7 +366,6 @@
 			isa = PBXGroup;
 			children = (
 				6E66B0D0289F57B00099B907 /* Documentation.docc */,
-				AAE8809D287ACE7D00FBB23C /* scripts */,
 				8783CFF926B8C52D00171041 /* PlayCover */,
 				8783CFF826B8C52D00171041 /* Products */,
 				53841CC826D9D7920021D27C /* Frameworks */,
@@ -433,15 +430,6 @@
 				AA719647287A0E2500623C15 /* default.yaml */,
 			);
 			path = Rules;
-			sourceTree = "<group>";
-		};
-		AAE8809D287ACE7D00FBB23C /* scripts */ = {
-			isa = PBXGroup;
-			children = (
-				AAE8809F287ACE9F00FBB23C /* bootstrap.sh */,
-				AAE8809E287ACE9F00FBB23C /* cp_frameworks.sh */,
-			);
-			path = scripts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
