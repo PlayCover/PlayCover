@@ -157,7 +157,7 @@ class PlayApp: BaseApp {
                                                 includingResourceValuesForKeys: nil, relativeTo: nil)
             try URL.writeBookmarkData(data, to: aliasURL)
         } catch {
-            Log.shared.log("\(error)")
+            Log.shared.log(error.localizedDescription)
         }
     }
 
