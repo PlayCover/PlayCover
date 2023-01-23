@@ -82,7 +82,7 @@ struct AppSettingsView: View {
                 BypassesView(settings: $viewModel.settings,
                              hasPlayTools: $hasPlayTools)
                     .tabItem {
-                        Text("settings.tab.jbBypass")
+                        Text("settings.tab.bypasses")
                     }
                     .disabled(!(hasPlayTools ?? true))
                 MiscView(settings: $viewModel.settings,
