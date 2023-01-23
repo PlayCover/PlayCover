@@ -14,41 +14,64 @@ struct AppLibraryView: View {
 
     @State private var gridLayout = [GridItem(.adaptive(minimum: 130, maximum: .infinity))]
     @State private var searchString = ""
-    @State private var isList = UserDefaults.standard.bool(forKey: "AppLibrayView")
+    @State private var isList = UserDefaults.standard.bool(forKey: "AppLibraryView")
     @State private var selected: PlayApp?
     @State private var showSettings = false
     @State private var showLegacyConvertAlert = false
     @State private var showWrongfileTypeAlert = false
 
     var body: some View {
-        ScrollView {
-            if !isList {
-                LazyVGrid(columns: gridLayout, alignment: .center) {
-                    ForEach(appsVM.apps, id: \.url) { app in
-                        PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                    selectedTextColor: $selectedTextColor,
-                                    selected: $selected,
-                                    app: app,
-                                    isList: isList)
+        Group {
+            if !appsVM.apps.isEmpty {
+                ScrollView {
+                    if !isList {
+                        LazyVGrid(columns: gridLayout, alignment: .center) {
+                            ForEach(appsVM.apps, id: \.url) { app in
+                                PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                            selectedTextColor: $selectedTextColor,
+                                            selected: $selected,
+                                            app: app,
+                                            isList: isList)
+                            }
+                        }
+                        .padding()
+                    } else {
+                        VStack {
+                            ForEach(appsVM.apps, id: \.url) { app in
+                                PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                            selectedTextColor: $selectedTextColor,
+                                            selected: $selected,
+                                            app: app,
+                                            isList: isList)
+                            }
+                            Spacer()
+                        }
+                        .padding()
                     }
                 }
-                .padding()
+                .onTapGesture {
+                    selected = nil
+                }
             } else {
                 VStack {
-                    ForEach(appsVM.apps, id: \.url) { app in
-                        PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                    selectedTextColor: $selectedTextColor,
-                                    selected: $selected,
-                                    app: app,
-                                    isList: isList)
+                    Text("playapp.noSources.title")
+                        .font(.title)
+                        .padding(.bottom, 2)
+                    Text("playapp.noSources.subtitle")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                    Button("Import IPA") {
+                        if installVM.installing {
+                            Log.shared.error(PlayCoverError.waitInstallation)
+                        } else if DownloadVM.shared.downloading {
+                            Log.shared.error(PlayCoverError.waitDownload)
+                        } else {
+                            selectFile()
+                        }
                     }
-                    Spacer()
                 }
-                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-        }
-        .onTapGesture {
-            selected = nil
         }
         .navigationTitle("sidebar.appLibrary")
         .toolbar {
@@ -92,7 +115,7 @@ struct AppLibraryView: View {
             appsVM.fetchApps()
         })
         .onChange(of: isList, perform: { value in
-            UserDefaults.standard.set(value, forKey: "AppLibrayView")
+            UserDefaults.standard.set(value, forKey: "AppLibraryView")
         })
         .sheet(isPresented: $showSettings) {
             AppSettingsView(viewModel: AppSettingsVM(app: selected!))
