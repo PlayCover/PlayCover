@@ -20,6 +20,7 @@ class AppsVM: ObservableObject {
 
     func fetchApps() {
         Task {
+            print("Fetching apps")
             var result: [PlayApp] = []
             do {
                 let containers = try AppContainer.containers()
@@ -36,7 +37,6 @@ class AppsVM: ObservableObject {
                         let app = PlayApp(appUrl: sub)
                         if let container = containers[app.info.bundleIdentifier] {
                             app.container = container
-                            print("Application installed under:", sub.path)
                         }
                         result.append(app)
                     }
