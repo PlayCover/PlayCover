@@ -234,21 +234,6 @@
 
 /* (No Comment) */
 "storeAccount.storeAcc" = "계정 보관하기";
-
-/* (No Comment) */
-"xcode.install.failed" = "명령어 라인 개발자 도구를 설치하지 못했습니다";
-
-/* (No Comment) */
-"xcode.install.message" = "명령어 라인 개발자 도구(Xcode Command Line Tools)를 설치한 후 PlayCover를 재시작 해야합니다";
-
-/* (No Comment) */
-"xcode.install.progress" = "명령어 라인 개발자 도구(Xcode Command Line Tools) 설치 중";
-
-/* (No Comment) */
-"xcode.install.progress.subtext" = "인터넷 속도에 따라 5~10분정도 소요됩니다";
-
-/* (No Comment) */
-"xcode.install.success" = "명령어 라인 개발자 도구(Xcode Command Line Tools)가 성공적으로 설치되었습니다";
 "settings.title" = "%@ 설정";
 "playapp.exportKmPanel.fieldLabel" = "PlayMap 이름:";
 "sidebar.appLibrary" = "앱 보관함";
@@ -289,8 +274,6 @@
 "settings.resetKm" = "키매핑 초기화";
 "settings.resetSettingsCompleted" = "설정을 기본값으로 되돌렸습니다!";
 "settings.resetKmCompleted" = "키매핑이 재설정되었습니다!";
-"xcode.install.failed.altInstructions" = "대체 설치 지침을 보려면 아래 버튼를 클릭하세요";
-"xcode.install.failed.altButton" = "대체 지침";
 "settings.tab.misc" = "기타";
 "settings.toggle.hud" = "Metal HUD 활성화";
 "settings.info.bundleVersion" = "번들 버전:";
@@ -380,3 +363,7 @@
 "alert.differentBundleIdKeymap.message" = "이 키매핑은 다른 앱을 위해 만들어졌을수도 있습니다.";
 "alert.differentBundleIdKeymap.text" = "정말로 이 키매핑을 불러오시겠습니까?";
 "settings.unavailable.hud" = "Metal HUD unavailable";
+"error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
+"settings.playChain.debugging" = "PlayChain debugging";
+"settings.playChain.enable" = "Enable PlayChain (experimental)";
+"settings.playChain.help" = "Enable PlayChain support for this application, allowing it to (partially) use Apple Keychain Services";
