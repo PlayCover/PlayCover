@@ -153,11 +153,6 @@ class PlayApp: BaseApp {
             try FileManager.default.createDirectory(atPath: PlayApp.aliasDirectory.path,
                                                     withIntermediateDirectories: true,
                                                     attributes: nil)
-        } catch {
-            Log.shared.log("\(error)")
-        }
-
-        do {
             let data = try url.bookmarkData(options: .suitableForBookmarkFile,
                                                 includingResourceValuesForKeys: nil, relativeTo: nil)
             try URL.writeBookmarkData(data, to: aliasURL)
