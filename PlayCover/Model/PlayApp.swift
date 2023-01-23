@@ -154,7 +154,7 @@ class PlayApp: BaseApp {
                                                     withIntermediateDirectories: true,
                                                     attributes: nil)
         } catch {
-            Log.shared.log("Error creating app alias directory: \(error)")
+            Log.shared.log("\(error)")
         }
 
         do {
@@ -162,7 +162,7 @@ class PlayApp: BaseApp {
                                                 includingResourceValuesForKeys: nil, relativeTo: nil)
             try URL.writeBookmarkData(data, to: aliasURL)
         } catch {
-            Log.shared.log("Error creating bookmark data or writing to destination file: \(error)")
+            Log.shared.log("\(error)")
         }
     }
 
