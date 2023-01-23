@@ -6,7 +6,6 @@
 import Foundation
 
 public class IPA {
-
     public let url: URL
     public private(set) var tmpDir: URL?
 

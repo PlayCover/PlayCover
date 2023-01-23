@@ -7,7 +7,6 @@ import Foundation
 import Yams
 
 class Entitlements {
-
     static var playCoverEntitlementsDir: URL {
         let entFolder = PlayTools.playCoverContainer.appendingPathComponent("Entitlements")
         if !FileManager.default.fileExists(atPath: entFolder.path) {
