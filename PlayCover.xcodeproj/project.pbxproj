@@ -55,7 +55,6 @@
 		9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280871A2824A8D20034C510 /* SoundDeviceService.swift */; };
 		9286D296273A7E4200958DD3 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286D295273A7E4200958DD3 /* AppSettings.swift */; };
 		928C01D9272E162C007EB2DF /* InstallVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928C01D8272E162C007EB2DF /* InstallVM.swift */; };
-		92A8AAC9275EFEA800D89B50 /* SystemConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A8AAC8275EFEA800D89B50 /* SystemConfig.swift */; };
 		92B4D38F2737CF3D0001D7BB /* PlayTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B4D38E2737CF3D0001D7BB /* PlayTools.swift */; };
 		92ECD8A3274E75CD00DB7AC6 /* Installer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ECD8A2274E75CD00DB7AC6 /* Installer.swift */; };
 		92ECD8A5274E763700DB7AC6 /* IPA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ECD8A4274E763700DB7AC6 /* IPA.swift */; };
@@ -70,7 +69,6 @@
 		AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA71964A287A0EA800623C15 /* PlayRules.swift */; };
 		AA71964D287A35F400623C15 /* com.nexon.bluearchive.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA71964C287A35F400623C15 /* com.nexon.bluearchive.yaml */; };
 		AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = AA818CB4287ABEC3000BEE9D /* Yams */; };
-		AB671B8C28C9C7DB00B7B102 /* SigningSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB671B8B28C9C7DB00B7B102 /* SigningSetupView.swift */; };
 		ABED59832887A32F004D782B /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABED59822887A32F004D782B /* MenuBarView.swift */; };
 		B1084E1F28AA80F400E399FA /* AppSettingsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1084E1E28AA80F400E399FA /* AppSettingsVM.swift */; };
 		B1419FB628BA82EE000CB69F /* DiscordActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1419FB528BA82EE000CB69F /* DiscordActivity.swift */; };
@@ -149,7 +147,6 @@
 		9286D295273A7E4200958DD3 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		928C01D7272DF1A2007EB2DF /* PlayCover-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlayCover-Bridging-Header.h"; sourceTree = "<group>"; };
 		928C01D8272E162C007EB2DF /* InstallVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallVM.swift; sourceTree = "<group>"; };
-		92A8AAC8275EFEA800D89B50 /* SystemConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemConfig.swift; sourceTree = "<group>"; };
 		92B4D38E2737CF3D0001D7BB /* PlayTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayTools.swift; sourceTree = "<group>"; };
 		92D79316273C065A001CC964 /* libsandbox.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsandbox.1.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/libsandbox.1.tbd; sourceTree = DEVELOPER_DIR; };
 		92ECD8A2274E75CD00DB7AC6 /* Installer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Installer.swift; sourceTree = "<group>"; };
@@ -169,7 +166,6 @@
 		AA970FD228793A310099A5D0 /* PlayCoverRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayCoverRelease.entitlements; sourceTree = "<group>"; };
 		AAE8809E287ACE9F00FBB23C /* cp_frameworks.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = cp_frameworks.sh; sourceTree = "<group>"; };
 		AAE8809F287ACE9F00FBB23C /* bootstrap.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = bootstrap.sh; sourceTree = "<group>"; };
-		AB671B8B28C9C7DB00B7B102 /* SigningSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningSetupView.swift; sourceTree = "<group>"; };
 		ABED59822887A32F004D782B /* MenuBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		ABF0BA1A285F9ED200FC5259 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B1084E1E28AA80F400E399FA /* AppSettingsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsVM.swift; sourceTree = "<group>"; };
@@ -222,11 +218,10 @@
 				6E66B0D428A0039D0099B907 /* ToastView.swift */,
 				365AFB0728847B75008B3542 /* Sparkle.swift */,
 				6ED6ACA328A949A30040D234 /* AppSettingsView.swift */,
+				B6603E1228E2257800DEFA3F /* Uninstaller.swift */,
 				6E66B0CF289F562A0099B907 /* Sidebar Views */,
 				6E66B0CA289F55180099B907 /* App Views */,
 				36B26B95288C722500859EFD /* Settings */,
-				AB671B8B28C9C7DB00B7B102 /* SigningSetupView.swift */,
-				B6603E1228E2257800DEFA3F /* Uninstaller.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -313,7 +308,6 @@
 				538AAE7A26CD41E60009C7AC /* ProcessExtension.swift */,
 				92B4D38E2737CF3D0001D7BB /* PlayTools.swift */,
 				68E48B9B295709BF00C39879 /* Cacher.swift */,
-				92A8AAC8275EFEA800D89B50 /* SystemConfig.swift */,
 				92F8500927675124005CE6BE /* AppIntegrity.swift */,
 				6E21232F28F65F5800B4D75D /* GenshinUserData */,
 				6ED6ACA528A96E570040D234 /* DeletePreferences.swift */,
@@ -640,7 +634,6 @@
 				928C01D9272E162C007EB2DF /* InstallVM.swift in Sources */,
 				53F4D2A026C43C690020167C /* Log.swift in Sources */,
 				B6603E1128E206A300DEFA3F /* UninstallSettings.swift in Sources */,
-				92A8AAC9275EFEA800D89B50 /* SystemConfig.swift in Sources */,
 				6E66B0C9289F52800099B907 /* IPALibraryView.swift in Sources */,
 				B1084E1F28AA80F400E399FA /* AppSettingsVM.swift in Sources */,
 				6E7CA16728B4EEAE00216CD8 /* Keymapping.swift in Sources */,
@@ -673,7 +666,6 @@
 				6EB4B57428C93E0600630890 /* LegacySettings.swift in Sources */,
 				ABED59832887A32F004D782B /* MenuBarView.swift in Sources */,
 				538AAE7B26CD41E60009C7AC /* ProcessExtension.swift in Sources */,
-				AB671B8C28C9C7DB00B7B102 /* SigningSetupView.swift in Sources */,
 				B6AB53C929232B4F00039B2E /* KeyCodeNames.swift in Sources */,
 				92EE06D4274EA604002C907B /* PlayAppView.swift in Sources */,
 				6E21233128F65F7600B4D75D /* GenshinUserDataURLs.swift in Sources */,
