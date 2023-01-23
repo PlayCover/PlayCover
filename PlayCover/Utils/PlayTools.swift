@@ -108,8 +108,6 @@ class PlayTools {
             }
 
             throw PlayCoverError.failedToStripBinary
-        } else {
-            print("Binary already thin")
         }
     }
 
