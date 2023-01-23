@@ -53,6 +53,7 @@ class Entitlements {
         base["com.apple.security.print"] = true
     }
 
+    // swiftlint:disable:next cyclomatic_complexity
     static func composeEntitlements(_ app: PlayApp) throws -> [String: Any] {
         var base = [String: Any]()
         let bundleID = app.info.bundleIdentifier
