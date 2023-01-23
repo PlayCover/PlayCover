@@ -140,10 +140,10 @@
 "preferences.toggle.automaticUpdates" = "Автоматическая проверка наличия обновлений";
 
 /* (No Comment) */
-"settings.button.discord" = "Custom Discord activity";
+"settings.button.discord" = "Пользовательская активность Discord";
 
 /* (No Comment) */
-"settings.button.clearActivity" = "Clear custom activity";
+"settings.button.clearActivity" = "Очистить пользовательскую активность";
 
 /* (No Comment) */
 "settings.picker.iosDevice" = "iOS устройство:";
@@ -152,7 +152,7 @@
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
 
 /* (No Comment) */
-"settings.text.applicationID" = "Application ID";
+"settings.text.applicationID" = "ID Приложения";
 
 /* (No Comment) */
 "settings.text.customHeight" = "Height";
@@ -161,28 +161,28 @@
 "settings.text.customWidth" = "Ширина";
 
 /* (No Comment) */
-"settings.text.details" = "Details";
+"settings.text.details" = "Подробности";
 
 /* (No Comment) */
-"settings.text.details.help" = "First row below title";
+"settings.text.details.help" = "Первая строка под заголовком";
 
 /* (No Comment) */
-"settings.text.image" = "Image";
+"settings.text.image" = "Изображение";
 
 /* (No Comment) */
-"settings.text.image.help" = "Link to image or Dev portal asset name";
+"settings.text.image.help" = "Ссылка на образ или название ресурса Разработчиков";
 
 /* (No Comment) */
-"settings.text.state" = "State";
+"settings.text.state" = "Состояние";
 
 /* (No Comment) */
-"settings.text.state.help" = "Second row below title";
+"settings.text.state.help" = "Вторая строка после заголовка";
 
 /* (No Comment) */
 "settings.toggle.disableDisplaySleep" = "Отключить спящий режим дисплея";
 
 /* (No Comment) */
-"settings.toggle.discord" = "Enable Discord activity";
+"settings.toggle.discord" = "Включить активность Discord";
 
 /* (No Comment) */
 "settings.toggle.jbBypass" = "Включить обход Jailbreak (Alpha)";
@@ -234,22 +234,7 @@
 
 /* (No Comment) */
 "storeAccount.storeAcc" = "Сохранить аккаунт";
-
-/* (No Comment) */
-"xcode.install.failed" = "Ошибка установки инструментов командной строки Xcode";
-
-/* (No Comment) */
-"xcode.install.message" = "Вам необходимо установить инструменты командной строки Xcode и перезапустить PlayCover";
-
-/* (No Comment) */
-"xcode.install.progress" = "Установка инструментов командной строки Xcode";
-
-/* (No Comment) */
-"xcode.install.progress.subtext" = "Может занять около 5-10 минут в зависимости от скорости интернета";
-
-/* (No Comment) */
-"xcode.install.success" = "Установка инструментов командной строки Xcode выполнена успешно";
-"playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
+"playapp.exportKmPanel.fieldLabel" = "Имя PlayMap:";
 "sidebar.appLibrary" = "Библиотека приложений";
 "button.Quit" = "Выход";
 "storeAccount.alert.restoreAccount" = "Восстановить учетную запись?";
@@ -266,10 +251,10 @@
 "error.noGenshinAccount" = "Мы не смогли найти аккаунт Genshin! Вы вошли в аккаунт внутри приложения?";
 "settings.title" = "Настройки %@";
 "settings.tab.info" = "Инфо";
-"settings.tab.km" = "Keymapping";
+"settings.tab.km" = "Кеймаппинг";
 "settings.toggle.km.help" = "Добавить поддержку клавиатуры для игр только с тач-интерфейсом. Нажмите Command + K, чтобы открыть меню редактирования.";
-"settings.toggle.mm" = "Mouse mapping";
-"settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
+"settings.toggle.mm" = "Маппинг мышки";
+"settings.toggle.mm.help" = "Добавьте элементы управления мышью, которые имитируют сенсорные движения. Используйте Command + K, чтобы открыть меню редактора.";
 "settings.tab.graphics" = "Графика";
 "settings.picker.adaptiveRes" = "Разрешение:";
 "settings.picker.adaptiveRes.help" = "Меняет разрешение окна приложения";
@@ -277,7 +262,7 @@
 "settings.picker.adaptiveRes.1" = "Авто (в зависимости от дисплея)";
 "settings.picker.adaptiveRes.5" = "Собственное";
 "settings.picker.aspectRatio" = "Соотношение сторон:";
-"settings.resetKmCompleted" = "Keymapping has been reset!";
+"settings.resetKmCompleted" = "Кеймаппинг сброшен!";
 "settings.toggle.disableDisplaySleep.help" = "Предотвращать выключение дисплея во время работы приложения";
 "settings.tab.jbBypass" = "Обход Jailbreak";
 "settings.toggle.jbBypass.help" = "Попытаться обойти обнаружение Jailbreak в некоторых играх (может работать не всегда)";
@@ -286,19 +271,17 @@
 "settings.info.bundleIdentifier" = "Идентификатор пакета:";
 "settings.info.executableName" = "Название исполняющего файла:";
 "settings.info.minimumOSVersion" = "Минимальная версия OS:";
-"xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
 "settings.info.url" = "URL:";
 "settings.resetSettings" = "Сброс настроек";
-"settings.resetKm" = "Reset keymapping";
+"settings.resetKm" = "Сбросить кеймаппинг";
 "settings.resetSettingsCompleted" = "Настройки были сброшены к стандартным!";
-"xcode.install.failed.altButton" = "Alternate Instructions";
-"settings.tab.misc" = "Misc";
+"settings.tab.misc" = "Разное";
 "settings.toggle.hud" = "Metal HUD";
 "settings.info.bundleVersion" = "Версия пакета:";
 "playapp.deleteConfirm" = "Удалить";
 "playapp.deleteMessage" = "Вы уверены, что хотите удалить %@?";
 "alert.legacyImport.title" = "Обнаружены настройки приложения из старой версии!";
-"alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
+"alert.legacyImport.subtitle" = "Были обнаружены устаревшие настройки и файлы кеймаппингов. Хотели бы вы преобразовать эти файлы в новый формат?";
 "button.Convert" = "Конвертировать";
 "settings.text.detectedResolution" = "Обнаруженное разрешение:";
 "playapp.add" = "Установить приложение";
@@ -314,21 +297,21 @@
 "preferences.button.deleteSource" = "Удалить источник";
 "preferences.button.moveSourceUp" = "Переместить выше";
 "preferences.button.moveSourceDown" = "Переместить ниже";
-"preferences.popover.valid" = "Link Valid";
+"preferences.popover.valid" = "Ссылка действительна";
 "preferences.popover.badurl" = "URL неверен!";
 "preferences.popover.badjson" = "Файл JSON неверен или не найден!";
 "preferences.textfield.url" = "URL источника...";
-"playapp.download" = "Скачивание...";
+"playapp.download" = "Скачивание";
 "error.waitDownload" = "Пожалуйста, подождите окончания текущей загрузки!";
 "preferences.tab.uninstall" = "Удалить";
-"menubar.clearCache" = "Очистить кэш изображений";
+"menubar.clearCache" = "Очистить кэш";
 "preferences.whenUninstalling" = "При удалении:";
 "preferences.toggle.showUninstall" = "Отобразить всплывающее предупреждение";
 "preferences.toggle.clearAppData" = "Очистить данные";
 "preferences.toggle.removeKeymap" = "Очистить кеймап";
 "preferences.toggle.removeSetting" = "Очистить настройки";
 "preferences.toggle.removeEntitlements" = "Очистить разрешения прав";
-"preferences.button.pruneFiles" = "Prune files";
+"preferences.button.pruneFiles" = "Очистить файлы";
 "preferences.prune.alert" = "Вы уверены, что хотите удалить все файлы?";
 "preferences.prune.message" = "Это действие удалит все неиспользуемые файлы, включая настройки, кеймаппы, разрешения прав и данные приложения";
 "playapp.install.failed" = "Произошла ошибка";
@@ -345,38 +328,42 @@
 "playapp.refreshSources" = "Обновить источники";
 "error.appMaliciousProhibited" = "Это приложение вредоносно для Mac. Используя его, вы можете привести свое устройство в незагружаемое состояние, поэтому оно заблокировано в PlayCover. (Удаление...)";
 "alert.install.injectPlayToolsQuestion" = "Вы хотите внедрить PlayTools в это приложение?";
-"alert.install.playToolsInformative" = "PlayTools – это инструмент, позволяющий связывать нажатия клавиш с жестами экрана, устанавливать собственное разрешение экрана и т.д., однако он может повредить некоторые приложения.";
+"alert.install.playToolsInformative" = "PlayTools – это инструмент, позволяющий связывать нажатия клавиш с жестами экрана, устанавливать собственное разрешение экрана и т.д., однако он может повредить некоторые приложения";
 "button.Help" = "Помощь";
 "button.Dismiss" = "Закрыть";
 "state.enabled" = "Включено";
 "state.disabled" = "Выключено";
 "state.pendingReboot" = "Ожидание перезагрузки";
-"menubar.configSigning" = "Configure Signing";
-"configSigning.header" = "Configure Package Signing";
-"configSigning.subtext" = "Package Signing helps fixing issues with apps that rely on \ncorrect Team IDs for operations like authorization. \nThere may be security risks associated with enabling this feature.\n\n As such, we recommend disabling it when it's not necessary";
-"configSigning.info.SIP" = "SIP is required to be fully to partially disabled in order for AMFI to be turned off.";
-"configSigning.info.SIPHeader" = "System Integrity Protection";
-"configSigning.info.AMFI" = "AMFI is required to be turned off in order to allow fake signing of apps, allowing them to run with the correct Team ID";
-"configSigning.info.AMFIHeader" = "Apple Mobile File Integrity";
-"configSigning.action.shutdown" = "Shut down my Mac";
-"configSigning.action.copyCommand" = "Copy Command to Clipboard";
-"configSigning.action.restart" = "Restart my Mac";
-"configSigning.step.disableSIP" = "Please disable SIP from Recovery Mode";
-"configSigning.step.disableAMFI" = "Please disable AMFI";
-"configSigning.step.AMFIreboot" = "AMFI Disabled. Please reboot";
-"configSigning.step.complete" = "Package Signing has been configured successfully";
-"configSigning.alert.copied" = "Command Copied!";
-"configSigning.alert.info" = "Please paste and run the command in Terminal.app. Your Mac will reboot after";
-"alert.power.title" = "Low Power Mode Enabled!";
-"alert.power.subtitle" = "Some apps will not work with Low Power Mode enabled. It is recommended to disable it.";
-"ipaLibrary.download" = "Download";
-"alert.differentBundleIdKeymap.message" = "The keymap may have been created for another application.";
+"menubar.configSigning" = "Настроить Подпись";
+"configSigning.header" = "Настроить подпись пакета";
+"configSigning.subtext" = "Подпись пакетов помогает исправлять проблемы с приложениями которые полагаются на \nправильные идентификаторы команд для таких операций, как авторизация. \nВключение этой функции может быть связано с рисками безопасности.\n\n Таким образом, мы рекомендуем отключить его, когда в этом нет необходимости";
+"configSigning.info.SIP" = "Для отключения AMFI требуется чтобы SIP был полностью или частично отключен.";
+"configSigning.info.SIPHeader" = "Защита целостности системы";
+"configSigning.info.AMFI" = "AMFI необходимо отключить, чтобы разрешить поддельную подпись приложений, позволяя им запускаться с правильным ID команды";
+"configSigning.info.AMFIHeader" = "Целостность Apple Mobile File";
+"configSigning.action.shutdown" = "Выключить мой Mac";
+"configSigning.action.copyCommand" = "Скопировать команду в буфер обмена";
+"configSigning.action.restart" = "Перезагрузить мой Mac";
+"configSigning.step.disableSIP" = "Пожалуйста, отключите SIP из режима восстановления";
+"configSigning.step.disableAMFI" = "Пожалуйста, отключите AMFI";
+"configSigning.step.AMFIreboot" = "AMFI Отключён. Пожалуйста, перезагрузитесь";
+"configSigning.step.complete" = "Подпись пакета была настроена успешно";
+"configSigning.alert.copied" = "Команда скопирована!";
+"configSigning.alert.info" = "Пожалуйста, вставьте и запустите команду в Terminal.app. Ваш Mac перезагрузится после";
+"alert.power.title" = "Режим энергосбережения включен!";
+"alert.power.subtitle" = "Некоторые приложения не будут работать, когда режим энергосбережения включён. Его рекомендуется отключить.";
+"ipaLibrary.download" = "Скачать";
+"alert.differentBundleIdKeymap.message" = "Кеймап, возможно, был создан для другого приложения.";
 "ipaLibrary.version.older" = "Эта версия старше установленной";
 "ipaLibrary.version.same" = "Приложение уже установлено";
 "ipaLibrary.version.newer" = "Эта версия новее, чем версия, которую вы установили";
-"ipaLibrary.alert.download" = "Are you sure you want to download this version of %@?";
-"alert.differentBundleIdKeymap.text" = "Are you sure you want to import this keymap?";
-"settings.text.debugger" = "Debugger:";
-"settings.toggle.lldb" = "Open with LLDB";
-"settings.toggle.lldbWithTerminal" = "Open in terminal";
-"settings.unavailable.hud" = "Metal HUD unavailable";
+"ipaLibrary.alert.download" = "Вы уверены что хотите установить версию %@?";
+"alert.differentBundleIdKeymap.text" = "Вы действительно хотите импортировать этот кеймап?";
+"settings.text.debugger" = "Дебагер:";
+"settings.toggle.lldb" = "Открыть с помощью LLDB";
+"settings.toggle.lldbWithTerminal" = "Открыть в терминале";
+"settings.unavailable.hud" = "Metal HUD недоступен";
+"error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
+"settings.playChain.enable" = "Enable PlayChain (experimental)";
+"settings.playChain.help" = "Enable PlayChain support for this application, allowing it to (partially) use Apple Keychain Services";
+"settings.playChain.debugging" = "PlayChain debugging";
