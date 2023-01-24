@@ -15,7 +15,7 @@ struct IPALibraryView: View {
 
     @State private var gridLayout = [GridItem(.adaptive(minimum: 130, maximum: .infinity))]
     @State private var searchString = ""
-    @State private var isList = UserDefaults.standard.bool(forKey: "IPALibrayView")
+    @State private var isList = UserDefaults.standard.bool(forKey: "IPALibraryView")
     @State private var selected: StoreAppData?
     @State private var addSourcePresented = false
 
@@ -109,7 +109,7 @@ struct IPALibraryView: View {
             storeVM.fetchApps()
         }
         .onChange(of: isList, perform: { value in
-            UserDefaults.standard.set(value, forKey: "IPALibrayView")
+            UserDefaults.standard.set(value, forKey: "IPALibraryView")
         })
         .sheet(isPresented: $addSourcePresented) {
             AddSourceView(addSourceSheet: $addSourcePresented)
