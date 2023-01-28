@@ -19,6 +19,7 @@ struct AppSettingsView: View {
     @State var closeView = false
     @State var appIcon: NSImage?
     @State var hasPlayTools: Bool?
+    @State var hasAlias: Bool?
 
     @State private var cache = DataCache.instance
 
@@ -88,6 +89,7 @@ struct AppSettingsView: View {
                 MiscView(settings: $viewModel.settings,
                          closeView: $closeView,
                          hasPlayTools: $hasPlayTools,
+                         hasAlias: $hasAlias,
                          app: viewModel.app)
                     .tabItem {
                         Text("settings.tab.misc")
@@ -132,6 +134,7 @@ struct AppSettingsView: View {
         }
         .task(priority: .background) {
             hasPlayTools = viewModel.app.hasPlayTools()
+            hasAlias = viewModel.app.hasAlias()
         }
         .padding()
     }
@@ -393,6 +396,7 @@ struct MiscView: View {
     @Binding var settings: AppSettings
     @Binding var closeView: Bool
     @Binding var hasPlayTools: Bool?
+    @Binding var hasAlias: Bool?
 
     @State var showPopover = false
 
@@ -485,6 +489,16 @@ struct MiscView: View {
                         }
                     }
                     Spacer()
+                    Button((hasAlias ?? true) ? "settings.removeFromLaunchpad" : "settings.addToLaunchpad") {
+                        closeView.toggle()
+                        if !(hasAlias ?? true) {
+                            app.createAlias()
+                            hasAlias = true
+                        } else {
+                            app.removeAlias()
+                            hasAlias = false
+                        }
+                    }
                 }
             }
             .padding()

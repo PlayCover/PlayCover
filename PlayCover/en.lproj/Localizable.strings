@@ -170,6 +170,8 @@
 "settings.playChain.debugging" = "PlayChain debugging";
 
 "settings.removePlayTools" = "Remove PlayTools";
+"settings.addToLaunchpad" = "Add to Launchpad";
+"settings.removeFromLaunchpad" = "Remove from Launchpad";
 
 "settings.info.displayName" = "Display name:";
 "settings.info.bundleName" = "Bundle name:";
