@@ -234,21 +234,6 @@
 
 /* (No Comment) */
 "storeAccount.storeAcc" = "Simpan akun";
-
-/* (No Comment) */
-"xcode.install.failed" = "Instalasi otomatis Xcode Command Line Tools gagal";
-
-/* (No Comment) */
-"xcode.install.message" = "Anda perlu menginstal Xcode Command Line Tools dan memulai ulang PlayCover";
-
-/* (No Comment) */
-"xcode.install.progress" = "Menginstalasi Xcode Command Line Tools";
-
-/* (No Comment) */
-"xcode.install.progress.subtext" = "Ini mungkin memakan waktu sekitar 5-10 menit tergantung pada kecepatan internet anda";
-
-/* (No Comment) */
-"xcode.install.success" = "Instalasi Xcode Command Line Tools berhasil";
 "settings.tab.misc" = "Lain-lain";
 "playapp.exportKmPanel.fieldLabel" = "nama PetaMain:";
 "storeAccount.alert.restoreAccount.button" = "Pulihkan akun";
@@ -291,8 +276,6 @@
 "settings.resetKm" = "Setel ulang pemetaan kontrol";
 "settings.resetSettingsCompleted" = "Pengaturan telah dikembalikan ke default!";
 "settings.resetKmCompleted" = "Pemetaan kontrol telah disetel ulang!";
-"xcode.install.failed.altInstructions" = "Klik tombol di bawah ini untuk melihat petunjuk pemasangan alternatif";
-"xcode.install.failed.altButton" = "Instruksi alternatif";
 "settings.toggle.hud" = "HUD Logam";
 "settings.info.bundleVersion" = "Versi paket:";
 "playapp.deleteConfirm" = "Uninstall";
@@ -380,3 +363,9 @@
 "settings.toggle.lldb" = "Open with LLDB";
 "settings.toggle.lldbWithTerminal" = "Open in terminal";
 "settings.unavailable.hud" = "Metal HUD unavailable";
+"settings.playChain.enable" = "Enable PlayChain (experimental)";
+"settings.playChain.help" = "Enable PlayChain support for this application, allowing it to (partially) use Apple Keychain Services";
+"settings.playChain.debugging" = "PlayChain debugging";
+"error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
+"playapp.noSources.title" = "No IPAs Installed";
+"playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";

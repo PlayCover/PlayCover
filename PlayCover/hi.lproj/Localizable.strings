@@ -175,13 +175,6 @@
 "soundAlert.informativeText" = "आपके वर्तमान आउटपुट डिवाइस की नमूना दर 48 या 44.1 KHz नहीं है! दुर्घटनाएं हो सकती हैं। क्या आप अपने वर्तमान आउटपुट डिवाइस की नमूना दर को 48 KHz में बदलना चाहेंगे?";
 "soundAlert.successText" = "वर्तमान आउटपुट डिवाइस नमूना दर 48 KHz पर सेट है";
 "soundAlert.failureText" = "वर्तमान आउटपुट डिवाइस की नमूना दर को 48 KHz पर सेट करने में विफल। आप ऑडियो MIDI सेटअप ऐप में मैन्युअल रूप से नमूना दर सेट कर सकते हैं";
-"xcode.install.message" = "आपको Xcode कमांड लाइन टूल्स इंस्टॉल करने और PlayCover को पुनरारंभ करने की आवश्यकता है";
-"xcode.install.success" = "Xcode कमांड लाइन उपकरण स्थापना सफल रही";
-"xcode.install.failed" = "स्वचालित Xcode कमांड लाइन उपकरण स्थापना विफल रही";
-"xcode.install.progress" = "Xcode कमांड लाइन टूल्स इंस्टॉल करना";
-"xcode.install.progress.subtext" = "आपके इंटरनेट की गति के आधार पर इसमें लगभग 5-10 मिनट लग सकते हैं";
-"xcode.install.failed.altInstructions" = "वैकल्पिक इंस्टॉल निर्देश देखने के लिए नीचे दिए गए बटन पर क्लिक करें";
-"xcode.install.failed.altButton" = "वैकल्पिक निर्देश";
 "settings.tab.misc" = "कई तरह के";
 "settings.button.discord" = "कस्टम डिस्कॉर्ड गतिविधि";
 "settings.button.clearActivity" = "कस्टम गतिविधि साफ़ करें";
@@ -198,7 +191,7 @@
 "settings.toggle.lldb" = "LLDB के साथ खोलें";
 "settings.toggle.lldbWithTerminal" = "Terminal में खोलें";
 "configSigning.header" = "पैकेज हस्ताक्षर कॉन्फ़िगर करें";
-"configSigning.subtext" = "पैकेज साइनिंग उन ऐप्स के साथ समस्याओं को ठीक करने में मदद करता है, जिन पर भरोसा किया जाता है\nप्राधिकरण जैसे संचालन के लिए सही टीम आईडी।\nइस सुविधा को सक्षम करने से जुड़े सुरक्षा जोखिम हो सकते हैं।\n\n  इस प्रकार, जब आवश्यक न हो तो हम इसे अक्षम करने की अनुशंसा करते हैं";
+"configSigning.subtext" = "पैकेज साइनिंग उन ऐप्स के साथ समस्याओं को ठीक करने में मदद करता है, जिन पर भरोसा किया जाता है\nप्राधिकरण जैसे संचालन के लिए सही टीम आईडी।\nइस सुविधा को सक्षम करने से जुड़े सुरक्षा जोखिम हो सकते हैं।\n\n इस प्रकार, जब आवश्यक न हो तो हम इसे अक्षम करने की अनुशंसा करते हैं";
 "configSigning.info.SIP" = "AMFI को बंद करने के लिए SIP को पूरी तरह से आंशिक रूप से अक्षम होना आवश्यक है।";
 "configSigning.info.SIPHeader" = "सिस्टम इंटीग्रिटी प्रोटेक्शन (SIP)";
 "configSigning.info.AMFI" = "ऐप्स पर नकली हस्ताक्षर करने की अनुमति देने के लिए AMFI को बंद करना आवश्यक है, जिससे वे सही टीम आईडी के साथ चल सकें";
@@ -213,3 +206,9 @@
 "configSigning.alert.copied" = "कमांड कॉपी किया गया!";
 "configSigning.alert.info" = "कृपया Terminal.app में कमांड पेस्ट करें और रन करें। आपका मैक बाद में रीबूट होगा";
 "settings.unavailable.hud" = "मेटल HUD अनुपलब्ध है";
+"settings.playChain.enable" = "Enable PlayChain (experimental)";
+"error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
+"settings.playChain.help" = "Enable PlayChain support for this application, allowing it to (partially) use Apple Keychain Services";
+"settings.playChain.debugging" = "PlayChain debugging";
+"playapp.noSources.title" = "No IPAs Installed";
+"playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";

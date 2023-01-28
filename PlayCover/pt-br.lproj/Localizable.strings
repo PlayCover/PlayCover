@@ -115,13 +115,6 @@
 "soundAlert.informativeText" = "Seu dispositivo de saída atual não possui uma taxa de amostragem de 48 ou 44,1 KHz! Erros podem ocorrer. Deseja alterar a taxa de amostragem do seu dispositivo de saída atual para 48 KHz?";
 "soundAlert.successText" = "Taxa de amostragem do dispositivo de saída atual definida para 48 KHz";
 "soundAlert.failureText" = "Falha ao definir a taxa de amostragem do dispositivo de saída atual para 48 KHz. Você pode manualmente definir a taxa de amostragem no aplicativo Configuração Áudio e MIDI";
-"xcode.install.message" = "Você precisa instalar o Xcode Command Line Tools e reiniciar o PlayCover";
-"xcode.install.success" = "Xcode Command Line Tools instalado com sucesso";
-"xcode.install.failed" = "Falha na instalação automática do Xcode Command Line Tools";
-"xcode.install.progress" = "Instalando o Xcode Command Line Tools";
-"xcode.install.progress.subtext" = "Isso pode levar cerca de 5 a 10 minutos, dependendo da velocidade da sua internet";
-"xcode.install.failed.altInstructions" = "Clique no botão abaixo para ver instruções de instalação alternativas";
-"xcode.install.failed.altButton" = "Instruções Alternativas";
 "settings.tab.misc" = "Outros";
 "settings.button.discord" = "Atividade personalizada do Discord";
 "settings.button.clearActivity" = "Excluir atividade personalizada";
@@ -213,3 +206,9 @@
 "alert.differentBundleIdKeymap.message" = "Esse mapeamento de teclas foi criado para outra aplicação.";
 "alert.differentBundleIdKeymap.text" = "Tem certeza de que deseja importar esse mapeamento?";
 "settings.unavailable.hud" = "Metal HUD unavailable";
+"settings.playChain.enable" = "Enable PlayChain (experimental)";
+"error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
+"settings.playChain.help" = "Enable PlayChain support for this application, allowing it to (partially) use Apple Keychain Services";
+"settings.playChain.debugging" = "PlayChain debugging";
+"playapp.noSources.title" = "No IPAs Installed";
+"playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";

@@ -1,8 +1,8 @@
 //
 //  FileExtensions.swift
 //  PlayCover
+//
 
-import AppKit
 import Foundation
 import UniformTypeIdentifiers
 
@@ -16,24 +16,9 @@ extension FileManager {
             }
         }
     }
-
-    func copy(at srcURL: URL, to dstURL: URL) throws {
-        if FileManager.default.fileExists(atPath: dstURL.path) {
-            try FileManager.default.removeItem(at: dstURL)
-        }
-        try FileManager.default.copyItem(at: srcURL, to: dstURL)
-    }
-
-    func filesCount(inDir: URL) throws -> Int {
-        if FileManager.default.fileExists(atPath: inDir.path) {
-            return try FileManager.default.contentsOfDirectory(atPath: inDir.path).count
-        }
-        return 0
-    }
 }
 
 extension NSOpenPanel {
-
     static func selectIPA(completion: @escaping (_ result: Result<URL, Error>) -> Void) {
         let panel = NSOpenPanel()
         panel.allowsMultipleSelection = false

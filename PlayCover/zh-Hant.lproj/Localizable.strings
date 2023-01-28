@@ -204,21 +204,6 @@
 
 /* (No Comment) */
 "storeAccount.storeAcc" = "保存一個帳號";
-
-/* (No Comment) */
-"xcode.install.failed" = "Xcode 終端工具自動安裝失敗";
-
-/* (No Comment) */
-"xcode.install.message" = "開始之前，你需要先安裝 Xcode 終端工具並重啟此應用程式";
-
-/* (No Comment) */
-"xcode.install.progress" = "安裝 Xcode 命令行工具";
-
-/* (No Comment) */
-"xcode.install.progress.subtext" = "根據網路速度，操作可能需要5-10分鐘";
-
-/* (No Comment) */
-"xcode.install.success" = "Xcode 終端工具安裝成功";
 "storeAccount.alert.restoreAccount" = "確定要還原帳號？";
 "button.Quit" = "離開";
 "settings.info.bundleName" = "Bundle 名稱:";
@@ -245,10 +230,10 @@
 "settings.picker.adaptiveRes" = "解析度:";
 "settings.picker.adaptiveRes.help" = "修改應用程式的視窗解析度";
 "settings.picker.adaptiveRes.0" = "預設解析度";
-"settings.picker.adaptiveRes.1" = "自動（根據屏幕解析度）";
+"settings.picker.adaptiveRes.1" = "自動（根據螢幕解析度）";
 "settings.picker.adaptiveRes.5" = "自定義";
 "settings.picker.aspectRatio" = "長寬比:";
-"settings.toggle.disableDisplaySleep.help" = "防止屏幕在應用程式運行期間關閉";
+"settings.toggle.disableDisplaySleep.help" = "防止螢幕在應用程式運行期間關閉";
 "settings.tab.jbBypass" = "繞過越獄檢測";
 "settings.info.executableName" = "可執行檔名稱:";
 "settings.toggle.jbBypass.help" = "在部分遊戲中嘗試繞過越獄檢測（無法保證任何時候都正確運作）";
@@ -257,11 +242,9 @@
 "settings.info.minimumOSVersion" = "最低作業系統版本:";
 "settings.info.url" = "位置:";
 "settings.resetSettings" = "重置偏好設定";
-"xcode.install.failed.altInstructions" = "點擊按鈕以顯示額外安裝說明";
 "settings.resetKm" = "重置鍵盤映射佈局";
 "settings.resetSettingsCompleted" = "偏好設定已被重置為預設值！";
 "settings.resetKmCompleted" = "鍵盤映射佈局已被重置！";
-"xcode.install.failed.altButton" = "額外安裝說明";
 "settings.tab.misc" = "雜項";
 "settings.button.discord" = "自定義Discord動態";
 "settings.button.clearActivity" = "清除自定義動態";
@@ -281,7 +264,7 @@
 "alert.legacyImport.subtitle" = "檢測到舊版應用程式設置及鍵盤映射佈局。是否要把這些檔案轉換為新版格式？";
 "button.Convert" = "轉換";
 "settings.text.detectedResolution" = "檢測到的解析度:";
-"playapp.add" = "安裝App";
+"playapp.add" = "添加應用程式";
 "alert.wrongFileType.title" = "錯誤的檔案類型！";
 "alert.wrongFileType.subtitle" = "PlayCover 只可以安裝有效的 .ipa 檔案。";
 "playapp.addSource" = "新增來源";
@@ -359,4 +342,10 @@
 "settings.text.debugger" = "調試器：";
 "settings.toggle.lldb" = "用 LLDB 高性能調試器打開";
 "settings.toggle.lldbWithTerminal" = "用終端打開";
-"settings.unavailable.hud" = "Metal HUD unavailable";
+"settings.unavailable.hud" = "Metal HUD 不可用";
+"settings.playChain.debugging" = "PlayChain 調試";
+"error.failedToStripBinary" = "無法在通用二進制文件中檢索到 ARM64 架構！";
+"settings.playChain.enable" = "啟用 PlayChain (試驗階段)";
+"settings.playChain.help" = "在此應用程序啟用 PlayChain 將使應用程式（部分）使用 Apple Keychain 服務";
+"playapp.noSources.title" = "沒有安裝任何 IPA";
+"playapp.noSources.subtitle" = "暫時沒有安裝任何 IPA 文件。按下下面的按鈕來導入一個。";

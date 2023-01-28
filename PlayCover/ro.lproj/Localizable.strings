@@ -157,13 +157,6 @@
 "soundAlert.informativeText" = "Dispozitivul curent nu are o frecvență de eșantionare de 48 sau 44.1 KHz! Pot apărea accidente. Vrei să modifici rata de eșantionare de la dispozitivul curent la 48 KHz?";
 "soundAlert.successText" = "Frecvența de eșantionare de la dispozitivul curent setat la 48 KHz";
 "soundAlert.failureText" = "Nu a setat rata de eșantionare de la dispozitivul curent la 48 KHz. Puteți seta manual rata de eșantionare în aplicația Audio MIDI Setup";
-"xcode.install.message" = "Trebuie sa instalezi Xcode Command Line Tools și sa deschizi PlayCover din nou";
-"xcode.install.success" = "Instalarea de Xcode Command Line Tools sa terminat";
-"xcode.install.failed" = "Instalarea automată de Xcode Command Line Tools a eșuat";
-"xcode.install.progress" = "Instalează Xcode Command Line Tools";
-"xcode.install.progress.subtext" = "Asta poate sa dura 5-10 minute în funcţie de viteza de internet";
-"xcode.install.failed.altInstructions" = "Apasă be butonul sub text casa vezi instrucțiuni alternative de instalare";
-"xcode.install.failed.altButton" = "Instrucțiuni Alternative";
 "settings.tab.misc" = "Diferite";
 "settings.button.discord" = "Activitate personalizată pentru Discord";
 "settings.button.clearActivity" = "Șterge activitatea personalizată";
@@ -213,3 +206,9 @@
 "settings.toggle.lldb" = "Open with LLDB";
 "settings.toggle.lldbWithTerminal" = "Open in terminal";
 "settings.unavailable.hud" = "Metal HUD unavailable";
+"error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
+"settings.playChain.enable" = "Enable PlayChain (experimental)";
+"settings.playChain.help" = "Enable PlayChain support for this application, allowing it to (partially) use Apple Keychain Services";
+"settings.playChain.debugging" = "PlayChain debugging";
+"playapp.noSources.title" = "No IPAs Installed";
+"playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";

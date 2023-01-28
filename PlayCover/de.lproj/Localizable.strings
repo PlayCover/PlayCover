@@ -26,7 +26,7 @@
 "alert.storeAccount.regionIsNotValid" = "Der aktuelle Account ist auf eine andere Region eingestellt. Starten Sie das Spiel, ändern Sie die Region und passieren Sie die Tore, um zu speichern. Dann versuchen Sie es erneut";
 
 /* (No Comment) */
-"alert.success" = "Success";
+"alert.success" = "Erfolgreich";
 
 /* (No Comment) */
 "button.Cancel" = "Abbrechen";
@@ -125,7 +125,7 @@
 "playapp.settings" = "Einstellungen";
 
 /* (No Comment) */
-"playapp.showInFinder" = "Im Sucher anzeigen";
+"playapp.showInFinder" = "Im Finder anzeigen";
 
 /* (No Comment) */
 "playapp.storeCurrentAccount" = "Account speichern";
@@ -234,21 +234,6 @@
 
 /* (No Comment) */
 "storeAccount.storeAcc" = "Account speichern";
-
-/* (No Comment) */
-"xcode.install.failed" = "Die automatische Installation der Xcode Befehlszeilentools ist fehlgeschlagen";
-
-/* (No Comment) */
-"xcode.install.message" = "Sie müssen Xcode Befehlszeilentools installieren und PlayCover neu starten";
-
-/* (No Comment) */
-"xcode.install.progress" = "Installieren von Xcode Befehlszeilentools";
-
-/* (No Comment) */
-"xcode.install.progress.subtext" = "Dies kann je nach ihrer Internetgeschwindigkeit etwa 5-10 Minuten dauern";
-
-/* (No Comment) */
-"xcode.install.success" = "Die Installation der Xcode Befehlszeilentools war erfolgreich";
 "sidebar.ipaLibrary" = "IPA Bibliothek";
 "button.Quit" = "Verlassen";
 "settings.info.minimumOSVersion" = "Minimum OS version:";
@@ -291,8 +276,6 @@
 "settings.resetKm" = "Tastenbelegung zurücksetzen";
 "settings.resetSettingsCompleted" = "Die Einstellungen wurden auf die Standardeinstellungen zurückgesetzt!";
 "settings.resetKmCompleted" = "Tastenbelegung wurde zurückgesetzt!";
-"xcode.install.failed.altInstructions" = "Klicken Sie auf den Button unten, um alternative Installationsanweisungen anzuzeigen";
-"xcode.install.failed.altButton" = "Alternative Anweisungen";
 "settings.tab.misc" = "Sonstiges";
 "settings.info.bundleVersion" = "Bündel version:";
 "button.Convert" = "Konvertieren";
@@ -379,4 +362,10 @@
 "alert.differentBundleIdKeymap.text" = "Bist du dir sicher dass du diese Tastaturbelegung importieren willst?";
 "settings.toggle.lldb" = "Öffnen mit LLDB";
 "settings.toggle.lldbWithTerminal" = "Im Terminal öffnen";
-"settings.unavailable.hud" = "Metal HUD unavailable";
+"settings.unavailable.hud" = "Metal HUD nicht verfügbar";
+"error.failedToStripBinary" = "ARM64-Architektur konnte nicht in Fat Binary gefunden werden!";
+"settings.playChain.enable" = "Aktiviere PlayChain (experimental)";
+"settings.playChain.help" = "Aktiviere die PlayChain-Unterstützung für diese Anwendung, sodass Apple Keychain Services (teilweise) verwendet werden kann";
+"settings.playChain.debugging" = "PlayChain Debugging";
+"playapp.noSources.title" = "Keine IPAs installiert";
+"playapp.noSources.subtitle" = "Du hast derzeit keine IPAs installiert. Klicke auf die Schaltfläche unten, um eine zu importieren.";

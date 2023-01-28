@@ -76,11 +76,6 @@
 "soundAlert.informativeText" = "Thiết bị đầu ra của bạn không hỗ trợ tốc độ lấy mẫu âm thanh ở mức 44.1 hay 48 KHz, có thể gây crash ứng dụng. Bạn có muốn điều chỉnh tốc độ lấy mẫu âm thanh không?";
 "soundAlert.successText" = "Tốc độ lấy mẫu âm thanh đang đặt ở 48 KHz";
 "soundAlert.failureText" = "Không thể thiết lập được tốc độ lấy mẫu của thiết bị đầu ra hiện tại thành 48 KHz. Bạn có thể tùy chỉnh thủ công bằng app ‘Audio MIDI Setup’";
-"xcode.install.message" = "Bạn cần cài đặt Command Line Tools for Xcode rồi khởi động lại PlayCover";
-"xcode.install.success" = "Đã cài đặt xong Command Line Tools for Xcode";
-"xcode.install.failed" = "Cài đặt Command Line Tools for Xcode thất bại";
-"xcode.install.progress" = "Đang cài đặt Command Line Tools for Xcode";
-"xcode.install.progress.subtext" = "Có thể tốn tầm 5-10 phút tùy thuộc vào nhà cung cấp dịch vụ internet của bạn";
 
 /* (No Comment) */
 "preferences.toggle.automaticUpdates" = "Tự động kiểm tra cập nhật";
@@ -131,8 +126,6 @@
 "settings.resetKm" = "Reset keymap";
 "settings.resetSettingsCompleted" = "Cài đặt đã được hoàn nguyên về mặc định!";
 "settings.resetKmCompleted" = "Đã thiết lập lại keymap!";
-"xcode.install.failed.altInstructions" = "Nhấn nút bên dưới để xem cách cài CLT khác";
-"xcode.install.failed.altButton" = "Hướng dẫn thay thế";
 "settings.tab.misc" = "Tuỳ biến";
 "settings.toggle.hud" = "Metal HUD";
 "settings.info.bundleVersion" = "Phiên bản:";
@@ -220,4 +213,10 @@
 "alert.differentBundleIdKeymap.message" = "Keymap này có thể đã được tạo cho một ứng dụng khác.";
 "alert.differentBundleIdKeymap.text" = "Bạn có chắc chắn muốn nhập keymap này không?";
 "settings.toggle.lldbWithTerminal" = "Mở trong Terminal";
-"settings.unavailable.hud" = "Metal HUD unavailable";
+"settings.unavailable.hud" = "Metal HUD không khả dụng";
+"error.failedToStripBinary" = "Không tìm thấy file chạy cho ARM64 trong ứng dụng này!";
+"settings.playChain.debugging" = "Gỡ lỗi PlayChain";
+"settings.playChain.enable" = "Sử dụng PlayChain (thử nghiệm)";
+"settings.playChain.help" = "Sử dụng PlayChain cho ứng dụng này, cho phép nó sử dụng một phần các dịch vụ Apple Keychain";
+"playapp.noSources.title" = "Chưa có ứng dụng nào";
+"playapp.noSources.subtitle" = "Hiện tại bạn chưa có ứng dụng nào cả. Click bên dưới để nhâp file IPA.";
