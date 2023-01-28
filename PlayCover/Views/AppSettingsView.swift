@@ -79,9 +79,10 @@ struct AppSettingsView: View {
                         Text("settings.tab.graphics")
                     }
                     .disabled(!(hasPlayTools ?? true))
-                JBBypassView(settings: $viewModel.settings)
+                BypassesView(settings: $viewModel.settings,
+                             hasPlayTools: $hasPlayTools)
                     .tabItem {
-                        Text("settings.tab.jbBypass")
+                        Text("settings.tab.bypasses")
                     }
                     .disabled(!(hasPlayTools ?? true))
                 MiscView(settings: $viewModel.settings,
@@ -360,12 +361,23 @@ struct GraphicsView: View {
     }
 }
 
-struct JBBypassView: View {
+struct BypassesView: View {
     @Binding var settings: AppSettings
+    @Binding var hasPlayTools: Bool?
 
     var body: some View {
         ScrollView {
             VStack {
+                HStack(alignment: .center) {
+                    Toggle("settings.playChain.enable", isOn: $settings.settings.playChain)
+                        .help("settings.playChain.help")
+                        .disabled(!(hasPlayTools ?? true))
+                    Spacer()
+                    Toggle("settings.playChain.debugging", isOn: $settings.settings.playChainDebugging)
+                        .disabled(!settings.settings.playChain)
+                }
+                Spacer()
+                    .frame(height: 20)
                 HStack {
                     Toggle("settings.toggle.jbBypass", isOn: $settings.settings.bypass)
                         .help("settings.toggle.jbBypass.help")
@@ -449,13 +461,6 @@ struct MiscView: View {
                             }
                         }
                     }
-                }
-                HStack(alignment: .center) {
-                    Toggle("settings.playChain.enable", isOn: $settings.settings.playChain)
-                        .help("settings.playChain.help")
-                        .disabled(!(hasPlayTools ?? true))
-                    Spacer()
-                    Toggle("settings.playChain.debugging", isOn: $settings.settings.playChainDebugging)
                 }
                 Spacer()
                     .frame(height: 20)

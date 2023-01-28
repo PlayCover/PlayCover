@@ -1,8 +1,8 @@
 //
 //  FileExtensions.swift
 //  PlayCover
+//
 
-import AppKit
 import Foundation
 import UniformTypeIdentifiers
 
@@ -15,20 +15,6 @@ extension FileManager {
                 Log.shared.error(error)
             }
         }
-    }
-
-    func copy(at srcURL: URL, to dstURL: URL) throws {
-        if FileManager.default.fileExists(atPath: dstURL.path) {
-            try FileManager.default.removeItem(at: dstURL)
-        }
-        try FileManager.default.copyItem(at: srcURL, to: dstURL)
-    }
-
-    func filesCount(inDir: URL) throws -> Int {
-        if FileManager.default.fileExists(atPath: inDir.path) {
-            return try FileManager.default.contentsOfDirectory(atPath: inDir.path).count
-        }
-        return 0
     }
 }
 

@@ -26,13 +26,6 @@ extension String {
 }
 
 extension URL {
-    func subDirectories() throws -> [URL] {
-        guard hasDirectoryPath else { return [] }
-        return try FileManager.default
-            .contentsOfDirectory(at: self, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
-            .filter(\.hasDirectoryPath)
-    }
-
     var esc: String {
         path.esc
     }
@@ -61,15 +54,6 @@ extension URL {
 
     func showInFinderAndSelectLastComponent() {
         NSWorkspace.shared.activateFileViewerSelecting([self])
-    }
-
-    func bytesFromFile() -> [UInt8]? {
-        guard let data = NSData(contentsOfFile: path) else { return nil }
-
-        var buffer = [UInt8](repeating: 0, count: data.length)
-        data.getBytes(&buffer, length: data.length)
-
-        return buffer
     }
 
     func fixExecutable() throws {

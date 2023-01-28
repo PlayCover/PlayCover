@@ -74,14 +74,6 @@ class Shell: ObservableObject {
         return String(decoding: output, as: UTF8.self)
     }
 
-    static func getPath(path: String) -> String? {
-        return try? sh(path)
-    }
-
-    static func isMachoSigned(_ exec: URL) -> Bool {
-        !shell("/usr/bin/codesign -dv \(exec.esc)").contains("code object is not signed at all")
-    }
-
     static func codesign(_ binary: URL) {
         shell("/usr/bin/codesign -fs- \(binary.esc)")
     }
