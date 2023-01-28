@@ -464,7 +464,7 @@ struct MiscView: View {
                         }
                     }
                     Spacer()
-                    Button((hasAlias ?? true) ? "settings.removeAlias" : "settings.createAlias") {
+                    Button((hasAlias ?? true) ? "settings.removeFromLaunchpad" : "settings.addToLaunchpad") {
                         closeView.toggle()
                         if !(hasAlias ?? true) {
                             app.createAlias()
