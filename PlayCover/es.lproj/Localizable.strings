@@ -380,3 +380,9 @@
 "settings.toggle.lldb" = "Abrir con LLDB";
 "settings.toggle.lldbWithTerminal" = "Abrir en terminal";
 "settings.unavailable.hud" = "Metal HUD no disponible";
+"error.failedToStripBinary" = "¡No se pudo encontrar el arch ARM64 en binario para multiarquitectura!";
+"settings.playChain.enable" = "Activar PlayChain (experimental)";
+"settings.playChain.help" = "Habilitar la compatibilidad con PlayChain para esta aplicación, lo que le permite utilizar (parcialmente) los servicios de Keychain de Apple»";
+"settings.playChain.debugging" = "Depuración de PlayChain";
+"playapp.noSources.title" = "No hay IPA instalados";
+"playapp.noSources.subtitle" = "Actualmente no tiene ninguna IPA instalada. Haga clic en el botón de abajo para importar uno.";

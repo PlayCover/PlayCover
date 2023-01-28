@@ -220,4 +220,10 @@
 "ipaLibrary.download" = "بارگیری";
 "alert.differentBundleIdKeymap.message" = "این Keymap برای برنامه‌ای دیگر ساخته شده است.";
 "settings.text.debugger" = "اشکال‌زدا:";
-"settings.unavailable.hud" = "Metal HUD unavailable";
+"settings.unavailable.hud" = "Metal HUD در دسترس نیست";
+"error.failedToStripBinary" = "معماری ARM64 در این پرونده Binary یافت نشد!";
+"settings.playChain.enable" = "فعال‌سازی PlayChain (آزمایشی)";
+"settings.playChain.help" = "فعال‌سازی PlayChain برای این برنامه تا حدودی دسترسی آن را به سرویس‌های Keychain اپل فراهم می‌کند";
+"settings.playChain.debugging" = "اشکال‌زدای PlayChain";
+"playapp.noSources.title" = "No IPAs Installed";
+"playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";

@@ -380,3 +380,9 @@
 "settings.toggle.lldb" = "Open with LLDB";
 "settings.toggle.lldbWithTerminal" = "Open in terminal";
 "settings.unavailable.hud" = "Metal HUD unavailable";
+"settings.playChain.enable" = "Enable PlayChain (experimental)";
+"settings.playChain.help" = "Enable PlayChain support for this application, allowing it to (partially) use Apple Keychain Services";
+"settings.playChain.debugging" = "PlayChain debugging";
+"error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
+"playapp.noSources.title" = "No IPAs Installed";
+"playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";

@@ -220,4 +220,10 @@
 "alert.differentBundleIdKeymap.message" = "Keymap này có thể đã được tạo cho một ứng dụng khác.";
 "alert.differentBundleIdKeymap.text" = "Bạn có chắc chắn muốn nhập keymap này không?";
 "settings.toggle.lldbWithTerminal" = "Mở trong Terminal";
-"settings.unavailable.hud" = "Metal HUD unavailable";
+"settings.unavailable.hud" = "Metal HUD không khả dụng";
+"error.failedToStripBinary" = "Không tìm thấy file chạy cho ARM64 trong ứng dụng này!";
+"settings.playChain.debugging" = "Gỡ lỗi PlayChain";
+"settings.playChain.enable" = "Sử dụng PlayChain (thử nghiệm)";
+"settings.playChain.help" = "Sử dụng PlayChain cho ứng dụng này, cho phép nó sử dụng một phần các dịch vụ Apple Keychain";
+"playapp.noSources.title" = "Chưa có ứng dụng nào";
+"playapp.noSources.subtitle" = "Hiện tại bạn chưa có ứng dụng nào cả. Click bên dưới để nhâp file IPA.";

@@ -379,4 +379,10 @@
 "alert.differentBundleIdKeymap.text" = "このキーマップをインポートしてもよろしいですか?";
 "settings.toggle.lldb" = "LLDBで開く";
 "settings.toggle.lldbWithTerminal" = "ターミナルで開く";
-"settings.unavailable.hud" = "Metal HUD unavailable";
+"settings.unavailable.hud" = "Metal HUDは利用できません";
+"error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
+"settings.playChain.enable" = "Enable PlayChain (experimental)";
+"settings.playChain.help" = "Enable PlayChain support for this application, allowing it to (partially) use Apple Keychain Services";
+"settings.playChain.debugging" = "PlayChain debugging";
+"playapp.noSources.title" = "No IPAs Installed";
+"playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";
