@@ -354,7 +354,7 @@
 "alert.power.subtitle" = "部分应用程序在启用低电量模式后将无法工作。建议将其关闭。";
 "ipaLibrary.version.older" = "此版本比您已安装的应用更旧";
 "ipaLibrary.version.same" = "应用已安装";
-"ipaLibrary.version.newer" = "此版本比您已安装的应用更新";
+"ipaLibrary.version.newer" = "这个版本比你已安装的版本更高";
 "alert.differentBundleIdKeymap.message" = "此键盘映射文件有可能是为其他应用创建的。";
 "alert.differentBundleIdKeymap.text" = "您确定您要导入此键盘映射文件吗？";
 "settings.text.debugger" = "调试器：";
@@ -367,3 +367,5 @@
 "settings.playChain.enable" = "启用 PlayChain (试验阶段)";
 "settings.playChain.help" = "在此应用启用 PlayChain 将使应用（部分）使用 Apple Keychain 服务";
 "settings.playChain.debugging" = "PlayChain 调试";
+"playapp.noSources.title" = "没有已安装的 IPA";
+"playapp.noSources.subtitle" = "当前你没有安装任何 IPA。点击下面的按钮来导入一个。";

@@ -218,3 +218,5 @@
 "settings.playChain.enable" = "فعال‌سازی PlayChain (آزمایشی)";
 "settings.playChain.help" = "فعال‌سازی PlayChain برای این برنامه تا حدودی دسترسی آن را به سرویس‌های Keychain اپل فراهم می‌کند";
 "settings.playChain.debugging" = "اشکال‌زدای PlayChain";
+"playapp.noSources.title" = "No IPAs Installed";
+"playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";
