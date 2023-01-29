@@ -15,11 +15,13 @@ class AppsVM: ObservableObject {
         fetchApps()
     }
 
+    @Published var filteredApps: [PlayApp] = []
     @Published var apps: [PlayApp] = []
+
     @Published var updatingApps = false
 
     func fetchApps() {
-        Task {
+        Task { @MainActor in
             var result: [PlayApp] = []
             do {
                 let containers = try AppContainer.containers()
@@ -46,18 +48,20 @@ class AppsVM: ObservableObject {
                 print(error)
             }
 
-            await updateApps(result)
+            apps = result
+
+            updateApps(result)
         }
     }
 
     @MainActor func updateApps(_ newApps: [PlayApp]) {
-        self.apps.removeAll()
+        self.filteredApps.removeAll()
         var filteredApps = newApps
 
         if !uif.searchText.isEmpty {
             filteredApps = newApps.filter({ $0.searchText.contains(uif.searchText.lowercased()) })
         }
 
-        self.apps.append(contentsOf: filteredApps)
+        self.filteredApps.append(contentsOf: filteredApps)
     }
 }
