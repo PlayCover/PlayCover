@@ -137,8 +137,8 @@ class Uninstaller {
     }
 
     static func pruneFiles() {
-        let bundleIds = AppsVM.shared.filteredApps.map { $0.info.bundleIdentifier }
-        let appNames = AppsVM.shared.filteredApps.map { $0.info.displayName }
+        let bundleIds = AppsVM.shared.apps.map { $0.info.bundleIdentifier }
+        let appNames = AppsVM.shared.apps.map { $0.info.displayName }
 
         do {
             for url in pruneURLs {

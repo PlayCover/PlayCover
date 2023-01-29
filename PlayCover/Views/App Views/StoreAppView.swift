@@ -47,7 +47,7 @@ struct StoreAppView: View {
         })
         .environmentObject(downloadVM)
         .task(priority: .background) {
-            if let sourceApp = AppsVM.shared.filteredApps.first(where: { $0.info.bundleIdentifier == app.bundleID }) {
+            if let sourceApp = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == app.bundleID }) {
                 switch app.version.compare(sourceApp.info.bundleVersion, options: .numeric) {
                 case .orderedAscending:
                     warningSymbol = "checkmark.circle.badge.xmark"

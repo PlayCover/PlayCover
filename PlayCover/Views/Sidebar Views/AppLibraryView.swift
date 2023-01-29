@@ -178,7 +178,6 @@ struct AppLibraryView: View {
     private func installApp() {
         Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
             Task { @MainActor in
-                appsVM.filteredApps = []
                 appsVM.fetchApps()
                 NotifyService.shared.notify(
                     NSLocalizedString("notification.appInstalled", comment: ""),
