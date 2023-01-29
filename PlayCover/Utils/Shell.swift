@@ -23,30 +23,34 @@ class Shell: ObservableObject {
 		try task.run()
 
 		let data = try pipe.fileHandleForReading.readToEnd() ?? Data()
-		let output = String(data: data, encoding: .utf8)!
-
-		if print {
-			Log.shared.log(output)
-		}
-
-		task.waitUntilExit()
-
-		let status = task.terminationStatus
-		if status != 0 {
-            if pipeStdErr {
-                throw output
-            } else {
-                let errOutput: String
-                do {
-                    let errData = try errPipe.fileHandleForReading.readToEnd() ?? Data()
-                    errOutput = String(data: errData, encoding: .utf8)!
-                } catch {
-                    errOutput = "Command '\(command)' failed to execute."
-                }
-                throw errOutput
+        if let output = String(data: data, encoding: .utf8) {
+            if print {
+                Log.shared.log(output)
             }
-		}
-		return output
+
+            task.waitUntilExit()
+
+            let status = task.terminationStatus
+            if status != 0 {
+                if pipeStdErr {
+                    throw output
+                } else {
+                    var errOutput = ""
+                    do {
+                        let errData = try errPipe.fileHandleForReading.readToEnd() ?? Data()
+                        if let errString = String(data: errData, encoding: .utf8) {
+                            errOutput = errString
+                        }
+                    } catch {
+                        errOutput = "Command '\(command)' failed to execute."
+                    }
+                    throw errOutput
+                }
+            }
+            return output
+        } else {
+            return ""
+        }
 	}
 
     @discardableResult
@@ -148,12 +152,14 @@ class Shell: ObservableObject {
                 }
             }
         }
-        // Write the password
-        sudoIn.fileHandleForWriting.write(passwordWithNewline.data(using: .utf8)!)
+        if let data = passwordWithNewline.data(using: .utf8) {
+            // Write the password
+            sudoIn.fileHandleForWriting.write(data)
 
-        // Close the file handle after writing the password; avoids a
-        // hang for incorrect password.
-        try? sudoIn.fileHandleForWriting.close()
+            // Close the file handle after writing the password; avoids a
+            // hang for incorrect password.
+            try? sudoIn.fileHandleForWriting.close()
+        }
 
         // Make sure we don't disappear while output is still being produced.
         sudo.waitUntilExit()
@@ -172,13 +178,15 @@ class Shell: ObservableObject {
         task.launch()
 
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data: data, encoding: .utf8)!
+        if let output = String(data: data, encoding: .utf8) {
+            if print {
+                Log.shared.log(output)
+            }
 
-        if print {
-            Log.shared.log(output)
+            return output
+        } else {
+            return ""
         }
-
-        return output
     }
 }
 

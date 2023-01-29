@@ -9,8 +9,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func application(_ application: NSApplication, open urls: [URL]) {
         if let url = urls.first {
             if url.pathExtension == "ipa" {
-                uif.ipaUrl = url
-                Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
+                Installer.install(ipaUrl: url, export: false, returnCompletion: { _ in
                     Task { @MainActor in
                         AppsVM.shared.fetchApps()
                         NotifyService.shared.notify(
