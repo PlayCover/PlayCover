@@ -16,10 +16,12 @@ class AppsVM: ObservableObject {
     }
 
     @Published var apps: [PlayApp] = []
+    @Published var unfilteredApps: [PlayApp] = []
+
     @Published var updatingApps = false
 
     func fetchApps() {
-        Task {
+        Task { @MainActor in
             var result: [PlayApp] = []
             do {
                 let containers = try AppContainer.containers()
@@ -46,7 +48,9 @@ class AppsVM: ObservableObject {
                 print(error)
             }
 
-            await updateApps(result)
+            unfilteredApps = result
+
+            updateApps(result)
         }
     }
 
