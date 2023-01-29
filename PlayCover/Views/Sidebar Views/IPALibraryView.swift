@@ -118,7 +118,11 @@ struct IPALibraryView: View {
         }
         .searchable(text: $searchString, placement: .toolbar)
         .onChange(of: searchString) { value in
-            uif.searchText = value
+            storeVM.searchText = value
+            storeVM.fetchApps()
+        }
+        .onAppear {
+            storeVM.searchText = ""
             storeVM.fetchApps()
         }
         .onChange(of: isList, perform: { value in

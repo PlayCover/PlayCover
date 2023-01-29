@@ -23,6 +23,7 @@ class StoreVM: ObservableObject {
     }
 
     @Published var apps: [StoreAppData] = []
+    @Published var searchText: String = ""
     @Published var filteredApps: [StoreAppData] = []
     @Published var sources: [SourceData] {
         didSet {
@@ -76,9 +77,9 @@ class StoreVM: ObservableObject {
     func fetchApps() {
         filteredApps.removeAll()
         var result = apps
-        if !uif.searchText.isEmpty {
+        if !searchText.isEmpty {
             result = result.filter({
-                $0.name.lowercased().contains(uif.searchText.lowercased())
+                $0.name.lowercased().contains(searchText.lowercased())
             })
         }
         filteredApps = result

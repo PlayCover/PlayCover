@@ -112,9 +112,13 @@ struct AppLibraryView: View {
         }
         .searchable(text: $searchString, placement: .toolbar)
         .onChange(of: searchString, perform: { value in
-            uif.searchText = value
+            appsVM.searchText = value
             appsVM.fetchApps()
         })
+        .onAppear {
+            appsVM.searchText = ""
+            appsVM.fetchApps()
+        }
         .onChange(of: isList, perform: { value in
             UserDefaults.standard.set(value, forKey: "AppLibraryView")
         })
