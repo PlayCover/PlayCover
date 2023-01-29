@@ -22,11 +22,11 @@ struct AppLibraryView: View {
 
     var body: some View {
         Group {
-            if !appsVM.unfilteredApps.isEmpty {
+            if !appsVM.apps.isEmpty {
                 ScrollView {
                     if !isList {
                         LazyVGrid(columns: gridLayout, alignment: .center) {
-                            ForEach(appsVM.apps, id: \.url) { app in
+                            ForEach(appsVM.filteredApps, id: \.url) { app in
                                 PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                             selectedTextColor: $selectedTextColor,
                                             selected: $selected,
@@ -37,7 +37,7 @@ struct AppLibraryView: View {
                         .padding()
                     } else {
                         VStack {
-                            ForEach(appsVM.apps, id: \.url) { app in
+                            ForEach(appsVM.filteredApps, id: \.url) { app in
                                 PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                             selectedTextColor: $selectedTextColor,
                                             selected: $selected,
@@ -178,7 +178,7 @@ struct AppLibraryView: View {
     private func installApp() {
         Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
             Task { @MainActor in
-                appsVM.apps = []
+                appsVM.filteredApps = []
                 appsVM.fetchApps()
                 NotifyService.shared.notify(
                     NSLocalizedString("notification.appInstalled", comment: ""),

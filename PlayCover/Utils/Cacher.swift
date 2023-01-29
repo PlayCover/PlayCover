@@ -52,7 +52,7 @@ class Cacher {
     }
 
     func getLocalIcon(bundleId: String) -> NSImage? {
-        if let app = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == bundleId }) {
+        if let app = AppsVM.shared.filteredApps.first(where: { $0.info.bundleIdentifier == bundleId }) {
             return cache.readImage(forKey: app.info.bundleIdentifier)
         } else {
             return nil
