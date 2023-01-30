@@ -14,6 +14,7 @@ class UninstallPreferences: NSObject, ObservableObject {
     @objc @AppStorage("RemoveAppKeymapUninstall") var removeAppKeymap = false
     @objc @AppStorage("RemoveAppSettingUninstall") var removeAppSettings = false
     @objc @AppStorage("RemoveAppEntitlementsUninstall") var removeAppEntitlements = false
+    @objc @AppStorage("RemovePlayChain") var removePlayChain = false
 
     @AppStorage("ShowUninstallPopup") var showUninstallPopup = true
 }
@@ -41,6 +42,8 @@ struct UninstallSettings: View {
                                isOn: $uninstallPreferences.removeAppSettings)
                         Toggle("preferences.toggle.removeEntitlements",
                                isOn: $uninstallPreferences.removeAppEntitlements)
+                        Toggle("preferences.toggle.removePlayChain",
+                               isOn: $uninstallPreferences.removePlayChain)
                     }
                     Spacer()
                 }
