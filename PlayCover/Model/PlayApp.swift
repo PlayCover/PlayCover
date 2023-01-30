@@ -62,7 +62,7 @@ class PlayApp: BaseApp {
     func runAppExec() {
         let config = NSWorkspace.OpenConfiguration()
 
-        if settings.metalHudEnabled {
+        if settings.settings.metalHUD {
             config.environment = ["MTL_HUD_ENABLED": "1"]
         } else {
             config.environment = ["MTL_HUD_ENABLED": "0"]

@@ -24,6 +24,7 @@ struct AppSettingsData: Codable {
     var version = "3.0.0"
     var playChain = true
     var playChainDebugging = false
+    var metalHUD = false
 
     init() {}
 
@@ -46,6 +47,7 @@ struct AppSettingsData: Codable {
         version = try container.decodeIfPresent(String.self, forKey: .version) ?? "3.0.0"
         playChain = try container.decodeIfPresent(Bool.self, forKey: .playChain) ?? true
         playChainDebugging = try container.decodeIfPresent(Bool.self, forKey: .playChainDebugging) ?? false
+        metalHUD = try container.decodeIfPresent(Bool.self, forKey: .metalHUD) ?? false
     }
 }
 
@@ -67,7 +69,6 @@ class AppSettings {
 
     let info: AppInfo
     let settingsUrl: URL
-    var metalHudEnabled: Bool = false
     var openWithLLDB: Bool = false
     var openLLDBWithTerminal: Bool = true
     var container: AppContainer?
