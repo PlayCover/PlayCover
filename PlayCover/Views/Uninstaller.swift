@@ -129,7 +129,7 @@ class Uninstaller {
         }
 
         if UninstallPreferences.shared.removePlayChain {
-            var url = PlayTools.playCoverContainer
+            let url = PlayTools.playCoverContainer
                 .appendingPathComponent("PlayChain")
                 .appendingPathComponent(app.info.bundleIdentifier)
 

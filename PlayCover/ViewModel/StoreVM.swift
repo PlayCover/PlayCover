@@ -81,6 +81,7 @@ class StoreVM: ObservableObject {
                 $0.name.lowercased().contains(uif.searchText.lowercased())
             })
         }
+        result.sort(by: { $0.name < $1.name })
         filteredApps = result
     }
 
