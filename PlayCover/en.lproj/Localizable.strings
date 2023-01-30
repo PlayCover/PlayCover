@@ -160,6 +160,7 @@
 "settings.picker.aspectRatio" = "Aspect ratio:";
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
+"settings.toggle.borderless" = "Borderless window";
 "settings.noPlayTools" = "PlayTools is not installed in this app";
 
 "settings.tab.bypasses" = "Bypasses";

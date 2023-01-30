@@ -275,6 +275,7 @@ struct GraphicsView: View {
                     Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.settings.disableTimeout)
                         .help("settings.toggle.disableDisplaySleep.help")
                     Spacer()
+                    Toggle("settings.toggle.borderless", isOn: $settings.settings.borderless)
                 }
                 Spacer()
             }
