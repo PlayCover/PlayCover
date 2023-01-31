@@ -62,9 +62,9 @@ struct AppLibraryView: View {
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                     Button("Import IPA") {
-                        if installVM.installing {
+                        if installVM.inProgress {
                             Log.shared.error(PlayCoverError.waitInstallation)
-                        } else if DownloadVM.shared.downloading {
+                        } else if downloadVM.status == .downloading {
                             Log.shared.error(PlayCoverError.waitDownload)
                         } else {
                             selectFile()
