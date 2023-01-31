@@ -12,6 +12,7 @@ enum PlayCoverError: Error {
     case appMaliciousProhibited
     case noGenshinAccount
     case failedToStripBinary
+    case notValidLink
 }
 
 extension PlayCoverError: LocalizedError {
@@ -35,6 +36,8 @@ extension PlayCoverError: LocalizedError {
             return NSLocalizedString("error.noGenshinAccount", comment: "")
         case .failedToStripBinary:
             return NSLocalizedString("error.failedToStripBinary", comment: "")
+        case .notValidLink:
+            return NSLocalizedString("error.notValidLink", comment: "")
         }
     }
 }

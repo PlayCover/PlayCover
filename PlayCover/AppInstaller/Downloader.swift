@@ -6,19 +6,6 @@
 //
 
 import Foundation
-import DownloadManager
-
-/// DownloaderManager can be configured through this struct, default values are as the same as below
-/// `public struct DownloadManagerConfig {`
-///    `public var maximumRetries = 3`
-///    `public var exponentialBackoffMultiplier = 10`
-///    `public var usesNotificationCenter = false`
-///    `public var showsLocalNotifications = false`
-///    `public var logVerbosity: LogVerbosity = .none
-/// `}`
-///  Use `downloader.configuration = DownloadManagerConfig()` in
-///  `DownloadApp` class before `downloader.addDownload` to apply
-///  More details: https://github.com/shapedbyiris/download-manager/blob/master/README.md
 
 class DownloadApp {
     let url: URL?
@@ -29,11 +16,12 @@ class DownloadApp {
         self.url = url
         self.app = app
         self.warning = warning
+        downloader.$progress.assign(to: &downloadVM.$progress)
     }
 
     let downloadVM = DownloadVM.shared
     let installVM = InstallVM.shared
-    let downloader = DownloadManager.shared
+    let downloader = FileDownlaoder.shared
 
     func start() {
         if !NetworkVM.isConnectedToNetwork() { return }
@@ -63,42 +51,37 @@ class DownloadApp {
     }
 
     func cancel() {
-        downloader.cancelAllDownloads()
+        downloader.cancelDownload()
         downloadVM.downloading = false
-        downloadVM.progress = 0
         downloadVM.storeAppData = nil
     }
 
     private func proceedDownload() {
         self.downloadVM.storeAppData = self.app
         self.downloadVM.downloading = true
-        var tmpDir: URL?
-        do {
-            tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
-                                                 in: .userDomainMask,
-                                                 appropriateFor: URL(fileURLWithPath: "/Users"),
-                                                 create: true)
-            downloader.addDownload(url: url!,
-                                   destinationURL: tmpDir!,
-                                   onProgress: { progress in
-                // progress is a Float
-                self.downloadVM.progress = Double(progress)
-            }, onCompletion: { error, fileURL in
-                guard error == nil else {
-                    self.downloadVM.downloading = false
-                    self.downloadVM.progress = 0
-                    self.downloadVM.storeAppData = nil
-                    return Log.shared.error(error!)
+
+        Task {
+            var tmpDir: URL?
+            do {
+                tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
+                                                     in: .userDomainMask,
+                                                     appropriateFor: URL(fileURLWithPath: "/Users"),
+                                                     create: true)
+                let filePath = tmpDir!.appendingPathComponent("\(app!.name).ipa")
+                try await downloader.download(url: url!, filePath: filePath)
+                proceedInstall(filePath)
+            } catch {
+                if let tmpDir = tmpDir {
+                    FileManager.default.delete(at: tmpDir)
                 }
-                self.downloadVM.downloading = false
-                self.downloadVM.progress = 0
-                self.proceedInstall(fileURL)
-            })
-        } catch {
-            if let tmpDir = tmpDir {
-                FileManager.default.delete(at: tmpDir)
+                if error as? CancellationError == nil {
+                    Log.shared.error(error)
+                }
             }
-            Log.shared.error(error)
+            Task { @MainActor in
+                downloadVM.downloading = false
+                downloader.clearProgress()
+            }
         }
     }
 

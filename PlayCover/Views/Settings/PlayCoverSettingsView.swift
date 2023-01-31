@@ -29,6 +29,10 @@ struct PlayCoverSettingsView: View {
                 }
                 .tag(Tabs.ipasource)
                 .environmentObject(storeVM)
+            DownloaderSettings()
+                .tabItem {
+                    Label("Downloader", systemImage: "arrow.down.app")
+                }
             InstallSettings.shared
                 .tabItem {
                     Label("preferences.tab.install", systemImage: "arrow.down.app")
