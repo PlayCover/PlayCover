@@ -26,7 +26,7 @@
 "playapp.install.signing" = "Đang ký ứng dụng...";
 "playapp.install.addToLib" = "Đang thêm vào thư viện...";
 "playapp.install.copy" = "Đang sao chép ứng dụng...";
-"playapp.install.finished" = "Hoàn thành";
+"playapp.progress.finished" = "Hoàn thành";
 "alert.appCacheCleared" = "Dữ liệu ứng dụng đã được xóa!";
 "alert.kmImported" = "Nhập keymap thành công!";
 "alert.errorImportKm" = "Lỗi khi nhập keymap, vui lòng thử lại!";
@@ -152,7 +152,7 @@
 "preferences.popover.badurl" = "URL không hợp lệ!";
 "preferences.popover.badjson" = "File JSON không đúng hoặc không tồn tại!";
 "preferences.textfield.url" = "URL nguồn...";
-"playapp.download" = "Đang tải xuống";
+"playapp.download.downloading" = "Đang tải xuống";
 "error.waitDownload" = "Vui lòng đợi quá trình tải xuống hiện tại kết thúc!";
 "preferences.prune.alert" = "Bạn muốn dọn dẹp tệp tin?";
 "menubar.clearCache" = "Xóa bộ nhớ đệm";
@@ -165,7 +165,7 @@
 "preferences.toggle.removeEntitlements" = "Xoá quyền đã cấp";
 "preferences.button.pruneFiles" = "Dọn dẹp";
 "preferences.prune.message" = "Khi xác nhận, PlayCover sẽ gỡ bỏ các thiết lập, keymap và dữ liệu của ứng dụng cài qua PlayCover mà không dùng đến";
-"playapp.install.failed" = "Thất bại";
+"playapp.progress.failed" = "Thất bại";
 "alert.supression" = "Bạn có thể thay đổi điều này trong thiết lập của PlayCover";
 "preferences.tab.install" = "Cài đặt";
 "preferences.toggle.showInstallPopup" = "Luôn hiển thị cửa sổ cài đặt";

@@ -26,7 +26,7 @@
 "playapp.install.signing" = "در حال مهروموم کردن برنامه...";
 "playapp.install.addToLib" = "انتقال به کتابخانه نصب‌شده‌ها...";
 "playapp.install.copy" = "رونوشت‌گیری از پرونده‌ی قابل اجرای برنامه...";
-"playapp.install.finished" = "پردازش با موفقیت پایان یافت";
+"playapp.progress.finished" = "پردازش با موفقیت پایان یافت";
 "alert.appCacheCleared" = "پاک‌سازی داده‌های برنامه انجام شد!";
 "alert.kmImported" = "درون‌ریزی Keymap انجام شد!";
 "alert.errorImportKm" = "خطائی در زمان درون‌ریزی رخ داد!";
@@ -152,10 +152,10 @@
 "preferences.popover.badurl" = "پیوند معتبر نیست!";
 "preferences.popover.badjson" = "پرونده JSON اعتبار نداشته و یا یافت نشد!";
 "preferences.textfield.url" = "پیوند مخزن را وارد کنید...";
-"playapp.download" = "در حال بارگیری";
+"playapp.download.downloading" = "در حال بارگیری";
 "error.waitDownload" = "لطفاً پس از پایان یافتن روند بارگیری در حال انجام، تلاش کنید!";
 "preferences.tab.uninstall" = "گزینه‌های حذف برنامه";
-"playapp.install.failed" = "موفقیت‌آمیز نبود";
+"playapp.progress.failed" = "موفقیت‌آمیز نبود";
 "preferences.whenUninstalling" = "در زمان حذف:";
 "preferences.toggle.showUninstall" = "پاپ‌آپ تأیید حذف را نمایش بده";
 "preferences.toggle.clearAppData" = "داده‌های برنامه را پاک کن";

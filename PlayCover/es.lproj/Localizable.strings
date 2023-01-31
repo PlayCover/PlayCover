@@ -107,7 +107,7 @@
 "playapp.install.createWrapper" = "Creando un contenedor...";
 
 /* (No Comment) */
-"playapp.install.finished" = "Completado";
+"playapp.progress.finished" = "Completado";
 
 /* (No Comment) */
 "playapp.install.installPlayTools" = "Instalando PlayTools...";
@@ -301,7 +301,7 @@
 "preferences.popover.badurl" = "¡URL no válido!";
 "preferences.popover.badjson" = "¡JSON no válido o no encontrado!";
 "preferences.textfield.url" = "URL de origen...";
-"playapp.download" = "Descargando";
+"playapp.download.downloading" = "Descargando";
 "error.waitDownload" = "¡Por favor espere a que finalice la descarga!";
 "preferences.tab.uninstall" = "Desinstalar";
 "preferences.whenUninstalling" = "Al desinstalar:";
@@ -313,7 +313,7 @@
 "preferences.button.pruneFiles" = "Limpiar archivos";
 "preferences.prune.alert" = "¿Confirma que quiere limpiar todos los archivos?";
 "preferences.prune.message" = "Esto eliminará todos los archivos que no se utilicen, incluidos los de configuración, asignación de teclas, permisos y datos de la aplicación";
-"playapp.install.failed" = "Error";
+"playapp.progress.failed" = "Error";
 "alert.supression" = "Puede cambiar esto en la configuración de PlayCover";
 "menubar.clearCache" = "Eliminar antememoria";
 "preferences.tab.install" = "Instalar";

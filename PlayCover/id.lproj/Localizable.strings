@@ -107,7 +107,7 @@
 "playapp.install.createWrapper" = "Membuat pembungkus aplikasi...";
 
 /* (No Comment) */
-"playapp.install.finished" = "Selesai";
+"playapp.progress.finished" = "Selesai";
 
 /* (No Comment) */
 "playapp.install.installPlayTools" = "Menginstall PlayTools...";
@@ -301,7 +301,7 @@
 "preferences.popover.badurl" = "URL tidak valid!";
 "preferences.popover.badjson" = "JSON tidak valid atau tidak ditemukan!";
 "preferences.textfield.url" = "Sumber URL...";
-"playapp.download" = "Menginstall...";
+"playapp.download.downloading" = "Menginstall...";
 "error.waitDownload" = "Harap tunggu hingga unduhan selesai!";
 "preferences.tab.uninstall" = "Hapus instalan";
 "preferences.whenUninstalling" = "Ketika uninstall:";
@@ -313,7 +313,7 @@
 "preferences.button.pruneFiles" = "Pangkas file";
 "preferences.prune.alert" = "Apakah anda yakin ingin memangkas semua file?";
 "preferences.prune.message" = "Ini akan menghapus semua file yang tidak digunakan termasuk pengaturan, pemetaan kontrol, hak, dan data aplikasi";
-"playapp.install.failed" = "Gagal";
+"playapp.progress.failed" = "Gagal";
 "alert.supression" = "Anda dapat mengubah ini di preferensi PlayCover";
 "menubar.clearCache" = "Hapus data gambar";
 "alert.install.injectPlayTools" = "Masukkan PlayTools";

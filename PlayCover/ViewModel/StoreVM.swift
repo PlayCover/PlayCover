@@ -188,4 +188,5 @@ struct StoreAppData: Codable, Equatable {
     let version: String
     let itunesLookup: String
     let link: String
+    let checksum: String?
 }

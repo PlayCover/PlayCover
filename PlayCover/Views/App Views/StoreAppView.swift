@@ -34,7 +34,7 @@ struct StoreAppView: View {
                                 warningMessage: $warningMessage)
         .gesture(TapGesture(count: 2).onEnded {
             if let url = URL(string: app.link) {
-                if downloadVM.downloading {
+                if downloadVM.inProgress {
                     Log.shared.error(PlayCoverError.waitDownload)
                 } else {
                     DownloadApp(url: url, app: app,
@@ -114,7 +114,7 @@ struct StoreAppConditionalView: View {
                         .shadow(radius: 1)
                         .padding(.horizontal, 15)
                         .padding(.vertical, 5)
-                        if downloadVM.downloading && downloadVM.storeAppData == app {
+                        if downloadVM.inProgress && downloadVM.storeAppData == app {
                             ProgressView(value: downloadVM.progress)
                                 .progressViewStyle(.circular)
                         }
@@ -154,7 +154,7 @@ struct StoreAppConditionalView: View {
                         .frame(width: 60, height: 60)
                         .cornerRadius(15)
                         .shadow(radius: 1)
-                        if downloadVM.downloading && downloadVM.storeAppData == app {
+                        if downloadVM.inProgress && downloadVM.storeAppData == app {
                             VStack {
                                 Spacer()
                                 ProgressView(value: downloadVM.progress)

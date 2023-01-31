@@ -40,9 +40,9 @@ struct ToastView: View {
                         }
                     }
                 }
-                if installVM.installing {
+                if installVM.inProgress {
                     VStack {
-                        Text(installVM.status)
+                        Text(NSLocalizedString(installVM.status.rawValue, comment: ""))
                         ProgressView(value: installVM.progress)
                     }
                     .padding()
@@ -50,19 +50,21 @@ struct ToastView: View {
                     .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
                     .padding()
                 }
-                if downloadVM.downloading {
+                if downloadVM.inProgress {
                     VStack {
-                        Text("playapp.download") +
+                        Text(NSLocalizedString(downloadVM.status.rawValue, comment: "")) +
                         Text(" \(downloadVM.storeAppData?.name ?? "")")
                         HStack {
                             ProgressView(value: downloadVM.progress)
-                            Button {
-                                DownloadApp(url: nil, app: nil, warning: nil).cancel()
-                            } label: {
-                                Image(systemName: "xmark.circle.fill")
-                                    .font(.title3)
+                            if downloadVM.status == .downloading {
+                                Button {
+                                    DownloadApp(url: nil, app: nil, warning: nil).cancel()
+                                } label: {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .font(.title3)
+                                }
+                                .buttonStyle(.plain)
                             }
-                            .buttonStyle(.plain)
                         }
                     }
                     .padding()
@@ -73,8 +75,8 @@ struct ToastView: View {
                 }
             }
             .animation(.easeInOut(duration: 0.25), value: toastVM.toasts.count)
-            .animation(.easeInOut(duration: 0.25), value: installVM.installing)
-            .animation(.easeInOut(duration: 0.25), value: downloadVM.downloading)
+            .animation(.easeInOut(duration: 0.25), value: installVM.inProgress)
+            .animation(.easeInOut(duration: 0.25), value: downloadVM.inProgress)
         }
     }
 }

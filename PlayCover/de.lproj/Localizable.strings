@@ -107,7 +107,7 @@
 "playapp.install.createWrapper" = "App Umschlag erstellen...";
 
 /* (No Comment) */
-"playapp.install.finished" = "Fertig";
+"playapp.progress.finished" = "Fertig";
 
 /* (No Comment) */
 "playapp.install.installPlayTools" = "PlayTools werden Installiert...";
@@ -302,7 +302,7 @@
 "preferences.popover.badurl" = "URL Ungültig!";
 "preferences.popover.badjson" = "JSON Ungültig oder nicht gefunden worden!";
 "preferences.textfield.url" = "URL Quelle...";
-"playapp.download" = "Wird Installiert";
+"playapp.download.downloading" = "Wird Installiert";
 "preferences.toggle.clearAppData" = "Daten löschen";
 "alert.supression" = "Du kannst dies in den PlayCover Einstellungen ändern";
 "menubar.clearCache" = "Cache löschen";
@@ -315,7 +315,7 @@
 "preferences.button.pruneFiles" = "Dateien kürzen";
 "preferences.prune.alert" = "Bist du dir sicher dass du alle Dateien kürzen willst?";
 "preferences.prune.message" = "Dies wird alle ungenutzte Dateien sowie Einstellungen, Keymappings, Berechtigungen und App Daten löschen";
-"playapp.install.failed" = "Fehlgeschlagen";
+"playapp.progress.failed" = "Fehlgeschlagen";
 "preferences.tab.install" = "Installieren";
 "preferences.toggle.showInstallPopup" = "Zeige PlayTools Installations Popup";
 "preferences.toggle.alwaysInstallPlayTools" = "PlayTools immer installieren";
