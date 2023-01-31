@@ -22,7 +22,7 @@ struct AppSettingsData: Codable {
     var bypass = false
     var discordActivity = DiscordActivity()
     var version = "3.0.0"
-    var playChain = true
+    var playChain = false
     var playChainDebugging = false
 
     init() {}
@@ -44,7 +44,7 @@ struct AppSettingsData: Codable {
         discordActivity = try container.decodeIfPresent(DiscordActivity.self,
                                                         forKey: .discordActivity) ?? DiscordActivity()
         version = try container.decodeIfPresent(String.self, forKey: .version) ?? "3.0.0"
-        playChain = try container.decodeIfPresent(Bool.self, forKey: .playChain) ?? true
+        playChain = try container.decodeIfPresent(Bool.self, forKey: .playChain) ?? false
         playChainDebugging = try container.decodeIfPresent(Bool.self, forKey: .playChainDebugging) ?? false
     }
 }
