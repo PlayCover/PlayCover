@@ -49,7 +49,9 @@ struct KeyCover {
 
     func unlockChain(_ keychain: KeyCoverKey) throws {
         if keyCoverPlainTextKey == nil {
-            return
+            // Open the unlocking window and wait for the user to enter the password
+            // Then set the keyCoverPlainTextKey
+            _ = KeyCoverUnlockingPrompt.openWindow()
         }
         if keychain.chainEncryptionStatus {
             try? keychain.decryptKeyFolder()
@@ -100,6 +102,9 @@ struct KeyCoverKey {
     }
 
     func encryptKeyFolder() throws {
+        if KeyCover.shared.keyCoverPlainTextKey == nil {
+            return
+        }
         // zip up the key folder
         let source = keyFolderPath.appendingPathComponent(appBundleID)
         let destination = keyFolderPath.appendingPathComponent("\(appBundleID).zip")
@@ -238,10 +243,14 @@ class KeyCoverMaster {
                                                         errorHandler: nil)
 
         while let file = enumerator?.nextObject() as? URL {
-            if file.pathExtension == "key" {
+            if file.pathExtension == KeyCoverKey.encryptedKeyExtension {
                 let keyCover = KeyCoverKey(appBundleID: file.deletingPathExtension().lastPathComponent)
                 try? keyCover.decryptKeyFolder()
             }
         }
+
+        // Delete the Master Key
+        let masterKeyFile = PlayTools.playCoverContainer.appendingPathComponent("ChainMaster.key")
+        try? FileManager.default.removeItem(at: masterKeyFile)
     }
 }

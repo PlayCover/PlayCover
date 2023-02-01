@@ -36,6 +36,16 @@ class PlayApp: BaseApp {
             if hasPlayTools() {
                 try PlayTools.installPluginInIPA(url)
             }
+            
+            if KeyCover.shared.isKeyCoverEnabled {
+                // Check if the app have any keychains
+                let keychain = KeyCover.shared.keychains.first(where: { $0.appBundleID == self.info.bundleIdentifier })
+                // Check the status of that keychain
+                if let keychain = keychain, !keychain.chainEncryptionStatus {
+                    // If the keychain is not encrypted, decrypt it
+                    try KeyCover.shared.unlockChain(keychain)
+                }
+            }
 
             if try !PlayTools.isInstalled() {
                 Log.shared.error("PlayTools are not installed! Please move PlayCover.app into Applications!")
@@ -89,6 +99,26 @@ class PlayApp: BaseApp {
                             }
                             success = IOPMAssertionRelease(assertionID)
                             debugPrint("Enabling timeout...")
+                        }
+                    }
+                }
+                if KeyCoverSettings.shared.keyCoverPreferences.keyCoverSmartLock {
+                    Task {
+                        while true {
+                            try await Task.sleep(nanoseconds: UInt64(KeyCoverSettings.shared
+                                .keyCoverPreferences.keyCoverSmartLockTimeout * 1000000000))
+                            guard
+                                let isFinish = runningApp?.isTerminated,
+                                !isFinish else { break }
+                            if KeyCover.shared.isKeyCoverEnabled {
+                                // Check if the app have any keychains
+                                let keychain = KeyCover.shared.keychains
+                                    .first(where: { $0.appBundleID == self.info.bundleIdentifier })
+                                // Lock the chain if it exists after the app quits
+                                if let keychain = keychain {
+                                    try KeyCover.shared.lockChain(keychain)
+                                }
+                            }
                         }
                     }
                 }
