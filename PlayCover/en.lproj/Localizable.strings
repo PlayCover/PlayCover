@@ -4,6 +4,7 @@
 "playapp.showInFinder" = "Show in Finder";
 "playapp.openCache" = "Open App Data";
 "playapp.clearCache" = "Clear App Data";
+"playapp.importIPA" = "Import IPA";
 "playapp.importKm" = "Import Keymapping";
 "playapp.exportKm" = "Export Keymapping";
 "playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";

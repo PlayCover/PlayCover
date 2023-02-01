@@ -61,7 +61,7 @@ struct AppLibraryView: View {
                     Text("playapp.noSources.subtitle")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
-                    Button("Import IPA") {
+                    Button("playapp.importIPA") {
                         if installVM.inProgress {
                             Log.shared.error(PlayCoverError.waitInstallation)
                         } else if downloadVM.inProgress {
