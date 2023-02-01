@@ -23,7 +23,7 @@ struct AppLibraryView: View {
 
     var body: some View {
         Group {
-            if !appsVM.apps.isEmpty {
+            if !appsVM.apps.isEmpty || appsVM.updatingApps {
                 ScrollView {
                     if !isList {
                         LazyVGrid(columns: gridLayout, alignment: .center) {
