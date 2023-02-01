@@ -23,6 +23,7 @@
 "ipaLibrary.noSources.subtitle" = "You currently have no IPA Sources added. Click the button below to add one.";
 "ipaLibrary.noSources.button" = "Add Source";
 "ipaLibrary.noNetworkConnection.toast" = "No internet connection!";
+"ipaLibrary.noNetworkConnection.required" = "IPA Library requires internet connection";
 "ipaLibrary.version.older" = "This version is older than the one you have installed";
 "ipaLibrary.version.same" = "App already installed";
 "ipaLibrary.version.newer" = "This version is newer than the version you have installed";
@@ -125,6 +126,7 @@
 "button.No" = "No";
 "button.Help" = "Help";
 "button.Dismiss" = "Dismiss";
+"button.Reload" = "Reload";
 
 "state.enabled" = "Enabled";
 "state.disabled" = "Disabled";
