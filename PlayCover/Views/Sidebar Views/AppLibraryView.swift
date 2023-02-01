@@ -64,7 +64,7 @@ struct AppLibraryView: View {
                     Button("Import IPA") {
                         if installVM.inProgress {
                             Log.shared.error(PlayCoverError.waitInstallation)
-                        } else if downloadVM.status == .downloading {
+                        } else if downloadVM.inProgress {
                             Log.shared.error(PlayCoverError.waitDownload)
                         } else {
                             selectFile()
