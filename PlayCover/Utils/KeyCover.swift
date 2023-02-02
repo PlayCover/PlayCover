@@ -14,12 +14,12 @@ struct KeyCover {
     // This is only exposed at runtime
     var keyCoverPlainTextKey: String?
     var masterKeyFile = PlayTools.playCoverContainer.appendingPathComponent("ChainMaster.key")
-    var isKeyCoverEnabled: Bool = {
+    func isKeyCoverEnabled() -> Bool {
         return FileManager.default.fileExists(atPath: PlayTools.playCoverContainer
             .appendingPathComponent("ChainMaster.key").path)
-    }()
+    }
 
-    var keychains: [KeyCoverKey] {
+    func listKeychains() -> [KeyCoverKey] {
         if keyCoverPlainTextKey == nil {
             return []
         }
@@ -39,13 +39,13 @@ struct KeyCover {
         return keychainList
     }
 
-    lazy var unlockedCount: Int = {
+    func unlockedCount() -> Int  {
         var count = 0
-        for keychain in keychains where !keychain.chainEncryptionStatus {
+        for keychain in listKeychains() where !keychain.chainEncryptionStatus {
             count += 1
         }
         return count
-    }()
+    }
 
     func unlockChain(_ keychain: KeyCoverKey) throws {
         if keyCoverPlainTextKey == nil {
@@ -69,7 +69,7 @@ struct KeyCover {
 
     func lockAllChainsAsync() {
         DispatchQueue.global(qos: .background).async {
-            for keychain in KeyCover.shared.keychains where !keychain.chainEncryptionStatus {
+            for keychain in KeyCover.shared.listKeychains() where !keychain.chainEncryptionStatus {
                 try? keychain.encryptKeyFolder()
             }
         }
@@ -78,7 +78,7 @@ struct KeyCover {
     mutating func resetKeyCover() throws {
         // Only available if KeyCover is enabled
         // and no chains are unlocked
-        if isKeyCoverEnabled && unlockedCount == 0 {
+        if isKeyCoverEnabled() && unlockedCount() == 0 {
             // Delete the master key
             try FileManager.default.removeItem(at: masterKeyFile)
             // Delete all the keychains

@@ -19,8 +19,6 @@ class KeyCoverPreferences: NSObject, ObservableObject {
 struct KeyCoverSettings: View {
     static let shared = KeyCoverSettings()
 
-    @State private var keyCoverStatus = KeyCover.shared.isKeyCoverEnabled
-
     @State private var keyCoverInitialSetupShown = false
     @State private var keyCoverUpdatePasswordShown = false
     @State private var keyCoverRemovalViewShown = false
@@ -32,41 +30,41 @@ struct KeyCoverSettings: View {
             HStack {
                 HStack {
                     Text("KeyCover Status:")
-                    Text(keyCoverStatus ? "Enabled" : "Disabled")
-                        .foregroundColor(keyCoverStatus ? .green : .none)
+                    Text(KeyCover.shared.isKeyCoverEnabled() ? "Enabled" : "Disabled")
+                        .foregroundColor(KeyCover.shared.isKeyCoverEnabled() ? .green : .none)
                     Spacer()
                 }
                 Spacer()
-                Button(keyCoverStatus ? "Reset" : "Enable") {
-                    if keyCoverStatus {
-                        KeyCoverRemovalView.openWindow()
+                Button(KeyCover.shared.isKeyCoverEnabled() ? "Reset" : "Enable") {
+                    if KeyCover.shared.isKeyCoverEnabled() {
+                        keyCoverRemovalViewShown = true
                     } else {
-                        KeyCoverInitialSetupView.openWindow()
+                        keyCoverInitialSetupShown = true
                     }
                 }
-                .foregroundColor(keyCoverStatus ? .red : .none)
+                .foregroundColor(KeyCover.shared.isKeyCoverEnabled() ? .red : .none)
             }
             .padding()
             Spacer()
             HStack {
                 VStack(alignment: .leading) {
                     Text("KeyCover Chain Status:")
-                    Text("\(KeyCover.shared.unlockedCount)"
-                         + "unlocked chains in \(KeyCover.shared.keychains.count) chains total")
+                    Text("\(KeyCover.shared.unlockedCount()) "
+                         + "unlocked chains in \(KeyCover.shared.listKeychains().count) chains total")
                 }
                 Spacer()
                 Button("Lock All Chains Now") {
                     KeyCover.shared.lockAllChainsAsync()
                 }
-                .disabled(!keyCoverStatus)
+                .disabled(!KeyCover.shared.isKeyCoverEnabled())
             }
             .padding()
             HStack {
                 Spacer()
                 Button("Change Master Password") {
-                    KeyCoverUpdatePasswordView.openWindow()
+                    keyCoverUpdatePasswordShown = true
                 }
-                .disabled(!keyCoverStatus)
+                .disabled(!KeyCover.shared.isKeyCoverEnabled())
                 Spacer()
             }
             .padding()
@@ -86,6 +84,15 @@ struct KeyCoverSettings: View {
             .padding()
         }
         .frame(width: 500, height: 300)
+        .sheet(isPresented: $keyCoverInitialSetupShown) {
+            KeyCoverInitialSetupView(isPresented: $keyCoverInitialSetupShown)
+        }
+        .sheet(isPresented: $keyCoverUpdatePasswordShown) {
+            KeyCoverUpdatePasswordView(isPresented: $keyCoverUpdatePasswordShown)
+        }
+        .sheet(isPresented: $keyCoverRemovalViewShown) {
+            KeyCoverRemovalView(isPresented: $keyCoverRemovalViewShown)
+        }
     }
 }
 
