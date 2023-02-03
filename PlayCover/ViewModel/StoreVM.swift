@@ -100,7 +100,10 @@ class StoreVM: ObservableObject {
                                 let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self, from: jsonData)
                                 if data.count > 0 {
                                     Task { @MainActor in
-                                        self.sources[index].status = .valid
+                                        self.sources[index].status =
+                                            sources[0..<index].filter({
+                                                $0.source == sources[index].source && $0.id != sources[index].id
+                                            }).isEmpty ? .valid : .duplicate
                                         self.appendAppData(data)
                                     }
                                     return

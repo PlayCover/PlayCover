@@ -51,6 +51,7 @@
 "preferences.popover.valid" = "Link Valid";
 "preferences.popover.badurl"  = "URL Invalid!";
 "preferences.popover.badjson" = "JSON Invalid or Not Found!";
+"preferences.popover.duplicate" = "Duplicate Link";
 "preferences.textfield.url" = "Source URL...";
 "preferences.tab.install" = "Install";
 "preferences.toggle.showInstallPopup" = "Show install PlayTools popup";
