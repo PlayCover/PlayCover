@@ -5,6 +5,7 @@
 
 import AppKit
 import Foundation
+import CryptoKit
 import SwiftUI
 
 extension String {
@@ -32,6 +33,16 @@ extension URL {
 
     var isDirectory: Bool {
         (try? resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory == true
+    }
+
+    var sha256: String? {
+        do {
+            return SHA256.hash(data: try Data(contentsOf: self))
+                .map { String(format: "%02hhx", $0) }
+                .joined()
+        } catch {
+            return nil
+        }
     }
 
     func openInFinder() {
