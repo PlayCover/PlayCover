@@ -98,7 +98,8 @@ class StoreVM: ObservableObject {
                             let contents = try String(contentsOf: url)
                             if let jsonData = contents.data(using: .utf8) {
                                 do {
-                                    let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self, from: jsonData)
+                                    let data: [StoreAppData] = try JSONDecoder()
+                                        .decode([StoreAppData].self, from: jsonData)
                                     if data.count > 0 {
                                         Task { @MainActor in
                                             self.sources[index].status =
