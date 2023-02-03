@@ -19,13 +19,12 @@ class PlayApp: BaseApp {
             if prohibitedToPlay {
                 clearAllCache()
                 throw PlayCoverError.appProhibited
-            }
-            if maliciousProhibited {
+            } else if maliciousProhibited {
                 clearAllCache()
                 deleteApp()
                 throw PlayCoverError.appMaliciousProhibited
             }
-            AppsVM.shared.updatingApps = true
+
             AppsVM.shared.fetchApps()
             settings.sync()
 
@@ -51,10 +50,7 @@ class PlayApp: BaseApp {
                     runAppExec() // Splitting to reduce complexity
                 }
             }
-
-            AppsVM.shared.updatingApps = false
         } catch {
-            AppsVM.shared.updatingApps = false
             Log.shared.error(error)
         }
     }

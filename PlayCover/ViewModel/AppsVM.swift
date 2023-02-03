@@ -3,7 +3,6 @@
 //  PlayCover
 //
 
-import Cocoa
 import Foundation
 
 class AppsVM: ObservableObject {
@@ -18,10 +17,11 @@ class AppsVM: ObservableObject {
     @Published var filteredApps: [PlayApp] = []
     @Published var apps: [PlayApp] = []
 
-    @Published var updatingApps = false
+    @Published var updatingApps = true
 
     func fetchApps() {
         Task { @MainActor in
+            updatingApps = true
             var result: [PlayApp] = []
             do {
                 let containers = try AppContainer.containers()
@@ -55,6 +55,7 @@ class AppsVM: ObservableObject {
     }
 
     @MainActor func updateApps(_ newApps: [PlayApp]) {
+        updatingApps = true
         self.filteredApps.removeAll()
         var filteredApps = newApps
 
@@ -63,5 +64,6 @@ class AppsVM: ObservableObject {
         }
 
         self.filteredApps.append(contentsOf: filteredApps)
+        updatingApps = false
     }
 }

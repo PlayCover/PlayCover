@@ -20,39 +20,20 @@ struct IPALibraryView: View {
     @State private var addSourcePresented = false
 
     var body: some View {
-        ZStack {
-            ScrollView {
-                if !isList {
-                    LazyVGrid(columns: gridLayout, alignment: .center) {
-                        ForEach(storeVM.filteredApps, id: \.bundleID) { app in
-                            StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                         selectedTextColor: $selectedTextColor,
-                                         selected: $selected,
-                                         app: app,
-                                         isList: isList)
-                            .environmentObject(DownloadVM.shared)
-                            .environmentObject(InstallVM.shared)
-                        }
+        Group {
+            if !NetworkVM.isConnectedToNetwork() {
+                VStack {
+                    Text("ipaLibrary.noNetworkConnection.toast")
+                        .font(.title)
+                        .padding(.bottom, 2)
+                    Text("ipaLibrary.noNetworkConnection.required")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                    Button("button.Reload") {
+                        StoreVM.shared.resolveSources()
                     }
-                    .padding()
-                    Spacer()
-                } else {
-                    VStack {
-                        ForEach(storeVM.filteredApps, id: \.bundleID) { app in
-                            StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                         selectedTextColor: $selectedTextColor,
-                                         selected: $selected,
-                                         app: app,
-                                         isList: isList)
-                            .environmentObject(DownloadVM.shared)
-                            .environmentObject(InstallVM.shared)
-                        }
-                        Spacer()
-                    }
-                    .padding()
                 }
-            }
-            if storeVM.sources.count == 0 {
+            } else if storeVM.sources.count == 0 {
                 VStack {
                     Spacer()
                     Text("ipaLibrary.noSources.title")
@@ -67,6 +48,38 @@ struct IPALibraryView: View {
                     Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                ScrollView {
+                    if !isList {
+                        LazyVGrid(columns: gridLayout, alignment: .center) {
+                            ForEach(storeVM.filteredApps, id: \.bundleID) { app in
+                                StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                             selectedTextColor: $selectedTextColor,
+                                             selected: $selected,
+                                             app: app,
+                                             isList: isList)
+                                .environmentObject(DownloadVM.shared)
+                                .environmentObject(InstallVM.shared)
+                            }
+                        }
+                        .padding()
+                        Spacer()
+                    } else {
+                        VStack {
+                            ForEach(storeVM.filteredApps, id: \.bundleID) { app in
+                                StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                             selectedTextColor: $selectedTextColor,
+                                             selected: $selected,
+                                             app: app,
+                                             isList: isList)
+                                .environmentObject(DownloadVM.shared)
+                                .environmentObject(InstallVM.shared)
+                            }
+                            Spacer()
+                        }
+                        .padding()
+                    }
+                }
             }
         }
         .onTapGesture {

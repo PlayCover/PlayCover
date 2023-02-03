@@ -23,7 +23,7 @@ struct AppLibraryView: View {
 
     var body: some View {
         Group {
-            if !appsVM.apps.isEmpty {
+            if !appsVM.apps.isEmpty || appsVM.updatingApps {
                 ScrollView {
                     if !isList {
                         LazyVGrid(columns: gridLayout, alignment: .center) {
@@ -61,10 +61,10 @@ struct AppLibraryView: View {
                     Text("playapp.noSources.subtitle")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
-                    Button("Import IPA") {
+                    Button("playapp.importIPA") {
                         if installVM.inProgress {
                             Log.shared.error(PlayCoverError.waitInstallation)
-                        } else if downloadVM.status == .downloading {
+                        } else if downloadVM.inProgress {
                             Log.shared.error(PlayCoverError.waitDownload)
                         } else {
                             selectFile()
