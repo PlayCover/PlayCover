@@ -16,7 +16,7 @@ class AppsVM: ObservableObject {
 
     @Published var filteredApps: [PlayApp] = []
     @Published var apps: [PlayApp] = []
-
+    @Published var searchText: String = ""
     @Published var updatingApps = true
 
     func fetchApps() {
@@ -59,8 +59,8 @@ class AppsVM: ObservableObject {
         self.filteredApps.removeAll()
         var filteredApps = newApps
 
-        if !uif.searchText.isEmpty {
-            filteredApps = newApps.filter({ $0.searchText.contains(uif.searchText.lowercased()) })
+        if !searchText.isEmpty {
+            filteredApps = newApps.filter({ $0.searchText.contains(searchText.lowercased()) })
         }
 
         self.filteredApps.append(contentsOf: filteredApps)

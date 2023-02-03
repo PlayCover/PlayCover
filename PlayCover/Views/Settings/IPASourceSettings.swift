@@ -213,8 +213,8 @@ struct AddSourceView: View {
                     Text("button.Cancel")
                 })
                 Button(action: {
-                    if newSourceURL != nil {
-                        storeVM.appendSourceData(SourceData(source: newSourceURL!.absoluteString))
+                    if let sourceURL = newSourceURL {
+                        storeVM.appendSourceData(SourceData(source: sourceURL.absoluteString))
                         addSourceSheet.toggle()
                     }
                 }, label: {
@@ -236,24 +236,27 @@ struct AddSourceView: View {
         sourceValidationState = .checking
         Task {
             if let url = URL(string: source) {
-                newSourceURL = url
-                if StoreVM.checkAvaliability(url: newSourceURL!) {
+                if StoreVM.checkAvaliability(url: url) {
                     do {
-                        if newSourceURL!.scheme == nil {
-                            newSourceURL = URL(string: "https://" + newSourceURL!.absoluteString)!
+                        if url.scheme == nil {
+                            if let correctedSchemeURL = URL(string: "https://" + url.absoluteString) {
+                                newSourceURL = correctedSchemeURL
+                            }
                         }
-                        let (jsonData, _) = try await URLSession.shared.data(for: URLRequest(url: newSourceURL!))
-                        do {
-                            let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self, from: jsonData)
-                            if data.count > 0 {
-                                sourceValidationState = storeVM.sources.filter({
-                                    $0.source == source
-                                }).isEmpty ? .valid : .duplicate
+                        if let sourceUrl = newSourceURL {
+                            let (jsonData, _) = try await URLSession.shared.data(for: URLRequest(url: sourceUrl))
+                            do {
+                                let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self, from: jsonData)
+                                if data.count > 0 {
+                                    sourceValidationState = storeVM.sources.filter({
+                                        $0.source == source
+                                    }).isEmpty ? .valid : .duplicate
+                                    return
+                                }
+                            } catch {
+                                sourceValidationState = .badjson
                                 return
                             }
-                        } catch {
-                            sourceValidationState = .badjson
-                            return
                         }
                     } catch {
                         sourceValidationState = .badurl

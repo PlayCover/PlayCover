@@ -123,7 +123,9 @@ struct AppLibraryView: View {
             UserDefaults.standard.set(value, forKey: "AppLibraryView")
         })
         .sheet(isPresented: $showSettings) {
-            AppSettingsView(viewModel: AppSettingsVM(app: selected!))
+            if let selected = selected {
+                AppSettingsView(viewModel: AppSettingsVM(app: selected))
+            }
         }
         .onAppear {
             showLegacyConvertAlert = LegacySettings.doesMonolithExist
@@ -143,8 +145,7 @@ struct AppLibraryView: View {
                                 if let urlData = urlData as? Data {
                                     let url = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
                                     if url.pathExtension == "ipa" {
-                                        uif.ipaUrl = url
-                                        installApp()
+                                        installApp(url)
                                     } else {
                                         showWrongfileTypeAlert = true
                                     }
@@ -180,8 +181,8 @@ struct AppLibraryView: View {
         })
     }
 
-    private func installApp() {
-        Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
+    private func installApp(_ url: URL) {
+        Installer.install(ipaUrl: url, export: false, returnCompletion: { _ in
             Task { @MainActor in
                 appsVM.fetchApps()
                 NotifyService.shared.notify(
@@ -194,8 +195,7 @@ struct AppLibraryView: View {
     private func selectFile() {
         NSOpenPanel.selectIPA { result in
             if case .success(let url) = result {
-                uif.ipaUrl = url
-                installApp()
+                installApp(url)
             }
         }
     }
