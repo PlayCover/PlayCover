@@ -20,9 +20,6 @@ struct KeyCover {
     }
 
     func listKeychains() -> [KeyCoverKey] {
-        if keyCoverPlainTextKey == nil {
-            return []
-        }
         // Enumerate all the keychains
         let keychains = try? FileManager.default
             .contentsOfDirectory(at: PlayTools.playCoverContainer.appendingPathComponent("PlayChain"),
@@ -30,16 +27,14 @@ struct KeyCover {
         var keychainList: [KeyCoverKey] = []
         for keychain in keychains ?? [] {
             let keychainName = keychain.lastPathComponent
-            let keychainPath = keychain.appendingPathComponent(keychainName)
-            if FileManager.default.fileExists(atPath: keychainPath.path) {
-                let keychain = KeyCoverKey(appBundleID: keychainName)
-                keychainList.append(keychain)
-            }
+                .replacingOccurrences(of: ".\(KeyCoverKey.encryptedKeyExtension)", with: "")
+            let keychain = KeyCoverKey(appBundleID: keychainName)
+            keychainList.append(keychain)
         }
         return keychainList
     }
 
-    func unlockedCount() -> Int  {
+    func unlockedCount() -> Int {
         var count = 0
         for keychain in listKeychains() where !keychain.chainEncryptionStatus {
             count += 1
@@ -106,21 +101,26 @@ struct KeyCoverKey {
             return
         }
         // zip up the key folder
+        // make sure to only compress the key folder, not the entire path to it
         let source = keyFolderPath.appendingPathComponent(appBundleID)
         let destination = keyFolderPath.appendingPathComponent("\(appBundleID).zip")
         let task = Process()
         task.launchPath = "/usr/bin/zip"
-        task.arguments = ["-r", destination.path, source.path]
+        task.currentDirectoryPath = keyFolderPath.path
+        task.arguments = ["-r", destination.path, source.lastPathComponent]
         task.launch()
+        task.waitUntilExit()
 
         // encrypt the zip file
         let task2 = Process()
         task2.launchPath = "/usr/bin/openssl"
+        task2.currentDirectoryPath = keyFolderPath.path
         task2.arguments = ["enc", "-aes-256-cbc", "-A",
-                           "-in", destination.path,
-                           "-out", encryptedKeyFile.path,
-                           "-k", KeyCover.shared.keyCoverPlainTextKey!]
+                            "-in", destination.path,
+                            "-out", encryptedKeyFile.path,
+                            "-k", KeyCover.shared.keyCoverPlainTextKey!]
         task2.launch()
+        task2.waitUntilExit()
 
         // delete the zip file
         try? FileManager.default.removeItem(at: destination)
@@ -130,6 +130,9 @@ struct KeyCoverKey {
     }
 
     func decryptKeyFolder() throws {
+        if KeyCover.shared.keyCoverPlainTextKey == nil {
+            return
+        }
         // decrypt the zip file
         let task = Process()
         task.launchPath = "/usr/bin/openssl"
@@ -137,15 +140,21 @@ struct KeyCoverKey {
                           keyFolderPath.appendingPathComponent("\(appBundleID).zip").path,
                           "-k", KeyCover.shared.keyCoverPlainTextKey!]
         task.launch()
+        task.waitUntilExit()
 
         // unzip the zip file
         let task2 = Process()
         task2.launchPath = "/usr/bin/unzip"
+        task2.currentDirectoryPath = keyFolderPath.path
         task2.arguments = [keyFolderPath.appendingPathComponent("\(appBundleID).zip").path, "-d", keyFolderPath.path]
         task2.launch()
+        task2.waitUntilExit()
 
         // delete the zip file
         try? FileManager.default.removeItem(at: keyFolderPath.appendingPathComponent("\(appBundleID).zip"))
+
+        // delete the encrypted key file
+        try? FileManager.default.removeItem(at: encryptedKeyFile)
     }
 
     func deleteKeyFolder() throws {
@@ -176,16 +185,25 @@ class KeyCoverMaster {
         // first check if there is a master key file
         let masterKeyFile = PlayTools.playCoverContainer.appendingPathComponent("ChainMaster.key")
         let keyExists = FileManager.default.fileExists(atPath: masterKeyFile.path)
-        // if the key file does exist, keys will automatically be re-encrypted by updateMasterKey()
-        // so just set new key and move on
+        // if the key file does exist, decrypt everything first
         if keyExists {
-            let hashedKey = hashKey(key)
-            try? hashedKey.write(to: masterKeyFile, atomically: true, encoding: .utf8)
-            return
+            let keyFolder = PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
+            let enumerator = FileManager.default.enumerator(at: keyFolder, includingPropertiesForKeys: nil,
+                                                            options: [.skipsHiddenFiles,
+                                                                      .skipsPackageDescendants,
+                                                                      .skipsSubdirectoryDescendants],
+                                                            errorHandler: nil)
+
+            // decrypt each key folder
+            while let file = enumerator?.nextObject() as? URL {
+                if file.pathExtension == KeyCoverKey.encryptedKeyExtension {
+                    let keyCover = KeyCoverKey(appBundleID: file.deletingPathExtension().lastPathComponent)
+                    try? keyCover.decryptKeyFolder()
+                }
+            }
         }
 
-        // if the key file does not exist, we need to perform an initial encryption round
-        // set the new master key
+        // write the new master key
         let hashedKey = hashKey(key)
         try? hashedKey.write(to: masterKeyFile, atomically: true, encoding: .utf8)
 
@@ -197,35 +215,7 @@ class KeyCoverMaster {
                                                                   .skipsSubdirectoryDescendants],
                                                         errorHandler: nil)
 
-        // encrypt each key folder
-        while let file = enumerator?.nextObject() as? URL {
-            if file.pathExtension == KeyCoverKey.encryptedKeyExtension {
-                let keyCover = KeyCoverKey(appBundleID: file.deletingPathExtension().lastPathComponent)
-                try? keyCover.encryptKeyFolder()
-            }
-        }
-    }
-
-    static func updateMasterKey(_ key: String) {
-        // enumerate the file in the key folder
-        let keyFolder = PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
-        let enumerator = FileManager.default.enumerator(at: keyFolder, includingPropertiesForKeys: nil,
-                                                        options: [.skipsHiddenFiles, .skipsPackageDescendants,
-                                                            .skipsSubdirectoryDescendants],
-                                                        errorHandler: nil)
-
-        // decrypt each key file
-        while let file = enumerator?.nextObject() as? URL {
-            if file.pathExtension == KeyCoverKey.encryptedKeyExtension {
-                let keyCover = KeyCoverKey(appBundleID: file.deletingPathExtension().lastPathComponent)
-                try? keyCover.decryptKeyFolder()
-            }
-        }
-
-        // set the new master key
-        setMasterKey(key)
-
-        // encrypt each key file
+        // encrypt each key folder with the new key
         while let file = enumerator?.nextObject() as? URL {
             if file.pathExtension == KeyCoverKey.encryptedKeyExtension {
                 let keyCover = KeyCoverKey(appBundleID: file.deletingPathExtension().lastPathComponent)

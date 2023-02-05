@@ -127,7 +127,7 @@ struct KeyCoverUpdatePasswordView: View {
                     }
                     DispatchQueue.global(qos: .userInitiated).async {
                         isWorking = true
-                        KeyCoverMaster.updateMasterKey(masterKey)
+                        KeyCoverMaster.setMasterKey(masterKey)
                         isWorking = false
                         isPresented = false
                     }

@@ -36,14 +36,14 @@ class PlayApp: BaseApp {
             if hasPlayTools() {
                 try PlayTools.installPluginInIPA(url)
             }
-            
+
             if KeyCover.shared.isKeyCoverEnabled() {
                 // Check if the app have any keychains
                 let keychain = KeyCover.shared.listKeychains()
                     .first(where: { $0.appBundleID == self.info.bundleIdentifier })
                 // Check the status of that keychain
-                if let keychain = keychain, !keychain.chainEncryptionStatus {
-                    // If the keychain is not encrypted, decrypt it
+                if let keychain = keychain, keychain.chainEncryptionStatus {
+                    // If the keychain is encrypted, unlock it
                     try KeyCover.shared.unlockChain(keychain)
                 }
             }
@@ -83,7 +83,6 @@ class PlayApp: BaseApp {
                 if self.settings.settings.disableTimeout {
                     // Yeet into a thread
                     Task {
-                        debugPrint("Disabling timeout...")
                         let reason = "PlayCover: " + self.name + " disabled screen timeout" as CFString
                         var assertionID: IOPMAssertionID = 0
                         var success = IOPMAssertionCreateWithName(
@@ -99,7 +98,6 @@ class PlayApp: BaseApp {
                                     !isFinish else { break }
                             }
                             success = IOPMAssertionRelease(assertionID)
-                            debugPrint("Enabling timeout...")
                         }
                     }
                 }
@@ -111,14 +109,14 @@ class PlayApp: BaseApp {
                             guard
                                 let isFinish = runningApp?.isTerminated,
                                 !isFinish else { break }
-                            if KeyCover.shared.isKeyCoverEnabled() {
-                                // Check if the app have any keychains
-                                let keychain = KeyCover.shared.listKeychains()
-                                    .first(where: { $0.appBundleID == self.info.bundleIdentifier })
-                                // Lock the chain if it exists after the app quits
-                                if let keychain = keychain {
-                                    try KeyCover.shared.lockChain(keychain)
-                                }
+                        }
+                        if KeyCover.shared.isKeyCoverEnabled() {
+                            // Check if the app have any keychains
+                            let keychain = KeyCover.shared.listKeychains()
+                                .first(where: { $0.appBundleID == self.info.bundleIdentifier })
+                            // Lock the chain if it exists after the app quits
+                            if let keychain = keychain {
+                                try KeyCover.shared.lockChain(keychain)
                             }
                         }
                     }

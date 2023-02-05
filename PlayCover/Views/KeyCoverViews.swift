@@ -13,17 +13,26 @@ struct KeyCoverUnlockingPrompt: View {
     @State private var passwordError = false
 
     var body: some View {
-        VStack {
-            Text("Enter your master password to unlock KeyCover")
-                .padding()
-            SecureField("Master Password", text: $password)
-                .padding()
-            if passwordError {
-                Text("Incorrect password")
-                    .foregroundColor(.red)
+        VStack(alignment: .leading) {
+            HStack {
+                Image(systemName: "lock")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 20, height: 20)
+                Text("Enter your master password to unlock KeyCover")
                     .padding()
             }
+            .padding()
+                SecureField("Master Password", text: $password)
+                    .padding()
+                if passwordError {
+                    Text("Incorrect password")
+                        .foregroundColor(.red)
+                        .padding()
+            }
+            Divider()
             HStack {
+                Spacer()
                 Button("Cancel") {
                     window.close()
                 }
@@ -43,7 +52,7 @@ struct KeyCoverUnlockingPrompt: View {
     }
 
     static func openWindow() -> NSWindow {
-        let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 300, height: 200),
+        let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 200, height: 100),
                               styleMask: [.titled, .closable, .miniaturizable, .resizable],
                               backing: .buffered, defer: false)
         window.center()
