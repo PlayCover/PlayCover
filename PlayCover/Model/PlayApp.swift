@@ -14,6 +14,8 @@ class PlayApp: BaseApp {
         info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
     }
 
+    var displaySleepAssertionID: IOPMAssertionID?
+
     func launch() {
         do {
             if prohibitedToPlay {
@@ -32,20 +34,11 @@ class PlayApp: BaseApp {
                 sign()
             }
 
+            self.unlockKeyCover()
+
             // If the app does not have PlayTools, do not install PlugIns
             if hasPlayTools() {
                 try PlayTools.installPluginInIPA(url)
-            }
-
-            if KeyCover.shared.isKeyCoverEnabled() {
-                // Check if the app have any keychains
-                let keychain = KeyCover.shared.listKeychains()
-                    .first(where: { $0.appBundleID == self.info.bundleIdentifier })
-                // Check the status of that keychain
-                if let keychain = keychain, keychain.chainEncryptionStatus {
-                    // If the keychain is encrypted, unlock it
-                    try KeyCover.shared.unlockChain(keychain)
-                }
             }
 
             if try !PlayTools.isInstalled() {
@@ -80,48 +73,75 @@ class PlayApp: BaseApp {
             configuration: config,
             completionHandler: { runningApp, error in
                 guard error == nil else { return }
-                if self.settings.settings.disableTimeout {
-                    // Yeet into a thread
-                    Task {
-                        let reason = "PlayCover: " + self.name + " disabled screen timeout" as CFString
-                        var assertionID: IOPMAssertionID = 0
-                        var success = IOPMAssertionCreateWithName(
-                            kIOPMAssertionTypeNoDisplaySleep as CFString,
-                            IOPMAssertionLevel(kIOPMAssertionLevelOn),
-                            reason,
-                            &assertionID)
-                        if success == kIOReturnSuccess {
-                            while true { // Run a loop until the app closes
-                                try await Task.sleep(nanoseconds: 10000000000) // Sleep for 10 seconds
-                                guard
-                                    let isFinish = runningApp?.isTerminated,
-                                    !isFinish else { break }
-                            }
-                            success = IOPMAssertionRelease(assertionID)
+                // Run a thread loop in the background to handle background tasks
+                DispatchQueue.global(qos: .background).async {
+                    while !(runningApp?.isTerminated ?? true) {
+                        // Check if the app is in the foreground
+                        if runningApp!.isActive {
+                            // If the app is in the foreground, disable the display sleep
+                            self.disableTimeOut()
+                        } else {
+                            // If the app is not in the foreground, enable the display sleep
+                            self.enableTimeOut()
                         }
+                        sleep(1)
                     }
-                }
-                if KeyCoverSettings.shared.keyCoverPreferences.keyCoverSmartLock {
-                    Task {
-                        while true {
-                            try await Task.sleep(nanoseconds: UInt64(KeyCoverSettings.shared
-                                .keyCoverPreferences.keyCoverSmartLockTimeout * 1000000000))
-                            guard
-                                let isFinish = runningApp?.isTerminated,
-                                !isFinish else { break }
-                        }
-                        if KeyCover.shared.isKeyCoverEnabled() {
-                            // Check if the app have any keychains
-                            let keychain = KeyCover.shared.listKeychains()
-                                .first(where: { $0.appBundleID == self.info.bundleIdentifier })
-                            // Lock the chain if it exists after the app quits
-                            if let keychain = keychain {
-                                try KeyCover.shared.lockChain(keychain)
-                            }
-                        }
-                    }
+                    // Things that are ran after the app is closed
+                    self.lockKeyCover()
                 }
             })
+    }
+
+    func disableTimeOut() {
+        if displaySleepAssertionID != nil {
+            return
+        }
+        // Disable display sleep
+        let reason = "PlayCover: \(info.bundleIdentifier) is disabling sleep" as CFString
+        var assertionID: IOPMAssertionID = 0
+        let result = IOPMAssertionCreateWithName(
+            kIOPMAssertionTypeNoDisplaySleep as CFString,
+            IOPMAssertionLevel(kIOPMAssertionLevelOn),
+            reason,
+            &assertionID)
+        if result == kIOReturnSuccess {
+            displaySleepAssertionID = assertionID
+        }
+    }
+
+    func enableTimeOut() {
+        // Enable display sleep
+        if let assertionID = displaySleepAssertionID {
+            IOPMAssertionRelease(assertionID)
+            displaySleepAssertionID = nil
+        }
+    }
+
+    func unlockKeyCover() {
+        if KeyCover.shared.isKeyCoverEnabled() {
+            // Check if the app have any keychains
+            let keychain = KeyCover.shared.listKeychains()
+                .first(where: { $0.appBundleID == self.info.bundleIdentifier })
+            // Check the status of that keychain
+            if let keychain = keychain, keychain.chainEncryptionStatus {
+                // If the keychain is encrypted, unlock it
+                try? KeyCover.shared.unlockChain(keychain)
+            }
+        }
+    }
+
+    func lockKeyCover() {
+        sleep(UInt32(KeyCoverPreferences.shared.keyCoverSmartLockTimeout))
+        if KeyCover.shared.isKeyCoverEnabled() {
+            // Check if the app have any keychains
+            let keychain = KeyCover.shared.listKeychains()
+                .first(where: { $0.appBundleID == self.info.bundleIdentifier })
+            // Check the status of that keychain
+            if let keychain = keychain, keychain.chainEncryptionStatus {
+                // If the keychain is encrypted, lock it
+                try? KeyCover.shared.lockChain(keychain)
+            }
+        }
     }
 
     var name: String {
