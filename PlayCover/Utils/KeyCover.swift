@@ -7,6 +7,7 @@
 
 import Foundation
 import CryptoKit
+import SwiftUI
 
 struct KeyCover {
     static var shared = KeyCover()
@@ -44,9 +45,12 @@ struct KeyCover {
 
     func unlockChain(_ keychain: KeyCoverKey) throws {
         if keyCoverPlainTextKey == nil {
-            // Open the unlocking window and wait for the user to enter the password
-            // Then set the keyCoverPlainTextKey
-            _ = KeyCoverUnlockingPrompt.openWindow()
+            DispatchQueue.main.sync {
+                KeyCoverObservable.shared.isKeyCoverUnlockingPromptShown = true
+            }
+            while KeyCoverObservable.shared.isKeyCoverUnlockingPromptShown {
+                sleep(1)
+            }
         }
         if keychain.chainEncryptionStatus {
             try? keychain.decryptKeyFolder()
@@ -79,6 +83,22 @@ struct KeyCover {
             // Delete all the keychains
             try FileManager.default.removeItem(at: PlayTools.playCoverContainer.appendingPathComponent("PlayChain"))
         }
+    }
+}
+
+class KeyCoverObservable: ObservableObject {
+    static var shared = KeyCoverObservable()
+
+    @Published var keyCoverEnabled = KeyCover.shared.isKeyCoverEnabled()
+    @Published var unlockedCount = KeyCover.shared.unlockedCount()
+    @Published var keychains = KeyCover.shared.listKeychains()
+    
+    @Published var isKeyCoverUnlockingPromptShown = KeyCoverPreferences.shared.promptForMasterPasswordAtLaunch
+
+    func update() {
+        keyCoverEnabled = KeyCover.shared.isKeyCoverEnabled()
+        unlockedCount = KeyCover.shared.unlockedCount()
+        keychains = KeyCover.shared.listKeychains()
     }
 }
 
@@ -127,6 +147,10 @@ struct KeyCoverKey {
 
         // delete the key folder
         try? deleteKeyFolder()
+
+        DispatchQueue.main.async {
+            KeyCoverObservable.shared.update()
+        }
     }
 
     func decryptKeyFolder() throws {
@@ -146,7 +170,8 @@ struct KeyCoverKey {
         let task2 = Process()
         task2.launchPath = "/usr/bin/unzip"
         task2.currentDirectoryPath = keyFolderPath.path
-        task2.arguments = [keyFolderPath.appendingPathComponent("\(appBundleID).zip").path, "-d", keyFolderPath.path]
+        task2.arguments = ["-o", keyFolderPath.appendingPathComponent("\(appBundleID).zip").path,
+                           "-d", keyFolderPath.path]
         task2.launch()
         task2.waitUntilExit()
 
@@ -155,6 +180,10 @@ struct KeyCoverKey {
 
         // delete the encrypted key file
         try? FileManager.default.removeItem(at: encryptedKeyFile)
+
+        DispatchQueue.main.async {
+            KeyCoverObservable.shared.update()
+        }
     }
 
     func deleteKeyFolder() throws {
@@ -214,13 +243,18 @@ class KeyCoverMaster {
                                                                   .skipsPackageDescendants,
                                                                   .skipsSubdirectoryDescendants],
                                                         errorHandler: nil)
-
+        KeyCover.shared.keyCoverPlainTextKey = key
         // encrypt each key folder with the new key
+        var isDir = ObjCBool(true)
         while let file = enumerator?.nextObject() as? URL {
-            if file.pathExtension == KeyCoverKey.encryptedKeyExtension {
-                let keyCover = KeyCoverKey(appBundleID: file.deletingPathExtension().lastPathComponent)
+            if FileManager.default.fileExists(atPath: file.path, isDirectory: &isDir) && isDir.boolValue {
+                let keyCover = KeyCoverKey(appBundleID: file.lastPathComponent)
                 try? keyCover.encryptKeyFolder()
             }
+        }
+
+        DispatchQueue.main.async {
+            KeyCoverObservable.shared.update()
         }
     }
 
@@ -242,5 +276,9 @@ class KeyCoverMaster {
         // Delete the Master Key
         let masterKeyFile = PlayTools.playCoverContainer.appendingPathComponent("ChainMaster.key")
         try? FileManager.default.removeItem(at: masterKeyFile)
+        KeyCover.shared.keyCoverPlainTextKey = nil
+        DispatchQueue.main.async {
+            KeyCoverObservable.shared.update()
+        }
     }
 }

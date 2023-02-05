@@ -33,11 +33,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if ProcessInfo.processInfo.isLowPowerModeEnabled {
             powerModal()
         }
-        if KeyCover.shared.isKeyCoverEnabled() {
-            if KeyCoverSettings.shared.keyCoverPreferences.promptForMasterPasswordAtLaunch {
-                _ = KeyCoverUnlockingPrompt.openWindow()
-            }
-        }
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {

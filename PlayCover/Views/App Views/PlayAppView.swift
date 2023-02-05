@@ -37,7 +37,10 @@ struct PlayAppView: View {
                 if app.info.bundleIdentifier == "com.miHoYo.GenshinImpact" {
                     removeTwitterSessionCookie()
                 }
-                app.launch()
+                // Launch the app from a separate thread (allow us to Sayori it if needed)
+                DispatchQueue.global(qos: .background).async {
+                    app.launch()
+                }
             })
             .simultaneousGesture(TapGesture().onEnded {
                 selected = app

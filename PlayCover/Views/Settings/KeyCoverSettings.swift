@@ -12,7 +12,6 @@ class KeyCoverPreferences: NSObject, ObservableObject {
 
     @AppStorage("promptForMasterPasswordAtLaunch") var promptForMasterPasswordAtLaunch = true
     @AppStorage("keyCoverSmartLock") var keyCoverSmartLock = true
-    @AppStorage("keyCoverSmartLockTimeout") var keyCoverSmartLockTimeout = 5
     @AppStorage("keyCoverSmartUnlock") var keyCoverSmartUnlock = true
 }
 
@@ -24,39 +23,40 @@ struct KeyCoverSettings: View {
     @State private var keyCoverRemovalViewShown = false
 
     @ObservedObject var keyCoverPreferences = KeyCoverPreferences.shared
+    @ObservedObject var keyCoverObserved = KeyCoverObservable.shared
 
     var body: some View {
         VStack {
             HStack {
                 HStack {
                     Text("KeyCover Status:")
-                    Text(KeyCover.shared.isKeyCoverEnabled() ? "Enabled" : "Disabled")
-                        .foregroundColor(KeyCover.shared.isKeyCoverEnabled() ? .green : .none)
+                    Text(keyCoverObserved.keyCoverEnabled ? "Enabled" : "Disabled")
+                        .foregroundColor(keyCoverObserved.keyCoverEnabled ? .green : .none)
                     Spacer()
                 }
                 Spacer()
-                Button(KeyCover.shared.isKeyCoverEnabled() ? "Reset" : "Enable") {
-                    if KeyCover.shared.isKeyCoverEnabled() {
+                Button(keyCoverObserved.keyCoverEnabled ? "Reset" : "Enable") {
+                    if keyCoverObserved.keyCoverEnabled {
                         keyCoverRemovalViewShown = true
                     } else {
                         keyCoverInitialSetupShown = true
                     }
                 }
-                .foregroundColor(KeyCover.shared.isKeyCoverEnabled() ? .red : .none)
+                .foregroundColor(keyCoverObserved.keyCoverEnabled ? .red : .none)
             }
             .padding()
             Spacer()
             HStack {
                 VStack(alignment: .leading) {
                     Text("KeyCover Chain Status:")
-                    Text("\(KeyCover.shared.unlockedCount()) "
-                         + "unlocked chains in \(KeyCover.shared.listKeychains().count) chains total")
+                    Text("\(keyCoverObserved.unlockedCount) "
+                         + "unlocked chains in \(keyCoverObserved.keychains.count) chains total")
                 }
                 Spacer()
                 Button("Lock All Chains Now") {
                     KeyCover.shared.lockAllChainsAsync()
                 }
-                .disabled(!KeyCover.shared.isKeyCoverEnabled())
+                .disabled(!keyCoverObserved.keyCoverEnabled)
             }
             .padding()
             HStack {
@@ -64,22 +64,21 @@ struct KeyCoverSettings: View {
                 Button("Change Master Password") {
                     keyCoverUpdatePasswordShown = true
                 }
-                .disabled(!KeyCover.shared.isKeyCoverEnabled())
+                .disabled(!keyCoverObserved.keyCoverEnabled)
                 Spacer()
             }
             .padding()
             VStack(alignment: .leading) {
                 Toggle("Prompt for KeyCover at startup", isOn: $keyCoverPreferences.promptForMasterPasswordAtLaunch)
-                    .help("KeyCover will prompt for your master password when you launch the application")
-                HStack {
-                    Toggle("KeyCover Smart Lock", isOn: $keyCoverPreferences.keyCoverSmartLock)
-                    .help("KeyCover will automatically lock your keychains when you quit the associated application")
-                    Spacer()
-                    Stepper("Timeout: \(keyCoverPreferences.keyCoverSmartLockTimeout) seconds",
-                            value: $keyCoverPreferences.keyCoverSmartLockTimeout, in: 1...60)
-                }
+                    .help("""
+                            KeyCover will prompt for your master password when you launch the application.
+                            If this is disabled, it will be prompted when you launch an app that uses PlayChain.
+                            """)
+                Toggle("KeyCover Smart Lock", isOn: $keyCoverPreferences.keyCoverSmartLock)
+                .help("KeyCover will automatically lock your keychains when you quit the associated application")
                 Toggle("KeyCover Smart Unlock", isOn: $keyCoverPreferences.keyCoverSmartUnlock)
                 .help("KeyCover will automatically unlock your keychains when the associated application is launched")
+                Spacer()
             }
             .padding()
         }

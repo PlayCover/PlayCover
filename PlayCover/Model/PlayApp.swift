@@ -15,6 +15,7 @@ class PlayApp: BaseApp {
     }
 
     var displaySleepAssertionID: IOPMAssertionID?
+    var sessionDisableKeychain: Bool = false
 
     func launch() {
         do {
@@ -34,7 +35,8 @@ class PlayApp: BaseApp {
                 sign()
             }
 
-            self.unlockKeyCover()
+            // call unlockKeyCover() and WAIT for it to finish
+            unlockKeyCover()
 
             // If the app does not have PlayTools, do not install PlugIns
             if hasPlayTools() {
@@ -126,18 +128,37 @@ class PlayApp: BaseApp {
             if let keychain = keychain, keychain.chainEncryptionStatus {
                 // If the keychain is encrypted, unlock it
                 try? KeyCover.shared.unlockChain(keychain)
+
+                if KeyCover.shared.keyCoverPlainTextKey == nil {
+                    // Pop an alert telling the user that keychain was not unlocked
+                    // and keychain is disabled for the session
+                    DispatchQueue.main.async {
+                        let alert = NSAlert()
+                        alert.messageText = "Keychain was not unlocked"
+                        alert.informativeText = "Keychain is disabled for the session"
+                        alert.alertStyle = .warning
+                        alert.addButton(withTitle: "OK")
+                        alert.runModal()
+                    }
+                    settings.settings.playChain = false
+                    sessionDisableKeychain = true
+                }
+
             }
         }
     }
 
     func lockKeyCover() {
-        sleep(UInt32(KeyCoverPreferences.shared.keyCoverSmartLockTimeout))
         if KeyCover.shared.isKeyCoverEnabled() {
+            if sessionDisableKeychain {
+                settings.settings.playChain = true
+                return
+            }
             // Check if the app have any keychains
             let keychain = KeyCover.shared.listKeychains()
                 .first(where: { $0.appBundleID == self.info.bundleIdentifier })
             // Check the status of that keychain
-            if let keychain = keychain, keychain.chainEncryptionStatus {
+            if let keychain = keychain, !keychain.chainEncryptionStatus {
                 // If the keychain is encrypted, lock it
                 try? KeyCover.shared.lockChain(keychain)
             }
