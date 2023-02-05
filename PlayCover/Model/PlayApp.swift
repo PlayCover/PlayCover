@@ -152,6 +152,7 @@ class PlayApp: BaseApp {
         if KeyCover.shared.isKeyCoverEnabled() {
             if sessionDisableKeychain {
                 settings.settings.playChain = true
+                sessionDisableKeychain = false
                 return
             }
             // Check if the app have any keychains

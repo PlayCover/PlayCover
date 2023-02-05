@@ -92,7 +92,7 @@ class KeyCoverObservable: ObservableObject {
     @Published var keyCoverEnabled = KeyCover.shared.isKeyCoverEnabled()
     @Published var unlockedCount = KeyCover.shared.unlockedCount()
     @Published var keychains = KeyCover.shared.listKeychains()
-    
+
     @Published var isKeyCoverUnlockingPromptShown = KeyCoverPreferences.shared.promptForMasterPasswordAtLaunch
 
     func update() {
