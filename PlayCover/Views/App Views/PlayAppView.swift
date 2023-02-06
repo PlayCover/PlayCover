@@ -33,6 +33,8 @@ struct PlayAppView: View {
                                app: app,
                                isList: isList)
             .gesture(TapGesture(count: 2).onEnded {
+                var settingsData = AppSettingsData()
+                settingsData.macOSVersion = "\(ProcessInfo().operatingSystemVersion.majorVersion).\(ProcessInfo().operatingSystemVersion.minorVersion)"
                 if app.info.bundleIdentifier == "com.miHoYo.GenshinImpact" {
                     removeTwitterSessionCookie()
                 }

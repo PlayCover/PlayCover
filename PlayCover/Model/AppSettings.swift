@@ -25,6 +25,7 @@ struct AppSettingsData: Codable {
     var playChain = false
     var playChainDebugging = false
     var inverseScreenValues = false
+    var macOSVersion: String = "\(ProcessInfo().operatingSystemVersion.majorVersion).\(ProcessInfo().operatingSystemVersion.minorVersion)"
 
     init() {}
 
@@ -48,6 +49,7 @@ struct AppSettingsData: Codable {
         playChain = try container.decodeIfPresent(Bool.self, forKey: .playChain) ?? false
         playChainDebugging = try container.decodeIfPresent(Bool.self, forKey: .playChainDebugging) ?? false
         inverseScreenValues = try container.decodeIfPresent(Bool.self, forKey: .inverseScreenValues) ?? false
+        macOSVersion = try container.decodeIfPresent(String.self, forKey: .macOSVersion) ?? "\(ProcessInfo().operatingSystemVersion.majorVersion).\(ProcessInfo().operatingSystemVersion.minorVersion)"
     }
 }
 
