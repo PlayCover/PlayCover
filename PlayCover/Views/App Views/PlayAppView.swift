@@ -38,8 +38,8 @@ struct PlayAppView: View {
                     removeTwitterSessionCookie()
                 }
                 // Launch the app from a separate thread (allow us to Sayori it if needed)
-                DispatchQueue.global(qos: .background).async {
-                    app.launch()
+                Task(priority: .userInitiated) {
+                    await app.launch()
                 }
             })
             .simultaneousGesture(TapGesture().onEnded {

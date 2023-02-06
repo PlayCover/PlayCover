@@ -43,11 +43,12 @@ struct KeyCover {
         return count
     }
 
-    func unlockChain(_ keychain: KeyCoverKey) throws {
+    func unlockChain(_ keychain: KeyCoverKey) async throws {
         if keyCoverPlainTextKey == nil {
-            DispatchQueue.main.sync {
+            let task = Task {@MainActor in
                 KeyCoverObservable.shared.isKeyCoverUnlockingPromptShown = true
             }
+            await task.value
             while KeyCoverObservable.shared.isKeyCoverUnlockingPromptShown {
                 sleep(1)
             }

@@ -17,7 +17,7 @@ class PlayApp: BaseApp {
     var displaySleepAssertionID: IOPMAssertionID?
     var sessionDisableKeychain: Bool = false
 
-    func launch() {
+    func launch() async {
         do {
             if prohibitedToPlay {
                 clearAllCache()
@@ -36,7 +36,7 @@ class PlayApp: BaseApp {
             }
 
             // call unlockKeyCover() and WAIT for it to finish
-            unlockKeyCover()
+            await unlockKeyCover()
 
             // If the app does not have PlayTools, do not install PlugIns
             if hasPlayTools() {
@@ -119,7 +119,7 @@ class PlayApp: BaseApp {
         }
     }
 
-    func unlockKeyCover() {
+    func unlockKeyCover() async {
         if KeyCover.shared.isKeyCoverEnabled() {
             // Check if the app have any keychains
             let keychain = KeyCover.shared.listKeychains()
@@ -127,7 +127,7 @@ class PlayApp: BaseApp {
             // Check the status of that keychain
             if let keychain = keychain, keychain.chainEncryptionStatus {
                 // If the keychain is encrypted, unlock it
-                try? KeyCover.shared.unlockChain(keychain)
+                try? await KeyCover.shared.unlockChain(keychain)
 
                 if KeyCover.shared.keyCoverPlainTextKey == nil {
                     // Pop an alert telling the user that keychain was not unlocked
