@@ -45,6 +45,7 @@ struct KeyCoverInitialSetupView: View {
                 Button("Cancel") {
                     isPresented = false
                 }
+                .keyboardShortcut(.cancelAction)
                 Button("Continue") {
                     if masterKey == "" {
                         masterKeyError = true
@@ -54,13 +55,14 @@ struct KeyCoverInitialSetupView: View {
                         masterKeyConfirmError = true
                         return
                     }
-                    DispatchQueue.global(qos: .userInitiated).async {
+                    Task(priority: .userInitiated) {
                         isEncrypting = true
                         KeyCoverMaster.setMasterKey(masterKey)
                         isEncrypting = false
                         isPresented = false
                     }
                 }
+                .keyboardShortcut(.defaultAction)
             }
         }
         .disabled(isEncrypting)
@@ -112,6 +114,7 @@ struct KeyCoverUpdatePasswordView: View {
                 Button("Cancel") {
                     isPresented = false
                 }
+                .keyboardShortcut(.cancelAction)
                 Button("Continue") {
                     if !KeyCoverMaster.validateMasterKey(oldMasterKey) {
                         oldMasterKeyError = true
@@ -125,13 +128,14 @@ struct KeyCoverUpdatePasswordView: View {
                         masterKeyConfirmError = true
                         return
                     }
-                    DispatchQueue.global(qos: .userInitiated).async {
+                    Task(priority: .userInitiated) {
                         isWorking = true
                         KeyCoverMaster.setMasterKey(masterKey)
                         isWorking = false
                         isPresented = false
                     }
                 }
+                .keyboardShortcut(.defaultAction)
             }
         }
         .disabled(isWorking)
@@ -167,18 +171,20 @@ struct KeyCoverRemovalView: View {
                 Button("Cancel") {
                     isPresented = false
                 }
+                .keyboardShortcut(.cancelAction)
                 Button("Continue") {
                     if !KeyCoverMaster.validateMasterKey(masterKey) {
                         masterKeyError = true
                         return
                     }
-                    DispatchQueue.global(qos: .userInitiated).async {
+                    Task(priority: .userInitiated) {
                         isWorking = true
                         KeyCoverMaster.removeMasterKey()
                         isWorking = false
                         isPresented = false
                     }
                 }
+                .keyboardShortcut(.defaultAction)
             }
         }
         .disabled(isWorking)

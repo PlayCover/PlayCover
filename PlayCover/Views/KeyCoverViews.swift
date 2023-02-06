@@ -35,18 +35,24 @@ struct KeyCoverUnlockingPrompt: View {
                 Button("Cancel") {
                     KeyCoverObservable.shared.isKeyCoverUnlockingPromptShown = false
                 }
+                .keyboardShortcut(.cancelAction)
                 Button("Unlock") {
-                    if KeyCoverMaster.validateMasterKey(password) {
-                        // if Smart Unlock is enabled, store the masterKey
-                        KeyCover.shared.keyCoverPlainTextKey = password
-                    } else {
-                        passwordError = true
-                        return
-                    }
-                    KeyCoverObservable.shared.isKeyCoverUnlockingPromptShown = false
+                    unlock()
                 }
+                .keyboardShortcut(.defaultAction)
             }
             .padding()
         }
+    }
+
+    func unlock() {
+        if KeyCoverMaster.validateMasterKey(password) {
+            // if Smart Unlock is enabled, store the masterKey
+            KeyCover.shared.keyCoverPlainTextKey = password
+        } else {
+            passwordError = true
+            return
+        }
+        KeyCoverObservable.shared.isKeyCoverUnlockingPromptShown = false
     }
 }

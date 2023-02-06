@@ -76,7 +76,7 @@ class PlayApp: BaseApp {
             completionHandler: { runningApp, error in
                 guard error == nil else { return }
                 // Run a thread loop in the background to handle background tasks
-                DispatchQueue.global(qos: .background).async {
+                Task(priority: .background) {
                     while !(runningApp?.isTerminated ?? true) {
                         // Check if the app is in the foreground
                         if runningApp!.isActive {
@@ -132,7 +132,7 @@ class PlayApp: BaseApp {
                 if KeyCover.shared.keyCoverPlainTextKey == nil {
                     // Pop an alert telling the user that keychain was not unlocked
                     // and keychain is disabled for the session
-                    DispatchQueue.main.async {
+                    Task { @MainActor in
                         let alert = NSAlert()
                         alert.messageText = "Keychain was not unlocked"
                         alert.informativeText = "Keychain is disabled for the session"

@@ -67,7 +67,7 @@ struct KeyCover {
     }
 
     func lockAllChainsAsync() {
-        DispatchQueue.global(qos: .background).async {
+        Task {
             for keychain in KeyCover.shared.listKeychains() where !keychain.chainEncryptionStatus {
                 try? keychain.encryptKeyFolder()
             }
@@ -148,7 +148,7 @@ struct KeyCoverKey {
         // delete the key folder
         try? deleteKeyFolder()
 
-        DispatchQueue.main.async {
+        Task { @MainActor in
             KeyCoverObservable.shared.update()
         }
     }
@@ -181,7 +181,7 @@ struct KeyCoverKey {
         // delete the encrypted key file
         try? FileManager.default.removeItem(at: encryptedKeyFile)
 
-        DispatchQueue.main.async {
+        Task { @MainActor in
             KeyCoverObservable.shared.update()
         }
     }
@@ -253,7 +253,7 @@ class KeyCoverMaster {
             }
         }
 
-        DispatchQueue.main.async {
+        Task { @MainActor in
             KeyCoverObservable.shared.update()
         }
     }
@@ -277,7 +277,7 @@ class KeyCoverMaster {
         let masterKeyFile = PlayTools.playCoverContainer.appendingPathComponent("ChainMaster.key")
         try? FileManager.default.removeItem(at: masterKeyFile)
         KeyCover.shared.keyCoverPlainTextKey = nil
-        DispatchQueue.main.async {
+        Task { @MainActor in
             KeyCoverObservable.shared.update()
         }
     }
