@@ -18,19 +18,14 @@ struct KeyCoverInitialSetupView: View {
     @State private var masterKeyError = false
     @State private var masterKeyConfirmError = false
 
-    enum KeyOptions {
-        case selfGeneratedPassword
-        case userProvidedPassword
-    }
-
-    @State private var keyOption = KeyOptions.userProvidedPassword
+    @State private var keyOption = KeyCoverStatus.disabled
 
     var body: some View {
-        Picker("Encryption Key: ", selection: $keyOption) {
-            Text("Managed Automatically")
-                .tag(KeyOptions.selfGeneratedPassword)
-            Text("Use my own key")
-                .tag(KeyOptions.userProvidedPassword)
+        Picker("keycover.setup.encryptionKey", selection: $keyOption) {
+            Text("keycover.setup.useGeneratedKey")
+                .tag(KeyCoverStatus.selfGeneratedPassword)
+            Text("keycover.setup.useUserKey")
+                .tag(KeyCoverStatus.userProvidedPassword)
         }
         .pickerStyle(RadioGroupPickerStyle())
         .padding()
@@ -42,24 +37,24 @@ struct KeyCoverInitialSetupView: View {
             case .userProvidedPassword:
                 masterKey = ""
                 masterKeyConfirm = ""
+            case .disabled:
+                break
             }
         }
 
         VStack {
             Group {
-                Text("Enter a master password to use for KeyCover")
+                Text("keycover.setupPrompt.title")
                     .bold()
-                SecureField("Master Password", text: $masterKey)
-                SecureField("Confirm Master Password", text: $masterKeyConfirm)
+                SecureField("keycover.masterPassword", text: $masterKey)
+                SecureField("keycover.confirmMasterPassword", text: $masterKeyConfirm)
                 if masterKeyError {
-                    Text("Password cannot be blank")
+                    Text("keycover.error.blankPassword")
                         .foregroundColor(.red)
-                        .padding()
                 }
                 if masterKeyConfirmError {
-                    Text("Passwords do not match")
+                    Text("keycover.error.notMatch")
                         .foregroundColor(.red)
-                        .padding()
                 }
             }
             .disabled(keyOption != .userProvidedPassword)
@@ -72,11 +67,11 @@ struct KeyCoverInitialSetupView: View {
                         .progressViewStyle(.linear)
                 }
                 Spacer()
-                Button("Cancel") {
+                Button("button.Cancel") {
                     isPresented = false
                 }
                 .keyboardShortcut(.cancelAction)
-                Button("Continue") {
+                Button("button.OK") {
                     Task {
                         if masterKey == "" {
                             masterKeyError = true
@@ -93,6 +88,8 @@ struct KeyCoverInitialSetupView: View {
                                 KeyCoverPreferences.shared.keyCoverEnabled = .userProvidedPassword
                             case .selfGeneratedPassword:
                                 KeyCoverPreferences.shared.keyCoverEnabled = .selfGeneratedPassword
+                            case .disabled:
+                                break
                             }
                             KeyCoverMaster.shared.setMasterKey(masterKey)
                             isEncrypting = false
@@ -122,25 +119,20 @@ struct KeyCoverUpdatePasswordView: View {
     @State private var masterKeyError = false
     @State private var masterKeyConfirmError = false
 
-    enum KeyOptions {
-        case selfGeneratedPassword
-        case userProvidedPassword
-    }
-
-    @State private var keyOption = KeyOptions.userProvidedPassword
+    @State private var keyOption = KeyCoverStatus.userProvidedPassword
 
     var body: some View {
         VStack {
-            Text("Enter your old master password and a new one to update your KeyCover encryption key")
+            Text("keycover.changePasswordPrompt.title")
                 .bold()
-            SecureField("Old Master Password", text: $oldMasterKey)
+            SecureField("keycover.oldMasterPassword", text: $oldMasterKey)
             .disabled(KeyCoverPreferences.shared.keyCoverEnabled == .selfGeneratedPassword)
 
-            Picker("Encryption Key: ", selection: $keyOption) {
-                Text("Managed Automatically")
-                    .tag(KeyOptions.selfGeneratedPassword)
-                Text("User-Provided Password")
-                    .tag(KeyOptions.userProvidedPassword)
+            Picker("keycover.setup.encryptionKey", selection: $keyOption) {
+                Text("keycover.setup.useGeneratedKey")
+                    .tag(KeyCoverStatus.selfGeneratedPassword)
+                Text("keycover.setup.useUserKey")
+                    .tag(KeyCoverStatus.userProvidedPassword)
             }
             .pickerStyle(RadioGroupPickerStyle())
             .padding()
@@ -152,24 +144,26 @@ struct KeyCoverUpdatePasswordView: View {
                 case .userProvidedPassword:
                     masterKey = ""
                     masterKeyConfirm = ""
+                case .disabled:
+                    break
                 }
             }
 
             Group {
-                SecureField("New Master Password", text: $masterKey)
-                SecureField("Confirm New Master Password", text: $masterKeyConfirm)
+                SecureField("keycover.masterPassword", text: $masterKey)
+                SecureField("keycover.confirmMasterPassword", text: $masterKeyConfirm)
                 if oldMasterKeyError {
-                    Text("Incorrect password")
+                    Text("keycover.error.incorrectPassword")
                         .foregroundColor(.red)
                         .padding()
                 }
                 if masterKeyError {
-                    Text("Password is cannot be blank")
+                    Text("keycover.error.blankPassword")
                         .foregroundColor(.red)
                         .padding()
                 }
                 if masterKeyConfirmError {
-                    Text("Passwords do not match")
+                    Text("keycover.error.notMatch")
                         .foregroundColor(.red)
                         .padding()
                 }
@@ -183,11 +177,11 @@ struct KeyCoverUpdatePasswordView: View {
                         .progressViewStyle(.linear)
                 }
                 Spacer()
-                Button("Cancel") {
+                Button("button.Cancel") {
                     isPresented = false
                 }
                 .keyboardShortcut(.cancelAction)
-                Button("Continue") {
+                Button("button.OK") {
                     Task {
                         if !KeyCoverMaster.shared.validateMasterKey(oldMasterKey) {
                             oldMasterKeyError = true
@@ -207,6 +201,8 @@ struct KeyCoverUpdatePasswordView: View {
                                 KeyCoverPreferences.shared.keyCoverEnabled = .userProvidedPassword
                             case .selfGeneratedPassword:
                                 KeyCoverPreferences.shared.keyCoverEnabled = .selfGeneratedPassword
+                            case .disabled:
+                                break
                             }
                             isWorking = true
                             Task(priority: .userInitiated) {
@@ -234,21 +230,16 @@ struct KeyCoverRemovalView: View {
 
     @State private var masterKeyError = false
 
-    enum KeyOptions {
-        case selfGeneratedPassword
-        case userProvidedPassword
-    }
-
-    @State private var keyOption = KeyOptions.selfGeneratedPassword
+    @State private var keyOption = KeyCoverPreferences.shared.keyCoverEnabled
 
     var body: some View {
         VStack {
             Text("Enter your master password to remove KeyCover encryption")
                 .bold()
-            SecureField("Master Password", text: $masterKey)
-            .disabled(KeyCoverPreferences.shared.keyCoverEnabled == .selfGeneratedPassword)
+            SecureField("keycover.masterPassword", text: $masterKey)
+            .disabled(keyOption == .selfGeneratedPassword)
             if masterKeyError {
-                Text("Incorrect password")
+                Text("keycover.error.incorrectPassword")
                     .foregroundColor(.red)
                     .padding()
             }
@@ -260,11 +251,11 @@ struct KeyCoverRemovalView: View {
                         .progressViewStyle(.linear)
                 }
                 Spacer()
-                Button("Cancel") {
+                Button("button.Cancel") {
                     isPresented = false
                 }
                 .keyboardShortcut(.cancelAction)
-                Button("Continue") {
+                Button("button.OK") {
                     Task {
                         if !KeyCoverMaster.shared.validateMasterKey(masterKey) {
                             masterKeyError = true

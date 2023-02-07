@@ -18,25 +18,25 @@ struct KeyCoverUnlockingPrompt: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 20, height: 20)
-                Text("Enter your master password to unlock KeyCover")
+                Text("keycover.unlockPrompt.title")
                     .padding()
             }
             .padding()
-                SecureField("Master Password", text: $password)
+                SecureField("keycover.masterPassword", text: $password)
                     .padding()
                 if passwordError {
-                    Text("Incorrect password")
+                    Text("keycover.error.incorrectPassword")
                         .foregroundColor(.red)
                         .padding()
             }
             Divider()
             HStack {
                 Spacer()
-                Button("Cancel") {
+                Button("button.Cancel") {
                     KeyCoverObservable.shared.isKeyCoverUnlockingPromptShown = false
                 }
                 .keyboardShortcut(.cancelAction)
-                Button("Unlock") {
+                Button("button.Unlock") {
                     unlock()
                 }
                 .keyboardShortcut(.defaultAction)

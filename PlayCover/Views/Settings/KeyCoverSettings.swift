@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum KeyCoverStatus: String, Codable {
+enum KeyCoverStatus: String, Codable, Hashable {
     case disabled
     case selfGeneratedPassword
     case userProvidedPassword
@@ -37,13 +37,13 @@ struct KeyCoverSettings: View {
                     Text("KeyCover Status:")
                     Text(keyCoverObserved.keyCoverEnabled ?
                              KeyCoverPreferences.shared.keyCoverEnabled == .selfGeneratedPassword ?
-                             "Enabled with PlayCover-generated Password" : "Enabled with User-Provided Password"
-                         : "Disabled")
+                             "keycover.status.managedPassword" : "Enabled with User-Provided Password"
+                         : "state.disabled")
                         .foregroundColor(keyCoverObserved.keyCoverEnabled ? .green : .none)
                     Spacer()
                 }
                 Spacer()
-                Button(keyCoverObserved.keyCoverEnabled ? "Reset" : "Enable") {
+                Button(keyCoverObserved.keyCoverEnabled ? "button.Reset" : "button.Enable") {
                     if keyCoverObserved.keyCoverEnabled {
                         if isOptionKeyHeld() {
                             KeyCoverMaster.shared.forceResetMasterKey()
@@ -60,12 +60,13 @@ struct KeyCoverSettings: View {
             Spacer()
             HStack {
                 VStack(alignment: .leading) {
-                    Text("KeyCover Chain Status:")
-                    Text("\(keyCoverObserved.unlockedCount) "
-                         + "unlocked chains in \(keyCoverObserved.keychains.count) chains total")
+                    Text("keycover.status.chainCount")
+                    Text(String(format: NSLocalizedString("keycover.status.unlockedCount %@ %@", comment: ""),
+                                "\(keyCoverObserved.unlockedCount)",
+                                "\(keyCoverObserved.keychains.count)"))
                 }
                 Spacer()
-                Button("Lock Chains & KeyCover") {
+                Button("keycover.button.lockAll") {
                     KeyCover.shared.lockAllChainsAsync()
                 }
                 .disabled(!keyCoverObserved.keyCoverEnabled)
@@ -73,7 +74,7 @@ struct KeyCoverSettings: View {
             .padding()
             HStack {
                 Spacer()
-                Button("Change Master Password") {
+                Button("keycover.button.changePassword") {
                     keyCoverUpdatePasswordShown = true
                 }
                 .disabled(!keyCoverObserved.keyCoverEnabled)
@@ -81,11 +82,8 @@ struct KeyCoverSettings: View {
             }
             .padding()
             VStack(alignment: .leading) {
-                Toggle("Prompt for KeyCover at startup", isOn: $keyCoverPreferences.promptForMasterPasswordAtLaunch)
-                    .help("""
-                            KeyCover will prompt for your master password when you launch the application.
-                            If this is disabled, it will be prompted when you launch an app that uses PlayChain.
-                            """)
+                Toggle("keycover.toggle.startupPrompt", isOn: $keyCoverPreferences.promptForMasterPasswordAtLaunch)
+                    .help("keycover.toggle.startupPrompt.help")
                 Spacer()
             }
             .padding()
