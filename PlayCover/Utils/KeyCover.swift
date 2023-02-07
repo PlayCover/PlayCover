@@ -120,7 +120,7 @@ struct KeyCoverKey {
         let task = Process()
         task.launchPath = "/usr/bin/zip"
         task.currentDirectoryPath = keyFolderPath.path
-        task.arguments = ["-r", destination.path, source.lastPathComponent]
+        task.arguments = ["-q", "-r", destination.path, source.lastPathComponent]
         task.launch()
         task.waitUntilExit()
 
@@ -163,7 +163,7 @@ struct KeyCoverKey {
         let task2 = Process()
         task2.launchPath = "/usr/bin/unzip"
         task2.currentDirectoryPath = keyFolderPath.path
-        task2.arguments = ["-o", keyFolderPath.appendingPathComponent("\(appBundleID).zip").path,
+        task2.arguments = ["-qq", "-o", keyFolderPath.appendingPathComponent("\(appBundleID).zip").path,
                            "-d", keyFolderPath.path]
         task2.launch()
         task2.waitUntilExit()
