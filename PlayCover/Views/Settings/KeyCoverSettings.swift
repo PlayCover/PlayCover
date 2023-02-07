@@ -43,7 +43,7 @@ struct KeyCoverSettings: View {
                     Spacer()
                 }
                 Spacer()
-                Button(keyCoverObserved.keyCoverEnabled ? isOptionKeyHeld() ? "Force Reset" : "Reset" : "Enable") {
+                Button(keyCoverObserved.keyCoverEnabled ? "Reset" : "Enable") {
                     if keyCoverObserved.keyCoverEnabled {
                         if isOptionKeyHeld() {
                             KeyCoverMaster.shared.forceResetMasterKey()
@@ -65,7 +65,7 @@ struct KeyCoverSettings: View {
                          + "unlocked chains in \(keyCoverObserved.keychains.count) chains total")
                 }
                 Spacer()
-                Button("Lock All Chains Now") {
+                Button("Lock Chains & KeyCover") {
                     KeyCover.shared.lockAllChainsAsync()
                 }
                 .disabled(!keyCoverObserved.keyCoverEnabled)

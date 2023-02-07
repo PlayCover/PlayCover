@@ -182,6 +182,10 @@ struct KeyCoverKey {
     func deleteKeyFolder() throws {
         try? FileManager.default.removeItem(at: keyFolderPath.appendingPathComponent(appBundleID))
     }
+
+    func wipeEncryptedKeyFile() throws {
+        try? FileManager.default.removeItem(at: encryptedKeyFile)
+    }
 }
 
 class KeyCoverMaster {
@@ -215,7 +219,7 @@ class KeyCoverMaster {
         KeyCover.shared.keyCoverPlainTextKey = key
 
         // Encrypts all keychains
-        for keychain in KeyCover.shared.listKeychains() where keychain.chainEncryptionStatus {
+        for keychain in KeyCover.shared.listKeychains() where !keychain.chainEncryptionStatus {
             try? keychain.encryptKeyFolder()
         }
 
@@ -269,6 +273,10 @@ class KeyCoverMaster {
     }
 
     func forceResetMasterKey() {
+        // If a key is in memory, don't do anything (prevent accidental deletion)
+        if KeyCover.shared.keyCoverPlainTextKey != nil {
+            return
+        }
         // Remove the master key from macOS keychain
         let tag = "com.playcover.masterkey"
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
@@ -282,6 +290,11 @@ class KeyCoverMaster {
 
         KeyCoverPreferences.shared.keyCoverEnabled = .disabled
         KeyCover.shared.keyCoverPlainTextKey = nil
+
+        // Being a force reset, we have to nuke everything (because it's useless otherwise)
+        for chain in KeyCover.shared.listKeychains() {
+            try? chain.wipeEncryptedKeyFile()
+        }
 
         Task { @MainActor in
             KeyCoverObservable.shared.update()
