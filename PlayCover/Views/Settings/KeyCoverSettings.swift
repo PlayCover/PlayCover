@@ -7,12 +7,17 @@
 
 import SwiftUI
 
+enum KeyCoverStatus: String, Codable {
+    case disabled
+    case selfGeneratedPassword
+    case userProvidedPassword
+}
+
 class KeyCoverPreferences: NSObject, ObservableObject {
     static var shared = KeyCoverPreferences()
 
+    @AppStorage("keyCoverEnabled") var keyCoverEnabled: KeyCoverStatus = KeyCoverStatus.disabled
     @AppStorage("promptForMasterPasswordAtLaunch") var promptForMasterPasswordAtLaunch = true
-    @AppStorage("keyCoverSmartLock") var keyCoverSmartLock = true
-    @AppStorage("keyCoverSmartUnlock") var keyCoverSmartUnlock = true
 }
 
 struct KeyCoverSettings: View {
@@ -30,14 +35,21 @@ struct KeyCoverSettings: View {
             HStack {
                 HStack {
                     Text("KeyCover Status:")
-                    Text(keyCoverObserved.keyCoverEnabled ? "Enabled" : "Disabled")
+                    Text(keyCoverObserved.keyCoverEnabled ?
+                             KeyCoverPreferences.shared.keyCoverEnabled == .selfGeneratedPassword ?
+                             "Enabled with PlayCover-generated Password" : "Enabled with User-Provided Password"
+                         : "Disabled")
                         .foregroundColor(keyCoverObserved.keyCoverEnabled ? .green : .none)
                     Spacer()
                 }
                 Spacer()
-                Button(keyCoverObserved.keyCoverEnabled ? "Reset" : "Enable") {
+                Button(keyCoverObserved.keyCoverEnabled ? isOptionKeyHeld() ? "Force Reset" : "Reset" : "Enable") {
                     if keyCoverObserved.keyCoverEnabled {
-                        keyCoverRemovalViewShown = true
+                        if isOptionKeyHeld() {
+                            KeyCoverMaster.shared.forceResetMasterKey()
+                        } else {
+                            keyCoverRemovalViewShown = true
+                        }
                     } else {
                         keyCoverInitialSetupShown = true
                     }
@@ -74,10 +86,6 @@ struct KeyCoverSettings: View {
                             KeyCover will prompt for your master password when you launch the application.
                             If this is disabled, it will be prompted when you launch an app that uses PlayChain.
                             """)
-                Toggle("KeyCover Smart Lock", isOn: $keyCoverPreferences.keyCoverSmartLock)
-                .help("KeyCover will automatically lock your keychains when you quit the associated application")
-                Toggle("KeyCover Smart Unlock", isOn: $keyCoverPreferences.keyCoverSmartUnlock)
-                .help("KeyCover will automatically unlock your keychains when the associated application is launched")
                 Spacer()
             }
             .padding()
@@ -92,6 +100,10 @@ struct KeyCoverSettings: View {
         .sheet(isPresented: $keyCoverRemovalViewShown) {
             KeyCoverRemovalView(isPresented: $keyCoverRemovalViewShown)
         }
+    }
+
+    func isOptionKeyHeld() -> Bool {
+        NSEvent.modifierFlags.contains(.option)
     }
 }
 

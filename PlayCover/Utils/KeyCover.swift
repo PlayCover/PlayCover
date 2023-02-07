@@ -8,16 +8,17 @@
 import Foundation
 import CryptoKit
 import SwiftUI
+import Security
 
 struct KeyCover {
     static var shared = KeyCover()
 
     // This is only exposed at runtime
-    var keyCoverPlainTextKey: String?
-    var masterKeyFile = PlayTools.playCoverContainer.appendingPathComponent("ChainMaster.key")
+    var keyCoverPlainTextKey: String? = KeyCoverPreferences.shared.keyCoverEnabled == .selfGeneratedPassword
+    ? KeyCoverMaster.shared.getMasterKey() : nil
+
     func isKeyCoverEnabled() -> Bool {
-        return FileManager.default.fileExists(atPath: PlayTools.playCoverContainer
-            .appendingPathComponent("ChainMaster.key").path)
+        return KeyCoverPreferences.shared.keyCoverEnabled != .disabled
     }
 
     func listKeychains() -> [KeyCoverKey] {
@@ -74,17 +75,6 @@ struct KeyCover {
             }
         }
     }
-
-    mutating func resetKeyCover() throws {
-        // Only available if KeyCover is enabled
-        // and no chains are unlocked
-        if isKeyCoverEnabled() && unlockedCount() == 0 {
-            // Delete the master key
-            try FileManager.default.removeItem(at: masterKeyFile)
-            // Delete all the keychains
-            try FileManager.default.removeItem(at: PlayTools.playCoverContainer.appendingPathComponent("PlayChain"))
-        }
-    }
 }
 
 class KeyCoverObservable: ObservableObject {
@@ -94,7 +84,9 @@ class KeyCoverObservable: ObservableObject {
     @Published var unlockedCount = KeyCover.shared.unlockedCount()
     @Published var keychains = KeyCover.shared.listKeychains()
 
-    @Published var isKeyCoverUnlockingPromptShown = KeyCoverPreferences.shared.promptForMasterPasswordAtLaunch
+    @Published var isKeyCoverUnlockingPromptShown = KeyCoverPreferences.shared.keyCoverEnabled == .selfGeneratedPassword
+    ? false : KeyCoverPreferences.shared.keyCoverEnabled == .disabled
+    ? false : KeyCoverPreferences.shared.promptForMasterPasswordAtLaunch
 
     func update() {
         keyCoverEnabled = KeyCover.shared.isKeyCoverEnabled()
@@ -193,93 +185,111 @@ struct KeyCoverKey {
 }
 
 class KeyCoverMaster {
-    static func hashKey(_ key: String) -> String {
-        let data = Data(key.utf8)
-        let hash = SHA256.hash(data: data)
-        return hash.compactMap { String(format: "%02x", $0) }.joined()
-    }
+    static let shared = KeyCoverMaster()
 
-    static func validateMasterKey(_ key: String) -> Bool {
-        // open the master key file
-        let masterKeyFile = PlayTools.playCoverContainer.appendingPathComponent("ChainMaster.key")
-        guard let masterKeyData = try? Data(contentsOf: masterKeyFile) else {
-            return false
-        }
-        let hashedInputKey = hashKey(key)
-
-        // compare it to the hash saved in the file
-        return hashedInputKey == String(data: masterKeyData, encoding: .utf8)
-    }
-
-    static func setMasterKey(_ key: String) {
-        // first check if there is a master key file
-        let masterKeyFile = PlayTools.playCoverContainer.appendingPathComponent("ChainMaster.key")
-        let keyExists = FileManager.default.fileExists(atPath: masterKeyFile.path)
-        // if the key file does exist, decrypt everything first
-        if keyExists {
-            let keyFolder = PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
-            let enumerator = FileManager.default.enumerator(at: keyFolder, includingPropertiesForKeys: nil,
-                                                            options: [.skipsHiddenFiles,
-                                                                      .skipsPackageDescendants,
-                                                                      .skipsSubdirectoryDescendants],
-                                                            errorHandler: nil)
-
-            // decrypt each key folder
-            while let file = enumerator?.nextObject() as? URL {
-                if file.pathExtension == KeyCoverKey.encryptedKeyExtension {
-                    let keyCover = KeyCoverKey(appBundleID: file.deletingPathExtension().lastPathComponent)
-                    try? keyCover.decryptKeyFolder()
-                }
+    func setMasterKey(_ key: String) {
+        let tag = "com.playcover.masterkey"
+        let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
+                                    kSecAttrService as String: tag,
+                                    kSecAttrAccount as String: tag,
+                                    kSecValueData as String: key.data(using: .utf8)!]
+        // Get the key
+        let oldKey = getMasterKey()
+        // if it is not nil, then we need to decrypt all the keychains
+        if oldKey != nil {
+            KeyCover.shared.keyCoverPlainTextKey = oldKey
+            for keychain in KeyCover.shared.listKeychains() where !keychain.chainEncryptionStatus {
+                try? keychain.decryptKeyFolder()
             }
+            KeyCover.shared.keyCoverPlainTextKey = nil
+            // Remove any existing master key
+            SecItemDelete(query as CFDictionary)
         }
 
-        // write the new master key
-        let hashedKey = hashKey(key)
-        try? hashedKey.write(to: masterKeyFile, atomically: true, encoding: .utf8)
+        // Store the master key in macOS keychain
+        let status = SecItemAdd(query as CFDictionary, nil)
+        if status != errSecSuccess {
+            print("Error storing master key in keychain: \(status)")
+        }
 
-        // enumerate the file in the key folder
-        let keyFolder = PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
-        let enumerator = FileManager.default.enumerator(at: keyFolder, includingPropertiesForKeys: nil,
-                                                        options: [.skipsHiddenFiles,
-                                                                  .skipsPackageDescendants,
-                                                                  .skipsSubdirectoryDescendants],
-                                                        errorHandler: nil)
         KeyCover.shared.keyCoverPlainTextKey = key
-        // encrypt each key folder with the new key
-        var isDir = ObjCBool(true)
-        while let file = enumerator?.nextObject() as? URL {
-            if FileManager.default.fileExists(atPath: file.path, isDirectory: &isDir) && isDir.boolValue {
-                let keyCover = KeyCoverKey(appBundleID: file.lastPathComponent)
-                try? keyCover.encryptKeyFolder()
-            }
-        }
 
         Task { @MainActor in
             KeyCoverObservable.shared.update()
         }
     }
 
-    static func removeMasterKey() {
-        // decrypt all chain data
-        let keyFolder = PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
-        let enumerator = FileManager.default.enumerator(at: keyFolder, includingPropertiesForKeys: nil,
-                                                        options: [.skipsHiddenFiles, .skipsPackageDescendants,
-                                                            .skipsSubdirectoryDescendants],
-                                                        errorHandler: nil)
+    func getMasterKey() -> String? {
+        // Get the master key from macOS keychain
+        let tag = "com.playcover.masterkey"
+        let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
+                                    kSecAttrService as String: tag,
+                                    kSecAttrAccount as String: tag,
+                                    kSecReturnData as String: kCFBooleanTrue as Any,
+                                    kSecMatchLimit as String: kSecMatchLimitOne]
 
-        while let file = enumerator?.nextObject() as? URL {
-            if file.pathExtension == KeyCoverKey.encryptedKeyExtension {
-                let keyCover = KeyCoverKey(appBundleID: file.deletingPathExtension().lastPathComponent)
-                try? keyCover.decryptKeyFolder()
+        var dataTypeRef: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &dataTypeRef)
+        if status == errSecSuccess {
+            if let data = dataTypeRef as? Data {
+                return String(data: data, encoding: .utf8)
             }
         }
+        return nil
+    }
 
-        // Delete the Master Key
-        let masterKeyFile = PlayTools.playCoverContainer.appendingPathComponent("ChainMaster.key")
-        try? FileManager.default.removeItem(at: masterKeyFile)
+    func removeMasterKey() {
+        // Decrypt all key folders
+        for chain in KeyCover.shared.listKeychains() where chain.chainEncryptionStatus {
+                try? chain.decryptKeyFolder()
+        }
+
+        // Remove the master key from macOS keychain
+        let tag = "com.playcover.masterkey"
+        let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
+                                    kSecAttrService as String: tag,
+                                    kSecAttrAccount as String: tag]
+
+        let status = SecItemDelete(query as CFDictionary)
+        if status != errSecSuccess {
+            print("Error removing master key from keychain: \(status)")
+        }
+
+        KeyCoverPreferences.shared.keyCoverEnabled = .disabled
         KeyCover.shared.keyCoverPlainTextKey = nil
+
         Task { @MainActor in
             KeyCoverObservable.shared.update()
         }
+    }
+
+    func forceResetMasterKey() {
+        // Remove the master key from macOS keychain
+        let tag = "com.playcover.masterkey"
+        let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
+                                    kSecAttrService as String: tag,
+                                    kSecAttrAccount as String: tag]
+
+        let status = SecItemDelete(query as CFDictionary)
+        if status != errSecSuccess {
+            print("Error removing master key from keychain: \(status)")
+        }
+
+        KeyCoverPreferences.shared.keyCoverEnabled = .disabled
+        KeyCover.shared.keyCoverPlainTextKey = nil
+
+        Task { @MainActor in
+            KeyCoverObservable.shared.update()
+        }
+    }
+
+    func validateMasterKey(_ key: String) -> Bool {
+        return key == getMasterKey()
+    }
+
+    func generateMasterKey() -> String {
+        let length = 32
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+"
+        return String((0..<length).map { _ in letters.randomElement()! })
     }
 }

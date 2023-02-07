@@ -46,7 +46,7 @@ struct KeyCoverUnlockingPrompt: View {
     }
 
     func unlock() {
-        if KeyCoverMaster.validateMasterKey(password) {
+        if KeyCoverMaster.shared.validateMasterKey(password) {
             // if Smart Unlock is enabled, store the masterKey
             KeyCover.shared.keyCoverPlainTextKey = password
         } else {
