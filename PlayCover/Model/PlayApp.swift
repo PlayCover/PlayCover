@@ -134,10 +134,10 @@ class PlayApp: BaseApp {
                     // and keychain is disabled for the session
                     Task { @MainActor in
                         let alert = NSAlert()
-                        alert.messageText = "Keychain was not unlocked"
-                        alert.informativeText = "Keychain is disabled for the session"
+                        alert.messageText = NSLocalizedString("keycover.alert.title", comment: "")
+                        alert.informativeText = NSLocalizedString("keycover.alert.content", comment: "")
                         alert.alertStyle = .warning
-                        alert.addButton(withTitle: "OK")
+                        alert.addButton(withTitle: NSLocalizedString("button.OK", comment: ""))
                         alert.runModal()
                     }
                     settings.settings.playChain = false

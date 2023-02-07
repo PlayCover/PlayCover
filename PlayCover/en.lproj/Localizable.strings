@@ -280,3 +280,6 @@
 "keycover.removePrompt.title" = "Enter your master password to remove KeyCover encryption";
 
 "keycover.unlockPrompt.title" = "Enter your master password to unlock KeyCover";
+
+"keycover.alert.title" = "Keychain was not unlocked";
+"keycover.alert.content" = "Keychain access has been disabled for the current session";
