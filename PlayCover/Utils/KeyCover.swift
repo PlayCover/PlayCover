@@ -214,6 +214,11 @@ class KeyCoverMaster {
 
         KeyCover.shared.keyCoverPlainTextKey = key
 
+        // Encrypts all keychains
+        for keychain in KeyCover.shared.listKeychains() where keychain.chainEncryptionStatus {
+            try? keychain.encryptKeyFolder()
+        }
+
         Task { @MainActor in
             KeyCoverObservable.shared.update()
         }
