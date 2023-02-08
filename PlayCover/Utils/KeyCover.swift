@@ -191,8 +191,9 @@ struct KeyCoverKey {
 class KeyCoverMaster {
     static let shared = KeyCoverMaster()
 
+    let tag = "io.playcover.masterkey"
+
     func setMasterKey(_ key: String) {
-        let tag = "com.playcover.masterkey"
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                     kSecAttrService as String: tag,
                                     kSecAttrAccount as String: tag,
@@ -202,7 +203,7 @@ class KeyCoverMaster {
         // if it is not nil, then we need to decrypt all the keychains
         if oldKey != nil {
             KeyCover.shared.keyCoverPlainTextKey = oldKey
-            for keychain in KeyCover.shared.listKeychains() where !keychain.chainEncryptionStatus {
+            for keychain in KeyCover.shared.listKeychains() where keychain.chainEncryptionStatus {
                 try? keychain.decryptKeyFolder()
             }
             KeyCover.shared.keyCoverPlainTextKey = nil
@@ -230,7 +231,6 @@ class KeyCoverMaster {
 
     func getMasterKey() -> String? {
         // Get the master key from macOS keychain
-        let tag = "com.playcover.masterkey"
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                     kSecAttrService as String: tag,
                                     kSecAttrAccount as String: tag,
@@ -254,7 +254,6 @@ class KeyCoverMaster {
         }
 
         // Remove the master key from macOS keychain
-        let tag = "com.playcover.masterkey"
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                     kSecAttrService as String: tag,
                                     kSecAttrAccount as String: tag]
