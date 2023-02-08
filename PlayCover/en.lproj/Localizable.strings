@@ -4,6 +4,7 @@
 "playapp.showInFinder" = "Show in Finder";
 "playapp.openCache" = "Open App Data";
 "playapp.clearCache" = "Clear App Data";
+"playapp.clearPlayChain" = "Clear PlayChain Data";
 "playapp.importIPA" = "Import IPA";
 "playapp.importKm" = "Import Keymapping";
 "playapp.exportKm" = "Export Keymapping";
@@ -96,6 +97,7 @@
 "alert.errorImportKm" = "Error occured when importing!";
 "alert.app.delete" = "All app data will be erased. You may need to download app files again. Do you wish to continue?";
 "alert.app.preferences" = "All in-app preferences will be deleted. Do you wish to continue?";
+"alert.app.clearPlayChain" = "All PlayChain data will be erased. You may need to login to the app again. Do you wish to continue?";
 "alert.restart" = "Please restart PlayCover.";
 "alert.error" = "An error occurred!";
 "alert.success" = "Success";
