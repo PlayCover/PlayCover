@@ -277,7 +277,6 @@ class KeyCoverMaster {
             return
         }
         // Remove the master key from macOS keychain
-        let tag = "com.playcover.masterkey"
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                     kSecAttrService as String: tag,
                                     kSecAttrAccount as String: tag]
