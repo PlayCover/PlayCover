@@ -14,7 +14,7 @@ class UninstallPreferences: NSObject, ObservableObject {
     @objc @AppStorage("RemoveAppKeymapUninstall") var removeAppKeymap = false
     @objc @AppStorage("RemoveAppSettingUninstall") var removeAppSettings = false
     @objc @AppStorage("RemoveAppEntitlementsUninstall") var removeAppEntitlements = false
-    @objc @AppStorage("RemovePlayChain") var removePlayChain = false
+    @objc @AppStorage("RemovePlayChainUninstall") var removePlayChain = false
 
     @AppStorage("ShowUninstallPopup") var showUninstallPopup = true
 }

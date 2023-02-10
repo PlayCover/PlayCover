@@ -51,11 +51,11 @@ class Uninstaller {
     static func uninstallPopup(_ app: PlayApp) {
         if UninstallPreferences.shared.showUninstallPopup {
             let boxmakers: [(String, String)] = [
+                ("removePlayChain", NSLocalizedString("preferences.toggle.removePlayChain", comment: "")),
                 ("removeAppEntitlements", NSLocalizedString("preferences.toggle.removeEntitlements", comment: "")),
                 ("removeAppSettings", NSLocalizedString("preferences.toggle.removeSetting", comment: "")),
                 ("removeAppKeymap", NSLocalizedString("preferences.toggle.removeKeymap", comment: "")),
-                ("clearAppData", NSLocalizedString("preferences.toggle.clearAppData", comment: "")),
-                ("removePlayChain", NSLocalizedString("preferences.toggle.removePlayChain", comment: ""))
+                ("clearAppData", NSLocalizedString("preferences.toggle.clearAppData", comment: ""))
             ]
 
             var checkboxes: [CheckBoxHelper] = []
