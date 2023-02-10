@@ -109,6 +109,7 @@ struct PlayAppView: View {
                     Text("playapp.clearPreferences")
                 })
                 Button(action: {
+                    selected = nil
                     Uninstaller.uninstallPopup(app)
                 }, label: {
                     Text("playapp.delete")
