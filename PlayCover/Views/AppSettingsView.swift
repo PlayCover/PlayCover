@@ -272,7 +272,10 @@ struct GraphicsView: View {
                     }
                 }
                 HStack {
-                    if settings.settings.resolution > 0 {
+                    let majorVersion = ProcessInfo().operatingSystemVersion.majorVersion
+                    let minorVersion = ProcessInfo().operatingSystemVersion.minorVersion
+                    let num = Float("\(majorVersion).\(minorVersion)")
+                    if num ?? 13.1 > 13.1 {
                         Toggle("settings.toggle.windowExperimentalFix", isOn: $settings.settings.inverseScreenValues)
                             .help("settings.toggle.windowExperimentalFix.help")
                         Spacer()
