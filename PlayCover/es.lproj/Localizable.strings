@@ -107,7 +107,7 @@
 "playapp.install.createWrapper" = "Creando un contenedor...";
 
 /* (No Comment) */
-"playapp.progress.finished" = "Terminado";
+"playapp.progress.finished" = "Completado";
 
 /* (No Comment) */
 "playapp.install.installPlayTools" = "Instalando PlayTools...";
@@ -185,16 +185,16 @@
 "settings.toggle.discord" = "Activar la actividad de Discord";
 
 /* (No Comment) */
-"settings.toggle.jbBypass" = "Habilitar la omisión del Jailbreak (Experimental)";
+"settings.toggle.jbBypass" = "Habilitar Jailbreak Bypass (Experimental)";
 
 /* (No Comment) */
 "settings.toggle.km" = "Asignación de teclas";
 
 /* (No Comment) */
-"soundAlert.failureText" = "Hubo un error al establecer la frecuencia de muestreo a 48 kHz en el dispositivo de salida. Puedes hacer esto manualmente en la aplicación en la Configuración del Audio MIDI";
+"soundAlert.failureText" = "Hubo un error al establecer la frecuencia de muestreo a 48 kHz en el dispositivo de salida. Puedes hacer esto manualmente en la aplicación en la Configuración de Audio MIDI";
 
 /* (No Comment) */
-"soundAlert.informativeText" = "¡Su dispositivo de salida actual no tiene una frecuencia de muestreo de 48 o 44,1 kHz! Pueden ocurrir accidentes. ¿Le gustaría cambiar la frecuencia de muestreo de su dispositivo de salida actual a 48 kHz?";
+"soundAlert.informativeText" = "¡Su dispositivo de salida actual no tiene una frecuencia de muestreo de 48 o 44,1 kHz! Pueden ocurrir errores. ¿Le gustaría cambiar la frecuencia de muestreo de su dispositivo de salida actual a 48 kHz?";
 
 /* (No Comment) */
 "soundAlert.messageText" = "¡Se ha detectado una configuración de audio incorrecta!";
@@ -312,7 +312,7 @@
 "preferences.button.pruneFiles" = "Limpiar archivos";
 "preferences.prune.alert" = "¿Confirma que quiere limpiar todos los archivos?";
 "preferences.prune.message" = "Esto eliminará todos los archivos que no se utilicen, incluidos los de configuración, asignación de teclas, permisos y datos de la aplicación";
-"playapp.progress.failed" = "Fallida";
+"playapp.progress.failed" = "Fallido";
 "alert.supression" = "Puede cambiar esto en la configuración de PlayCover";
 "menubar.clearCache" = "Eliminar antememoria";
 "preferences.tab.install" = "Instalar";
@@ -368,10 +368,10 @@
 "settings.playChain.debugging" = "Depuración de PlayChain";
 "playapp.noSources.title" = "No hay IPA instalados";
 "playapp.noSources.subtitle" = "Actualmente no tiene ninguna IPA instalada. Haga clic en el botón de abajo para importar uno.";
-"settings.tab.bypasses" = "Omitir";
-"settings.addToLaunchpad" = "Agregar a Launchpad";
+"settings.tab.bypasses" = "Bypass";
+"settings.addToLaunchpad" = "Agregar al Launchpad";
 "settings.removeFromLaunchpad" = "Quitar del Launchpad";
 "playapp.download.integrityCheck" = "Verificar la integridad de los archivos:";
 "playapp.download.differentChecksum" = "¡Diferentes sumas de control! ¿Desea continuar con la instalación?";
 "playapp.download.differentChecksumDesc" = "Esperado \"%@\", obtenido \"%@\"";
-"playapp.progress.canceled" = "Cancelada";
+"playapp.progress.canceled" = "Cancelado";
