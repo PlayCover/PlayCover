@@ -266,7 +266,6 @@
 "settings.toggle.jbBypass.help" = "一部のゲームで脱獄検出を回避しようとします (ゲームによっては動作しません)";
 "settings.picker.aspectRatio" = "アスペクト比:";
 "settings.toggle.disableDisplaySleep.help" = "スリープを無効にします";
-"settings.tab.jbBypass" = "脱獄検知回避";
 "settings.info.displayName" = "表示名:";
 "settings.info.bundleName" = "バンドル名:";
 "settings.info.bundleIdentifier" = "バンドル識別子:";
@@ -369,3 +368,10 @@
 "settings.playChain.debugging" = "PlayChain debugging";
 "playapp.noSources.title" = "No IPAs Installed";
 "playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";
+"settings.addToLaunchpad" = "Add to Launchpad";
+"settings.tab.bypasses" = "Bypasses";
+"settings.removeFromLaunchpad" = "Remove from Launchpad";
+"playapp.download.integrityCheck" = "Verifying file integrity:";
+"playapp.download.differentChecksum" = "Different checksums! Do you want to continue to install?";
+"playapp.download.differentChecksumDesc" = "Expected \"%@\", got \"%@\"";
+"playapp.progress.canceled" = "Canceled";

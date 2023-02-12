@@ -185,7 +185,7 @@
 "settings.toggle.discord" = "启用 Discord 动态";
 
 /* (No Comment) */
-"settings.toggle.jbBypass" = "启用绕过越狱检测（预览）";
+"settings.toggle.jbBypass" = "启用绕过越狱检测（试验阶段）";
 
 /* (No Comment) */
 "settings.toggle.km" = "启用键盘映射布局";
@@ -194,13 +194,13 @@
 "soundAlert.failureText" = "现有音频设备设置采样率 48 KHz 失败。 您可以在 ”音频MIDI设置“ 应用里手动设置";
 
 /* (No Comment) */
-"soundAlert.informativeText" = "现有的音频设备没有设置到 48 或 44.1 KHz 采样率！应用可能会崩溃。您希望把现有的音频设备设置成 48 KHz 采样率吗?";
+"soundAlert.informativeText" = "现有的音频设备没有设置到 48 或 44.1 kHz 采样率！应用可能会崩溃。您希望把现有的音频设备设置成 48 kHz 采样率吗?";
 
 /* (No Comment) */
 "soundAlert.messageText" = "监测到声音设置有问题!";
 
 /* (No Comment) */
-"soundAlert.successText" = "现有音频设备采样率已设为 48 KHz";
+"soundAlert.successText" = "当前音频设备采样率已设为 48 kHz";
 
 /* (No Comment) */
 "storeAccount.deleteAcc" = "删除一个账号";
@@ -263,7 +263,6 @@
 "settings.picker.adaptiveRes.5" = "自定义";
 "settings.picker.aspectRatio" = "长宽比：";
 "settings.toggle.disableDisplaySleep.help" = "在该应用运行时防止显示屏关闭";
-"settings.tab.jbBypass" = "绕过越狱检测";
 "settings.toggle.jbBypass.help" = "尝试绕过某些游戏的越狱检测 （无法保证能够一直正常工作）";
 "settings.info.displayName" = "显示名称:";
 "settings.info.bundleName" = "Bundle 名称:";
@@ -369,3 +368,10 @@
 "settings.playChain.debugging" = "PlayChain 调试";
 "playapp.noSources.title" = "没有已安装的 IPA";
 "playapp.noSources.subtitle" = "当前你没有安装任何 IPA。点击下面的按钮来导入一个。";
+"settings.tab.bypasses" = "绕过";
+"settings.addToLaunchpad" = "添加到启动台";
+"settings.removeFromLaunchpad" = "从启动台移除";
+"playapp.download.integrityCheck" = "正在验证文件完整性:";
+"playapp.download.differentChecksum" = "校验不一致！你是否想要继续安装？";
+"playapp.download.differentChecksumDesc" = "预期为 \"%@\", 当前为 \"%@\"";
+"playapp.progress.canceled" = "已取消";

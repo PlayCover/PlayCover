@@ -89,7 +89,6 @@
 "settings.picker.aspectRatio" = "Proporção da tela:";
 "settings.toggle.disableDisplaySleep" = "Desativar suspensão da tela";
 "settings.toggle.disableDisplaySleep.help" = "Impede que a tela desligue enquanto este aplicativo estiver em execução";
-"settings.tab.jbBypass" = "Contornar Jailbreak";
 "settings.toggle.jbBypass" = "Habilitar o contorno do Jailbreak (Alfa)";
 "settings.toggle.jbBypass.help" = "Tenta contornar a detecção de Jailbreak em alguns jogos (Não é garantido que sempre irá funcionar)";
 "settings.info.displayName" = "Nome de exibição:";
@@ -212,3 +211,10 @@
 "settings.playChain.debugging" = "PlayChain debugging";
 "playapp.noSources.title" = "No IPAs Installed";
 "playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";
+"settings.tab.bypasses" = "Bypasses";
+"settings.addToLaunchpad" = "Add to Launchpad";
+"settings.removeFromLaunchpad" = "Remove from Launchpad";
+"playapp.download.integrityCheck" = "Verifying file integrity:";
+"playapp.download.differentChecksum" = "Different checksums! Do you want to continue to install?";
+"playapp.download.differentChecksumDesc" = "Expected \"%@\", got \"%@\"";
+"playapp.progress.canceled" = "Canceled";

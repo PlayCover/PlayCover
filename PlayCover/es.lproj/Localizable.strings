@@ -185,22 +185,22 @@
 "settings.toggle.discord" = "Activar la actividad de Discord";
 
 /* (No Comment) */
-"settings.toggle.jbBypass" = "Activar el Jailbreak Bypass (Alpha)";
+"settings.toggle.jbBypass" = "Habilitar Jailbreak Bypass (Experimental)";
 
 /* (No Comment) */
 "settings.toggle.km" = "Asignación de teclas";
 
 /* (No Comment) */
-"soundAlert.failureText" = "Hubo un error al establecer la frecuencia de muestreo a 48 kHz en el dispositivo de salida. Puedes hacer esto manualmente en la aplicación Configuración de Audio MIDI";
+"soundAlert.failureText" = "Hubo un error al establecer la frecuencia de muestreo a 48 kHz en el dispositivo de salida. Puedes hacer esto manualmente en la aplicación en la Configuración de Audio MIDI";
 
 /* (No Comment) */
-"soundAlert.informativeText" = "Su dispositivo de salida actual no tiene una frecuencia de muestreo de 48 o 44,1 kHz. Pueden producirse errores. ¿Desea cambiar la frecuencia de muestreo de su dispositivo de salida actual a 48 kHz?";
+"soundAlert.informativeText" = "¡Su dispositivo de salida actual no tiene una frecuencia de muestreo de 48 o 44,1 kHz! Pueden ocurrir errores. ¿Le gustaría cambiar la frecuencia de muestreo de su dispositivo de salida actual a 48 kHz?";
 
 /* (No Comment) */
 "soundAlert.messageText" = "¡Se ha detectado una configuración de audio incorrecta!";
 
 /* (No Comment) */
-"soundAlert.successText" = "Frecuencia de muestreo establecida en 48 kHz";
+"soundAlert.successText" = "Frecuencia de muestreo del dispositivo de salida actual está establecida en 48 kHz";
 
 /* (No Comment) */
 "storeAccount.deleteAcc" = "Eliminar una cuenta";
@@ -237,7 +237,6 @@
 "sidebar.ipaLibrary" = "Galería de IPA";
 "settings.title" = "Configuración de %@";
 "settings.tab.graphics" = "Gráficos";
-"settings.tab.jbBypass" = "Bypass contra jailbreak";
 "settings.info.bundleName" = "Nombre del paquete:";
 "playapp.exportKmPanel.fieldLabel" = "Nombre del PlayMap:";
 "sidebar.appLibrary" = "Aplicaciones";
@@ -313,7 +312,7 @@
 "preferences.button.pruneFiles" = "Limpiar archivos";
 "preferences.prune.alert" = "¿Confirma que quiere limpiar todos los archivos?";
 "preferences.prune.message" = "Esto eliminará todos los archivos que no se utilicen, incluidos los de configuración, asignación de teclas, permisos y datos de la aplicación";
-"playapp.progress.failed" = "Error";
+"playapp.progress.failed" = "Fallido";
 "alert.supression" = "Puede cambiar esto en la configuración de PlayCover";
 "menubar.clearCache" = "Eliminar antememoria";
 "preferences.tab.install" = "Instalar";
@@ -364,8 +363,15 @@
 "settings.toggle.lldbWithTerminal" = "Abrir en terminal";
 "settings.unavailable.hud" = "Metal HUD no disponible";
 "error.failedToStripBinary" = "¡No se pudo encontrar el arch ARM64 en binario para multiarquitectura!";
-"settings.playChain.enable" = "Activar PlayChain (experimental)";
+"settings.playChain.enable" = "Activar PlayChain (Experimental)";
 "settings.playChain.help" = "Habilitar la compatibilidad con PlayChain para esta aplicación, lo que le permite utilizar (parcialmente) los servicios de Keychain de Apple»";
 "settings.playChain.debugging" = "Depuración de PlayChain";
 "playapp.noSources.title" = "No hay IPA instalados";
 "playapp.noSources.subtitle" = "Actualmente no tiene ninguna IPA instalada. Haga clic en el botón de abajo para importar uno.";
+"settings.tab.bypasses" = "Bypass";
+"settings.addToLaunchpad" = "Agregar al Launchpad";
+"settings.removeFromLaunchpad" = "Quitar del Launchpad";
+"playapp.download.integrityCheck" = "Verificar la integridad de los archivos:";
+"playapp.download.differentChecksum" = "¡Diferentes sumas de control! ¿Desea continuar con la instalación?";
+"playapp.download.differentChecksumDesc" = "Esperado \"%@\", obtenido \"%@\"";
+"playapp.progress.canceled" = "Cancelado";
