@@ -63,6 +63,7 @@ class AppsVM: ObservableObject {
             filteredApps = newApps.filter({ $0.searchText.contains(uif.searchText.lowercased()) })
         }
 
+        filteredApps.sort(by: { $0.name.lowercased() < $1.name.lowercased() })
         self.filteredApps.append(contentsOf: filteredApps)
         updatingApps = false
     }

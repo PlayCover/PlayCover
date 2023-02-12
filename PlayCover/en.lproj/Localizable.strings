@@ -40,6 +40,7 @@
 "preferences.toggle.removeKeymap" = "Remove keymap";
 "preferences.toggle.removeSetting" = "Remove settings";
 "preferences.toggle.removeEntitlements" = "Remove entitlements";
+"preferences.toggle.removePlayChain" = "Remove PlayChain";
 "preferences.button.pruneFiles" = "Prune Files";
 "preferences.prune.alert" = "Are you sure you want to prune all files?";
 "preferences.prune.message" = "This will remove all unused files including settings, keymappings, entitlements, and app data";
