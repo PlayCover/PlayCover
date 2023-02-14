@@ -76,6 +76,7 @@ class Installer {
                     }
 
                     if !export {
+                        try PlayTools.replaceLibraries(atURL: macho)
                         try PlayTools.convertMacho(macho)
                         try fakesign(macho)
                     }

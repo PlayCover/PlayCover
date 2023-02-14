@@ -144,7 +144,6 @@
 "error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";
 "error.appMaliciousProhibited" = "This App behaves maliciously on Macs, and using it can leave your device in an unbootable state, therefore it is blocked from PlayCover. (Uninstalling...)";
 "error.noGenshinAccount" = "We couldn't find a Genshin account! Are you signed into an account in-app?";
-"error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
 
 "menubar.exportToSideloady" = "Export to Sideloadly";
 

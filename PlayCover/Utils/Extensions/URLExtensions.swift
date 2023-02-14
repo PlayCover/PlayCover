@@ -1,5 +1,5 @@
 //
-//  URLExtensions.swift
+//  Utils.swift
 //  PlayCover
 //
 
@@ -27,6 +27,14 @@ extension String {
 }
 
 extension URL {
+    func subDirectories() throws -> [URL] {
+        // @available(macOS 10.11, iOS 9.0, *)
+        guard hasDirectoryPath else { return [] }
+        return try FileManager.default
+            .contentsOfDirectory(at: self, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
+            .filter(\.hasDirectoryPath)
+    }
+
     var esc: String {
         path.esc
     }
@@ -99,9 +107,5 @@ extension URL {
         }
 
         return self.appendingPathComponent(newPathComponent)
-    }
-
-    func setBinaryPosixPermissions(_ permissions: Int) throws {
-        try FileManager.default.setAttributes([.posixPermissions: permissions], ofItemAtPath: path)
     }
 }
