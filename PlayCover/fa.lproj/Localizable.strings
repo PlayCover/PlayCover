@@ -106,7 +106,6 @@
 "settings.picker.adaptiveRes.5" = "اندازه دلخواه";
 "settings.picker.aspectRatio" = "نسبت تصویر:";
 "settings.toggle.disableDisplaySleep.help" = "این گزینه از خاموش شدن نمایش‌گر در زمان اجرای این برنامه جلوگیری می‌کند";
-"settings.tab.jbBypass" = "پنهان‌گر جیل‌بریک";
 "settings.toggle.jbBypass.help" = "با فعال‌سازی این گزینه تلاش می‌شود که از فعالیت شناساگر جیل‌بریک موجود در برخی بازی‌ها جلوگیری شود (اما تضمینی برای اثرگذاری آن وجود ندارد)";
 "settings.info.displayName" = "نام نمایشی:";
 "settings.info.bundleName" = "نام‌بسته:";
@@ -220,3 +219,10 @@
 "settings.playChain.debugging" = "اشکال‌زدای PlayChain";
 "playapp.noSources.title" = "No IPAs Installed";
 "playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";
+"settings.tab.bypasses" = "Bypasses";
+"settings.addToLaunchpad" = "Add to Launchpad";
+"settings.removeFromLaunchpad" = "Remove from Launchpad";
+"playapp.progress.canceled" = "Canceled";
+"playapp.download.integrityCheck" = "Verifying file integrity:";
+"playapp.download.differentChecksum" = "Different checksums! Do you want to continue to install?";
+"playapp.download.differentChecksumDesc" = "Expected \"%@\", got \"%@\"";

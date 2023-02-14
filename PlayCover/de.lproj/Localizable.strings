@@ -185,22 +185,22 @@
 "settings.toggle.discord" = "Discord Aktivität aktivieren";
 
 /* (No Comment) */
-"settings.toggle.jbBypass" = "Jailbreak Umgehung aktivieren (Alpha)";
+"settings.toggle.jbBypass" = "Jailbreak Umgehung aktivieren (Experimental)";
 
 /* (No Comment) */
 "settings.toggle.km" = "Tastaturbelegung";
 
 /* (No Comment) */
-"soundAlert.failureText" = "Abtastrate des aktuellen Ausgabegeräts konnte nicht auf 48 KHz eingestellt werden. Sie können die Abtastrate in der Audio MIDI Setup App manuell einstellen";
+"soundAlert.failureText" = "Abtastrate des aktuellen Ausgabegeräts konnte nicht auf 48 kHz eingestellt werden. Sie können die Abtastrate in der Audio MIDI Setup App manuell einstellen";
 
 /* (No Comment) */
-"soundAlert.informativeText" = "Ihr aktuelles Ausgabegerät hat keine Abtastrate von 48 oder 44,1 KHz! Es kann zu Abstürzen kommen. Möchten Sie die Abtastrate Ihres aktuellen Ausgabegeräts auf 48 KHz ändern?";
+"soundAlert.informativeText" = "Ihr aktuelles Ausgabegerät hat keine Abtastrate von 48 oder 44,1 kHz! Es kann zu Abstürzen kommen. Möchten Sie die Abtastrate Ihres aktuellen Ausgabegeräts auf 48 kHz ändern?";
 
 /* (No Comment) */
 "soundAlert.messageText" = "Falsche Audioeinstellungen erkannt!";
 
 /* (No Comment) */
-"soundAlert.successText" = "Aktuelle Abtastrate des Ausgabegeräts auf 48 KHz eingestellt";
+"soundAlert.successText" = "Aktuelle Abtastrate des Ausgabegeräts auf 48 kHz eingestellt";
 
 /* (No Comment) */
 "storeAccount.deleteAcc" = "Account löschen";
@@ -266,7 +266,6 @@
 "settings.picker.adaptiveRes.help" = "Ändert die Fensterauflösung der App";
 "settings.picker.adaptiveRes.0" = "App Standard";
 "settings.toggle.disableDisplaySleep.help" = "Verhindere das ausschalten vom Display während diese App läuft";
-"settings.tab.jbBypass" = "Jailbreak umgehen";
 "settings.toggle.jbBypass.help" = "Versuche die Jailbreak Erkennung in einigen Spielen zu umgehen (funktioniert nicht garantiert immer)";
 "settings.info.displayName" = "Anzeigename:";
 "settings.info.bundleName" = "Bündel name:";
@@ -302,7 +301,7 @@
 "preferences.popover.badurl" = "URL Ungültig!";
 "preferences.popover.badjson" = "JSON Ungültig oder nicht gefunden worden!";
 "preferences.textfield.url" = "URL Quelle...";
-"playapp.download.downloading" = "Wird Installiert";
+"playapp.download.downloading" = "Wird heruntergeladen";
 "preferences.toggle.clearAppData" = "Daten löschen";
 "alert.supression" = "Du kannst dies in den PlayCover Einstellungen ändern";
 "menubar.clearCache" = "Cache löschen";
@@ -364,8 +363,15 @@
 "settings.toggle.lldbWithTerminal" = "Im Terminal öffnen";
 "settings.unavailable.hud" = "Metal HUD nicht verfügbar";
 "error.failedToStripBinary" = "ARM64-Architektur konnte nicht in Fat Binary gefunden werden!";
-"settings.playChain.enable" = "Aktiviere PlayChain (experimental)";
+"settings.playChain.enable" = "Aktiviere PlayChain (Experimental)";
 "settings.playChain.help" = "Aktiviere die PlayChain-Unterstützung für diese Anwendung, sodass Apple Keychain Services (teilweise) verwendet werden kann";
 "settings.playChain.debugging" = "PlayChain Debugging";
 "playapp.noSources.title" = "Keine IPAs installiert";
 "playapp.noSources.subtitle" = "Du hast derzeit keine IPAs installiert. Klicke auf die Schaltfläche unten, um eine zu importieren.";
+"settings.tab.bypasses" = "Umgeht";
+"settings.addToLaunchpad" = "Zum Launchpad hinzufügen";
+"settings.removeFromLaunchpad" = "Vom Launchpad entfernen";
+"playapp.download.integrityCheck" = "Überprüfung der Dateiintegrität:";
+"playapp.download.differentChecksum" = "Unterschiedliche Prüfsummen! Möchtest du mit der Installation fortfahren?";
+"playapp.download.differentChecksumDesc" = "\"%@\" erwartet, \"%@\" erhalten";
+"playapp.progress.canceled" = "Abgebrochen";

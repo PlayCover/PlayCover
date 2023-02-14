@@ -190,7 +190,7 @@ struct GraphicsView: View {
                     Spacer()
                     Picker("", selection: $settings.settings.iosDeviceModel) {
                         Text("iPad Pro (12.9-inch) (1st gen) | A9X | 4GB").tag("iPad6,7")
-                        Text("iPad Pro (12.9-inch) (3rd gen) | A12Z | 4GB").tag("iPad8,6")
+                        Text("iPad Pro (12.9-inch) (3rd gen) | A12X | 4GB").tag("iPad8,6")
                         Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
                         Text("iPad Pro (12.9-inch) (6th gen) | M2 | 8GB").tag("iPad14,5")
                         Divider()
@@ -457,7 +457,7 @@ struct MiscView: View {
                     .frame(height: 20)
                 HStack {
                     HStack {
-                        Toggle("settings.toggle.hud", isOn: $settings.metalHudEnabled)
+                        Toggle("settings.toggle.hud", isOn: $settings.settings.metalHUD)
                             .disabled(!isVenturaGreater())
                             .help(!isVenturaGreater() ? "settings.unavailable.hud" : "")
                         Spacer()

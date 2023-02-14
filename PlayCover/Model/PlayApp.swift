@@ -58,7 +58,7 @@ class PlayApp: BaseApp {
     func runAppExec() {
         let config = NSWorkspace.OpenConfiguration()
 
-        if settings.metalHudEnabled {
+        if settings.settings.metalHUD {
             config.environment = ["MTL_HUD_ENABLED": "1"]
         } else {
             config.environment = ["MTL_HUD_ENABLED": "0"]
@@ -107,7 +107,11 @@ class PlayApp: BaseApp {
             .appendingPathComponent("Applications")
             .appendingPathComponent("PlayCover")
 
+    static let playChainDirectory = PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
+
     lazy var aliasURL = PlayApp.aliasDirectory.appendingPathComponent(name)
+
+    lazy var playChainURL = PlayApp.playChainDirectory.appendingPathComponent(info.bundleIdentifier)
 
     lazy var settings = AppSettings(info, container: container)
 
@@ -142,6 +146,10 @@ class PlayApp: BaseApp {
 
     func clearAllCache() {
         Uninstaller.clearExternalCache(info.bundleIdentifier)
+    }
+
+    func clearPlayChain() {
+        FileManager.default.delete(at: playChainURL)
     }
 
     func createAlias() {
@@ -195,9 +203,11 @@ class PlayApp: BaseApp {
     var prohibitedToPlay: Bool {
         PlayApp.PROHIBITED_APPS.contains(info.bundleIdentifier)
     }
+
     var maliciousProhibited: Bool {
         PlayApp.MALICIOUS_APPS.contains(info.bundleIdentifier)
     }
+
     static let PROHIBITED_APPS = [
         "com.activision.callofduty.shooter",
         "com.ea.ios.apexlegendsmobilefps",
@@ -208,8 +218,9 @@ class PlayApp: BaseApp {
         "com.tencent.tmgp.pubgmhd",
         "com.dts.freefireth",
         "com.dts.freefiremax"
-]
+    ]
+
     static let MALICIOUS_APPS = [
         "com.zhiliaoapp.musically"
-]
+    ]
 }

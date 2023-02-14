@@ -234,7 +234,6 @@
 "settings.picker.adaptiveRes.5" = "自定義";
 "settings.picker.aspectRatio" = "長寬比:";
 "settings.toggle.disableDisplaySleep.help" = "防止螢幕在應用程式運行期間關閉";
-"settings.tab.jbBypass" = "繞過越獄檢測";
 "settings.info.executableName" = "可執行檔名稱:";
 "settings.toggle.jbBypass.help" = "在部分遊戲中嘗試繞過越獄檢測（無法保證任何時候都正確運作）";
 "settings.info.displayName" = "顯示名稱:";
@@ -349,3 +348,10 @@
 "settings.playChain.help" = "在此應用程序啟用 PlayChain 將使應用程式（部分）使用 Apple Keychain 服務";
 "playapp.noSources.title" = "沒有安裝任何 IPA";
 "playapp.noSources.subtitle" = "暫時沒有安裝任何 IPA 文件。按下下面的按鈕來導入一個。";
+"settings.tab.bypasses" = "Bypasses";
+"settings.removeFromLaunchpad" = "Remove from Launchpad";
+"settings.addToLaunchpad" = "Add to Launchpad";
+"playapp.download.integrityCheck" = "Verifying file integrity:";
+"playapp.download.differentChecksum" = "Different checksums! Do you want to continue to install?";
+"playapp.download.differentChecksumDesc" = "Expected \"%@\", got \"%@\"";
+"playapp.progress.canceled" = "Canceled";
