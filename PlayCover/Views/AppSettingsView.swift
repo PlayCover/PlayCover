@@ -272,10 +272,7 @@ struct GraphicsView: View {
                     }
                 }
                 HStack {
-                    let majorVersion = ProcessInfo().operatingSystemVersion.majorVersion
-                    let minorVersion = ProcessInfo().operatingSystemVersion.minorVersion
-                    let num = Float("\(majorVersion).\(minorVersion)")
-                    if num ?? 13.1 > 13.1 {
+                    if #available(macOS 13.2, *) {
                         Toggle("settings.toggle.windowExperimentalFix", isOn: $settings.settings.inverseScreenValues)
                             .help("settings.toggle.windowExperimentalFix.help")
                         Spacer()
