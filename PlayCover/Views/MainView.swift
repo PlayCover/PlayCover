@@ -124,7 +124,7 @@ struct MainView: View {
                 SignSetupView(isSigningSetupShown: $isSigningSetupShown)
             }
             .onChange(of: URLObserved.action) { _ in
-                self.selectedView = URLObserved.type == .source ? 2 : 1
+                self.selectedView = URLObserved.type == .source ? 2 : self.selectedView
             }
         }
         .frame(minWidth: 675, minHeight: 330)

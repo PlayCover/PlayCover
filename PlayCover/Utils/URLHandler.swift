@@ -38,7 +38,7 @@ struct URLHandler {
             let params = urlComponenents.queryItems else {
                 // Fall back to old url handler (for files)
                 if url.pathExtension == "ipa" {
-                    Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
+                    Installer.install(ipaUrl: url, export: false, returnCompletion: { _ in
                     Task { @MainActor in
                         AppsVM.shared.fetchApps()
                         NotifyService.shared.notify(
