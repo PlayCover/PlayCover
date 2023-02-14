@@ -21,14 +21,14 @@ import DownloadManager
 ///  More details: https://github.com/shapedbyiris/download-manager/blob/master/README.md
 
 class DownloadApp {
-    let url: URL?
-    let app: StoreAppData?
-    let warning: String?
+    let url: URL
+    let app: StoreAppData
+    let completion: () -> Void
 
-    init(url: URL?, app: StoreAppData?, warning: String?) {
+    init(url: URL, app: StoreAppData, completion: @escaping() -> Void) {
         self.url = url
         self.app = app
-        self.warning = warning
+        self.completion = completion
     }
 
     let downloadVM = DownloadVM.shared
@@ -36,39 +36,15 @@ class DownloadApp {
     let downloader = DownloadManager.shared
 
     func start() {
-        if !NetworkVM.isConnectedToNetwork() { return }
-        if installVM.inProgress {
-            Log.shared.error(PlayCoverError.waitInstallation)
-        } else {
-            if let warningMessage = warning {
-                let alert = NSAlert()
-                alert.messageText = NSLocalizedString(warningMessage, comment: "")
-                alert.informativeText = String(
-                    format: NSLocalizedString("ipaLibrary.alert.download", comment: ""),
-                    arguments: [app!.name]
-                )
-                alert.alertStyle = .warning
-                alert.addButton(withTitle: NSLocalizedString("button.Yes", comment: ""))
-                alert.addButton(withTitle: NSLocalizedString("button.No", comment: ""))
-
-                if alert.runModal() == .alertSecondButtonReturn {
-                    return
-                }
-            }
-
-            if let url = url, url.isFileURL {
-                proceedInstall(url, deleteIPA: false)
-            } else {
-                proceedDownload()
-            }
+        guard NetworkVM.isConnectedToNetwork() else {
+            return
         }
-    }
 
-    func cancel() {
-        downloader.cancelAllDownloads()
-
-        downloadVM.next(.canceled, 0.95, 1.0)
-        downloadVM.storeAppData = nil
+        if url.isFileURL {
+            proceedInstall(url, deleteIPA: false)
+        } else {
+            proceedDownload()
+        }
     }
 
     private func checksumAlert(originalSum: String, givenSum: String, completion: @escaping(Bool) -> Void) {
@@ -110,7 +86,7 @@ class DownloadApp {
                                                  in: .userDomainMask,
                                                  appropriateFor: URL(fileURLWithPath: "/Users"),
                                                  create: true)
-            downloader.addDownload(url: url!,
+            downloader.addDownload(url: url,
                                    destinationURL: tmpDir!,
                                    onProgress: { progress in
                 // progress is a Float
@@ -145,20 +121,9 @@ class DownloadApp {
 
     private func proceedInstall(_ url: URL?, deleteIPA: Bool = true) {
         if let url = url {
-            uif.ipaUrl = url
-            Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
-                Task { @MainActor in
-                    if deleteIPA {
-                        FileManager.default.delete(at: url)
-                    }
-                    AppsVM.shared.fetchApps()
-                    StoreVM.shared.resolveSources()
-                    NotifyService.shared.notify(
-                        NSLocalizedString("notification.appInstalled", comment: ""),
-                        NSLocalizedString("notification.appInstalled.message", comment: ""))
-                    self.downloadVM.storeAppData = nil
-                }
-            })
+            QueuesVM.shared.addInstallItem(ipa: url, deleteIpa: true)
+            self.downloadVM.storeAppData = nil
+            self.completion()
         }
     }
 }

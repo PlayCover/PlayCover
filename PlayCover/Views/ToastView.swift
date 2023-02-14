@@ -58,7 +58,9 @@ struct ToastView: View {
                             ProgressView(value: downloadVM.progress)
                             if downloadVM.status == .downloading {
                                 Button {
-                                    DownloadApp(url: nil, app: nil, warning: nil).cancel()
+                                    if let appData = downloadVM.storeAppData {
+                                        QueuesVM.shared.removeDownloadItem(app: appData)
+                                    }
                                 } label: {
                                     Image(systemName: "xmark.circle.fill")
                                         .font(.title3)

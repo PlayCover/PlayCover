@@ -62,13 +62,7 @@ struct AppLibraryView: View {
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                     Button("playapp.importIPA") {
-                        if installVM.inProgress {
-                            Log.shared.error(PlayCoverError.waitInstallation)
-                        } else if downloadVM.inProgress {
-                            Log.shared.error(PlayCoverError.waitDownload)
-                        } else {
-                            selectFile()
-                        }
+                        selectFile()
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -89,13 +83,7 @@ struct AppLibraryView: View {
             }
             ToolbarItem(placement: .primaryAction) {
                 Button(action: {
-                    if installVM.inProgress {
-                        Log.shared.error(PlayCoverError.waitInstallation)
-                    } else if downloadVM.inProgress {
-                        Log.shared.error(PlayCoverError.waitDownload)
-                    } else {
-                        selectFile()
-                    }
+                    selectFile()
                 }, label: {
                     Image(systemName: "plus")
                         .help("playapp.add")
@@ -125,13 +113,7 @@ struct AppLibraryView: View {
             showLegacyConvertAlert = LegacySettings.doesMonolithExist
         }
         .onDrop(of: ["public.url", "public.file-url"], isTargeted: nil) { (items) -> Bool in
-            if installVM.inProgress {
-                Log.shared.error(PlayCoverError.waitInstallation)
-                return false
-            } else if downloadVM.inProgress {
-                Log.shared.error(PlayCoverError.waitDownload)
-                return false
-            } else if let item = items.first {
+            if let item = items.first {
                 if let identifier = item.registeredTypeIdentifiers.first {
                     if identifier == "public.url" || identifier == "public.file-url" {
                         item.loadItem(forTypeIdentifier: identifier, options: nil) { (urlData, _) in
@@ -177,14 +159,9 @@ struct AppLibraryView: View {
     }
 
     private func installApp() {
-        Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
-            Task { @MainActor in
-                appsVM.fetchApps()
-                NotifyService.shared.notify(
-                    NSLocalizedString("notification.appInstalled", comment: ""),
-                    NSLocalizedString("notification.appInstalled.message", comment: ""))
-            }
-        })
+        if let url = uif.ipaUrl {
+            QueuesVM.shared.addInstallItem(ipa: url)
+        }
     }
 
     private func selectFile() {
