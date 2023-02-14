@@ -19,6 +19,7 @@ struct AppSettingsView: View {
     @State var closeView = false
     @State var appIcon: NSImage?
     @State var hasPlayTools: Bool?
+    @State var hasAlias: Bool?
 
     @State private var cache = DataCache.instance
 
@@ -79,14 +80,16 @@ struct AppSettingsView: View {
                         Text("settings.tab.graphics")
                     }
                     .disabled(!(hasPlayTools ?? true))
-                JBBypassView(settings: $viewModel.settings)
+                BypassesView(settings: $viewModel.settings,
+                             hasPlayTools: $hasPlayTools)
                     .tabItem {
-                        Text("settings.tab.jbBypass")
+                        Text("settings.tab.bypasses")
                     }
                     .disabled(!(hasPlayTools ?? true))
                 MiscView(settings: $viewModel.settings,
                          closeView: $closeView,
                          hasPlayTools: $hasPlayTools,
+                         hasAlias: $hasAlias,
                          app: viewModel.app)
                     .tabItem {
                         Text("settings.tab.misc")
@@ -131,6 +134,7 @@ struct AppSettingsView: View {
         }
         .task(priority: .background) {
             hasPlayTools = viewModel.app.hasPlayTools()
+            hasAlias = viewModel.app.hasAlias()
         }
         .padding()
     }
@@ -186,7 +190,7 @@ struct GraphicsView: View {
                     Spacer()
                     Picker("", selection: $settings.settings.iosDeviceModel) {
                         Text("iPad Pro (12.9-inch) (1st gen) | A9X | 4GB").tag("iPad6,7")
-                        Text("iPad Pro (12.9-inch) (3rd gen) | A12Z | 4GB").tag("iPad8,6")
+                        Text("iPad Pro (12.9-inch) (3rd gen) | A12X | 4GB").tag("iPad8,6")
                         Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
                         Text("iPad Pro (12.9-inch) (6th gen) | M2 | 8GB").tag("iPad14,5")
                         Divider()
@@ -360,12 +364,23 @@ struct GraphicsView: View {
     }
 }
 
-struct JBBypassView: View {
+struct BypassesView: View {
     @Binding var settings: AppSettings
+    @Binding var hasPlayTools: Bool?
 
     var body: some View {
         ScrollView {
             VStack {
+                HStack(alignment: .center) {
+                    Toggle("settings.playChain.enable", isOn: $settings.settings.playChain)
+                        .help("settings.playChain.help")
+                        .disabled(!(hasPlayTools ?? true))
+                    Spacer()
+                    Toggle("settings.playChain.debugging", isOn: $settings.settings.playChainDebugging)
+                        .disabled(!settings.settings.playChain)
+                }
+                Spacer()
+                    .frame(height: 20)
                 HStack {
                     Toggle("settings.toggle.jbBypass", isOn: $settings.settings.bypass)
                         .help("settings.toggle.jbBypass.help")
@@ -381,6 +396,7 @@ struct MiscView: View {
     @Binding var settings: AppSettings
     @Binding var closeView: Bool
     @Binding var hasPlayTools: Bool?
+    @Binding var hasAlias: Bool?
 
     @State var showPopover = false
 
@@ -436,7 +452,7 @@ struct MiscView: View {
                     .frame(height: 20)
                 HStack {
                     HStack {
-                        Toggle("settings.toggle.hud", isOn: $settings.metalHudEnabled)
+                        Toggle("settings.toggle.hud", isOn: $settings.settings.metalHUD)
                             .disabled(!isVenturaGreater())
                             .help(!isVenturaGreater() ? "settings.unavailable.hud" : "")
                         Spacer()
@@ -467,12 +483,21 @@ struct MiscView: View {
                             }
 
                             Task { @MainActor in
-                                AppsVM.shared.apps = []
                                 AppsVM.shared.fetchApps()
                             }
                         }
                     }
                     Spacer()
+                    Button((hasAlias ?? true) ? "settings.removeFromLaunchpad" : "settings.addToLaunchpad") {
+                        closeView.toggle()
+                        if !(hasAlias ?? true) {
+                            app.createAlias()
+                            hasAlias = true
+                        } else {
+                            app.removeAlias()
+                            hasAlias = false
+                        }
+                    }
                 }
             }
             .padding()

@@ -18,6 +18,7 @@ struct PlayAppView: View {
     @State private var showClearCacheAlert = false
     @State private var showClearCacheToast = false
     @State private var showClearPreferencesAlert = false
+    @State private var showClearPlayChainAlert = false
 
     @State var showImportSuccess = false
     @State var showImportFail = false
@@ -98,17 +99,26 @@ struct PlayAppView: View {
                     }
                 }
                 Divider()
+                Group {
+                    Button(action: {
+                        showClearCacheAlert.toggle()
+                    }, label: {
+                        Text("playapp.clearCache")
+                    })
+                    Button(action: {
+                        showClearPreferencesAlert.toggle()
+                    }, label: {
+                        Text("playapp.clearPreferences")
+                    })
+                    Button(action: {
+                        showClearPlayChainAlert.toggle()
+                    }, label: {
+                        Text("playapp.clearPlayChain")
+                    })
+                }
+                Divider()
                 Button(action: {
-                    showClearCacheAlert.toggle()
-                }, label: {
-                    Text("playapp.clearCache")
-                })
-                Button(action: {
-                    showClearPreferencesAlert.toggle()
-                }, label: {
-                    Text("playapp.clearPreferences")
-                })
-                Button(action: {
+                    selected = nil
                     Uninstaller.uninstallPopup(app)
                 }, label: {
                     Text("playapp.delete")
@@ -124,16 +134,23 @@ struct PlayAppView: View {
                 DeleteGenshinAccountView()
             }
             .alert("alert.app.delete", isPresented: $showClearCacheAlert) {
-                Button("button.Proceed", role: .cancel) {
+                Button("button.Proceed", role: .destructive) {
                     app.clearAllCache()
                     showClearCacheToast.toggle()
                 }
                 Button("button.Cancel", role: .cancel) { }
             }
             .alert("alert.app.preferences", isPresented: $showClearPreferencesAlert) {
-                Button("button.Proceed", role: .cancel) {
+                Button("button.Proceed", role: .destructive) {
                     deletePreferences(app: app.info.bundleIdentifier)
                     showClearPreferencesAlert.toggle()
+                }
+                Button("button.Cancel", role: .cancel) { }
+            }
+            .alert("alert.app.clearPlayChain", isPresented: $showClearPlayChainAlert) {
+                Button("button.Proceed", role: .destructive) {
+                    app.clearPlayChain()
+                    showClearPlayChainAlert.toggle()
                 }
                 Button("button.Cancel", role: .cancel) { }
             }
@@ -173,6 +190,26 @@ struct PlayAppView: View {
             }
         } catch {
             print("Error when attempting to remove Twitter session cookie: \(error)")
+        }
+    }
+
+    func deletePreferences(app: String) {
+        let plistURL = FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent("Library")
+            .appendingPathComponent("Containers")
+            .appendingEscapedPathComponent(app)
+            .appendingPathComponent("Data")
+            .appendingPathComponent("Library")
+            .appendingPathComponent("Preferences")
+            .appendingEscapedPathComponent(app)
+            .appendingPathExtension("plist")
+
+        guard FileManager.default.fileExists(atPath: plistURL.path) else { return }
+
+        do {
+            try FileManager.default.removeItem(atPath: plistURL.path)
+        } catch {
+            Log.shared.log("\(error)", isError: true)
         }
     }
 }

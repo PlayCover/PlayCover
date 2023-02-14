@@ -16,13 +16,11 @@
 		36B26B97288C724600859EFD /* UpdateSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B26B96288C724600859EFD /* UpdateSettings.swift */; };
 		5314D1EE26C402EC00A0A727 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5314D1ED26C402EC00A0A727 /* Shell.swift */; };
 		532644DE26E79E56002EA34D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 532644E026E79E56002EA34D /* Localizable.strings */; };
-		538AAE7B26CD41E60009C7AC /* ProcessExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538AAE7A26CD41E60009C7AC /* ProcessExtension.swift */; };
 		53D9DAF326C1849D0071959E /* PlayCoverError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D9DAF226C1849D0071959E /* PlayCoverError.swift */; };
 		53F3802826EB6F6B00D6B525 /* NotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F3802726EB6F6B00D6B525 /* NotifyService.swift */; };
 		53F4D29E26C43C040020167C /* UserIntentFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29D26C43C040020167C /* UserIntentFlow.swift */; };
 		53F4D2A026C43C690020167C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29F26C43C690020167C /* Log.swift */; };
 		53F50C4926E3CA42007AD2D3 /* AppLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */; };
-		53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F5E74226C1D37E005AED1D /* FileExtensions.swift */; };
 		68E48B952957046D00C39879 /* DownloadManager in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48B942957046D00C39879 /* DownloadManager */; };
 		68E48B97295704A600C39879 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E48B96295704A600C39879 /* Downloader.swift */; };
 		68E48B9A295708C800C39879 /* Injection in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48B99295708C800C39879 /* Injection */; };
@@ -33,7 +31,8 @@
 		6E06193828B3C4240012C771 /* ChangeGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193728B3C4240012C771 /* ChangeGenshinAccountView.swift */; };
 		6E06193A28B3C42E0012C771 /* DeleteGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193928B3C42E0012C771 /* DeleteGenshinAccountView.swift */; };
 		6E21233128F65F7600B4D75D /* GenshinUserDataURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E21233028F65F7600B4D75D /* GenshinUserDataURLs.swift */; };
-		6E3C8E1128AE1F330020BCEA /* xcode_install.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 6E3C8E1028AE1F250020BCEA /* xcode_install.scpt */; };
+		6E25096F297F5032004D754C /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E25096E297F5032004D754C /* FileExtensions.swift */; };
+		6E250971297F5281004D754C /* SigningSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E250970297F5281004D754C /* SigningSetupView.swift */; };
 		6E5C68BA289865C8008EC11B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5C68B9289865C8008EC11B /* MainView.swift */; };
 		6E66B0BF289DE6240099B907 /* StoreVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E66B0BE289DE6240099B907 /* StoreVM.swift */; };
 		6E66B0C9289F52800099B907 /* IPALibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E66B0C8289F52800099B907 /* IPALibraryView.swift */; };
@@ -44,9 +43,9 @@
 		6E7CA16528B4D02900216CD8 /* ITunesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CA16428B4D02900216CD8 /* ITunesResponse.swift */; };
 		6E7CA16728B4EEAE00216CD8 /* Keymapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CA16628B4EEAE00216CD8 /* Keymapping.swift */; };
 		6EB4B57428C93E0600630890 /* LegacySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB4B57328C93E0600630890 /* LegacySettings.swift */; };
+		6ECB1D0E29798DFA00CD92AA /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ECB1D0D29798DFA00CD92AA /* DataExtensions.swift */; };
 		6ED6379D28DAAAC100B506FA /* IPASourceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6379C28DAAAC100B506FA /* IPASourceSettings.swift */; };
 		6ED6ACA428A949A30040D234 /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6ACA328A949A30040D234 /* AppSettingsView.swift */; };
-		6ED6ACA628A96E570040D234 /* DeletePreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6ACA528A96E570040D234 /* DeletePreferences.swift */; };
 		6EE8265028E8AB2B003935BC /* DownloadVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE8264F28E8AB2B003935BC /* DownloadVM.swift */; };
 		6EF893D528F34CD1004AB6D9 /* NetworkVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF893D428F34CD1004AB6D9 /* NetworkVM.swift */; };
 		8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */; };
@@ -73,7 +72,6 @@
 		AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA71964A287A0EA800623C15 /* PlayRules.swift */; };
 		AA71964D287A35F400623C15 /* com.nexon.bluearchive.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA71964C287A35F400623C15 /* com.nexon.bluearchive.yaml */; };
 		AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = AA818CB4287ABEC3000BEE9D /* Yams */; };
-		AB671B8C28C9C7DB00B7B102 /* SigningSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB671B8B28C9C7DB00B7B102 /* SigningSetupView.swift */; };
 		ABED59832887A32F004D782B /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABED59822887A32F004D782B /* MenuBarView.swift */; };
 		B1084E1F28AA80F400E399FA /* AppSettingsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1084E1E28AA80F400E399FA /* AppSettingsVM.swift */; };
 		B1419FB628BA82EE000CB69F /* DiscordActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1419FB528BA82EE000CB69F /* DiscordActivity.swift */; };
@@ -83,6 +81,7 @@
 		B6603E1328E2257800DEFA3F /* Uninstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6603E1228E2257800DEFA3F /* Uninstaller.swift */; };
 		B6825C3528F3D23600E3015A /* InstallSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6825C3428F3D23600E3015A /* InstallSettings.swift */; };
 		B6AB53C929232B4F00039B2E /* KeyCodeNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AB53C829232B4F00039B2E /* KeyCodeNames.swift */; };
+		B6ABDA2A2971EEF700A46E80 /* ProgressVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ABDA292971EEF700A46E80 /* ProgressVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,7 +102,6 @@
 		53468A452712632800887A08 /* Security.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = Security.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Security.framework/Versions/A/Security.tbd; sourceTree = DEVELOPER_DIR; };
 		53468A4A2712917900887A08 /* libmis.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libmis.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libmis.tbd; sourceTree = DEVELOPER_DIR; };
 		53841CC926D9D7920021D27C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		538AAE7A26CD41E60009C7AC /* ProcessExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessExtension.swift; sourceTree = "<group>"; };
 		53D9DAF226C1849D0071959E /* PlayCoverError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverError.swift; sourceTree = "<group>"; };
 		53E3311126F574B600217197 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		53F3802526EB6CEA00D6B525 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -111,7 +109,6 @@
 		53F4D29D26C43C040020167C /* UserIntentFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIntentFlow.swift; sourceTree = "<group>"; };
 		53F4D29F26C43C690020167C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLibraryView.swift; sourceTree = "<group>"; };
-		53F5E74226C1D37E005AED1D /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
 		6854C5E528D53C9500CE28A0 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
 		68C79E67296741580041DBC9 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		68E48B96295704A600C39879 /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Downloader.swift; path = PlayCover/AppInstaller/Downloader.swift; sourceTree = SOURCE_ROOT; };
@@ -120,7 +117,8 @@
 		6E06193728B3C4240012C771 /* ChangeGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeGenshinAccountView.swift; sourceTree = "<group>"; };
 		6E06193928B3C42E0012C771 /* DeleteGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGenshinAccountView.swift; sourceTree = "<group>"; };
 		6E21233028F65F7600B4D75D /* GenshinUserDataURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenshinUserDataURLs.swift; sourceTree = "<group>"; };
-		6E3C8E1028AE1F250020BCEA /* xcode_install.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = xcode_install.scpt; sourceTree = "<group>"; };
+		6E25096E297F5032004D754C /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
+		6E250970297F5281004D754C /* SigningSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigningSetupView.swift; sourceTree = "<group>"; };
 		6E5C68B9289865C8008EC11B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		6E66B0BE289DE6240099B907 /* StoreVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreVM.swift; sourceTree = "<group>"; };
 		6E66B0C8289F52800099B907 /* IPALibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPALibraryView.swift; sourceTree = "<group>"; };
@@ -135,9 +133,9 @@
 		6E8001382974FE3400E53461 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6EB4B57328C93E0600630890 /* LegacySettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacySettings.swift; sourceTree = "<group>"; };
 		6EC228A028B14A0600D7D73A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		6ECB1D0D29798DFA00CD92AA /* DataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtensions.swift; sourceTree = "<group>"; };
 		6ED6379C28DAAAC100B506FA /* IPASourceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPASourceSettings.swift; sourceTree = "<group>"; };
 		6ED6ACA328A949A30040D234 /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
-		6ED6ACA528A96E570040D234 /* DeletePreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeletePreferences.swift; sourceTree = "<group>"; };
 		6EE8264F28E8AB2B003935BC /* DownloadVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadVM.swift; sourceTree = "<group>"; };
 		6EF893D428F34CD1004AB6D9 /* NetworkVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkVM.swift; sourceTree = "<group>"; };
 		81C2786C28D4A5A300E208D7 /* pt-br */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-br"; path = "pt-br.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -170,12 +168,7 @@
 		AA719647287A0E2500623C15 /* default.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = default.yaml; sourceTree = "<group>"; };
 		AA71964A287A0EA800623C15 /* PlayRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayRules.swift; sourceTree = "<group>"; };
 		AA71964C287A35F400623C15 /* com.nexon.bluearchive.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = com.nexon.bluearchive.yaml; sourceTree = "<group>"; };
-		AA818CBD287AC237000BEE9D /* input.xcfilelist */ = {isa = PBXFileReference; lastKnownFileType = text.xcfilelist; path = input.xcfilelist; sourceTree = "<group>"; };
-		AA818CBF287AC274000BEE9D /* output.xcfilelist */ = {isa = PBXFileReference; lastKnownFileType = text.xcfilelist; path = output.xcfilelist; sourceTree = "<group>"; };
 		AA970FD228793A310099A5D0 /* PlayCoverRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayCoverRelease.entitlements; sourceTree = "<group>"; };
-		AAE8809E287ACE9F00FBB23C /* cp_frameworks.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = cp_frameworks.sh; sourceTree = "<group>"; };
-		AAE8809F287ACE9F00FBB23C /* bootstrap.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = bootstrap.sh; sourceTree = "<group>"; };
-		AB671B8B28C9C7DB00B7B102 /* SigningSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningSetupView.swift; sourceTree = "<group>"; };
 		ABED59822887A32F004D782B /* MenuBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		ABF0BA1A285F9ED200FC5259 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B1084E1E28AA80F400E399FA /* AppSettingsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsVM.swift; sourceTree = "<group>"; };
@@ -187,6 +180,7 @@
 		B6603E1228E2257800DEFA3F /* Uninstaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Uninstaller.swift; sourceTree = "<group>"; };
 		B6825C3428F3D23600E3015A /* InstallSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallSettings.swift; sourceTree = "<group>"; };
 		B6AB53C829232B4F00039B2E /* KeyCodeNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCodeNames.swift; sourceTree = "<group>"; };
+		B6ABDA292971EEF700A46E80 /* ProgressVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,11 +222,11 @@
 				6E66B0D428A0039D0099B907 /* ToastView.swift */,
 				365AFB0728847B75008B3542 /* Sparkle.swift */,
 				6ED6ACA328A949A30040D234 /* AppSettingsView.swift */,
+				6E250970297F5281004D754C /* SigningSetupView.swift */,
 				6E06193428B3C3ED0012C771 /* Genshin Account Views */,
 				6E66B0CF289F562A0099B907 /* Sidebar Views */,
 				6E66B0CA289F55180099B907 /* App Views */,
 				36B26B95288C722500859EFD /* Settings */,
-				AB671B8B28C9C7DB00B7B102 /* SigningSetupView.swift */,
 				B6603E1228E2257800DEFA3F /* Uninstaller.swift */,
 			);
 			path = Views;
@@ -288,7 +282,6 @@
 		53F5E73B26C1C566005AED1D /* AppInstaller */ = {
 			isa = PBXGroup;
 			children = (
-				92ECD8A6274E769600DB7AC6 /* Utils */,
 				92ECD8A2274E75CD00DB7AC6 /* Installer.swift */,
 				68E48B96295704A600C39879 /* Downloader.swift */,
 			);
@@ -306,6 +299,7 @@
 				6E66B0BE289DE6240099B907 /* StoreVM.swift */,
 				6E66B0D828A135360099B907 /* ToastVM.swift */,
 				53F4D29F26C43C690020167C /* Log.swift */,
+				B6ABDA292971EEF700A46E80 /* ProgressVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -313,19 +307,18 @@
 		53F5E74126C1D369005AED1D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				8783D00A26B8C9E600171041 /* URLExtensions.swift */,
-				53F5E74226C1D37E005AED1D /* FileExtensions.swift */,
+				6E25096D297F4E95004D754C /* Extensions */,
+				6E21232F28F65F5800B4D75D /* GenshinUserData */,
+				92ECD8A4274E763700DB7AC6 /* IPA.swift */,
+				92EE06DD274EC09F002C907B /* Entitlements.swift */,
 				5314D1ED26C402EC00A0A727 /* Shell.swift */,
-				538AAE7A26CD41E60009C7AC /* ProcessExtension.swift */,
 				92B4D38E2737CF3D0001D7BB /* PlayTools.swift */,
 				68E48B9B295709BF00C39879 /* Cacher.swift */,
 				92A8AAC8275EFEA800D89B50 /* SystemConfig.swift */,
 				92F8500927675124005CE6BE /* AppIntegrity.swift */,
-				6E21232F28F65F5800B4D75D /* GenshinUserData */,
-				6ED6ACA528A96E570040D234 /* DeletePreferences.swift */,
 				B17FD04628C7B0D900B1D4CA /* AssetsExtractor.swift */,
-				B17FD03F28C70C7300B1D4CA /* CoreUI.h */,
 				6EB4B57328C93E0600630890 /* LegacySettings.swift */,
+				B17FD03F28C70C7300B1D4CA /* CoreUI.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -351,6 +344,16 @@
 			path = GenshinUserData;
 			sourceTree = "<group>";
 		};
+		6E25096D297F4E95004D754C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8783D00A26B8C9E600171041 /* URLExtensions.swift */,
+				6ECB1D0D29798DFA00CD92AA /* DataExtensions.swift */,
+				6E25096E297F5032004D754C /* FileExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		6E66B0CA289F55180099B907 /* App Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -373,7 +376,6 @@
 			isa = PBXGroup;
 			children = (
 				6E66B0D0289F57B00099B907 /* Documentation.docc */,
-				AAE8809D287ACE7D00FBB23C /* scripts */,
 				8783CFF926B8C52D00171041 /* PlayCover */,
 				8783CFF826B8C52D00171041 /* Products */,
 				53841CC826D9D7920021D27C /* Frameworks */,
@@ -407,8 +409,6 @@
 				8783D00026B8C52E00171041 /* Preview Content */,
 				532644E026E79E56002EA34D /* Localizable.strings */,
 				928C01D7272DF1A2007EB2DF /* PlayCover-Bridging-Header.h */,
-				AA818CBD287AC237000BEE9D /* input.xcfilelist */,
-				AA818CBF287AC274000BEE9D /* output.xcfilelist */,
 			);
 			path = PlayCover;
 			sourceTree = "<group>";
@@ -421,15 +421,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		92ECD8A6274E769600DB7AC6 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				92ECD8A4274E763700DB7AC6 /* IPA.swift */,
-				92EE06DD274EC09F002C907B /* Entitlements.swift */,
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
 		AA719640287A085200623C15 /* Rules */ = {
 			isa = PBXGroup;
 			children = (
@@ -438,16 +429,6 @@
 				AA719647287A0E2500623C15 /* default.yaml */,
 			);
 			path = Rules;
-			sourceTree = "<group>";
-		};
-		AAE8809D287ACE7D00FBB23C /* scripts */ = {
-			isa = PBXGroup;
-			children = (
-				6E3C8E1028AE1F250020BCEA /* xcode_install.scpt */,
-				AAE8809F287ACE9F00FBB23C /* bootstrap.sh */,
-				AAE8809E287ACE9F00FBB23C /* cp_frameworks.sh */,
-			);
-			path = scripts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -546,7 +527,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E3C8E1128AE1F330020BCEA /* xcode_install.scpt in Resources */,
 				AA719649287A0E2500623C15 /* default.yaml in Resources */,
 				8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */,
 				532644DE26E79E56002EA34D /* Localizable.strings in Resources */,
@@ -644,7 +624,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E66B0D3289F5A010099B907 /* StoreAppView.swift in Sources */,
-				6ED6ACA628A96E570040D234 /* DeletePreferences.swift in Sources */,
 				6E66B0D528A0039D0099B907 /* ToastView.swift in Sources */,
 				92ECD8A3274E75CD00DB7AC6 /* Installer.swift in Sources */,
 				B6825C3528F3D23600E3015A /* InstallSettings.swift in Sources */,
@@ -655,8 +634,10 @@
 				3665EF8928832400007CF915 /* PlayCoverSettingsView.swift in Sources */,
 				9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */,
 				92ECD8AE274E787200DB7AC6 /* AppInfo.swift in Sources */,
+				6E250971297F5281004D754C /* SigningSetupView.swift in Sources */,
 				928C01D9272E162C007EB2DF /* InstallVM.swift in Sources */,
 				6E06193628B3C4090012C771 /* StoreGenshinAccountView.swift in Sources */,
+				6E25096F297F5032004D754C /* FileExtensions.swift in Sources */,
 				53F4D2A026C43C690020167C /* Log.swift in Sources */,
 				B6603E1128E206A300DEFA3F /* UninstallSettings.swift in Sources */,
 				92A8AAC9275EFEA800D89B50 /* SystemConfig.swift in Sources */,
@@ -674,9 +655,10 @@
 				53F4D29E26C43C040020167C /* UserIntentFlow.swift in Sources */,
 				6E66B0BF289DE6240099B907 /* StoreVM.swift in Sources */,
 				B6603E1328E2257800DEFA3F /* Uninstaller.swift in Sources */,
+				B6ABDA2A2971EEF700A46E80 /* ProgressVM.swift in Sources */,
 				AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */,
+				6ECB1D0E29798DFA00CD92AA /* DataExtensions.swift in Sources */,
 				6E66B0D928A135360099B907 /* ToastVM.swift in Sources */,
-				53F5E74326C1D37E005AED1D /* FileExtensions.swift in Sources */,
 				92EE06D0274EA433002C907B /* BaseApp.swift in Sources */,
 				92F8500A27675124005CE6BE /* AppIntegrity.swift in Sources */,
 				6E06193828B3C4240012C771 /* ChangeGenshinAccountView.swift in Sources */,
@@ -691,8 +673,6 @@
 				8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */,
 				6EB4B57428C93E0600630890 /* LegacySettings.swift in Sources */,
 				ABED59832887A32F004D782B /* MenuBarView.swift in Sources */,
-				538AAE7B26CD41E60009C7AC /* ProcessExtension.swift in Sources */,
-				AB671B8C28C9C7DB00B7B102 /* SigningSetupView.swift in Sources */,
 				B6AB53C929232B4F00039B2E /* KeyCodeNames.swift in Sources */,
 				92EE06D4274EA604002C907B /* PlayAppView.swift in Sources */,
 				6E21233128F65F7600B4D75D /* GenshinUserDataURLs.swift in Sources */,
@@ -811,7 +791,7 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 193;
+				CURRENT_PROJECT_VERSION = 233;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "PlayCover/Preview\\ Content";
@@ -826,7 +806,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 2.0.2;
+				MARKETING_VERSION = 3.0.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.playcover.PlayCover;
@@ -914,7 +894,7 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 193;
+				CURRENT_PROJECT_VERSION = 233;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "PlayCover/Preview\\ Content";
@@ -929,7 +909,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 2.0.2;
+				MARKETING_VERSION = 3.0.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.playcover.PlayCover;

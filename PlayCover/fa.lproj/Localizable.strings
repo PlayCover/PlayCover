@@ -26,7 +26,7 @@
 "playapp.install.signing" = "در حال مهروموم کردن برنامه...";
 "playapp.install.addToLib" = "انتقال به کتابخانه نصب‌شده‌ها...";
 "playapp.install.copy" = "رونوشت‌گیری از پرونده‌ی قابل اجرای برنامه...";
-"playapp.install.finished" = "پردازش با موفقیت پایان یافت";
+"playapp.progress.finished" = "پردازش با موفقیت پایان یافت";
 "alert.appCacheCleared" = "پاک‌سازی داده‌های برنامه انجام شد!";
 "alert.kmImported" = "درون‌ریزی Keymap انجام شد!";
 "alert.errorImportKm" = "خطائی در زمان درون‌ریزی رخ داد!";
@@ -64,11 +64,6 @@
 "soundAlert.informativeText" = "نرخ نمونه‌برداری خروجی صوتی دستگاه شما ۴۸ و یا ۴۴/۱ کیلوهرتز نیست! ممکن است خرابی رخ دهد. آیا مایل هستید که آن را به ۴۸ کیلوهرتز تغییر دهید؟";
 "soundAlert.successText" = "نرخ نمونه‌برداری خروجی صوتی دستگاه شما بر روی ۴۸ کیلوهرتز قرار گرفت";
 "soundAlert.failureText" = "تغییر نرخ نمونه‌برداری خروجی صوتی به ۴۸ کیلوهرتز با شکست مواجه شد. شما می‌توانید آن را به صورت دستی در نرم‌افزار Audio MIDI Setup مک خود، تغییر دهید";
-"xcode.install.message" = "شما می‌بایست Xcode Command Line Tools را نصب کرده و سپس PlayCover را از نو راه‌اندازی (Restart) کنید";
-"xcode.install.success" = "نصب Xcode Command Line Tools با موفقیت انجام شد";
-"xcode.install.failed" = "نصب خودکار Xcode Command Line Tools با شکست مواجه شد";
-"xcode.install.progress" = "در حال نصب Xcode Command Line Tools";
-"xcode.install.progress.subtext" = "بسته به سرعت اینترنت شما ممکن است زمان دانلود و نصب متفاوت باشد";
 "settings.text.customWidth" = "عرض";
 "settings.text.customHeight" = "ارتفاع";
 
@@ -84,7 +79,6 @@
 "button.Quit" = "خروج";
 "settings.resetSettingsCompleted" = "پیکربندی‌ها به حالت پیش‌فرض بازنشانی شدند!";
 "settings.resetKmCompleted" = "بازنشانی Keymap انجام شد!";
-"xcode.install.failed.altButton" = "دیگر راه‌کارها";
 "playapp.exportKmPanel.fieldLabel" = "نام PlayMap:";
 "sidebar.appLibrary" = "کتابخانه نصب‌شده‌ها";
 "sidebar.ipaLibrary" = "کتابخانه پرونده‌های IPA";
@@ -112,7 +106,6 @@
 "settings.picker.adaptiveRes.5" = "اندازه دلخواه";
 "settings.picker.aspectRatio" = "نسبت تصویر:";
 "settings.toggle.disableDisplaySleep.help" = "این گزینه از خاموش شدن نمایش‌گر در زمان اجرای این برنامه جلوگیری می‌کند";
-"settings.tab.jbBypass" = "پنهان‌گر جیل‌بریک";
 "settings.toggle.jbBypass.help" = "با فعال‌سازی این گزینه تلاش می‌شود که از فعالیت شناساگر جیل‌بریک موجود در برخی بازی‌ها جلوگیری شود (اما تضمینی برای اثرگذاری آن وجود ندارد)";
 "settings.info.displayName" = "نام نمایشی:";
 "settings.info.bundleName" = "نام‌بسته:";
@@ -122,7 +115,6 @@
 "settings.info.url" = "نشانی پرونده Info.plist:";
 "settings.resetSettings" = "بازنشانی پیکربندی‌ها";
 "settings.resetKm" = "بازنشانی Keymap";
-"xcode.install.failed.altInstructions" = "برروی دکمه زیر برای دیدن راهکارهای نصب جایگزین کلیک کنید";
 "settings.tab.misc" = "دیگر موراد";
 "settings.button.discord" = "سفارشی‌سازی";
 "settings.button.clearActivity" = "پاک کردن همه";
@@ -159,10 +151,10 @@
 "preferences.popover.badurl" = "پیوند معتبر نیست!";
 "preferences.popover.badjson" = "پرونده JSON اعتبار نداشته و یا یافت نشد!";
 "preferences.textfield.url" = "پیوند مخزن را وارد کنید...";
-"playapp.download" = "در حال بارگیری";
+"playapp.download.downloading" = "در حال بارگیری";
 "error.waitDownload" = "لطفاً پس از پایان یافتن روند بارگیری در حال انجام، تلاش کنید!";
 "preferences.tab.uninstall" = "گزینه‌های حذف برنامه";
-"playapp.install.failed" = "موفقیت‌آمیز نبود";
+"playapp.progress.failed" = "موفقیت‌آمیز نبود";
 "preferences.whenUninstalling" = "در زمان حذف:";
 "preferences.toggle.showUninstall" = "پاپ‌آپ تأیید حذف را نمایش بده";
 "preferences.toggle.clearAppData" = "داده‌های برنامه را پاک کن";
@@ -220,4 +212,17 @@
 "ipaLibrary.download" = "بارگیری";
 "alert.differentBundleIdKeymap.message" = "این Keymap برای برنامه‌ای دیگر ساخته شده است.";
 "settings.text.debugger" = "اشکال‌زدا:";
-"settings.unavailable.hud" = "Metal HUD unavailable";
+"settings.unavailable.hud" = "Metal HUD در دسترس نیست";
+"error.failedToStripBinary" = "معماری ARM64 در این پرونده Binary یافت نشد!";
+"settings.playChain.enable" = "فعال‌سازی PlayChain (آزمایشی)";
+"settings.playChain.help" = "فعال‌سازی PlayChain برای این برنامه تا حدودی دسترسی آن را به سرویس‌های Keychain اپل فراهم می‌کند";
+"settings.playChain.debugging" = "اشکال‌زدای PlayChain";
+"playapp.noSources.title" = "No IPAs Installed";
+"playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";
+"settings.tab.bypasses" = "Bypasses";
+"settings.addToLaunchpad" = "Add to Launchpad";
+"settings.removeFromLaunchpad" = "Remove from Launchpad";
+"playapp.progress.canceled" = "Canceled";
+"playapp.download.integrityCheck" = "Verifying file integrity:";
+"playapp.download.differentChecksum" = "Different checksums! Do you want to continue to install?";
+"playapp.download.differentChecksumDesc" = "Expected \"%@\", got \"%@\"";

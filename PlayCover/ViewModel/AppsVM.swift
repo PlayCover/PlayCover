@@ -3,7 +3,6 @@
 //  PlayCover
 //
 
-import Cocoa
 import Foundation
 
 class AppsVM: ObservableObject {
@@ -15,11 +14,14 @@ class AppsVM: ObservableObject {
         fetchApps()
     }
 
+    @Published var filteredApps: [PlayApp] = []
     @Published var apps: [PlayApp] = []
-    @Published var updatingApps = false
+
+    @Published var updatingApps = true
 
     func fetchApps() {
-        Task {
+        Task { @MainActor in
+            updatingApps = true
             var result: [PlayApp] = []
             do {
                 let containers = try AppContainer.containers()
@@ -46,18 +48,23 @@ class AppsVM: ObservableObject {
                 print(error)
             }
 
-            await updateApps(result)
+            apps = result
+
+            updateApps(result)
         }
     }
 
     @MainActor func updateApps(_ newApps: [PlayApp]) {
-        self.apps.removeAll()
+        updatingApps = true
+        self.filteredApps.removeAll()
         var filteredApps = newApps
 
         if !uif.searchText.isEmpty {
             filteredApps = newApps.filter({ $0.searchText.contains(uif.searchText.lowercased()) })
         }
 
-        self.apps.append(contentsOf: filteredApps)
+        filteredApps.sort(by: { $0.name.lowercased() < $1.name.lowercased() })
+        self.filteredApps.append(contentsOf: filteredApps)
+        updatingApps = false
     }
 }

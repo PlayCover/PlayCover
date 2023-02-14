@@ -107,7 +107,7 @@
 "playapp.install.createWrapper" = "앱 컨테이너 만드는 중...";
 
 /* (No Comment) */
-"playapp.install.finished" = "완료됨";
+"playapp.progress.finished" = "완료됨";
 
 /* (No Comment) */
 "playapp.install.installPlayTools" = "PlayTools 설치 중...";
@@ -234,21 +234,6 @@
 
 /* (No Comment) */
 "storeAccount.storeAcc" = "계정 보관하기";
-
-/* (No Comment) */
-"xcode.install.failed" = "명령어 라인 개발자 도구를 설치하지 못했습니다";
-
-/* (No Comment) */
-"xcode.install.message" = "명령어 라인 개발자 도구(Xcode Command Line Tools)를 설치한 후 PlayCover를 재시작 해야합니다";
-
-/* (No Comment) */
-"xcode.install.progress" = "명령어 라인 개발자 도구(Xcode Command Line Tools) 설치 중";
-
-/* (No Comment) */
-"xcode.install.progress.subtext" = "인터넷 속도에 따라 5~10분정도 소요됩니다";
-
-/* (No Comment) */
-"xcode.install.success" = "명령어 라인 개발자 도구(Xcode Command Line Tools)가 성공적으로 설치되었습니다";
 "settings.title" = "%@ 설정";
 "playapp.exportKmPanel.fieldLabel" = "PlayMap 이름:";
 "sidebar.appLibrary" = "앱 보관함";
@@ -278,7 +263,6 @@
 "settings.picker.adaptiveRes.5" = "사용자화";
 "settings.picker.aspectRatio" = "가로세로 비율:";
 "settings.toggle.disableDisplaySleep.help" = "이 앱이 작동하는 중에 화면이 꺼지는 것을 방지합니다";
-"settings.tab.jbBypass" = "탈옥 우회";
 "settings.toggle.jbBypass.help" = "일부 게임에서의 탈옥 감지를 우회하려고 시도합니다 (항상 작동이 보장되지는 않습니다)";
 "settings.info.bundleName" = "번들 이름:";
 "settings.info.bundleIdentifier" = "번들 식별자:";
@@ -289,8 +273,6 @@
 "settings.resetKm" = "키매핑 초기화";
 "settings.resetSettingsCompleted" = "설정을 기본값으로 되돌렸습니다!";
 "settings.resetKmCompleted" = "키매핑이 재설정되었습니다!";
-"xcode.install.failed.altInstructions" = "대체 설치 지침을 보려면 아래 버튼를 클릭하세요";
-"xcode.install.failed.altButton" = "대체 지침";
 "settings.tab.misc" = "기타";
 "settings.toggle.hud" = "Metal HUD 활성화";
 "settings.info.bundleVersion" = "번들 버전:";
@@ -318,9 +300,9 @@
 "preferences.popover.badurl" = "URL이 유효하지 않습니다!";
 "preferences.popover.badjson" = "JSON이 유효하지 않거나 찾을 수 없습니다!";
 "preferences.textfield.url" = "소스 URL...";
-"playapp.download" = "다운로드 중";
+"playapp.download.downloading" = "다운로드 중";
 "error.waitDownload" = "현재 다운로드가 끝날 때까지 기다려 주세요!";
-"playapp.install.failed" = "실패함";
+"playapp.progress.failed" = "실패함";
 "alert.supression" = "PlayCover 환경설정에서 변경할 수 있습니다";
 "preferences.toggle.clearAppData" = "데이터 초기화";
 "preferences.tab.uninstall" = "제거";
@@ -351,9 +333,9 @@
 "configSigning.info.SIPHeader" = "시스템 무결성 보호(SIP)";
 "configSigning.info.AMFI" = "가짜 서명을 허용하여 앱을 올바른 팀 ID로 실행하기 위해서는 AMFI를 꺼야합니다";
 "configSigning.info.AMFIHeader" = "Apple 모바일 파일 무결성(AMFI)";
-"configSigning.action.shutdown" = "내 Mac 종료";
+"configSigning.action.shutdown" = "사용자의 Mac 종료";
 "configSigning.action.copyCommand" = "명령 복사하기";
-"configSigning.action.restart" = "재시동";
+"configSigning.action.restart" = "사용자의 Mac 재시동";
 "configSigning.step.disableSIP" = "리커버리 모드에서 SIP를 비활성화 해주세요";
 "configSigning.step.disableAMFI" = "AMFI를 비활성화 해주세요";
 "configSigning.step.AMFIreboot" = "AMFI가 비활성화되었습니다. 재부팅 해주세요";
@@ -380,3 +362,16 @@
 "alert.differentBundleIdKeymap.message" = "이 키매핑은 다른 앱을 위해 만들어졌을수도 있습니다.";
 "alert.differentBundleIdKeymap.text" = "정말로 이 키매핑을 불러오시겠습니까?";
 "settings.unavailable.hud" = "Metal HUD unavailable";
+"error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
+"settings.playChain.debugging" = "PlayChain 디버깅";
+"settings.playChain.enable" = "Enable PlayChain (experimental)";
+"settings.playChain.help" = "이 애플리케이션에 대한 PlayChain 지원을 활성화하여 Apple 키체인 서비스를 (부분적으로) 사용할 수 있도록 합니다";
+"playapp.noSources.title" = "설치된 IPA가 없음";
+"playapp.noSources.subtitle" = "현재 설치된 IPA가 없습니다. 아래 버튼을 클릭하여 가져오세요.";
+"settings.tab.bypasses" = "Bypasses";
+"settings.addToLaunchpad" = "Add to Launchpad";
+"settings.removeFromLaunchpad" = "Remove from Launchpad";
+"playapp.download.integrityCheck" = "Verifying file integrity:";
+"playapp.download.differentChecksum" = "Different checksums! Do you want to continue to install?";
+"playapp.download.differentChecksumDesc" = "Expected \"%@\", got \"%@\"";
+"playapp.progress.canceled" = "Canceled";

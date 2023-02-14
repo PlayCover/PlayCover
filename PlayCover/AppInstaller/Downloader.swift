@@ -37,7 +37,7 @@ class DownloadApp {
 
     func start() {
         if !NetworkVM.isConnectedToNetwork() { return }
-        if installVM.installing {
+        if installVM.inProgress {
             Log.shared.error(PlayCoverError.waitInstallation)
         } else {
             if let warningMessage = warning {
@@ -53,9 +53,11 @@ class DownloadApp {
 
                 if alert.runModal() == .alertSecondButtonReturn {
                     return
-                } else {
-                    proceedDownload()
                 }
+            }
+
+            if let url = url, url.isFileURL {
+                proceedInstall(url, deleteIPA: false)
             } else {
                 proceedDownload()
             }
@@ -64,14 +66,44 @@ class DownloadApp {
 
     func cancel() {
         downloader.cancelAllDownloads()
-        downloadVM.downloading = false
-        downloadVM.progress = 0
+
+        downloadVM.next(.canceled, 0.95, 1.0)
         downloadVM.storeAppData = nil
+    }
+
+    private func checksumAlert(originalSum: String, givenSum: String, completion: @escaping(Bool) -> Void) {
+        Task { @MainActor in
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString("playapp.download.differentChecksum", comment: "")
+            alert.informativeText = String(
+                format: NSLocalizedString("playapp.download.differentChecksumDesc", comment: ""),
+                arguments: [originalSum, givenSum]
+            )
+            alert.alertStyle = .warning
+            alert.addButton(withTitle: NSLocalizedString("button.Proceed", comment: ""))
+            alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
+
+            completion(alert.runModal() == .alertFirstButtonReturn)
+        }
+    }
+
+    private func verifyChecksum(checksum: String?, file: URL?, completion: @escaping(Bool) -> Void) {
+        Task {
+            if let originalSum = checksum, !originalSum.isEmpty, let fileURL = file {
+                if let sha256 = fileURL.sha256, originalSum != sha256 {
+                    checksumAlert(originalSum: originalSum, givenSum: sha256, completion: completion)
+                    return
+                }
+            }
+
+            completion(true)
+        }
     }
 
     private func proceedDownload() {
         self.downloadVM.storeAppData = self.app
-        self.downloadVM.downloading = true
+        self.downloadVM.next(.downloading, 0.0, 0.7)
+
         var tmpDir: URL?
         do {
             tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
@@ -84,17 +116,26 @@ class DownloadApp {
                 // progress is a Float
                 self.downloadVM.progress = Double(progress)
             }, onCompletion: { error, fileURL in
+                self.downloadVM.next(.integrity, 0.7, 0.95)
+
                 guard error == nil else {
-                    self.downloadVM.downloading = false
-                    self.downloadVM.progress = 0
+                    self.downloadVM.next(.failed, 0.95, 1.0)
                     self.downloadVM.storeAppData = nil
                     return Log.shared.error(error!)
                 }
-                self.downloadVM.downloading = false
-                self.downloadVM.progress = 0
-                self.proceedInstall(fileURL)
+
+                self.verifyChecksum(checksum: self.downloadVM.storeAppData?.checksum, file: fileURL) { completing in
+                    self.downloadVM.next(completing ? .finish : .failed, 0.95, 1.0)
+                    if completing {
+                        Task { @MainActor in
+                            self.proceedInstall(fileURL)
+                        }
+                    }
+                }
             })
         } catch {
+            self.downloadVM.next(.failed, 0.95, 1.0)
+
             if let tmpDir = tmpDir {
                 FileManager.default.delete(at: tmpDir)
             }
@@ -102,12 +143,14 @@ class DownloadApp {
         }
     }
 
-    private func proceedInstall(_ url: URL?) {
+    private func proceedInstall(_ url: URL?, deleteIPA: Bool = true) {
         if let url = url {
             uif.ipaUrl = url
             Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
                 Task { @MainActor in
-                    FileManager.default.delete(at: url)
+                    if deleteIPA {
+                        FileManager.default.delete(at: url)
+                    }
                     AppsVM.shared.fetchApps()
                     StoreVM.shared.resolveSources()
                     NotifyService.shared.notify(

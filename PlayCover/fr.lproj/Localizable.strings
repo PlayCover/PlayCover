@@ -107,7 +107,7 @@
 "playapp.install.createWrapper" = "Création du conteneur de l'application...";
 
 /* (No Comment) */
-"playapp.install.finished" = "Fini";
+"playapp.progress.finished" = "Fini";
 
 /* (No Comment) */
 "playapp.install.installPlayTools" = "Installation de PlayTools...";
@@ -185,22 +185,22 @@
 "settings.toggle.discord" = "Activer l'activité Discord";
 
 /* (No Comment) */
-"settings.toggle.jbBypass" = "Activer l'évitement Jailbreak (Alpha)";
+"settings.toggle.jbBypass" = "Activer l'évitement Jailbreak (Expérimental)";
 
 /* (No Comment) */
 "settings.toggle.km" = "Activer le mappage de touches";
 
 /* (No Comment) */
-"soundAlert.failureText" = "Failed to set current output device's sample rate to 48 KHz. You can manually set sample rate in ‘Audio MIDI Setup’ app";
+"soundAlert.failureText" = "Une error a occurée en essayant de régler la fréquence d'échantillonnage du périphérique de sortie actuel à 48 kHz. Vous pouvez régler manuellement la fréquence d'échantillonnage dans l'application Audio MIDI Setup";
 
 /* (No Comment) */
-"soundAlert.informativeText" = "Votre sortie audio actuelle n'a pas un taux d'échantillonnage de 48 ou 44.1 KHz ! Des erreurs peuvent survenir. Voulez-vous changer le taux d'échantillonnage de votre sortie audio actuelle à 48 KHz ?";
+"soundAlert.informativeText" = "Votre sortie audio actuelle n'a pas un taux d'échantillonnage de 48 ou 44.1 kHz ! Des erreurs peuvent survenir. Voulez-vous changer le taux d'échantillonnage de votre sortie audio actuelle à 48 kHz ?";
 
 /* (No Comment) */
 "soundAlert.messageText" = "Paramètres Audio Incorrects Détectés !";
 
 /* (No Comment) */
-"soundAlert.successText" = "Définir le taux d'échantillonnage de votre sortie audio à 48 KHz";
+"soundAlert.successText" = "Définir le taux d'échantillonnage de votre sortie audio à 48 kHz";
 
 /* (No Comment) */
 "storeAccount.deleteAcc" = "Supprimer un compte";
@@ -234,21 +234,6 @@
 
 /* (No Comment) */
 "storeAccount.storeAcc" = "Sauvegarder un compte";
-
-/* (No Comment) */
-"xcode.install.failed" = "Échec de l'installation de Xcode Command Line Tools";
-
-/* (No Comment) */
-"xcode.install.message" = "Veuiller installer Xcode Command Line Tools et redémarrer PlayCover";
-
-/* (No Comment) */
-"xcode.install.progress" = "Installation de Xcode Command Line Tools";
-
-/* (No Comment) */
-"xcode.install.progress.subtext" = "Ceci peut prendre environ 5 à 10 minutes selon la vitesse d'Internet";
-
-/* (No Comment) */
-"xcode.install.success" = "Succès de l'installation de Xcode Command Line Tools";
 "sidebar.appLibrary" = "Bibliothèque d'Apps";
 "button.Quit" = "Quitter";
 "settings.title" = "Paramètres de %@";
@@ -267,7 +252,7 @@
 "error.appProhibited" = "L'utilisation de cette application via PlayCover entraînera probablement une ban !";
 "error.noGenshinAccount" = "Nous n'avons pas trouvé de compte Genshin ! Êtes-vous connecté à un compte dans l'application ?";
 "settings.tab.info" = "Info";
-"settings.tab.km" = "Mappage de touches";
+"settings.tab.km" = "Touches";
 "settings.toggle.km.help" = "Ajoutez le mappage de touches aux jeux tactiles uniquement. Utilisez Commande + K pour ouvrir le menu de l'éditeur.";
 "settings.toggle.mm" = "Mappage de la souris";
 "settings.toggle.mm.help" = "Ajoutez des commandes de souris qui simule les mouvements tactiles. Utilisez Commande + K pour ouvrir le menu de l'éditeur.";
@@ -278,7 +263,6 @@
 "settings.picker.adaptiveRes.1" = "Auto (Basé sur l'affichage)";
 "settings.picker.adaptiveRes.5" = "Personnalisé";
 "settings.toggle.disableDisplaySleep.help" = "Empêcher l'affichage de s'éteindre pendant que cette application est ouvert";
-"settings.tab.jbBypass" = "Évitement Jailbreak";
 "settings.toggle.jbBypass.help" = "Tente de contourner la détection jailbreak dans certains apps (Non garanti de fonctionner tout le temps)";
 "settings.info.displayName" = "Nom d'affichage :";
 "settings.info.bundleName" = "Nom d'application :";
@@ -290,8 +274,6 @@
 "settings.resetKm" = "Réinitialiser le mappage de touches";
 "settings.resetSettingsCompleted" = "Les paramètres ont été réinitialisés !";
 "settings.resetKmCompleted" = "Le mappage de touches a été réinitialisé !";
-"xcode.install.failed.altInstructions" = "Cliquez sur le bouton ci-dessous pour voir d'autres instructions d'installation";
-"xcode.install.failed.altButton" = "Instructions Alternatives";
 "settings.tab.misc" = "Autre";
 "settings.toggle.hud" = "Metal HUD";
 "settings.info.bundleVersion" = "Version de l'app :";
@@ -318,7 +300,7 @@
 "preferences.popover.badurl" = "Lien invalide !";
 "preferences.popover.badjson" = "JSON invalide ou introuvable !";
 "preferences.textfield.url" = "URL source...";
-"playapp.download" = "Téléchargement en cours";
+"playapp.download.downloading" = "Téléchargement en cours";
 "error.waitDownload" = "Veuillez attendre la fin du téléchargement en cours !";
 "preferences.toggle.clearAppData" = "Effacer les données";
 "preferences.tab.uninstall" = "Désinstaller";
@@ -330,7 +312,7 @@
 "preferences.button.pruneFiles" = "Élaguer les fichiers";
 "preferences.prune.alert" = "Voulez-vous vraiment supprimer tous les fichiers ?";
 "preferences.prune.message" = "Cela supprimera tous les fichiers inutilisés, y compris les paramètres, le mappage de touches, les autorisations et les données d'application";
-"playapp.install.failed" = "Échoué";
+"playapp.progress.failed" = "Échoué";
 "alert.supression" = "Vous pouvez modifier cela dans les préférences PlayCover";
 "menubar.clearCache" = "Effacer le cache";
 "preferences.tab.install" = "Installer";
@@ -379,4 +361,17 @@
 "settings.toggle.lldb" = "Ouvrir avec LLDB";
 "alert.differentBundleIdKeymap.message" = "Le keymap peut avoir été créé pour une autre application.";
 "settings.toggle.lldbWithTerminal" = "Ouvrir dans le terminal";
-"settings.unavailable.hud" = "Metal HUD unavailable";
+"settings.unavailable.hud" = "Metal HUD indisponible";
+"error.failedToStripBinary" = "Impossible de trouver l'architecture ARM64 dans le binaire fat !";
+"settings.playChain.enable" = "Activer PlayChain (Expérimental)";
+"settings.playChain.help" = "Activer la prise en charge de PlayChain pour cette application, lui permettant d'utiliser (partiellement) les services Apple Keychain";
+"settings.playChain.debugging" = "Débogage de PlayChain";
+"playapp.noSources.title" = "Aucun IPA installé";
+"playapp.noSources.subtitle" = "Actuellement, vous n'avez aucun IPA installé. Cliquez sur le bouton ci-dessous pour en importer un.";
+"settings.tab.bypasses" = "Contournements";
+"settings.addToLaunchpad" = "Ajouter à Launchpad";
+"settings.removeFromLaunchpad" = "Supprimer de Launchpad";
+"playapp.download.integrityCheck" = "Vérification de l'intégrité des fichiers :";
+"playapp.download.differentChecksum" = "Différentes sommes de contrôle ! Voulez-vous continuer l’installation ?";
+"playapp.download.differentChecksumDesc" = "Attendu \"%@\", obtenu \"%@\"";
+"playapp.progress.canceled" = "Annulé";

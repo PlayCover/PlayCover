@@ -60,9 +60,9 @@ struct PlayCoverViewMenuView: Commands {
         CommandGroup(replacing: .importExport) {
             Button("menubar.exportToSideloady") {
                 Task {
-                    if InstallVM.shared.installing {
+                    if InstallVM.shared.inProgress {
                         Log.shared.error(PlayCoverError.waitInstallation)
-                    } else if DownloadVM.shared.downloading {
+                    } else if DownloadVM.shared.inProgress {
                         Log.shared.error(PlayCoverError.waitDownload)
                     } else {
                         await NSOpenPanel.selectIPA { result in

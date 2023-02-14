@@ -21,7 +21,34 @@ struct AppSettingsData: Codable {
     var notch: Bool = NSScreen.hasNotch()
     var bypass = false
     var discordActivity = DiscordActivity()
-    var version = "2.0.0"
+    var version = "3.0.0"
+    var playChain = false
+    var playChainDebugging = false
+    var metalHUD = false
+
+    init() {}
+
+    // handle old 2.x settings where PlayChain did not exist yet
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        keymapping = try container.decodeIfPresent(Bool.self, forKey: .keymapping) ?? true
+        mouseMapping = try container.decodeIfPresent(Bool.self, forKey: .mouseMapping) ?? true
+        sensitivity = try container.decodeIfPresent(Float.self, forKey: .sensitivity) ?? 50
+        disableTimeout = try container.decodeIfPresent(Bool.self, forKey: .disableTimeout) ?? false
+        iosDeviceModel = try container.decodeIfPresent(String.self, forKey: .iosDeviceModel) ?? "iPad13,8"
+        windowWidth = try container.decodeIfPresent(Int.self, forKey: .windowWidth) ?? 1920
+        windowHeight = try container.decodeIfPresent(Int.self, forKey: .windowHeight) ?? 1080
+        resolution = try container.decodeIfPresent(Int.self, forKey: .resolution) ?? 1
+        aspectRatio = try container.decodeIfPresent(Int.self, forKey: .aspectRatio) ?? 1
+        notch = try container.decodeIfPresent(Bool.self, forKey: .notch) ?? NSScreen.hasNotch()
+        bypass = try container.decodeIfPresent(Bool.self, forKey: .bypass) ?? false
+        discordActivity = try container.decodeIfPresent(DiscordActivity.self,
+                                                        forKey: .discordActivity) ?? DiscordActivity()
+        version = try container.decodeIfPresent(String.self, forKey: .version) ?? "3.0.0"
+        playChain = try container.decodeIfPresent(Bool.self, forKey: .playChain) ?? false
+        playChainDebugging = try container.decodeIfPresent(Bool.self, forKey: .playChainDebugging) ?? false
+        metalHUD = try container.decodeIfPresent(Bool.self, forKey: .metalHUD) ?? false
+    }
 }
 
 class AppSettings {
@@ -42,7 +69,6 @@ class AppSettings {
 
     let info: AppInfo
     let settingsUrl: URL
-    var metalHudEnabled: Bool = false
     var openWithLLDB: Bool = false
     var openLLDBWithTerminal: Bool = true
     var container: AppContainer?

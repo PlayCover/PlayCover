@@ -1,10 +1,11 @@
 //
-//  Utils.swift
+//  URLExtensions.swift
 //  PlayCover
 //
 
 import AppKit
 import Foundation
+import CryptoKit
 import SwiftUI
 
 extension String {
@@ -26,20 +27,22 @@ extension String {
 }
 
 extension URL {
-    func subDirectories() throws -> [URL] {
-        // @available(macOS 10.11, iOS 9.0, *)
-        guard hasDirectoryPath else { return [] }
-        return try FileManager.default
-            .contentsOfDirectory(at: self, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
-            .filter(\.hasDirectoryPath)
-    }
-
     var esc: String {
         path.esc
     }
 
     var isDirectory: Bool {
         (try? resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory == true
+    }
+
+    var sha256: String? {
+        do {
+            return SHA256.hash(data: try Data(contentsOf: self))
+                .map { String(format: "%02hhx", $0) }
+                .joined()
+        } catch {
+            return nil
+        }
     }
 
     func openInFinder() {
@@ -62,15 +65,6 @@ extension URL {
 
     func showInFinderAndSelectLastComponent() {
         NSWorkspace.shared.activateFileViewerSelecting([self])
-    }
-
-    func bytesFromFile() -> [UInt8]? {
-        guard let data = NSData(contentsOfFile: path) else { return nil }
-
-        var buffer = [UInt8](repeating: 0, count: data.length)
-        data.getBytes(&buffer, length: data.length)
-
-        return buffer
     }
 
     func fixExecutable() throws {
@@ -105,5 +99,9 @@ extension URL {
         }
 
         return self.appendingPathComponent(newPathComponent)
+    }
+
+    func setBinaryPosixPermissions(_ permissions: Int) throws {
+        try FileManager.default.setAttributes([.posixPermissions: permissions], ofItemAtPath: path)
     }
 }

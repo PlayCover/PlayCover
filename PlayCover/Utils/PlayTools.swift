@@ -6,6 +6,10 @@
 import Foundation
 import injection
 
+// swiftlint:disable type_body_length
+// swiftlint:disable file_length
+// swiftlint:disable function_body_length
+
 class PlayTools {
     private static let frameworksURL = FileManager.default.homeDirectoryForCurrentUser
         .appendingPathComponent("Library")
@@ -71,23 +75,44 @@ class PlayTools {
         }
     }
 
-    static func stripBinary(_ exec: URL) {
-        if Shell.shell("/usr/bin/lipo -archs \(exec.esc)")
-            .rangeOfCharacter(from: .whitespacesAndNewlines) != nil {
-            Shell.shell("/usr/bin/lipo \(exec.esc) -thin arm64 -output \(exec.esc)")
+    static func stripBinary(_ exec: URL) throws {
+        let binary = try Data(contentsOf: exec)
+        var header = binary.extract(fat_header.self)
+        var offset = MemoryLayout.size(ofValue: header)
+        let shouldSwap = header.magic == FAT_CIGAM
+
+        if header.magic == FAT_MAGIC || header.magic == FAT_CIGAM {
+            // Make sure the endianness is correct
+            if shouldSwap {
+                swap_fat_header(&header, NXHostByteOrder())
+            }
+
+            for _ in 0..<header.nfat_arch {
+                var arch = binary.extract(fat_arch.self, offset: offset)
+                if shouldSwap {
+                    swap_fat_arch(&arch, 1, NXHostByteOrder())
+                }
+
+                if arch.cputype == CPU_TYPE_ARM64 {
+                    print("Found ARM64 arch in fat binary")
+
+                    let thinBinary = binary
+                        .subdata(in: Int(arch.offset)..<Int(arch.offset+arch.size))
+                    try FileManager.default.removeItem(at: exec)
+                    try thinBinary.write(to: exec)
+
+                    return
+                }
+
+                offset += Int(MemoryLayout.size(ofValue: arch))
+            }
+
+            throw PlayCoverError.failedToStripBinary
         }
     }
 
-    static func replaceLibraries(atURL url: URL) throws {
-        Log.shared.log("Replacing libswiftUIKit.dylib")
-        try shell.shello(
-            install_name_tool.path,
-            "-change", "@rpath/libswiftUIKit.dylib", "/System/iOSSupport/usr/lib/swift/libswiftUIKit.dylib",
-            url.path)
-    }
-
     static func installInIPA(_ exec: URL) throws {
-        stripBinary(exec)
+        try stripBinary(exec)
         Inject.injectMachO(machoPath: exec.path,
                            cmdType: LC_Type.LOAD_DYLIB,
                            backup: false,
@@ -127,7 +152,7 @@ class PlayTools {
     }
 
     static func injectInIPA(_ exec: URL, payload: URL) throws {
-        stripBinary(exec)
+        try stripBinary(exec)
         Inject.injectMachO(machoPath: exec.path,
                            cmdType: LC_Type.LOAD_DYLIB,
                            backup: false,
@@ -207,39 +232,325 @@ class PlayTools {
     }
 
     static func convertMacho(_ macho: URL) throws {
-        Log.shared.log("Converting \(macho.lastPathComponent) binary")
-        try shell.shello(
-            vtool.path,
-            "-set-build-version", "maccatalyst", "11.0", "14.0",
-            "-replace", "-output",
-            macho.path, macho.path)
+        print("Converting MachO at \(macho.path)")
+        print("Stripping MachO")
+        try stripBinary(macho)
+        print("Removing old version command from MachO")
+        try removeOldCommand(macho)
+        print("Injecting new version command in MachO")
+        try injectNewCommand(macho)
+        print("Replacing instances of @rpath dylibs")
+        try replaceLibraries(macho)
+    }
+
+    static func removeOldCommand(_ url: URL) throws {
+        var binary = try Data(contentsOf: url)
+        var newheader: mach_header_64
+        var newHeaderData: Data?
+        var machoRange: Range<Data.Index>?
+        var start: Int?
+        var size: Int?
+        var end: Int?
+
+        let header = binary.extract(mach_header_64.self)
+        var offset = MemoryLayout.size(ofValue: header)
+
+        for _ in 0..<header.ncmds {
+            let loadCommand = binary.extract(load_command.self, offset: offset)
+            switch UInt32(loadCommand.cmd) {
+            case UInt32(LC_VERSION_MIN_IPHONEOS), UInt32(LC_VERSION_MIN_MACOSX):
+                let versionCommand = binary.extract(version_min_command.self, offset: offset)
+
+                start = offset
+                size = Int(versionCommand.cmdsize)
+                newheader = mach_header_64(magic: header.magic,
+                                           cputype: header.cputype,
+                                           cpusubtype: header.cpusubtype,
+                                           filetype: header.filetype,
+                                           ncmds: header.ncmds - 1,
+                                           sizeofcmds: header.sizeofcmds - UInt32(versionCommand.cmdsize),
+                                           flags: header.flags,
+                                           reserved: header.reserved)
+                newHeaderData = Data(bytes: &newheader, count: MemoryLayout<mach_header_64>.size)
+                machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
+            case UInt32(LC_BUILD_VERSION):
+                let versionCommand = binary.extract(build_version_command.self, offset: offset)
+
+                start = offset
+                size = Int(versionCommand.cmdsize)
+                newheader = mach_header_64(magic: header.magic,
+                                           cputype: header.cputype,
+                                           cpusubtype: header.cpusubtype,
+                                           filetype: header.filetype,
+                                           ncmds: header.ncmds - 1,
+                                           sizeofcmds: header.sizeofcmds - UInt32(versionCommand.cmdsize),
+                                           flags: header.flags,
+                                           reserved: header.reserved)
+                newHeaderData = Data(bytes: &newheader, count: MemoryLayout<mach_header_64>.size)
+                machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
+            default:
+                break
+            }
+            offset += Int(loadCommand.cmdsize)
+        }
+        end = offset
+
+        if let start = start,
+           let end = end,
+           let size = size,
+           let machoRange = machoRange,
+           let newHeaderData = newHeaderData {
+            let subrangeNew = Range(NSRange(location: start + size, length: end - start - size))!
+            let subrangeOld = Range(NSRange(location: start, length: end - start))!
+            var zero: UInt = 0
+            var commandData = Data()
+            commandData.append(binary.subdata(in: subrangeNew))
+            commandData.append(Data(bytes: &zero, count: size))
+
+            binary.replaceSubrange(subrangeOld, with: commandData)
+            binary.replaceSubrange(machoRange, with: newHeaderData)
+            try FileManager.default.removeItem(at: url)
+            try binary.write(to: url)
+        }
+    }
+
+    static func injectNewCommand(_ url: URL) throws {
+        var binary = try Data(contentsOf: url)
+        let header = binary.extract(mach_header_64.self)
+
+        var versionCommand = build_version_command(cmd: UInt32(LC_BUILD_VERSION),
+                                                   cmdsize: 24,
+                                                   platform: UInt32(PLATFORM_MACCATALYST),
+                                                   minos: 0x000b0000,
+                                                   sdk: 0x000e0000,
+                                                   ntools: 0)
+
+        let start = Int(header.sizeofcmds)+Int(MemoryLayout<mach_header_64>.size)
+        let subData = binary[start..<start + Int(versionCommand.cmdsize)]
+
+        var newheader = mach_header_64(magic: header.magic,
+                                       cputype: header.cputype,
+                                       cpusubtype: header.cpusubtype,
+                                       filetype: header.filetype,
+                                       ncmds: header.ncmds + 1,
+                                       sizeofcmds: header.sizeofcmds + versionCommand.cmdsize,
+                                       flags: header.flags,
+                                       reserved: header.reserved)
+        let newHeaderData = Data(bytes: &newheader, count: MemoryLayout<mach_header_64>.size)
+        let machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
+
+        let testString = String(data: subData, encoding: .utf8)?
+            .trimmingCharacters(in: .controlCharacters)
+        if testString != "" && testString != nil {
+            print("Not enough space in binary!")
+            return
+        }
+
+        var commandData = Data()
+        commandData.append(Data(bytes: &versionCommand, count: MemoryLayout<build_version_command>.size))
+
+        let subrange = Range(NSRange(location: start, length: commandData.count))!
+        binary.replaceSubrange(subrange, with: commandData)
+
+        binary.replaceSubrange(machoRange, with: newHeaderData)
+        try FileManager.default.removeItem(at: url)
+        try binary.write(to: url)
+    }
+
+    static func replaceLibraries(_ url: URL) throws {
+        let dylibsToReplace = ["libswiftUIKit"]
+
+        for dylib in dylibsToReplace {
+            let rpathDylib = "@rpath/\(dylib).dylib"
+            let libDylib = "/usr/lib/swift/\(dylib).dylib"
+            Inject.removeMachO(machoPath: url.path,
+                               cmdType: LC_Type.LOAD_DYLIB,
+                               backup: false,
+                               injectPath: rpathDylib,
+                               finishHandle: { result in
+                if result {
+                    Inject.injectMachO(machoPath: url.path,
+                                       cmdType: LC_Type.LOAD_DYLIB,
+                                       backup: false,
+                                       injectPath: libDylib,
+                                       finishHandle: { result in
+                        if result {
+                            return
+                        } else {
+                            print("Failed to insert \(dylib).dylib!")
+                        }
+                    })
+                }
+            })
+        }
     }
 
     static func isMachoEncrypted(atURL url: URL) throws -> Bool {
-        // Split output into blocks
-        let otoolOutput = try shell.shello(otool.path, "-l", url.path).components(separatedBy: "Load command")
-        // Check specifically for encryption info on the 64 bit block
-        for block in otoolOutput where (block.contains("LC_ENCRYPTION_INFO_64") && block.contains("cryptid 1")) {
-            return true
+        let binary = try Data(contentsOf: url)
+        var header = binary.extract(fat_header.self)
+        let offset = MemoryLayout.size(ofValue: header)
+        let shouldSwap = header.magic == FAT_CIGAM
+
+        if header.magic == FAT_MAGIC || header.magic == FAT_CIGAM {
+            if shouldSwap {
+                swap_fat_header(&header, NXHostByteOrder())
+            }
+
+            for _ in 0..<header.nfat_arch {
+                var arch = binary.extract(fat_arch.self, offset: offset)
+                if shouldSwap {
+                    swap_fat_arch(&arch, 1, NXHostByteOrder())
+                }
+
+                if arch.cputype == CPU_TYPE_ARM64 {
+                    return try isSlimMachoEncrypted(offset: Int(arch.offset), binary: binary)
+                }
+            }
+        } else {
+            return try isSlimMachoEncrypted(offset: 0, binary: binary)
         }
+
+        return false
+    }
+
+    static func isSlimMachoEncrypted(offset: Int, binary: Data) throws -> Bool {
+        var offset = offset
+        var header = binary.extract(mach_header_64.self, offset: offset)
+        offset += MemoryLayout.size(ofValue: header)
+        let shouldSwap = header.magic == MH_CIGAM_64
+
+        if shouldSwap {
+            swap_mach_header_64(&header, NXHostByteOrder())
+        }
+
+        for _ in 0..<header.ncmds {
+            var loadCommand = binary.extract(load_command.self, offset: offset)
+            if shouldSwap {
+                swap_load_command(&loadCommand, NXHostByteOrder())
+            }
+
+            switch loadCommand.cmd {
+            case UInt32(LC_ENCRYPTION_INFO_64):
+                var infoCommand = binary.extract(encryption_info_command_64.self, offset: offset)
+                if shouldSwap {
+                    swap_encryption_command_64(&infoCommand, NXHostByteOrder())
+                }
+
+                return infoCommand.cryptid != 0
+            default:
+                break
+            }
+            offset += Int(loadCommand.cmdsize)
+        }
+
         return false
     }
 
     static func installedInExec(atURL url: URL) throws -> Bool {
-        try shell.shello(print: false, otool.path, "-L", url.path).contains(playToolsPath.esc)
+        try stripBinary(url)
+        let binary = try Data(contentsOf: url)
+        var header = binary.extract(mach_header_64.self)
+        var offset = MemoryLayout.size(ofValue: header)
+        let shouldSwap = header.magic == MH_CIGAM_64
+
+        if shouldSwap {
+            swap_mach_header_64(&header, NXHostByteOrder())
+        }
+
+        for _ in 0..<header.ncmds {
+            var loadCommand = binary.extract(load_command.self, offset: offset)
+            if shouldSwap {
+                swap_load_command(&loadCommand, NXHostByteOrder())
+            }
+
+            switch loadCommand.cmd {
+            case UInt32(LC_LOAD_DYLIB):
+                var dylibCommand = binary.extract(dylib_command.self, offset: offset)
+                if shouldSwap {
+                    swap_dylib_command(&dylibCommand, NXHostByteOrder())
+                }
+
+                let dylibName = String.init(data: binary,
+                                            offset: offset,
+                                            commandSize: Int(dylibCommand.cmdsize),
+                                            loadCommandString: dylibCommand.dylib.name)
+                if dylibName == playToolsPath.esc {
+                    return true
+                }
+            default:
+                break
+            }
+            offset += Int(loadCommand.cmdsize)
+        }
+
+        return false
     }
 
     static func isInstalled() throws -> Bool {
         try FileManager.default.fileExists(atPath: playToolsPath.path)
             && FileManager.default.fileExists(atPath: akInterfacePath.path)
-            && isValidArch(playToolsPath.path)
+            && isMachoValidArch(playToolsPath)
     }
 
-    static func isValidArch(_ path: String) throws -> Bool {
-        guard let output = try? shell.shello(vtool.path, "-show-build", path) else {
-            return false
+    static func isMachoValidArch(_ url: URL) throws -> Bool {
+        let binary = try Data(contentsOf: url)
+        var header = binary.extract(fat_header.self)
+        let offset = MemoryLayout.size(ofValue: header)
+        let shouldSwap = header.magic == FAT_CIGAM
+
+        if header.magic == FAT_MAGIC || header.magic == FAT_CIGAM {
+            if shouldSwap {
+                swap_fat_header(&header, NXHostByteOrder())
+            }
+
+            for _ in 0..<header.nfat_arch {
+                var arch = binary.extract(fat_arch.self, offset: offset)
+                if shouldSwap {
+                    swap_fat_arch(&arch, 1, NXHostByteOrder())
+                }
+
+                if arch.cputype == CPU_TYPE_ARM64 {
+                    return try isSlimMachoValidArch(offset: Int(arch.offset), binary: binary)
+                }
+            }
+        } else {
+            return try isSlimMachoValidArch(offset: 0, binary: binary)
         }
-        return output.contains("MACCATALYST")
+
+        return false
+    }
+
+    static func isSlimMachoValidArch(offset: Int, binary: Data) throws -> Bool {
+        var offset = offset
+        var header = binary.extract(mach_header_64.self, offset: offset)
+        offset += MemoryLayout.size(ofValue: header)
+        let shouldSwap = header.magic == MH_CIGAM_64
+
+        if shouldSwap {
+            swap_mach_header_64(&header, NXHostByteOrder())
+        }
+
+        for _ in 0..<header.ncmds {
+            var loadCommand = binary.extract(load_command.self, offset: offset)
+            if shouldSwap {
+                swap_load_command(&loadCommand, NXHostByteOrder())
+            }
+
+            switch loadCommand.cmd {
+            case UInt32(LC_BUILD_VERSION):
+                var versionCommand = binary.extract(build_version_command.self, offset: offset)
+                if shouldSwap {
+                    swap_build_version_command(&versionCommand, NXHostByteOrder())
+                }
+
+                return versionCommand.platform == PLATFORM_MACCATALYST
+            default:
+                break
+            }
+            offset += Int(loadCommand.cmdsize)
+        }
+
+        return false
     }
 
 	static func fetchEntitlements(_ exec: URL) throws -> String {
@@ -255,32 +566,4 @@ class PlayTools {
             }
         }
 	}
-
-    private static func binPath(_ bin: String) throws -> URL {
-        URL(fileURLWithPath: try shell.sh("which \(bin)", print: false).trimmingCharacters(in: .newlines))
-    }
-
-    private static var vtool: URL {
-        get throws {
-            try binPath("vtool")
-        }
-    }
-
-    private static var otool: URL {
-        get throws {
-            try binPath("otool")
-        }
-    }
-
-    private static var install_name_tool: URL {
-        get throws {
-            try binPath("install_name_tool")
-        }
-    }
-}
-
-extension URL {
-    func setBinaryPosixPermissions(_ permissions: Int) throws {
-        try FileManager.default.setAttributes([.posixPermissions: permissions], ofItemAtPath: path)
-    }
 }

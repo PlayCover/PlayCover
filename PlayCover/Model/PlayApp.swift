@@ -19,13 +19,12 @@ class PlayApp: BaseApp {
             if prohibitedToPlay {
                 clearAllCache()
                 throw PlayCoverError.appProhibited
-            }
-            if maliciousProhibited {
+            } else if maliciousProhibited {
                 clearAllCache()
                 deleteApp()
                 throw PlayCoverError.appMaliciousProhibited
             }
-            AppsVM.shared.updatingApps = true
+
             AppsVM.shared.fetchApps()
             settings.sync()
 
@@ -40,7 +39,7 @@ class PlayApp: BaseApp {
 
             if try !PlayTools.isInstalled() {
                 Log.shared.error("PlayTools are not installed! Please move PlayCover.app into Applications!")
-            } else if try !PlayTools.isValidArch(executable.path) {
+            } else if try !PlayTools.isMachoValidArch(executable) {
                 Log.shared.error("The app threw an error during conversion.")
             } else if try !isCodesigned() {
                 Log.shared.error("The app is not codesigned! Please open Xcode and accept license agreement.")
@@ -51,10 +50,7 @@ class PlayApp: BaseApp {
                     runAppExec() // Splitting to reduce complexity
                 }
             }
-
-            AppsVM.shared.updatingApps = false
         } catch {
-            AppsVM.shared.updatingApps = false
             Log.shared.error(error)
         }
     }
@@ -62,7 +58,7 @@ class PlayApp: BaseApp {
     func runAppExec() {
         let config = NSWorkspace.OpenConfiguration()
 
-        if settings.metalHudEnabled {
+        if settings.settings.metalHUD {
             config.environment = ["MTL_HUD_ENABLED": "1"]
         } else {
             config.environment = ["MTL_HUD_ENABLED": "0"]
@@ -107,6 +103,16 @@ class PlayApp: BaseApp {
         }
     }
 
+    static let aliasDirectory = FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent("Applications")
+            .appendingPathComponent("PlayCover")
+
+    static let playChainDirectory = PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
+
+    lazy var aliasURL = PlayApp.aliasDirectory.appendingPathComponent(name)
+
+    lazy var playChainURL = PlayApp.playChainDirectory.appendingPathComponent(info.bundleIdentifier)
+
     lazy var settings = AppSettings(info, container: container)
 
     lazy var keymapping = Keymapping(info, container: container)
@@ -120,6 +126,10 @@ class PlayApp: BaseApp {
             Log.shared.error(error)
             return true
         }
+    }
+
+    func hasAlias() -> Bool {
+        return FileManager.default.fileExists(atPath: aliasURL.path)
     }
 
     func isCodesigned() throws -> Bool {
@@ -136,6 +146,27 @@ class PlayApp: BaseApp {
 
     func clearAllCache() {
         Uninstaller.clearExternalCache(info.bundleIdentifier)
+    }
+
+    func clearPlayChain() {
+        FileManager.default.delete(at: playChainURL)
+    }
+
+    func createAlias() {
+        do {
+            try FileManager.default.createDirectory(atPath: PlayApp.aliasDirectory.path,
+                                                    withIntermediateDirectories: true,
+                                                    attributes: nil)
+            let data = try url.bookmarkData(options: .suitableForBookmarkFile,
+                                                includingResourceValuesForKeys: nil, relativeTo: nil)
+            try URL.writeBookmarkData(data, to: aliasURL)
+        } catch {
+            Log.shared.log(error.localizedDescription)
+        }
+    }
+
+    func removeAlias() {
+        FileManager.default.delete(at: aliasURL)
     }
 
     func deleteApp() {
@@ -172,9 +203,11 @@ class PlayApp: BaseApp {
     var prohibitedToPlay: Bool {
         PlayApp.PROHIBITED_APPS.contains(info.bundleIdentifier)
     }
+
     var maliciousProhibited: Bool {
         PlayApp.MALICIOUS_APPS.contains(info.bundleIdentifier)
     }
+
     static let PROHIBITED_APPS = [
         "com.activision.callofduty.shooter",
         "com.ea.ios.apexlegendsmobilefps",
@@ -185,8 +218,9 @@ class PlayApp: BaseApp {
         "com.tencent.tmgp.pubgmhd",
         "com.dts.freefireth",
         "com.dts.freefiremax"
-]
+    ]
+
     static let MALICIOUS_APPS = [
         "com.zhiliaoapp.musically"
-]
+    ]
 }

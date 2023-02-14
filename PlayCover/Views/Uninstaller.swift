@@ -18,7 +18,11 @@ class Uninstaller {
     private static let pruneURLs: [URL] = [
         PlayTools.playCoverContainer.appendingPathComponent("App Settings"),
         PlayTools.playCoverContainer.appendingPathComponent("Entitlements"),
-        PlayTools.playCoverContainer.appendingPathComponent("Keymapping")
+        PlayTools.playCoverContainer.appendingPathComponent("Keymapping"),
+        PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
+    ]
+    private static let otherPruneURLs: [URL] = [
+        PlayApp.aliasDirectory
     ]
     private static let cacheURLs: [URL] = [
         Uninstaller.libraryUrl.appendingPathComponent("Containers"),
@@ -47,6 +51,7 @@ class Uninstaller {
     static func uninstallPopup(_ app: PlayApp) {
         if UninstallPreferences.shared.showUninstallPopup {
             let boxmakers: [(String, String)] = [
+                ("removePlayChain", NSLocalizedString("preferences.toggle.removePlayChain", comment: "")),
                 ("removeAppEntitlements", NSLocalizedString("preferences.toggle.removeEntitlements", comment: "")),
                 ("removeAppSettings", NSLocalizedString("preferences.toggle.removeSetting", comment: "")),
                 ("removeAppKeymap", NSLocalizedString("preferences.toggle.removeKeymap", comment: "")),
@@ -123,6 +128,15 @@ class Uninstaller {
             FileManager.default.delete(at: app.entitlements)
         }
 
+        if UninstallPreferences.shared.removePlayChain {
+            let url = PlayTools.playCoverContainer
+                .appendingPathComponent("PlayChain")
+                .appendingPathComponent(app.info.bundleIdentifier)
+
+            FileManager.default.delete(at: url)
+        }
+
+        app.removeAlias()
         app.deleteApp()
     }
 
@@ -134,9 +148,10 @@ class Uninstaller {
 
     static func pruneFiles() {
         let bundleIds = AppsVM.shared.apps.map { $0.info.bundleIdentifier }
+        let appNames = AppsVM.shared.apps.map { $0.info.displayName }
 
-        for url in pruneURLs {
-            do {
+        do {
+            for url in pruneURLs {
                 try url.enumerateContents { file, _ in
                     let bundleId = file.deletingPathExtension().lastPathComponent
                     if !bundleIds.contains(bundleId) {
@@ -145,9 +160,17 @@ class Uninstaller {
                         FileManager.default.delete(at: file)
                     }
                 }
-            } catch {
-                Log.shared.error(error)
             }
+            for url in otherPruneURLs {
+                try url.enumerateContents { file, _ in
+                    let appName = file.deletingPathExtension().lastPathComponent
+                    if !appNames.contains(appName) {
+                        FileManager.default.delete(at: file)
+                    }
+                }
+            }
+        } catch {
+            Log.shared.error(error)
         }
     }
 }

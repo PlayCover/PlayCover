@@ -117,23 +117,28 @@ struct SourceView: View {
             Text(source.source)
             Spacer()
             switch source.status {
-            case .valid:
-                StatusBadgeView(imageName: "checkmark.circle.fill",
-                                imageColor: .green,
-                                popoverText: "preferences.popover.valid",
+            case .badjson:
+                StatusBadgeView(imageName: "xmark.circle.fill",
+                                imageColor: .red,
+                                popoverText: "preferences.popover.badjson",
                                 showingPopover: $showingPopover)
             case .badurl:
                 StatusBadgeView(imageName: "xmark.circle.fill",
                                 imageColor: .red,
                                 popoverText: "preferences.popover.badurl",
                                 showingPopover: $showingPopover)
-            case .badjson:
-                StatusBadgeView(imageName: "xmark.circle.fill",
-                                imageColor: .red,
-                                popoverText: "preferences.popover.badjson",
-                                showingPopover: $showingPopover)
             case .checking:
                 EmptyView()
+            case .duplicate:
+                StatusBadgeView(imageName: "exclamationmark.circle.fill",
+                                imageColor: .yellow,
+                                popoverText: "preferences.popover.duplicate",
+                                showingPopover: $showingPopover)
+            case .valid:
+                StatusBadgeView(imageName: "checkmark.circle.fill",
+                                imageColor: .green,
+                                popoverText: "preferences.popover.valid",
+                                showingPopover: $showingPopover)
             }
         }
     }
@@ -161,7 +166,7 @@ struct StatusBadgeView: View {
 }
 
 enum SourceValidation {
-    case valid, badurl, badjson, checking
+    case badjson, badurl, checking, duplicate, valid
 }
 
 struct AddSourceView: View {
@@ -178,23 +183,28 @@ struct AddSourceView: View {
                 .frame(height: 20)
             HStack {
                 switch sourceValidationState {
-                case .valid:
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(.green)
-                    Text("preferences.popover.valid")
+                case .badjson:
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.red)
+                    Text("preferences.popover.badjson")
                         .font(.system(.subheadline))
                 case .badurl:
                     Image(systemName: "xmark.circle.fill")
                         .foregroundColor(.red)
                     Text("preferences.popover.badurl")
                         .font(.system(.subheadline))
-                case .badjson:
-                    Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.red)
-                    Text("preferences.popover.badjson")
-                        .font(.system(.subheadline))
                 case .checking:
                     EmptyView()
+                case .duplicate:
+                    Image(systemName: "exclamationmark.circle.fill")
+                        .foregroundColor(.yellow)
+                    Text("preferences.popover.duplicate")
+                        .font(.system(.subheadline))
+                case .valid:
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(.green)
+                    Text("preferences.popover.valid")
+                        .font(.system(.subheadline))
                 }
                 Spacer()
                 Button(action: {
@@ -212,7 +222,7 @@ struct AddSourceView: View {
                 })
                 .tint(.accentColor)
                 .keyboardShortcut(.defaultAction)
-                .disabled(sourceValidationState != .valid)
+                .disabled(![.valid, .duplicate].contains(sourceValidationState))
             }
         }
         .padding()
@@ -236,7 +246,9 @@ struct AddSourceView: View {
                         do {
                             let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self, from: jsonData)
                             if data.count > 0 {
-                                sourceValidationState = .valid
+                                sourceValidationState = storeVM.sources.filter({
+                                    $0.source == source
+                                }).isEmpty ? .valid : .duplicate
                                 return
                             }
                         } catch {

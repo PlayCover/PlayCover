@@ -26,7 +26,7 @@
 "playapp.install.signing" = "Đang ký ứng dụng...";
 "playapp.install.addToLib" = "Đang thêm vào thư viện...";
 "playapp.install.copy" = "Đang sao chép ứng dụng...";
-"playapp.install.finished" = "Hoàn thành";
+"playapp.progress.finished" = "Hoàn thành";
 "alert.appCacheCleared" = "Dữ liệu ứng dụng đã được xóa!";
 "alert.kmImported" = "Nhập keymap thành công!";
 "alert.errorImportKm" = "Lỗi khi nhập keymap, vui lòng thử lại!";
@@ -76,11 +76,6 @@
 "soundAlert.informativeText" = "Thiết bị đầu ra của bạn không hỗ trợ tốc độ lấy mẫu âm thanh ở mức 44.1 hay 48 KHz, có thể gây crash ứng dụng. Bạn có muốn điều chỉnh tốc độ lấy mẫu âm thanh không?";
 "soundAlert.successText" = "Tốc độ lấy mẫu âm thanh đang đặt ở 48 KHz";
 "soundAlert.failureText" = "Không thể thiết lập được tốc độ lấy mẫu của thiết bị đầu ra hiện tại thành 48 KHz. Bạn có thể tùy chỉnh thủ công bằng app ‘Audio MIDI Setup’";
-"xcode.install.message" = "Bạn cần cài đặt Command Line Tools for Xcode rồi khởi động lại PlayCover";
-"xcode.install.success" = "Đã cài đặt xong Command Line Tools for Xcode";
-"xcode.install.failed" = "Cài đặt Command Line Tools for Xcode thất bại";
-"xcode.install.progress" = "Đang cài đặt Command Line Tools for Xcode";
-"xcode.install.progress.subtext" = "Có thể tốn tầm 5-10 phút tùy thuộc vào nhà cung cấp dịch vụ internet của bạn";
 
 /* (No Comment) */
 "preferences.toggle.automaticUpdates" = "Tự động kiểm tra cập nhật";
@@ -119,7 +114,6 @@
 "settings.picker.adaptiveRes.5" = "Tùy chỉnh";
 "settings.picker.aspectRatio" = "Tỉ lệ hiển thị:";
 "settings.toggle.disableDisplaySleep.help" = "Ngăn màn hình tắt khi ứng dụng này đang chạy";
-"settings.tab.jbBypass" = "Jailbreak Bypass";
 "settings.toggle.jbBypass.help" = "Bật để có thể mở các app có trình phát hiện jailbreak khác (chưa chắc nó sẽ hoạt động trên mọi app)";
 "settings.info.displayName" = "Tên hiển thị:";
 "settings.info.bundleName" = "Tên gói:";
@@ -131,8 +125,6 @@
 "settings.resetKm" = "Reset keymap";
 "settings.resetSettingsCompleted" = "Cài đặt đã được hoàn nguyên về mặc định!";
 "settings.resetKmCompleted" = "Đã thiết lập lại keymap!";
-"xcode.install.failed.altInstructions" = "Nhấn nút bên dưới để xem cách cài CLT khác";
-"xcode.install.failed.altButton" = "Hướng dẫn thay thế";
 "settings.tab.misc" = "Tuỳ biến";
 "settings.toggle.hud" = "Metal HUD";
 "settings.info.bundleVersion" = "Phiên bản:";
@@ -159,7 +151,7 @@
 "preferences.popover.badurl" = "URL không hợp lệ!";
 "preferences.popover.badjson" = "File JSON không đúng hoặc không tồn tại!";
 "preferences.textfield.url" = "URL nguồn...";
-"playapp.download" = "Đang tải xuống";
+"playapp.download.downloading" = "Đang tải xuống";
 "error.waitDownload" = "Vui lòng đợi quá trình tải xuống hiện tại kết thúc!";
 "preferences.prune.alert" = "Bạn muốn dọn dẹp tệp tin?";
 "menubar.clearCache" = "Xóa bộ nhớ đệm";
@@ -172,7 +164,7 @@
 "preferences.toggle.removeEntitlements" = "Xoá quyền đã cấp";
 "preferences.button.pruneFiles" = "Dọn dẹp";
 "preferences.prune.message" = "Khi xác nhận, PlayCover sẽ gỡ bỏ các thiết lập, keymap và dữ liệu của ứng dụng cài qua PlayCover mà không dùng đến";
-"playapp.install.failed" = "Thất bại";
+"playapp.progress.failed" = "Thất bại";
 "alert.supression" = "Bạn có thể thay đổi điều này trong thiết lập của PlayCover";
 "preferences.tab.install" = "Cài đặt";
 "preferences.toggle.showInstallPopup" = "Luôn hiển thị cửa sổ cài đặt";
@@ -220,4 +212,17 @@
 "alert.differentBundleIdKeymap.message" = "Keymap này có thể đã được tạo cho một ứng dụng khác.";
 "alert.differentBundleIdKeymap.text" = "Bạn có chắc chắn muốn nhập keymap này không?";
 "settings.toggle.lldbWithTerminal" = "Mở trong Terminal";
-"settings.unavailable.hud" = "Metal HUD unavailable";
+"settings.unavailable.hud" = "Metal HUD không khả dụng";
+"error.failedToStripBinary" = "Không tìm thấy file chạy cho ARM64 trong ứng dụng này!";
+"settings.playChain.debugging" = "Gỡ lỗi PlayChain";
+"settings.playChain.enable" = "Kích hoạt PlayChain (Thử nghiệm)";
+"settings.playChain.help" = "Sử dụng PlayChain cho ứng dụng này, cho phép nó sử dụng một phần các dịch vụ Apple Keychain";
+"playapp.noSources.title" = "Chưa có ứng dụng nào";
+"playapp.noSources.subtitle" = "Hiện tại bạn chưa có ứng dụng nào cả. Click bên dưới để nhâp file IPA.";
+"settings.tab.bypasses" = "Bypass";
+"settings.addToLaunchpad" = "Thêm vào Launchpad";
+"settings.removeFromLaunchpad" = "Xóa khỏi Launchpad";
+"playapp.download.integrityCheck" = "Xác minh tính toàn vẹn của tệp:";
+"playapp.download.differentChecksum" = "Checksum khác nhau! Bạn có muốn tiếp tục cài đặt không?";
+"playapp.download.differentChecksumDesc" = "Dự kiến \"%@\", đã xong \"%@\"";
+"playapp.progress.canceled" = "Đã hủy";

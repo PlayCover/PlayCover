@@ -5,10 +5,6 @@
 
 import SwiftUI
 
-enum XcodeInstallStatus {
-    case failed, success, installing
-}
-
 struct MainView: View {
     @Environment(\.openURL) var openURL
     @Environment(\.colorScheme) var colorScheme
@@ -18,15 +14,12 @@ struct MainView: View {
     @EnvironmentObject var store: StoreVM
     @EnvironmentObject var integrity: AppIntegrity
 
-    @Binding public var xcodeCliInstalled: Bool
     @Binding public var isSigningSetupShown: Bool
 
     @State private var selectedView: Int? = -1
     @State private var navWidth: CGFloat = 0
     @State private var viewWidth: CGFloat = 0
     @State private var collapsed: Bool = false
-    @State private var isInstallingXcodeCli: Bool = false
-    @State private var xcodeInstallStatus: XcodeInstallStatus = .installing
     @State private var selectedBackgroundColor: Color = Color.accentColor
     @State private var selectedTextColor: Color = Color.black
     var body: some View {
@@ -124,139 +117,11 @@ struct MainView: View {
             } message: {
                 Text("alert.moveAppToApplications.subtitle")
             }
-            .sheet(isPresented: Binding<Bool>(
-                get: {return !xcodeCliInstalled},
-                set: {value in xcodeCliInstalled = value})) {
-                VStack {
-                    switch xcodeInstallStatus {
-                    case .installing:
-                        if !isInstallingXcodeCli {
-                            Image(systemName: "square.and.arrow.down")
-                                .font(.system(size: 45))
-                                .foregroundColor(.accentColor)
-                            Text("xcode.install.message")
-                                .font(.title3)
-                            HStack {
-                                Button("button.Quit") {
-                                    exit(0)
-                                }
-                                .buttonStyle(.borderedProminent)
-                                .tint(Color.gray)
-                                .controlSize(.large)
-                                Button("button.Install") {
-                                    installXcodeCli()
-                                    isInstallingXcodeCli = true
-                                }
-                                .buttonStyle(.borderedProminent)
-                                .tint(.accentColor)
-                                .controlSize(.large)
-                            }
-                        } else {
-                            VStack {
-                                ProgressView()
-                                    .progressViewStyle(.circular)
-                                Spacer()
-                                    .frame(height: 10)
-                                Text("xcode.install.progress")
-                                    .font(.title3)
-                                Text("xcode.install.progress.subtext")
-                                    .foregroundColor(.secondary)
-                            }
-                        }
-                    case .success:
-                        Image(systemName: "checkmark.circle")
-                            .foregroundColor(Color.green)
-                            .font(.system(size: 45))
-                            .onAppear {
-                                if let sound = NSSound(named: "Glass") {
-                                    sound.play()
-                                }
-                            }
-                        Text("xcode.install.success")
-                            .font(.title3)
-                        Text("alert.restart")
-                            .foregroundColor(.secondary)
-                        Button("button.Quit") {
-                            exit(0)
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .tint(.accentColor)
-                        .controlSize(.large)
-                    case .failed:
-                        Image(systemName: "xmark.octagon")
-                            .foregroundColor(Color.red)
-                            .font(.system(size: 45))
-                            .onAppear {
-                                NSSound.beep()
-                            }
-                        Text("xcode.install.failed")
-                            .font(.title3)
-                        Text("xcode.install.failed.altInstructions")
-                            .foregroundColor(.secondary)
-                        HStack {
-                            Button("button.Quit") {
-                                exit(0)
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .tint(Color.gray)
-                            .controlSize(.large)
-                            Button("xcode.install.failed.altButton") {
-                                NSWorkspace.shared.open(URL(string:
-                                    "https://docs.playcover.io/getting_started/alt_xcode_cli_install")!)
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .tint(.accentColor)
-                            .controlSize(.large)
-                        }
-                    }
-                }
-                .padding()
-                .frame(minWidth: 550, minHeight: 150)
+            .sheet(isPresented: $isSigningSetupShown) {
+                SignSetupView(isSigningSetupShown: $isSigningSetupShown)
             }
-                .sheet(isPresented: $isSigningSetupShown) {
-                    SignSetupView(isSigningSetupShown: $isSigningSetupShown)
-                }
         }
         .frame(minWidth: 675, minHeight: 330)
-    }
-
-    func installXcodeCli() {
-        if let path = Bundle.main.url(forResource: "xcode_install", withExtension: "scpt") {
-            Task {
-                let task = Process()
-                let taskOutput = Pipe()
-                task.launchPath = "/usr/bin/osascript"
-                task.arguments = ["\(path.path)"]
-                task.standardOutput = taskOutput
-                task.launch()
-                task.waitUntilExit()
-
-                Task { @MainActor in
-                    let data = taskOutput.fileHandleForReading.readDataToEndOfFile()
-                    if let output = String(data: data, encoding: .utf8) {
-                        let trimmed = output.filter { !$0.isWhitespace }
-                        if trimmed.isEmpty {
-                            if shell.isXcodeCliToolsInstalled {
-                                isInstallingXcodeCli = false
-                                xcodeInstallStatus = .success
-                            } else {
-                                isInstallingXcodeCli = false
-                                xcodeInstallStatus = .failed
-                            }
-                        } else {
-                            isInstallingXcodeCli = false
-                            xcodeInstallStatus = .failed
-                        }
-                    } else {
-                        isInstallingXcodeCli = false
-                        Log.shared.error("Failed to interpret console output!")
-                    }
-                }
-            }
-        } else {
-            isInstallingXcodeCli = false
-            xcodeInstallStatus = .failed
-        }
     }
 
     private func toggleSidebar() {
@@ -304,12 +169,10 @@ struct SplitViewAccessor: NSViewRepresentable {
 }
 
 struct MainView_Previews: PreviewProvider {
-    @State static var xcodeCliInstalled = true
     @State static var isSigningSetupShown = true
 
     static var previews: some View {
-        MainView(xcodeCliInstalled: $xcodeCliInstalled,
-                 isSigningSetupShown: $isSigningSetupShown)
+        MainView(isSigningSetupShown: $isSigningSetupShown)
             .environmentObject(InstallVM.shared)
             .environmentObject(AppsVM.shared)
             .environmentObject(StoreVM.shared)

@@ -15,7 +15,6 @@
 "playapp.deleteAccount" = "Delete Account";
 "playapp.clearPreferences" = "Clear App Preferences";
 "playapp.refreshSources" = "Refresh Sources";
-
 "ipaLibrary.noSources.title" = "No IPA Sources Added";
 "ipaLibrary.noSources.subtitle" = "You currently have no IPA Sources added. Click the button below to add one.";
 "ipaLibrary.noSources.button" = "Add Source";
@@ -25,7 +24,6 @@
 "ipaLibrary.version.newer" = "This version is newer than the version you have installed";
 "ipaLibrary.alert.download" = "Are you sure you want to download this version of %@?";
 "ipaLibrary.download" = "Download";
-
 "preferences.button.checkForUpdates" = "Check for Updates";
 "preferences.tab.updates" = "Updates";
 "preferences.toggle.automaticUpdates" = "Automatically check for updates";
@@ -45,16 +43,14 @@
 "preferences.button.moveSourceUp" = "Move Source Up";
 "preferences.button.moveSourceDown" = "Move Source Down";
 "preferences.popover.valid" = "Link Valid";
-"preferences.popover.badurl"  = "URL Invalid!";
+"preferences.popover.badurl" = "URL Invalid!";
 "preferences.popover.badjson" = "JSON Invalid or Not Found!";
 "preferences.textfield.url" = "Source URL...";
 "preferences.tab.install" = "Install";
 "preferences.toggle.showInstallPopup" = "Show install PlayTools popup";
 "preferences.toggle.alwaysInstallPlayTools" = "Always install PlayTools";
-
 "sidebar.appLibrary" = "App Library";
 "sidebar.ipaLibrary" = "IPA Library";
-
 "storeAccount.selectAccRegion" = "Select account region";
 "storeAccount.selectAccRegion.usa" = "America";
 "storeAccount.selectAccRegion.euro" = "Europe";
@@ -71,17 +67,12 @@
 "storeAccount.alert.restoreAccount.msg" = "This will override your currently signed-in account.";
 "storeAccount.alert.deleteAccount" = "Really Delete Account?";
 "storeAccount.alert.deleteAccount.button" = "Delete Account";
-
-"playapp.download" = "Downloading";
 "playapp.install.unzip" = "Extracting app from .ipa file...";
 "playapp.install.createWrapper" = "Creating app wrapper...";
 "playapp.install.installPlayTools" = "Installing PlayTools...";
 "playapp.install.signing" = "Signing app...";
 "playapp.install.addToLib" = "Adding app to library...";
 "playapp.install.copy" = "Copying app...";
-"playapp.install.finished" = "Finished";
-"playapp.install.failed" = "Failed";
-
 "alert.appCacheCleared" = "App data has been cleared!";
 "alert.kmImported" = "Keymapping imported!";
 "alert.errorImportKm" = "Error occured when importing!";
@@ -106,7 +97,6 @@
 "alert.differentBundleIdKeymap.text" = "Are you sure you want to import this keymap?";
 "alert.power.title" = "Low Power Mode Enabled!";
 "alert.power.subtitle" = "Some apps will not work with Low Power Mode enabled. It is recommended to disable it.";
-
 "button.OK" = "OK";
 "button.Proceed" = "Proceed";
 "button.Cancel" = "Cancel";
@@ -118,11 +108,9 @@
 "button.No" = "No";
 "button.Help" = "Help";
 "button.Dismiss" = "Dismiss";
-
 "state.enabled" = "Enabled";
 "state.disabled" = "Disabled";
 "state.pendingReboot" = "Pending Reboot";
-
 "error.corruptedIPA" = "This .ipa file is corrupted. It does not contains \"Info.plist\" file.";
 "error.waitInstallation" = "Please wait for the current installation to finish!";
 "error.waitDownload" = "Please wait for the current download to finish!";
@@ -131,23 +119,19 @@
 "error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";
 "error.appMaliciousProhibited" = "This App behaves maliciously on Macs, and using it can leave your device in an unbootable state, therefore it is blocked from PlayCover. (Uninstalling...)";
 "error.noGenshinAccount" = "We couldn't find a Genshin account! Are you signed into an account in-app?";
-
 "menubar.exportToSideloady" = "Export to Sideloadly";
-
 "settings.title" = "%@ Settings";
 "settings.tab.info" = "Info";
-
 "settings.tab.km" = "Keymapping";
 "settings.toggle.km" = "Keymapping";
 "settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
 "settings.toggle.mm" = "Mouse mapping";
 "settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
-
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";
 "settings.picker.adaptiveRes" = "Resolution:";
-"settings.picker.adaptiveRes.help" ="Changes the app's window resolution";
+"settings.picker.adaptiveRes.help" = "Changes the app's window resolution";
 "settings.picker.adaptiveRes.0" = "App Default";
 "settings.picker.adaptiveRes.1" = "Auto (Based on Display)";
 "settings.picker.adaptiveRes.5" = "Custom";
@@ -158,13 +142,9 @@
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
 "settings.noPlayTools" = "PlayTools is not installed in this app";
-
-"settings.tab.jbBypass" = "Jailbreak Bypass";
 "settings.toggle.jbBypass" = "Enable Jailbreak Bypass (Alpha)";
 "settings.toggle.jbBypass.help" = "Attempts to bypass Jailbreak Detection in some games (Not guaranteed to work all the time)";
-
 "settings.removePlayTools" = "Remove PlayTools";
-
 "settings.info.displayName" = "Display name:";
 "settings.info.bundleName" = "Bundle name:";
 "settings.info.bundleIdentifier" = "Bundle identifier:";
@@ -173,16 +153,12 @@
 "settings.info.minimumOSVersion" = "Minimum OS version:";
 "settings.info.playTools" = "PlayTools installed:";
 "settings.info.url" = "URL:";
-
 "settings.resetSettings" = "Reset settings";
 "settings.resetKm" = "Reset keymapping";
-
 "settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
 "settings.resetKmCompleted" = "Keymapping has been reset!";
-
 "notification.appInstalled" = "App installed!";
 "notification.appInstalled.message" = "Check it out in PlayCover!";
-
 "menubar.log.copy" = "Copy Logs";
 "menubar.documentation" = "Documentation";
 "menubar.website" = "Website";
@@ -191,20 +167,10 @@
 "menubar.checkForUpdates" = "Check for Updates...";
 "menubar.clearCache" = "Clear Cache";
 "menubar.configSigning" = "Configure Signing";
-
 "soundAlert.messageText" = "Incorrect Audio Settings Detected!";
 "soundAlert.informativeText" = "Your current output device does not have a sample rate of 48 or 44.1 KHz! Crashes may occur. Would you like to change your current output device's sample rate to 48 KHz?";
 "soundAlert.successText" = "Current output device sample rate set to 48 KHz";
 "soundAlert.failureText" = "Failed to set current output device's sample rate to 48 KHz. You can manually set sample rate in the Audio MIDI Setup app";
-
-"xcode.install.message" = "You need to install Xcode Command Line Tools and restart PlayCover";
-"xcode.install.success" = "Xcode Command Line Tools installation succeeded";
-"xcode.install.failed" = "Automatic Xcode Command Line Tools intallation failed";
-"xcode.install.progress" = "Installing Xcode Command Line Tools";
-"xcode.install.progress.subtext" = "This may take around 5-10 minutes depending on your internet speed";
-"xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
-"xcode.install.failed.altButton" = "Alternate Instructions";
-
 "settings.tab.misc" = "Misc";
 "settings.button.discord" = "Custom Discord activity";
 "settings.button.clearActivity" = "Clear custom activity";
@@ -220,10 +186,8 @@
 "settings.text.debugger" = "Debugger:";
 "settings.toggle.lldb" = "Open with LLDB";
 "settings.toggle.lldbWithTerminal" = "Open in terminal";
-
 "configSigning.header" = "Configure Package Signing";
 "configSigning.subtext" = "Package Signing helps fixing issues with apps that rely on \ncorrect Team IDs for operations like authorization. \nThere may be security risks associated with enabling this feature.\n\n As such, we recommend disabling it when it's not necessary";
-
 "configSigning.info.SIP" = "SIP is required to be fully to partially disabled in order for AMFI to be turned off.";
 "configSigning.info.SIPHeader" = "System Integrity Protection";
 "configSigning.info.AMFI" = "AMFI is required to be turned off in order to allow fake signing of apps, allowing them to run with the correct Team ID";
@@ -235,6 +199,22 @@
 "configSigning.step.disableAMFI" = "Please disable AMFI";
 "configSigning.step.AMFIreboot" = "AMFI Disabled. Please reboot";
 "configSigning.step.complete" = "Package Signing has been configured successfully";
-
 "configSigning.alert.copied" = "Command Copied!";
 "configSigning.alert.info" = "Please paste and run the command in Terminal.app. Your Mac will reboot after";
+"settings.unavailable.hud" = "Metal HUD unavailable";
+"settings.playChain.enable" = "Enable PlayChain (experimental)";
+"error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
+"settings.playChain.help" = "Enable PlayChain support for this application, allowing it to (partially) use Apple Keychain Services";
+"settings.playChain.debugging" = "PlayChain debugging";
+"playapp.noSources.title" = "No IPAs Installed";
+"playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";
+"settings.tab.bypasses" = "Bypasses";
+"settings.addToLaunchpad" = "Add to Launchpad";
+"settings.removeFromLaunchpad" = "Remove from Launchpad";
+"playapp.download.downloading" = "Downloading";
+"playapp.download.integrityCheck" = "Verifying file integrity:";
+"playapp.download.differentChecksum" = "Different checksums! Do you want to continue to install?";
+"playapp.download.differentChecksumDesc" = "Expected \"%@\", got \"%@\"";
+"playapp.progress.finished" = "Finished";
+"playapp.progress.failed" = "Failed";
+"playapp.progress.canceled" = "Canceled";

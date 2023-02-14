@@ -12,7 +12,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 uif.ipaUrl = url
                 Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
                     Task { @MainActor in
-                        AppsVM.shared.apps = []
                         AppsVM.shared.fetchApps()
                         NotifyService.shared.notify(
                             NSLocalizedString("notification.appInstalled", comment: ""),
@@ -64,14 +63,13 @@ struct PlayCoverApp: App {
     @StateObject var updaterViewModel = UpdaterViewModel()
     var storeVM = StoreVM.shared
 
-    @State var xcodeCliInstalled = shell.isXcodeCliToolsInstalled
     @State var isSigningSetupShown = false
 
     var body: some Scene {
         WindowGroup {
-            MainView(xcodeCliInstalled: $xcodeCliInstalled,
-                     isSigningSetupShown: $isSigningSetupShown)
+            MainView(isSigningSetupShown: $isSigningSetupShown)
                 .environmentObject(InstallVM.shared)
+                .environmentObject(DownloadVM.shared)
                 .environmentObject(AppsVM.shared)
                 .environmentObject(storeVM)
                 .environmentObject(AppIntegrity())

@@ -7,7 +7,6 @@ import Foundation
 import Yams
 
 class Entitlements {
-
     static var playCoverEntitlementsDir: URL {
         let entFolder = PlayTools.playCoverContainer.appendingPathComponent("Entitlements")
         if !FileManager.default.fileExists(atPath: entFolder.path) {
@@ -54,7 +53,7 @@ class Entitlements {
         base["com.apple.security.print"] = true
     }
 
-    // swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable:next cyclomatic_complexity
     static func composeEntitlements(_ app: PlayApp) throws -> [String: Any] {
         var base = [String: Any]()
         let bundleID = app.info.bundleIdentifier
