@@ -353,7 +353,6 @@
 			isa = PBXGroup;
 			children = (
 				8783D00A26B8C9E600171041 /* URLExtensions.swift */,
-				6ECB1D0D29798DFA00CD92AA /* DataExtensions.swift */,
 				6E25096E297F5032004D754C /* FileExtensions.swift */,
 			);
 			path = Extensions;
