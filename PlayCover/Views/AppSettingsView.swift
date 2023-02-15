@@ -272,6 +272,11 @@ struct GraphicsView: View {
                     }
                 }
                 HStack {
+                    if #available(macOS 13.2, *) {
+                        Toggle("settings.toggle.windowExperimentalFix", isOn: $settings.settings.inverseScreenValues)
+                            .help("settings.toggle.windowExperimentalFix.help")
+                        Spacer()
+                    }
                     Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.settings.disableTimeout)
                         .help("settings.toggle.disableDisplaySleep.help")
                     Spacer()
