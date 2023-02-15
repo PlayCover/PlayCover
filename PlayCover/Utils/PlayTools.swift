@@ -135,27 +135,27 @@ class PlayTools {
         for localizationDirectory in allFiles where localizationDirectory.pathExtension == "lproj" {
             _ = try copyAsset(target: payload,
                               directoryName: localizationDirectory.lastPathComponent,
-                              componet: "Playtools", pathExtension: "strings")
+                              component: "Playtools", pathExtension: "strings")
         }
 
         let bundleTarget = try copyAsset(target: payload, directoryName: "PlugIns",
-                                         componet: "AKInterface", pathExtension: "bundle")
+                                         component: "AKInterface", pathExtension: "bundle")
         try bundleTarget.fixExecutable()
         Shell.codesign(bundleTarget)
     }
 
     static func copyAsset(target: URL, directoryName: String,
-                          componet: String, pathExtension: String) throws -> URL {
+                          component: String, pathExtension: String) throws -> URL {
         let directory = target.appendingPathComponent(directoryName)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
 
         let target = directory
-                    .appendingPathComponent(componet)
+                    .appendingPathComponent(component)
                     .appendingPathExtension(pathExtension)
 
         let source = bundledPlayToolsFramework
                     .appendingPathComponent(directoryName)
-                    .appendingPathComponent(componet)
+                    .appendingPathComponent(component)
                     .appendingPathExtension(pathExtension)
         do {
             try FileManager.default.copyItem(at: source, to: target)
