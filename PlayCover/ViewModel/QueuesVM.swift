@@ -8,8 +8,8 @@
 import Foundation
 import DownloadManager
 
-class QueuesVM {
-    public static let shared = QueuesVM()
+class QueuesManager {
+    public static let shared = QueuesManager()
 
     private var installQueueItems: [(URL, Bool)] = [] // URL of ipa to install and if ipa should be deleted
 

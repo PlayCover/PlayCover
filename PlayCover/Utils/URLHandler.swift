@@ -38,7 +38,7 @@ struct URLHandler {
               let params = urlComponenents.queryItems else {
                 // Fall back to old url handler (for files)
                 if url.pathExtension == "ipa" {
-                    QueuesVM.shared.addInstallItem(ipa: url)
+                    QueuesManager.shared.addInstallItem(ipa: url)
                 }
                 return
             }

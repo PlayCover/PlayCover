@@ -121,7 +121,7 @@ class DownloadApp {
 
     private func proceedInstall(_ url: URL?, deleteIPA: Bool = true) {
         if let url = url {
-            QueuesVM.shared.addInstallItem(ipa: url, deleteIpa: true)
+            QueuesManager.shared.addInstallItem(ipa: url, deleteIpa: true)
             self.downloadVM.storeAppData = nil
             self.completion()
         }
