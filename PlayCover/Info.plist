@@ -63,10 +63,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>io.playcover.PlayCover</string>
+			<string>com.apple.Magnifier</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>playcover</string>
+				<string>apple-magnifier</string>
 			</array>
 		</dict>
 	</array>
