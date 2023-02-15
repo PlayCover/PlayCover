@@ -34,8 +34,8 @@ struct URLHandler {
 
     func processURL(url: URL) {
         guard let urlComponenents = NSURLComponents(url: url, resolvingAgainstBaseURL: false),
-            let uriPath = urlComponenents.path,
-            let params = urlComponenents.queryItems else {
+              let uriHost = urlComponenents.host,
+              let params = urlComponenents.queryItems else {
                 // Fall back to old url handler (for files)
                 if url.pathExtension == "ipa" {
                     Installer.install(ipaUrl: url, export: false, returnCompletion: { _ in
@@ -52,9 +52,10 @@ struct URLHandler {
         // URI format: playcoverapp://<object>?action=<action>&<param>=<value>
         // Example: playcoverapp://source?action=add&url=https://homebrew.playcover.io
 
+        debugPrint(urlComponenents)
         // Switch case for main uri path
-        switch uriPath {
-        case "/source":
+        switch uriHost {
+        case "source":
             processSourceURL(params: params)
         default:
             // Print URL to console and break
@@ -63,31 +64,31 @@ struct URLHandler {
     }
 
     func processSourceURL(params: [URLQueryItem]) {
-        switch params[0].value {
-        case "add":
-            // Add source
-            if let url = params[1].value {
-                URLObservable.shared.url = url
-                URLObservable.shared.type = .source
-                URLObservable.shared.action = .add
+        if let actionParam = params[0].value {
+            URLObservable.shared.type = .source
+            switch actionParam {
+            case "add":
+                // Add source
+                if let url = params[1].value {
+                    URLObservable.shared.url = url
+                    URLObservable.shared.action = .add
+                }
+            case "remove":
+                // Remove source
+                if let url = params[1].value {
+                    URLObservable.shared.url = url
+                    URLObservable.shared.action = .remove
+                }
+            case "update":
+                // Update source
+                if let url = params[1].value {
+                    URLObservable.shared.url = url
+                    URLObservable.shared.action = .update
+                }
+            default:
+                // Print params to console and break
+                print("Unknown source URL params: \(params)")
             }
-        case "remove":
-            // Remove source
-            if let url = params[1].value {
-                URLObservable.shared.url = url
-                URLObservable.shared.type = .source
-                URLObservable.shared.action = .remove
-            }
-        case "update":
-            // Update source
-            if let url = params[1].value {
-                URLObservable.shared.url = url
-                URLObservable.shared.type = .source
-                URLObservable.shared.action = .update
-            }
-        default:
-            // Print params to console and break
-            print("Unknown source URL params: \(params)")
         }
     }
 }
