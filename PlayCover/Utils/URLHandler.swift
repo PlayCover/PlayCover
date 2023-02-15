@@ -51,8 +51,6 @@ struct URLHandler {
             }
         // URI format: playcoverapp://<object>?action=<action>&<param>=<value>
         // Example: playcoverapp://source?action=add&url=https://homebrew.playcover.io
-
-        debugPrint(urlComponenents)
         // Switch case for main uri path
         switch uriHost {
         case "source":
