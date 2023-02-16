@@ -483,6 +483,7 @@ struct MiscView: View {
                             }
 
                             Task { @MainActor in
+                                AppsVM.shared.filteredApps = []
                                 AppsVM.shared.fetchApps()
                             }
                         }
