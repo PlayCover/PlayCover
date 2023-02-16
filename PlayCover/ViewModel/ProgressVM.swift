@@ -6,11 +6,14 @@
 //
 
 import Foundation
+import SwiftUI
 
 class ProgressVM<Steps: RawRepresentable & Equatable>: ObservableObject where Steps.RawValue == String {
     @Published var progress = 0.0
     @Published var inProgress = false
     @Published var status: Steps
+    @Published var isCollapsed = false
+    @Published var name: String?
 
     private let starting: Steps
     private let ends: [Steps]
@@ -44,5 +47,35 @@ class ProgressVM<Steps: RawRepresentable & Equatable>: ObservableObject where St
                 }
             }
         }
+    }
+
+    func constructView(cancelableSteps: [Steps]? = nil, cancel: (() -> Void)? = nil) -> some View {
+        return
+            VStack {
+                if !isCollapsed {
+                    Text(NSLocalizedString(status.rawValue, comment: "")) +
+                    Text(!(name?.isEmpty ?? true) ? " " + (name ?? "") : "")
+                }
+                HStack {
+                    ProgressView(value: self.progress)
+                    if let cancels = cancelableSteps, cancels.contains(self.status) {
+                        Button {
+                            cancel?()
+                        } label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.title3)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+
+            }
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
+            .padding()
+            .onTapGesture {
+                self.isCollapsed.toggle()
+            }
     }
 }

@@ -22,6 +22,7 @@ struct ToastInfo: Hashable {
     let toastType: ToastType
     let toastDetails: String
     let timeRemaining: UInt64
+    var destructorCalled = false
 }
 
 enum ToastType {
