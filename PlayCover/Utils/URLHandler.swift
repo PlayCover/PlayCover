@@ -56,12 +56,21 @@ struct URLHandler {
         case "source":
             processSourceURL(params: params)
         default:
-            // Print URL to console and break
-            print("Unknown URL: \(url)")
+            // Print URL to log and break
+            NSLog("Unknown URL: \(url)")
         }
     }
 
     func processSourceURL(params: [URLQueryItem]) {
+        // Make dang sure we have the params we need and they match expected query items
+        guard params.count == 2,
+              params[0].name == "action",
+              params[1].name == "url" else {
+            // Print params to logs and break
+            NSLog("Unknown source URL params: \(params)")
+            return
+        }
+
         if let actionParam = params[0].value {
             URLObservable.shared.type = .source
             switch actionParam {
