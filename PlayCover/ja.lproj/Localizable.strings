@@ -107,7 +107,7 @@
 "playapp.install.createWrapper" = "アプリのコンテナーを作成中...";
 
 /* (No Comment) */
-"playapp.progress.finished" = "完成";
+"playapp.progress.finished" = "完了";
 
 /* (No Comment) */
 "playapp.install.installPlayTools" = "PlayToolsをインストール中...";
@@ -362,16 +362,26 @@
 "settings.toggle.lldb" = "LLDBで開く";
 "settings.toggle.lldbWithTerminal" = "ターミナルで開く";
 "settings.unavailable.hud" = "Metal HUDは利用できません";
-"error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
+"error.failedToStripBinary" = "ファット バイナリで ARM64 arch が見つかりませんでした!";
 "settings.playChain.enable" = "Enable PlayChain (experimental)";
 "settings.playChain.help" = "Enable PlayChain support for this application, allowing it to (partially) use Apple Keychain Services";
 "settings.playChain.debugging" = "PlayChain debugging";
-"playapp.noSources.title" = "No IPAs Installed";
-"playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";
+"playapp.noSources.title" = "IPA がインストールされていません";
+"playapp.noSources.subtitle" = "現在、IPA はインストールされていません。 下のボタンをクリックしてインポートします。";
 "settings.addToLaunchpad" = "Add to Launchpad";
 "settings.tab.bypasses" = "Bypasses";
 "settings.removeFromLaunchpad" = "Remove from Launchpad";
-"playapp.download.integrityCheck" = "Verifying file integrity:";
-"playapp.download.differentChecksum" = "Different checksums! Do you want to continue to install?";
-"playapp.download.differentChecksumDesc" = "Expected \"%@\", got \"%@\"";
-"playapp.progress.canceled" = "Canceled";
+"playapp.download.integrityCheck" = "ファイルの整合性の検証中:";
+"playapp.download.differentChecksum" = "チェックサムが異なります！ インストールを続行しますか?";
+"playapp.download.differentChecksumDesc" = "期待される \"%@\", got \"%@\"";
+"playapp.progress.canceled" = "キャンセルされました";
+"playapp.importIPA" = "ipaをインポート";
+"preferences.toggle.removePlayChain" = "PlayChainを削除";
+"button.Reload" = "リロード";
+"playapp.clearPlayChain" = "PlayChain データを消去";
+"ipaLibrary.noNetworkConnection.required" = "IPAライブラリにはインターネット接続が必要です";
+"preferences.popover.duplicate" = "リンクを複製";
+"alert.app.clearPlayChain" = "すべての PlayChain データが消去されます。 アプリへの再ログインが必要になる場合があります。 続けますか?";
+"settings.toggle.windowExperimentalFix.help" = "問題がある場合は、アプリのシーンを修正しようとします";
+"settings.toggle.windowExperimentalFix" = "Fix window issues";
+"settings.highResolution" = "High resolution may cause crashing";
