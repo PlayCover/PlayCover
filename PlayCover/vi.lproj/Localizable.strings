@@ -226,3 +226,13 @@
 "playapp.download.differentChecksum" = "Checksum khác nhau! Bạn có muốn tiếp tục cài đặt không?";
 "playapp.download.differentChecksumDesc" = "Dự kiến \"%@\", đã xong \"%@\"";
 "playapp.progress.canceled" = "Đã hủy";
+"playapp.clearPlayChain" = "Clear PlayChain Data";
+"button.Reload" = "Reload";
+"playapp.importIPA" = "Import IPA";
+"ipaLibrary.noNetworkConnection.required" = "IPA Library requires internet connection";
+"preferences.toggle.removePlayChain" = "Remove PlayChain";
+"preferences.popover.duplicate" = "Duplicate Link";
+"alert.app.clearPlayChain" = "All PlayChain data will be erased. You may need to login to the app again. Do you wish to continue?";
+"settings.toggle.windowExperimentalFix.help" = "Attempts to fix your app scene if you have problems with it";
+"settings.toggle.windowExperimentalFix" = "Fix window issues";
+"settings.highResolution" = "High resolution may cause crashing";
