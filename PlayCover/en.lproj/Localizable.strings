@@ -265,6 +265,7 @@
 "keycover.error.notMatch" = "Passwords do not match";
 "keycover.error.incorrectPassword" = "Incorrect Password";
 
+"keycover.status.title" = "KeyCover Status:";
 "keycover.status.managedPassword" = "Enabled with Managed Password";
 "keycover.status.userPassword" = "Enabled with User Password";
 "keycover.status.chainCount" = "KeyCover Chain Status: ";

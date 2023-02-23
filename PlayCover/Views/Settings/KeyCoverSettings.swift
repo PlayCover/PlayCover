@@ -34,10 +34,10 @@ struct KeyCoverSettings: View {
         VStack {
             HStack {
                 HStack {
-                    Text("KeyCover Status:")
+                    Text("keycover.status.title")
                     Text(keyCoverObserved.keyCoverEnabled ?
                              KeyCoverPreferences.shared.keyCoverEnabled == .selfGeneratedPassword ?
-                             "keycover.status.managedPassword" : "Enabled with User-Provided Password"
+                             "keycover.status.managedPassword" : "keycover.status.userPassword"
                          : "state.disabled")
                         .foregroundColor(keyCoverObserved.keyCoverEnabled ? .green : .none)
                     Spacer()
