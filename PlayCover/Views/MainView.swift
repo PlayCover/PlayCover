@@ -29,6 +29,9 @@ struct MainView: View {
     @State private var xcodeInstallStatus: XcodeInstallStatus = .installing
     @State private var selectedBackgroundColor: Color = Color.accentColor
     @State private var selectedTextColor: Color = Color.black
+
+    @ObservedObject private var URLObserved = URLObservable.shared
+
     var body: some View {
         GeometryReader { viewGeom in
             NavigationView {
@@ -88,7 +91,7 @@ struct MainView: View {
                 .background(SplitViewAccessor(sideCollapsed: $collapsed))
             }
             .onAppear {
-                self.selectedView = 1
+                self.selectedView = URLObserved.type == .source ? 2 : 1
             }
             .toolbar {
                 ToolbarItem(placement: .navigation) {
@@ -216,6 +219,9 @@ struct MainView: View {
                 .sheet(isPresented: $isSigningSetupShown) {
                     SignSetupView(isSigningSetupShown: $isSigningSetupShown)
                 }
+            .onChange(of: URLObserved.action) { _ in
+                self.selectedView = URLObserved.type == .source ? 2 : self.selectedView
+            }
         }
         .frame(minWidth: 675, minHeight: 330)
     }

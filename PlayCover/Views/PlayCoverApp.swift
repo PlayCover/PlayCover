@@ -8,18 +8,7 @@ import SwiftUI
 class AppDelegate: NSObject, NSApplicationDelegate {
     func application(_ application: NSApplication, open urls: [URL]) {
         if let url = urls.first {
-            if url.pathExtension == "ipa" {
-                uif.ipaUrl = url
-                Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
-                    Task { @MainActor in
-                        AppsVM.shared.apps = []
-                        AppsVM.shared.fetchApps()
-                        NotifyService.shared.notify(
-                            NSLocalizedString("notification.appInstalled", comment: ""),
-                            NSLocalizedString("notification.appInstalled.message", comment: ""))
-                    }
-                })
-            }
+            URLHandler.shared.processURL(url: url)
         }
     }
 
