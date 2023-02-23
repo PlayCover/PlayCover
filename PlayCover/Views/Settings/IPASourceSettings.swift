@@ -230,6 +230,16 @@ struct AddSourceView: View {
         .onChange(of: newSource) { source in
             validateSource(source)
         }
+        .onAppear {
+            if URLObservable.shared.type == .source {
+                newSource = URLObservable.shared.url ?? ""
+            }
+        }
+        .onDisappear {
+            URLObservable.shared.url = nil
+            URLObservable.shared.type = nil
+            URLObservable.shared.action = nil
+        }
     }
 
     func validateSource(_ source: String) {

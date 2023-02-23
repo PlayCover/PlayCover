@@ -18,7 +18,8 @@ class Uninstaller {
     private static let pruneURLs: [URL] = [
         PlayTools.playCoverContainer.appendingPathComponent("App Settings"),
         PlayTools.playCoverContainer.appendingPathComponent("Entitlements"),
-        PlayTools.playCoverContainer.appendingPathComponent("Keymapping")
+        PlayTools.playCoverContainer.appendingPathComponent("Keymapping"),
+        PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
     ]
     private static let otherPruneURLs: [URL] = [
         PlayApp.aliasDirectory
@@ -50,6 +51,7 @@ class Uninstaller {
     static func uninstallPopup(_ app: PlayApp) {
         if UninstallPreferences.shared.showUninstallPopup {
             let boxmakers: [(String, String)] = [
+                ("removePlayChain", NSLocalizedString("preferences.toggle.removePlayChain", comment: "")),
                 ("removeAppEntitlements", NSLocalizedString("preferences.toggle.removeEntitlements", comment: "")),
                 ("removeAppSettings", NSLocalizedString("preferences.toggle.removeSetting", comment: "")),
                 ("removeAppKeymap", NSLocalizedString("preferences.toggle.removeKeymap", comment: "")),
@@ -124,6 +126,14 @@ class Uninstaller {
 
         if UninstallPreferences.shared.removeAppEntitlements {
             FileManager.default.delete(at: app.entitlements)
+        }
+
+        if UninstallPreferences.shared.removePlayChain {
+            let url = PlayTools.playCoverContainer
+                .appendingPathComponent("PlayChain")
+                .appendingPathComponent(app.info.bundleIdentifier)
+
+            FileManager.default.delete(at: url)
         }
 
         app.removeAlias()

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CryptoKit
 import DownloadManager
 
 /// DownloaderManager can be configured through this struct, default values are as the same as below
@@ -57,7 +56,11 @@ class DownloadApp {
                 }
             }
 
-            proceedDownload()
+            if let url = url, url.isFileURL {
+                proceedInstall(url, deleteIPA: false)
+            } else {
+                proceedDownload()
+            }
         }
     }
 
@@ -86,18 +89,10 @@ class DownloadApp {
 
     private func verifyChecksum(checksum: String?, file: URL?, completion: @escaping(Bool) -> Void) {
         Task {
-            if let originalSum = self.downloadVM.storeAppData?.checksum, !originalSum.isEmpty, let fileURL = file {
-                do {
-                    let sha256 = SHA256.hash(data: try Data(contentsOf: fileURL))
-                                       .map { String(format: "%02hhx", $0) }
-                                       .joined()
-
-                    if originalSum != sha256 {
-                        checksumAlert(originalSum: originalSum, givenSum: sha256, completion: completion)
-                        return
-                    }
-                } catch {
-                    print("Error in calculating sha256sum: \(error)")
+            if let originalSum = checksum, !originalSum.isEmpty, let fileURL = file {
+                if let sha256 = fileURL.sha256, originalSum != sha256 {
+                    checksumAlert(originalSum: originalSum, givenSum: sha256, completion: completion)
+                    return
                 }
             }
 
@@ -151,11 +146,13 @@ class DownloadApp {
         }
     }
 
-    private func proceedInstall(_ url: URL?) {
+    private func proceedInstall(_ url: URL?, deleteIPA: Bool = true) {
         if let url = url {
             Installer.install(ipaUrl: url, export: false, returnCompletion: { _ in
                 Task { @MainActor in
-                    FileManager.default.delete(at: url)
+                    if deleteIPA {
+                        FileManager.default.delete(at: url)
+                    }
                     AppsVM.shared.fetchApps()
                     StoreVM.shared.resolveSources()
                     NotifyService.shared.notify(

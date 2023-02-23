@@ -22,7 +22,10 @@ class AppsVM: ObservableObject {
     func fetchApps() {
         Task { @MainActor in
             updatingApps = true
-            var result: [PlayApp] = []
+
+            filteredApps.removeAll()
+            apps.removeAll()
+
             do {
                 let containers = try AppContainer.containers()
                 let directoryContents = try FileManager.default
@@ -40,7 +43,10 @@ class AppsVM: ObservableObject {
                             app.container = container
                             print("Application installed under:", sub.path)
                         }
-                        result.append(app)
+                        apps.append(app)
+                        if uif.searchText.isEmpty || app.searchText.contains(uif.searchText.lowercased()) {
+                            filteredApps.append(app)
+                        }
                     }
                 }
 
@@ -48,22 +54,9 @@ class AppsVM: ObservableObject {
                 print(error)
             }
 
-            apps = result
+            filteredApps.sort(by: { $0.name.lowercased() < $1.name.lowercased() })
 
-            updateApps(result)
+            updatingApps = false
         }
-    }
-
-    @MainActor func updateApps(_ newApps: [PlayApp]) {
-        updatingApps = true
-        self.filteredApps.removeAll()
-        var filteredApps = newApps
-
-        if !searchText.isEmpty {
-            filteredApps = newApps.filter({ $0.searchText.contains(searchText.lowercased()) })
-        }
-
-        self.filteredApps.append(contentsOf: filteredApps)
-        updatingApps = false
     }
 }

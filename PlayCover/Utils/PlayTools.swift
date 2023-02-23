@@ -240,6 +240,8 @@ class PlayTools {
         try removeOldCommand(macho)
         print("Injecting new version command in MachO")
         try injectNewCommand(macho)
+        print("Replacing instances of @rpath dylibs")
+        try replaceLibraries(macho)
     }
 
     static func removeOldCommand(_ url: URL) throws {
@@ -354,6 +356,34 @@ class PlayTools {
         binary.replaceSubrange(machoRange, with: newHeaderData)
         try FileManager.default.removeItem(at: url)
         try binary.write(to: url)
+    }
+
+    static func replaceLibraries(_ url: URL) throws {
+        let dylibsToReplace = ["libswiftUIKit"]
+
+        for dylib in dylibsToReplace {
+            let rpathDylib = "@rpath/\(dylib).dylib"
+            let libDylib = "/usr/lib/swift/\(dylib).dylib"
+            Inject.removeMachO(machoPath: url.path,
+                               cmdType: LC_Type.LOAD_DYLIB,
+                               backup: false,
+                               injectPath: rpathDylib,
+                               finishHandle: { result in
+                if result {
+                    Inject.injectMachO(machoPath: url.path,
+                                       cmdType: LC_Type.LOAD_DYLIB,
+                                       backup: false,
+                                       injectPath: libDylib,
+                                       finishHandle: { result in
+                        if result {
+                            return
+                        } else {
+                            print("Failed to insert \(dylib).dylib!")
+                        }
+                    })
+                }
+            })
+        }
     }
 
     static func isMachoEncrypted(atURL url: URL) throws -> Bool {
