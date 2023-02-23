@@ -23,6 +23,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if ProcessInfo.processInfo.isLowPowerModeEnabled {
             powerModal()
         }
+        // Code that run once on first launch
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        if !launchedBefore {
+            UserDefaults.standard.set(true, forKey: "launchedBefore")
+
+            // Initialize KeyCover with an automatically generated key
+            let masterKey = KeyCoverMaster.shared.generateMasterKey()
+            KeyCoverMaster.shared.setMasterKey(masterKey)
+            KeyCoverPreferences.shared.keyCoverEnabled = .selfGeneratedPassword
+        }
+
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
