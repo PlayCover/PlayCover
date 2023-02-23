@@ -75,14 +75,13 @@ class StoreVM: ObservableObject {
 
     func fetchApps() {
         filteredApps.removeAll()
-        var result = apps
+        filteredApps = apps
         if !uif.searchText.isEmpty {
-            result = result.filter({
+            filteredApps = filteredApps.filter({
                 $0.name.lowercased().contains(uif.searchText.lowercased())
             })
         }
-        result.sort(by: { $0.name.lowercased() < $1.name.lowercased() })
-        filteredApps = result
+        filteredApps.sort(by: { $0.name.lowercased() < $1.name.lowercased() })
     }
 
     func resolveSources() {

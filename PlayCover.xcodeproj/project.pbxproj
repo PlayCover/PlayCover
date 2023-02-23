@@ -72,6 +72,7 @@
 		AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA71964A287A0EA800623C15 /* PlayRules.swift */; };
 		AA71964D287A35F400623C15 /* com.nexon.bluearchive.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA71964C287A35F400623C15 /* com.nexon.bluearchive.yaml */; };
 		AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = AA818CB4287ABEC3000BEE9D /* Yams */; };
+		AB6F21EB299B7FA20078ADEC /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6F21EA299B7FA20078ADEC /* URLHandler.swift */; };
 		ABDAD80429892C5C00DC164F /* KeyCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDAD80329892C5C00DC164F /* KeyCover.swift */; };
 		ABDAD80629893CF900DC164F /* KeyCoverSetupViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDAD80529893CF900DC164F /* KeyCoverSetupViews.swift */; };
 		ABDAD80A29893EA300DC164F /* KeyCoverSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDAD80929893EA300DC164F /* KeyCoverSettings.swift */; };
@@ -173,6 +174,7 @@
 		AA71964A287A0EA800623C15 /* PlayRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayRules.swift; sourceTree = "<group>"; };
 		AA71964C287A35F400623C15 /* com.nexon.bluearchive.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = com.nexon.bluearchive.yaml; sourceTree = "<group>"; };
 		AA970FD228793A310099A5D0 /* PlayCoverRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayCoverRelease.entitlements; sourceTree = "<group>"; };
+		AB6F21EA299B7FA20078ADEC /* URLHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHandler.swift; sourceTree = "<group>"; };
 		ABDAD80329892C5C00DC164F /* KeyCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCover.swift; sourceTree = "<group>"; };
 		ABDAD80529893CF900DC164F /* KeyCoverSetupViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCoverSetupViews.swift; sourceTree = "<group>"; };
 		ABDAD80929893EA300DC164F /* KeyCoverSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCoverSettings.swift; sourceTree = "<group>"; };
@@ -330,7 +332,7 @@
 				B17FD04628C7B0D900B1D4CA /* AssetsExtractor.swift */,
 				6EB4B57328C93E0600630890 /* LegacySettings.swift */,
 				B17FD03F28C70C7300B1D4CA /* CoreUI.h */,
-				ABDAD80329892C5C00DC164F /* KeyCover.swift */,
+				AB6F21EA299B7FA20078ADEC /* URLHandler.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -680,6 +682,7 @@
 				36B26B97288C724600859EFD /* UpdateSettings.swift in Sources */,
 				ABDAD80A29893EA300DC164F /* KeyCoverSettings.swift in Sources */,
 				8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */,
+				AB6F21EB299B7FA20078ADEC /* URLHandler.swift in Sources */,
 				6ED6379D28DAAAC100B506FA /* IPASourceSettings.swift in Sources */,
 				5314D1EE26C402EC00A0A727 /* Shell.swift in Sources */,
 				6E7CA16528B4D02900216CD8 /* ITunesResponse.swift in Sources */,

@@ -355,3 +355,13 @@
 "playapp.download.differentChecksum" = "Different checksums! Do you want to continue to install?";
 "playapp.download.differentChecksumDesc" = "Expected \"%@\", got \"%@\"";
 "playapp.progress.canceled" = "Canceled";
+"playapp.importIPA" = "導入 IPA";
+"preferences.popover.duplicate" = "複製連結";
+"button.Reload" = "刷新";
+"playapp.clearPlayChain" = "清除 PlayChain 數據";
+"ipaLibrary.noNetworkConnection.required" = "連接實際網路以查看 IPA Library";
+"preferences.toggle.removePlayChain" = "移除 PlayChain";
+"alert.app.clearPlayChain" = "所有 PlayChain 數據將被清除。您可能需要重新登錄應用程式。 您還希望繼續嗎?";
+"settings.toggle.windowExperimentalFix.help" = "嘗試修復您的應用程式場景";
+"settings.toggle.windowExperimentalFix" = "修復窗口問題";
+"settings.highResolution" = "高畫質可能會導致閃退";

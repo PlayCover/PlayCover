@@ -24,6 +24,7 @@ struct AppSettingsData: Codable {
     var version = "3.0.0"
     var playChain = false
     var playChainDebugging = false
+    var inverseScreenValues = false
     var metalHUD = false
 
     init() {}
@@ -47,6 +48,7 @@ struct AppSettingsData: Codable {
         version = try container.decodeIfPresent(String.self, forKey: .version) ?? "3.0.0"
         playChain = try container.decodeIfPresent(Bool.self, forKey: .playChain) ?? false
         playChainDebugging = try container.decodeIfPresent(Bool.self, forKey: .playChainDebugging) ?? false
+        inverseScreenValues = try container.decodeIfPresent(Bool.self, forKey: .inverseScreenValues) ?? false
         metalHUD = try container.decodeIfPresent(Bool.self, forKey: .metalHUD) ?? false
     }
 }

@@ -172,9 +172,12 @@
 "settings.text.customWidth" = "Width";
 "settings.text.detectedResolution" = "Detected Resolution:";
 "settings.picker.aspectRatio" = "Aspect ratio:";
+"settings.toggle.windowExperimentalFix.help" = "Attempts to fix your app scene if you have problems with it";
+"settings.toggle.windowExperimentalFix" = "Fix window issues";
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
 "settings.noPlayTools" = "PlayTools is not installed in this app";
+"settings.highResolution" = "High resolution may cause crashing";
 
 "settings.tab.bypasses" = "Bypasses";
 "settings.toggle.jbBypass" = "Enable Jailbreak Bypass (Experimental)";

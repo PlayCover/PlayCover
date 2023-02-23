@@ -375,3 +375,13 @@
 "playapp.download.differentChecksum" = "Unterschiedliche Prüfsummen! Möchtest du mit der Installation fortfahren?";
 "playapp.download.differentChecksumDesc" = "\"%@\" erwartet, \"%@\" erhalten";
 "playapp.progress.canceled" = "Abgebrochen";
+"button.Reload" = "Neu laden";
+"playapp.clearPlayChain" = "PlayChain-Daten leeren";
+"playapp.importIPA" = "IPA importieren";
+"ipaLibrary.noNetworkConnection.required" = "IPA-Bibliothek erfordert eine Internetverbindung";
+"preferences.toggle.removePlayChain" = "PlayChain entfernen";
+"preferences.popover.duplicate" = "Link duplizieren";
+"alert.app.clearPlayChain" = "Alle PlayChain-Daten werden gelöscht. Möglicherweise müssen Sie sich erneut bei der App anmelden. Möchten Sie fortfahren?";
+"settings.toggle.windowExperimentalFix.help" = "Versucht, deine App-Szene zu reparieren, wenn du Probleme damit hast";
+"settings.toggle.windowExperimentalFix" = "Fensterprobleme beheben";
+"settings.highResolution" = "Hohe Auflösung kann zu Abstürzen führen";
