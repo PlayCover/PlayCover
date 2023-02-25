@@ -218,3 +218,13 @@
 "playapp.progress.finished" = "Finished";
 "playapp.progress.failed" = "Failed";
 "playapp.progress.canceled" = "Canceled";
+"playapp.clearPlayChain" = "Clear PlayChain Data";
+"playapp.importIPA" = "Import IPA";
+"preferences.toggle.removePlayChain" = "Remove PlayChain";
+"button.Reload" = "Reload";
+"ipaLibrary.noNetworkConnection.required" = "IPA Library requires internet connection";
+"preferences.popover.duplicate" = "Duplicate Link";
+"alert.app.clearPlayChain" = "All PlayChain data will be erased. You may need to login to the app again. Do you wish to continue?";
+"settings.toggle.windowExperimentalFix.help" = "Attempts to fix your app scene if you have problems with it";
+"settings.toggle.windowExperimentalFix" = "Fix window issues";
+"settings.highResolution" = "High resolution may cause crashing";
