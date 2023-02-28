@@ -6,6 +6,8 @@
 import SwiftUI
 
 class AppDelegate: NSObject, NSApplicationDelegate {
+    @AppStorage("ShowLowPowerModeAlert") var showLowPowerModeAlert = true
+
     func application(_ application: NSApplication, open urls: [URL]) {
         if let url = urls.first {
             URLHandler.shared.processURL(url: url)
@@ -16,6 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         UserDefaults.standard.register(
             defaults: ["NSApplicationCrashOnExceptions": true]
         )
+
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(powerStateChanged),
                                                name: Notification.Name.NSProcessInfoPowerStateDidChange,
@@ -38,12 +41,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func powerModal() {
-        let alert = NSAlert()
-        alert.messageText = NSLocalizedString("alert.power.title", comment: "")
-        alert.informativeText = NSLocalizedString("alert.power.subtitle", comment: "")
-        alert.addButton(withTitle: NSLocalizedString("button.OK", comment: ""))
-        alert.alertStyle = .critical
-        alert.runModal()
+        if showLowPowerModeAlert {
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString("alert.power.title", comment: "")
+            alert.informativeText = NSLocalizedString("alert.power.subtitle", comment: "")
+            alert.addButton(withTitle: NSLocalizedString("button.OK", comment: ""))
+            alert.showsSuppressionButton = true
+            alert.alertStyle = .critical
+
+            if alert.runModal() == .alertFirstButtonReturn {
+                showLowPowerModeAlert = alert.suppressionButton?.state == .off
+            }
+        }
     }
 }
 
