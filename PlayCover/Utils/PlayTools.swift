@@ -370,7 +370,7 @@ class PlayTools {
                           timestamp: oldDylibData!.timestamp,
                           current_version: oldDylibData!.current_version,
                           compatibility_version: oldDylibData!.compatibility_version)
-        var command = dylib_command(cmd: UInt32(isWeak ? Int32(LC_LOAD_WEAK_DYLIB) : LC_LOAD_DYLIB),
+        var command = dylib_command(cmd: isWeak ? LC_LOAD_WEAK_DYLIB : UInt32(LC_LOAD_DYLIB),
                                     cmdsize: UInt32(cmdsize),
                                     dylib: dylib)
 
