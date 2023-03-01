@@ -331,7 +331,7 @@ class PlayTools {
         start = Int(header.sizeofcmds) + Int(MemoryLayout<mach_header_64>.size)
         end = cmdsize + start!
         let subData: Data = binary[start!..<end!]
-        
+
         header.sizeofcmds += UInt32(cmdsize)
         newHeaderData = Data(bytes: &header, count: MemoryLayout<mach_header_64>.size)
 
