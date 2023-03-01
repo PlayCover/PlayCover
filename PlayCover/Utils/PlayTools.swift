@@ -249,13 +249,82 @@ class PlayTools {
         for dylib in dylibsToReplace {
             let rpathDylib = "@rpath/\(dylib).dylib"
             let libDylib = "/usr/lib/swift/\(dylib).dylib"
-            
+
             // 1. Check if dylib LC exists
             // 2. If it exists, take note if it is weak or strong and copy version info
             // 3. Remove the existing rpath LC from header
             // 4. Append a new LC of the same type to the end of the header with
             //    the same version info (i.e. only difference will be path and number of bytes in command)
+
+            try replaceLibrary(url, rpathDylib, libDylib)
         }
+    }
+
+    static func replaceLibrary(_ url: URL, _ rpath: String, _ lib: String) throws {
+        var binary = try Data(contentsOf: url)
+        var newHeader: mach_header_64
+        var newHeaderData: Data?
+        var machoRange: Range<Data.Index>?
+        var start: Int?
+        var size: Int?
+        var end: Int?
+        var isWeak: Bool = false
+        var dylibExists: Bool = false
+        var oldDylibData: dylib
+
+        let header = binary.extract(mach_header_64.self)
+        var offset = MemoryLayout.size(ofValue: header)
+        
+        // Perform steps 1-2
+        for _ in 0..<header.ncmds {
+            let loadCommand = binary.extract(load_command.self, offset: offset)
+            switch UInt32(loadCommand.cmd) {
+            case LC_LOAD_WEAK_DYLIB, UInt32(LC_LOAD_DYLIB):
+                let dylibCommand = binary.extract(dylib_command.self, offset: offset)
+                if String.init(data: binary, offset: offset, commandSize: Int(dylibCommand.cmdsize), loadCommandString: dylibCommand.dylib.name) == rpath {
+
+                    isWeak = LC_LOAD_WEAK_DYLIB == UInt32(loadCommand.cmd)
+                    dylibExists = true
+                    oldDylibData = dylibCommand.dylib
+
+                    start = offset
+                    size = Int(dylibCommand.cmdsize)
+                    newHeader = mach_header_64(magic: header.magic, cputype: header.cputype, cpusubtype: header.cpusubtype, filetype: header.filetype, ncmds: header.ncmds-1, sizeofcmds: header.sizeofcmds-UInt32(dylibCommand.cmdsize), flags: header.flags, reserved: header.reserved)
+                    newHeaderData = Data(bytes: &newHeader, count: MemoryLayout<mach_header_64>.size)
+                    machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
+                }
+            default:
+                break
+            }
+            offset += Int(loadCommand.cmdsize)
+        }
+        end = offset
+        
+        if !dylibExists {
+            // dylib with given rpath was not found in binary
+            return
+        }
+        
+        // Perform step 3
+        if let start = start,
+           let end = end,
+           let size = size,
+           let machoRange = machoRange,
+           let newHeaderData = newHeaderData {
+            let subrangeNew = Range(NSRange(location: start + size, length: end - start - size))!
+            let subrangeOld = Range(NSRange(location: start, length: end - start))!
+            var zero: UInt = 0
+            var commandData = Data()
+            commandData.append(binary.subdata(in: subrangeNew))
+            commandData.append(Data(bytes: &zero, count: size))
+
+            binary.replaceSubrange(subrangeOld, with: commandData)
+            binary.replaceSubrange(machoRange, with: newHeaderData)
+            try FileManager.default.removeItem(at: url)
+            try binary.write(to: url)
+        }
+        
+        // Perform step 4
     }
 
     static func removeOldCommand(_ url: URL) throws {
