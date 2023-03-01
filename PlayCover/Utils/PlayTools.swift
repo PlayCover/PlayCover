@@ -270,9 +270,9 @@ class PlayTools {
         var end: Int?
         var isWeak: Bool = false
         var dylibExists: Bool = false
-        var oldDylibData: dylib
+        var oldDylibData: dylib?
 
-        let header = binary.extract(mach_header_64.self)
+        var header = binary.extract(mach_header_64.self)
         var offset = MemoryLayout.size(ofValue: header)
 
         // Perform steps 1-2
@@ -335,6 +335,57 @@ class PlayTools {
         }
 
         // Perform step 4
+        let length = MemoryLayout<dylib_command>.size + lib.lengthOfBytes(using: String.Encoding.utf8)
+        let padding = (8 - (length % 8))
+        let cmdsize = length + padding
+
+        start = 0
+        end = cmdsize
+        header = binary.extract(mach_header_64.self)
+        var subData: Data
+
+        start = Int(header.ncmds) + Int(MemoryLayout<mach_header_64>.size)
+        end! += start!
+        subData = binary[start!..<end!]
+        
+        newHeader = mach_header_64(magic: header.magic,
+                                   cputype: header.cputype,
+                                   cpusubtype: header.cpusubtype,
+                                   filetype: header.filetype,
+                                   ncmds: header.ncmds + 1,
+                                   sizeofcmds: header.sizeofcmds + UInt32(cmdsize),
+                                   flags: header.flags,
+                                   reserved: header.reserved)
+        newHeaderData = Data(bytes: &newHeader, count: MemoryLayout<mach_header>.size)
+        machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
+
+        let test = String(data: subData, encoding: .utf8)?
+            .trimmingCharacters(in: .controlCharacters)
+        if test != "" && test != nil {
+            print("cannot inject payload into \(lib) because there is no room")
+            return
+        }
+        
+        let dylib = dylib(name: lc_str(offset: UInt32(MemoryLayout<dylib_command>.size)),
+                          timestamp: oldDylibData!.timestamp,
+                          current_version: oldDylibData!.current_version,
+                          compatibility_version: oldDylibData!.compatibility_version)
+        var command = dylib_command(cmd: UInt32(isWeak ? Int32(LC_LOAD_WEAK_DYLIB) : LC_LOAD_DYLIB),
+                                    cmdsize: UInt32(cmdsize),
+                                    dylib: dylib)
+
+        var zero: UInt = 0
+        var commandData = Data()
+        commandData.append(Data(bytes: &command, count: MemoryLayout<dylib_command>.size))
+        commandData.append(lib.data(using: String.Encoding.ascii) ?? Data())
+        commandData.append(Data(bytes: &zero, count: padding))
+        
+        let subrange = Range(NSRange(location: start!, length: commandData.count))!
+        binary.replaceSubrange(subrange, with: commandData)
+        binary.replaceSubrange(machoRange!, with: newHeaderData!)
+        try FileManager.default.removeItem(at: url)
+        try binary.write(to: url)
+        
     }
 
     static func removeOldCommand(_ url: URL) throws {
