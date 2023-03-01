@@ -270,7 +270,7 @@ class PlayTools {
         var isWeak: Bool = false
         var dylibExists: Bool = false
         var oldDylibData: dylib?
-        var oldDylibLength: UInt32?
+        var oldDylibLength: UInt32 = 0
 
         var header = binary.extract(mach_header_64.self)
         var offset = MemoryLayout.size(ofValue: header)
@@ -304,6 +304,7 @@ class PlayTools {
 
         if !dylibExists {
             // dylib with given rpath was not found in binary
+            print("\(rpath) does not exist in this binary")
             return
         }
 
@@ -326,29 +327,24 @@ class PlayTools {
         let padding = (8 - (length % 8))
         let cmdsize = length + padding
 
-        start = 0
-        end = cmdsize
-        header = binary.extract(mach_header_64.self)
-        var subData: Data
-
-        start = Int(header.ncmds) + Int(MemoryLayout<mach_header_64>.size)
-        end! += start!
-        subData = binary[start!..<end!]
+        start = Int(header.sizeofcmds) + Int(MemoryLayout<mach_header_64>.size)
+        end = cmdsize + start!
+        var subData: Data = binary[start!..<end!]
 
         newHeader = mach_header_64(magic: header.magic,
                                    cputype: header.cputype,
                                    cpusubtype: header.cpusubtype,
                                    filetype: header.filetype,
                                    ncmds: header.ncmds,
-                                   sizeofcmds: header.sizeofcmds - oldDylibLength! + UInt32(cmdsize),
+                                   sizeofcmds: header.sizeofcmds - oldDylibLength + UInt32(cmdsize),
                                    flags: header.flags,
                                    reserved: header.reserved)
         newHeaderData = Data(bytes: &newHeader, count: MemoryLayout<mach_header_64>.size)
 
-        let test = String(data: subData, encoding: .utf8)?
+        let testString = String(data: subData, encoding: .utf8)?
             .trimmingCharacters(in: .controlCharacters)
-        if test != "" && test != nil {
-            print("cannot inject payload into \(lib) because there is no room")
+        if testString != "" && testString != nil {
+            print("Not enough space in binary!")
             return
         }
 
