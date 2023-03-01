@@ -239,6 +239,23 @@ class PlayTools {
         try removeOldCommand(macho)
         print("Injecting new version command in MachO")
         try injectNewCommand(macho)
+        print("Replacing instances of @rpath dylibs")
+        try replaceLibraries(macho)
+    }
+    
+    static func replaceLibraries(_ url: URL) throws {
+        let dylibsToReplace = ["libswiftUIKit"]
+
+        for dylib in dylibsToReplace {
+            let rpathDylib = "@rpath/\(dylib).dylib"
+            let libDylib = "/usr/lib/swift/\(dylib).dylib"
+            
+            // 1. Check if dylib LC exists
+            // 2. If it exists, take note if it is weak or strong and copy version info
+            // 3. Remove the existing rpath LC from header
+            // 4. Append a new LC of the same type to the end of the header with
+            //    the same version info (i.e. only difference will be path and number of bytes in command)
+        }
     }
 
     static func removeOldCommand(_ url: URL) throws {
