@@ -347,7 +347,7 @@ class PlayTools {
         start = Int(header.ncmds) + Int(MemoryLayout<mach_header_64>.size)
         end! += start!
         subData = binary[start!..<end!]
-        
+
         newHeader = mach_header_64(magic: header.magic,
                                    cputype: header.cputype,
                                    cpusubtype: header.cpusubtype,
@@ -365,7 +365,7 @@ class PlayTools {
             print("cannot inject payload into \(lib) because there is no room")
             return
         }
-        
+
         let dylib = dylib(name: lc_str(offset: UInt32(MemoryLayout<dylib_command>.size)),
                           timestamp: oldDylibData!.timestamp,
                           current_version: oldDylibData!.current_version,
@@ -379,13 +379,12 @@ class PlayTools {
         commandData.append(Data(bytes: &command, count: MemoryLayout<dylib_command>.size))
         commandData.append(lib.data(using: String.Encoding.ascii) ?? Data())
         commandData.append(Data(bytes: &zero, count: padding))
-        
+
         let subrange = Range(NSRange(location: start!, length: commandData.count))!
         binary.replaceSubrange(subrange, with: commandData)
         binary.replaceSubrange(machoRange!, with: newHeaderData!)
         try FileManager.default.removeItem(at: url)
         try binary.write(to: url)
-        
     }
 
     static func removeOldCommand(_ url: URL) throws {
