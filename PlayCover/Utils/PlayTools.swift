@@ -248,7 +248,7 @@ class PlayTools {
 
         for dylib in dylibsToReplace {
             let rpathDylib = "@rpath/\(dylib).dylib"
-            let libDylib = "/usr/lib/swift/\(dylib).dylib"
+            let libDylib = "/System/iOSSupport/usr/lib/swift/\(dylib).dylib"
 
             // 1. Check if dylib LC exists
             // 2. If it exists, take note if it is weak or strong and copy version info
