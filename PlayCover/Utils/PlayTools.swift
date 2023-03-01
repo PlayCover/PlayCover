@@ -264,16 +264,17 @@ class PlayTools {
         var binary = try Data(contentsOf: url)
         var newHeader: mach_header_64
         var newHeaderData: Data?
-        var machoRange: Range<Data.Index>?
         var start: Int?
         var size: Int?
         var end: Int?
         var isWeak: Bool = false
         var dylibExists: Bool = false
         var oldDylibData: dylib?
+        var oldDylibLength: UInt32?
 
         var header = binary.extract(mach_header_64.self)
         var offset = MemoryLayout.size(ofValue: header)
+        let machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
 
         // Perform steps 1-2
         for _ in 0..<header.ncmds {
@@ -289,19 +290,10 @@ class PlayTools {
                     isWeak = LC_LOAD_WEAK_DYLIB == UInt32(loadCommand.cmd)
                     dylibExists = true
                     oldDylibData = dylibCommand.dylib
+                    oldDylibLength = UInt32(dylibCommand.cmdsize)
 
                     start = offset
                     size = Int(dylibCommand.cmdsize)
-                    newHeader = mach_header_64(magic: header.magic,
-                                               cputype: header.cputype,
-                                               cpusubtype: header.cpusubtype,
-                                               filetype: header.filetype,
-                                               ncmds: header.ncmds-1,
-                                               sizeofcmds: header.sizeofcmds-UInt32(dylibCommand.cmdsize),
-                                               flags: header.flags,
-                                               reserved: header.reserved)
-                    newHeaderData = Data(bytes: &newHeader, count: MemoryLayout<mach_header_64>.size)
-                    machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
                 }
             default:
                 break
@@ -318,9 +310,7 @@ class PlayTools {
         // Perform step 3
         if let start = start,
            let end = end,
-           let size = size,
-           let machoRange = machoRange,
-           let newHeaderData = newHeaderData {
+           let size = size {
             let subrangeNew = Range(NSRange(location: start + size, length: end - start - size))!
             let subrangeOld = Range(NSRange(location: start, length: end - start))!
             var zero: UInt = 0
@@ -329,9 +319,6 @@ class PlayTools {
             commandData.append(Data(bytes: &zero, count: size))
 
             binary.replaceSubrange(subrangeOld, with: commandData)
-            binary.replaceSubrange(machoRange, with: newHeaderData)
-            try FileManager.default.removeItem(at: url)
-            try binary.write(to: url)
         }
 
         // Perform step 4
@@ -352,12 +339,11 @@ class PlayTools {
                                    cputype: header.cputype,
                                    cpusubtype: header.cpusubtype,
                                    filetype: header.filetype,
-                                   ncmds: header.ncmds + 1,
-                                   sizeofcmds: header.sizeofcmds + UInt32(cmdsize),
+                                   ncmds: header.ncmds,
+                                   sizeofcmds: header.sizeofcmds - oldDylibLength! + UInt32(cmdsize),
                                    flags: header.flags,
                                    reserved: header.reserved)
-        newHeaderData = Data(bytes: &newHeader, count: MemoryLayout<mach_header>.size)
-        machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
+        newHeaderData = Data(bytes: &newHeader, count: MemoryLayout<mach_header_64>.size)
 
         let test = String(data: subData, encoding: .utf8)?
             .trimmingCharacters(in: .controlCharacters)
@@ -382,7 +368,7 @@ class PlayTools {
 
         let subrange = Range(NSRange(location: start!, length: commandData.count))!
         binary.replaceSubrange(subrange, with: commandData)
-        binary.replaceSubrange(machoRange!, with: newHeaderData!)
+        binary.replaceSubrange(machoRange, with: newHeaderData!)
         try FileManager.default.removeItem(at: url)
         try binary.write(to: url)
     }
