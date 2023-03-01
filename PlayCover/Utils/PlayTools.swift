@@ -272,9 +272,9 @@ class PlayTools {
         var oldDylibData: dylib?
         var oldDylibLength: UInt32 = 0
 
-        var header = binary.extract(mach_header_64.self)
-        var offset = MemoryLayout.size(ofValue: header)
+        let header = binary.extract(mach_header_64.self)
         let machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
+        var offset = MemoryLayout.size(ofValue: header)
 
         // Perform steps 1-2
         for _ in 0..<header.ncmds {
@@ -364,7 +364,9 @@ class PlayTools {
 
         let subrange = Range(NSRange(location: start!, length: commandData.count))!
         binary.replaceSubrange(subrange, with: commandData)
+
         binary.replaceSubrange(machoRange, with: newHeaderData!)
+
         try FileManager.default.removeItem(at: url)
         try binary.write(to: url)
     }
