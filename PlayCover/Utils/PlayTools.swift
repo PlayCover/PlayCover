@@ -242,7 +242,7 @@ class PlayTools {
         print("Replacing instances of @rpath dylibs")
         try replaceLibraries(macho)
     }
-    
+
     static func replaceLibraries(_ url: URL) throws {
         let dylibsToReplace = ["libswiftUIKit"]
 
@@ -274,14 +274,17 @@ class PlayTools {
 
         let header = binary.extract(mach_header_64.self)
         var offset = MemoryLayout.size(ofValue: header)
-        
+
         // Perform steps 1-2
         for _ in 0..<header.ncmds {
             let loadCommand = binary.extract(load_command.self, offset: offset)
             switch UInt32(loadCommand.cmd) {
             case LC_LOAD_WEAK_DYLIB, UInt32(LC_LOAD_DYLIB):
                 let dylibCommand = binary.extract(dylib_command.self, offset: offset)
-                if String.init(data: binary, offset: offset, commandSize: Int(dylibCommand.cmdsize), loadCommandString: dylibCommand.dylib.name) == rpath {
+                if String.init(data: binary,
+                               offset: offset,
+                               commandSize: Int(dylibCommand.cmdsize),
+                               loadCommandString: dylibCommand.dylib.name) == rpath {
 
                     isWeak = LC_LOAD_WEAK_DYLIB == UInt32(loadCommand.cmd)
                     dylibExists = true
@@ -289,7 +292,14 @@ class PlayTools {
 
                     start = offset
                     size = Int(dylibCommand.cmdsize)
-                    newHeader = mach_header_64(magic: header.magic, cputype: header.cputype, cpusubtype: header.cpusubtype, filetype: header.filetype, ncmds: header.ncmds-1, sizeofcmds: header.sizeofcmds-UInt32(dylibCommand.cmdsize), flags: header.flags, reserved: header.reserved)
+                    newHeader = mach_header_64(magic: header.magic,
+                                               cputype: header.cputype,
+                                               cpusubtype: header.cpusubtype,
+                                               filetype: header.filetype,
+                                               ncmds: header.ncmds-1,
+                                               sizeofcmds: header.sizeofcmds-UInt32(dylibCommand.cmdsize),
+                                               flags: header.flags,
+                                               reserved: header.reserved)
                     newHeaderData = Data(bytes: &newHeader, count: MemoryLayout<mach_header_64>.size)
                     machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
                 }
@@ -299,12 +309,12 @@ class PlayTools {
             offset += Int(loadCommand.cmdsize)
         }
         end = offset
-        
+
         if !dylibExists {
             // dylib with given rpath was not found in binary
             return
         }
-        
+
         // Perform step 3
         if let start = start,
            let end = end,
@@ -323,7 +333,7 @@ class PlayTools {
             try FileManager.default.removeItem(at: url)
             try binary.write(to: url)
         }
-        
+
         // Perform step 4
     }
 
