@@ -262,7 +262,6 @@ class PlayTools {
 
     static func replaceLibrary(_ url: URL, _ rpath: String, _ lib: String) throws {
         var binary = try Data(contentsOf: url)
-        var newHeader: mach_header_64
         var newHeaderData: Data?
         var start: Int?
         var size: Int?
@@ -272,8 +271,8 @@ class PlayTools {
         var oldDylibData: dylib?
         var oldDylibLength: UInt32 = 0
 
-        let header = binary.extract(mach_header_64.self)
         let machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
+        var header = binary.extract(mach_header_64.self)
         var offset = MemoryLayout.size(ofValue: header)
 
         // Perform steps 1-2
@@ -322,6 +321,8 @@ class PlayTools {
             binary.replaceSubrange(subrangeOld, with: commandData)
         }
 
+        header.sizeofcmds -= oldDylibLength
+
         // Perform step 4
         let length = MemoryLayout<dylib_command>.size + lib.lengthOfBytes(using: String.Encoding.utf8)
         let padding = (8 - (length % 8))
@@ -329,17 +330,10 @@ class PlayTools {
 
         start = Int(header.sizeofcmds) + Int(MemoryLayout<mach_header_64>.size)
         end = cmdsize + start!
-        var subData: Data = binary[start!..<end!]
-
-        newHeader = mach_header_64(magic: header.magic,
-                                   cputype: header.cputype,
-                                   cpusubtype: header.cpusubtype,
-                                   filetype: header.filetype,
-                                   ncmds: header.ncmds,
-                                   sizeofcmds: header.sizeofcmds - oldDylibLength + UInt32(cmdsize),
-                                   flags: header.flags,
-                                   reserved: header.reserved)
-        newHeaderData = Data(bytes: &newHeader, count: MemoryLayout<mach_header_64>.size)
+        let subData: Data = binary[start!..<end!]
+        
+        header.sizeofcmds += UInt32(cmdsize)
+        newHeaderData = Data(bytes: &header, count: MemoryLayout<mach_header_64>.size)
 
         let testString = String(data: subData, encoding: .utf8)?
             .trimmingCharacters(in: .controlCharacters)
