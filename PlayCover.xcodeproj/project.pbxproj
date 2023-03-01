@@ -43,7 +43,6 @@
 		6E7CA16528B4D02900216CD8 /* ITunesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CA16428B4D02900216CD8 /* ITunesResponse.swift */; };
 		6E7CA16728B4EEAE00216CD8 /* Keymapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CA16628B4EEAE00216CD8 /* Keymapping.swift */; };
 		6EB4B57428C93E0600630890 /* LegacySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB4B57328C93E0600630890 /* LegacySettings.swift */; };
-		6ECB1D0E29798DFA00CD92AA /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ECB1D0D29798DFA00CD92AA /* DataExtensions.swift */; };
 		6ED6379D28DAAAC100B506FA /* IPASourceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6379C28DAAAC100B506FA /* IPASourceSettings.swift */; };
 		6ED6ACA428A949A30040D234 /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6ACA328A949A30040D234 /* AppSettingsView.swift */; };
 		6EE8265028E8AB2B003935BC /* DownloadVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE8264F28E8AB2B003935BC /* DownloadVM.swift */; };
@@ -51,7 +50,6 @@
 		8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */; };
 		8783CFFF26B8C52E00171041 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783CFFE26B8C52E00171041 /* Assets.xcassets */; };
 		8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8783D00126B8C52E00171041 /* Preview Assets.xcassets */; };
-		8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8783D00A26B8C9E600171041 /* URLExtensions.swift */; };
 		923421F7275F40300030CD7D /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923421F6275F40300030CD7D /* AppContainer.swift */; };
 		9272F19E273B74C800DFBEF1 /* AppsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9272F19C273B74C800DFBEF1 /* AppsVM.swift */; };
 		9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280871A2824A8D20034C510 /* SoundDeviceService.swift */; };
@@ -83,6 +81,8 @@
 		B6825C3528F3D23600E3015A /* InstallSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6825C3428F3D23600E3015A /* InstallSettings.swift */; };
 		B6AB53C929232B4F00039B2E /* KeyCodeNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AB53C829232B4F00039B2E /* KeyCodeNames.swift */; };
 		B6ABDA2A2971EEF700A46E80 /* ProgressVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ABDA292971EEF700A46E80 /* ProgressVM.swift */; };
+		FB5BE4FA29AE6A84002501DD /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5BE4F929AE6A84002501DD /* URLExtensions.swift */; };
+		FB5BE50729AE6FFC002501DD /* xcode_install.scpt in Resources */ = {isa = PBXBuildFile; fileRef = FB5BE50629AE6FFC002501DD /* xcode_install.scpt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -134,7 +134,6 @@
 		6E8001382974FE3400E53461 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6EB4B57328C93E0600630890 /* LegacySettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacySettings.swift; sourceTree = "<group>"; };
 		6EC228A028B14A0600D7D73A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		6ECB1D0D29798DFA00CD92AA /* DataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtensions.swift; sourceTree = "<group>"; };
 		6ED6379C28DAAAC100B506FA /* IPASourceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPASourceSettings.swift; sourceTree = "<group>"; };
 		6ED6ACA328A949A30040D234 /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
 		6EE8264F28E8AB2B003935BC /* DownloadVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadVM.swift; sourceTree = "<group>"; };
@@ -146,7 +145,6 @@
 		8783D00126B8C52E00171041 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8783D00326B8C52E00171041 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8783D00426B8C52E00171041 /* PlayCover.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayCover.entitlements; sourceTree = "<group>"; };
-		8783D00A26B8C9E600171041 /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
 		8FBBE76B2826709500F4FE9F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		923421F6275F40300030CD7D /* AppContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
 		9272F19C273B74C800DFBEF1 /* AppsVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppsVM.swift; sourceTree = "<group>"; };
@@ -183,6 +181,8 @@
 		B6825C3428F3D23600E3015A /* InstallSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallSettings.swift; sourceTree = "<group>"; };
 		B6AB53C829232B4F00039B2E /* KeyCodeNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCodeNames.swift; sourceTree = "<group>"; };
 		B6ABDA292971EEF700A46E80 /* ProgressVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressVM.swift; sourceTree = "<group>"; };
+		FB5BE4F929AE6A84002501DD /* URLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
+		FB5BE50629AE6FFC002501DD /* xcode_install.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = xcode_install.scpt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -350,9 +350,8 @@
 		6E25096D297F4E95004D754C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				8783D00A26B8C9E600171041 /* URLExtensions.swift */,
-				6ECB1D0D29798DFA00CD92AA /* DataExtensions.swift */,
 				6E25096E297F5032004D754C /* FileExtensions.swift */,
+				FB5BE4F929AE6A84002501DD /* URLExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -379,6 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				6E66B0D0289F57B00099B907 /* Documentation.docc */,
+				FB5BE50529AE6FFC002501DD /* scripts */,
 				8783CFF926B8C52D00171041 /* PlayCover */,
 				8783CFF826B8C52D00171041 /* Products */,
 				53841CC826D9D7920021D27C /* Frameworks */,
@@ -432,6 +432,14 @@
 				AA719647287A0E2500623C15 /* default.yaml */,
 			);
 			path = Rules;
+			sourceTree = "<group>";
+		};
+		FB5BE50529AE6FFC002501DD /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				FB5BE50629AE6FFC002501DD /* xcode_install.scpt */,
+			);
+			path = scripts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -534,6 +542,7 @@
 				8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */,
 				532644DE26E79E56002EA34D /* Localizable.strings in Resources */,
 				AA719648287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml in Resources */,
+				FB5BE50729AE6FFC002501DD /* xcode_install.scpt in Resources */,
 				8783CFFF26B8C52E00171041 /* Assets.xcassets in Resources */,
 				AA71964D287A35F400623C15 /* com.nexon.bluearchive.yaml in Resources */,
 			);
@@ -641,6 +650,7 @@
 				928C01D9272E162C007EB2DF /* InstallVM.swift in Sources */,
 				6E06193628B3C4090012C771 /* StoreGenshinAccountView.swift in Sources */,
 				6E25096F297F5032004D754C /* FileExtensions.swift in Sources */,
+				FB5BE4FA29AE6A84002501DD /* URLExtensions.swift in Sources */,
 				53F4D2A026C43C690020167C /* Log.swift in Sources */,
 				B6603E1128E206A300DEFA3F /* UninstallSettings.swift in Sources */,
 				92A8AAC9275EFEA800D89B50 /* SystemConfig.swift in Sources */,
@@ -660,7 +670,6 @@
 				B6603E1328E2257800DEFA3F /* Uninstaller.swift in Sources */,
 				B6ABDA2A2971EEF700A46E80 /* ProgressVM.swift in Sources */,
 				AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */,
-				6ECB1D0E29798DFA00CD92AA /* DataExtensions.swift in Sources */,
 				6E66B0D928A135360099B907 /* ToastVM.swift in Sources */,
 				92EE06D0274EA433002C907B /* BaseApp.swift in Sources */,
 				92F8500A27675124005CE6BE /* AppIntegrity.swift in Sources */,
@@ -674,7 +683,6 @@
 				5314D1EE26C402EC00A0A727 /* Shell.swift in Sources */,
 				6E7CA16528B4D02900216CD8 /* ITunesResponse.swift in Sources */,
 				6EF893D528F34CD1004AB6D9 /* NetworkVM.swift in Sources */,
-				8783D00B26B8C9E600171041 /* URLExtensions.swift in Sources */,
 				6EB4B57428C93E0600630890 /* LegacySettings.swift in Sources */,
 				ABED59832887A32F004D782B /* MenuBarView.swift in Sources */,
 				B6AB53C929232B4F00039B2E /* KeyCodeNames.swift in Sources */,

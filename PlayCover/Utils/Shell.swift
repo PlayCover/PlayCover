@@ -74,6 +74,26 @@ class Shell: ObservableObject {
         return String(decoding: output, as: UTF8.self)
     }
 
+	static let isXcodeCliToolsInstalled: Bool = {
+        let trimmedPath = getPath(path: "xcode-select -p")?
+            .split(separator: "\n").last?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmedPath == nil {
+            return false
+        } else {
+            let toolsPath = trimmedPath!.appending("/usr/bin/notarytool")
+            return FileManager.default.fileExists(atPath: toolsPath)
+        }
+	}()
+
+    static func getPath(path: String) -> String? {
+        return try? sh(path)
+    }
+
+    static func isMachoSigned(_ exec: URL) -> Bool {
+        !shell("/usr/bin/codesign -dv \(exec.esc)").contains("code object is not signed at all")
+    }
+
     static func codesign(_ binary: URL) {
         shell("/usr/bin/codesign -fs- \(binary.esc)")
     }

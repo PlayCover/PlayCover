@@ -144,7 +144,6 @@
 "error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";
 "error.appMaliciousProhibited" = "This App behaves maliciously on Macs, and using it can leave your device in an unbootable state, therefore it is blocked from PlayCover. (Uninstalling...)";
 "error.noGenshinAccount" = "We couldn't find a Genshin account! Are you signed into an account in-app?";
-"error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
 
 "menubar.exportToSideloady" = "Export to Sideloadly";
 
@@ -218,6 +217,14 @@
 "soundAlert.informativeText" = "Your current output device does not have a sample rate of 48 or 44.1 kHz! Crashes may occur. Would you like to change your current output device's sample rate to 48 kHz?";
 "soundAlert.successText" = "Current output device sample rate set to 48 kHz";
 "soundAlert.failureText" = "Failed to set current output device's sample rate to 48 kHz. You can manually set sample rate in the Audio MIDI Setup app";
+
+"xcode.install.message" = "You need to install Xcode Command Line Tools and restart PlayCover";
+"xcode.install.success" = "Xcode Command Line Tools installation succeeded";
+"xcode.install.failed" = "Automatic Xcode Command Line Tools intallation failed";
+"xcode.install.progress" = "Installing Xcode Command Line Tools";
+"xcode.install.progress.subtext" = "This may take around 5-10 minutes depending on your internet speed";
+"xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
+"xcode.install.failed.altButton" = "Alternate Instructions";
 
 "settings.tab.misc" = "Misc";
 "settings.button.discord" = "Custom Discord activity";
