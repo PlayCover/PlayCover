@@ -244,6 +244,7 @@ class PlayTools {
         print("Replacing instances of @rpath dylibs...")
         try replaceLibraries(&binary)
 
+        print("Writing revised MachO...")
         try FileManager.default.removeItem(at: macho)
         try binary.write(to: macho)
     }
