@@ -309,7 +309,7 @@ class PlayTools {
             // dylib with given rpath was not found in binary
             return
         }
-        
+
         print("Found \(rpath) in binary")
 
         // Perform step 3
