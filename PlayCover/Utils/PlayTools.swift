@@ -400,22 +400,19 @@ class PlayTools {
                                                    ntools: 0)
 
         start = Int(header.sizeofcmds) + Int(MemoryLayout<mach_header_64>.size)
-        let subData = binary[start!..<start! + Int(versionCommand.cmdsize)]
 
         header.sizeofcmds += versionCommand.cmdsize
         let newHeaderData = Data(bytes: &header, count: MemoryLayout<mach_header_64>.size)
-
-        let testString = String(data: subData, encoding: .utf8)?
-            .trimmingCharacters(in: .controlCharacters)
-        if testString != "" && testString != nil {
-            Log.shared.error("Failed to replace version command. Not enough space in binary!")
-            return
-        }
 
         var commandData = Data()
         commandData.append(Data(bytes: &versionCommand, count: MemoryLayout<build_version_command>.size))
 
         let subrange = Range(NSRange(location: start!, length: commandData.count))!
+        if binary.subdata(in: subrange).allSatisfy({ $0 == 0 }) {
+            Log.shared.error("Failed to replace version command. Not enough space in binary!")
+            return
+        }
+
         binary.replaceSubrange(subrange, with: commandData)
 
         binary.replaceSubrange(machoRange, with: newHeaderData)
