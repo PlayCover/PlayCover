@@ -285,10 +285,10 @@ class PlayTools {
             switch UInt32(loadCommand.cmd) {
             case LC_LOAD_WEAK_DYLIB, UInt32(LC_LOAD_DYLIB):
                 let dylibCommand = binary.extract(dylib_command.self, offset: offset)
-                if String.init(data: binary,
-                               offset: offset,
-                               commandSize: Int(dylibCommand.cmdsize),
-                               loadCommandString: dylibCommand.dylib.name) == rpath {
+                if String(data: binary,
+                          offset: offset,
+                          commandSize: Int(dylibCommand.cmdsize),
+                          loadCommandString: dylibCommand.dylib.name) == rpath {
 
                     isWeak = LC_LOAD_WEAK_DYLIB == UInt32(loadCommand.cmd)
                     dylibExists = true
@@ -528,10 +528,10 @@ class PlayTools {
                     swap_dylib_command(&dylibCommand, NXHostByteOrder())
                 }
 
-                let dylibName = String.init(data: binary,
-                                            offset: offset,
-                                            commandSize: Int(dylibCommand.cmdsize),
-                                            loadCommandString: dylibCommand.dylib.name)
+                let dylibName = String(data: binary,
+                                       offset: offset,
+                                       commandSize: Int(dylibCommand.cmdsize),
+                                       loadCommandString: dylibCommand.dylib.name)
                 if dylibName == playToolsPath.esc {
                     return true
                 }
