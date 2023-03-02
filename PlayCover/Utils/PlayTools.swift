@@ -307,9 +307,10 @@ class PlayTools {
 
         if !dylibExists {
             // dylib with given rpath was not found in binary
-            print("\(rpath) does not exist in this binary")
             return
         }
+        
+        print("Found \(rpath) in binary")
 
         // Perform step 3
         if let start = start,
@@ -342,7 +343,7 @@ class PlayTools {
         let testString = String(data: subData, encoding: .utf8)?
             .trimmingCharacters(in: .controlCharacters)
         if testString != "" && testString != nil {
-            print("Not enough space in binary!")
+            Log.shared.error("Not enough space in binary!")
             return
         }
 
@@ -429,7 +430,7 @@ class PlayTools {
         let testString = String(data: subData, encoding: .utf8)?
             .trimmingCharacters(in: .controlCharacters)
         if testString != "" && testString != nil {
-            print("Not enough space in binary!")
+            Log.shared.error("Not enough space in binary!")
             return
         }
 
