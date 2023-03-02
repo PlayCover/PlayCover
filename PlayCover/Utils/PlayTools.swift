@@ -333,7 +333,7 @@ class PlayTools {
             commandData.append(binary.subdata(in: restOfHeader))
 
             let newHeaderRange = Range(NSRange(location: startOfCmd,
-                                               length: endOfHeader - startOfCmd + cmdsize))!
+                                               length: endOfHeader - endOfCmd + cmdsize))!
 
             binary.replaceSubrange(newHeaderRange, with: commandData)
         }
