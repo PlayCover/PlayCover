@@ -445,7 +445,7 @@ class PlayTools {
     static func isMachoEncrypted(atURL url: URL) throws -> Bool {
         var binary = try Data(contentsOf: url)
         try stripBinary(&binary)
-        
+
         return try isSlimMachoEncrypted(binary: binary)
     }
 
@@ -481,7 +481,7 @@ class PlayTools {
 
         return false
     }
-    
+
     static func isMachoValidArch(_ url: URL) throws -> Bool {
         var binary = try Data(contentsOf: url)
         try stripBinary(&binary)
