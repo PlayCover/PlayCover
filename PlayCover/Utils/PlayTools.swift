@@ -370,7 +370,6 @@ class PlayTools {
     static func replaceVersionCommand(_ binary: inout Data) throws {
         var start: Int?
         var size: Int?
-        var end: Int?
         var oldDylibLength: UInt32 = 0
 
         var header = binary.extract(mach_header_64.self)
@@ -397,22 +396,8 @@ class PlayTools {
             }
             offset += Int(loadCommand.cmdsize)
         }
-        end = offset
 
-        if let start = start,
-           let end = end,
-           let size = size {
-            let subrangeNew = Range(NSRange(location: start + size, length: end - start - size))!
-            let subrangeOld = Range(NSRange(location: start, length: end - start))!
-            var zero: UInt = 0
-            var commandData = Data()
-            commandData.append(binary.subdata(in: subrangeNew))
-            commandData.append(Data(bytes: &zero, count: size))
-
-            binary.replaceSubrange(subrangeOld, with: commandData)
-        }
-
-        header.sizeofcmds -= oldDylibLength
+        let endOfHeader = offset
 
         var versionCommand = build_version_command(cmd: UInt32(LC_BUILD_VERSION),
                                                    cmdsize: 24,
@@ -421,25 +406,26 @@ class PlayTools {
                                                    sdk: 0x000e0000,
                                                    ntools: 0)
 
-        start = Int(header.sizeofcmds) + Int(MemoryLayout<mach_header_64>.size)
-        let subData = binary[start!..<start! + Int(versionCommand.cmdsize)]
+        if let startOfCmd = start,
+           let sizeOfCmd = size {
+            let endOfCmd = startOfCmd + sizeOfCmd
 
-        header.sizeofcmds += versionCommand.cmdsize
-        let newHeaderData = Data(bytes: &header, count: MemoryLayout<mach_header_64>.size)
+            let restOfHeader = Range(NSRange(location: endOfCmd, length: endOfHeader - endOfCmd))!
 
-        let testString = String(data: subData, encoding: .utf8)?
-            .trimmingCharacters(in: .controlCharacters)
-        if testString != "" && testString != nil {
-            Log.shared.error("Failed to replace version command. Not enough space in binary!")
-            return
+            var commandData = Data()
+            commandData.append(Data(bytes: &versionCommand, count: MemoryLayout<build_version_command>.size))
+            commandData.append(binary.subdata(in: restOfHeader))
+
+            let newHeaderRange = Range(NSRange(location: startOfCmd,
+                                               length: endOfHeader - startOfCmd + Int(versionCommand.cmdsize)))!
+
+            binary.replaceSubrange(newHeaderRange, with: commandData)
         }
 
-        var commandData = Data()
-        commandData.append(Data(bytes: &versionCommand, count: MemoryLayout<build_version_command>.size))
-
-        let subrange = Range(NSRange(location: start!, length: commandData.count))!
-        binary.replaceSubrange(subrange, with: commandData)
-
+        // Write new header data
+        header.sizeofcmds -= oldDylibLength
+        header.sizeofcmds += versionCommand.cmdsize
+        let newHeaderData = Data(bytes: &header, count: MemoryLayout<mach_header_64>.size)
         binary.replaceSubrange(machoRange, with: newHeaderData)
     }
 
