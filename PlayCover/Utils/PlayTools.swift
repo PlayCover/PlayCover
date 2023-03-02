@@ -258,9 +258,7 @@ class PlayTools {
 
             // 1. Check if dylib LC exists
             // 2. If it exists, take note if it is weak or strong and copy version info
-            // 3. Remove the existing rpath LC from header
-            // 4. Append a new LC of the same type to the end of the header with
-            //    the same version info (i.e. only difference will be path and number of bytes in command)
+            // 3. Replace existing LC
 
             try replaceLibrary(&binary, rpathDylib, libDylib)
         }
@@ -269,10 +267,9 @@ class PlayTools {
     static func replaceLibrary(_ binary: inout Data, _ rpath: String, _ lib: String) throws {
         var start: Int?
         var size: Int?
-        var end: Int?
         var isWeak: Bool = false
         var dylibExists: Bool = false
-        var oldDylibData: dylib?
+        var dylib: dylib?
         var oldDylibLength: UInt32 = 0
 
         let machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
@@ -292,7 +289,7 @@ class PlayTools {
 
                     isWeak = LC_LOAD_WEAK_DYLIB == UInt32(loadCommand.cmd)
                     dylibExists = true
-                    oldDylibData = dylibCommand.dylib
+                    dylib = dylibCommand.dylib
                     oldDylibLength = UInt32(dylibCommand.cmdsize)
 
                     start = offset
@@ -303,7 +300,6 @@ class PlayTools {
             }
             offset += Int(loadCommand.cmdsize)
         }
-        end = offset
 
         if !dylibExists {
             // dylib with given rpath was not found in binary
@@ -313,57 +309,39 @@ class PlayTools {
         print("Found \(rpath) in binary")
 
         // Perform step 3
-        if let start = start,
-           let end = end,
-           let size = size {
-            let subrangeNew = Range(NSRange(location: start + size, length: end - start - size))!
-            let subrangeOld = Range(NSRange(location: start, length: end - start))!
-            var zero: UInt = 0
-            var commandData = Data()
-            commandData.append(binary.subdata(in: subrangeNew))
-            commandData.append(Data(bytes: &zero, count: size))
-
-            binary.replaceSubrange(subrangeOld, with: commandData)
-        }
-
-        header.sizeofcmds -= oldDylibLength
-
-        // Perform step 4
+        let endOfHeader = offset
         let length = MemoryLayout<dylib_command>.size + lib.lengthOfBytes(using: String.Encoding.utf8)
         let padding = (8 - (length % 8))
         let cmdsize = length + padding
 
-        start = Int(header.sizeofcmds) + Int(MemoryLayout<mach_header_64>.size)
-        end = cmdsize + start!
-        let subData: Data = binary[start!..<end!]
-
-        header.sizeofcmds += UInt32(cmdsize)
-        let newHeaderData = Data(bytes: &header, count: MemoryLayout<mach_header_64>.size)
-
-        let testString = String(data: subData, encoding: .utf8)?
-            .trimmingCharacters(in: .controlCharacters)
-        if testString != "" && testString != nil {
-            Log.shared.error("Failed to replace \(rpath) with \(lib). Not enough space in binary!")
-            return
-        }
-
-        let dylib = dylib(name: lc_str(offset: UInt32(MemoryLayout<dylib_command>.size)),
-                          timestamp: oldDylibData!.timestamp,
-                          current_version: oldDylibData!.current_version,
-                          compatibility_version: oldDylibData!.compatibility_version)
+        dylib!.name = lc_str(offset: UInt32(MemoryLayout<dylib_command>.size))
         var command = dylib_command(cmd: isWeak ? LC_LOAD_WEAK_DYLIB : UInt32(LC_LOAD_DYLIB),
                                     cmdsize: UInt32(cmdsize),
-                                    dylib: dylib)
+                                    dylib: dylib!)
 
-        var zero: UInt = 0
-        var commandData = Data()
-        commandData.append(Data(bytes: &command, count: MemoryLayout<dylib_command>.size))
-        commandData.append(lib.data(using: String.Encoding.ascii) ?? Data())
-        commandData.append(Data(bytes: &zero, count: padding))
+        if let startOfCmd = start,
+           let sizeOfCmd = size {
+            let endOfCmd = startOfCmd + sizeOfCmd
 
-        let subrange = Range(NSRange(location: start!, length: commandData.count))!
-        binary.replaceSubrange(subrange, with: commandData)
+            let restOfHeader = Range(NSRange(location: endOfCmd, length: endOfHeader - endOfCmd))!
 
+            var zero: UInt = 0
+            var commandData = Data()
+            commandData.append(Data(bytes: &command, count: MemoryLayout<dylib_command>.size))
+            commandData.append(lib.data(using: String.Encoding.ascii) ?? Data())
+            commandData.append(Data(bytes: &zero, count: padding))
+            commandData.append(binary.subdata(in: restOfHeader))
+
+            let newHeaderRange = Range(NSRange(location: startOfCmd,
+                                               length: endOfHeader - startOfCmd + cmdsize))!
+
+            binary.replaceSubrange(newHeaderRange, with: commandData)
+        }
+
+        // Write new header data
+        header.sizeofcmds -= oldDylibLength
+        header.sizeofcmds += UInt32(cmdsize)
+        let newHeaderData = Data(bytes: &header, count: MemoryLayout<mach_header_64>.size)
         binary.replaceSubrange(machoRange, with: newHeaderData)
     }
 
