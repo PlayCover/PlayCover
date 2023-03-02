@@ -326,7 +326,7 @@ class PlayTools {
 
             let restOfHeader = Range(NSRange(location: endOfCmd, length: endOfHeader - endOfCmd))!
 
-            var zero: UInt = 0
+            var zero: UInt64 = 0
             var commandData = Data()
             commandData.append(Data(bytes: &command, count: MemoryLayout<dylib_command>.size))
             commandData.append(lib.data(using: String.Encoding.ascii) ?? Data())
@@ -383,7 +383,7 @@ class PlayTools {
            let size = size {
             let subrangeNew = Range(NSRange(location: start + size, length: end - start - size))!
             let subrangeOld = Range(NSRange(location: start, length: end - start))!
-            var zero: UInt = 0
+            var zero: UInt64 = 0
             var commandData = Data()
             commandData.append(binary.subdata(in: subrangeNew))
             commandData.append(Data(bytes: &zero, count: size))
