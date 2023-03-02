@@ -343,7 +343,7 @@ class PlayTools {
         let testString = String(data: subData, encoding: .utf8)?
             .trimmingCharacters(in: .controlCharacters)
         if testString != "" && testString != nil {
-            Log.shared.error("Not enough space in binary!")
+            Log.shared.error("Failed to replace \(rpath) with \(lib). Not enough space in binary!")
             return
         }
 
@@ -430,7 +430,7 @@ class PlayTools {
         let testString = String(data: subData, encoding: .utf8)?
             .trimmingCharacters(in: .controlCharacters)
         if testString != "" && testString != nil {
-            Log.shared.error("Not enough space in binary!")
+            Log.shared.error("Failed to replace version command. Not enough space in binary!")
             return
         }
 
