@@ -233,13 +233,11 @@ class PlayTools {
 
     static func convertMacho(_ macho: URL) throws {
         print("Converting MachO at \(macho.path)")
-        print("Stripping MachO")
+        print("Stripping MachO...")
         try stripBinary(macho)
-        print("Removing old version command from MachO")
-        try removeOldCommand(macho)
-        print("Injecting new version command in MachO")
-        try injectNewCommand(macho)
-        print("Replacing instances of @rpath dylibs")
+        print("Replacing version command...")
+        try replaceVersionCommand(macho)
+        print("Replacing instances of @rpath dylibs...")
         try replaceLibraries(macho)
     }
 
@@ -262,7 +260,6 @@ class PlayTools {
 
     static func replaceLibrary(_ url: URL, _ rpath: String, _ lib: String) throws {
         var binary = try Data(contentsOf: url)
-        var newHeaderData: Data?
         var start: Int?
         var size: Int?
         var end: Int?
@@ -333,7 +330,7 @@ class PlayTools {
         let subData: Data = binary[start!..<end!]
 
         header.sizeofcmds += UInt32(cmdsize)
-        newHeaderData = Data(bytes: &header, count: MemoryLayout<mach_header_64>.size)
+        let newHeaderData = Data(bytes: &header, count: MemoryLayout<mach_header_64>.size)
 
         let testString = String(data: subData, encoding: .utf8)?
             .trimmingCharacters(in: .controlCharacters)
@@ -359,23 +356,22 @@ class PlayTools {
         let subrange = Range(NSRange(location: start!, length: commandData.count))!
         binary.replaceSubrange(subrange, with: commandData)
 
-        binary.replaceSubrange(machoRange, with: newHeaderData!)
+        binary.replaceSubrange(machoRange, with: newHeaderData)
 
         try FileManager.default.removeItem(at: url)
         try binary.write(to: url)
     }
 
-    static func removeOldCommand(_ url: URL) throws {
+    static func replaceVersionCommand(_ url: URL) throws {
         var binary = try Data(contentsOf: url)
-        var newheader: mach_header_64
-        var newHeaderData: Data?
-        var machoRange: Range<Data.Index>?
         var start: Int?
         var size: Int?
         var end: Int?
+        var oldDylibLength: UInt32 = 0
 
-        let header = binary.extract(mach_header_64.self)
+        var header = binary.extract(mach_header_64.self)
         var offset = MemoryLayout.size(ofValue: header)
+        let machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
 
         for _ in 0..<header.ncmds {
             let loadCommand = binary.extract(load_command.self, offset: offset)
@@ -385,31 +381,13 @@ class PlayTools {
 
                 start = offset
                 size = Int(versionCommand.cmdsize)
-                newheader = mach_header_64(magic: header.magic,
-                                           cputype: header.cputype,
-                                           cpusubtype: header.cpusubtype,
-                                           filetype: header.filetype,
-                                           ncmds: header.ncmds - 1,
-                                           sizeofcmds: header.sizeofcmds - UInt32(versionCommand.cmdsize),
-                                           flags: header.flags,
-                                           reserved: header.reserved)
-                newHeaderData = Data(bytes: &newheader, count: MemoryLayout<mach_header_64>.size)
-                machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
+                oldDylibLength = UInt32(versionCommand.cmdsize)
             case UInt32(LC_BUILD_VERSION):
                 let versionCommand = binary.extract(build_version_command.self, offset: offset)
 
                 start = offset
                 size = Int(versionCommand.cmdsize)
-                newheader = mach_header_64(magic: header.magic,
-                                           cputype: header.cputype,
-                                           cpusubtype: header.cpusubtype,
-                                           filetype: header.filetype,
-                                           ncmds: header.ncmds - 1,
-                                           sizeofcmds: header.sizeofcmds - UInt32(versionCommand.cmdsize),
-                                           flags: header.flags,
-                                           reserved: header.reserved)
-                newHeaderData = Data(bytes: &newheader, count: MemoryLayout<mach_header_64>.size)
-                machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
+                oldDylibLength = UInt32(versionCommand.cmdsize)
             default:
                 break
             }
@@ -419,9 +397,7 @@ class PlayTools {
 
         if let start = start,
            let end = end,
-           let size = size,
-           let machoRange = machoRange,
-           let newHeaderData = newHeaderData {
+           let size = size {
             let subrangeNew = Range(NSRange(location: start + size, length: end - start - size))!
             let subrangeOld = Range(NSRange(location: start, length: end - start))!
             var zero: UInt = 0
@@ -430,15 +406,9 @@ class PlayTools {
             commandData.append(Data(bytes: &zero, count: size))
 
             binary.replaceSubrange(subrangeOld, with: commandData)
-            binary.replaceSubrange(machoRange, with: newHeaderData)
-            try FileManager.default.removeItem(at: url)
-            try binary.write(to: url)
         }
-    }
 
-    static func injectNewCommand(_ url: URL) throws {
-        var binary = try Data(contentsOf: url)
-        let header = binary.extract(mach_header_64.self)
+        header.sizeofcmds -= oldDylibLength
 
         var versionCommand = build_version_command(cmd: UInt32(LC_BUILD_VERSION),
                                                    cmdsize: 24,
@@ -447,19 +417,11 @@ class PlayTools {
                                                    sdk: 0x000e0000,
                                                    ntools: 0)
 
-        let start = Int(header.sizeofcmds)+Int(MemoryLayout<mach_header_64>.size)
-        let subData = binary[start..<start + Int(versionCommand.cmdsize)]
+        start = Int(header.sizeofcmds) + Int(MemoryLayout<mach_header_64>.size)
+        let subData = binary[start!..<start! + Int(versionCommand.cmdsize)]
 
-        var newheader = mach_header_64(magic: header.magic,
-                                       cputype: header.cputype,
-                                       cpusubtype: header.cpusubtype,
-                                       filetype: header.filetype,
-                                       ncmds: header.ncmds + 1,
-                                       sizeofcmds: header.sizeofcmds + versionCommand.cmdsize,
-                                       flags: header.flags,
-                                       reserved: header.reserved)
-        let newHeaderData = Data(bytes: &newheader, count: MemoryLayout<mach_header_64>.size)
-        let machoRange = Range(NSRange(location: 0, length: MemoryLayout<mach_header_64>.size))!
+        header.sizeofcmds += versionCommand.cmdsize
+        let newHeaderData = Data(bytes: &header, count: MemoryLayout<mach_header_64>.size)
 
         let testString = String(data: subData, encoding: .utf8)?
             .trimmingCharacters(in: .controlCharacters)
@@ -471,10 +433,11 @@ class PlayTools {
         var commandData = Data()
         commandData.append(Data(bytes: &versionCommand, count: MemoryLayout<build_version_command>.size))
 
-        let subrange = Range(NSRange(location: start, length: commandData.count))!
+        let subrange = Range(NSRange(location: start!, length: commandData.count))!
         binary.replaceSubrange(subrange, with: commandData)
 
         binary.replaceSubrange(machoRange, with: newHeaderData)
+
         try FileManager.default.removeItem(at: url)
         try binary.write(to: url)
     }
