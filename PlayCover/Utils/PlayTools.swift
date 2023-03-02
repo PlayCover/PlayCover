@@ -95,7 +95,7 @@ class PlayTools {
                 if arch.cputype == CPU_TYPE_ARM64 {
                     print("Found ARM64 arch in fat binary")
 
-                    let thinBinary = binary
+                    binary = binary
                         .subdata(in: Int(arch.offset)..<Int(arch.offset+arch.size))
 
                     return
