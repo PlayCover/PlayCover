@@ -75,8 +75,7 @@ class PlayTools {
         }
     }
 
-    static func stripBinary(_ exec: URL) throws {
-        let binary = try Data(contentsOf: exec)
+    static func stripBinary(_ binary: inout Data) throws {
         var header = binary.extract(fat_header.self)
         var offset = MemoryLayout.size(ofValue: header)
         let shouldSwap = header.magic == FAT_CIGAM
@@ -98,8 +97,6 @@ class PlayTools {
 
                     let thinBinary = binary
                         .subdata(in: Int(arch.offset)..<Int(arch.offset+arch.size))
-                    try FileManager.default.removeItem(at: exec)
-                    try thinBinary.write(to: exec)
 
                     return
                 }
@@ -112,7 +109,9 @@ class PlayTools {
     }
 
     static func installInIPA(_ exec: URL) throws {
-        try stripBinary(exec)
+        var binary = try Data(contentsOf: exec)
+        try stripBinary(&binary)
+
         Inject.injectMachO(machoPath: exec.path,
                            cmdType: LC_Type.LOAD_DYLIB,
                            backup: false,
@@ -152,7 +151,9 @@ class PlayTools {
     }
 
     static func injectInIPA(_ exec: URL, payload: URL) throws {
-        try stripBinary(exec)
+        var binary = try Data(contentsOf: exec)
+        try stripBinary(&binary)
+
         Inject.injectMachO(machoPath: exec.path,
                            cmdType: LC_Type.LOAD_DYLIB,
                            backup: false,
@@ -233,15 +234,21 @@ class PlayTools {
 
     static func convertMacho(_ macho: URL) throws {
         print("Converting MachO at \(macho.path)")
+
+        var binary = try Data(contentsOf: macho)
+
         print("Stripping MachO...")
-        try stripBinary(macho)
+        try stripBinary(&binary)
         print("Replacing version command...")
-        try replaceVersionCommand(macho)
+        try replaceVersionCommand(&binary)
         print("Replacing instances of @rpath dylibs...")
-        try replaceLibraries(macho)
+        try replaceLibraries(&binary)
+
+        try FileManager.default.removeItem(at: macho)
+        try binary.write(to: macho)
     }
 
-    static func replaceLibraries(_ url: URL) throws {
+    static func replaceLibraries(_ binary: inout Data) throws {
         let dylibsToReplace = ["libswiftUIKit"]
 
         for dylib in dylibsToReplace {
@@ -254,12 +261,11 @@ class PlayTools {
             // 4. Append a new LC of the same type to the end of the header with
             //    the same version info (i.e. only difference will be path and number of bytes in command)
 
-            try replaceLibrary(url, rpathDylib, libDylib)
+            try replaceLibrary(&binary, rpathDylib, libDylib)
         }
     }
 
-    static func replaceLibrary(_ url: URL, _ rpath: String, _ lib: String) throws {
-        var binary = try Data(contentsOf: url)
+    static func replaceLibrary(_ binary: inout Data, _ rpath: String, _ lib: String) throws {
         var start: Int?
         var size: Int?
         var end: Int?
@@ -357,13 +363,9 @@ class PlayTools {
         binary.replaceSubrange(subrange, with: commandData)
 
         binary.replaceSubrange(machoRange, with: newHeaderData)
-
-        try FileManager.default.removeItem(at: url)
-        try binary.write(to: url)
     }
 
-    static func replaceVersionCommand(_ url: URL) throws {
-        var binary = try Data(contentsOf: url)
+    static func replaceVersionCommand(_ binary: inout Data) throws {
         var start: Int?
         var size: Int?
         var end: Int?
@@ -437,9 +439,6 @@ class PlayTools {
         binary.replaceSubrange(subrange, with: commandData)
 
         binary.replaceSubrange(machoRange, with: newHeaderData)
-
-        try FileManager.default.removeItem(at: url)
-        try binary.write(to: url)
     }
 
     static func isMachoEncrypted(atURL url: URL) throws -> Bool {
@@ -504,8 +503,9 @@ class PlayTools {
     }
 
     static func installedInExec(atURL url: URL) throws -> Bool {
-        try stripBinary(url)
-        let binary = try Data(contentsOf: url)
+        var binary = try Data(contentsOf: url)
+        try stripBinary(&binary)
+
         var header = binary.extract(mach_header_64.self)
         var offset = MemoryLayout.size(ofValue: header)
         let shouldSwap = header.magic == MH_CIGAM_64
