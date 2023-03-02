@@ -443,35 +443,14 @@ class PlayTools {
     }
 
     static func isMachoEncrypted(atURL url: URL) throws -> Bool {
-        let binary = try Data(contentsOf: url)
-        var header = binary.extract(fat_header.self)
-        let offset = MemoryLayout.size(ofValue: header)
-        let shouldSwap = header.magic == FAT_CIGAM
-
-        if header.magic == FAT_MAGIC || header.magic == FAT_CIGAM {
-            if shouldSwap {
-                swap_fat_header(&header, NXHostByteOrder())
-            }
-
-            for _ in 0..<header.nfat_arch {
-                var arch = binary.extract(fat_arch.self, offset: offset)
-                if shouldSwap {
-                    swap_fat_arch(&arch, 1, NXHostByteOrder())
-                }
-
-                if arch.cputype == CPU_TYPE_ARM64 {
-                    return try isSlimMachoEncrypted(offset: Int(arch.offset), binary: binary)
-                }
-            }
-        } else {
-            return try isSlimMachoEncrypted(offset: 0, binary: binary)
-        }
-
-        return false
+        var binary = try Data(contentsOf: url)
+        try stripBinary(&binary)
+        
+        return try isSlimMachoEncrypted(binary: binary)
     }
 
-    static func isSlimMachoEncrypted(offset: Int, binary: Data) throws -> Bool {
-        var offset = offset
+    static func isSlimMachoEncrypted(binary: Data) throws -> Bool {
+        var offset = 0
         var header = binary.extract(mach_header_64.self, offset: offset)
         offset += MemoryLayout.size(ofValue: header)
         let shouldSwap = header.magic == MH_CIGAM_64
@@ -494,6 +473,46 @@ class PlayTools {
                 }
 
                 return infoCommand.cryptid != 0
+            default:
+                break
+            }
+            offset += Int(loadCommand.cmdsize)
+        }
+
+        return false
+    }
+    
+    static func isMachoValidArch(_ url: URL) throws -> Bool {
+        var binary = try Data(contentsOf: url)
+        try stripBinary(&binary)
+
+        return try isSlimMachoValidArch(binary: binary)
+    }
+
+    static func isSlimMachoValidArch(binary: Data) throws -> Bool {
+        var offset = 0
+        var header = binary.extract(mach_header_64.self, offset: offset)
+        offset += MemoryLayout.size(ofValue: header)
+        let shouldSwap = header.magic == MH_CIGAM_64
+
+        if shouldSwap {
+            swap_mach_header_64(&header, NXHostByteOrder())
+        }
+
+        for _ in 0..<header.ncmds {
+            var loadCommand = binary.extract(load_command.self, offset: offset)
+            if shouldSwap {
+                swap_load_command(&loadCommand, NXHostByteOrder())
+            }
+
+            switch loadCommand.cmd {
+            case UInt32(LC_BUILD_VERSION):
+                var versionCommand = binary.extract(build_version_command.self, offset: offset)
+                if shouldSwap {
+                    swap_build_version_command(&versionCommand, NXHostByteOrder())
+                }
+
+                return versionCommand.platform == PLATFORM_MACCATALYST
             default:
                 break
             }
@@ -550,70 +569,9 @@ class PlayTools {
             && isMachoValidArch(playToolsPath)
     }
 
-    static func isMachoValidArch(_ url: URL) throws -> Bool {
-        let binary = try Data(contentsOf: url)
-        var header = binary.extract(fat_header.self)
-        let offset = MemoryLayout.size(ofValue: header)
-        let shouldSwap = header.magic == FAT_CIGAM
-
-        if header.magic == FAT_MAGIC || header.magic == FAT_CIGAM {
-            if shouldSwap {
-                swap_fat_header(&header, NXHostByteOrder())
-            }
-
-            for _ in 0..<header.nfat_arch {
-                var arch = binary.extract(fat_arch.self, offset: offset)
-                if shouldSwap {
-                    swap_fat_arch(&arch, 1, NXHostByteOrder())
-                }
-
-                if arch.cputype == CPU_TYPE_ARM64 {
-                    return try isSlimMachoValidArch(offset: Int(arch.offset), binary: binary)
-                }
-            }
-        } else {
-            return try isSlimMachoValidArch(offset: 0, binary: binary)
-        }
-
-        return false
-    }
-
-    static func isSlimMachoValidArch(offset: Int, binary: Data) throws -> Bool {
-        var offset = offset
-        var header = binary.extract(mach_header_64.self, offset: offset)
-        offset += MemoryLayout.size(ofValue: header)
-        let shouldSwap = header.magic == MH_CIGAM_64
-
-        if shouldSwap {
-            swap_mach_header_64(&header, NXHostByteOrder())
-        }
-
-        for _ in 0..<header.ncmds {
-            var loadCommand = binary.extract(load_command.self, offset: offset)
-            if shouldSwap {
-                swap_load_command(&loadCommand, NXHostByteOrder())
-            }
-
-            switch loadCommand.cmd {
-            case UInt32(LC_BUILD_VERSION):
-                var versionCommand = binary.extract(build_version_command.self, offset: offset)
-                if shouldSwap {
-                    swap_build_version_command(&versionCommand, NXHostByteOrder())
-                }
-
-                return versionCommand.platform == PLATFORM_MACCATALYST
-            default:
-                break
-            }
-            offset += Int(loadCommand.cmdsize)
-        }
-
-        return false
-    }
-
 	static func fetchEntitlements(_ exec: URL) throws -> String {
         do {
-            return  try shell.sh("codesign --display --entitlements - --xml \(exec.path.esc)" +
+            return try shell.sh("codesign --display --entitlements - --xml \(exec.path.esc)" +
                             " | xmllint --format -", pipeStdErr: false)
         } catch {
             if error.localizedDescription.contains("Document is empty") {
