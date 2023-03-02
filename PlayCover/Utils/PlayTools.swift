@@ -409,10 +409,6 @@ class PlayTools {
         commandData.append(Data(bytes: &versionCommand, count: MemoryLayout<build_version_command>.size))
 
         let subrange = Range(NSRange(location: start!, length: commandData.count))!
-        if binary.subdata(in: subrange).allSatisfy({ $0 == 0 }) {
-            Log.shared.error("Failed to replace version command. Not enough space in binary!")
-            return
-        }
 
         binary.replaceSubrange(subrange, with: commandData)
 
