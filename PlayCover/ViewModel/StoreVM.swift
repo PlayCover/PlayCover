@@ -81,7 +81,6 @@ class StoreVM: ObservableObject {
                 $0.name.lowercased().contains(uif.searchText.lowercased())
             })
         }
-        filteredApps.sort(by: { $0.name.lowercased() < $1.name.lowercased() })
     }
 
     func resolveSources() {
