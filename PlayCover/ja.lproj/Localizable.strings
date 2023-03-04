@@ -107,11 +107,7 @@
 "playapp.install.createWrapper" = "アプリのコンテナーを作成中...";
 
 /* (No Comment) */
-<<<<<<< HEAD
 "playapp.install.finished" = "完成";
-=======
-"playapp.progress.finished" = "完了";
->>>>>>> 5d52ecd (Translations update from Hosted Weblate (#803))
 
 /* (No Comment) */
 "playapp.install.installPlayTools" = "PlayToolsをインストール中...";
