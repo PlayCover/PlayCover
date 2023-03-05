@@ -15,14 +15,11 @@ class NetworkVM {
         let needsConnection = flags.contains(.connectionRequired)
         let result = (isReachable && !needsConnection)
 
-        if !result {
-            let networkToastExists = ToastVM.shared.toasts.contains { $0.toastType == .network }
-            if !networkToastExists {
-                ToastVM.shared.showToast(
-                    toastType: .network,
-                    toastDetails: NSLocalizedString("ipaLibrary.noNetworkConnection.toast", comment: "")
-                )
-            }
+        if !result && !ToastVM.shared.toasts.contains(where: { $0.toastType == .network }) {
+            ToastVM.shared.showToast(
+                toastType: .network,
+                toastDetails: NSLocalizedString("ipaLibrary.noNetworkConnection.toast", comment: "")
+            )
         }
 
         return result
@@ -59,5 +56,39 @@ class NetworkVM {
                 SCNetworkReachabilityCreateWithAddress(nil, $0)
             }
         })
+    }
+
+    static func urlAccessible(url: URL?, popup: Bool = false) -> Bool {
+        if let url = url {
+            guard isConnectedToNetwork() else {
+                return false
+            }
+
+            let semaphore = DispatchSemaphore(value: 0)
+
+            var avaliable = false
+
+            var request = URLRequest(url: url)
+            request.httpMethod = "HEAD"
+
+            URLSession.shared.dataTask(with: request) { _, response, error in
+                defer { semaphore.signal() }
+
+                if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode != 200 {
+                    if popup {
+                        Log.shared.error("Unable to download: \(statusCode) " +
+                                         "\(HTTPURLResponse.localizedString(forStatusCode: statusCode))")
+                    }
+                } else if error == nil {
+                    avaliable = true
+                }
+            }.resume()
+
+            semaphore.wait()
+
+            return avaliable
+        } else {
+            return false
+        }
     }
 }
