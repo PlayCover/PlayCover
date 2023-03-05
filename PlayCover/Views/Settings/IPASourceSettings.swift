@@ -258,7 +258,7 @@ struct AddSourceView: View {
         }
 
         sourceValidationState = .empty
-        
+
         Task {
             if let url = URL(string: source) {
                 newSourceURL = url
