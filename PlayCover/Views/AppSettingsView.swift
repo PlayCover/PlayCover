@@ -285,10 +285,25 @@ struct GraphicsView: View {
                         Spacer()
                     }
                 }
-                HStack {
+                VStack(alignment: .leading) {
                     if #available(macOS 13.2, *) {
-                        Toggle("settings.toggle.windowExperimentalFix", isOn: $settings.settings.inverseScreenValues)
-                            .help("settings.toggle.windowExperimentalFix.help")
+                        HStack {
+                            Toggle("settings.picker.windowFix", isOn: $settings.settings.inverseScreenValues)
+                                .help("settings.picker.windowFix.help")
+                                .onChange(of: settings.settings.inverseScreenValues) { _ in
+                                    settings.settings.windowFixMethod = 0
+                                }
+                            Spacer()
+                            // Dropdown to choose fix method
+                            Picker("", selection: $settings.settings.windowFixMethod) {
+                                Text("settings.picker.windowFixMethod.0").tag(0)
+                                Text("settings.picker.windowFixMethod.1").tag(1)
+                            }
+                            .frame(alignment: .leading)
+                            .help("settings.picker.windowFixMethod.help")
+                            .disabled(!settings.settings.inverseScreenValues)
+                            .disabled(settings.settings.resolution != 0)
+                        }
                         Spacer()
                     }
                     Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.settings.disableTimeout)
