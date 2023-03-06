@@ -9,6 +9,10 @@ import Foundation
 
 class Installer {
 
+    private static var currentInstallTask: Task<Void, Error>?
+    private static var currentIPA: IPA?
+    private static var currentBundleID: String?
+
     static func installPlayToolsPopup() -> Bool {
         let alert = NSAlert()
         alert.messageText = NSLocalizedString("alert.install.injectPlayToolsQuestion", comment: "")
@@ -49,14 +53,20 @@ class Installer {
 
         InstallVM.shared.next(.begin, 0.0, 0.0)
 
-        Task(priority: .userInitiated) {
-            let ipa = IPA(url: ipaUrl)
+        currentInstallTask = Task(priority: .userInitiated) {
+            currentIPA = IPA(url: ipaUrl)
+
+            guard let ipa = currentIPA else {
+                returnCompletion(nil)
+                return
+            }
 
             do {
                 InstallVM.shared.next(.unzip, 0.0, 0.5)
                 try ipa.allocateTempDir()
 
                 let app = try ipa.unzip()
+
                 InstallVM.shared.next(.library, 0.5, 0.55)
                 try saveEntitlements(app)
                 let machos = try resolveValidMachOs(app)
@@ -103,18 +113,57 @@ class Installer {
                     installedApp.sign()
                 }
 
+                currentBundleID = app.info.bundleIdentifier
+
                 ipa.releaseTempDir()
+
                 InstallVM.shared.next(.finish, 0.95, 1.0)
+
                 returnCompletion(finalURL)
             } catch {
-                Log.shared.error(error)
+                if !(currentInstallTask?.isCancelled ?? false) {
+                    Log.shared.error(error)
 
-                ipa.releaseTempDir()
+                    ipa.releaseTempDir()
 
-                InstallVM.shared.next(.failed, 0.95, 1.0)
+                    InstallVM.shared.next(.failed, 0.95, 1.0)
+                }
                 returnCompletion(nil)
             }
+
+            currentIPA = nil
+            currentBundleID = nil
+            currentInstallTask = nil
         }
+    }
+
+    static func cancelInstall() {
+        guard let task = currentInstallTask, !task.isCancelled else {
+            currentInstallTask = nil
+            return
+        }
+
+        task.cancel()
+
+        InstallVM.shared.next(.canceled, 0.95, 1.0)
+
+        guard let ipa = currentIPA else {
+            currentIPA = nil
+            return
+        }
+
+        ipa.releaseTempDir()
+
+        guard let bundleID = currentBundleID else {
+            currentBundleID = nil
+            return
+        }
+
+        guard let app = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == bundleID }) else {
+            return
+        }
+
+        app.clearAllCache()
     }
 
     static func fromIPA(detectingAppNameInFolder folderURL: URL) throws -> BaseApp {

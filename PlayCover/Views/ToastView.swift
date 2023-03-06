@@ -53,7 +53,9 @@ struct ToastView: View {
                     }
                 }
                 if installVM.inProgress {
-                    installVM.constructView()
+                    installVM.constructView(cancelableSteps: [.unzip, .wrapper, .playtools, .sign, .library, .begin]) {
+                        Installer.cancelInstall()
+                    }
                 }
                 if downloadVM.inProgress {
                     downloadVM.constructView(cancelableSteps: [.downloading]) {
