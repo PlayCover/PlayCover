@@ -8,30 +8,38 @@
 import Foundation
 import DownloadManager
 
-class QueuesManager {
+struct InstallData: Equatable {
+    let ipa: URL
+    let delete: Bool
+}
+
+class QueuesManager: ObservableObject {
     public static let shared = QueuesManager()
 
-    private var installQueueItems: [(URL, Bool)] = [] // URL of ipa to install and if ipa should be deleted
+    // URL of ipa to install and if ipa should be deleted
+    @Published public private(set) var installQueueItems: [InstallData] = []
 
-    private var downloadQueueItems: [StoreAppData] = [] // App data of ipa to download
+    // App data of ipa to download
+    @Published public private(set) var downloadQueueItems: [StoreAppData] = []
 
-    private var currentInstallItem: (URL, Bool)?
+    @Published public private(set) var currentInstallItem: InstallData?
 
-    private var currentDownloadItem: StoreAppData?
+    @Published public private(set) var currentDownloadItem: StoreAppData?
 
     private func installItem() {
         if let item = currentInstallItem {
-            Installer.install(ipaUrl: item.0, export: false, returnCompletion: { _ in
+            self.installQueueItems.removeAll(where: { $0 == item }) // Remove item from queue
+
+            Installer.install(ipaUrl: item.ipa, export: false, returnCompletion: { _ in
                 Task { @MainActor in
                     // Remove ipa if it is specificed to be removed
-                    if item.1 {
-                        FileManager.default.delete(at: item.0)
+                    if item.delete {
+                        FileManager.default.delete(at: item.ipa)
                     }
-
-                    self.installQueueItems.removeAll(where: { $0 == item }) // Remove item from queue
 
                     AppsVM.shared.fetchApps()
                     StoreVM.shared.resolveSources()
+
                     NotifyService.shared.notify(
                         NSLocalizedString("notification.appInstalled", comment: ""),
                         NSLocalizedString("notification.appInstalled.message", comment: ""))
@@ -52,9 +60,9 @@ class QueuesManager {
 
     private func downloadItem() {
         if let item = currentDownloadItem, let url = URL(string: item.link) {
-            DownloadApp(url: url, app: item, completion: {
-                self.downloadQueueItems.removeAll(where: { $0 == item }) // Remove item from queue
+            self.downloadQueueItems.removeAll(where: { $0 == item }) // Remove item from queue
 
+            DownloadApp(url: url, app: item, completion: {
                 // Check if there is another item in the download queue
                 if let nextItem = self.downloadQueueItems.first {
                     self.currentDownloadItem = nextItem
@@ -69,14 +77,14 @@ class QueuesManager {
     @discardableResult
     public func addInstallItem(ipa: URL, deleteIpa: Bool = false) -> Bool {
         // Make sure item is not already in queue
-        guard installQueueItems.firstIndex(where: { $0.0 == ipa }) == nil else {
+        guard installQueueItems.firstIndex(where: { $0.ipa == ipa }) == nil else {
             alreadyInQueueAlert()
             return false
         }
 
-        installQueueItems.append((ipa, deleteIpa)) // Add item to queue
-
         guard currentInstallItem == nil else { // Ensure there is currently not an install in progress
+            installQueueItems.append(InstallData(ipa: ipa, delete: deleteIpa)) // Add item to queue
+
             // Only show toast if there is already an item in queue
             ToastVM.shared.showToast(toastType: .notice,
                                      toastDetails: NSLocalizedString("queue.toast.installAdded", comment: ""))
@@ -84,7 +92,7 @@ class QueuesManager {
             return true // Item has still been appened to queue successfully
         }
 
-        currentInstallItem = installQueueItems.first // Set current install item to added item
+        currentInstallItem = InstallData(ipa: ipa, delete: deleteIpa) // Set current install item to added item
 
         installItem() // Start consuming the queue
 
@@ -99,9 +107,9 @@ class QueuesManager {
             return false
         }
 
-        downloadQueueItems.append(app) // Add item to queue
-
         guard currentDownloadItem == nil else { // Ensure there is currently not a download in progress
+            downloadQueueItems.append(app) // Add item to queue
+
             // Only show toast if there is already an item in queue
             ToastVM.shared.showToast(toastType: .notice,
                                      toastDetails: String(format: NSLocalizedString("queue.toast.downloadAdded",
@@ -111,7 +119,7 @@ class QueuesManager {
             return true // Item has still been appened to queue successfully
         }
 
-        currentDownloadItem = downloadQueueItems.first // Set current download item to added item
+        currentDownloadItem = app // Set current download item to added item
 
         downloadItem() // Start consuming queue
 
@@ -120,18 +128,19 @@ class QueuesManager {
 
     @discardableResult
     public func removeInstallItem(ipa: URL) -> Bool {
-        // Make sure the item to remove is not currently being installed
-        // Currently can't stop an install in progress
-        // Also ensures that the item exists in the array
-        if let currentInstallItem = currentInstallItem, currentInstallItem.0 != ipa,
-            let idx = installQueueItems.firstIndex(where: { $0.0 == ipa }) {
-            installQueueItems.remove(at: idx)
-
-            return true
-        } else {
+        // Ensures that the item exists in the array
+        guard let currentInstallItem = currentInstallItem else {
             notInQueueAlert()
             return false
         }
+
+        if currentInstallItem.ipa == ipa {
+            Installer.cancelInstall()
+        } else {
+            installQueueItems.removeAll(where: { $0.ipa == ipa })
+        }
+
+        return true
     }
 
     @discardableResult
