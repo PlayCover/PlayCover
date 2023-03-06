@@ -43,13 +43,8 @@ class Installer {
     static func install(ipaUrl: URL, export: Bool, returnCompletion: @escaping (URL?) -> Void) {
         // If (the option key is held or the install playtools popup settings is true) and its not an export,
         //    then show the installer dialog
-        let installPlayTools: Bool
-
-        if (Installer.isOptionKeyHeld || InstallPreferences.shared.showInstallPopup) && !export {
-            installPlayTools = installPlayToolsPopup()
-        } else {
-            installPlayTools = InstallPreferences.shared.alwaysInstallPlayTools
-        }
+        let installPlayTools = (Installer.isOptionKeyHeld || InstallPreferences.shared.showInstallPopup) && !export ?
+            installPlayToolsPopup() : InstallPreferences.shared.alwaysInstallPlayTools
 
         InstallVM.shared.next(.begin, 0.0, 0.0)
 
