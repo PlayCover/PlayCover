@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+typealias Cancel = (() -> Void)?
+
 class ProgressVM<Steps: RawRepresentable & Equatable>: ObservableObject where Steps.RawValue == String {
     @Published var progress = 0.0
     @Published var inProgress = false
@@ -49,10 +51,10 @@ class ProgressVM<Steps: RawRepresentable & Equatable>: ObservableObject where St
         }
     }
 
-    func constructView(cancelableSteps: [Steps]? = nil, cancel: (() -> Void)? = nil) -> some View {
+    func constructView(cancelableSteps: [Steps]? = nil, collapsable: Bool = true, cancel: Cancel = nil) -> some View {
         return
             VStack {
-                if !isCollapsed {
+                if !isCollapsed || !collapsable {
                     Text(NSLocalizedString(status.rawValue, comment: "")) +
                     Text(!(name?.isEmpty ?? true) ? " " + (name ?? "") : "")
                 }
@@ -75,7 +77,9 @@ class ProgressVM<Steps: RawRepresentable & Equatable>: ObservableObject where St
             .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
             .padding()
             .onTapGesture {
-                self.isCollapsed.toggle()
+                if collapsable {
+                    self.isCollapsed.toggle()
+                }
             }
     }
 }

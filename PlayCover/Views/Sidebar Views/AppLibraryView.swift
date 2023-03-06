@@ -18,6 +18,7 @@ struct AppLibraryView: View {
     @State private var isList = UserDefaults.standard.bool(forKey: "AppLibraryView")
     @State private var selected: PlayApp?
     @State private var showSettings = false
+    @State private var showQueue = false
     @State private var showLegacyConvertAlert = false
     @State private var showWrongfileTypeAlert = false
 
@@ -97,6 +98,13 @@ struct AppLibraryView: View {
                         .tag(true)
                 }.pickerStyle(.segmented)
             }
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    showQueue.toggle()
+                }, label: {
+                    Image(systemName: "tray")
+                })
+            }
         }
         .searchable(text: $searchString, placement: .toolbar)
         .onChange(of: searchString, perform: { value in
@@ -108,6 +116,9 @@ struct AppLibraryView: View {
         })
         .sheet(isPresented: $showSettings) {
             AppSettingsView(viewModel: AppSettingsVM(app: selected!))
+        }
+        .sheet(isPresented: $showQueue) {
+            QueuesView(selection: QueuesView.Tabs.install)
         }
         .onAppear {
             showLegacyConvertAlert = LegacySettings.doesMonolithExist

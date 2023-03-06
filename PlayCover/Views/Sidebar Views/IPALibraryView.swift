@@ -18,6 +18,7 @@ struct IPALibraryView: View {
     @State private var isList = UserDefaults.standard.bool(forKey: "IPALibraryView")
     @State private var selected: StoreAppData?
     @State private var addSourcePresented = false
+    @State private var showQueue = false
 
     @ObservedObject private var URLObserved = URLObservable.shared
 
@@ -117,6 +118,13 @@ struct IPALibraryView: View {
                         .tag(true)
                 }.pickerStyle(.segmented)
             }
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    showQueue.toggle()
+                }, label: {
+                    Image(systemName: "tray")
+                })
+            }
         }
         .searchable(text: $searchString, placement: .toolbar)
         .onChange(of: searchString) { value in
@@ -129,6 +137,9 @@ struct IPALibraryView: View {
         .sheet(isPresented: $addSourcePresented) {
             AddSourceView(addSourceSheet: $addSourcePresented)
                 .environmentObject(storeVM)
+        }
+        .sheet(isPresented: $showQueue) {
+            QueuesView(selection: QueuesView.Tabs.download)
         }
         .onChange(of: URLObserved.type) {_ in
             addSourcePresented = URLObserved.type == .source
