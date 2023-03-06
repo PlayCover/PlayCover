@@ -26,6 +26,7 @@ struct AppSettingsData: Codable {
     var playChainDebugging = false
     var inverseScreenValues = false
     var metalHUD = false
+    var windowFixMethod = 0
 
     init() {}
 
@@ -50,6 +51,7 @@ struct AppSettingsData: Codable {
         playChainDebugging = try container.decodeIfPresent(Bool.self, forKey: .playChainDebugging) ?? false
         inverseScreenValues = try container.decodeIfPresent(Bool.self, forKey: .inverseScreenValues) ?? false
         metalHUD = try container.decodeIfPresent(Bool.self, forKey: .metalHUD) ?? false
+        windowFixMethod = try container.decodeIfPresent(Int.self, forKey: .windowFixMethod) ?? 0
     }
 }
 
