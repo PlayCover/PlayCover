@@ -382,6 +382,9 @@
 "ipaLibrary.noNetworkConnection.required" = "连接网络以查看 IPA Library";
 "preferences.popover.duplicate" = "复制链接";
 "alert.app.clearPlayChain" = "所有 PlayChain 数据将被清除。您可能需要重新登录应用程式。您还想继续吗?";
-"settings.toggle.windowExperimentalFix.help" = "尝试修复您的应用程式场景";
 "settings.toggle.windowExperimentalFix" = "修复窗口问题";
 "settings.highResolution" = "高画质可能会导致闪退";
+"settings.picker.windowFix" = "Fix window display issues";
+"settings.picker.windowFix.help" = "Apply window fixes that may helps your apps display normally";
+"settings.picker.windowFixMethod.0" = "Normal";
+"settings.picker.windowFixMethod.1" = "Alternate";
