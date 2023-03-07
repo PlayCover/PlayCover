@@ -19,7 +19,7 @@ struct QueuesView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Queues")
+                Text("queue.view.title")
                     .font(.title2).bold()
                     .multilineTextAlignment(.leading)
                 Spacer()
@@ -30,14 +30,14 @@ struct QueuesView: View {
                     .environmentObject(QueuesManager.shared)
                     .environmentObject(InstallVM.shared)
                     .tabItem {
-                        Text("Install")
+                        Text("queue.view.installs")
                     }
                     .tag(Tabs.install)
                 DownloadQueueView()
                     .environmentObject(QueuesManager.shared)
                     .environmentObject(DownloadVM.shared)
                     .tabItem {
-                        Text("Download")
+                        Text("queue.view.downloads")
                     }
                     .tag(Tabs.download)
             }
@@ -61,17 +61,16 @@ struct InstallQueueView: View {
 
     var body: some View {
         if queuesManager.installQueueItems.isEmpty && queuesManager.currentInstallItem == nil {
-            Text("No items currently in install queue")
+            Text("queue.view.empty")
         } else {
             ScrollView {
-                installVM.constructView(cancelableSteps: [.unzip, .wrapper, .playtools, .sign, .library, .begin],
-                                        collapsable: false) {
-                    Installer.cancelInstall()
-                }
+                installVM.constructView(collapsable: false)
 
                 ForEach(queuesManager.installQueueItems, id: \.ipa) { item in
                     HStack {
+                        Spacer()
                         Text(item.ipa.lastPathComponent)
+                        Spacer()
                         Button {
                             queuesManager.removeInstallItem(ipa: item.ipa)
                         } label: {
@@ -96,20 +95,16 @@ struct DownloadQueueView: View {
 
     var body: some View {
         if queuesManager.downloadQueueItems.isEmpty && queuesManager.currentDownloadItem == nil {
-            Text("No items currently in download queue")
+            Text("queue.view.empty")
         } else {
             ScrollView {
-                downloadVM.constructView(cancelableSteps: [.downloading], collapsable: false) {
-                    guard let appData = downloadVM.storeAppData else {
-                        return
-                    }
-
-                    queuesManager.removeDownloadItem(app: appData)
-                }
+                downloadVM.constructView(collapsable: false)
 
                 ForEach(queuesManager.downloadQueueItems, id: \.link) { item in
                     HStack {
+                        Spacer()
                         Text(item.name)
+                        Spacer()
                         Button {
                             queuesManager.removeDownloadItem(app: item)
                         } label: {

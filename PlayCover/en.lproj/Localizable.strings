@@ -261,5 +261,9 @@
 
 "queue.alert.exists" = "Item already in queue";
 "queue.alert.notexist" = "Item not in queue";
-"queue.toast.installAdded" = "Install item added to queue";
+"queue.toast.installAdded" = "Install item \"%@\" added to queue";
 "queue.toast.downloadAdded" = "Download item \"%@\" added to queue";
+"queue.view.title" = "Queues";
+"queue.view.installs" = "Installs";
+"queue.view.downloads" = "Downloads";
+"queue.view.empty" = "No items currently in this queue";
