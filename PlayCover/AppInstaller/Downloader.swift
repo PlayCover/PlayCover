@@ -36,13 +36,9 @@ class DownloadApp {
     let downloader = DownloadManager.shared
 
     func start() {
-        guard NetworkVM.isConnectedToNetwork() else {
-            return
-        }
-
         if url.isFileURL {
             proceedInstall(url, deleteIPA: false)
-        } else {
+        } else if NetworkVM.urlAccessible(url: url, popup: true){
             proceedDownload()
         }
     }

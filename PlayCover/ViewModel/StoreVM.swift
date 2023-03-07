@@ -7,7 +7,7 @@
 
 import Foundation
 
-class StoreVM: ObservableObject {
+class StoreVM: ObservableObject, @unchecked Sendable {
 
     static let shared = StoreVM()
 
@@ -81,53 +81,61 @@ class StoreVM: ObservableObject {
                 $0.name.lowercased().contains(uif.searchText.lowercased())
             })
         }
-        filteredApps.sort(by: { $0.name.lowercased() < $1.name.lowercased() })
     }
 
     func resolveSources() {
-        if !NetworkVM.isConnectedToNetwork() { return }
+        guard NetworkVM.isConnectedToNetwork() else {
+            return
+        }
 
         apps.removeAll()
         for index in 0..<sources.endIndex {
-            sources[index].status = .checking
+            sources[index].status = .empty
             Task {
                 if let url = URL(string: self.sources[index].source) {
-                    if StoreVM.checkAvaliability(url: url) {
-                        do {
-                            let contents = try String(contentsOf: url)
-                            let jsonData = contents.data(using: .utf8)!
-                            do {
-                                let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self, from: jsonData)
-                                if data.count > 0 {
-                                    Task { @MainActor in
-                                        self.sources[index].status =
-                                            sources[0..<index].filter({
-                                                $0.source == sources[index].source && $0.id != sources[index].id
-                                            }).isEmpty ? .valid : .duplicate
-                                        self.appendAppData(data)
-                                    }
-                                    return
-                                }
-                            } catch {
-                                Task { @MainActor in
-                                    self.sources[index].status = .badjson
-                                }
-                                return
-                            }
-                        } catch {
+                    URLSession.shared.dataTask(with: URLRequest(url: url)) { jsonData, response, error in
+                        guard error == nil,
+                              ((response as? HTTPURLResponse)?.statusCode ?? 200) == 200,
+                              let jsonData = jsonData else {
                             Task { @MainActor in
                                 self.sources[index].status = .badurl
                             }
+
                             return
                         }
+
+                        do {
+                            let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self,
+                                                                                from: jsonData)
+                            if data.count > 0 {
+                                Task { @MainActor in
+                                    self.sources[index].status = self.sources[0..<index].filter({
+                                        $0.source == self.sources[index].source && $0.id != self.sources[index].id
+                                    }).isEmpty ? .valid : .duplicate
+
+                                    self.appendAppData(data)
+                                }
+                            }
+                        } catch {
+                            Task { @MainActor in
+                                self.sources[index].status = .badjson
+                            }
+                        }
+                    }.resume()
+
+                    Task { @MainActor in
+                        self.sources[index].status = .checking
                     }
+
+                    return
                 }
+
                 Task { @MainActor in
-                    self.sources[index].status = .badurl
+                    sources[index].status = .badurl
                 }
-                return
             }
         }
+
         fetchApps()
     }
 
@@ -160,28 +168,6 @@ class StoreVM: ObservableObject {
     func appendSourceData(_ data: SourceData) {
         self.sources.append(data)
         self.resolveSources()
-    }
-
-    static func checkAvaliability(url: URL) -> Bool {
-        var avaliable = true
-        var request = URLRequest(url: url)
-        request.httpMethod = "HEAD"
-        URLSession(configuration: .default)
-            .dataTask(with: request) { _, response, error in
-                guard error == nil else {
-                    print("Error:", error ?? "")
-                    avaliable = false
-                    return
-                }
-
-                guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-                    print("down")
-                    avaliable = false
-                    return
-                }
-            }
-            .resume()
-        return avaliable
     }
 }
 

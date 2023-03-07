@@ -362,6 +362,9 @@
 "ipaLibrary.noNetworkConnection.required" = "連接實際網路以查看 IPA Library";
 "preferences.toggle.removePlayChain" = "移除 PlayChain";
 "alert.app.clearPlayChain" = "所有 PlayChain 數據將被清除。您可能需要重新登錄應用程式。 您還希望繼續嗎?";
-"settings.toggle.windowExperimentalFix.help" = "嘗試修復您的應用程式場景";
 "settings.toggle.windowExperimentalFix" = "修復窗口問題";
 "settings.highResolution" = "高畫質可能會導致閃退";
+"settings.picker.windowFix" = "Fix window display issues";
+"settings.picker.windowFix.help" = "Apply window fixes that may helps your apps display normally";
+"settings.picker.windowFixMethod.0" = "Normal";
+"settings.picker.windowFixMethod.1" = "Alternate";
