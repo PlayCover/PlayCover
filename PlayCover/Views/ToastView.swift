@@ -39,12 +39,9 @@ struct ToastView: View {
                             Task { @MainActor in
                                 toastVM.toasts[idx].destructorCalled = true
                                 try await Task.sleep(nanoseconds: toast.timeRemaining * 1000000000)
-                                // Make sure the toast still exists
-                                guard toastVM.toasts.contains(where: { $0 == toast }) else {
-                                    return
-                                }
+
                                 // Since toasts can be dismissed with a click, it will need to remove by value
-                                toastVM.toasts.removeAll(where: { $0 == toast })
+                                toastVM.toasts.removeAll(where: { $0.toastDetails == toast.toastDetails })
                             }
                         }
                     }
@@ -53,16 +50,10 @@ struct ToastView: View {
                     }
                 }
                 if installVM.inProgress {
-                    installVM.constructView(cancelableSteps: [.unzip, .wrapper, .playtools, .sign, .library, .begin]) {
-                        Installer.cancelInstall()
-                    }
+                    installVM.constructView()
                 }
                 if downloadVM.inProgress {
-                    downloadVM.constructView(cancelableSteps: [.downloading]) {
-                        if let appData = downloadVM.storeAppData {
-                            QueuesManager.shared.removeDownloadItem(app: appData)
-                        }
-                    }
+                    downloadVM.constructView()
                 }
             }
             .animation(.easeInOut(duration: 0.25), value: toastVM.toasts.count)
