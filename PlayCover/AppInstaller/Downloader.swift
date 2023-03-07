@@ -38,8 +38,10 @@ class DownloadApp {
     func start() {
         if url.isFileURL {
             proceedInstall(url, deleteIPA: false)
-        } else if NetworkVM.urlAccessible(url: url, popup: true){
+        } else if NetworkVM.urlAccessible(url: url, popup: true) {
             proceedDownload()
+        } else {
+            completion()
         }
     }
 
