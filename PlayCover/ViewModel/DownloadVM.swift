@@ -32,7 +32,7 @@ class DownloadVM: ProgressVM<DownloadStepsNative> {
                 return
             }
 
-            QueuesManager.shared.removeDownloadItem(app: appData)
+            QueuesVM.shared.removeDownloadItem(app: appData)
         }
     }
 }

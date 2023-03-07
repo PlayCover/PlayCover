@@ -49,7 +49,7 @@ struct StoreAppView: View {
                 }
             }
 
-            QueuesManager.shared.addDownloadItem(app: app)
+            QueuesVM.shared.addDownloadItem(app: app)
         })
         .simultaneousGesture(TapGesture().onEnded {
             selected = app

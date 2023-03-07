@@ -171,7 +171,7 @@ struct AppLibraryView: View {
 
     private func installApp() {
         if let url = uif.ipaUrl {
-            QueuesManager.shared.addInstallItem(ipa: url)
+            QueuesVM.shared.addInstallItem(ipa: url)
         }
     }
 

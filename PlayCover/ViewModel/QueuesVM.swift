@@ -13,8 +13,8 @@ struct InstallData: Equatable {
     let delete: Bool
 }
 
-class QueuesManager: ObservableObject {
-    public static let shared = QueuesManager()
+class QueuesVM: ObservableObject {
+    public static let shared = QueuesVM()
 
     // URL of ipa to install and if ipa should be deleted
     @Published public private(set) var installQueueItems: [InstallData] = []

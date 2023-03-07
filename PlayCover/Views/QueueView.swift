@@ -27,14 +27,14 @@ struct QueuesView: View {
 
             TabView(selection: $selection) {
                 InstallQueueView()
-                    .environmentObject(QueuesManager.shared)
+                    .environmentObject(QueuesVM.shared)
                     .environmentObject(InstallVM.shared)
                     .tabItem {
                         Text("queue.view.installs")
                     }
                     .tag(Tabs.install)
                 DownloadQueueView()
-                    .environmentObject(QueuesManager.shared)
+                    .environmentObject(QueuesVM.shared)
                     .environmentObject(DownloadVM.shared)
                     .tabItem {
                         Text("queue.view.downloads")
@@ -56,23 +56,23 @@ struct QueuesView: View {
 }
 
 struct InstallQueueView: View {
-    @EnvironmentObject var queuesManager: QueuesManager
+    @EnvironmentObject var queuesVM: QueuesVM
     @EnvironmentObject var installVM: InstallVM
 
     var body: some View {
-        if queuesManager.installQueueItems.isEmpty && queuesManager.currentInstallItem == nil {
+        if queuesVM.installQueueItems.isEmpty && queuesVM.currentInstallItem == nil {
             Text("queue.view.empty")
         } else {
             ScrollView {
                 installVM.constructView(collapsable: false)
 
-                ForEach(queuesManager.installQueueItems, id: \.ipa) { item in
+                ForEach(queuesVM.installQueueItems, id: \.ipa) { item in
                     HStack {
                         Spacer()
                         Text(item.ipa.lastPathComponent)
                         Spacer()
                         Button {
-                            queuesManager.removeInstallItem(ipa: item.ipa)
+                            queuesVM.removeInstallItem(ipa: item.ipa)
                         } label: {
                             Image(systemName: "xmark.circle.fill")
                                 .font(.title3)
@@ -90,23 +90,23 @@ struct InstallQueueView: View {
 }
 
 struct DownloadQueueView: View {
-    @EnvironmentObject var queuesManager: QueuesManager
+    @EnvironmentObject var queuesVM: QueuesVM
     @EnvironmentObject var downloadVM: DownloadVM
 
     var body: some View {
-        if queuesManager.downloadQueueItems.isEmpty && queuesManager.currentDownloadItem == nil {
+        if queuesVM.downloadQueueItems.isEmpty && queuesVM.currentDownloadItem == nil {
             Text("queue.view.empty")
         } else {
             ScrollView {
                 downloadVM.constructView(collapsable: false)
 
-                ForEach(queuesManager.downloadQueueItems, id: \.link) { item in
+                ForEach(queuesVM.downloadQueueItems, id: \.link) { item in
                     HStack {
                         Spacer()
                         Text(item.name)
                         Spacer()
                         Button {
-                            queuesManager.removeDownloadItem(app: item)
+                            queuesVM.removeDownloadItem(app: item)
                         } label: {
                             Image(systemName: "xmark.circle.fill")
                                 .font(.title3)
