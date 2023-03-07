@@ -184,6 +184,8 @@
 "settings.playChain.enable" = "Enable PlayChain (Experimental)";
 "settings.playChain.help" = "Enable PlayChain support for this application, allowing it to (partially) use Apple Keychain Services";
 "settings.playChain.debugging" = "PlayChain debugging";
+"settings.toggle.introspection" = "Insert Introspection libraries";
+"settings.toggle.introspection.help" = "Add the system introspection libraries to the app. Known to fix issues with some apps not starting correctly";
 
 "settings.removePlayTools" = "Remove PlayTools";
 "settings.addToLaunchpad" = "Add to Launchpad";

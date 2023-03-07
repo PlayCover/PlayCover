@@ -422,6 +422,12 @@ struct BypassesView: View {
                         .help("settings.toggle.jbBypass.help")
                     Spacer()
                 }
+                Spacer()
+                HStack {
+                    Toggle("settings.toggle.introspection", isOn: $settings.settings.injectIntrospection)
+                        .help("settings.toggle.introspection.help")
+                    Spacer()
+                }
             }
             .padding()
         }

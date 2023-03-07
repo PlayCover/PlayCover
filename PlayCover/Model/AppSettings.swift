@@ -27,6 +27,7 @@ struct AppSettingsData: Codable {
     var inverseScreenValues = false
     var metalHUD = false
     var windowFixMethod = 0
+    var injectIntrospection = false
 
     init() {}
 
@@ -52,6 +53,7 @@ struct AppSettingsData: Codable {
         inverseScreenValues = try container.decodeIfPresent(Bool.self, forKey: .inverseScreenValues) ?? false
         metalHUD = try container.decodeIfPresent(Bool.self, forKey: .metalHUD) ?? false
         windowFixMethod = try container.decodeIfPresent(Int.self, forKey: .windowFixMethod) ?? 0
+        injectIntrospection = try container.decodeIfPresent(Bool.self, forKey: .injectIntrospection) ?? false
     }
 }
 
