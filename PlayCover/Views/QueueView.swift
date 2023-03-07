@@ -41,7 +41,7 @@ struct QueuesView: View {
                     }
                     .tag(Tabs.download)
             }
-            .frame(minWidth: 450, minHeight: 200)
+            .frame(width: 450, height: 200)
             HStack {
                 Spacer()
                 Button("button.OK") {
