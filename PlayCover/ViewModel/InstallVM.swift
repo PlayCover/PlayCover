@@ -22,7 +22,11 @@ class InstallVM: ProgressVM<InstallStepsNative> {
     static let shared = InstallVM()
 
     init() {
-        super.init(start: .begin, ends: [.finish, .failed, .canceled])
+        super.init(start: .begin,
+                   ends: [.finish, .failed, .canceled],
+                   cancelableSteps: [.unzip, .wrapper, .playtools, .sign, .library, .begin]) {
+            Installer.cancelInstall()
+        }
     }
 
 }

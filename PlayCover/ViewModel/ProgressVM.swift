@@ -15,18 +15,24 @@ class ProgressVM<Steps: RawRepresentable & Equatable>: ObservableObject where St
     @Published var inProgress = false
     @Published var status: Steps
     @Published var isCollapsed = false
-    @Published var name: String?
+    @Published var name: String = ""
 
-    private let starting: Steps
-    private let ends: [Steps]
+    internal let starting: Steps
+    internal let ends: [Steps]
+    internal let cancelableSteps: [Steps]?
+    internal var cancelFunc: Cancel
 
     /// - Parameters:
     ///     - starts: The initial starting value
     ///     - ends: Ending conditions
-    init(start: Steps, ends: [Steps]) {
+    ///     - cancelableSteps: Steps that are allowed to be canceled
+    ///     - cancel: The function that runs when the canceller has been called
+    init(start: Steps, ends: [Steps], cancelableSteps: [Steps]? = nil, cancel: Cancel = nil) {
         self.status = start
         self.starting = start
         self.ends = ends
+        self.cancelableSteps = cancelableSteps
+        self.cancelFunc = cancel
     }
 
     func next(_ step: Steps, _ startProgress: Double, _ stopProgress: Double) {
@@ -39,6 +45,12 @@ class ProgressVM<Steps: RawRepresentable & Equatable>: ObservableObject where St
             } else if self.ends.contains(step) {
                 self.progress = 1.0
                 try await Task.sleep(nanoseconds: 1500000000)
+
+                // Ensure another download isn't already in progress
+                guard self.progress == 1.0 else {
+                    return
+                }
+
                 self.inProgress = false
             } else {
                 while self.status == step {
@@ -51,18 +63,18 @@ class ProgressVM<Steps: RawRepresentable & Equatable>: ObservableObject where St
         }
     }
 
-    func constructView(cancelableSteps: [Steps]? = nil, collapsable: Bool = true, cancel: Cancel = nil) -> some View {
+    func constructView(collapsable: Bool = true) -> some View {
         return
             VStack {
                 if !isCollapsed || !collapsable {
                     Text(NSLocalizedString(status.rawValue, comment: "")) +
-                    Text(!(name?.isEmpty ?? true) ? " " + (name ?? "") : "")
+                    Text(!name.isEmpty ? " " + name : "")
                 }
                 HStack {
                     ProgressView(value: self.progress)
                     if let cancels = cancelableSteps, cancels.contains(self.status) {
                         Button {
-                            cancel?()
+                            self.cancelFunc?()
                         } label: {
                             Image(systemName: "xmark.circle.fill")
                                 .font(.title3)
