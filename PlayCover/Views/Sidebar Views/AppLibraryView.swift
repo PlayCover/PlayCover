@@ -91,19 +91,20 @@ struct AppLibraryView: View {
                 })
             }
             ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    showQueue.toggle()
+                }, label: {
+                    Image(systemName: "tray")
+                        .help("playapp.queue.install")
+                })
+            }
+            ToolbarItem(placement: .primaryAction) {
                 Picker("Grid View Layout", selection: $isList) {
                     Image(systemName: "square.grid.2x2")
                         .tag(false)
                     Image(systemName: "list.bullet")
                         .tag(true)
                 }.pickerStyle(.segmented)
-            }
-            ToolbarItem(placement: .primaryAction) {
-                Button(action: {
-                    showQueue.toggle()
-                }, label: {
-                    Image(systemName: "tray")
-                })
             }
         }
         .searchable(text: $searchString, placement: .toolbar)

@@ -19,6 +19,8 @@
 "playapp.refreshSources" = "Refresh Sources";
 "playapp.noSources.title" = "No IPAs Installed";
 "playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";
+"playapp.queue.install" = "Install Queue";
+"playapp.queue.download" = "Download Queue";
 
 "ipaLibrary.noSources.title" = "No IPA Sources Added";
 "ipaLibrary.noSources.subtitle" = "You currently have no IPA Sources added. Click the button below to add one.";
