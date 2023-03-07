@@ -59,19 +59,24 @@ struct ITunesResponse: Codable {
 }
 
 func getITunesData(_ itunesLookup: String) async -> ITunesResponse? {
-    if !NetworkVM.isConnectedToNetwork() { return nil }
-    guard let url = URL(string: itunesLookup) else { return nil }
-
-    do {
-        let (data, _) = try await URLSession.shared.data(for: URLRequest(url: url))
-        let decoder = JSONDecoder()
-        let jsonResult: ITunesResponse = try decoder.decode(ITunesResponse.self, from: data)
-        if jsonResult.resultCount > 0 {
-            return jsonResult
-        }
-    } catch {
-        print("Error getting iTunes data from URL: \(itunesLookup): \(error)")
+    guard NetworkVM.isConnectedToNetwork(), let url = URL(string: itunesLookup) else {
+        return nil
     }
 
-    return nil
+    return await withCheckedContinuation { continuation in
+        URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
+            do {
+                if error == nil, let data = data {
+                    let decoder = JSONDecoder()
+                    let jsonResult: ITunesResponse = try decoder.decode(ITunesResponse.self, from: data)
+                    continuation.resume(returning: jsonResult.resultCount > 0 ? jsonResult : nil)
+                    return
+                }
+            } catch {
+                print("Error getting iTunes data from URL: \(itunesLookup): \(error)")
+            }
+
+            continuation.resume(returning: nil)
+        }.resume()
+    }
 }
