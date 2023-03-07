@@ -77,7 +77,7 @@ class QueuesManager: ObservableObject {
     @discardableResult
     public func addInstallItem(ipa: URL, deleteIpa: Bool = false) -> Bool {
         // Make sure item is not already in queue
-        guard installQueueItems.firstIndex(where: { $0.ipa == ipa }) == nil else {
+        guard installQueueItems.firstIndex(where: { $0.ipa == ipa }) == nil && currentInstallItem?.ipa != ipa else {
             alreadyInQueueAlert()
             return false
         }
@@ -87,7 +87,9 @@ class QueuesManager: ObservableObject {
 
             // Only show toast if there is already an item in queue
             ToastVM.shared.showToast(toastType: .notice,
-                                     toastDetails: NSLocalizedString("queue.toast.installAdded", comment: ""))
+                                     toastDetails: String(format: NSLocalizedString("queue.toast.installAdded",
+                                                                                    comment: ""),
+                                                          arguments: [ipa.lastPathComponent]))
 
             return true // Item has still been appened to queue successfully
         }
@@ -102,7 +104,7 @@ class QueuesManager: ObservableObject {
     @discardableResult
     public func addDownloadItem(app: StoreAppData) -> Bool {
         // Make sure item is not already in queue
-        guard downloadQueueItems.firstIndex(where: { $0 == app }) == nil else {
+        guard downloadQueueItems.firstIndex(where: { $0 == app }) == nil && currentDownloadItem != app else {
             alreadyInQueueAlert()
             return false
         }
@@ -134,9 +136,10 @@ class QueuesManager: ObservableObject {
             return false
         }
 
+        // Cancel install if it is currently in progress
         if currentInstallItem.ipa == ipa {
             Installer.cancelInstall()
-        } else {
+        } else { // Otherwise just remove it from queue
             installQueueItems.removeAll(where: { $0.ipa == ipa })
         }
 
@@ -147,28 +150,24 @@ class QueuesManager: ObservableObject {
     public func removeDownloadItem(app: StoreAppData) -> Bool {
         if let idx = downloadQueueItems.firstIndex(of: app) { // Ensures the item is in the queue
             downloadQueueItems.remove(at: idx) // Remove item from queue
+        } else if currentDownloadItem == app, let url = URL(string: app.link) { // Checks if it is being downloaded
+            DownloadManager.shared.cancelDownload(withURL: url) // Cancel the download
+            DownloadVM.shared.next(.canceled, 0.95, 1.0)
+            DownloadVM.shared.storeAppData = nil
 
-            if currentDownloadItem == app { // Checks if the item is currently being downloaded
-                if let url = URL(string: app.link) { // Makes sure that the url exists
-                    DownloadManager.shared.cancelDownload(withURL: url) // Cancel the download
-                    DownloadVM.shared.next(.canceled, 0.95, 1.0)
-                    DownloadVM.shared.storeAppData = nil
-
-                    // Check if there is another item in the download queue
-                    if let nextItem = self.downloadQueueItems.first {
-                        self.currentDownloadItem = nextItem
-                        self.downloadItem() // Download next item
-                    } else {
-                        self.currentDownloadItem = nil
-                    }
-                }
+            // Check if there is another item in the download queue
+            if let nextItem = self.downloadQueueItems.first {
+                self.currentDownloadItem = nextItem
+                self.downloadItem() // Download next item
+            } else {
+                self.currentDownloadItem = nil
             }
-
-            return true
         } else {
             notInQueueAlert()
             return false
         }
+
+        return true
     }
 
     private func alreadyInQueueAlert() {
