@@ -192,9 +192,14 @@ class Macho {
         }
 
         let injectionEnd = movedCommandsEnd - Int(oldCommandSize) + Int(newCommandSize)
-        // may check for space availability in loadCommandsEnd..<injectionEnd
-        binary.replaceSubrange(movedCommandsEnd-Int(oldCommandSize) ..< movedCommandsEnd,
-                               with: Data(count: Int(oldCommandSize)))
+        if injectionEnd > movedCommandsEnd {
+            if let nonZero = binary[movedCommandsEnd ..< injectionEnd].first(where: {$0 != 0}) {
+                print("Non zero value \(nonZero) found after load commands. Injection may overlap data section")
+            }
+        } else {
+            binary.replaceSubrange(injectionEnd ..< movedCommandsEnd,
+                                   with: Data(count: movedCommandsEnd - injectionEnd))
+        }
         binary.replaceSubrange(oldCommandStart..<injectionEnd, with: resultingCommandsData)
 
         // Write new header data
