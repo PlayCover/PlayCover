@@ -44,7 +44,7 @@ class AppsVM: ObservableObject {
                             print("Application installed under:", sub.path)
                         }
                         apps.append(app)
-                        if uif.searchText.isEmpty || app.searchText.contains(uif.searchText.lowercased()) {
+                        if searchText.isEmpty || app.searchText.contains(searchText.lowercased()) {
                             filteredApps.append(app)
                         }
                     }

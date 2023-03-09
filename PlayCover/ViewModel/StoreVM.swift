@@ -77,9 +77,9 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     func fetchApps() {
         filteredApps.removeAll()
         filteredApps = apps
-        if !uif.searchText.isEmpty {
+        if !searchText.isEmpty {
             filteredApps = filteredApps.filter({
-                $0.name.lowercased().contains(uif.searchText.lowercased())
+                $0.name.lowercased().contains(searchText.lowercased())
             })
         }
     }
