@@ -2,8 +2,6 @@
 //  Macho.swift
 //  PlayCover
 //
-//  Created by 许沂聪 on 2023/3/8.
-//
 
 import Foundation
 
