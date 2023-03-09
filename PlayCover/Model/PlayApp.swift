@@ -39,7 +39,7 @@ class PlayApp: BaseApp {
 
             if try !PlayTools.isInstalled() {
                 Log.shared.error("PlayTools are not installed! Please move PlayCover.app into Applications!")
-            } else if try !PlayTools.isMachoValidArch(executable) {
+            } else if try !Macho.isMachoValidArch(executable) {
                 Log.shared.error("The app threw an error during conversion.")
             } else if try !isCodesigned() {
                 Log.shared.error("The app is not codesigned! Please open Xcode and accept license agreement.")
