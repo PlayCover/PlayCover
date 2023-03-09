@@ -64,6 +64,10 @@ class PlayApp: BaseApp {
             config.environment = ["MTL_HUD_ENABLED": "0"]
         }
 
+        if settings.settings.injectIntrospection {
+            config.environment["DYLD_LIBRARY_PATH"] = "/usr/lib/system/introspection"
+        }
+
         NSWorkspace.shared.openApplication(
             at: url,
             configuration: config,

@@ -380,8 +380,11 @@
 "playapp.importIPA" = "Importar IPA";
 "ipaLibrary.noNetworkConnection.required" = "La Biblioteca IPA requiere conexión a Internet";
 "preferences.toggle.removePlayChain" = "Eliminar PlayChain";
-"preferences.popover.duplicate" = "Duplicar enlace";
-"alert.app.clearPlayChain" = "Se borrarán todos los datos de PlayChain. Es posible que tengas que volver a iniciar la sesión en la aplicación. ¿Deseas continuar?";
-"settings.toggle.windowExperimentalFix.help" = "Intenta arreglar la escena de tu aplicación si tienes problemas con ella";
-"settings.toggle.windowExperimentalFix" = "Solucionado los problemas donde la ventana";
+"preferences.popover.duplicate" = "Enlace duplicado";
+"alert.app.clearPlayChain" = "Se borrarán todos los datos de PlayChain. Es posible que tenga que volver a iniciar sesión en la aplicación. ¿Desea continuar?";
+"settings.toggle.windowExperimentalFix" = "Resolución de problemas de despliegue";
 "settings.highResolution" = "La alta resolución puede provocar fallos";
+"settings.picker.windowFixMethod.0" = "Normal";
+"settings.picker.windowFix" = "Fix window display issues";
+"settings.picker.windowFix.help" = "Apply window fixes that may helps your apps display normally";
+"settings.picker.windowFixMethod.1" = "Alternate";

@@ -36,7 +36,6 @@ class DownloadApp {
     let downloader = DownloadManager.shared
 
     func start() {
-        if !NetworkVM.isConnectedToNetwork() { return }
         if installVM.inProgress {
             Log.shared.error(PlayCoverError.waitInstallation)
         } else {
@@ -58,7 +57,7 @@ class DownloadApp {
 
             if let url = url, url.isFileURL {
                 proceedInstall(url, deleteIPA: false)
-            } else {
+            } else if NetworkVM.urlAccessible(url: url, popup: true) {
                 proceedDownload()
             }
         }

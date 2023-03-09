@@ -233,6 +233,9 @@
 "preferences.toggle.removePlayChain" = "Remove PlayChain";
 "preferences.popover.duplicate" = "Duplicate Link";
 "alert.app.clearPlayChain" = "All PlayChain data will be erased. You may need to login to the app again. Do you wish to continue?";
-"settings.toggle.windowExperimentalFix.help" = "Attempts to fix your app scene if you have problems with it";
 "settings.toggle.windowExperimentalFix" = "Fix window issues";
 "settings.highResolution" = "High resolution may cause crashing";
+"settings.picker.windowFix" = "Fix window display issues";
+"settings.picker.windowFix.help" = "Apply window fixes that may helps your apps display normally";
+"settings.picker.windowFixMethod.0" = "Normal";
+"settings.picker.windowFixMethod.1" = "Alternate";
