@@ -77,12 +77,14 @@ class Macho {
 
         try replaceLastCommand(&binary, satisfy: {commandData, shouldSwap in
             // Perform steps 1-2
-            let loadCommand = commandData.extract(load_command.self, offset: commandData.startIndex,
+            let loadCommand = commandData.extract(load_command.self,
+                                                  offset: commandData.startIndex,
                                                   swap: shouldSwap ? swap_load_command:nil)
             if ![LC_LOAD_WEAK_DYLIB, UInt32(LC_LOAD_DYLIB)].contains(loadCommand.cmd) {
                 return false
             }
-            let dylibCommand = commandData.extract(dylib_command.self, offset: commandData.startIndex,
+            let dylibCommand = commandData.extract(dylib_command.self,
+                                                   offset: commandData.startIndex,
                                                    swap: shouldSwap ? swap_dylib_command:nil)
             if String(data: commandData,
                       offset: commandData.startIndex,
@@ -130,18 +132,19 @@ class Macho {
     static func replaceVersionCommand(_ binary: inout Data) throws {
 
         var macCatalystCommand = build_version_command(cmd: UInt32(LC_BUILD_VERSION),
-                                                   cmdsize: 24,
-                                                   platform: UInt32(PLATFORM_MACCATALYST),
-                                                   minos: 0x000b0000,
-                                                   sdk: 0x000e0000,
-                                                   ntools: 0)
+                                                       cmdsize: 24,
+                                                       platform: UInt32(PLATFORM_MACCATALYST),
+                                                       minos: 0x000b0000,
+                                                       sdk: 0x000e0000,
+                                                       ntools: 0)
 
         try replaceLastCommand(&binary, satisfy: {data, shouldSwap in
-            let loadCommand = data.extract(load_command.self, offset: data.startIndex,
+            let loadCommand = data.extract(load_command.self,
+                                           offset: data.startIndex,
                                            swap: shouldSwap ? swap_load_command:nil)
             return [UInt32(LC_VERSION_MIN_IPHONEOS),
-                UInt32(LC_VERSION_MIN_MACOSX),
-                UInt32(LC_BUILD_VERSION)]
+                    UInt32(LC_VERSION_MIN_MACOSX),
+                    UInt32(LC_BUILD_VERSION)]
                 .contains(loadCommand.cmd)
 
         }, with: {shouldSwap in
@@ -152,8 +155,10 @@ class Macho {
         }, atEnd: true)
     }
 
-    static func replaceLastCommand(_ binary: inout Data, satisfy isTargetCommand: (Data, Bool) -> Bool,
-                                   with getNewCommandData: (Bool) -> Data?, atEnd shouldAppend: Bool) throws {
+    static func replaceLastCommand(_ binary: inout Data,
+                                   satisfy isTargetCommand: (Data, Bool) -> Bool,
+                                   with getNewCommandData: (Bool) -> Data?,
+                                   atEnd shouldAppend: Bool) throws {
         let headerSize = MemoryLayout<mach_header_64>.size
         var header = binary.extract(mach_header_64.self)
         var shouldSwap = false
@@ -162,7 +167,8 @@ class Macho {
         var oldCommandSize: UInt32 = 0
 
         let movedCommandsEnd = try iterateLoadCommands(binary: binary) { offset, needSwap in
-            let loadCommand = binary.extract(load_command.self, offset: offset,
+            let loadCommand = binary.extract(load_command.self,
+                                             offset: offset,
                                              swap: needSwap ? swap_load_command:nil)
             if isTargetCommand(binary[offset ..< offset+Int(loadCommand.cmdsize)], needSwap) {
                 oldCommandStart = offset
@@ -223,7 +229,8 @@ class Macho {
             throw PlayCoverError.appCorrupted
         }
         for index in 0..<header.ncmds {
-            let loadCommand = binary.extract(load_command.self, offset: offset,
+            let loadCommand = binary.extract(load_command.self,
+                                             offset: offset,
                                              swap: shouldSwap ? swap_load_command:nil)
             let commandEnd = offset + Int(loadCommand.cmdsize)
             if commandEnd > allCommandsEnd || commandEnd <= offset {
@@ -244,11 +251,13 @@ class Macho {
         try stripBinary(&binary)
         var result = false
         _ = try iterateLoadCommands(binary: binary) { offset, shouldSwap in
-            let loadCommand = binary.extract(load_command.self, offset: offset,
-                                                  swap: shouldSwap ? swap_load_command:nil)
+            let loadCommand = binary.extract(load_command.self,
+                                             offset: offset,
+                                             swap: shouldSwap ? swap_load_command:nil)
             if loadCommand.cmd == UInt32(LC_ENCRYPTION_INFO_64) {
-                let infoCommand = binary.extract(encryption_info_command_64.self, offset: offset,
-                                                      swap: shouldSwap ? swap_encryption_command_64:nil)
+                let infoCommand = binary.extract(encryption_info_command_64.self,
+                                                 offset: offset,
+                                                 swap: shouldSwap ? swap_encryption_command_64:nil)
                 result = infoCommand.cryptid != 0
                 return true
             }
@@ -262,11 +271,13 @@ class Macho {
         try stripBinary(&binary)
         var result = false
         _ = try iterateLoadCommands(binary: binary) { offset, shouldSwap in
-            let loadCommand = binary.extract(load_command.self, offset: offset,
-                                                  swap: shouldSwap ? swap_load_command:nil)
+            let loadCommand = binary.extract(load_command.self,
+                                             offset: offset,
+                                             swap: shouldSwap ? swap_load_command:nil)
             if loadCommand.cmd == UInt32(LC_BUILD_VERSION) {
-                let versionCommand = binary.extract(build_version_command.self, offset: offset,
-                                                         swap: shouldSwap ? swap_build_version_command:nil)
+                let versionCommand = binary.extract(build_version_command.self,
+                                                    offset: offset,
+                                                    swap: shouldSwap ? swap_build_version_command:nil)
                 result = versionCommand.platform == PLATFORM_MACCATALYST
                 return true
             }
