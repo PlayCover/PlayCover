@@ -65,12 +65,12 @@ class Installer {
                 InstallVM.shared.next(.playtools, 0.55, 0.85)
 
                 for macho in machos {
-                    if try PlayTools.isMachoEncrypted(atURL: macho) {
+                    if try Macho.isMachoEncrypted(atURL: macho) {
                         throw PlayCoverError.appEncrypted
                     }
 
                     if !export {
-                        try PlayTools.convertMacho(macho)
+                        try Macho.convertMacho(macho)
                         try Shell.signMacho(macho)
                     }
                 }
