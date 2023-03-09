@@ -260,14 +260,12 @@ struct AddSourceView: View {
         sourceValidationState = .empty
 
         Task {
-            if let url = URL(string: source) {
-                newSourceURL = url
-
-                if newSourceURL!.scheme == nil {
-                    newSourceURL = URL(string: "https://" + newSourceURL!.absoluteString)!
+            if var url = URL(string: source) {
+                if url.scheme == nil {
+                    url = URL(string: "https://" + url.absoluteString) ?? url
                 }
 
-                URLSession.shared.dataTask(with: URLRequest(url: newSourceURL!)) { jsonData, response, error in
+                URLSession.shared.dataTask(with: URLRequest(url: url)) { jsonData, response, error in
                     guard error == nil,
                           ((response as? HTTPURLResponse)?.statusCode ?? 200) == 200,
                           let jsonData = jsonData else {
