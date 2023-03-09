@@ -200,12 +200,12 @@ class PlayTools {
         try Macho.stripBinary(&binary)
         var result = false
         try _ = Macho.iterateLoadCommands(binary: binary) { offset, shouldSwap in
-            var loadCommand = binary.extract(load_command.self, offset: offset,
+            let loadCommand = binary.extract(load_command.self, offset: offset,
                                              swap: shouldSwap ? swap_load_command:nil)
-            if(loadCommand.cmd == UInt32(LC_LOAD_DYLIB)) {
-                var dylibCommand = binary.extract(dylib_command.self, offset: offset,
+            if loadCommand.cmd == UInt32(LC_LOAD_DYLIB) {
+                let dylibCommand = binary.extract(dylib_command.self, offset: offset,
                                                   swap: shouldSwap ? swap_dylib_command:nil)
-                
+
                 let dylibName = String(data: binary,
                                        offset: offset,
                                        commandSize: Int(dylibCommand.cmdsize),
