@@ -71,12 +71,12 @@ class Installer {
                 }
 
                 for macho in machos {
-                    if try PlayTools.isMachoEncrypted(atURL: macho) {
+                    if try Macho.isMachoEncrypted(atURL: macho) {
                         throw PlayCoverError.appEncrypted
                     }
 
                     if !export {
-                        try PlayTools.convertMacho(macho)
+                        try Macho.convertMacho(macho)
                         try fakesign(macho)
                     }
                 }
