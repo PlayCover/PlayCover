@@ -98,9 +98,19 @@ class Shell: ObservableObject {
                         do script "\(command)"
                     end tell
                 """
-                try run("/usr/bin/osascript", "-e", "'\(osascript)'")
+                let appleScript = NSAppleScript(source: osascript)
+                var possibleError: NSDictionary?
+                appleScript?.executeAndReturnError(&possibleError)
+
+                if let error = possibleError {
+                    for key in error.allKeys {
+                        if let key = key as? String {
+                            throw error.value(forKey: key).debugDescription
+                        }
+                    }
+                }
             } else {
-                try run("/usr/bin/lldb", "-o", "run", "url.path", "-o", "exit")
+                try run("/usr/bin/lldb", "-o", "run", url.path, "-o", "exit")
             }
         }
     }
