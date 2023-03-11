@@ -31,12 +31,13 @@ public class IPA {
     }
 
     func removeQuarantine(_ execUrl: URL) throws {
-        try shell.shello("/usr/bin/xattr", "-r", "-d", "com.apple.quarantine", execUrl.relativePath)
+        try Shell.run("/usr/bin/xattr", "-r", "-d", "com.apple.quarantine", execUrl.relativePath)
     }
 
     public func unzip() throws -> BaseApp {
         if let workDir = tmpDir {
-            if Shell.quietUnzip(url, toUrl: workDir) == "" {
+            if try Shell.run("/usr/bin/unzip",
+                             "-oq", url.path, "-d", workDir.path) == "" {
                 try removeQuarantine(workDir)
                 return try Installer.fromIPA(detectingAppNameInFolder: workDir.appendingPathComponent("Payload"))
             } else {
@@ -48,12 +49,19 @@ public class IPA {
     }
 
     func packIPABack(app: URL) throws -> URL {
+        let payload = app.deletingPathExtension().deletingLastPathComponent()
+        let name = app.deletingPathExtension().lastPathComponent
+
         let newIpa = getDocumentsDirectory()
-            .appendingEscapedPathComponent(app.deletingPathExtension().lastPathComponent).appendingPathExtension("ipa")
-        try Shell.zip(
-            ipa: newIpa,
-            name: app.deletingPathExtension().lastPathComponent,
-            payload: app.deletingLastPathComponent().deletingLastPathComponent())
+            .appendingEscapedPathComponent(name)
+            .appendingPathExtension("ipa")
+
+        try Shell.run("usr/bin/cd", "\(payload.esc) && zip -r \(name.esc).ipa Payload")
+        try FileManager.default.moveItem(at: payload
+                                                .appendingEscapedPathComponent(name)
+                                                .appendingPathExtension("ipa"),
+                                         to: newIpa)
+
         return newIpa
     }
 

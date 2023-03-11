@@ -77,7 +77,7 @@ class Installer {
 
                     if !export {
                         try PlayTools.convertMacho(macho)
-                        try fakesign(macho)
+                        try Shell.signMacho(macho)
                     }
                 }
 
@@ -213,11 +213,6 @@ class Installer {
 
         try FileManager.default.moveItem(at: baseApp.url, to: location)
         return location
-    }
-
-    /// Regular codesign, does not accept entitlements. Used to re-seal an app after you've modified it.
-    static func fakesign(_ url: URL) throws {
-        try shell.shello("/usr/bin/codesign", "-fs-", url.path)
     }
 
     static var isOptionKeyHeld: Bool {
