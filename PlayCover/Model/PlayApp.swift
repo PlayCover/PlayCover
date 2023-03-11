@@ -45,7 +45,7 @@ class PlayApp: BaseApp {
                 Log.shared.error("The app is not codesigned! Please open Xcode and accept license agreement.")
             } else {
                 if settings.openWithLLDB {
-                    Shell.lldb(executable, withTerminalWindow: settings.openLLDBWithTerminal)
+                    try Shell.lldb(executable, withTerminalWindow: settings.openLLDBWithTerminal)
                 } else {
                     runAppExec() // Splitting to reduce complexity
                 }
@@ -137,7 +137,7 @@ class PlayApp: BaseApp {
     }
 
     func isCodesigned() throws -> Bool {
-        try shell.shello("/usr/bin/codesign", "-dv", executable.path).contains("adhoc")
+        try Shell.run("/usr/bin/codesign", "-dv", executable.path).contains("adhoc")
     }
 
     func showInFinder() {
@@ -189,19 +189,12 @@ class PlayApp: BaseApp {
                 .appendingPathExtension("plist")
             let conf = try Entitlements.composeEntitlements(self)
             try conf.store(tmpEnts)
-            shell.signAppWith(executable, entitlements: tmpEnts)
+            try Shell.signAppWith(executable, entitlements: tmpEnts)
             try FileManager.default.removeItem(at: tmpDir)
         } catch {
             print(error)
             Log.shared.error(error)
         }
-    }
-
-    func largerImage(image imageA: NSImage, compareTo imageB: NSImage?) -> NSImage {
-        if imageA.size.height > imageB?.size.height ?? -1 {
-            return imageA
-        }
-        return imageB!
     }
 
     var prohibitedToPlay: Bool {

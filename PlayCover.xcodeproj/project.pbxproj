@@ -18,7 +18,6 @@
 		532644DE26E79E56002EA34D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 532644E026E79E56002EA34D /* Localizable.strings */; };
 		53D9DAF326C1849D0071959E /* PlayCoverError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D9DAF226C1849D0071959E /* PlayCoverError.swift */; };
 		53F3802826EB6F6B00D6B525 /* NotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F3802726EB6F6B00D6B525 /* NotifyService.swift */; };
-		53F4D29E26C43C040020167C /* UserIntentFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29D26C43C040020167C /* UserIntentFlow.swift */; };
 		53F4D2A026C43C690020167C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29F26C43C690020167C /* Log.swift */; };
 		53F50C4926E3CA42007AD2D3 /* AppLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */; };
 		68E48B952957046D00C39879 /* DownloadManager in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48B942957046D00C39879 /* DownloadManager */; };
@@ -107,7 +106,6 @@
 		53E3311126F574B600217197 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		53F3802526EB6CEA00D6B525 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		53F3802726EB6F6B00D6B525 /* NotifyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyService.swift; sourceTree = "<group>"; };
-		53F4D29D26C43C040020167C /* UserIntentFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIntentFlow.swift; sourceTree = "<group>"; };
 		53F4D29F26C43C690020167C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLibraryView.swift; sourceTree = "<group>"; };
 		6854C5E528D53C9500CE28A0 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -273,14 +271,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		53F4D29C26C43BED0020167C /* IntentFlow */ = {
-			isa = PBXGroup;
-			children = (
-				53F4D29D26C43C040020167C /* UserIntentFlow.swift */,
-			);
-			path = IntentFlow;
-			sourceTree = "<group>";
-		};
 		53F5E73B26C1C566005AED1D /* AppInstaller */ = {
 			isa = PBXGroup;
 			children = (
@@ -400,7 +390,6 @@
 				AA970FD228793A310099A5D0 /* PlayCoverRelease.entitlements */,
 				53D9DAF226C1849D0071959E /* PlayCoverError.swift */,
 				53F3802626EB6F5600D6B525 /* Services */,
-				53F4D29C26C43BED0020167C /* IntentFlow */,
 				53F4D29926C43A390020167C /* Model */,
 				53F5E74126C1D369005AED1D /* Utils */,
 				53F5E73E26C1C654005AED1D /* ViewModel */,
@@ -655,7 +644,6 @@
 				6E5C68BA289865C8008EC11B /* MainView.swift in Sources */,
 				28361D6028927CAC00B35EDB /* SaveGenshinUserData.swift in Sources */,
 				B1419FB628BA82EE000CB69F /* DiscordActivity.swift in Sources */,
-				53F4D29E26C43C040020167C /* UserIntentFlow.swift in Sources */,
 				6E66B0BF289DE6240099B907 /* StoreVM.swift in Sources */,
 				B6603E1328E2257800DEFA3F /* Uninstaller.swift in Sources */,
 				B6ABDA2A2971EEF700A46E80 /* ProgressVM.swift in Sources */,

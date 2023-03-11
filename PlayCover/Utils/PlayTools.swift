@@ -9,6 +9,7 @@ import injection
 // swiftlint:disable type_body_length
 // swiftlint:disable file_length
 // swiftlint:disable function_body_length
+// swiftlint:disable force_unwrapping
 
 class PlayTools {
     private static let frameworksURL = FileManager.default.homeDirectoryForCurrentUser
@@ -121,7 +122,7 @@ class PlayTools {
             if result {
                 do {
                     try installPluginInIPA(exec.deletingLastPathComponent())
-                    shell.signApp(exec)
+                    try Shell.signApp(exec)
                 } catch {
                     Log.shared.error(error)
                 }
@@ -148,7 +149,7 @@ class PlayTools {
         }
         try FileManager.default.copyItem(at: akInterface, to: bundleTarget)
         try bundleTarget.fixExecutable()
-        Shell.codesign(bundleTarget)
+        try Shell.signMacho(bundleTarget)
     }
 
     static func injectInIPA(_ exec: URL, payload: URL) throws {
@@ -197,7 +198,7 @@ class PlayTools {
 
                         try libraryTarget.fixExecutable()
                         try bundleTarget.fixExecutable()
-                        Shell.codesign(bundleTarget)
+                        try Shell.signMacho(bundleTarget)
                     } catch {
                         Log.shared.error(error)
                     }
@@ -223,7 +224,7 @@ class PlayTools {
                         try FileManager.default.removeItem(at: pluginUrl)
                     }
 
-                    shell.signApp(exec)
+                    try Shell.signApp(exec)
                 } catch {
                     Log.shared.error(error)
                 }
@@ -474,7 +475,7 @@ class PlayTools {
                                             offset: offset,
                                             commandSize: Int(dylibCommand.cmdsize),
                                             loadCommandString: dylibCommand.dylib.name)
-                if dylibName == playToolsPath.esc {
+                if dylibName == playToolsPath.path {
                     return true
                 }
             default:
@@ -555,8 +556,7 @@ class PlayTools {
 
 	static func fetchEntitlements(_ exec: URL) throws -> String {
         do {
-            return  try shell.sh("codesign --display --entitlements - --xml \(exec.path.esc)" +
-                            " | xmllint --format -", pipeStdErr: false)
+            return try Shell.run("/usr/bin/codesign", "-d", "--entitlements", "-", "--xml", exec.path)
         } catch {
             if error.localizedDescription.contains("Document is empty") {
                 // Empty entitlements

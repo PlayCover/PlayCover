@@ -23,6 +23,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     }
 
     @Published var apps: [StoreAppData] = []
+    @Published var searchText: String = ""
     @Published var filteredApps: [StoreAppData] = []
     @Published var sources: [SourceData] {
         didSet {
@@ -76,9 +77,9 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     func fetchApps() {
         filteredApps.removeAll()
         filteredApps = apps
-        if !uif.searchText.isEmpty {
+        if !searchText.isEmpty {
             filteredApps = filteredApps.filter({
-                $0.name.lowercased().contains(uif.searchText.lowercased())
+                $0.name.lowercased().contains(searchText.lowercased())
             })
         }
     }
@@ -147,22 +148,32 @@ class StoreVM: ObservableObject, @unchecked Sendable {
 
     func moveSourceUp(_ selected: inout Set<UUID>) {
         let selectedData = self.sources.filter({ selected.contains($0.id) })
-        var index = self.sources.firstIndex(of: selectedData.first!)! - 1
-        self.sources.removeAll(where: { selected.contains($0.id) })
-        if index < 0 {
-            index = 0
+
+        if let first = selectedData.first {
+            if var index = self.sources.firstIndex(of: first) {
+                index -= 1
+                self.sources.removeAll(where: { selected.contains($0.id) })
+                if index < 0 {
+                    index = 0
+                }
+                self.sources.insert(contentsOf: selectedData, at: index)
+            }
         }
-        self.sources.insert(contentsOf: selectedData, at: index)
     }
 
     func moveSourceDown(_ selected: inout Set<UUID>) {
         let selectedData = self.sources.filter({ selected.contains($0.id) })
-        var index = self.sources.firstIndex(of: selectedData.first!)! + 1
-        self.sources.removeAll(where: { selected.contains($0.id) })
-        if index > self.sources.endIndex {
-            index = self.sources.endIndex
+
+        if let first = selectedData.first {
+            if var index = self.sources.firstIndex(of: first) {
+                index += 1
+                self.sources.removeAll(where: { selected.contains($0.id) })
+                if index > self.sources.endIndex {
+                    index = self.sources.endIndex
+                }
+                self.sources.insert(contentsOf: selectedData, at: index)
+            }
         }
-        self.sources.insert(contentsOf: selectedData, at: index)
     }
 
     func appendSourceData(_ data: SourceData) {

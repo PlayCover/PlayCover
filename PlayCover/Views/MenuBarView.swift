@@ -32,17 +32,25 @@ struct PlayCoverHelpMenuView: Commands {
 
         CommandGroup(replacing: .help) {
             Button("menubar.documentation") {
-                NSWorkspace.shared.open(URL(string: "https://docs.playcover.io")!)
+                if let url = URL(string: "https://docs.playcover.io") {
+                    NSWorkspace.shared.open(url)
+                }
             }
             Divider()
             Button("menubar.website") {
-                NSWorkspace.shared.open(URL(string: "https://playcover.io")!)
+                if let url = URL(string: "https://playcover.io") {
+                    NSWorkspace.shared.open(url)
+                }
             }
             Button("menubar.github") {
-                NSWorkspace.shared.open(URL(string: "https://github.com/PlayCover/PlayCover/")!)
+                if let url = URL(string: "https://github.com/PlayCover/PlayCover/") {
+                    NSWorkspace.shared.open(url)
+                }
             }
             Button("menubar.discord") {
-                NSWorkspace.shared.open(URL(string: "https://discord.gg/PlayCover")!)
+                if let url = URL(string: "https://discord.gg/PlayCover") {
+                    NSWorkspace.shared.open(url)
+                }
             }
             #if DEBUG
             Divider()
@@ -67,9 +75,8 @@ struct PlayCoverViewMenuView: Commands {
                     } else {
                         await NSOpenPanel.selectIPA { result in
                             if case .success(let url) = result {
-                                uif.ipaUrl = url
                                 Task {
-                                    Installer.install(ipaUrl: uif.ipaUrl!,
+                                    Installer.install(ipaUrl: url,
                                                             export: true,
                                                             returnCompletion: { ipa in
                                         Task { @MainActor in

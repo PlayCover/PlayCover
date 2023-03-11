@@ -28,8 +28,9 @@ extension NSOpenPanel {
         panel.canChooseFiles = true
         panel.begin { result in
             if result == .OK {
-                let url = panel.urls.first
-                completion(.success(url!))
+                if let url = panel.urls.first {
+                    completion(.success(url))
+                }
             }
         }
     }
