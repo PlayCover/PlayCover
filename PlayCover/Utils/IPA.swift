@@ -56,11 +56,7 @@ public class IPA {
             .appendingEscapedPathComponent(name)
             .appendingPathExtension("ipa")
 
-        try Shell.run("usr/bin/cd", "\(payload.esc) && zip -r \(name.esc).ipa Payload")
-        try FileManager.default.moveItem(at: payload
-                                                .appendingEscapedPathComponent(name)
-                                                .appendingPathExtension("ipa"),
-                                         to: newIpa)
+        try Shell.run("usr/bin/zip", "-r", newIpa.path, payload.path)
 
         return newIpa
     }
