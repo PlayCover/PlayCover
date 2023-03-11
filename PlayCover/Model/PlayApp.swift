@@ -10,6 +10,7 @@ import IOKit.pwr_mgt
 class PlayApp: BaseApp {
     private static let library = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library")
     var displaySleepAssertionID: IOPMAssertionID?
+    public var isStarting = false
 
     var searchText: String {
         info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
@@ -17,6 +18,7 @@ class PlayApp: BaseApp {
 
     func launch() async {
         do {
+            isStarting = true
             if prohibitedToPlay {
                 clearAllCache()
                 throw PlayCoverError.appProhibited
@@ -51,6 +53,7 @@ class PlayApp: BaseApp {
                     runAppExec() // Splitting to reduce complexity
                 }
             }
+            isStarting = false
         } catch {
             Log.shared.error(error)
         }
