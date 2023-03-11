@@ -230,3 +230,6 @@
 "settings.picker.windowFixMethod.1" = "Alternate";
 "settings.picker.windowFix.help" = "Apply window fixes that may helps your apps display normally";
 "settings.picker.windowFixMethod.0" = "Normal";
+"preferences.popover.checking" = "Checking URL";
+"settings.toggle.introspection" = "Insert Introspection libraries";
+"settings.toggle.introspection.help" = "Add the system introspection libraries to the app. Known to fix issues with some apps not starting correctly";
