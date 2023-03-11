@@ -3,6 +3,8 @@
 //  PlayCover
 //
 
+// swiftlint:disable force_unwrapping
+
 import Foundation
 
 extension String {

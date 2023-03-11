@@ -382,6 +382,11 @@
 "playapp.clearPlayChain" = "Clear PlayChain Data";
 "alert.app.clearPlayChain" = "All PlayChain data will be erased. You may need to login to the app again. Do you wish to continue?";
 "button.Reload" = "Reload";
-"settings.toggle.windowExperimentalFix.help" = "Attempts to fix your app scene if you have problems with it";
-"settings.toggle.windowExperimentalFix" = "Fix window issues";
 "settings.highResolution" = "High resolution may cause crashing";
+"settings.picker.windowFix" = "Fix window display issues";
+"settings.picker.windowFixMethod.0" = "Normal";
+"settings.picker.windowFixMethod.1" = "Alternate";
+"settings.picker.windowFix.help" = "Apply window fixes that may helps your apps display normally";
+"preferences.popover.checking" = "Checking URL";
+"settings.toggle.introspection" = "Insert Introspection libraries";
+"settings.toggle.introspection.help" = "Add the system introspection libraries to the app. Known to fix issues with some apps not starting correctly";

@@ -5,52 +5,9 @@
 
 import Foundation
 
-let shell = Shell.self
-
 class Shell: ObservableObject {
-    static let shared = Shell()
-
     @discardableResult
-    static func sh(_ command: String, print: Bool = true, pipeStdErr: Bool = true) throws -> String {
-		let task = Process()
-		let pipe = Pipe()
-        let errPipe = Pipe()
-
-		task.standardOutput = pipe
-		if pipeStdErr { task.standardError = pipe } else {task.standardError = errPipe}
-		task.executableURL = URL(fileURLWithPath: "/bin/zsh")
-		task.arguments = ["-c", command]
-		try task.run()
-
-		let data = try pipe.fileHandleForReading.readToEnd() ?? Data()
-		let output = String(data: data, encoding: .utf8)!
-
-		if print {
-			Log.shared.log(output)
-		}
-
-		task.waitUntilExit()
-
-		let status = task.terminationStatus
-		if status != 0 {
-            if pipeStdErr {
-                throw output
-            } else {
-                let errOutput: String
-                do {
-                    let errData = try errPipe.fileHandleForReading.readToEnd() ?? Data()
-                    errOutput = String(data: errData, encoding: .utf8)!
-                } catch {
-                    errOutput = "Command '\(command)' failed to execute."
-                }
-                throw errOutput
-            }
-		}
-		return output
-	}
-
-    @discardableResult
-    internal static func shello(print: Bool = true, _ binary: String, _ args: String...) throws -> String {
+    static func run(print: Bool = true, _ binary: String, _ args: String...) throws -> String {
         let process = Process()
         let pipe = Pipe()
 
@@ -74,54 +31,7 @@ class Shell: ObservableObject {
         return String(decoding: output, as: UTF8.self)
     }
 
-    static func codesign(_ binary: URL) {
-        shell("/usr/bin/codesign -fs- \(binary.esc)")
-    }
-
-    static func quietUnzip(_ zip: URL, toUrl: URL) -> String {
-        return shell("unzip -oq \(zip.esc) -d \(toUrl.esc)")
-    }
-
-    static func unzip(_ zip: URL, toUrl: URL) {
-        shell("unzip \(zip.esc) -d \(toUrl.esc)")
-    }
-
-    static func zip(ipa: URL, name: String, payload: URL) throws {
-        shell("cd \(payload.esc) && zip -r \(name.esc).ipa Payload")
-        try FileManager.default
-            .moveItem(at: payload.appendingEscapedPathComponent(name).appendingPathExtension("ipa"), to: ipa)
-    }
-
-    static func signAppWith(_ exec: URL, entitlements: URL) {
-        shell(
-            "/usr/bin/codesign -fs- \(exec.deletingLastPathComponent().esc) --deep --entitlements \(entitlements.esc)")
-    }
-
-    static func signApp(_ exec: URL) {
-        shell("/usr/bin/codesign -fs- \(exec.deletingLastPathComponent().esc) --deep --preserve-metadata=entitlements")
-    }
-
-    static func lldb(_ url: URL, withTerminalWindow: Bool = false) {
-        Task(priority: .utility) {
-            var command = "/usr/bin/lldb -o run \(url.esc) -o exit"
-
-            if withTerminalWindow {
-                command = command.replacingOccurrences(of: "\\", with: "\\\\")
-                let osascript = """
-                    tell app "Terminal"
-                        reopen
-                        activate
-                        do script "\(command)"
-                    end tell
-                """
-                shell("/usr/bin/osascript -e '\(osascript)'", print: true)
-            } else {
-                shell(command, print: true)
-            }
-        }
-    }
-
-    static func sudosh(_ args: [String], _ argc: String) -> Bool {
+    static func runSu(_ args: [String], _ argc: String) -> Bool {
         let password = argc
         let passwordWithNewline = password + "\n"
         let sudo = Process()
@@ -148,37 +58,61 @@ class Shell: ObservableObject {
                 }
             }
         }
-        // Write the password
-        sudoIn.fileHandleForWriting.write(passwordWithNewline.data(using: .utf8)!)
+        if let data = passwordWithNewline.data(using: .utf8) {
+            // Write the password
+            sudoIn.fileHandleForWriting.write(data)
 
-        // Close the file handle after writing the password; avoids a
-        // hang for incorrect password.
-        try? sudoIn.fileHandleForWriting.close()
+            // Close the file handle after writing the password; avoids a
+            // hang for incorrect password.
+            try? sudoIn.fileHandleForWriting.close()
+        }
 
         // Make sure we don't disappear while output is still being produced.
         sudo.waitUntilExit()
         return result
     }
 
-    @discardableResult
-    static func shell(_ command: String, print: Bool = false) -> String {
-        let task = Process()
-        let pipe = Pipe()
+    static func signMacho(_ binary: URL) throws {
+        try run("/usr/bin/codesign", "-fs-", binary.path)
+    }
 
-        task.standardOutput = pipe
-        task.standardError = pipe
-        task.arguments = ["-c", command]
-        task.launchPath = "/bin/zsh"
-        task.launch()
+    static func signAppWith(_ exec: URL, entitlements: URL) throws {
+        try run("/usr/bin/codesign", "-fs-", exec.deletingLastPathComponent().path,
+                "--deep", "--entitlements", entitlements.path)
+    }
 
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data: data, encoding: .utf8)!
+    static func signApp(_ exec: URL) throws {
+        try run("/usr/bin/codesign", "-fs-", exec.deletingLastPathComponent().path,
+                "--deep", "--preserve-metadata=entitlements")
+    }
 
-        if print {
-            Log.shared.log(output)
+    static func lldb(_ url: URL, withTerminalWindow: Bool = false) throws {
+        Task(priority: .utility) {
+            if withTerminalWindow {
+                let command = "/usr/bin/lldb -o run \(url.esc) -o exit"
+                    .replacingOccurrences(of: "\\", with: "\\\\")
+                let osascript = """
+                    tell app "Terminal"
+                        reopen
+                        activate
+                        do script "\(command)"
+                    end tell
+                """
+                let appleScript = NSAppleScript(source: osascript)
+                var possibleError: NSDictionary?
+                appleScript?.executeAndReturnError(&possibleError)
+
+                if let error = possibleError {
+                    for key in error.allKeys {
+                        if let key = key as? String {
+                            throw error.value(forKey: key).debugDescription
+                        }
+                    }
+                }
+            } else {
+                try run("/usr/bin/lldb", "-o", "run", url.path, "-o", "exit")
+            }
         }
-
-        return output
     }
 }
 
