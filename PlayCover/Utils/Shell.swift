@@ -11,49 +11,6 @@ class Shell: ObservableObject {
     static let shared = Shell()
 
     @discardableResult
-    static func sh(_ command: String, print: Bool = true, pipeStdErr: Bool = true) throws -> String {
-		let task = Process()
-		let pipe = Pipe()
-        let errPipe = Pipe()
-
-		task.standardOutput = pipe
-		if pipeStdErr { task.standardError = pipe } else {task.standardError = errPipe}
-		task.executableURL = URL(fileURLWithPath: "/bin/zsh")
-		task.arguments = ["-c", command]
-		try task.run()
-
-		let data = try pipe.fileHandleForReading.readToEnd() ?? Data()
-        if let output = String(data: data, encoding: .utf8) {
-            if print {
-                Log.shared.log(output)
-            }
-
-            task.waitUntilExit()
-
-            let status = task.terminationStatus
-            if status != 0 {
-                if pipeStdErr {
-                    throw output
-                } else {
-                    var errOutput = ""
-                    do {
-                        let errData = try errPipe.fileHandleForReading.readToEnd() ?? Data()
-                        if let errString = String(data: errData, encoding: .utf8) {
-                            errOutput = errString
-                        }
-                    } catch {
-                        errOutput = "Command '\(command)' failed to execute."
-                    }
-                    throw errOutput
-                }
-            }
-            return output
-        } else {
-            return ""
-        }
-	}
-
-    @discardableResult
     internal static func shello(print: Bool = true, _ binary: String, _ args: String...) throws -> String {
         let process = Process()
         let pipe = Pipe()

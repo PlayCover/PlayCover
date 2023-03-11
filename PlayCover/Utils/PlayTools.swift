@@ -556,8 +556,8 @@ class PlayTools {
 
 	static func fetchEntitlements(_ exec: URL) throws -> String {
         do {
-            return  try shell.sh("codesign --display --entitlements - --xml \(exec.path.esc)" +
-                            " | xmllint --format -", pipeStdErr: false)
+            return try shell.shello("/usr/bin/codesign", "--display --entitlements - --xml \(exec.path.esc)"
+                                    + " | xmllint --format -")
         } catch {
             if error.localizedDescription.contains("Document is empty") {
                 // Empty entitlements
