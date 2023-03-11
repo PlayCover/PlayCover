@@ -9,13 +9,16 @@ import IOKit.pwr_mgt
 
 class PlayApp: BaseApp {
     private static let library = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library")
+    var displaySleepAssertionID: IOPMAssertionID?
+    public var isStarting = false
 
     var searchText: String {
         info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
     }
 
-    func launch() {
+    func launch() async {
         do {
+            isStarting = true
             if prohibitedToPlay {
                 clearAllCache()
                 throw PlayCoverError.appProhibited
@@ -50,6 +53,7 @@ class PlayApp: BaseApp {
                     runAppExec() // Splitting to reduce complexity
                 }
             }
+            isStarting = false
         } catch {
             Log.shared.error(error)
         }
@@ -73,30 +77,46 @@ class PlayApp: BaseApp {
             configuration: config,
             completionHandler: { runningApp, error in
                 guard error == nil else { return }
-                if self.settings.settings.disableTimeout {
-                    // Yeet into a thread
-                    Task {
-                        debugPrint("Disabling timeout...")
-                        let reason = "PlayCover: " + self.name + " disabled screen timeout" as CFString
-                        var assertionID: IOPMAssertionID = 0
-                        var success = IOPMAssertionCreateWithName(
-                            kIOPMAssertionTypeNoDisplaySleep as CFString,
-                            IOPMAssertionLevel(kIOPMAssertionLevelOn),
-                            reason,
-                            &assertionID)
-                        if success == kIOReturnSuccess {
-                            while true { // Run a loop until the app closes
-                                try await Task.sleep(nanoseconds: 10000000000) // Sleep for 10 seconds
-                                guard
-                                    let isFinish = runningApp?.isTerminated,
-                                    !isFinish else { break }
-                            }
-                            success = IOPMAssertionRelease(assertionID)
-                            debugPrint("Enabling timeout...")
+                // Run a thread loop in the background to handle background tasks
+                Task(priority: .background) {
+                    while !(runningApp?.isTerminated ?? true) {
+                        // Check if the app is in the foreground
+                        if runningApp!.isActive {
+                            // If the app is in the foreground, disable the display sleep
+                            self.disableTimeOut()
+                        } else {
+                            // If the app is not in the foreground, enable the display sleep
+                            self.enableTimeOut()
                         }
+                        sleep(1)
                     }
                 }
             })
+    }
+
+    func disableTimeOut() {
+        if displaySleepAssertionID != nil {
+            return
+        }
+        // Disable display sleep
+        let reason = "PlayCover: \(info.bundleIdentifier) is disabling sleep" as CFString
+        var assertionID: IOPMAssertionID = 0
+        let result = IOPMAssertionCreateWithName(
+            kIOPMAssertionTypeNoDisplaySleep as CFString,
+            IOPMAssertionLevel(kIOPMAssertionLevelOn),
+            reason,
+            &assertionID)
+        if result == kIOReturnSuccess {
+            displaySleepAssertionID = assertionID
+        }
+    }
+
+    func enableTimeOut() {
+        // Enable display sleep
+        if let assertionID = displaySleepAssertionID {
+            IOPMAssertionRelease(assertionID)
+            displaySleepAssertionID = nil
+        }
     }
 
     var name: String {
