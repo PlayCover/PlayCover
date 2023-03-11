@@ -79,16 +79,18 @@ class PlayApp: BaseApp {
                 guard error == nil else { return }
                 // Run a thread loop in the background to handle background tasks
                 Task(priority: .background) {
-                    while !(runningApp?.isTerminated ?? true) {
-                        // Check if the app is in the foreground
-                        if runningApp!.isActive {
-                            // If the app is in the foreground, disable the display sleep
-                            self.disableTimeOut()
-                        } else {
-                            // If the app is not in the foreground, enable the display sleep
-                            self.enableTimeOut()
+                    if let runningApp = runningApp {
+                        while !(runningApp.isTerminated) {
+                            // Check if the app is in the foreground
+                            if runningApp.isActive {
+                                // If the app is in the foreground, disable the display sleep
+                                self.disableTimeOut()
+                            } else {
+                                // If the app is not in the foreground, enable the display sleep
+                                self.enableTimeOut()
+                            }
+                            sleep(1)
                         }
-                        sleep(1)
                     }
                 }
             })
