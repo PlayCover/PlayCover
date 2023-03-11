@@ -382,9 +382,11 @@
 "preferences.toggle.removePlayChain" = "Eliminar PlayChain";
 "preferences.popover.duplicate" = "Enlace duplicado";
 "alert.app.clearPlayChain" = "Se borrarán todos los datos de PlayChain. Es posible que tenga que volver a iniciar sesión en la aplicación. ¿Desea continuar?";
-"settings.toggle.windowExperimentalFix" = "Resolución de problemas de despliegue";
 "settings.highResolution" = "La alta resolución puede provocar fallos";
 "settings.picker.windowFixMethod.0" = "Normal";
-"settings.picker.windowFix" = "Fix window display issues";
-"settings.picker.windowFix.help" = "Apply window fixes that may helps your apps display normally";
-"settings.picker.windowFixMethod.1" = "Alternate";
+"settings.picker.windowFix" = "Solucionar problemas de visualización en ventana";
+"settings.picker.windowFix.help" = "Aplicar correcciones de ventanas que pueden ayudar a que tus aplicaciones se muestren con normalidad";
+"settings.picker.windowFixMethod.1" = "Alternativo";
+"preferences.popover.checking" = "Comprobando la URL";
+"settings.toggle.introspection" = "Insertar bibliotecas de introspección";
+"settings.toggle.introspection.help" = "Añade las bibliotecas de introspección del sistema a la aplicación. Se sabe que soluciona problemas con algunas aplicaciones que no se inician correctamente";
