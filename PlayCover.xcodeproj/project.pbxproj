@@ -29,6 +29,7 @@
 		6E06193628B3C4090012C771 /* StoreGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193528B3C4090012C771 /* StoreGenshinAccountView.swift */; };
 		6E06193828B3C4240012C771 /* ChangeGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193728B3C4240012C771 /* ChangeGenshinAccountView.swift */; };
 		6E06193A28B3C42E0012C771 /* DeleteGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193928B3C42E0012C771 /* DeleteGenshinAccountView.swift */; };
+		6E187F6A29C11AE5007FDAD1 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 6E187F6929C11AE5007FDAD1 /* ZIPFoundation */; };
 		6E21233128F65F7600B4D75D /* GenshinUserDataURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E21233028F65F7600B4D75D /* GenshinUserDataURLs.swift */; };
 		6E25096F297F5032004D754C /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E25096E297F5032004D754C /* FileExtensions.swift */; };
 		6E250971297F5281004D754C /* SigningSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E250970297F5281004D754C /* SigningSetupView.swift */; };
@@ -197,6 +198,7 @@
 				AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */,
 				68E48B952957046D00C39879 /* DownloadManager in Frameworks */,
 				B17FD03C28C70C2100B1D4CA /* CoreUI.framework in Frameworks */,
+				6E187F6A29C11AE5007FDAD1 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,6 +455,7 @@
 				68E48B9E29570A0400C39879 /* DataCache */,
 				68E48BA129570A2B00C39879 /* CachedAsyncImage */,
 				68E48B99295708C800C39879 /* Injection */,
+				6E187F6929C11AE5007FDAD1 /* ZIPFoundation */,
 			);
 			productName = PlayCover;
 			productReference = 8783CFF726B8C52D00171041 /* PlayCover.app */;
@@ -507,6 +510,7 @@
 				68E48B9D29570A0400C39879 /* XCRemoteSwiftPackageReference "DataCache" */,
 				68E48BA029570A2B00C39879 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				68E48B98295708C800C39879 /* XCRemoteSwiftPackageReference "inject" */,
+				6E187F6829C11AE5007FDAD1 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 			);
 			productRefGroup = 8783CFF826B8C52D00171041 /* Products */;
 			projectDirPath = "";
@@ -984,6 +988,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		6E187F6829C11AE5007FDAD1 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.9;
+			};
+		};
 		AA818CB3287ABEC3000BEE9D /* XCRemoteSwiftPackageReference "Yams" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jpsim/Yams.git";
@@ -1020,6 +1032,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 68E48BA029570A2B00C39879 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
 			productName = CachedAsyncImage;
+		};
+		6E187F6929C11AE5007FDAD1 /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6E187F6829C11AE5007FDAD1 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
 		};
 		AA818CB4287ABEC3000BEE9D /* Yams */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import ZIPFoundation
 
 public class IPA {
     public let url: URL
@@ -36,11 +37,12 @@ public class IPA {
 
     public func unzip() throws -> BaseApp {
         if let workDir = tmpDir {
-            if try Shell.run("/usr/bin/unzip",
-                             "-oq", url.path, "-d", workDir.path) == "" {
+            do {
+                try FileManager.default.createDirectory(at: workDir, withIntermediateDirectories: true)
+                try FileManager.default.unzipItem(at: url, to: workDir)
                 try removeQuarantine(workDir)
                 return try Installer.fromIPA(detectingAppNameInFolder: workDir.appendingPathComponent("Payload"))
-            } else {
+            } catch {
                 throw PlayCoverError.appCorrupted
             }
         } else {
@@ -56,7 +58,7 @@ public class IPA {
             .appendingEscapedPathComponent(name)
             .appendingPathExtension("ipa")
 
-        try Shell.run("usr/bin/zip", "-r", newIpa.path, payload.path)
+        try FileManager.default.zipItem(at: payload, to: newIpa)
 
         return newIpa
     }
