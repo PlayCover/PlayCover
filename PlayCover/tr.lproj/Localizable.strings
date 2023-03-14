@@ -218,11 +218,11 @@
 "playapp.download.differentChecksum" = "Different checksums! Do you want to continue to install?";
 "playapp.download.differentChecksumDesc" = "Expected \"%@\", got \"%@\"";
 "playapp.progress.canceled" = "Canceled";
-"playapp.importIPA" = "Import IPA";
-"preferences.toggle.removePlayChain" = "Remove PlayChain";
+"playapp.importIPA" = "IPA İndir";
+"preferences.toggle.removePlayChain" = "Playchain'i Kaldır";
 "alert.app.clearPlayChain" = "All PlayChain data will be erased. You may need to login to the app again. Do you wish to continue?";
 "playapp.clearPlayChain" = "Clear PlayChain Data";
-"ipaLibrary.noNetworkConnection.required" = "IPA Library requires internet connection";
+"ipaLibrary.noNetworkConnection.required" = "IPA Kütüphanesi için internet gereklidir";
 "preferences.popover.duplicate" = "Duplicate Link";
 "button.Reload" = "Reload";
 "settings.highResolution" = "High resolution may cause crashing";
