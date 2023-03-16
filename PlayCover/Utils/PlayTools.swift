@@ -89,7 +89,7 @@ class PlayTools {
     static func installInIPA(_ exec: URL) throws {
         stripBinary(exec)
         Inject.injectMachO(machoPath: exec.path,
-                           cmdType: LC_Type.LOAD_DYLIB,
+                           cmdType: .loadDylib,
                            backup: false,
                            injectPath: playToolsPath.path,
                            finishHandle: { result in
@@ -129,7 +129,7 @@ class PlayTools {
     static func injectInIPA(_ exec: URL, payload: URL) throws {
         stripBinary(exec)
         Inject.injectMachO(machoPath: exec.path,
-                           cmdType: LC_Type.LOAD_DYLIB,
+                           cmdType: .loadDylib,
                            backup: false,
                            injectPath: "@executable_path/Frameworks/PlayTools.dylib",
                            finishHandle: { result in
@@ -183,7 +183,7 @@ class PlayTools {
 
     static func removeFromApp(_ exec: URL) {
         Inject.removeMachO(machoPath: exec.path,
-                           cmdType: LC_Type.LOAD_DYLIB,
+                           cmdType: .loadDylib,
                            backup: false,
                            injectPath: playToolsPath.path,
                            finishHandle: { result in
