@@ -62,23 +62,23 @@ class Installer {
                 let machos = try resolveValidMachOs(app)
                 app.validMachOs = machos
 
-                if export {
-                    InstallVM.shared.next(.playtools, 0.55, 0.85)
-                    try PlayTools.injectInIPA(app.executable, payload: app.url)
-                } else if installPlayTools {
-                    InstallVM.shared.next(.playtools, 0.55, 0.85)
-                    try PlayTools.installInIPA(app.executable)
-                }
+                InstallVM.shared.next(.playtools, 0.55, 0.85)
 
                 for macho in machos {
-                    if try PlayTools.isMachoEncrypted(atURL: macho) {
+                    if try Macho.isMachoEncrypted(atURL: macho) {
                         throw PlayCoverError.appEncrypted
                     }
 
                     if !export {
-                        try PlayTools.convertMacho(macho)
+                        try Macho.convertMacho(macho)
                         try Shell.signMacho(macho)
                     }
+                }
+
+                if export {
+                    try PlayTools.injectInIPA(app.executable, payload: app.url)
+                } else if installPlayTools {
+                    try PlayTools.installInIPA(app.executable)
                 }
 
                 if !export {
