@@ -172,6 +172,8 @@ struct GraphicsView: View {
     @State var customWidth = 1920
     @State var customHeight = 1080
 
+    @State var showResolutionWarning = false
+
     static var number: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .none
@@ -194,6 +196,18 @@ struct GraphicsView: View {
                         Text("iPhone 14 Pro Max | A16 | 6GB").tag("iPhone15,3")
                     }
                     .frame(width: 250)
+                }
+                HStack {
+                    if showResolutionWarning {
+                        Spacer()
+                        let highResIcon = Image(systemName: "exclamationmark.triangle")
+                        let warning = NSLocalizedString("settings.highResolution", comment: "")
+
+                        Text("\(highResIcon) \(warning)")
+                            .font(.caption)
+                    } else {
+                        Spacer()
+                    }
                 }
                 HStack {
                     Text("settings.picker.adaptiveRes")
@@ -268,6 +282,11 @@ struct GraphicsView: View {
                     }
                 }
                 HStack {
+                    if #available(macOS 13.2, *) {
+                        Toggle("settings.toggle.windowExperimentalFix", isOn: $settings.settings.inverseScreenValues)
+                            .help("settings.toggle.windowExperimentalFix.help")
+                        Spacer()
+                    }
                     Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.settings.disableTimeout)
                         .help("settings.toggle.disableDisplaySleep.help")
                     Spacer()
@@ -321,12 +340,14 @@ struct GraphicsView: View {
             height = customHeight
         // Adaptive resolution = Off
         default:
-            width = 1920
             height = 1080
+            width = 1920
         }
 
         settings.settings.windowWidth = width
         settings.settings.windowHeight = height
+
+        showResolutionWarning = width*height >= 2621440 // Tends to crash when the number of pixels exceeds that
     }
 
     func getWidthFromAspectRatio(_ height: Int) -> Int {
