@@ -31,47 +31,6 @@ class Shell: ObservableObject {
         return String(decoding: output, as: UTF8.self)
     }
 
-    static func runSu(_ args: [String], _ argc: String) -> Bool {
-        let password = argc
-        let passwordWithNewline = password + "\n"
-        let sudo = Process()
-        sudo.launchPath = "/usr/bin/sudo"
-        sudo.arguments = args
-        let sudoIn = Pipe()
-        let sudoOut = Pipe()
-        sudo.standardOutput = sudoOut
-        sudo.standardError = sudoOut
-        sudo.standardInput = sudoIn
-        sudo.launch()
-
-        var result = true
-
-        // Show the output as it is produced
-        sudoOut.fileHandleForReading.readabilityHandler = { fileHandle in
-            let data = fileHandle.availableData
-            if data.count == 0 { return }
-
-            if let out = String(bytes: data, encoding: .utf8) {
-                Log.shared.log(out)
-                if out.contains("password") {
-                    result = false
-                }
-            }
-        }
-        if let data = passwordWithNewline.data(using: .utf8) {
-            // Write the password
-            sudoIn.fileHandleForWriting.write(data)
-
-            // Close the file handle after writing the password; avoids a
-            // hang for incorrect password.
-            try? sudoIn.fileHandleForWriting.close()
-        }
-
-        // Make sure we don't disappear while output is still being produced.
-        sudo.waitUntilExit()
-        return result
-    }
-
     static func signMacho(_ binary: URL) throws {
         try run("/usr/bin/codesign", "-fs-", binary.path)
     }

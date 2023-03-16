@@ -10,14 +10,6 @@ class SystemConfig {
 
     static let isPlaySignActive: Bool = isSIPDisabled() && isRunningAMFIEnabled()
 
-    static func enablePlaySign(_ argc: String) -> Bool {
-        Shell.runSu([
-            "-S",
-            "/usr/sbin/nvram",
-            "boot-args=amfi_get_out_of_my_way=0x1 ipc_control_port_options=0"
-        ], argc)
-    }
-
     static func isSIPDisabled() -> Bool {
         do {
             let check = try Shell.run("/usr/bin/csrutil", "status")
