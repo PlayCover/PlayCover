@@ -382,6 +382,11 @@
 "ipaLibrary.noNetworkConnection.required" = "IPAライブラリにはインターネット接続が必要です";
 "preferences.popover.duplicate" = "リンクを複製";
 "alert.app.clearPlayChain" = "すべての PlayChain データが消去されます。 アプリへの再ログインが必要になる場合があります。 続けますか?";
-"settings.toggle.windowExperimentalFix.help" = "問題がある場合は、アプリのシーンを修正しようとします";
-"settings.toggle.windowExperimentalFix" = "Fix window issues";
 "settings.highResolution" = "High resolution may cause crashing";
+"settings.picker.windowFix" = "Fix window display issues";
+"settings.picker.windowFix.help" = "Apply window fixes that may helps your apps display normally";
+"settings.picker.windowFixMethod.0" = "Normal";
+"settings.picker.windowFixMethod.1" = "Alternate";
+"preferences.popover.checking" = "Checking URL";
+"settings.toggle.introspection" = "Insert Introspection libraries";
+"settings.toggle.introspection.help" = "Add the system introspection libraries to the app. Known to fix issues with some apps not starting correctly";

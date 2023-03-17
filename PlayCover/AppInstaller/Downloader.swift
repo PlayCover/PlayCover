@@ -36,16 +36,15 @@ class DownloadApp {
     let downloader = DownloadManager.shared
 
     func start() {
-        if !NetworkVM.isConnectedToNetwork() { return }
         if installVM.inProgress {
             Log.shared.error(PlayCoverError.waitInstallation)
         } else {
-            if let warningMessage = warning {
+            if let warningMessage = warning, let app = app {
                 let alert = NSAlert()
                 alert.messageText = NSLocalizedString(warningMessage, comment: "")
                 alert.informativeText = String(
                     format: NSLocalizedString("ipaLibrary.alert.download", comment: ""),
-                    arguments: [app!.name]
+                    arguments: [app.name]
                 )
                 alert.alertStyle = .warning
                 alert.addButton(withTitle: NSLocalizedString("button.Yes", comment: ""))
@@ -58,7 +57,7 @@ class DownloadApp {
 
             if let url = url, url.isFileURL {
                 proceedInstall(url, deleteIPA: false)
-            } else {
+            } else if NetworkVM.urlAccessible(url: url, popup: true) {
                 proceedDownload()
             }
         }
@@ -110,29 +109,32 @@ class DownloadApp {
                                                  in: .userDomainMask,
                                                  appropriateFor: URL(fileURLWithPath: "/Users"),
                                                  create: true)
-            downloader.addDownload(url: url!,
-                                   destinationURL: tmpDir!,
-                                   onProgress: { progress in
-                // progress is a Float
-                self.downloadVM.progress = Double(progress)
-            }, onCompletion: { error, fileURL in
-                self.downloadVM.next(.integrity, 0.7, 0.95)
 
-                guard error == nil else {
-                    self.downloadVM.next(.failed, 0.95, 1.0)
-                    self.downloadVM.storeAppData = nil
-                    return Log.shared.error(error!)
-                }
+            if let tmpDir = tmpDir, let url = url {
+                downloader.addDownload(url: url,
+                                       destinationURL: tmpDir,
+                                       onProgress: { progress in
+                    // progress is a Float
+                    self.downloadVM.progress = Double(progress)
+                }, onCompletion: { error, fileURL in
+                    self.downloadVM.next(.integrity, 0.7, 0.95)
 
-                self.verifyChecksum(checksum: self.downloadVM.storeAppData?.checksum, file: fileURL) { completing in
-                    self.downloadVM.next(completing ? .finish : .failed, 0.95, 1.0)
-                    if completing {
-                        Task { @MainActor in
-                            self.proceedInstall(fileURL)
+                    if let error = error {
+                        self.downloadVM.next(.failed, 0.95, 1.0)
+                        self.downloadVM.storeAppData = nil
+                        return Log.shared.error(error)
+                    }
+
+                    self.verifyChecksum(checksum: self.downloadVM.storeAppData?.checksum, file: fileURL) { completing in
+                        self.downloadVM.next(completing ? .finish : .failed, 0.95, 1.0)
+                        if completing {
+                            Task { @MainActor in
+                                self.proceedInstall(fileURL)
+                            }
                         }
                     }
-                }
-            })
+                })
+            }
         } catch {
             self.downloadVM.next(.failed, 0.95, 1.0)
 
@@ -145,8 +147,7 @@ class DownloadApp {
 
     private func proceedInstall(_ url: URL?, deleteIPA: Bool = true) {
         if let url = url {
-            uif.ipaUrl = url
-            Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
+            Installer.install(ipaUrl: url, export: false, returnCompletion: { _ in
                 Task { @MainActor in
                     if deleteIPA {
                         FileManager.default.delete(at: url)

@@ -118,8 +118,9 @@ struct SignSetupView: View {
             Divider()
             HStack {
                 Button("button.Help") {
-                    NSWorkspace.shared.open(
-                        URL(string: "https://docs.playcover.io/getting_started/troubleshoot_login")!)
+                    if let url = URL(string: "https://docs.playcover.io/getting_started/troubleshoot_login") {
+                        NSWorkspace.shared.open(url)
+                    }
                 }
                 Button("button.Dismiss", role: .cancel) {
                     isSigningSetupShown = false

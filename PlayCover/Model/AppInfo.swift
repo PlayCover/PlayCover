@@ -124,7 +124,7 @@ public class AppInfo {
 
     var minimumOSVersion: String {
         get {
-            self[string: "MinimumOSVersion"]!
+            self[string: "MinimumOSVersion"] ?? ""
         }
         set {
             self[string: "MinimumOSVersion"] = newValue
@@ -133,30 +133,30 @@ public class AppInfo {
 
     var bundleName: String {
         if self[string: "CFBundleName"] == nil || self[string: "CFBundleName"] == "" {
-            return self[string: "CFBundleDisplayName"]!
+            return self[string: "CFBundleDisplayName"] ?? ""
         } else {
-            return self[string: "CFBundleName"]!
+            return self[string: "CFBundleName"] ?? ""
         }
     }
 
     var displayName: String {
         if self[string: "CFBundleDisplayName"] == nil || self[string: "CFBundleDisplayName"] == "" {
-            return self[string: "CFBundleName"]!
+            return self[string: "CFBundleName"] ?? ""
         } else {
-            return self[string: "CFBundleDisplayName"]!
+            return self[string: "CFBundleDisplayName"] ?? ""
         }
     }
 
     var bundleIdentifier: String {
-        self[string: "CFBundleIdentifier"]!
+        self[string: "CFBundleIdentifier"] ?? ""
     }
 
     var executableName: String {
-        self[string: "CFBundleExecutable"]!
+        self[string: "CFBundleExecutable"] ?? ""
     }
 
     var bundleVersion: String {
-        self[string: "CFBundleShortVersionString"]!
+        self[string: "CFBundleShortVersionString"] ?? ""
     }
 
     var primaryIconName: String {
@@ -186,18 +186,11 @@ public class AppInfo {
         return "AppIcon"
     }
 
-    var supportsTrueScreenSizeOnMac: Bool {
-        get {
-            self[bool: "UISupportsTrueScreenSizeOnMac"]!
-        }
-        set {
-            self[bool: "UISupportsTrueScreenSizeOnMac"] = newValue
-        }
-    }
-
     func assert(minimumVersion: Double) {
-        if Double(minimumOSVersion)! > 11.0 {
-            minimumOSVersion = Int(minimumVersion).description
+        if let double = Double(minimumOSVersion) {
+            if double > 11.0 {
+                minimumOSVersion = Int(minimumVersion).description
+            }
         }
     }
 }

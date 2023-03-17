@@ -91,14 +91,14 @@ class Entitlements {
         sandboxProfile.append(contentsOf: PlayRules.buildRules(rules: rules.allow ?? [], bundleID: bundleID))
 
         if app.settings.settings.bypass {
-            for file in PlayRules.buildRules(rules: rules.blacklist ?? [], bundleID: bundleID) {
+            for file in PlayRules.buildRules(rules: rules.blocklist ?? [], bundleID: bundleID) {
                 sandboxProfile.append(
                     """
                      (deny file* file-read* file-read-metadata file-ioctl (literal "\(file)"))
                     """)
             }
 
-            for file in PlayRules.buildRules(rules: rules.whitelist ?? [], bundleID: bundleID) {
+            for file in PlayRules.buildRules(rules: rules.greenlist ?? [], bundleID: bundleID) {
                 sandboxProfile.append(
                     """
                      (allow file* file-read* file-read-metadata file-ioctl (literal "\(file)"))
