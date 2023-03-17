@@ -150,9 +150,6 @@ struct KeymappingView: View {
                     Toggle("settings.toggle.km", isOn: $settings.settings.keymapping)
                         .help("settings.toggle.km.help")
                     Spacer()
-                    Toggle("settings.toggle.mm", isOn: $settings.settings.mouseMapping)
-                        .help("settings.toggle.mm.help")
-                        .disabled(!settings.settings.keymapping)
                 }
                 HStack {
                     Text(String(
