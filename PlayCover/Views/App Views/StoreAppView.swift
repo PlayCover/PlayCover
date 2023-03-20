@@ -12,9 +12,9 @@ import CachedAsyncImage
 struct StoreAppView: View {
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
-    @Binding var selected: StoreAppData?
+    @Binding var selected: SourceAppsData?
 
-    @State var app: StoreAppData
+    @State var app: SourceAppsData
     @State var isList: Bool
     @State var observation: NSKeyValueObservation?
 
@@ -70,9 +70,9 @@ struct StoreAppView: View {
 struct StoreAppConditionalView: View {
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
-    @Binding var selected: StoreAppData?
+    @Binding var selected: SourceAppsData?
 
-    @State var app: StoreAppData
+    @State var app: SourceAppsData
     @State var itunesResponse: ITunesResponse?
     @State var onlineIcon: URL?
     @State var localIcon: NSImage?

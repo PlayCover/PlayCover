@@ -41,7 +41,7 @@ struct IPASourceSettings: View {
     var body: some View {
         Form {
             HStack {
-                List(storeVM.sources, id: \.id, selection: $selected) { source in
+                List(storeVM.sourcesList, id: \.id, selection: $selected) { source in
                     SourceView(source: source)
                 }
                 .listStyle(.bordered(alternatesRowBackgrounds: true))
@@ -79,12 +79,14 @@ struct IPASourceSettings: View {
                     .disabled(!selectedNotEmpty)
                     Spacer()
                         .frame(height: 20)
-                    Button(action: {
-                        storeVM.resolveSources()
-                    }, label: {
+                    Button {
+                        Task {
+                            await storeVM.resolveSources()
+                        }
+                    } label: {
                         Text("playapp.refreshSources")
                             .frame(width: 130)
-                    })
+                    }
                 }
             }
         }
@@ -217,19 +219,19 @@ struct AddSourceView: View {
                         .font(.system(.subheadline))
                 }
                 Spacer()
-                Button(action: {
+                Button {
                     addSourceSheet.toggle()
-                }, label: {
+                } label: {
                     Text("button.Cancel")
-                })
-                Button(action: {
-                    if let sourceURL = newSourceURL {
-                        storeVM.appendSourceData(SourceData(source: sourceURL.absoluteString))
+                }
+                Button {
+                    if let sourceURL = newSourceURL?.absoluteString {
+                        storeVM.addSource(SourceData(source: sourceURL))
                         addSourceSheet.toggle()
                     }
-                }, label: {
+                } label: {
                     Text("button.OK")
-                })
+                }
                 .tint(.accentColor)
                 .keyboardShortcut(.defaultAction)
                 .disabled(![.valid, .duplicate].contains(sourceValidationState))
@@ -265,6 +267,8 @@ struct AddSourceView: View {
                     url = URL(string: "https://" + url.absoluteString) ?? url
                 }
 
+                newSourceURL = url
+
                 URLSession.shared.dataTask(with: URLRequest(url: url)) { jsonData, response, error in
                     guard error == nil,
                           ((response as? HTTPURLResponse)?.statusCode ?? 200) == 200,
@@ -276,14 +280,11 @@ struct AddSourceView: View {
                     }
 
                     do {
-                        let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self,
-                                                                            from: jsonData)
-                        if data.count > 0 {
-                            Task { @MainActor in
-                                sourceValidationState = storeVM.sources.filter({
-                                    $0.source == source
-                                }).isEmpty ? .valid : .duplicate
-                            }
+                        let _: SourceJSON = try JSONDecoder().decode(SourceJSON.self, from: jsonData)
+                        Task { @MainActor in
+                            sourceValidationState = storeVM.sourcesList.filter {
+                                $0.source == source
+                            }.isEmpty ? .valid : .duplicate
                         }
                     } catch {
                         Task { @MainActor in

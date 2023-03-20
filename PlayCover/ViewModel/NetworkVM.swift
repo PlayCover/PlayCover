@@ -7,6 +7,7 @@
 
 import SystemConfiguration
 import Foundation
+import Semaphore
 
 class NetworkVM {
     static func isConnectedToNetwork() -> Bool {
@@ -64,7 +65,7 @@ class NetworkVM {
                 return false
             }
 
-            let semaphore = DispatchSemaphore(value: 0)
+            let semaphore = AsyncSemaphore(value: 0)
 
             var avaliable = false
 
@@ -84,7 +85,9 @@ class NetworkVM {
                 }
             }.resume()
 
-            semaphore.wait()
+            Task {
+                await semaphore.wait()
+            }
 
             return avaliable
         } else {

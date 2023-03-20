@@ -22,10 +22,10 @@ import DownloadManager
 
 class DownloadApp {
     let url: URL?
-    let app: StoreAppData?
+    let app: SourceAppsData?
     let warning: String?
 
-    init(url: URL?, app: StoreAppData?, warning: String?) {
+    init(url: URL?, app: SourceAppsData?, warning: String?) {
         self.url = url
         self.app = app
         self.warning = warning
@@ -153,7 +153,9 @@ class DownloadApp {
                         FileManager.default.delete(at: url)
                     }
                     AppsVM.shared.fetchApps()
-                    StoreVM.shared.resolveSources()
+                    Task {
+                        await StoreVM.shared.resolveSources()
+                    }
                     NotifyService.shared.notify(
                         NSLocalizedString("notification.appInstalled", comment: ""),
                         NSLocalizedString("notification.appInstalled.message", comment: ""))

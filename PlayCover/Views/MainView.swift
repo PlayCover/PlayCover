@@ -35,7 +35,8 @@ struct MainView: View {
                                        tag: 1, selection: self.$selectedView) {
                             Label("sidebar.appLibrary", systemImage: "square.grid.2x2")
                         }
-                        NavigationLink(destination: IPALibraryView(selectedBackgroundColor: $selectedBackgroundColor,
+                        NavigationLink(destination: IPALibraryView(storeVM: store,
+                                                                   selectedBackgroundColor: $selectedBackgroundColor,
                                                                    selectedTextColor: $selectedTextColor)
                             .environmentObject(store),
                                        tag: 2, selection: self.$selectedView) {
