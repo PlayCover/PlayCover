@@ -33,6 +33,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     //
     func addSource(_ source: SourceData) {
         sourcesList.append(source)
+        sourcesData.removeAll()
         Task {
             await resolveSources()
         }
@@ -42,6 +43,10 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     func deleteSource(_ selectedSource: inout Set<UUID>) {
         sourcesList.removeAll {
             selectedSource.contains($0.id)
+        }
+        sourcesData.removeAll()
+        Task {
+            await resolveSources()
         }
     }
 

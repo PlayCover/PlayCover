@@ -50,6 +50,7 @@ struct IPALibraryView: View {
                                         currentSubview = AnyView(IPASourceView(
                                             selectedBackgroundColor: $selectedBackgroundColor,
                                             selectedTextColor: $selectedTextColor,
+                                            sourceName: source.name,
                                             sourceApps: source.data)
                                         )
                                         showingSubview = true
@@ -67,10 +68,14 @@ struct IPALibraryView: View {
                                                 .frame(width: 60, height: 60)
                                                 .cornerRadius(15)
                                                 .shadow(radius: 1)
-
                                             }
                                             Text(source.name)
+                                                .lineLimit(1)
+                                                .multilineTextAlignment(.center)
+                                                .padding(.horizontal, 4)
+                                                .padding(.vertical, 2)
                                         }
+                                        .frame(width: 130, height: 130)
                                     }
                                     .buttonStyle(.plain)
                                 }
@@ -96,45 +101,43 @@ struct IPALibraryView: View {
                 }
             }
             .navigationTitle("sidebar.ipaLibrary")
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button {
-                        storeVM.sourcesData.removeAll()
-                        Task {
-                            await storeVM.resolveSources()
-                        }
-                    } label: {
-                        Image(systemName: "arrow.clockwise")
-                            .help("playapp.refreshSources")
+        }
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    currentSubview = AnyView(EmptyView())
+                    showingSubview = false
+                    storeVM.sourcesData.removeAll()
+                    Task {
+                        await storeVM.resolveSources()
                     }
-                    .disabled(storeVM.sourcesList.isEmpty)
+                } label: {
+                    Image(systemName: "arrow.clockwise")
+                        .help("playapp.refreshSources")
                 }
-                ToolbarItem(placement: .primaryAction) {
-                    Spacer()
+                .disabled(storeVM.sourcesList.isEmpty)
+            }
+            ToolbarItem(placement: .primaryAction) {
+                                    Spacer()
+                                }
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    addSourcePresented.toggle()
+                } label: {
+                    Image(systemName: "plus")
+                        .help("playapp.addSource")
                 }
-                ToolbarItem(placement: .primaryAction) {
-                    Button {
-                        addSourcePresented.toggle()
-                    } label: {
-                        Image(systemName: "plus")
-                            .help("playapp.addSource")
-                    }
-                }
             }
-//            .onAppear {
-//                storeVM.searchText = ""
-//                storeVM.fetchApps()
-//            }
-            .sheet(isPresented: $addSourcePresented) {
-                AddSourceView(addSourceSheet: $addSourcePresented)
-                    .environmentObject(storeVM)
-            }
-            .onChange(of: URLObserved.type) {_ in
-                addSourcePresented = URLObserved.type == .source
-            }
-            .onAppear {
-                addSourcePresented = URLObserved.type == .source
-            }
+        }
+        .sheet(isPresented: $addSourcePresented) {
+            AddSourceView(addSourceSheet: $addSourcePresented)
+                .environmentObject(storeVM)
+        }
+        .onChange(of: URLObserved.type) {_ in
+            addSourcePresented = URLObserved.type == .source
+        }
+        .onAppear {
+            addSourcePresented = URLObserved.type == .source
         }
     }
 }
@@ -143,18 +146,20 @@ struct IPASourceView: View {
 
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
-    @State var sourceApps: [SourceAppsData]?
+    @State var sourceName: String
+    @State var sourceApps: [SourceAppsData]
 
     @State private var gridLayout = [GridItem(.adaptive(minimum: 130, maximum: .infinity))]
     @State private var isList = UserDefaults.standard.bool(forKey: "IPALibraryView")
     @State private var selected: SourceAppsData?
     @State private var searchString = ""
+    @State private var filteredApps: [SourceAppsData] = []
 
     var body: some View {
         ScrollView {
             if !isList {
                 LazyVGrid(columns: gridLayout, alignment: .center) {
-                    ForEach(sourceApps ?? [], id: \.bundleID) { app in
+                    ForEach(searchString == "" ? sourceApps : filteredApps, id: \.bundleID) { app in
                         StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                      selectedTextColor: $selectedTextColor,
                                      selected: $selected,
@@ -166,7 +171,7 @@ struct IPASourceView: View {
                 Spacer()
             } else {
                 VStack {
-                    ForEach(sourceApps ?? [], id: \.bundleID) { app in
+                    ForEach(searchString == "" ? sourceApps : filteredApps, id: \.bundleID) { app in
                         StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                      selectedTextColor: $selectedTextColor,
                                      selected: $selected,
@@ -180,14 +185,16 @@ struct IPASourceView: View {
                 .padding()
             }
         }
+        .navigationTitle(sourceName)
         .onTapGesture {
             selected = nil
         }
         .searchable(text: $searchString, placement: .toolbar)
-//        .onChange(of: searchString) { value in
-//            storeVM.searchText = value
-//            storeVM.fetchApps()
-//        }
+        .onChange(of: searchString) { value in
+            filteredApps = sourceApps.filter {
+                $0.name.lowercased().contains(value.lowercased())
+            }
+        }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Picker("", selection: $isList) {
@@ -195,11 +202,12 @@ struct IPASourceView: View {
                         .tag(false)
                     Image(systemName: "list.bullet")
                         .tag(true)
-                }.pickerStyle(.segmented)
+                }
+                .pickerStyle(.segmented)
             }
         }
-        .onChange(of: isList, perform: { value in
+        .onChange(of: isList) { value in
             UserDefaults.standard.set(value, forKey: "IPALibraryView")
-        })
+        }
     }
 }
