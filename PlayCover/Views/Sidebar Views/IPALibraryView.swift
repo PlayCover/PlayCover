@@ -151,6 +151,7 @@ struct IPASourceView: View {
 
     @State private var gridLayout = [GridItem(.adaptive(minimum: 130, maximum: .infinity))]
     @State private var isList = UserDefaults.standard.bool(forKey: "IPALibraryView")
+    @State private var sortAlphabetical = false
     @State private var selected: SourceAppsData?
     @State private var searchString = ""
     @State private var filteredApps: [SourceAppsData] = []
@@ -197,6 +198,9 @@ struct IPASourceView: View {
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
+                Toggle("A", isOn: $sortAlphabetical)
+            }
+            ToolbarItem(placement: .primaryAction) {
                 Picker("", selection: $isList) {
                     Image(systemName: "square.grid.2x2")
                         .tag(false)
@@ -208,6 +212,13 @@ struct IPASourceView: View {
         }
         .onChange(of: isList) { value in
             UserDefaults.standard.set(value, forKey: "IPALibraryView")
+        }
+        .onChange(of: sortAlphabetical) { value in
+            if value {
+                sourceApps.sort(by: { $0.name.lowercased() < $1.name.lowercased() })
+            } else {
+                sourceApps.sort(by: { $0.hashValue < $1.hashValue })
+            }
         }
     }
 }
