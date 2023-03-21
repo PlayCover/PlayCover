@@ -181,6 +181,9 @@ struct AddSourceView: View {
     @Binding var addSourceSheet: Bool
     @EnvironmentObject var storeVM: StoreVM
 
+    @State var checkTask: Task<Void, Error>?
+    @State var urlSessionTask: URLSessionTask?
+
     var body: some View {
         VStack {
             TextField(text: $newSource, label: {Text("preferences.textfield.url")})
@@ -238,6 +241,13 @@ struct AddSourceView: View {
         .padding()
         .frame(width: 400, height: 100)
         .onChange(of: newSource) { source in
+            if let task = checkTask, !task.isCancelled {
+                if let session = urlSessionTask {
+                    session.cancel()
+                }
+
+                task.cancel()
+            }
             validateSource(source)
         }
         .onAppear {
@@ -259,13 +269,15 @@ struct AddSourceView: View {
 
         sourceValidationState = .empty
 
-        Task {
+        checkTask = Task {
             if var url = URL(string: source) {
                 if url.scheme == nil {
                     url = URL(string: "https://" + url.absoluteString) ?? url
                 }
 
-                URLSession.shared.dataTask(with: URLRequest(url: url)) { jsonData, response, error in
+                newSourceURL = url
+
+                urlSessionTask = URLSession.shared.dataTask(with: URLRequest(url: url)) { jsonData, response, error in
                     guard error == nil,
                           ((response as? HTTPURLResponse)?.statusCode ?? 200) == 200,
                           let jsonData = jsonData else {
@@ -290,7 +302,9 @@ struct AddSourceView: View {
                             self.sourceValidationState = .badjson
                         }
                     }
-                }.resume()
+                }
+
+                urlSessionTask?.resume()
 
                 sourceValidationState = .checking
 
