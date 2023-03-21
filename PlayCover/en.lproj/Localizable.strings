@@ -30,6 +30,7 @@
 "ipaLibrary.version.newer" = "This version is newer than the version you have installed";
 "ipaLibrary.alert.download" = "Are you sure you want to download this version of %@?";
 "ipaLibrary.download" = "Download";
+"ipaLibrary.AlphabeticalSort" = "Sort source apps alphabetically";
 
 "preferences.button.checkForUpdates" = "Check for Updates";
 "preferences.tab.updates" = "Updates";

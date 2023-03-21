@@ -151,16 +151,19 @@ struct IPASourceView: View {
 
     @State private var gridLayout = [GridItem(.adaptive(minimum: 130, maximum: .infinity))]
     @State private var isList = UserDefaults.standard.bool(forKey: "IPALibraryView")
-    @State private var sortAlphabetical = false
+    @State private var sortAlphabetical = UserDefaults.standard.bool(forKey: "IPASourceAlphabetically")
     @State private var selected: SourceAppsData?
     @State private var searchString = ""
     @State private var filteredApps: [SourceAppsData] = []
 
     var body: some View {
+    let sortedApps = sourceApps.sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
         ScrollView {
             if !isList {
                 LazyVGrid(columns: gridLayout, alignment: .center) {
-                    ForEach(searchString == "" ? sourceApps : filteredApps, id: \.bundleID) { app in
+                    ForEach(searchString == ""
+                            ? sortAlphabetical ? sortedApps : sourceApps
+                            : filteredApps, id: \.bundleID) { app in
                         StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                      selectedTextColor: $selectedTextColor,
                                      selected: $selected,
@@ -172,7 +175,9 @@ struct IPASourceView: View {
                 Spacer()
             } else {
                 VStack {
-                    ForEach(searchString == "" ? sourceApps : filteredApps, id: \.bundleID) { app in
+                    ForEach(searchString == ""
+                            ? sortAlphabetical ? sortedApps : sourceApps
+                            : filteredApps, id: \.bundleID) { app in
                         StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                      selectedTextColor: $selectedTextColor,
                                      selected: $selected,
@@ -192,13 +197,20 @@ struct IPASourceView: View {
         }
         .searchable(text: $searchString, placement: .toolbar)
         .onChange(of: searchString) { value in
-            filteredApps = sourceApps.filter {
-                $0.name.lowercased().contains(value.lowercased())
+            if sortAlphabetical {
+                filteredApps = sortedApps.filter {
+                    $0.name.lowercased().contains(value.lowercased())
+                }
+            } else {
+                filteredApps = sourceApps.filter {
+                    $0.name.lowercased().contains(value.lowercased())
+                }
             }
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Toggle("A", isOn: $sortAlphabetical)
+                    .help("ipaLibrary.AlphabeticalSort")
             }
             ToolbarItem(placement: .primaryAction) {
                 Picker("", selection: $isList) {
@@ -214,11 +226,7 @@ struct IPASourceView: View {
             UserDefaults.standard.set(value, forKey: "IPALibraryView")
         }
         .onChange(of: sortAlphabetical) { value in
-            if value {
-                sourceApps.sort(by: { $0.name.lowercased() < $1.name.lowercased() })
-            } else {
-                sourceApps.sort(by: { $0.hashValue < $1.hashValue })
-            }
+            UserDefaults.standard.set(value, forKey: "IPASourceAlphabetically")
         }
     }
 }
