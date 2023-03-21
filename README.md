@@ -117,6 +117,7 @@ These open source libraries were used to create this project.
 * [DownloadManager](https://github.com/shapedbyiris/download-manager)
 * [DataCache](https://github.com/huynguyencong/DataCache)
 * [SwiftUI CachedAsyncImage](https://github.com/lorenzofiamingo/swiftui-cached-async-image)
+* [Semaphore](https://github.com/groue/Semaphore)
 
 * Thanks to @iVoider for creating such a great project!
 
