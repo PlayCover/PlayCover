@@ -100,6 +100,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
         }
     }
 
+    //
     @MainActor func resolveSources() async {
         let semaphore = AsyncSemaphore(value: 0)
         guard NetworkVM.isConnectedToNetwork() else { return }
@@ -156,8 +157,21 @@ class StoreVM: ObservableObject, @unchecked Sendable {
             debugPrint("SourceJSON from \(url) Fetched")
             return (jsonResult, .valid)
         } catch {
-            debugPrint("Error decoding data from URL: \(url): \(error)")
-            return (nil, .badjson)
+            do {
+                let (data, response) = try await URLSession.shared.data(
+                    for: URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
+                )
+                guard (response as? HTTPURLResponse)?.statusCode == 200 else { return (nil, .badurl) }
+                let jsonResult: [SourceAppsData] = try JSONDecoder().decode([SourceAppsData].self, from: data)
+                let sourceHost = URLComponents(url: url, resolvingAgainstBaseURL: false)?.host
+                let newJson = SourceJSON(name: sourceHost ?? url.absoluteString,
+                                         logo: "NoLogo",
+                                         data: jsonResult)
+                return (newJson, .valid)
+            } catch {
+                debugPrint("Error decoding data from URL: \(url): \(error)")
+                return (nil, .badjson)
+            }
         }
     }
 }

@@ -287,8 +287,19 @@ struct AddSourceView: View {
                             }.isEmpty ? .valid : .duplicate
                         }
                     } catch {
-                        Task { @MainActor in
-                            self.sourceValidationState = .badjson
+                        do {
+                            let data: [SourceAppsData] = try JSONDecoder().decode([SourceAppsData].self, from: jsonData)
+                            if data.count > 0 {
+                                Task { @MainActor in
+                                    sourceValidationState = storeVM.sourcesList.filter {
+                                        $0.source == source
+                                    }.isEmpty ? .valid : .duplicate
+                                }
+                            }
+                        } catch {
+                            Task { @MainActor in
+                                self.sourceValidationState = .badjson
+                            }
                         }
                     }
                 }.resume()
