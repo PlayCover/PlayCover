@@ -265,9 +265,7 @@ struct AddSourceView: View {
     }
 
     func validateSource(_ source: String) {
-        guard NetworkVM.isConnectedToNetwork() else {
-            return
-        }
+        guard NetworkVM.isConnectedToNetwork() else { return }
 
         sourceValidationState = .empty
 
@@ -278,7 +276,6 @@ struct AddSourceView: View {
                 }
 
                 newSourceURL = url
-
                 urlSessionTask = URLSession.shared.dataTask(with: URLRequest(url: url)) { jsonData, response, error in
                     guard error == nil,
                           ((response as? HTTPURLResponse)?.statusCode ?? 200) == 200,
@@ -315,12 +312,9 @@ struct AddSourceView: View {
                 }
 
                 urlSessionTask?.resume()
-
                 sourceValidationState = .checking
-
                 return
             }
-
             Task { @MainActor in
                 self.sourceValidationState = .badurl
             }
