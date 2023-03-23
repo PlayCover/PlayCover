@@ -20,6 +20,8 @@ struct IPALibraryView: View {
     @State private var addSourcePresented = false
     @State private var currentSubview = AnyView(EmptyView())
     @State private var showingSubview = false
+    @State private var searchString = ""
+    @State private var filteredSources: [SourceJSON] = []
 
     var body: some View {
         StackNavigationView(currentSubview: $currentSubview,
@@ -45,7 +47,9 @@ struct IPALibraryView: View {
                     } else {
                         ScrollView {
                             LazyVGrid(columns: gridLayout, alignment: .center) {
-                                ForEach(storeVM.sourcesData, id: \.hashValue) { source in
+                                ForEach(searchString == ""
+                                        ? storeVM.sourcesData
+                                        : filteredSources, id: \.hashValue) { source in
                                     Button {
                                         currentSubview = AnyView(IPASourceView(
                                             selectedBackgroundColor: $selectedBackgroundColor,
@@ -101,37 +105,44 @@ struct IPALibraryView: View {
                 }
             }
             .navigationTitle("sidebar.ipaLibrary")
-        }
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    currentSubview = AnyView(EmptyView())
-                    showingSubview = false
-                    storeVM.sourcesData.removeAll()
-                    Task {
-                        await storeVM.resolveSources()
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button {
+                        storeVM.sourcesData.removeAll()
+                        Task {
+                            await storeVM.resolveSources()
+                        }
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                            .help("playapp.refreshSources")
                     }
-                } label: {
-                    Image(systemName: "arrow.clockwise")
-                        .help("playapp.refreshSources")
+                    .disabled(storeVM.sourcesList.isEmpty)
                 }
-                .disabled(storeVM.sourcesList.isEmpty)
-            }
-            ToolbarItem(placement: .primaryAction) {
-                                    Spacer()
-                                }
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    addSourcePresented.toggle()
-                } label: {
-                    Image(systemName: "plus")
-                        .help("playapp.addSource")
+                ToolbarItem(placement: .primaryAction) {
+                                        Spacer()
+                                    }
+                ToolbarItem(placement: .primaryAction) {
+                    Button {
+                        addSourcePresented.toggle()
+                    } label: {
+                        Image(systemName: "plus")
+                            .help("playapp.addSource")
+                    }
+                }
+                ToolbarItem(placement: .primaryAction) {
+                    StackNavigationSearchable(searchTitle: "textfield.searchSources",
+                                              searchString: $searchString)
                 }
             }
         }
         .sheet(isPresented: $addSourcePresented) {
             AddSourceView(addSourceSheet: $addSourcePresented)
                 .environmentObject(storeVM)
+        }
+        .onChange(of: searchString) { value in
+            filteredSources = storeVM.sourcesData.filter {
+                $0.name.lowercased().contains(value.lowercased())
+            }
         }
         .onChange(of: URLObserved.type) {_ in
             addSourcePresented = URLObserved.type == .source
@@ -195,18 +206,6 @@ struct IPASourceView: View {
         .onTapGesture {
             selected = nil
         }
-        .searchable(text: $searchString, placement: .toolbar)
-        .onChange(of: searchString) { value in
-            if sortAlphabetical {
-                filteredApps = sortedApps.filter {
-                    $0.name.lowercased().contains(value.lowercased())
-                }
-            } else {
-                filteredApps = sourceApps.filter {
-                    $0.name.lowercased().contains(value.lowercased())
-                }
-            }
-        }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Toggle("A", isOn: $sortAlphabetical)
@@ -221,12 +220,27 @@ struct IPASourceView: View {
                 }
                 .pickerStyle(.segmented)
             }
+            ToolbarItem(placement: .primaryAction) {
+                StackNavigationSearchable(searchTitle: "textfield.searchApps",
+                                          searchString: $searchString)
+            }
         }
         .onChange(of: isList) { value in
             UserDefaults.standard.set(value, forKey: "IPALibraryView")
         }
         .onChange(of: sortAlphabetical) { value in
             UserDefaults.standard.set(value, forKey: "IPASourceAlphabetically")
+        }
+        .onChange(of: searchString) { value in
+            if sortAlphabetical {
+                filteredApps = sortedApps.filter {
+                    $0.name.lowercased().contains(value.lowercased())
+                }
+            } else {
+                filteredApps = sourceApps.filter {
+                    $0.name.lowercased().contains(value.lowercased())
+                }
+            }
         }
     }
 }

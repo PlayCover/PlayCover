@@ -88,3 +88,24 @@ struct StackNavigationView<RootContent>: View where RootContent: View {
         }
     }
 }
+
+struct StackNavigationSearchable: View {
+    @State var searchTitle: LocalizedStringKey
+    @Binding var searchString: String
+    var body: some View {
+        RoundedRectangle(cornerRadius: 5)
+            .stroke(.gray.opacity(0.50), lineWidth: 0.25)
+            .background(.clear)
+            .frame(width: 300, height: 27.5)
+            .overlay {
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                    TextField(searchTitle, text: $searchString)
+                        .textFieldStyle(.plain)
+                }
+                .foregroundColor(.gray)
+                .font(.body)
+                .padding(.horizontal, 7.5)
+            }
+    }
+}

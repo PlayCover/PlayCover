@@ -109,8 +109,12 @@ class StoreVM: ObservableObject, @unchecked Sendable {
                 sourcesList[index].status = .checking
                 let (sourceJson, sourceState) = await getSourceData(sourceLink: sourcesList[index].source)
                 sourcesList[index].status = sourceState
-                if let json = sourceJson {
-                    sourcesData.append(json)
+                if sourceState == .valid {
+                    if let json = sourceJson {
+                        sourcesData.append(json)
+                        semaphore.signal()
+                    }
+                } else {
                     semaphore.signal()
                 }
                 await semaphore.wait()
@@ -152,7 +156,9 @@ class StoreVM: ObservableObject, @unchecked Sendable {
             let (data, response) = try await URLSession.shared.data(
                 for: URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
             )
-            guard (response as? HTTPURLResponse)?.statusCode == 200 else { return (nil, .badurl) }
+            if !url.isFileURL {
+                guard (response as? HTTPURLResponse)?.statusCode == 200 else { return (nil, .badurl) }
+            }
             let jsonResult: SourceJSON = try JSONDecoder().decode(SourceJSON.self, from: data)
             debugPrint("SourceJSON from \(url) Fetched")
             return (jsonResult, .valid)
@@ -161,10 +167,11 @@ class StoreVM: ObservableObject, @unchecked Sendable {
                 let (data, response) = try await URLSession.shared.data(
                     for: URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
                 )
-                guard (response as? HTTPURLResponse)?.statusCode == 200 else { return (nil, .badurl) }
+                if !url.isFileURL {
+                    guard (response as? HTTPURLResponse)?.statusCode == 200 else { return (nil, .badurl) }
+                }
                 let jsonResult: [SourceAppsData] = try JSONDecoder().decode([SourceAppsData].self, from: data)
-                let sourceHost = URLComponents(url: url, resolvingAgainstBaseURL: false)?.host
-                let newJson = SourceJSON(name: sourceHost ?? url.absoluteString,
+                let newJson = SourceJSON(name: url.isFileURL ? "localhost" : url.host ?? url.absoluteString,
                                          logo: "NoLogo",
                                          data: jsonResult)
                 return (newJson, .valid)
