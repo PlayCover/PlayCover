@@ -89,11 +89,8 @@ class NetworkVM {
                 }
             }
         }.resume()
-        
-        Task {
-          await semaphore.wait()
-         }
 
+        semaphore.wait()
         return (finalURL, avaliable)
     }
 }
