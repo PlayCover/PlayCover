@@ -104,8 +104,13 @@ struct StoreAppConditionalView: View {
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                 } else {
-                                    ProgressView()
-                                        .progressViewStyle(.circular)
+                                    Rectangle()
+                                         .fill(.regularMaterial)
+                                         .overlay {
+                                             ProgressView()
+                                                 .progressViewStyle(.circular)
+                                                 .controlSize(.small)
+                                         }
                                 }
                             }
                         }
@@ -146,8 +151,12 @@ struct StoreAppConditionalView: View {
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                 } else {
-                                    ProgressView()
-                                        .progressViewStyle(.circular)
+                                    Rectangle()
+                                         .fill(.regularMaterial)
+                                         .overlay {
+                                             ProgressView()
+                                                 .progressViewStyle(.circular)
+                                         }
                                 }
                             }
                         }
