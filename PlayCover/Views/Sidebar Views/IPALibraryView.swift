@@ -66,8 +66,12 @@ struct IPALibraryView: View {
                                                         .resizable()
                                                         .aspectRatio(contentMode: .fit)
                                                 } placeholder: {
-                                                    ProgressView()
-                                                        .progressViewStyle(.circular)
+                                                    Rectangle()
+                                                         .fill(.regularMaterial)
+                                                         .overlay {
+                                                             ProgressView()
+                                                                 .progressViewStyle(.circular)
+                                                         }
                                                 }
                                                 .frame(width: 60, height: 60)
                                                 .cornerRadius(15)
