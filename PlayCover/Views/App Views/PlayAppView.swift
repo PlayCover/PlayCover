@@ -238,9 +238,13 @@ struct PlayAppConditionalView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                         } else {
-                            ProgressView()
-                                .progressViewStyle(.circular)
-                                .frame(width: 60, height: 60)
+                            Rectangle()
+                                 .fill(.regularMaterial)
+                                 .overlay {
+                                     ProgressView()
+                                         .progressViewStyle(.circular)
+                                         .controlSize(.small)
+                                 }
                         }
                     }
                     .frame(width: 30, height: 30)
@@ -277,8 +281,12 @@ struct PlayAppConditionalView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                         } else {
-                            ProgressView()
-                                .progressViewStyle(.circular)
+                            Rectangle()
+                                 .fill(.regularMaterial)
+                                 .overlay {
+                                     ProgressView()
+                                         .progressViewStyle(.circular)
+                                 }
                         }
                     }
                     .cornerRadius(15)
