@@ -30,17 +30,32 @@ struct MainView: View {
             NavigationView {
                 GeometryReader { sidebarGeom in
                     List {
-                        NavigationLink(destination: AppLibraryView(selectedBackgroundColor: $selectedBackgroundColor,
-                                                                   selectedTextColor: $selectedTextColor),
-                                       tag: 1, selection: self.$selectedView) {
+                        NavigationLink(tag: 1, selection: $selectedView) {
+                            AppLibraryView(selectedBackgroundColor: $selectedBackgroundColor,
+                                                                       selectedTextColor: $selectedTextColor)
+                        } label: {
                             Label("sidebar.appLibrary", systemImage: "square.grid.2x2")
                         }
-                        NavigationLink(destination: IPALibraryView(storeVM: store,
-                                                                   selectedBackgroundColor: $selectedBackgroundColor,
-                                                                   selectedTextColor: $selectedTextColor)
-                            .environmentObject(store),
-                                       tag: 2, selection: self.$selectedView) {
+                        NavigationLink(tag: 2, selection: $selectedView) {
+                            IPALibraryView(storeVM: store,
+                                           selectedBackgroundColor: $selectedBackgroundColor,
+                                           selectedTextColor: $selectedTextColor)
+                            .environmentObject(store)
+                        } label: {
                             Label("sidebar.ipaLibrary", systemImage: "arrow.down.circle")
+                        }
+                        ForEach(store.sourcesData, id: \.hashValue) { source in
+                            NavigationLink {
+                                IPASourceView(selectedBackgroundColor: $selectedBackgroundColor,
+                                              selectedTextColor: $selectedTextColor,
+                                              sourceName: source.name,
+                                              sourceApps: source.data)
+                            } label: {
+                                Label(source.name, systemImage: "folder")
+                                    .font(.caption)
+                                    .padding(.leading)
+                            }
+
                         }
                     }
                     .onChange(of: sidebarGeom.size) { newSize in
