@@ -39,7 +39,7 @@ struct PlayAppView: View {
                 }
                 // Launch the app from a separate thread (allow us to Sayori it if needed)
                 Task(priority: .userInitiated) {
-                    await app.launch()
+                    if !app.isStarting { await app.launch() }
                 }
             })
             .simultaneousGesture(TapGesture().onEnded {

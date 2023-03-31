@@ -213,9 +213,11 @@ class KeyCoverPassword {
         }
 
         // Store the master key in macOS keychain
-        let status = SecItemAdd(query as CFDictionary, nil)
-        if status != errSecSuccess {
-            print("Error storing master key in keychain: \(status)")
+        Task(priority: .userInitiated) {
+            let status = SecItemAdd(query as CFDictionary, nil)
+            if status != errSecSuccess {
+                print("Error storing master key in keychain: \(status)")
+            }
         }
 
         KeyCover.shared.keyCoverPlainTextKey = key
@@ -259,9 +261,11 @@ class KeyCoverPassword {
                                     kSecAttrService as String: tag,
                                     kSecAttrAccount as String: tag]
 
-        let status = SecItemDelete(query as CFDictionary)
-        if status != errSecSuccess {
-            print("Error removing master key from keychain: \(status)")
+        Task(priority: .userInitiated) {
+            let status = SecItemDelete(query as CFDictionary)
+            if status != errSecSuccess {
+                print("Error removing master key from keychain: \(status)")
+            }
         }
 
         KeyCoverPreferences.shared.keyCoverEnabled = .disabled
