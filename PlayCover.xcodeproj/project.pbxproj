@@ -176,7 +176,6 @@
 		AA970FD228793A310099A5D0 /* PlayCoverRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayCoverRelease.entitlements; sourceTree = "<group>"; };
 		AB00EB5129A7BF17006F3225 /* KeyCover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCover.swift; sourceTree = "<group>"; };
 		AB6F21EA299B7FA20078ADEC /* URLHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHandler.swift; sourceTree = "<group>"; };
-		ABDAD80329892C5C00DC164F /* KeyCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCover.swift; sourceTree = "<group>"; };
 		ABDAD80529893CF900DC164F /* KeyCoverSetupViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCoverSetupViews.swift; sourceTree = "<group>"; };
 		ABDAD80929893EA300DC164F /* KeyCoverSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCoverSettings.swift; sourceTree = "<group>"; };
 		ABDAD80B298A1E3E00DC164F /* KeyCoverViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCoverViews.swift; sourceTree = "<group>"; };

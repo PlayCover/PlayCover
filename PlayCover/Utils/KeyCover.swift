@@ -15,7 +15,7 @@ struct KeyCover {
 
     // This is only exposed at runtime
     var keyCoverPlainTextKey: String? = KeyCoverPreferences.shared.keyCoverEnabled == .selfGeneratedPassword
-    ? KeyCoverMaster.shared.getMasterKey() : nil
+    ? KeyCoverPassword.shared.getKeyCoverPassword() : nil
 
     func isKeyCoverEnabled() -> Bool {
         return KeyCoverPreferences.shared.keyCoverEnabled != .disabled
@@ -86,7 +86,7 @@ class KeyCoverObservable: ObservableObject {
 
     @Published var isKeyCoverUnlockingPromptShown = KeyCoverPreferences.shared.keyCoverEnabled == .selfGeneratedPassword
     ? false : KeyCoverPreferences.shared.keyCoverEnabled == .disabled
-    ? false : KeyCoverPreferences.shared.promptForMasterPasswordAtLaunch
+    ? false : KeyCoverPreferences.shared.promptForKeyCoverPasswordAtLaunch
 
     func update() {
         keyCoverEnabled = KeyCover.shared.isKeyCoverEnabled()
@@ -110,7 +110,7 @@ struct KeyCoverKey {
     }
 
     func encryptKeyFolder() throws {
-        if KeyCover.shared.keyCoverPlainTextKey != nil {
+        if let plainTextKey = KeyCover.shared.keyCoverPlainTextKey {
             // zip up the key folder
             // make sure to only compress the key folder, not the entire path to it
             let source = keyFolderPath.appendingPathComponent(appBundleID)
@@ -129,7 +129,7 @@ struct KeyCoverKey {
             task2.arguments = ["enc", "-aes-256-cbc", "-A",
                                 "-in", destination.path,
                                 "-out", encryptedKeyFile.path,
-                                "-k", KeyCover.shared.keyCoverPlainTextKey!]
+                                "-k", plainTextKey]
             task2.launch()
             task2.waitUntilExit()
 
@@ -146,13 +146,13 @@ struct KeyCoverKey {
     }
 
     func decryptKeyFolder() throws {
-        if KeyCover.shared.keyCoverPlainTextKey != nil {
+        if let plainTextKey = KeyCover.shared.keyCoverPlainTextKey {
             // decrypt the zip file
             let task = Process()
             task.launchPath = "/usr/bin/openssl"
             task.arguments = ["enc", "-aes-256-cbc", "-A", "-d", "-in", encryptedKeyFile.path, "-out",
                               keyFolderPath.appendingPathComponent("\(appBundleID).zip").path,
-                              "-k", KeyCover.shared.keyCoverPlainTextKey!]
+                              "-k", plainTextKey]
             task.launch()
             task.waitUntilExit()
 
@@ -186,12 +186,12 @@ struct KeyCoverKey {
     }
 }
 
-class KeyCoverMaster {
-    static let shared = KeyCoverMaster()
+class KeyCoverPassword {
+    static let shared = KeyCoverPassword()
 
     let tag = "io.playcover.masterkey"
 
-    func setMasterKey(_ key: String) {
+    func setKeyCoverPassword(_ key: String) {
         // swiftlint: disable force_unwrapping
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                     kSecAttrService as String: tag,
@@ -200,7 +200,7 @@ class KeyCoverMaster {
         // swiftlint: enable force_unwrapping
         // thank you apple very cool
         // Get the key
-        let oldKey = getMasterKey()
+        let oldKey = getKeyCoverPassword()
         // if it is not nil, then we need to decrypt all the keychains
         if oldKey != nil {
             KeyCover.shared.keyCoverPlainTextKey = oldKey
@@ -230,7 +230,7 @@ class KeyCoverMaster {
         }
     }
 
-    func getMasterKey() -> String? {
+    func getKeyCoverPassword() -> String? {
         // Get the master key from macOS keychain
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                     kSecAttrService as String: tag,
@@ -248,7 +248,7 @@ class KeyCoverMaster {
         return nil
     }
 
-    func removeMasterKey() {
+    func removeKeyCoverPassword() {
         // Decrypt all key folders
         for chain in KeyCover.shared.listKeychains() where chain.chainEncryptionStatus {
                 try? chain.decryptKeyFolder()
@@ -272,7 +272,7 @@ class KeyCoverMaster {
         }
     }
 
-    func forceResetMasterKey() {
+    func forceResetKeyCoverPassword() {
         // If a key is in memory, don't do anything (prevent accidental deletion)
         if KeyCover.shared.keyCoverPlainTextKey != nil {
             return
@@ -300,13 +300,14 @@ class KeyCoverMaster {
         }
     }
 
-    func validateMasterKey(_ key: String) -> Bool {
-        return key == getMasterKey()
+    func validatePassword(_ key: String) -> Bool {
+        return key == getKeyCoverPassword()
     }
 
-    func generateMasterKey() -> String {
+    func generateVerySecurePassword() -> String {
+        // oh my god
         let length = 32
         let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+"
-        return String((0..<length).map { _ in letters.randomElement()! })
+        return String((0..<length).map { _ in letters.randomElement() ?? "." })
     }
 }

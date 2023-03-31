@@ -32,8 +32,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             UserDefaults.standard.set(true, forKey: "launchedBefore")
 
             // Initialize KeyCover with an automatically generated key
-            let masterKey = KeyCoverMaster.shared.generateMasterKey()
-            KeyCoverMaster.shared.setMasterKey(masterKey)
+            let keyCoverPassword = KeyCoverPassword.shared.generateVerySecurePassword()
+            KeyCoverPassword.shared.setKeyCoverPassword(keyCoverPassword)
             KeyCoverPreferences.shared.keyCoverEnabled = .selfGeneratedPassword
         }
 

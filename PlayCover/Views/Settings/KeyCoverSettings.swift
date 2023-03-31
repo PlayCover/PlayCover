@@ -17,7 +17,7 @@ class KeyCoverPreferences: NSObject, ObservableObject {
     static var shared = KeyCoverPreferences()
 
     @AppStorage("keyCoverEnabled") var keyCoverEnabled: KeyCoverStatus = KeyCoverStatus.disabled
-    @AppStorage("promptForMasterPasswordAtLaunch") var promptForMasterPasswordAtLaunch = true
+    @AppStorage("promptForKeyCoverPasswordAtLaunch") var promptForKeyCoverPasswordAtLaunch = true
 }
 
 struct KeyCoverSettings: View {
@@ -46,7 +46,7 @@ struct KeyCoverSettings: View {
                 Button(keyCoverObserved.keyCoverEnabled ? "button.Reset" : "button.Enable") {
                     if keyCoverObserved.keyCoverEnabled {
                         if isOptionKeyHeld() {
-                            KeyCoverMaster.shared.forceResetMasterKey()
+                            KeyCoverPassword.shared.forceResetKeyCoverPassword()
                         } else {
                             keyCoverRemovalViewShown = true
                         }
@@ -82,7 +82,7 @@ struct KeyCoverSettings: View {
             }
             .padding()
             VStack(alignment: .leading) {
-                Toggle("keycover.toggle.startupPrompt", isOn: $keyCoverPreferences.promptForMasterPasswordAtLaunch)
+                Toggle("keycover.toggle.startupPrompt", isOn: $keyCoverPreferences.promptForKeyCoverPasswordAtLaunch)
                     .help("keycover.toggle.startupPrompt.help")
                 Spacer()
             }
