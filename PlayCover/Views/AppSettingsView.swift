@@ -312,7 +312,9 @@ struct GraphicsView: View {
                     } onIncrement: {
                         customScaler += 0.1
                     } onDecrement: {
-                        customScaler -= 0.1
+                        if customScaler > 0.5 {
+                            customScaler -= 0.1
+                        }
                     }
                 }
                 VStack(alignment: .leading) {
