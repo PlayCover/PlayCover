@@ -35,7 +35,7 @@ class Installer {
         return response == .alertFirstButtonReturn
     }
 
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     static func install(ipaUrl: URL, export: Bool, returnCompletion: @escaping (URL?) -> Void) {
         // If (the option key is held or the install playtools popup settings is true) and its not an export,
         //    then show the installer dialog
