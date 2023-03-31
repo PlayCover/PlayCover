@@ -20,6 +20,7 @@ struct MainView: View {
     @State private var navWidth: CGFloat = 0
     @State private var viewWidth: CGFloat = 0
     @State private var collapsed: Bool = false
+    @State private var showSourceFolders = true
     @State private var selectedBackgroundColor: Color = Color.accentColor
     @State private var selectedTextColor: Color = Color.black
 
@@ -42,20 +43,31 @@ struct MainView: View {
                                            selectedTextColor: $selectedTextColor)
                             .environmentObject(store)
                         } label: {
-                            Label("sidebar.ipaLibrary", systemImage: "arrow.down.circle")
-                        }
-                        ForEach(store.sourcesData, id: \.hashValue) { source in
-                            NavigationLink {
-                                IPASourceView(selectedBackgroundColor: $selectedBackgroundColor,
-                                              selectedTextColor: $selectedTextColor,
-                                              sourceName: source.name,
-                                              sourceApps: source.data)
-                            } label: {
-                                Label(source.name, systemImage: "folder")
-                                    .font(.caption)
-                                    .padding(.leading)
+                            HStack {
+                                Label("sidebar.ipaLibrary", systemImage: "arrow.down.circle")
+                                Button {
+                                    withAnimation {
+                                        showSourceFolders.toggle()
+                                    }
+                                } label: {
+                                    Image(systemName: showSourceFolders ? "chevron.up" : "chevron.down")
+                                }
+                                .buttonStyle(.plain)
                             }
-
+                        }
+                        if showSourceFolders {
+                            ForEach(store.sourcesData, id: \.hashValue) { source in
+                                NavigationLink {
+                                    IPASourceView(selectedBackgroundColor: $selectedBackgroundColor,
+                                                  selectedTextColor: $selectedTextColor,
+                                                  sourceName: source.name,
+                                                  sourceApps: source.data)
+                                } label: {
+                                    Label(source.name, systemImage: "folder")
+                                        .font(.caption)
+                                        .padding(.leading)
+                                }
+                            }
                         }
                     }
                     .onChange(of: sidebarGeom.size) { newSize in
