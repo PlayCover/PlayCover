@@ -51,6 +51,7 @@ struct MainView: View {
                                     }
                                 } label: {
                                     Image(systemName: showSourceFolders ? "chevron.up" : "chevron.down")
+                                        .font(.caption)
                                 }
                                 .buttonStyle(.plain)
                             }
