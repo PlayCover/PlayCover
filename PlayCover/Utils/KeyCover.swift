@@ -110,72 +110,70 @@ struct KeyCoverKey {
     }
 
     func encryptKeyFolder() throws {
-        if KeyCover.shared.keyCoverPlainTextKey == nil {
-            return
-        }
-        // zip up the key folder
-        // make sure to only compress the key folder, not the entire path to it
-        let source = keyFolderPath.appendingPathComponent(appBundleID)
-        let destination = keyFolderPath.appendingPathComponent("\(appBundleID).zip")
-        let task = Process()
-        task.launchPath = "/usr/bin/zip"
-        task.currentDirectoryPath = keyFolderPath.path
-        task.arguments = ["-q", "-r", destination.path, source.lastPathComponent]
-        task.launch()
-        task.waitUntilExit()
+        if KeyCover.shared.keyCoverPlainTextKey != nil {
+            // zip up the key folder
+            // make sure to only compress the key folder, not the entire path to it
+            let source = keyFolderPath.appendingPathComponent(appBundleID)
+            let destination = keyFolderPath.appendingPathComponent("\(appBundleID).zip")
+            let task = Process()
+            task.launchPath = "/usr/bin/zip"
+            task.currentDirectoryPath = keyFolderPath.path
+            task.arguments = ["-q", "-r", destination.path, source.lastPathComponent]
+            task.launch()
+            task.waitUntilExit()
 
-        // encrypt the zip file
-        let task2 = Process()
-        task2.launchPath = "/usr/bin/openssl"
-        task2.currentDirectoryPath = keyFolderPath.path
-        task2.arguments = ["enc", "-aes-256-cbc", "-A",
-                            "-in", destination.path,
-                            "-out", encryptedKeyFile.path,
-                            "-k", KeyCover.shared.keyCoverPlainTextKey!]
-        task2.launch()
-        task2.waitUntilExit()
+            // encrypt the zip file
+            let task2 = Process()
+            task2.launchPath = "/usr/bin/openssl"
+            task2.currentDirectoryPath = keyFolderPath.path
+            task2.arguments = ["enc", "-aes-256-cbc", "-A",
+                                "-in", destination.path,
+                                "-out", encryptedKeyFile.path,
+                                "-k", KeyCover.shared.keyCoverPlainTextKey!]
+            task2.launch()
+            task2.waitUntilExit()
 
-        // delete the zip file
-        try? FileManager.default.removeItem(at: destination)
+            // delete the zip file
+            try? FileManager.default.removeItem(at: destination)
 
-        // delete the key folder
-        try? deleteKeyFolder()
+            // delete the key folder
+            try? deleteKeyFolder()
 
-        Task { @MainActor in
-            KeyCoverObservable.shared.update()
+            Task { @MainActor in
+                KeyCoverObservable.shared.update()
+            }
         }
     }
 
     func decryptKeyFolder() throws {
-        if KeyCover.shared.keyCoverPlainTextKey == nil {
-            return
-        }
-        // decrypt the zip file
-        let task = Process()
-        task.launchPath = "/usr/bin/openssl"
-        task.arguments = ["enc", "-aes-256-cbc", "-A", "-d", "-in", encryptedKeyFile.path, "-out",
-                          keyFolderPath.appendingPathComponent("\(appBundleID).zip").path,
-                          "-k", KeyCover.shared.keyCoverPlainTextKey!]
-        task.launch()
-        task.waitUntilExit()
+        if KeyCover.shared.keyCoverPlainTextKey != nil {
+            // decrypt the zip file
+            let task = Process()
+            task.launchPath = "/usr/bin/openssl"
+            task.arguments = ["enc", "-aes-256-cbc", "-A", "-d", "-in", encryptedKeyFile.path, "-out",
+                              keyFolderPath.appendingPathComponent("\(appBundleID).zip").path,
+                              "-k", KeyCover.shared.keyCoverPlainTextKey!]
+            task.launch()
+            task.waitUntilExit()
 
-        // unzip the zip file
-        let task2 = Process()
-        task2.launchPath = "/usr/bin/unzip"
-        task2.currentDirectoryPath = keyFolderPath.path
-        task2.arguments = ["-qq", "-o", keyFolderPath.appendingPathComponent("\(appBundleID).zip").path,
-                           "-d", keyFolderPath.path]
-        task2.launch()
-        task2.waitUntilExit()
+            // unzip the zip file
+            let task2 = Process()
+            task2.launchPath = "/usr/bin/unzip"
+            task2.currentDirectoryPath = keyFolderPath.path
+            task2.arguments = ["-qq", "-o", keyFolderPath.appendingPathComponent("\(appBundleID).zip").path,
+                               "-d", keyFolderPath.path]
+            task2.launch()
+            task2.waitUntilExit()
 
-        // delete the zip file
-        try? FileManager.default.removeItem(at: keyFolderPath.appendingPathComponent("\(appBundleID).zip"))
+            // delete the zip file
+            try? FileManager.default.removeItem(at: keyFolderPath.appendingPathComponent("\(appBundleID).zip"))
 
-        // delete the encrypted key file
-        try? FileManager.default.removeItem(at: encryptedKeyFile)
+            // delete the encrypted key file
+            try? FileManager.default.removeItem(at: encryptedKeyFile)
 
-        Task { @MainActor in
-            KeyCoverObservable.shared.update()
+            Task { @MainActor in
+                KeyCoverObservable.shared.update()
+            }
         }
     }
 
@@ -194,10 +192,13 @@ class KeyCoverMaster {
     let tag = "io.playcover.masterkey"
 
     func setMasterKey(_ key: String) {
+        // swiftlint: disable force_unwrapping
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                     kSecAttrService as String: tag,
                                     kSecAttrAccount as String: tag,
                                     kSecValueData as String: key.data(using: .utf8)!]
+        // swiftlint: enable force_unwrapping
+        // thank you apple very cool
         // Get the key
         let oldKey = getMasterKey()
         // if it is not nil, then we need to decrypt all the keychains

@@ -15,8 +15,13 @@ class PlayApp: BaseApp {
     var searchText: String {
         info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
     }
+
+<<<<<<< HEAD
+    var displaySleepAssertionID: IOPMAssertionID?
     var sessionDisableKeychain: Bool = false
 
+=======
+>>>>>>> develop
     func launch() async {
         do {
             isStarting = true
@@ -83,6 +88,16 @@ class PlayApp: BaseApp {
                 guard error == nil else { return }
                 // Run a thread loop in the background to handle background tasks
                 Task(priority: .background) {
+<<<<<<< HEAD
+                    while !(runningApp?.isTerminated ?? true) {
+                        // Check if the app is in the foreground
+                        if runningApp!.isActive {
+                            // If the app is in the foreground, disable the display sleep
+                            self.disableTimeOut()
+                        } else {
+                            // If the app is not in the foreground, enable the display sleep
+                            self.enableTimeOut()
+=======
                     if let runningApp = runningApp {
                         while !(runningApp.isTerminated) {
                             // Check if the app is in the foreground
@@ -94,6 +109,7 @@ class PlayApp: BaseApp {
                                 self.enableTimeOut()
                             }
                             sleep(1)
+>>>>>>> develop
                         }
                         sleep(1)
                     }
@@ -128,6 +144,7 @@ class PlayApp: BaseApp {
         }
     }
 
+<<<<<<< HEAD
     func unlockKeyCover() async {
         if KeyCover.shared.isKeyCoverEnabled() {
             // Check if the app have any keychains
@@ -175,6 +192,8 @@ class PlayApp: BaseApp {
         }
     }
 
+=======
+>>>>>>> develop
     var name: String {
         if info.displayName.isEmpty {
             return info.bundleName

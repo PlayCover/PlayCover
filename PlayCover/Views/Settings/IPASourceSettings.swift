@@ -128,12 +128,17 @@ struct SourceView: View {
                                 popoverText: "preferences.popover.badurl",
                                 showingPopover: $showingPopover)
             case .checking:
-                EmptyView()
+                StatusBadgeView(imageName: "exclamationmark.circle.fill",
+                                imageColor: .yellow,
+                                popoverText: "preferences.popover.checking",
+                                showingPopover: $showingPopover)
             case .duplicate:
                 StatusBadgeView(imageName: "exclamationmark.circle.fill",
                                 imageColor: .yellow,
                                 popoverText: "preferences.popover.duplicate",
                                 showingPopover: $showingPopover)
+            case .empty:
+                EmptyView()
             case .valid:
                 StatusBadgeView(imageName: "checkmark.circle.fill",
                                 imageColor: .green,
@@ -166,15 +171,18 @@ struct StatusBadgeView: View {
 }
 
 enum SourceValidation {
-    case badjson, badurl, checking, duplicate, valid
+    case badjson, badurl, checking, duplicate, valid, empty
 }
 
 struct AddSourceView: View {
     @State var newSource = ""
     @State var newSourceURL: URL?
-    @State var sourceValidationState = SourceValidation.checking
+    @State var sourceValidationState = SourceValidation.empty
     @Binding var addSourceSheet: Bool
     @EnvironmentObject var storeVM: StoreVM
+
+    @State var checkTask: Task<Void, Error>?
+    @State var urlSessionTask: URLSessionTask?
 
     var body: some View {
         VStack {
@@ -194,12 +202,17 @@ struct AddSourceView: View {
                     Text("preferences.popover.badurl")
                         .font(.system(.subheadline))
                 case .checking:
-                    EmptyView()
+                    Image(systemName: "exclamationmark.circle.fill")
+                        .foregroundColor(.yellow)
+                    Text("preferences.popover.checking")
+                        .font(.system(.subheadline))
                 case .duplicate:
                     Image(systemName: "exclamationmark.circle.fill")
                         .foregroundColor(.yellow)
                     Text("preferences.popover.duplicate")
                         .font(.system(.subheadline))
+                case .empty:
+                    EmptyView()
                 case .valid:
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundColor(.green)
@@ -213,8 +226,8 @@ struct AddSourceView: View {
                     Text("button.Cancel")
                 })
                 Button(action: {
-                    if newSourceURL != nil {
-                        storeVM.appendSourceData(SourceData(source: newSourceURL!.absoluteString))
+                    if let sourceURL = newSourceURL {
+                        storeVM.appendSourceData(SourceData(source: sourceURL.absoluteString))
                         addSourceSheet.toggle()
                     }
                 }, label: {
@@ -228,6 +241,13 @@ struct AddSourceView: View {
         .padding()
         .frame(width: 400, height: 100)
         .onChange(of: newSource) { source in
+            if let task = checkTask, !task.isCancelled {
+                if let session = urlSessionTask {
+                    session.cancel()
+                }
+
+                task.cancel()
+            }
             validateSource(source)
         }
         .onAppear {
@@ -243,36 +263,57 @@ struct AddSourceView: View {
     }
 
     func validateSource(_ source: String) {
-        sourceValidationState = .checking
-        Task {
-            if let url = URL(string: source) {
+        guard NetworkVM.isConnectedToNetwork() else {
+            return
+        }
+
+        sourceValidationState = .empty
+
+        checkTask = Task {
+            if var url = URL(string: source) {
+                if url.scheme == nil {
+                    url = URL(string: "https://" + url.absoluteString) ?? url
+                }
+
                 newSourceURL = url
-                if StoreVM.checkAvaliability(url: newSourceURL!) {
-                    do {
-                        if newSourceURL!.scheme == nil {
-                            newSourceURL = URL(string: "https://" + newSourceURL!.absoluteString)!
+
+                urlSessionTask = URLSession.shared.dataTask(with: URLRequest(url: url)) { jsonData, response, error in
+                    guard error == nil,
+                          ((response as? HTTPURLResponse)?.statusCode ?? 200) == 200,
+                          let jsonData = jsonData else {
+                        Task { @MainActor in
+                            self.sourceValidationState = .badurl
                         }
-                        let (jsonData, _) = try await URLSession.shared.data(for: URLRequest(url: newSourceURL!))
-                        do {
-                            let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self, from: jsonData)
-                            if data.count > 0 {
+                        return
+                    }
+
+                    do {
+                        let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self,
+                                                                            from: jsonData)
+                        if data.count > 0 {
+                            Task { @MainActor in
                                 sourceValidationState = storeVM.sources.filter({
                                     $0.source == source
                                 }).isEmpty ? .valid : .duplicate
-                                return
                             }
-                        } catch {
-                            sourceValidationState = .badjson
-                            return
                         }
                     } catch {
-                        sourceValidationState = .badurl
-                        return
+                        Task { @MainActor in
+                            self.sourceValidationState = .badjson
+                        }
                     }
                 }
+
+                urlSessionTask?.resume()
+
+                sourceValidationState = .checking
+
+                return
             }
-            sourceValidationState = .badurl
-            return
+
+            Task { @MainActor in
+                self.sourceValidationState = .badurl
+            }
         }
     }
 }

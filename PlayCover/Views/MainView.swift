@@ -161,6 +161,7 @@ struct SplitViewAccessor: NSViewRepresentable {
             var sview = superview
 
             // Find split view through hierarchy
+            // swiftlint:disable:next force_unwrapping
             while sview != nil, !sview!.isKind(of: NSSplitView.self) {
                 sview = sview?.superview
             }

@@ -54,6 +54,7 @@
 "preferences.popover.badurl"  = "URL Invalid!";
 "preferences.popover.badjson" = "JSON Invalid or Not Found!";
 "preferences.popover.duplicate" = "Duplicate Link";
+"preferences.popover.checking" = "Checking URL";
 "preferences.textfield.url" = "Source URL...";
 "preferences.tab.install" = "Install";
 "preferences.toggle.showInstallPopup" = "Show install PlayTools popup";
@@ -172,8 +173,10 @@
 "settings.text.customWidth" = "Width";
 "settings.text.detectedResolution" = "Detected Resolution:";
 "settings.picker.aspectRatio" = "Aspect ratio:";
-"settings.toggle.windowExperimentalFix.help" = "Attempts to fix your app scene if you have problems with it";
-"settings.toggle.windowExperimentalFix" = "Fix window issues";
+"settings.picker.windowFix" = "Fix window display issues";
+"settings.picker.windowFix.help" = "Apply window fixes that may helps your apps display normally";
+"settings.picker.windowFixMethod.0" = "Normal";
+"settings.picker.windowFixMethod.1" = "Alternate";
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
 "settings.noPlayTools" = "PlayTools is not installed in this app";
@@ -185,6 +188,8 @@
 "settings.playChain.enable" = "Enable PlayChain (Experimental)";
 "settings.playChain.help" = "Enable PlayChain support for this application, allowing it to (partially) use Apple Keychain Services";
 "settings.playChain.debugging" = "PlayChain debugging";
+"settings.toggle.introspection" = "Insert Introspection libraries";
+"settings.toggle.introspection.help" = "Add the system introspection libraries to the app. Known to fix issues with some apps not starting correctly";
 
 "settings.removePlayTools" = "Remove PlayTools";
 "settings.addToLaunchpad" = "Add to Launchpad";
