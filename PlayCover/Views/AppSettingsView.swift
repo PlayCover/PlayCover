@@ -183,9 +183,8 @@ struct GraphicsView: View {
         formatter.numberStyle = .none
         return formatter
     }
-    
-    @State var customScaler = 2.0
 
+    @State var customScaler = 2.0
     static var fractionFormatter: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -402,7 +401,8 @@ struct GraphicsView: View {
         settings.settings.windowHeight = height
         settings.settings.customScaler = customScaler
 
-        showResolutionWarning = Double(width * height) * customScaler >= 2621440 * 2.0 // Tends to crash when the number of pixels exceeds that
+        showResolutionWarning = Double(width * height) * customScaler >= 2621440 * 2.0
+        // Tends to crash when the number of pixels exceeds that
     }
 
     func getWidthFromAspectRatio(_ height: Int) -> Int {
