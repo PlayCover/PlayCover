@@ -178,6 +178,7 @@
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
 "settings.noPlayTools" = "PlayTools is not installed in this app";
 "settings.highResolution" = "High resolution may cause crashing";
+"settings.picker.scaler" = "Resolution Scaler";
 
 "settings.tab.bypasses" = "Bypasses";
 "settings.toggle.jbBypass" = "Enable Jailbreak Bypass (Experimental)";
