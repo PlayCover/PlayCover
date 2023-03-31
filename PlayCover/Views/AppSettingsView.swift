@@ -183,6 +183,17 @@ struct GraphicsView: View {
         formatter.numberStyle = .none
         return formatter
     }
+    
+    @State var customScaler = 2.0
+
+    static var fractionFormatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 1
+        formatter.minimumFractionDigits = 1
+        formatter.decimalSeparator = "."
+        return formatter
+    }
 
     var body: some View {
         ScrollView {
@@ -285,6 +296,26 @@ struct GraphicsView: View {
                         Spacer()
                     }
                 }
+                HStack {
+                    Text("settings.picker.scaler")
+                    Spacer()
+                    Stepper {
+                        TextField(
+                            "settings.text.scaler",
+                            value: $customScaler,
+                            formatter: GraphicsView.fractionFormatter,
+                            onCommit: {
+                                Task { @MainActor in
+                                    NSApp.keyWindow?.makeFirstResponder(nil)
+                                }
+                            })
+                            .frame(width: 125)
+                    } onIncrement: {
+                        customScaler += 0.1
+                    } onDecrement: {
+                        customScaler -= 0.1
+                    }
+                }
                 VStack(alignment: .leading) {
                     if #available(macOS 13.2, *) {
                         HStack {
@@ -316,6 +347,7 @@ struct GraphicsView: View {
             .onAppear {
                 customWidth = settings.settings.windowWidth
                 customHeight = settings.settings.windowHeight
+                customScaler = settings.settings.customScaler
             }
             .onChange(of: settings.settings.resolution) { _ in
                 setResolution()
@@ -327,6 +359,9 @@ struct GraphicsView: View {
                 setResolution()
             }
             .onChange(of: customHeight) { _ in
+                setResolution()
+            }
+            .onChange(of: customScaler) { _ in
                 setResolution()
             }
         }
@@ -365,8 +400,9 @@ struct GraphicsView: View {
 
         settings.settings.windowWidth = width
         settings.settings.windowHeight = height
+        settings.settings.customScaler = customScaler
 
-        showResolutionWarning = width*height >= 2621440 // Tends to crash when the number of pixels exceeds that
+        showResolutionWarning = Double(width * height) * customScaler >= 2621440 * 2.0 // Tends to crash when the number of pixels exceeds that
     }
 
     func getWidthFromAspectRatio(_ height: Int) -> Int {
