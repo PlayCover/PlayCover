@@ -38,43 +38,18 @@ class DownloadApp {
     func start() {
         if url.isFileURL {
             proceedInstall(url, deleteIPA: false)
-        } else if NetworkVM.urlAccessible(url: url, popup: true) {
-            proceedDownload()
         } else {
-            completion()
-        }
-    }
+            let (finalURL, urlIsValid) = NetworkVM.urlAccessible(url: url, popup: true)
 
-    private func checksumAlert(originalSum: String, givenSum: String, completion: @escaping(Bool) -> Void) {
-        Task { @MainActor in
-            let alert = NSAlert()
-            alert.messageText = NSLocalizedString("playapp.download.differentChecksum", comment: "")
-            alert.informativeText = String(
-                format: NSLocalizedString("playapp.download.differentChecksumDesc", comment: ""),
-                arguments: [originalSum, givenSum]
-            )
-            alert.alertStyle = .warning
-            alert.addButton(withTitle: NSLocalizedString("button.Proceed", comment: ""))
-            alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
-
-            completion(alert.runModal() == .alertFirstButtonReturn)
-        }
-    }
-
-    private func verifyChecksum(checksum: String?, file: URL?, completion: @escaping(Bool) -> Void) {
-        Task {
-            if let originalSum = checksum, !originalSum.isEmpty, let fileURL = file {
-                if let sha256 = fileURL.sha256, originalSum != sha256 {
-                    checksumAlert(originalSum: originalSum, givenSum: sha256, completion: completion)
-                    return
-                }
+            if urlIsValid, let wrapped = finalURL {
+                proceedDownload(wrapped)
+            } else {
+                completion()
             }
-
-            completion(true)
         }
     }
 
-    private func proceedDownload() {
+    private func proceedDownload(_ finalURL: URL) {
         self.downloadVM.storeAppData = self.app
         self.downloadVM.next(.downloading, 0.0, 0.7)
 
@@ -84,7 +59,7 @@ class DownloadApp {
                                                  in: .userDomainMask,
                                                  appropriateFor: URL(fileURLWithPath: "/Users"),
                                                  create: true)
-            downloader.addDownload(url: url,
+            downloader.addDownload(url: finalURL,
                                    destinationURL: tmpDir!,
                                    onProgress: { progress in
                 // progress is a Float
@@ -114,6 +89,35 @@ class DownloadApp {
                 FileManager.default.delete(at: tmpDir)
             }
             Log.shared.error(error)
+        }
+    }
+
+    private func verifyChecksum(checksum: String?, file: URL?, completion: @escaping(Bool) -> Void) {
+        Task {
+            if let originalSum = checksum, !originalSum.isEmpty, let fileURL = file {
+                if let sha256 = fileURL.sha256, originalSum != sha256 {
+                    checksumAlert(originalSum: originalSum, givenSum: sha256, completion: completion)
+                    return
+                }
+            }
+
+            completion(true)
+        }
+    }
+
+    private func checksumAlert(originalSum: String, givenSum: String, completion: @escaping(Bool) -> Void) {
+        Task { @MainActor in
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString("playapp.download.differentChecksum", comment: "")
+            alert.informativeText = String(
+                format: NSLocalizedString("playapp.download.differentChecksumDesc", comment: ""),
+                arguments: [originalSum, givenSum]
+            )
+            alert.alertStyle = .warning
+            alert.addButton(withTitle: NSLocalizedString("button.Proceed", comment: ""))
+            alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
+
+            completion(alert.runModal() == .alertFirstButtonReturn)
         }
     }
 
