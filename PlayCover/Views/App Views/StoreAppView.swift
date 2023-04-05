@@ -82,7 +82,7 @@ struct StoreAppConditionalView: View {
     @Binding var selected: StoreAppData?
 
     @State var app: StoreAppData
-    @State var itunesResponce: ITunesResponse?
+    @State var itunesResponse: ITunesResponse?
     @State var onlineIcon: URL?
     @State var localIcon: NSImage?
     @State var isList: Bool
@@ -113,8 +113,13 @@ struct StoreAppConditionalView: View {
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                 } else {
-                                    ProgressView()
-                                        .progressViewStyle(.circular)
+                                    Rectangle()
+                                         .fill(.regularMaterial)
+                                         .overlay {
+                                             ProgressView()
+                                                 .progressViewStyle(.circular)
+                                                 .controlSize(.small)
+                                         }
                                 }
                             }
                         }
@@ -155,8 +160,12 @@ struct StoreAppConditionalView: View {
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                 } else {
-                                    ProgressView()
-                                        .progressViewStyle(.circular)
+                                    Rectangle()
+                                         .fill(.regularMaterial)
+                                         .overlay {
+                                             ProgressView()
+                                                 .progressViewStyle(.circular)
+                                         }
                                 }
                             }
                         }
@@ -195,9 +204,9 @@ struct StoreAppConditionalView: View {
             if !cache.hasData(forKey: app.itunesLookup) {
                 await Cacher().resolveITunesData(app.itunesLookup)
             }
-            itunesResponce = try? cache.readCodable(forKey: app.itunesLookup)
-            if itunesResponce != nil {
-                onlineIcon = URL(string: itunesResponce!.results[0].artworkUrl512)
+            itunesResponse = try? cache.readCodable(forKey: app.itunesLookup)
+            if let response = itunesResponse {
+                onlineIcon = URL(string: response.results[0].artworkUrl512)
             } else {
                 localIcon = Cacher().getLocalIcon(bundleId: app.bundleID)
             }

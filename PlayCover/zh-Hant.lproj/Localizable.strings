@@ -194,7 +194,7 @@
 "storeAccount.selectAccRegion.cht" = "港澳臺服";
 
 /* (No Comment) */
-"storeAccount.selectAccRegion.euro" = "歐福";
+"storeAccount.selectAccRegion.euro" = "歐服";
 
 /* (No Comment) */
 "storeAccount.selectAccRegion.usa" = "美服";
@@ -223,9 +223,9 @@
 "settings.title" = "%@ 設定";
 "settings.tab.info" = "詳細資料";
 "settings.tab.km" = "鍵盤映射佈局";
-"settings.toggle.km.help" = "為僅可透過觸控屏幕操控的遊戲添加鍵盤支援。使用 Command + K 開啟編輯器選單。";
+"settings.toggle.km.help" = "為僅可透過觸控螢幕操控的遊戲添加鍵盤支援。使用 Command + K 開啟編輯器選單。";
 "settings.toggle.mm" = "啟用滑鼠映射佈局";
-"settings.toggle.mm.help" = "添加模擬觸控屏幕操作的滑鼠映射控制項。使用 Command + K 開啟編輯器選單。";
+"settings.toggle.mm.help" = "添加模擬觸控螢幕操作的滑鼠映射控制項。使用 Command + K 開啟編輯器選單。";
 "settings.tab.graphics" = "影像設置";
 "settings.picker.adaptiveRes" = "解析度:";
 "settings.picker.adaptiveRes.help" = "修改應用程式的視窗解析度";
@@ -307,15 +307,15 @@
 "playapp.refreshSources" = "刷新來源";
 "error.appMaliciousProhibited" = "此應用程式在 Mac 上存在惡意行為，使用它可能會使您的設備處於無法啟動的狀態，因此它會被 PlayCover 封鎖。 （正在解除安裝...）";
 "alert.install.injectPlayToolsQuestion" = "你要在這個應用程序裡面植入 PlayTools 嗎？";
-"alert.install.playToolsInformative" = "PlayTools是一個讓您將按鍵綁定到屏幕觸摸，自定義顯示分辨率，和更多的工具，但它有可能會讓某些應用程序崩潰";
+"alert.install.playToolsInformative" = "PlayTools是一個讓您將按鍵綁定到螢幕觸控，自定義顯示分辨率，和更多的工具，但它有可能會讓某些應用程序崩潰";
 "button.Help" = "幫助";
 "button.Dismiss" = "關閉";
 "state.enabled" = "啟用";
 "state.disabled" = "禁用";
 "state.pendingReboot" = "等待重啟";
 "menubar.configSigning" = "配置登錄";
-"configSigning.header" = "配置應用程序包簽名";
-"configSigning.subtext" = "應用程序包簽名幫助修復需要依靠正確 團隊 ID\n來處理身分驗證等操作的應用程序。\n這個功能有可能會帶來風險。\n\n因此，我們建議在不必要的情況下禁用它";
+"configSigning.header" = "配置應用程式包簽名";
+"configSigning.subtext" = "應用程式包簽名幫助修復需要依靠正確 團隊 ID\n來處理身分驗證等操作的應用程序。\n這個功能有可能會帶來風險。\n\n因此，我們建議在不必要的情況下禁用它";
 "configSigning.info.SIP" = "部分的 系統完整性保護（SIP）需要禁用，以便關閉 蘋果移動文件完整性（AMFI）.";
 "configSigning.info.SIPHeader" = "系統完整性保護";
 "configSigning.info.AMFI" = "蘋果移動文件完整性（AMFI）需要關閉以允許應用程序假簽名，以便它們使用正確的 團隊ID 運行";
@@ -326,13 +326,13 @@
 "configSigning.step.disableSIP" = "請從恢復模式禁用SIP";
 "configSigning.step.disableAMFI" = "請禁用AMFI";
 "configSigning.step.AMFIreboot" = "蘋果移動文件完整性 已禁用。請重啟電腦";
-"configSigning.step.complete" = "應用程序包簽名已成功配置";
+"configSigning.step.complete" = "應用程式包簽名已成功配置";
 "configSigning.alert.copied" = "命令已複製！";
-"configSigning.alert.info" = "請在 終端 應用程序內粘貼並執行此命令。稍後你的 Mac 將重啟";
+"configSigning.alert.info" = "請在終端機內貼上並執行此命令。稍後你的 Mac 將重啟";
 "alert.power.title" = "低電量模式已啟用！";
 "alert.power.subtitle" = "有些應用程序在低電量模式開啟的情況下不能使用。建議把它禁用。";
 "ipaLibrary.version.older" = "此版本比你已經安裝的版本更舊";
-"ipaLibrary.version.same" = "應用程序已經安裝了";
+"ipaLibrary.version.same" = "應用程式已經安裝了";
 "ipaLibrary.version.newer" = "此版本比你已經安裝的更新";
 "ipaLibrary.alert.download" = "你確定要下載這個版本的 %@ 嗎？";
 "ipaLibrary.download" = "下載";
@@ -340,7 +340,7 @@
 "alert.differentBundleIdKeymap.text" = "你確定你要導入這個鍵盤映射文件嗎？";
 "settings.text.debugger" = "調試器：";
 "settings.toggle.lldb" = "用 LLDB 高性能調試器打開";
-"settings.toggle.lldbWithTerminal" = "用終端打開";
+"settings.toggle.lldbWithTerminal" = "用終端機打開";
 "settings.unavailable.hud" = "Metal HUD 不可用";
 "settings.playChain.debugging" = "PlayChain 調試";
 "error.failedToStripBinary" = "無法在通用二進制文件中檢索到 ARM64 架構！";
@@ -362,9 +362,11 @@
 "ipaLibrary.noNetworkConnection.required" = "連接實際網路以查看 IPA Library";
 "preferences.toggle.removePlayChain" = "移除 PlayChain";
 "alert.app.clearPlayChain" = "所有 PlayChain 數據將被清除。您可能需要重新登錄應用程式。 您還希望繼續嗎?";
-"settings.toggle.windowExperimentalFix" = "修復窗口問題";
 "settings.highResolution" = "高畫質可能會導致閃退";
-"settings.picker.windowFix" = "Fix window display issues";
-"settings.picker.windowFix.help" = "Apply window fixes that may helps your apps display normally";
-"settings.picker.windowFixMethod.0" = "Normal";
-"settings.picker.windowFixMethod.1" = "Alternate";
+"settings.picker.windowFix" = "修復視窗模式顯示問題";
+"settings.picker.windowFix.help" = "啟用視窗修復也許可以讓你的程序正常顯示";
+"settings.picker.windowFixMethod.0" = "正常";
+"settings.picker.windowFixMethod.1" = "備用";
+"preferences.popover.checking" = "檢查 URL";
+"settings.toggle.introspection" = "Insert Introspection libraries";
+"settings.toggle.introspection.help" = "Add the system introspection libraries to the app. Known to fix issues with some apps not starting correctly";

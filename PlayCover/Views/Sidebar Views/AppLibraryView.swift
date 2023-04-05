@@ -109,14 +109,20 @@ struct AppLibraryView: View {
         }
         .searchable(text: $searchString, placement: .toolbar)
         .onChange(of: searchString, perform: { value in
-            uif.searchText = value
+            appsVM.searchText = value
             appsVM.fetchApps()
         })
+        .onAppear {
+            appsVM.searchText = ""
+            appsVM.fetchApps()
+        }
         .onChange(of: isList, perform: { value in
             UserDefaults.standard.set(value, forKey: "AppLibraryView")
         })
         .sheet(isPresented: $showSettings) {
-            AppSettingsView(viewModel: AppSettingsVM(app: selected!))
+            if let selected = selected {
+                AppSettingsView(viewModel: AppSettingsVM(app: selected))
+            }
         }
         .sheet(isPresented: $showQueue) {
             QueuesView(selection: QueuesView.Tabs.install)
@@ -133,8 +139,7 @@ struct AppLibraryView: View {
                                 if let urlData = urlData as? Data {
                                     let url = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
                                     if url.pathExtension == "ipa" {
-                                        uif.ipaUrl = url
-                                        installApp()
+                                        installApp(url)
                                     } else {
                                         showWrongfileTypeAlert = true
                                     }
@@ -170,17 +175,14 @@ struct AppLibraryView: View {
         })
     }
 
-    private func installApp() {
-        if let url = uif.ipaUrl {
-            QueuesVM.shared.addInstallItem(ipa: url)
-        }
+    private func installApp(_ url: URL) {
+        QueuesVM.shared.addInstallItem(ipa: url)
     }
 
     private func selectFile() {
         NSOpenPanel.selectIPA { result in
             if case .success(let url) = result {
-                uif.ipaUrl = url
-                installApp()
+                installApp(url)
             }
         }
     }

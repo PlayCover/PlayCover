@@ -9,13 +9,16 @@ import IOKit.pwr_mgt
 
 class PlayApp: BaseApp {
     private static let library = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library")
+    var displaySleepAssertionID: IOPMAssertionID?
+    public var isStarting = false
 
     var searchText: String {
         info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
     }
 
-    func launch() {
+    func launch() async {
         do {
+            isStarting = true
             if prohibitedToPlay {
                 clearAllCache()
                 throw PlayCoverError.appProhibited
@@ -39,17 +42,18 @@ class PlayApp: BaseApp {
 
             if try !PlayTools.isInstalled() {
                 Log.shared.error("PlayTools are not installed! Please move PlayCover.app into Applications!")
-            } else if try !PlayTools.isMachoValidArch(executable) {
+            } else if try !Macho.isMachoValidArch(executable) {
                 Log.shared.error("The app threw an error during conversion.")
             } else if try !isCodesigned() {
                 Log.shared.error("The app is not codesigned! Please open Xcode and accept license agreement.")
             } else {
                 if settings.openWithLLDB {
-                    Shell.lldb(executable, withTerminalWindow: settings.openLLDBWithTerminal)
+                    try Shell.lldb(executable, withTerminalWindow: settings.openLLDBWithTerminal)
                 } else {
                     runAppExec() // Splitting to reduce complexity
                 }
             }
+            isStarting = false
         } catch {
             Log.shared.error(error)
         }
@@ -73,30 +77,48 @@ class PlayApp: BaseApp {
             configuration: config,
             completionHandler: { runningApp, error in
                 guard error == nil else { return }
-                if self.settings.settings.disableTimeout {
-                    // Yeet into a thread
-                    Task {
-                        debugPrint("Disabling timeout...")
-                        let reason = "PlayCover: " + self.name + " disabled screen timeout" as CFString
-                        var assertionID: IOPMAssertionID = 0
-                        var success = IOPMAssertionCreateWithName(
-                            kIOPMAssertionTypeNoDisplaySleep as CFString,
-                            IOPMAssertionLevel(kIOPMAssertionLevelOn),
-                            reason,
-                            &assertionID)
-                        if success == kIOReturnSuccess {
-                            while true { // Run a loop until the app closes
-                                try await Task.sleep(nanoseconds: 10000000000) // Sleep for 10 seconds
-                                guard
-                                    let isFinish = runningApp?.isTerminated,
-                                    !isFinish else { break }
+                // Run a thread loop in the background to handle background tasks
+                Task(priority: .background) {
+                    if let runningApp = runningApp {
+                        while !(runningApp.isTerminated) {
+                            // Check if the app is in the foreground
+                            if runningApp.isActive {
+                                // If the app is in the foreground, disable the display sleep
+                                self.disableTimeOut()
+                            } else {
+                                // If the app is not in the foreground, enable the display sleep
+                                self.enableTimeOut()
                             }
-                            success = IOPMAssertionRelease(assertionID)
-                            debugPrint("Enabling timeout...")
+                            sleep(1)
                         }
                     }
                 }
             })
+    }
+
+    func disableTimeOut() {
+        if displaySleepAssertionID != nil {
+            return
+        }
+        // Disable display sleep
+        let reason = "PlayCover: \(info.bundleIdentifier) is disabling sleep" as CFString
+        var assertionID: IOPMAssertionID = 0
+        let result = IOPMAssertionCreateWithName(
+            kIOPMAssertionTypeNoDisplaySleep as CFString,
+            IOPMAssertionLevel(kIOPMAssertionLevelOn),
+            reason,
+            &assertionID)
+        if result == kIOReturnSuccess {
+            displaySleepAssertionID = assertionID
+        }
+    }
+
+    func enableTimeOut() {
+        // Enable display sleep
+        if let assertionID = displaySleepAssertionID {
+            IOPMAssertionRelease(assertionID)
+            displaySleepAssertionID = nil
+        }
     }
 
     var name: String {
@@ -137,7 +159,7 @@ class PlayApp: BaseApp {
     }
 
     func isCodesigned() throws -> Bool {
-        try shell.shello("/usr/bin/codesign", "-dv", executable.path).contains("adhoc")
+        try Shell.run("/usr/bin/codesign", "-dv", executable.path).contains("adhoc")
     }
 
     func showInFinder() {
@@ -189,19 +211,12 @@ class PlayApp: BaseApp {
                 .appendingPathExtension("plist")
             let conf = try Entitlements.composeEntitlements(self)
             try conf.store(tmpEnts)
-            shell.signAppWith(executable, entitlements: tmpEnts)
+            try Shell.signAppWith(executable, entitlements: tmpEnts)
             try FileManager.default.removeItem(at: tmpDir)
         } catch {
             print(error)
             Log.shared.error(error)
         }
-    }
-
-    func largerImage(image imageA: NSImage, compareTo imageB: NSImage?) -> NSImage {
-        if imageA.size.height > imageB?.size.height ?? -1 {
-            return imageA
-        }
-        return imageB!
     }
 
     var prohibitedToPlay: Bool {

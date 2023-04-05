@@ -58,37 +58,39 @@ class NetworkVM {
         })
     }
 
-    static func urlAccessible(url: URL?, popup: Bool = false) -> Bool {
-        if let url = url {
-            guard isConnectedToNetwork() else {
-                return false
-            }
-
-            let semaphore = DispatchSemaphore(value: 0)
-
-            var avaliable = false
-
-            var request = URLRequest(url: url)
-            request.httpMethod = "HEAD"
-
-            URLSession.shared.dataTask(with: request) { _, response, error in
-                defer { semaphore.signal() }
-
-                if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode != 200 {
-                    if popup {
-                        Log.shared.error("Unable to download: \(statusCode) " +
-                                         "\(HTTPURLResponse.localizedString(forStatusCode: statusCode))")
-                    }
-                } else if error == nil {
-                    avaliable = true
-                }
-            }.resume()
-
-            semaphore.wait()
-
-            return avaliable
-        } else {
-            return false
+    static func urlAccessible(url: URL, popup: Bool = false) -> (URL?, Bool) {
+        guard isConnectedToNetwork() else {
+            return (nil, false)
         }
+
+        let semaphore = DispatchSemaphore(value: 0)
+        let validStatusCodes = [200, 301, 302, 303, 307, 308]
+
+        var avaliable = false
+        var finalURL: URL?
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "HEAD"
+
+        URLSession.shared.dataTask(with: request) { _, response, error in
+            defer { semaphore.signal() }
+            if let error = error {
+                Log.shared.error(error)
+            } else {
+                if let httpResponse = response as? HTTPURLResponse {
+                    if validStatusCodes.contains(httpResponse.statusCode) {
+                        finalURL = httpResponse.url
+                        avaliable = true
+                    } else if popup {
+                        Log.shared.error("Unable to download: \(httpResponse.statusCode) " +
+                                         "\(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))")
+                    }
+                }
+            }
+        }.resume()
+
+        semaphore.wait()
+
+        return (finalURL, avaliable)
     }
 }

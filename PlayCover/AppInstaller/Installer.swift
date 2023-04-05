@@ -39,7 +39,7 @@ class Installer {
         return response == .alertFirstButtonReturn
     }
 
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     static func install(ipaUrl: URL, export: Bool, returnCompletion: @escaping (URL?) -> Void) {
         // If (the option key is held or the install playtools popup settings is true) and its not an export,
         //    then show the installer dialog
@@ -67,23 +67,23 @@ class Installer {
                 let machos = try resolveValidMachOs(app)
                 app.validMachOs = machos
 
-                if export {
-                    InstallVM.shared.next(.playtools, 0.55, 0.85)
-                    try PlayTools.injectInIPA(app.executable, payload: app.url)
-                } else if installPlayTools {
-                    InstallVM.shared.next(.playtools, 0.55, 0.85)
-                    try PlayTools.installInIPA(app.executable)
-                }
+                InstallVM.shared.next(.playtools, 0.55, 0.85)
 
                 for macho in machos {
-                    if try PlayTools.isMachoEncrypted(atURL: macho) {
+                    if try Macho.isMachoEncrypted(atURL: macho) {
                         throw PlayCoverError.appEncrypted
                     }
 
                     if !export {
-                        try PlayTools.convertMacho(macho)
-                        try fakesign(macho)
+                        try Macho.convertMacho(macho)
+                        try Shell.signMacho(macho)
                     }
+                }
+
+                if export {
+                    try PlayTools.injectInIPA(app.executable, payload: app.url)
+                } else if installPlayTools {
+                    try PlayTools.installInIPA(app.executable)
                 }
 
                 if !export {
@@ -257,11 +257,6 @@ class Installer {
 
         try FileManager.default.moveItem(at: baseApp.url, to: location)
         return location
-    }
-
-    /// Regular codesign, does not accept entitlements. Used to re-seal an app after you've modified it.
-    static func fakesign(_ url: URL) throws {
-        try shell.shello("/usr/bin/codesign", "-fs-", url.path)
     }
 
     static var isOptionKeyHeld: Bool {

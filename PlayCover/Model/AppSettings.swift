@@ -16,6 +16,7 @@ struct AppSettingsData: Codable {
     var iosDeviceModel = "iPad13,8"
     var windowWidth = 1920
     var windowHeight = 1080
+    var customScaler = 2.0
     var resolution = 1
     var aspectRatio = 1
     var notch: Bool = NSScreen.hasNotch()
@@ -41,6 +42,7 @@ struct AppSettingsData: Codable {
         iosDeviceModel = try container.decodeIfPresent(String.self, forKey: .iosDeviceModel) ?? "iPad13,8"
         windowWidth = try container.decodeIfPresent(Int.self, forKey: .windowWidth) ?? 1920
         windowHeight = try container.decodeIfPresent(Int.self, forKey: .windowHeight) ?? 1080
+        customScaler = try container.decodeIfPresent(Double.self, forKey: .customScaler) ?? 2.0
         resolution = try container.decodeIfPresent(Int.self, forKey: .resolution) ?? 1
         aspectRatio = try container.decodeIfPresent(Int.self, forKey: .aspectRatio) ?? 1
         notch = try container.decodeIfPresent(Bool.self, forKey: .notch) ?? NSScreen.hasNotch()

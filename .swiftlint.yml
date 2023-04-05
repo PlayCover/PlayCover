@@ -1,5 +1,5 @@
-disabled_rules:
-  - inclusive_language
+opt_in_rules:
+  - force_unwrapping
   
 excluded:
   - Carthage

@@ -5,6 +5,7 @@
 
 import Foundation
 
+// swiftlint:disable force_unwrapping
 extension String {
     init(data: Data, offset: Int, commandSize: Int, loadCommandString: lc_str) {
         let loadCommandStringOffset = Int(loadCommandString.offset)
@@ -16,14 +17,18 @@ extension String {
 }
 
 extension Data {
-    func extract<T>(_ type: T.Type, offset: Int = 0) -> T {
+    func extract<T>(_ type: T.Type, offset: Int = 0,
+                    swap: ((UnsafeMutablePointer<T>, NXByteOrder) -> Void)? = nil) -> T {
         let data = self[offset..<offset + MemoryLayout<T>.size]
-        return data.withUnsafeBytes { dataBytes in
+        var result = data.withUnsafeBytes { dataBytes in
             dataBytes.baseAddress!
                 .assumingMemoryBound(to: UInt8.self)
                 .withMemoryRebound(to: T.self, capacity: 1) { (pointer) -> T in
                 return pointer.pointee
             }
         }
+        swap?(&result, NXHostByteOrder())
+        return result
     }
 }
+// swiftlint:enable force_unwrapping

@@ -69,7 +69,7 @@ class Uninstaller {
 
             let viewWidth = checkboxes.max(by: { $0.view.frame.width < $1.view.frame.width })?.view.frame.width
 
-            let settingsView = NSStackView(frame: NSRect(x: 0, y: 0, width: viewWidth!, height: viewY))
+            let settingsView = NSStackView(frame: NSRect(x: 0, y: 0, width: viewWidth ?? 0, height: viewY))
 
             for checkboxhelper in checkboxes {
                 settingsView.addSubview(checkboxhelper.view)
