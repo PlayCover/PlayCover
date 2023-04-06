@@ -59,18 +59,24 @@ class DownloadApp {
                                                  in: .userDomainMask,
                                                  appropriateFor: URL(fileURLWithPath: "/Users"),
                                                  create: true)
+
+            guard let tmpDir = tmpDir else {
+                return completion()
+            }
+
             downloader.addDownload(url: finalURL,
-                                   destinationURL: tmpDir!,
+                                   destinationURL: tmpDir,
                                    onProgress: { progress in
                 // progress is a Float
                 self.downloadVM.progress = Double(progress)
             }, onCompletion: { error, fileURL in
                 self.downloadVM.next(.integrity, 0.7, 0.95)
 
-                guard error == nil else {
+                if let error = error {
                     self.downloadVM.next(.failed, 0.95, 1.0)
                     self.downloadVM.storeAppData = nil
-                    return Log.shared.error(error!)
+                    Log.shared.error(error)
+                    return self.completion()
                 }
 
                 self.verifyChecksum(checksum: self.downloadVM.storeAppData?.checksum, file: fileURL) { completing in
@@ -88,7 +94,9 @@ class DownloadApp {
             if let tmpDir = tmpDir {
                 FileManager.default.delete(at: tmpDir)
             }
+
             Log.shared.error(error)
+            completion()
         }
     }
 
