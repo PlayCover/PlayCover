@@ -7,7 +7,6 @@
 
 import SystemConfiguration
 import Foundation
-import Semaphore
 
 class NetworkVM {
     static func isConnectedToNetwork() -> Bool {

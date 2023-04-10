@@ -8,13 +8,13 @@
 import SwiftUI
 
 enum StackNavigationTransition: Equatable {
-    case none, defaultTranisition, custom(AnyTransition)
+    case none, defaultTransition, custom(AnyTransition)
 
     static func == (lhs: StackNavigationTransition, rhs: StackNavigationTransition) -> Bool {
         switch (lhs, rhs) {
         case (.none, .none):
             return true
-        case (.defaultTranisition, .defaultTranisition):
+        case (.defaultTransition, .defaultTransition):
             return true
         case (.custom, .custom):
             return true
@@ -27,7 +27,7 @@ enum StackNavigationTransition: Equatable {
         switch self {
         case .none:
             return AnyTransition.identity
-        case .defaultTranisition:
+        case .defaultTransition:
             /// In this case you need to wrap `showingSubview = true` in the
             /// root of the view view in a `withAnimation(.easeOut(duration: 0.3)) { ... }`
             return AnyTransition.move(edge: .trailing)
@@ -60,7 +60,7 @@ struct StackNavigationView<RootContent>: View where RootContent: View {
             if !showingSubview {
                 rootView
                     .zIndex(-1)
-                    .transition(transition == .defaultTranisition
+                    .transition(transition == .defaultTransition
                                 ? .move(edge: .leading)
                                 : transition.anyTransition)
             } else {
@@ -72,7 +72,7 @@ struct StackNavigationView<RootContent>: View where RootContent: View {
                             Button {
                                 currentSubview = AnyView(EmptyView())
                                 switch transition {
-                                case .defaultTranisition:
+                                case .defaultTransition:
                                     withAnimation(.easeOut(duration: 0.3)) {
                                         showingSubview = false
                                     }
