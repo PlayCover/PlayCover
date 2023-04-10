@@ -21,6 +21,7 @@
 		53F4D2A026C43C690020167C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29F26C43C690020167C /* Log.swift */; };
 		53F50C4926E3CA42007AD2D3 /* AppLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */; };
 		6829140C29C901C000DC55E2 /* Semaphore in Frameworks */ = {isa = PBXBuildFile; productRef = 6829140B29C901C000DC55E2 /* Semaphore */; };
+		6842A26429E3B7D20053CDDE /* IPASourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6842A26329E3B7D20053CDDE /* IPASourceView.swift */; };
 		686CAE1B29C7B95100A82B51 /* NavigationStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686CAE1A29C7B95000A82B51 /* NavigationStack.swift */; };
 		68E48B952957046D00C39879 /* DownloadManager in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48B942957046D00C39879 /* DownloadManager */; };
 		68E48B97295704A600C39879 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E48B96295704A600C39879 /* Downloader.swift */; };
@@ -111,6 +112,7 @@
 		53F3802726EB6F6B00D6B525 /* NotifyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyService.swift; sourceTree = "<group>"; };
 		53F4D29F26C43C690020167C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLibraryView.swift; sourceTree = "<group>"; };
+		6842A26329E3B7D20053CDDE /* IPASourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPASourceView.swift; sourceTree = "<group>"; };
 		6854C5E528D53C9500CE28A0 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
 		686CAE1A29C7B95000A82B51 /* NavigationStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationStack.swift; sourceTree = "<group>"; };
 		68C79E67296741580041DBC9 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 			children = (
 				53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */,
 				6E66B0C8289F52800099B907 /* IPALibraryView.swift */,
+				6842A26329E3B7D20053CDDE /* IPASourceView.swift */,
 			);
 			path = "Sidebar Views";
 			sourceTree = "<group>";
