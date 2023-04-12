@@ -15,6 +15,7 @@ class PlayApp: BaseApp {
     var searchText: String {
         info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
     }
+    var sessionDisableKeychain: Bool = false
 
     func launch() async {
         do {
@@ -34,6 +35,9 @@ class PlayApp: BaseApp {
             if try !Entitlements.areEntitlementsValid(app: self) {
                 sign()
             }
+
+            // call unlockKeyCover() and WAIT for it to finish
+            await unlockKeyCover()
 
             // If the app does not have PlayTools, do not install PlugIns
             if hasPlayTools() {
@@ -91,7 +95,10 @@ class PlayApp: BaseApp {
                             }
                             sleep(1)
                         }
+                        sleep(1)
                     }
+                    // Things that are ran after the app is closed
+                    self.lockKeyCover()
                 }
             })
     }
@@ -118,6 +125,53 @@ class PlayApp: BaseApp {
         if let assertionID = displaySleepAssertionID {
             IOPMAssertionRelease(assertionID)
             displaySleepAssertionID = nil
+        }
+    }
+
+    func unlockKeyCover() async {
+        if KeyCover.shared.isKeyCoverEnabled() {
+            // Check if the app have any keychains
+            let keychain = KeyCover.shared.listKeychains()
+                .first(where: { $0.appBundleID == self.info.bundleIdentifier })
+            // Check the status of that keychain
+            if let keychain = keychain, keychain.chainEncryptionStatus {
+                // If the keychain is encrypted, unlock it
+                try? await KeyCover.shared.unlockChain(keychain)
+
+                if KeyCover.shared.keyCoverPlainTextKey == nil {
+                    // Pop an alert telling the user that keychain was not unlocked
+                    // and keychain is disabled for the session
+                    Task { @MainActor in
+                        let alert = NSAlert()
+                        alert.messageText = NSLocalizedString("keycover.alert.title", comment: "")
+                        alert.informativeText = NSLocalizedString("keycover.alert.content", comment: "")
+                        alert.alertStyle = .warning
+                        alert.addButton(withTitle: NSLocalizedString("button.OK", comment: ""))
+                        alert.runModal()
+                    }
+                    settings.settings.playChain = false
+                    sessionDisableKeychain = true
+                }
+
+            }
+        }
+    }
+
+    func lockKeyCover() {
+        if KeyCover.shared.isKeyCoverEnabled() {
+            if sessionDisableKeychain {
+                settings.settings.playChain = true
+                sessionDisableKeychain = false
+                return
+            }
+            // Check if the app have any keychains
+            let keychain = KeyCover.shared.listKeychains()
+                .first(where: { $0.appBundleID == self.info.bundleIdentifier })
+            // Check the status of that keychain
+            if let keychain = keychain, !keychain.chainEncryptionStatus {
+                // If the keychain is encrypted, lock it
+                try? KeyCover.shared.lockChain(keychain)
+            }
         }
     }
 
@@ -176,6 +230,7 @@ class PlayApp: BaseApp {
 
     func clearPlayChain() {
         FileManager.default.delete(at: playChainURL)
+        FileManager.default.delete(at: playChainURL.appendingPathExtension("keyCover"))
     }
 
     func createAlias() {
