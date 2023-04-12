@@ -390,3 +390,4 @@
 "preferences.popover.checking" = "Comprobando la URL";
 "settings.toggle.introspection" = "Insertar bibliotecas de introspección";
 "settings.toggle.introspection.help" = "Añade las bibliotecas de introspección del sistema a la aplicación. Se sabe que soluciona problemas con algunas aplicaciones que no se inician correctamente";
+"settings.picker.scaler" = "Escalar la resolución";

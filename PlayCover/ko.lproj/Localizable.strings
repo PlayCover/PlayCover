@@ -185,22 +185,22 @@
 "settings.toggle.discord" = "디스코드 활동 상태 활성화";
 
 /* (No Comment) */
-"settings.toggle.jbBypass" = "탈옥 우회 활성화 (Alpha)";
+"settings.toggle.jbBypass" = "탈옥 우회 활성화 (Experimetal)";
 
 /* (No Comment) */
 "settings.toggle.km" = "키매핑 활성화";
 
 /* (No Comment) */
-"soundAlert.failureText" = "현재 출력 장치의 샘플 레이트를 48 KHz로 설정하는데 실패하였습니다. ‘오디오 MIDI 설정’ 앱에서 수동으로 샘플 레이트를 설정할 수 있습니다";
+"soundAlert.failureText" = "현재 출력 장치의 샘플 레이트를 48 kHz로 설정하는데 실패하였습니다. ‘오디오 MIDI 설정’ 앱에서 수동으로 샘플 레이트를 설정할 수 있습니다";
 
 /* (No Comment) */
-"soundAlert.informativeText" = "현재 출력 장치의 샘플 레이트가 44.1 또는 48 KHz가 아닙니다! 충돌이 발생할 수도 있습니다. 현재 출력장치의 샘플 레이트를 48 KHz로 설정하시겠어요?";
+"soundAlert.informativeText" = "현재 출력 장치의 샘플 레이트가 44.1 또는 48 KHz가 아닙니다! 충돌이 발생할 수도 있습니다. 현재 출력장치의 샘플 레이트를 48 kHz로 설정하시겠어요?";
 
 /* (No Comment) */
 "soundAlert.messageText" = "올바르지 않은 오디오 설정이 감지되었습니다!";
 
 /* (No Comment) */
-"soundAlert.successText" = "현재 출력장치의 샘플 레이트를 48 KHz로 설정했습니다";
+"soundAlert.successText" = "현재 출력장치의 샘플 레이트를 48 kHz로 설정했습니다";
 
 /* (No Comment) */
 "storeAccount.deleteAcc" = "계정 삭제하기";
@@ -324,7 +324,7 @@
 "settings.noPlayTools" = "이 앱에는 PlayTools 가 설치되지 않았습니다";
 "settings.removePlayTools" = "PlayTools 제거";
 "settings.info.playTools" = "PlayTools 설치 여부:";
-"playapp.refreshSources" = "소스 새로 고침";
+"playapp.refreshSources" = "소스 새로고침";
 "error.appMaliciousProhibited" = "이 앱은 Mac에서 악의적으로 작동하며 기기를 부팅할 수 없는 상태로 만들 수 있으므로 PlayCover에서 차단됩니다. (제거 중...)";
 "alert.install.injectPlayToolsQuestion" = "이 애플리케이션에 PlayTools를 주입하시겠습니까?";
 "alert.install.playToolsInformative" = "PlayTools는 화면 터치, 사용자 지정 디스플레이 해상도 등에 키를 바인딩할 수 있는 도구이지만 특정 앱이 중단될 수 있습니다";
@@ -361,32 +361,33 @@
 "ipaLibrary.download" = "다운로드";
 "alert.differentBundleIdKeymap.message" = "이 키매핑은 다른 앱을 위해 만들어졌을수도 있습니다.";
 "alert.differentBundleIdKeymap.text" = "정말로 이 키매핑을 불러오시겠습니까?";
-"settings.unavailable.hud" = "Metal HUD unavailable";
-"error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
+"settings.unavailable.hud" = "Metal HUD를 사용할 수 없습니다";
+"error.failedToStripBinary" = "fat binary에서 ARM64 arch를 찾을 수 없습니다!";
 "settings.playChain.debugging" = "PlayChain 디버깅";
-"settings.playChain.enable" = "Enable PlayChain (experimental)";
+"settings.playChain.enable" = "PlayChain 활성화(실험적 기능)";
 "settings.playChain.help" = "이 애플리케이션에 대한 PlayChain 지원을 활성화하여 Apple 키체인 서비스를 (부분적으로) 사용할 수 있도록 합니다";
 "playapp.noSources.title" = "설치된 IPA가 없음";
 "playapp.noSources.subtitle" = "현재 설치된 IPA가 없습니다. 아래 버튼을 클릭하여 가져오세요.";
-"settings.tab.bypasses" = "Bypasses";
-"settings.addToLaunchpad" = "Add to Launchpad";
-"settings.removeFromLaunchpad" = "Remove from Launchpad";
-"playapp.download.integrityCheck" = "Verifying file integrity:";
-"playapp.download.differentChecksum" = "Different checksums! Do you want to continue to install?";
-"playapp.download.differentChecksumDesc" = "Expected \"%@\", got \"%@\"";
-"playapp.progress.canceled" = "Canceled";
-"playapp.clearPlayChain" = "Clear PlayChain Data";
-"playapp.importIPA" = "Import IPA";
-"ipaLibrary.noNetworkConnection.required" = "IPA Library requires internet connection";
-"preferences.toggle.removePlayChain" = "Remove PlayChain";
-"preferences.popover.duplicate" = "Duplicate Link";
-"alert.app.clearPlayChain" = "All PlayChain data will be erased. You may need to login to the app again. Do you wish to continue?";
-"button.Reload" = "Reload";
-"settings.highResolution" = "High resolution may cause crashing";
-"settings.picker.windowFix" = "Fix window display issues";
-"settings.picker.windowFix.help" = "Apply window fixes that may helps your apps display normally";
-"settings.picker.windowFixMethod.0" = "Normal";
+"settings.tab.bypasses" = "우회";
+"settings.addToLaunchpad" = "런치패드에 추가";
+"settings.removeFromLaunchpad" = "런치패드에서 제거";
+"playapp.download.integrityCheck" = "파일 무결성 확인:";
+"playapp.download.differentChecksum" = "체크섬이 다릅니다! 설치를 계속하시겠습니까?";
+"playapp.download.differentChecksumDesc" = "\"%@\"가 아닌 \"%@\"을(를) 받았습니다";
+"playapp.progress.canceled" = "취소됨";
+"playapp.clearPlayChain" = "PlayChain(플레이 체인) 데이터 초기화하기";
+"playapp.importIPA" = "IPA 불러오기";
+"ipaLibrary.noNetworkConnection.required" = "IPA 라이브러리는 인터넷 연결이 필요합니다";
+"preferences.toggle.removePlayChain" = "PlayChain 제거";
+"preferences.popover.duplicate" = "링크 복사";
+"alert.app.clearPlayChain" = "모든 PlayChain 데이터가 지워집니다. 앱에 다시 로그인해야 할 수도 있습니다. 계속하시겠습니까?";
+"button.Reload" = "새로고침";
+"settings.highResolution" = "고해상도는 충돌을 야기할 수 있습니다";
+"settings.picker.windowFix" = "창 표시 문제 수정";
+"settings.picker.windowFix.help" = "앱이 정상적으로 표시되는 데 도움이 될 수 있는 창 수정 적용";
+"settings.picker.windowFixMethod.0" = "기본";
 "settings.picker.windowFixMethod.1" = "Alternate";
 "settings.toggle.introspection" = "Insert Introspection libraries";
 "settings.toggle.introspection.help" = "Add the system introspection libraries to the app. Known to fix issues with some apps not starting correctly";
-"preferences.popover.checking" = "Checking URL";
+"preferences.popover.checking" = "URL 검사";
+"settings.picker.scaler" = "해상도";
