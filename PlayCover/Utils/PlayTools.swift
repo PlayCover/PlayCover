@@ -92,25 +92,40 @@ class PlayTools {
     }
 
     static func installPluginInIPA(_ payload: URL) throws {
-        let pluginsURL = payload.appendingPathComponent("PlugIns")
-        if !FileManager.default.fileExists(atPath: pluginsURL.path) {
-            try FileManager.default.createDirectory(at: pluginsURL, withIntermediateDirectories: true)
+        let allFiles = try FileManager.default.contentsOfDirectory(
+            at: bundledPlayToolsFramework, includingPropertiesForKeys: [])
+        for localizationDirectory in allFiles where localizationDirectory.pathExtension == "lproj" {
+            _ = try copyAsset(target: payload,
+                              directoryName: localizationDirectory.lastPathComponent,
+                              component: "Playtools", pathExtension: "strings")
         }
 
-        let bundleTarget = pluginsURL
-            .appendingPathComponent("AKInterface")
-            .appendingPathExtension("bundle")
-
-        let akInterface = bundledPlayToolsFramework.appendingPathComponent("PlugIns")
-            .appendingPathComponent("AKInterface")
-            .appendingPathExtension("bundle")
-
-        if FileManager.default.fileExists(atPath: bundleTarget.path) {
-            try FileManager.default.removeItem(at: bundleTarget)
-        }
-        try FileManager.default.copyItem(at: akInterface, to: bundleTarget)
+        let bundleTarget = try copyAsset(target: payload, directoryName: "PlugIns",
+                                         component: "AKInterface", pathExtension: "bundle")
         try bundleTarget.fixExecutable()
         try Shell.signMacho(bundleTarget)
+    }
+
+    static func copyAsset(target: URL, directoryName: String,
+                          component: String, pathExtension: String) throws -> URL {
+        let directory = target.appendingPathComponent(directoryName)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+
+        let target = directory
+                    .appendingPathComponent(component)
+                    .appendingPathExtension(pathExtension)
+
+        let source = bundledPlayToolsFramework
+                    .appendingPathComponent(directoryName)
+                    .appendingPathComponent(component)
+                    .appendingPathExtension(pathExtension)
+        do {
+            try FileManager.default.copyItem(at: source, to: target)
+        } catch {
+            try FileManager.default.removeItem(at: target)
+            try FileManager.default.copyItem(at: source, to: target)
+        }
+        return target
     }
 
     static func injectInIPA(_ exec: URL, payload: URL) throws {
@@ -130,38 +145,21 @@ class PlayTools {
                                 at: payload.appendingPathComponent("Frameworks"),
                                 withIntermediateDirectories: true)
                         }
-                        if !FileManager.default.fileExists(atPath: payload.appendingPathComponent("PlugIns").path) {
-                            try FileManager.default.createDirectory(
-                                at: payload.appendingPathComponent("PlugIns"),
-                                withIntermediateDirectories: true)
-                        }
 
                         let libraryTarget = payload.appendingPathComponent("Frameworks")
                             .appendingPathComponent("PlayTools")
                             .appendingPathExtension("dylib")
-                        let bundleTarget = payload.appendingPathComponent("PlugIns")
-                            .appendingPathComponent("AKInterface")
-                            .appendingPathExtension("bundle")
 
                         let tools = bundledPlayToolsFramework
                             .appendingPathComponent("PlayTools")
-                        let akInterface = bundledPlayToolsFramework.appendingPathComponent("PlugIns")
-                            .appendingPathComponent("AKInterface")
-                            .appendingPathExtension("bundle")
 
                         if FileManager.default.fileExists(atPath: libraryTarget.path) {
                             try FileManager.default.removeItem(at: libraryTarget)
                         }
                         try FileManager.default.copyItem(at: tools, to: libraryTarget)
 
-                        if FileManager.default.fileExists(atPath: bundleTarget.path) {
-                            try FileManager.default.removeItem(at: bundleTarget)
-                        }
-                        try FileManager.default.copyItem(at: akInterface, to: bundleTarget)
-
                         try libraryTarget.fixExecutable()
-                        try bundleTarget.fixExecutable()
-                        try Shell.signMacho(bundleTarget)
+                        try installPluginInIPA(payload)
                     } catch {
                         Log.shared.error(error)
                     }
