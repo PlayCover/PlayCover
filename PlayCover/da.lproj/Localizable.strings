@@ -233,3 +233,4 @@
 "preferences.popover.checking" = "Kontrollere URL";
 "settings.toggle.introspection" = "Indsæt introspektion biblioteker";
 "settings.toggle.introspection.help" = "Føj systemets introspektionsbiblioteker til appen. Kendt for at løse problemer med nogle apps, der ikke starter korrekt";
+"settings.picker.scaler" = "Resolution Scaler";

@@ -77,10 +77,11 @@ You can download stable releases [here](https://github.com/PlayCover/PlayCover/r
 To learn how to setup and use PlayCover, visit the documentation [here](https://playcover.github.io/PlayBook).
 
 ### Homebrew Cask
-We host a [Homebrew](https://brew.sh) tap with the [PlayCover cask](https://github.com/PlayCover/homebrew-playcover/blob/master/Casks/playcover-community.rb). To install from it:
+We host a [Homebrew](https://brew.sh) tap with the [PlayCover cask](https://github.com/PlayCover/homebrew-playcover/blob/master/Casks/playcover-community.rb). To install from it run:
 
-1. Tap `PlayCover/playcover` with `brew tap PlayCover/playcover`;
-2. Install PlayCover with `brew install --cask playcover-community`.
+```sh
+brew install --cask PlayCover/playcover/playcover-community
+```
 
 To uninstall:
 1. Remove PlayCover using `brew uninstall --cask playcover-community`;

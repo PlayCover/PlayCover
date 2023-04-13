@@ -14,6 +14,8 @@ struct MainView: View {
     @EnvironmentObject var store: StoreVM
     @EnvironmentObject var integrity: AppIntegrity
 
+    @ObservedObject var keyCoverObserved = KeyCoverObservable.shared
+
     @Binding public var isSigningSetupShown: Bool
 
     @State private var selectedView: Int? = -1
@@ -154,6 +156,9 @@ struct MainView: View {
             }
             .onChange(of: URLObserved.action) { _ in
                 self.selectedView = URLObserved.type == .source ? 2 : self.selectedView
+            }
+            .sheet(isPresented: $keyCoverObserved.isKeyCoverUnlockingPromptShown) {
+                KeyCoverUnlockingPrompt()
             }
         }
         .frame(minWidth: 675, minHeight: 330)

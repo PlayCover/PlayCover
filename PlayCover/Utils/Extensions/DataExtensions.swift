@@ -3,10 +3,9 @@
 //  PlayCover
 //
 
-// swiftlint:disable force_unwrapping
-
 import Foundation
 
+// swiftlint:disable force_unwrapping
 extension String {
     init(data: Data, offset: Int, commandSize: Int, loadCommandString: lc_str) {
         let loadCommandStringOffset = Int(loadCommandString.offset)
@@ -32,3 +31,4 @@ extension Data {
         return result
     }
 }
+// swiftlint:enable force_unwrapping

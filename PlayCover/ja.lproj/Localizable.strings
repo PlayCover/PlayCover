@@ -185,7 +185,7 @@
 "settings.toggle.discord" = "Discordアクティビティの有効化";
 
 /* (No Comment) */
-"settings.toggle.jbBypass" = "ジェイルブレイクバイパスを有効にする（アルファ版）";
+"settings.toggle.jbBypass" = "脱獄検知回避を有効にする（実験的）";
 
 /* (No Comment) */
 "settings.toggle.km" = "キーマッピングを有効にする";
@@ -363,14 +363,14 @@
 "settings.toggle.lldbWithTerminal" = "ターミナルで開く";
 "settings.unavailable.hud" = "Metal HUDは利用できません";
 "error.failedToStripBinary" = "ファット バイナリで ARM64 arch が見つかりませんでした!";
-"settings.playChain.enable" = "Enable PlayChain (experimental)";
-"settings.playChain.help" = "Enable PlayChain support for this application, allowing it to (partially) use Apple Keychain Services";
-"settings.playChain.debugging" = "PlayChain debugging";
+"settings.playChain.enable" = "PlayChain を有効にする (実験的)";
+"settings.playChain.help" = "このアプリケーションの PlayChain サポートを有効にして、(部分的に) Apple Keychain Services を使用できるようにします";
+"settings.playChain.debugging" = "PlayChain のデバッグ";
 "playapp.noSources.title" = "IPA がインストールされていません";
 "playapp.noSources.subtitle" = "現在、IPA はインストールされていません。 下のボタンをクリックしてインポートします。";
-"settings.addToLaunchpad" = "Add to Launchpad";
-"settings.tab.bypasses" = "Bypasses";
-"settings.removeFromLaunchpad" = "Remove from Launchpad";
+"settings.addToLaunchpad" = "Launchpadに追加";
+"settings.tab.bypasses" = "回避";
+"settings.removeFromLaunchpad" = "Launchpadから削除";
 "playapp.download.integrityCheck" = "ファイルの整合性の検証中:";
 "playapp.download.differentChecksum" = "チェックサムが異なります！ インストールを続行しますか?";
 "playapp.download.differentChecksumDesc" = "期待される \"%@\", got \"%@\"";
@@ -382,11 +382,12 @@
 "ipaLibrary.noNetworkConnection.required" = "IPAライブラリにはインターネット接続が必要です";
 "preferences.popover.duplicate" = "リンクを複製";
 "alert.app.clearPlayChain" = "すべての PlayChain データが消去されます。 アプリへの再ログインが必要になる場合があります。 続けますか?";
-"settings.highResolution" = "High resolution may cause crashing";
-"settings.picker.windowFix" = "Fix window display issues";
-"settings.picker.windowFix.help" = "Apply window fixes that may helps your apps display normally";
+"settings.highResolution" = "高解像度はクラッシュを引き起こす可能性があります";
+"settings.picker.windowFix" = "ウィンドウの問題を修正";
+"settings.picker.windowFix.help" = "アプリが正常に表示されるようにするウィンドウ修正を適用";
 "settings.picker.windowFixMethod.0" = "Normal";
-"settings.picker.windowFixMethod.1" = "Alternate";
-"preferences.popover.checking" = "Checking URL";
-"settings.toggle.introspection" = "Insert Introspection libraries";
-"settings.toggle.introspection.help" = "Add the system introspection libraries to the app. Known to fix issues with some apps not starting correctly";
+"settings.picker.windowFixMethod.1" = "代わり";
+"preferences.popover.checking" = "URLをチェックしています";
+"settings.toggle.introspection" = "イントロスペクション ライブラリを挿入する";
+"settings.toggle.introspection.help" = "システム イントロスペクション ライブラリをアプリに追加します。 一部のアプリが正しく起動しない問題を修正することが知られています";
+"settings.picker.scaler" = "解像度スケーラー";

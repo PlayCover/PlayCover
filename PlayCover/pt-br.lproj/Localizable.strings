@@ -48,7 +48,7 @@
 "alert.restart" = "Por favor reinicie o PlayCover.";
 "alert.error" = "Ocorreu um erro!";
 "alert.success" = "Sucesso";
-"alert.moveAppToApplications.title" = "Mover para a pasta de Aplicativos?";
+"alert.moveAppToApplications.title" = "Mover para a pasta Aplicativos?";
 "alert.moveAppToApplications.subtitle" = "O PlayCover precisa estar na pasta Aplicativos para funcionar corretamente. Pressione o botão abaixo para mover o PlayCover automaticamente.";
 "alert.moveAppToApplications.move" = "Mover para a pasta Aplicativos";
 "alert.storeAccount.regionIsNotValid" = "A conta atual está definida para uma região diferente. Inicie o jogo, altere a região e passe pelos portões para salvar. Depois, tente novamente";
@@ -89,8 +89,8 @@
 "settings.picker.aspectRatio" = "Proporção da tela:";
 "settings.toggle.disableDisplaySleep" = "Desativar suspensão da tela";
 "settings.toggle.disableDisplaySleep.help" = "Impede que a tela desligue enquanto este aplicativo estiver em execução";
-"settings.toggle.jbBypass" = "Habilitar o contorno do Jailbreak (Alfa)";
-"settings.toggle.jbBypass.help" = "Tenta contornar a detecção de Jailbreak em alguns jogos (Não é garantido que sempre irá funcionar)";
+"settings.toggle.jbBypass" = "Habilitar Bypass do Jailbreak (Experimental)";
+"settings.toggle.jbBypass.help" = "Tenta evitar a detecção de Jailbreak em alguns jogos (Não é garantido que sempre irá funcionar)";
 "settings.info.displayName" = "Nome de exibição:";
 "settings.info.bundleName" = "Nome do pacote:";
 "settings.info.bundleIdentifier" = "Identificador do pacote:";
@@ -111,9 +111,9 @@
 "menubar.discord" = "Discord";
 "menubar.checkForUpdates" = "Buscar atualizações...";
 "soundAlert.messageText" = "Configurações incorretas de áudio detectadas!";
-"soundAlert.informativeText" = "Seu dispositivo de saída atual não possui uma taxa de amostragem de 48 ou 44,1 KHz! Erros podem ocorrer. Deseja alterar a taxa de amostragem do seu dispositivo de saída atual para 48 KHz?";
-"soundAlert.successText" = "Taxa de amostragem do dispositivo de saída atual definida para 48 KHz";
-"soundAlert.failureText" = "Falha ao definir a taxa de amostragem do dispositivo de saída atual para 48 KHz. Você pode manualmente definir a taxa de amostragem no aplicativo Configuração Áudio e MIDI";
+"soundAlert.informativeText" = "Seu dispositivo de saída atual não possui uma taxa de amostragem de 48 ou 44,1 kHz! Erros podem ocorrer. Deseja alterar a taxa de amostragem do seu dispositivo de saída atual para 48 kHz?";
+"soundAlert.successText" = "Taxa de amostragem do dispositivo de saída atual definida para 48 kHz";
+"soundAlert.failureText" = "Falha ao definir a taxa de amostragem do dispositivo de saída atual para 48 kHz. Você pode manualmente definir a taxa de amostragem no aplicativo Configuração Áudio e MIDI";
 "settings.tab.misc" = "Outros";
 "settings.button.discord" = "Atividade personalizada do Discord";
 "settings.button.clearActivity" = "Excluir atividade personalizada";
@@ -124,7 +124,7 @@
 "settings.text.image.help" = "Link para a imagem ou o nome do asset no portal de desenvolvimento";
 "settings.text.state" = "Estado";
 "settings.text.state.help" = "Segunda linha abaixo do título";
-"settings.toggle.discord" = "Ativar atividade do Discord";
+"settings.toggle.discord" = "Habilitar atividade no Discord";
 "settings.toggle.hud" = "HUD Metal";
 "playapp.add" = "Adicionar aplicativo";
 "alert.wrongFileType.title" = "Tipo de arquivo incorreto!";
@@ -205,7 +205,7 @@
 "alert.differentBundleIdKeymap.message" = "Esse mapeamento de teclas foi criado para outra aplicação.";
 "alert.differentBundleIdKeymap.text" = "Tem certeza de que deseja importar esse mapeamento?";
 "settings.unavailable.hud" = "HUD Metal indisponível";
-"settings.playChain.enable" = "Enable PlayChain (experimental)";
+"settings.playChain.enable" = "Habilitar PlayChain (experimental)";
 "error.failedToStripBinary" = "Não foi possível encontrar um binário ARM64 no arquivo universal!";
 "settings.playChain.help" = "Habilitar suporte ao PlayChain para essa aplicação, permitindo-o que use (parcialmente) os serviços de Keychain da Apple";
 "settings.playChain.debugging" = "Depuração do PlayChain";
@@ -220,7 +220,7 @@
 "playapp.progress.canceled" = "Cancelado";
 "playapp.importIPA" = "Importar IPA";
 "button.Reload" = "Recarregar";
-"playapp.clearPlayChain" = "Limpar dados do PlayChain";
+"playapp.clearPlayChain" = "Excluir dados do PlayChain";
 "ipaLibrary.noNetworkConnection.required" = "Biblioteca de IPA requer conexão à internet";
 "preferences.toggle.removePlayChain" = "Remover PlayChain";
 "preferences.popover.duplicate" = "Duplicar Link";
@@ -233,3 +233,4 @@
 "preferences.popover.checking" = "Verificando URL";
 "settings.toggle.introspection" = "Injetar bibliotecas de introspecção";
 "settings.toggle.introspection.help" = "Adicionar bibliotecas de introspecção ao aplicativo. Pode corrigir problemas com aplicativos não inicializando corretamente";
+"settings.picker.scaler" = "Escalar resolução";
