@@ -580,6 +580,14 @@ struct MiscView: View {
                         }
                     }
                 }
+                // swiftlint:disable:next todo
+                // TODO: Test and remove before 3.0 release
+                HStack {
+                    Toggle("settings.toggle.rootWorkDir", isOn: $settings.settings.rootWorkDir)
+                        .disabled(!(hasPlayTools ?? true))
+                        .help("settings.toggle.rootWorkDir.help")
+                    Spacer()
+                }
             }
             .padding()
         }
