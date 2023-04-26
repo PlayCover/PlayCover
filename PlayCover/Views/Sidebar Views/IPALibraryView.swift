@@ -101,9 +101,7 @@ struct IPALibraryView: View {
                             .font(.subheadline)
                             .foregroundColor(.secondary)
                         Button("button.Reload") {
-                            Task {
-                                await storeVM.resolveSources()
-                            }
+                            storeVM.resolveSources()
                         }
                     }
                 }
@@ -112,10 +110,7 @@ struct IPALibraryView: View {
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
-                        storeVM.sourcesData.removeAll()
-                        Task {
-                            await storeVM.resolveSources()
-                        }
+                        storeVM.resolveSources()
                     } label: {
                         Image(systemName: "arrow.clockwise")
                             .help("playapp.refreshSources")

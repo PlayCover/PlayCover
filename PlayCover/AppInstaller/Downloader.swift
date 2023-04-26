@@ -158,9 +158,7 @@ class DownloadApp {
                         FileManager.default.delete(at: url)
                     }
                     AppsVM.shared.fetchApps()
-                    Task {
-                        await StoreVM.shared.resolveSources()
-                    }
+                    StoreVM.shared.resolveSources()
                     NotifyService.shared.notify(
                         NSLocalizedString("notification.appInstalled", comment: ""),
                         NSLocalizedString("notification.appInstalled.message", comment: ""))

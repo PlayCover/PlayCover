@@ -48,41 +48,39 @@ struct IPASourceSettings: View {
                 Spacer()
                     .frame(width: 20)
                 VStack {
-                    Button(action: {
-                        addSource()
-                    }, label: {
+                    Button {
+                        addSourceSheet.toggle()
+                    } label: {
                         Text("preferences.button.addSource")
                             .frame(width: 130)
-                    })
-                    Button(action: {
+                    }
+                    Button {
                         storeVM.deleteSource(&selected)
-                    }, label: {
+                    } label: {
                         Text("preferences.button.deleteSource")
                             .frame(width: 130)
-                    })
-                    .disabled(!selectedNotEmpty)
-                    Spacer()
-                        .frame(height: 20)
-                    Button(action: {
-                        storeVM.moveSourceUp(&selected)
-                    }, label: {
-                        Text("preferences.button.moveSourceUp")
-                            .frame(width: 130)
-                    })
-                    .disabled(!selectedNotEmpty)
-                    Button(action: {
-                        storeVM.moveSourceDown(&selected)
-                    }, label: {
-                        Text("preferences.button.moveSourceDown")
-                            .frame(width: 130)
-                    })
+                    }
                     .disabled(!selectedNotEmpty)
                     Spacer()
                         .frame(height: 20)
                     Button {
-                        Task {
-                            await storeVM.resolveSources()
-                        }
+                        storeVM.moveSourceUp(&selected)
+                    } label: {
+                        Text("preferences.button.moveSourceUp")
+                            .frame(width: 130)
+                    }
+                    .disabled(!selectedNotEmpty)
+                    Button {
+                        storeVM.moveSourceDown(&selected)
+                    } label: {
+                        Text("preferences.button.moveSourceDown")
+                            .frame(width: 130)
+                    }
+                    .disabled(!selectedNotEmpty)
+                    Spacer()
+                        .frame(height: 20)
+                    Button {
+                        storeVM.resolveSources()
                     } label: {
                         Text("playapp.refreshSources")
                             .frame(width: 130)
@@ -90,12 +88,8 @@ struct IPASourceSettings: View {
                 }
             }
         }
-        .onChange(of: selected) { _ in
-            if selected.count > 0 {
-                selectedNotEmpty = true
-            } else {
-                selectedNotEmpty = false
-            }
+        .onChange(of: selected) { data in
+            selectedNotEmpty = data.count > 0
         }
         .padding(20)
         .frame(width: 600, height: 300, alignment: .center)
@@ -103,10 +97,6 @@ struct IPASourceSettings: View {
             AddSourceView(addSourceSheet: $addSourceSheet)
                 .environmentObject(storeVM)
         }
-    }
-
-    func addSource() {
-        addSourceSheet.toggle()
     }
 }
 
@@ -158,12 +148,12 @@ struct StatusBadgeView: View {
     @Binding var showingPopover: Bool
 
     var body: some View {
-        Button(action: {
+        Button {
             showingPopover.toggle()
-        }, label: {
+        } label: {
             Image(systemName: imageName)
                 .foregroundColor(imageColor)
-        })
+        }
         .buttonStyle(.plain)
         .popover(isPresented: $showingPopover) {
             Text(NSLocalizedString(popoverText, comment: ""))

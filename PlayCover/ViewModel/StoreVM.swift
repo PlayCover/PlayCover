@@ -18,9 +18,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
             .appendingPathExtension("plist")
         sourcesList = []
         if !decode() { encode() }
-        Task {
-            await resolveSources()
-        }
+        resolveSources()
     }
 
     @Published var sourcesData: [SourceJSON] = []
@@ -33,10 +31,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     //
     func addSource(_ source: SourceData) {
         sourcesList.append(source)
-        sourcesData.removeAll()
-        Task {
-            await resolveSources()
-        }
+        resolveSources()
     }
 
     //
@@ -44,80 +39,71 @@ class StoreVM: ObservableObject, @unchecked Sendable {
         sourcesList.removeAll {
             selectedSource.contains($0.id)
         }
-        sourcesData.removeAll()
-        Task {
-            await resolveSources()
-        }
+        resolveSources()
     }
 
     //
     func moveSourceUp(_ selectedSource: inout Set<UUID>) {
-        let selectedData = sourcesList.filter {
+        let selected = sourcesList.filter {
             selectedSource.contains($0.id)
         }
-
-        if let first = selectedData.first {
-            if var index = sourcesList.firstIndex(of: first) {
-                if index == 0 {
-                    return
-                } else {
+        if let first = sourcesList.first,
+           let data = selected.first {
+            if data != first {
+                if var index = sourcesList.firstIndex(of: data) {
                     index -= 1
                     sourcesList.removeAll {
                         selectedSource.contains($0.id)
                     }
-                    sourcesList.insert(contentsOf: selectedData, at: index)
+                    sourcesList.insert(contentsOf: selected, at: index)
                 }
+                resolveSources()
             }
-        }
-        sourcesData.removeAll()
-        Task {
-            await resolveSources()
         }
     }
 
     //
     func moveSourceDown(_ selectedSource: inout Set<UUID>) {
-        let selectedData = sourcesList.filter {
+        let selected = sourcesList.filter {
             selectedSource.contains($0.id)
         }
 
-        if let first = selectedData.first {
-            if var index = sourcesList.firstIndex(of: first) {
-                if index == sourcesList.endIndex {
-                    return
-                } else {
+        if let last = sourcesList.last,
+           let data = selected.first {
+            if data != last {
+                if var index = sourcesList.firstIndex(of: data) {
                     index += 1
                     sourcesList.removeAll {
                         selectedSource.contains($0.id)
                     }
-                    sourcesList.insert(contentsOf: selectedData, at: index)
+                    sourcesList.insert(contentsOf: selected, at: index)
                 }
+                resolveSources()
             }
-        }
-        sourcesData.removeAll()
-        Task {
-            await resolveSources()
         }
     }
 
     //
-    @MainActor func resolveSources() async {
-        let semaphore = AsyncSemaphore(value: 0)
-        guard NetworkVM.isConnectedToNetwork() else { return }
-        if !sourcesList.isEmpty {
-            for index in sourcesList.indices {
-                sourcesList[index].status = .checking
-                let (sourceJson, sourceState) = await getSourceData(sourceLink: sourcesList[index].source)
-                sourcesList[index].status = sourceState
-                if sourceState == .valid {
-                    if let json = sourceJson {
-                        sourcesData.append(json)
+    func resolveSources() {
+        Task { @MainActor in
+            let semaphore = AsyncSemaphore(value: 0)
+            guard NetworkVM.isConnectedToNetwork() else { return }
+            sourcesData.removeAll()
+            if !sourcesList.isEmpty {
+                for index in sourcesList.indices {
+                    sourcesList[index].status = .checking
+                    let (sourceJson, sourceState) = await getSourceData(sourceLink: sourcesList[index].source)
+                    sourcesList[index].status = sourceState
+                    if sourceState == .valid {
+                        if let json = sourceJson {
+                            sourcesData.append(json)
+                            semaphore.signal()
+                        }
+                    } else {
                         semaphore.signal()
                     }
-                } else {
-                    semaphore.signal()
+                    await semaphore.wait()
                 }
-                await semaphore.wait()
             }
         }
     }
