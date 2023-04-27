@@ -27,6 +27,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
             encode()
         }
     }
+    private var resolveTask: Task<Void, Never>?
 
     //
     func addSource(_ source: SourceData) {
@@ -85,7 +86,8 @@ class StoreVM: ObservableObject, @unchecked Sendable {
 
     //
     func resolveSources() {
-        Task { @MainActor in
+        resolveTask?.cancel()
+        resolveTask = Task { @MainActor in
             let semaphore = AsyncSemaphore(value: 0)
             guard NetworkVM.isConnectedToNetwork() else { return }
             sourcesData.removeAll()
