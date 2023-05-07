@@ -159,6 +159,8 @@
 "settings.toggle.km" = "Keymapping";
 "settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
+"settings.toggle.autoKM" = "Smart Keymap";
+"settings.toggle.autoKM.help" = "Automatically disable keymapping when text input is sensed";
 
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";

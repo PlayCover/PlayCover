@@ -29,6 +29,7 @@ struct AppSettingsData: Codable {
     var windowFixMethod = 0
     var injectIntrospection = false
     var rootWorkDir = true
+    var noKMOnInput = true
 
     init() {}
 
@@ -56,6 +57,7 @@ struct AppSettingsData: Codable {
         windowFixMethod = try container.decodeIfPresent(Int.self, forKey: .windowFixMethod) ?? 0
         injectIntrospection = try container.decodeIfPresent(Bool.self, forKey: .injectIntrospection) ?? false
         rootWorkDir = try container.decodeIfPresent(Bool.self, forKey: .rootWorkDir) ?? true
+        noKMOnInput = try container.decodeIfPresent(Bool.self, forKey: .noKMOnInput) ?? true
     }
 }
 
