@@ -9,7 +9,6 @@ import UniformTypeIdentifiers
 
 struct AppSettingsData: Codable {
     var keymapping = true
-    var mouseMapping = true
     var sensitivity: Float = 50
 
     var disableTimeout = false
@@ -29,6 +28,7 @@ struct AppSettingsData: Codable {
     var metalHUD = false
     var windowFixMethod = 0
     var injectIntrospection = false
+    var rootWorkDir = true
 
     init() {}
 
@@ -36,7 +36,6 @@ struct AppSettingsData: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         keymapping = try container.decodeIfPresent(Bool.self, forKey: .keymapping) ?? true
-        mouseMapping = try container.decodeIfPresent(Bool.self, forKey: .mouseMapping) ?? true
         sensitivity = try container.decodeIfPresent(Float.self, forKey: .sensitivity) ?? 50
         disableTimeout = try container.decodeIfPresent(Bool.self, forKey: .disableTimeout) ?? false
         iosDeviceModel = try container.decodeIfPresent(String.self, forKey: .iosDeviceModel) ?? "iPad13,8"
@@ -56,6 +55,7 @@ struct AppSettingsData: Codable {
         metalHUD = try container.decodeIfPresent(Bool.self, forKey: .metalHUD) ?? false
         windowFixMethod = try container.decodeIfPresent(Int.self, forKey: .windowFixMethod) ?? 0
         injectIntrospection = try container.decodeIfPresent(Bool.self, forKey: .injectIntrospection) ?? false
+        rootWorkDir = try container.decodeIfPresent(Bool.self, forKey: .rootWorkDir) ?? true
     }
 }
 

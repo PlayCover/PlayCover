@@ -132,8 +132,11 @@ class Uninstaller {
             let url = PlayTools.playCoverContainer
                 .appendingPathComponent("PlayChain")
                 .appendingPathComponent(app.info.bundleIdentifier)
-
             FileManager.default.delete(at: url)
+
+            // KeyCover encrypted chain
+            let keyCoverURL = url.appendingPathExtension("keyCover")
+            FileManager.default.delete(at: keyCoverURL)
         }
 
         app.removeAlias()

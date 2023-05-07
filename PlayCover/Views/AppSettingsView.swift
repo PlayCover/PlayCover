@@ -150,9 +150,6 @@ struct KeymappingView: View {
                     Toggle("settings.toggle.km", isOn: $settings.settings.keymapping)
                         .help("settings.toggle.km.help")
                     Spacer()
-                    Toggle("settings.toggle.mm", isOn: $settings.settings.mouseMapping)
-                        .help("settings.toggle.mm.help")
-                        .disabled(!settings.settings.keymapping)
                 }
                 HStack {
                     Text(String(
@@ -579,6 +576,14 @@ struct MiscView: View {
                             hasAlias = false
                         }
                     }
+                }
+                // swiftlint:disable:next todo
+                // TODO: Test and remove before 3.0 release
+                HStack {
+                    Toggle("settings.toggle.rootWorkDir", isOn: $settings.settings.rootWorkDir)
+                        .disabled(!(hasPlayTools ?? true))
+                        .help("settings.toggle.rootWorkDir.help")
+                    Spacer()
                 }
             }
             .padding()
