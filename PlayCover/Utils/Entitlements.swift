@@ -63,6 +63,7 @@ class Entitlements {
 
         setBaseEntitlements(&base)
 
+        /// Deprecated
         if SystemConfig.isPlaySignActive {
             base["com.apple.private.tcc.allow"] = TCC.split(whereSeparator: \.isNewline)
             if let specific = try [String: Any].read(app.entitlements) {

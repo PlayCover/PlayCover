@@ -16,8 +16,6 @@ struct MainView: View {
 
     @ObservedObject var keyCoverObserved = KeyCoverObservable.shared
 
-    @Binding public var isSigningSetupShown: Bool
-
     @State private var selectedView: Int? = -1
     @State private var navWidth: CGFloat = 0
     @State private var viewWidth: CGFloat = 0
@@ -122,9 +120,6 @@ struct MainView: View {
             } message: {
                 Text("alert.moveAppToApplications.subtitle")
             }
-            .sheet(isPresented: $isSigningSetupShown) {
-                SignSetupView(isSigningSetupShown: $isSigningSetupShown)
-            }
             .onChange(of: URLObserved.action) { _ in
                 self.selectedView = URLObserved.type == .source ? 2 : self.selectedView
             }
@@ -181,10 +176,8 @@ struct SplitViewAccessor: NSViewRepresentable {
 }
 
 struct MainView_Previews: PreviewProvider {
-    @State static var isSigningSetupShown = true
-
     static var previews: some View {
-        MainView(isSigningSetupShown: $isSigningSetupShown)
+        MainView()
             .environmentObject(InstallVM.shared)
             .environmentObject(AppsVM.shared)
             .environmentObject(StoreVM.shared)

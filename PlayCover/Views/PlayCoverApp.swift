@@ -73,11 +73,9 @@ struct PlayCoverApp: App {
     @StateObject var updaterViewModel = UpdaterViewModel()
     var storeVM = StoreVM.shared
 
-    @State var isSigningSetupShown = false
-
     var body: some Scene {
         WindowGroup {
-            MainView(isSigningSetupShown: $isSigningSetupShown)
+            MainView()
                 .environmentObject(InstallVM.shared)
                 .environmentObject(DownloadVM.shared)
                 .environmentObject(AppsVM.shared)
@@ -92,7 +90,7 @@ struct PlayCoverApp: App {
         .handlesExternalEvents(matching: ["{same path of URL?}"]) // create new window if doesn't exist
         .commands {
             SidebarCommands()
-            PlayCoverMenuView(isSigningSetupShown: $isSigningSetupShown)
+            PlayCoverMenuView()
             PlayCoverHelpMenuView(updaterViewModel: updaterViewModel)
             PlayCoverViewMenuView()
         }
