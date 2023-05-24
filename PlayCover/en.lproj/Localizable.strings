@@ -30,6 +30,14 @@
 "ipaLibrary.version.newer" = "This version is newer than the version you have installed";
 "ipaLibrary.alert.download" = "Are you sure you want to download this version of %@?";
 "ipaLibrary.download" = "Download";
+"ipaLibrary.alert.graylist" = "Source Warning";
+/* Thanks Cydia for the idea! */
+"ipaLibrary.alert.graylist.informative" = "This source is not compliant with PlayCover's code of ethics.
+
+We can't stop you from using it, but we recommend moral introspection and caution.
+
+Please also keep in mind that paid/modded apps from any sources are unsupported by the PlayCover community.";
+"ipaLibrary.button.graylist.addAnyway" = "Add Source";
 
 "preferences.button.checkForUpdates" = "Check for Updates";
 "preferences.tab.updates" = "Updates";
