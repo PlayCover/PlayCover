@@ -290,7 +290,9 @@ class PlayApp: BaseApp {
         "com.pubg.newstate",
         "com.tencent.tmgp.pubgmhd",
         "com.dts.freefireth",
-        "com.dts.freefiremax"
+        "com.dts.freefiremax",
+        "vn.vng.codmvn",
+        "com.ngame.allstar.eu"
     ]
 
     static let MALICIOUS_APPS = [
