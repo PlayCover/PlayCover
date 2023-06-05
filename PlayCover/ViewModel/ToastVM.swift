@@ -14,7 +14,7 @@ class ToastVM: ObservableObject {
     @Published var isShown: Bool = true
 
     func showToast(toastType: ToastType, toastDetails: String) {
-        toasts.append(ToastInfo(toastType: toastType, toastDetails: toastDetails, timeRemaining: 2))
+        toasts.insert(ToastInfo(toastType: toastType, toastDetails: toastDetails, timeRemaining: 2), at: 0)
     }
 }
 
@@ -22,6 +22,7 @@ struct ToastInfo: Hashable {
     let toastType: ToastType
     let toastDetails: String
     let timeRemaining: UInt64
+    var destructorCalled = false
 }
 
 enum ToastType {

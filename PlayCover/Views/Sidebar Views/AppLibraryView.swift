@@ -18,6 +18,7 @@ struct AppLibraryView: View {
     @State private var isList = UserDefaults.standard.bool(forKey: "AppLibraryView")
     @State private var selected: PlayApp?
     @State private var showSettings = false
+    @State private var showQueue = false
     @State private var showLegacyConvertAlert = false
     @State private var showWrongfileTypeAlert = false
 
@@ -62,13 +63,7 @@ struct AppLibraryView: View {
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                     Button("playapp.importIPA") {
-                        if installVM.inProgress {
-                            Log.shared.error(PlayCoverError.waitInstallation)
-                        } else if downloadVM.inProgress {
-                            Log.shared.error(PlayCoverError.waitDownload)
-                        } else {
-                            selectFile()
-                        }
+                        selectFile()
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -89,16 +84,18 @@ struct AppLibraryView: View {
             }
             ToolbarItem(placement: .primaryAction) {
                 Button(action: {
-                    if installVM.inProgress {
-                        Log.shared.error(PlayCoverError.waitInstallation)
-                    } else if downloadVM.inProgress {
-                        Log.shared.error(PlayCoverError.waitDownload)
-                    } else {
-                        selectFile()
-                    }
+                    selectFile()
                 }, label: {
                     Image(systemName: "plus")
                         .help("playapp.add")
+                })
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    showQueue.toggle()
+                }, label: {
+                    Image(systemName: "tray")
+                        .help("playapp.queue.install")
                 })
             }
             ToolbarItem(placement: .primaryAction) {
@@ -127,17 +124,14 @@ struct AppLibraryView: View {
                 AppSettingsView(viewModel: AppSettingsVM(app: selected))
             }
         }
+        .sheet(isPresented: $showQueue) {
+            QueuesView(selection: QueuesView.Tabs.install)
+        }
         .onAppear {
             showLegacyConvertAlert = LegacySettings.doesMonolithExist
         }
         .onDrop(of: ["public.url", "public.file-url"], isTargeted: nil) { (items) -> Bool in
-            if installVM.inProgress {
-                Log.shared.error(PlayCoverError.waitInstallation)
-                return false
-            } else if downloadVM.inProgress {
-                Log.shared.error(PlayCoverError.waitDownload)
-                return false
-            } else if let item = items.first {
+            if let item = items.first {
                 if let identifier = item.registeredTypeIdentifiers.first {
                     if identifier == "public.url" || identifier == "public.file-url" {
                         item.loadItem(forTypeIdentifier: identifier, options: nil) { (urlData, _) in
@@ -182,14 +176,7 @@ struct AppLibraryView: View {
     }
 
     private func installApp(_ url: URL) {
-        Installer.install(ipaUrl: url, export: false, returnCompletion: { _ in
-            Task { @MainActor in
-                appsVM.fetchApps()
-                NotifyService.shared.notify(
-                    NSLocalizedString("notification.appInstalled", comment: ""),
-                    NSLocalizedString("notification.appInstalled.message", comment: ""))
-            }
-        })
+        QueuesVM.shared.addInstallItem(ipa: url)
     }
 
     private func selectFile() {

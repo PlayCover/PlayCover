@@ -33,45 +33,27 @@ struct ToastView: View {
                     .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
                     .padding()
                     .onAppear {
-                        Task { @MainActor in
-                            try await Task.sleep(nanoseconds: toast.timeRemaining * 1000000000)
-                            // Next toast to be removed will always be the first in the list
-                            toastVM.toasts.removeFirst()
-                        }
-                    }
-                }
-                if installVM.inProgress {
-                    VStack {
-                        Text(NSLocalizedString(installVM.status.rawValue, comment: ""))
-                        ProgressView(value: installVM.progress)
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
-                    .padding()
-                }
-                if downloadVM.inProgress {
-                    VStack {
-                        Text(NSLocalizedString(downloadVM.status.rawValue, comment: "")) +
-                        Text(" \(downloadVM.storeAppData?.name ?? "")")
-                        HStack {
-                            ProgressView(value: downloadVM.progress)
-                            if downloadVM.status == .downloading {
-                                Button {
-                                    DownloadApp(url: nil, app: nil, warning: nil).cancel()
-                                } label: {
-                                    Image(systemName: "xmark.circle.fill")
-                                        .font(.title3)
-                                }
-                                .buttonStyle(.plain)
+                        // Make sure the "destructor" hasn't already been called
+                        if let idx = toastVM.toasts.firstIndex(where: { $0 == toast }),
+                           !toastVM.toasts[idx].destructorCalled {
+                            Task { @MainActor in
+                                toastVM.toasts[idx].destructorCalled = true
+                                try await Task.sleep(nanoseconds: toast.timeRemaining * 1000000000)
+
+                                // Since toasts can be dismissed with a click, it will need to remove by value
+                                toastVM.toasts.removeAll(where: { $0.toastDetails == toast.toastDetails })
                             }
                         }
                     }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(.regularMaterial, in:
-                                    RoundedRectangle(cornerRadius: 10))
-                    .padding()
+                    .onTapGesture {
+                        toastVM.toasts.removeAll(where: { $0 == toast })
+                    }
+                }
+                if installVM.inProgress {
+                    installVM.constructView()
+                }
+                if downloadVM.inProgress {
+                    downloadVM.constructView()
                 }
             }
             .animation(.easeInOut(duration: 0.25), value: toastVM.toasts.count)

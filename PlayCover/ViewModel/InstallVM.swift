@@ -13,7 +13,8 @@ enum InstallStepsNative: String {
          library = "playapp.install.addToLib",
          begin = "playapp.install.copy",
          finish = "playapp.progress.finished",
-         failed = "playapp.progress.failed"
+         failed = "playapp.progress.failed",
+         canceled = "playapp.progress.canceled"
 }
 
 class InstallVM: ProgressVM<InstallStepsNative> {
@@ -21,7 +22,11 @@ class InstallVM: ProgressVM<InstallStepsNative> {
     static let shared = InstallVM()
 
     init() {
-        super.init(start: .begin, ends: [.finish, .failed])
+        super.init(start: .begin,
+                   ends: [.finish, .failed, .canceled],
+                   cancelableSteps: [.unzip, .wrapper, .playtools, .sign, .library, .begin]) {
+            Installer.cancelInstall()
+        }
     }
 
 }

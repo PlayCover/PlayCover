@@ -16,12 +16,23 @@ enum DownloadStepsNative: String {
 }
 
 class DownloadVM: ProgressVM<DownloadStepsNative> {
-    @Published var storeAppData: StoreAppData?
+    @Published var storeAppData: StoreAppData? {
+        didSet {
+            name = storeAppData?.name ?? ""
+        }
+    }
 
     static let shared = DownloadVM()
 
     init() {
-        super.init(start: .downloading, ends: [.finish, .failed, .canceled])
-    }
+        super.init(start: .downloading, ends: [.finish, .failed, .canceled], cancelableSteps: [.downloading])
 
+        self.cancelFunc = {
+            guard let appData = self.storeAppData else {
+                return
+            }
+
+            QueuesVM.shared.removeDownloadItem(app: appData)
+        }
+    }
 }

@@ -18,6 +18,7 @@ struct IPALibraryView: View {
     @State private var isList = UserDefaults.standard.bool(forKey: "IPALibraryView")
     @State private var selected: StoreAppData?
     @State private var addSourcePresented = false
+    @State private var showQueue = false
 
     @ObservedObject private var URLObserved = URLObservable.shared
 
@@ -110,6 +111,14 @@ struct IPALibraryView: View {
                 })
             }
             ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    showQueue.toggle()
+                }, label: {
+                    Image(systemName: "tray")
+                        .help("playapp.queue.download")
+                })
+            }
+            ToolbarItem(placement: .primaryAction) {
                 Picker("", selection: $isList) {
                     Image(systemName: "square.grid.2x2")
                         .tag(false)
@@ -133,6 +142,9 @@ struct IPALibraryView: View {
         .sheet(isPresented: $addSourcePresented) {
             AddSourceView(addSourceSheet: $addSourcePresented)
                 .environmentObject(storeVM)
+        }
+        .sheet(isPresented: $showQueue) {
+            QueuesView(selection: QueuesView.Tabs.download)
         }
         .onChange(of: URLObserved.type) {_ in
             addSourcePresented = URLObserved.type == .source

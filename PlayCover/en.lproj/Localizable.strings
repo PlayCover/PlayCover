@@ -19,6 +19,8 @@
 "playapp.refreshSources" = "Refresh Sources";
 "playapp.noSources.title" = "No IPAs Installed";
 "playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";
+"playapp.queue.install" = "Install Queue";
+"playapp.queue.download" = "Download Queue";
 
 "ipaLibrary.noSources.title" = "No IPA Sources Added";
 "ipaLibrary.noSources.subtitle" = "You currently have no IPA Sources added. Click the button below to add one.";
@@ -264,6 +266,15 @@
 
 "configSigning.alert.copied" = "Command Copied!";
 "configSigning.alert.info" = "Please paste and run the command in Terminal.app. Your Mac will reboot after";
+
+"queue.alert.exists" = "Item already in queue";
+"queue.alert.notexist" = "Item not in queue";
+"queue.toast.installAdded" = "Install item \"%@\" added to queue";
+"queue.toast.downloadAdded" = "Download item \"%@\" added to queue";
+"queue.view.title" = "Queues";
+"queue.view.installs" = "Installs";
+"queue.view.downloads" = "Downloads";
+"queue.view.empty" = "No items currently in this queue";
 
 "keycover.masterPassword" = "Master Password";
 "keycover.confirmMasterPassword" = "Confirm Master Password";

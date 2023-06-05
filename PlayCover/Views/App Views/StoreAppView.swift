@@ -33,14 +33,23 @@ struct StoreAppView: View {
                                 warningSymbol: $warningSymbol,
                                 warningMessage: $warningMessage)
         .gesture(TapGesture(count: 2).onEnded {
-            if let url = URL(string: app.link) {
-                if downloadVM.inProgress {
-                    Log.shared.error(PlayCoverError.waitDownload)
-                } else {
-                    DownloadApp(url: url, app: app,
-                                warning: warningMessage).start()
+            if let warningMessage = warningMessage {
+                let alert = NSAlert()
+                alert.messageText = NSLocalizedString(warningMessage, comment: "")
+                alert.informativeText = String(
+                    format: NSLocalizedString("ipaLibrary.alert.download", comment: ""),
+                    arguments: [app.name]
+                )
+                alert.alertStyle = .warning
+                alert.addButton(withTitle: NSLocalizedString("button.Yes", comment: ""))
+                alert.addButton(withTitle: NSLocalizedString("button.No", comment: ""))
+
+                if alert.runModal() == .alertSecondButtonReturn {
+                    return
                 }
             }
+
+            QueuesVM.shared.addDownloadItem(app: app)
         })
         .simultaneousGesture(TapGesture().onEnded {
             selected = app

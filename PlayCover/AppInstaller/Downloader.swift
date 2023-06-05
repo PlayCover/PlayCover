@@ -21,14 +21,14 @@ import DownloadManager
 ///  More details: https://github.com/shapedbyiris/download-manager/blob/master/README.md
 
 class DownloadApp {
-    let url: URL?
-    let app: StoreAppData?
-    let warning: String?
+    let url: URL
+    let app: StoreAppData
+    let completion: () -> Void
 
-    init(url: URL?, app: StoreAppData?, warning: String?) {
+    init(url: URL, app: StoreAppData, completion: @escaping() -> Void) {
         self.url = url
         self.app = app
-        self.warning = warning
+        self.completion = completion
     }
 
     let downloadVM = DownloadVM.shared
@@ -36,43 +36,17 @@ class DownloadApp {
     let downloader = DownloadManager.shared
 
     func start() {
-        if installVM.inProgress {
-            Log.shared.error(PlayCoverError.waitInstallation)
+        if url.isFileURL {
+            proceedInstall(url, deleteIPA: false)
         } else {
-            if let warningMessage = warning, let app = app {
-                let alert = NSAlert()
-                alert.messageText = NSLocalizedString(warningMessage, comment: "")
-                alert.informativeText = String(
-                    format: NSLocalizedString("ipaLibrary.alert.download", comment: ""),
-                    arguments: [app.name]
-                )
-                alert.alertStyle = .warning
-                alert.addButton(withTitle: NSLocalizedString("button.Yes", comment: ""))
-                alert.addButton(withTitle: NSLocalizedString("button.No", comment: ""))
+            let (finalURL, urlIsValid) = NetworkVM.urlAccessible(url: url, popup: true)
 
-                if alert.runModal() == .alertSecondButtonReturn {
-                    return
-                }
-            }
-
-            if let wrapedURL = url {
-                if wrapedURL.isFileURL {
-                    proceedInstall(url, deleteIPA: false)
-                } else {
-                    let (finalURL, urlIsValid) = NetworkVM.urlAccessible(url: wrapedURL, popup: true)
-                    if urlIsValid, let newWrappedURL = finalURL {
-                        proceedDownload(newWrappedURL)
-                    }
-                }
+            if urlIsValid, let wrapped = finalURL {
+                proceedDownload(wrapped)
+            } else {
+                completion()
             }
         }
-    }
-
-    func cancel() {
-        downloader.cancelAllDownloads()
-
-        downloadVM.next(.canceled, 0.95, 1.0)
-        downloadVM.storeAppData = nil
     }
 
     private func proceedDownload(_ finalURL: URL) {
@@ -86,38 +60,43 @@ class DownloadApp {
                                                  appropriateFor: URL(fileURLWithPath: "/Users"),
                                                  create: true)
 
-            if let tmpDir = tmpDir {
-                downloader.addDownload(url: finalURL,
-                                       destinationURL: tmpDir,
-                                       onProgress: { progress in
-                    // progress is a Float
-                    self.downloadVM.progress = Double(progress)
-                }, onCompletion: { error, fileURL in
-                    self.downloadVM.next(.integrity, 0.7, 0.95)
+            guard let tmpDir = tmpDir else {
+                return completion()
+            }
 
-                    if let error = error {
-                        self.downloadVM.next(.failed, 0.95, 1.0)
-                        self.downloadVM.storeAppData = nil
-                        return Log.shared.error(error)
-                    }
+            downloader.addDownload(url: finalURL,
+                                   destinationURL: tmpDir,
+                                   onProgress: { progress in
+                // progress is a Float
+                self.downloadVM.progress = Double(progress)
+            }, onCompletion: { error, fileURL in
+                self.downloadVM.next(.integrity, 0.7, 0.95)
 
-                    self.verifyChecksum(checksum: self.downloadVM.storeAppData?.checksum, file: fileURL) { completing in
-                        self.downloadVM.next(completing ? .finish : .failed, 0.95, 1.0)
-                        if completing {
-                            Task { @MainActor in
-                                self.proceedInstall(fileURL)
-                            }
+                if let error = error {
+                    self.downloadVM.next(.failed, 0.95, 1.0)
+                    self.downloadVM.storeAppData = nil
+                    Log.shared.error(error)
+                    return self.completion()
+                }
+
+                self.verifyChecksum(checksum: self.downloadVM.storeAppData?.checksum, file: fileURL) { completing in
+                    self.downloadVM.next(completing ? .finish : .failed, 0.95, 1.0)
+                    if completing {
+                        Task { @MainActor in
+                            self.proceedInstall(fileURL)
                         }
                     }
-                })
-            }
+                }
+            })
         } catch {
             self.downloadVM.next(.failed, 0.95, 1.0)
 
             if let tmpDir = tmpDir {
                 FileManager.default.delete(at: tmpDir)
             }
+
             Log.shared.error(error)
+            completion()
         }
     }
 
@@ -152,19 +131,9 @@ class DownloadApp {
 
     private func proceedInstall(_ url: URL?, deleteIPA: Bool = true) {
         if let url = url {
-            Installer.install(ipaUrl: url, export: false, returnCompletion: { _ in
-                Task { @MainActor in
-                    if deleteIPA {
-                        FileManager.default.delete(at: url)
-                    }
-                    AppsVM.shared.fetchApps()
-                    StoreVM.shared.resolveSources()
-                    NotifyService.shared.notify(
-                        NSLocalizedString("notification.appInstalled", comment: ""),
-                        NSLocalizedString("notification.appInstalled.message", comment: ""))
-                    self.downloadVM.storeAppData = nil
-                }
-            })
+            QueuesVM.shared.addInstallItem(ipa: url, deleteIpa: true)
+            self.downloadVM.storeAppData = nil
+            self.completion()
         }
     }
 }
