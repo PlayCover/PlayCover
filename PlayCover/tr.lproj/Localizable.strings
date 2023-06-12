@@ -159,6 +159,8 @@
 "settings.toggle.km" = "Tuş eşleme";
 "settings.toggle.km.help" = "Yalnızca dokunmatik oyunlara klavye desteği ekleyin. Düzenleyici menüsünü açmak için Command + K tuşlarını kullanın.";
 "settings.slider.mouseSensitivity" = "Fare hassasiyeti: %.f";
+"settings.toggle.autoKM" = "Akıllı Tuş Eşleşmesi”;
+"settings.toggle.autoKM.help" = "Metin girişi algılandığında tuş eşlemeyi otomatik olarak devre dışı bırak";
 
 "settings.tab.graphics" = "Grafik";
 "settings.picker.iosDevice" = "iOS cihazı:";
