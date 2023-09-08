@@ -192,6 +192,7 @@
 "settings.toggle.introspection" = "Insert Introspection libraries";
 "settings.toggle.introspection.help" = "Add the system introspection libraries to the app. Known to fix issues with some apps not starting correctly";
 
+"settings.applicationCategoryType" = "Application Type";
 "settings.removePlayTools" = "Remove PlayTools";
 "settings.addToLaunchpad" = "Add to Launchpad";
 "settings.removeFromLaunchpad" = "Remove from Launchpad";
