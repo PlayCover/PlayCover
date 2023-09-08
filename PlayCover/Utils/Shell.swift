@@ -86,6 +86,11 @@ class Shell: ObservableObject {
                 "--deep", "--preserve-metadata=entitlements")
     }
 
+    static func setMetalHUD(_ bundleID: String, enabled: Bool) throws {
+        try run("/usr/bin/defaults", "write", bundleID,
+                      "MetalForceHudEnabled", "-bool", String(enabled))
+    }
+
     static func lldb(_ url: URL, withTerminalWindow: Bool = false) throws {
         Task(priority: .utility) {
             if withTerminalWindow {
