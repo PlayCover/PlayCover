@@ -550,7 +550,7 @@ struct MiscView: View {
                 HStack {
                     Button((hasPlayTools ?? true) ? "settings.removePlayTools" : "alert.install.injectPlayTools") {
                         closeView.toggle()
-                        Task(priority: .userInitiated) {
+                        DispatchQueue.global(qos: .default).async {
                             if hasPlayTools ?? true {
                                 PlayTools.removeFromApp(app.executable)
                             } else {
