@@ -66,10 +66,6 @@ class PlayApp: BaseApp {
     func runAppExec() {
         let config = NSWorkspace.OpenConfiguration()
 
-        if settings.settings.injectIntrospection {
-            config.environment["DYLD_LIBRARY_PATH"] = "/usr/lib/system/introspection"
-        }
-
         NSWorkspace.shared.openApplication(
             at: url,
             configuration: config,
@@ -200,6 +196,33 @@ class PlayApp: BaseApp {
             Log.shared.error(error)
             return true
         }
+    }
+
+    func introspection(set: Bool? = nil) -> Bool {
+        if info.lsEnvironment["DYLD_LIBRARY_PATH"] == nil {
+            info.lsEnvironment["DYLD_LIBRARY_PATH"] = ""
+        }
+
+        if let set = set {
+            if set {
+                info.lsEnvironment["DYLD_LIBRARY_PATH"]? += "/usr/lib/system/introspection:"
+            } else {
+                info.lsEnvironment["DYLD_LIBRARY_PATH"] = info.lsEnvironment["DYLD_LIBRARY_PATH"]?
+                    .replacingOccurrences(of: "/usr/lib/system/introspection:", with: "")
+            }
+
+            do {
+                try Shell.signApp(executable)
+            } catch {
+                Log.shared.error(error)
+            }
+        }
+
+        guard let introspection = info.lsEnvironment["DYLD_LIBRARY_PATH"] else {
+            return false
+        }
+
+        return introspection.contains("/usr/lib/system/introspection")
     }
 
     func hasAlias() -> Bool {

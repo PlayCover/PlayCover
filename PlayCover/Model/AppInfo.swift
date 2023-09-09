@@ -186,6 +186,31 @@ public class AppInfo {
         return "AppIcon"
     }
 
+    var lsEnvironment: [String: String] {
+        get {
+            if self[dictionary: "LSEnvironment"] == nil {
+                self[dictionary: "LSEnvironment"] = NSMutableDictionary(dictionary: [String: String]())
+            }
+
+            return self[dictionary: "LSEnvironment"] as? [String: String] ?? [:]
+        }
+        set {
+            if self[dictionary: "LSEnvironment"] == nil {
+                self[dictionary: "LSEnvironment"] = NSMutableDictionary(dictionary: [String: String]())
+            }
+
+            if let key = newValue.first?.key, let value = newValue.first?.value {
+                self[dictionary: "LSEnvironment"]?[key] = value
+
+                do {
+                    try write()
+                } catch {
+                    Log.shared.error(error)
+                }
+            }
+        }
+    }
+
     func assert(minimumVersion: Double) {
         if let double = Double(minimumOSVersion) {
             if double > 11.0 {
