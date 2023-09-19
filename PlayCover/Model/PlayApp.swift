@@ -9,8 +9,22 @@ import IOKit.pwr_mgt
 
 class PlayApp: BaseApp {
     private static let library = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library")
+    public static let bundleIDCacheURL = PlayTools.playCoverContainer.appendingPathComponent("CACHE")
     var displaySleepAssertionID: IOPMAssertionID?
     public var isStarting = false
+
+    public static var bundleIDCache: [String] {
+        get throws {
+            (try String(contentsOf: bundleIDCacheURL)).split(whereSeparator: \.isNewline).map({ String($0) })
+        }
+    }
+
+    override init(appUrl: URL) {
+        super.init(appUrl: appUrl)
+
+        removeAlias()
+        createAlias()
+    }
 
     var searchText: String {
         info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
@@ -77,7 +91,7 @@ class PlayApp: BaseApp {
         }
 
         NSWorkspace.shared.openApplication(
-            at: url,
+            at: aliasURL,
             configuration: config,
             completionHandler: { runningApp, error in
                 guard error == nil else { return }
@@ -197,7 +211,7 @@ class PlayApp: BaseApp {
 
     lazy var keymapping = Keymapping(info, container: container)
 
-    var container: AppContainer?
+    lazy var container = AppContainer(bundleId: info.bundleIdentifier)
 
     func hasPlayTools() -> Bool {
         do {
@@ -221,7 +235,7 @@ class PlayApp: BaseApp {
     }
 
     func openAppCache() {
-        container?.containerUrl.showInFinderAndSelectLastComponent()
+        container.containerUrl.showInFinderAndSelectLastComponent()
     }
 
     func clearAllCache() {
@@ -239,7 +253,7 @@ class PlayApp: BaseApp {
                                                     withIntermediateDirectories: true,
                                                     attributes: nil)
             let data = try url.bookmarkData(options: .suitableForBookmarkFile,
-                                                includingResourceValuesForKeys: nil, relativeTo: nil)
+                                            includingResourceValuesForKeys: nil, relativeTo: nil)
             try URL.writeBookmarkData(data, to: aliasURL)
         } catch {
             Log.shared.log(error.localizedDescription)

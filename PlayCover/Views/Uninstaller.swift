@@ -21,9 +21,6 @@ class Uninstaller {
         PlayTools.playCoverContainer.appendingPathComponent("Keymapping"),
         PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
     ]
-    private static let otherPruneURLs: [URL] = [
-        PlayApp.aliasDirectory
-    ]
     private static let cacheURLs: [URL] = [
         Uninstaller.libraryUrl.appendingPathComponent("Containers"),
         Uninstaller.libraryUrl.appendingPathComponent("Application Scripts"),
@@ -112,20 +109,26 @@ class Uninstaller {
     }
 
     static func uninstall(_ app: PlayApp) {
+        var uninstallNum = 0
+
         if UninstallPreferences.shared.clearAppData {
             app.clearAllCache()
+            uninstallNum += 1
         }
 
         if UninstallPreferences.shared.removeAppKeymap {
             FileManager.default.delete(at: app.keymapping.keymapURL)
+            uninstallNum += 1
         }
 
         if UninstallPreferences.shared.removeAppSettings {
             FileManager.default.delete(at: app.settings.settingsUrl)
+            uninstallNum += 1
         }
 
         if UninstallPreferences.shared.removeAppEntitlements {
             FileManager.default.delete(at: app.entitlements)
+            uninstallNum += 1
         }
 
         if UninstallPreferences.shared.removePlayChain {
@@ -137,41 +140,60 @@ class Uninstaller {
             // KeyCover encrypted chain
             let keyCoverURL = url.appendingPathExtension("keyCover")
             FileManager.default.delete(at: keyCoverURL)
+            uninstallNum += 1
         }
 
         app.removeAlias()
         app.deleteApp()
+
+        if uninstallNum >= 5 {
+            do {
+                let apps = (try PlayApp.bundleIDCache).filter({ $0 != app.info.bundleIdentifier })
+                    .joined(separator: "\n") + "\n"
+
+                try apps.write(to: PlayApp.bundleIDCacheURL, atomically: false, encoding: .utf8)
+            } catch {
+                Log.shared.error(error)
+            }
+        }
     }
 
     static func clearExternalCache(_ bundleId: String) {
-        for cache in cacheURLs {
-            FileManager.default.delete(at: cache.appendingPathComponent(bundleId))
+        do {
+            for cache in cacheURLs {
+                try cache.enumerateContents { file, _ in
+                    if file.path.contains(bundleId) {
+                        FileManager.default.delete(at: cache.appendingPathComponent(bundleId))
+                    }
+                }
+            }
+        } catch {
+            Log.shared.error(error)
         }
     }
 
     static func pruneFiles() {
-        let bundleIds = AppsVM.shared.apps.map { $0.info.bundleIdentifier }
-        let appNames = AppsVM.shared.apps.map { $0.info.displayName }
-
         do {
-            for url in pruneURLs {
+            let bundleIds = AppsVM.shared.apps.map { $0.info.bundleIdentifier }
+            let danglingItems = try PlayApp.bundleIDCache.filter { !bundleIds.contains($0) }
+
+            var fullPruneURLs = pruneURLs
+            fullPruneURLs.append(contentsOf: cacheURLs)
+
+            var prunedIds: [String] = []
+
+            for url in fullPruneURLs {
                 try url.enumerateContents { file, _ in
                     let bundleId = file.deletingPathExtension().lastPathComponent
-                    if !bundleIds.contains(bundleId) {
-                        clearExternalCache(bundleId)
+                    if danglingItems.contains(bundleId) {
+                        try FileManager.default.trashItem(at: file, resultingItemURL: nil)
+                        prunedIds.append(bundleId)
+                    }
+                }
+            }
 
-                        FileManager.default.delete(at: file)
-                    }
-                }
-            }
-            for url in otherPruneURLs {
-                try url.enumerateContents { file, _ in
-                    let appName = file.deletingPathExtension().lastPathComponent
-                    if !appNames.contains(appName) {
-                        FileManager.default.delete(at: file)
-                    }
-                }
-            }
+            try "\(PlayApp.bundleIDCache.filter({ !Set(prunedIds).contains($0) }).joined(separator: "\n"))\n"
+                .write(to: PlayApp.bundleIDCacheURL, atomically: false, encoding: .utf8)
         } catch {
             Log.shared.error(error)
         }
