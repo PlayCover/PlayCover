@@ -8,6 +8,8 @@ import Foundation
 import UniformTypeIdentifiers
 
 struct AppSettingsData: Codable {
+    var bundleIdentifier: String = ""
+
     var keymapping = true
     var sensitivity: Float = 50
 
@@ -25,7 +27,15 @@ struct AppSettingsData: Codable {
     var playChain = true
     var playChainDebugging = false
     var inverseScreenValues = false
-    var metalHUD = false
+    var metalHUD = false {
+        didSet {
+            do {
+                try Shell.setMetalHUD(bundleIdentifier, enabled: metalHUD)
+            } catch {
+                Log.shared.error(error)
+            }
+        }
+    }
     var windowFixMethod = 0
     var injectIntrospection = false
     var rootWorkDir = true
@@ -36,6 +46,7 @@ struct AppSettingsData: Codable {
     // handle old 2.x settings where PlayChain did not exist yet
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        bundleIdentifier = try container.decodeIfPresent(String.self, forKey: .bundleIdentifier) ?? ""
         keymapping = try container.decodeIfPresent(Bool.self, forKey: .keymapping) ?? true
         sensitivity = try container.decodeIfPresent(Float.self, forKey: .sensitivity) ?? 50
         disableTimeout = try container.decodeIfPresent(Bool.self, forKey: .disableTimeout) ?? false
@@ -97,6 +108,8 @@ class AppSettings {
         if !decode() {
             encode()
         }
+
+        settings.bundleIdentifier = info.bundleIdentifier
     }
 
     public func sync() {

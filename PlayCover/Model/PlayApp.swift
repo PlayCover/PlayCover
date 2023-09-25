@@ -66,12 +66,6 @@ class PlayApp: BaseApp {
     func runAppExec() {
         let config = NSWorkspace.OpenConfiguration()
 
-        if settings.settings.metalHUD {
-            config.environment = ["MTL_HUD_ENABLED": "1"]
-        } else {
-            config.environment = ["MTL_HUD_ENABLED": "0"]
-        }
-
         if settings.settings.injectIntrospection {
             config.environment["DYLD_LIBRARY_PATH"] = "/usr/lib/system/introspection"
         }
