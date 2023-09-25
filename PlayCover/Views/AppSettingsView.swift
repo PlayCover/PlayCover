@@ -81,7 +81,9 @@ struct AppSettingsView: View {
                     }
                     .disabled(!(hasPlayTools ?? true))
                 BypassesView(settings: $viewModel.settings,
-                             hasPlayTools: $hasPlayTools)
+                             hasPlayTools: $hasPlayTools,
+                             hasIntrospection: viewModel.app.introspection(),
+                             app: viewModel.app)
                     .tabItem {
                         Text("settings.tab.bypasses")
                     }
@@ -442,6 +444,10 @@ struct BypassesView: View {
     @Binding var settings: AppSettings
     @Binding var hasPlayTools: Bool?
 
+    @State var hasIntrospection: Bool
+
+    var app: PlayApp
+
     var body: some View {
         ScrollView {
             VStack {
@@ -462,12 +468,15 @@ struct BypassesView: View {
                 }
                 Spacer()
                 HStack {
-                    Toggle("settings.toggle.introspection", isOn: $settings.settings.injectIntrospection)
+                    Toggle("settings.toggle.introspection", isOn: $hasIntrospection)
                         .help("settings.toggle.introspection.help")
                     Spacer()
                 }
             }
             .padding()
+        }
+        .onChange(of: hasIntrospection) {_ in
+            _ = app.introspection(set: hasIntrospection)
         }
     }
 }
