@@ -5,6 +5,35 @@
 
 import Foundation
 
+enum LSApplicationCategoryType: String, CaseIterable {
+    case business = "public.app-category.business"
+    case developerTools = "public.app-category.developer-tools"
+    case education = "public.app-category.education"
+    case entertainment = "public.app-category.entertainment"
+    case finance = "public.app-category.finance"
+    case games = "public.app-category.games"
+    case graphicsDesign = "public.app-category.graphics-design"
+    case healthcareFitness = "public.app-category.healthcare-fitness"
+    case lifestyle = "public.app-category.lifestyle"
+    case medical = "public.app-category.medical"
+    case music = "public.app-category.music"
+    case news = "public.app-category.news"
+    case photography = "public.app-category.photography"
+    case productivity = "public.app-category.productivity"
+    case reference = "public.app-category.reference"
+    case socialNetworking = "public.app-category.social-networking"
+    case sports = "public.app-category.sports"
+    case travel = "public.app-category.travel"
+    case utilities = "public.app-category.utilities"
+    case video = "public.app-category.video"
+    case weather = "public.app-category.weather"
+    case none = "public.app-category.none" // Note: This is not in an official category type
+
+    var localizedName: String {
+        NSLocalizedString(rawValue, comment: "")
+    }
+}
+
 public class AppInfo {
     public let url: URL
     fileprivate var rawStorage: NSMutableDictionary
@@ -119,6 +148,26 @@ public class AppInfo {
         }
         set {
             rawStorage[index] = newValue
+        }
+    }
+
+    var applicationCategoryType: LSApplicationCategoryType {
+        get {
+            LSApplicationCategoryType(
+                rawValue: self[string: "LSApplicationCategoryType"] ?? ""
+            ) ?? LSApplicationCategoryType.none
+        }
+        set {
+            if newValue == .none {
+                rawStorage.removeObject(forKey: "LSApplicationCategoryType")
+            } else {
+                self[string: "LSApplicationCategoryType"] = newValue.rawValue
+            }
+            do {
+                try write()
+            } catch {
+                Log.shared.error(error)
+            }
         }
     }
 
