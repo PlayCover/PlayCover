@@ -66,6 +66,10 @@ class PlayApp: BaseApp {
     func runAppExec() {
         let config = NSWorkspace.OpenConfiguration()
 
+        if settings.settings.injectIntrospection {
+            config.environment["DYLD_LIBRARY_PATH"] = "/usr/lib/system/introspection"
+        }
+
         NSWorkspace.shared.openApplication(
             at: url,
             configuration: config,
