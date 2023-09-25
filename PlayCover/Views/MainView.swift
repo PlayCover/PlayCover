@@ -89,7 +89,7 @@ struct MainView: View {
                 self.selectedView = URLObserved.type == .source ? 2 : 1
             }
             .toolbar {
-                ToolbarItem(placement: .navigation) {
+                ToolbarItem { // Sits on the left by default
                     Button(action: toggleSidebar, label: {
                         Image(systemName: "sidebar.leading")
                     })
