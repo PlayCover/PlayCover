@@ -98,11 +98,15 @@ class AppsVM: ObservableObject {
             filteredApps.sort(by: { $0.name.lowercased() < $1.name.lowercased() })
 
             do {
-                for bundleId in apps.map({ $0.info.bundleIdentifier }) {
-                    if !FileManager.default.fileExists(atPath: PlayApp.bundleIDCacheURL.path) {
-                        try "\(bundleId)\n".write(to: PlayApp.bundleIDCacheURL, atomically: false, encoding: .utf8)
-                    } else if !(try PlayApp.bundleIDCache).contains(bundleId),
-                              let bundleID = "\(bundleId)\n".data(using: .utf8) {
+                if !FileManager.default.fileExists(atPath: PlayApp.bundleIDCacheURL.path),
+                   let firstBundleID = apps.first?.info.bundleIdentifier {
+                    try "\(firstBundleID)\n"
+                        .write(to: PlayApp.bundleIDCacheURL, atomically: false, encoding: .utf8)
+                }
+
+                for bundleId in apps.map({ $0.info.bundleIdentifier })
+                    where !(try PlayApp.bundleIDCache).contains(bundleId) {
+                    if let bundleID = "\(bundleId)\n".data(using: .utf8) {
                         let cacheFile = try FileHandle(forUpdating: PlayApp.bundleIDCacheURL)
                         try cacheFile.seekToEnd()
                         try cacheFile.write(contentsOf: bundleID)
