@@ -23,17 +23,14 @@ class PlayApp: BaseApp {
 
         removeAlias()
         createAlias()
+
+        loadDiscordIPC()
     }
 
     var searchText: String {
         info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
     }
     var sessionDisableKeychain: Bool = false
-
-    override init(appUrl: URL) {
-        super.init(appUrl: appUrl)
-        self.loadDiscordIPC()
-    }
 
     func launch() async {
         do {
@@ -197,7 +194,7 @@ class PlayApp: BaseApp {
 
     static let playChainDirectory = PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
 
-    lazy var aliasURL = PlayApp.aliasDirectory.appendingPathComponent(name)
+    lazy var aliasURL = PlayApp.aliasDirectory.appendingPathComponent(name).appendingPathExtension("app")
 
     lazy var playChainURL = PlayApp.playChainDirectory.appendingPathComponent(info.bundleIdentifier)
 
@@ -268,23 +265,6 @@ class PlayApp: BaseApp {
         FileManager.default.delete(at: playChainURL.appendingPathExtension("keyCover"))
     }
 
-    func createAlias() {
-        do {
-            try FileManager.default.createDirectory(atPath: PlayApp.aliasDirectory.path,
-                                                    withIntermediateDirectories: true,
-                                                    attributes: nil)
-            let data = try url.bookmarkData(options: .suitableForBookmarkFile,
-                                            includingResourceValuesForKeys: nil, relativeTo: nil)
-            try URL.writeBookmarkData(data, to: aliasURL)
-        } catch {
-            Log.shared.log(error.localizedDescription)
-        }
-    }
-
-    func removeAlias() {
-        FileManager.default.delete(at: aliasURL)
-    }
-
     func deleteApp() {
         FileManager.default.delete(at: URL(fileURLWithPath: url.path))
         AppsVM.shared.fetchApps()
@@ -292,10 +272,7 @@ class PlayApp: BaseApp {
 
     func sign() {
         do {
-            let tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
-                                                  in: .userDomainMask,
-                                                  appropriateFor: URL(fileURLWithPath: "/Users"),
-                                                  create: true)
+            let tmpDir = FileManager.default.temporaryDirectory
             let tmpEnts = tmpDir
                 .appendingEscapedPathComponent(ProcessInfo().globallyUniqueString)
                 .appendingPathExtension("plist")
