@@ -40,6 +40,7 @@ class Installer {
         // If (the option key is held or the install playtools popup settings is true) and its not an export,
         //    then show the installer dialog
         let installPlayTools: Bool
+        let applicationType = InstallPreferences.shared.defaultAppType
 
         if (Installer.isOptionKeyHeld || InstallPreferences.shared.showInstallPopup) && !export {
             installPlayTools = installPlayToolsPopup()
@@ -59,7 +60,7 @@ class Installer {
                 let app = try ipa.unzip()
                 InstallVM.shared.next(.library, 0.5, 0.55)
                 try saveEntitlements(app)
-                let machos = try resolveValidMachOs(app)
+                let machos = resolveValidMachOs(app)
                 app.validMachOs = machos
 
                 InstallVM.shared.next(.playtools, 0.55, 0.85)
@@ -80,6 +81,8 @@ class Installer {
                 } else if installPlayTools {
                     try PlayTools.installInIPA(app.executable)
                 }
+
+                app.info.applicationCategoryType = applicationType
 
                 if !export {
                     // -rwxr-xr-x
@@ -147,14 +150,14 @@ class Installer {
     }
 
     /// Returns an array of URLs to MachO files within the app
-    static func resolveValidMachOs(_ baseApp: BaseApp) throws -> [URL] {
+    static func resolveValidMachOs(_ baseApp: BaseApp) -> [URL] {
         if let validMachOs = baseApp.validMachOs {
             return validMachOs
         }
 
         var resolved: [URL] = []
 
-        try baseApp.url.enumerateContents { url, attributes in
+        baseApp.url.enumerateContents { url, attributes in
             guard attributes.isRegularFile == true, let fileSize = attributes.fileSize, fileSize > 4 else {
                 return
             }

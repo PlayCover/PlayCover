@@ -83,6 +83,8 @@ class AppsVM: ObservableObject {
                                                                   .appendingPathExtension("plist")
                                                                   .path) {
                         let app = PlayApp(appUrl: sub)
+                        print("Application installed under:", sub.path)
+
                         apps.append(app)
                         if searchText.isEmpty || app.searchText.contains(searchText.lowercased()) {
                             filteredApps.append(app)

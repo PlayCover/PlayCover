@@ -167,8 +167,6 @@ class Uninstaller {
                     }
                 }
             }
-        } catch {
-            Log.shared.error(error)
         }
     }
 

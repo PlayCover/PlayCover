@@ -81,7 +81,9 @@ struct AppSettingsView: View {
                     }
                     .disabled(!(hasPlayTools ?? true))
                 BypassesView(settings: $viewModel.settings,
-                             hasPlayTools: $hasPlayTools)
+                             hasPlayTools: $hasPlayTools,
+                             hasIntrospection: viewModel.app.introspection(),
+                             app: viewModel.app)
                     .tabItem {
                         Text("settings.tab.bypasses")
                     }
@@ -90,7 +92,8 @@ struct AppSettingsView: View {
                          closeView: $closeView,
                          hasPlayTools: $hasPlayTools,
                          hasAlias: $hasAlias,
-                         app: viewModel.app)
+                         app: viewModel.app,
+                         applicationCategoryType: viewModel.app.info.applicationCategoryType)
                     .tabItem {
                         Text("settings.tab.misc")
                     }
@@ -441,6 +444,10 @@ struct BypassesView: View {
     @Binding var settings: AppSettings
     @Binding var hasPlayTools: Bool?
 
+    @State var hasIntrospection: Bool
+
+    var app: PlayApp
+
     var body: some View {
         ScrollView {
             VStack {
@@ -461,12 +468,15 @@ struct BypassesView: View {
                 }
                 Spacer()
                 HStack {
-                    Toggle("settings.toggle.introspection", isOn: $settings.settings.injectIntrospection)
+                    Toggle("settings.toggle.introspection", isOn: $hasIntrospection)
                         .help("settings.toggle.introspection.help")
                     Spacer()
                 }
             }
             .padding()
+        }
+        .onChange(of: hasIntrospection) {_ in
+            _ = app.introspection(set: hasIntrospection)
         }
     }
 }
@@ -481,9 +491,34 @@ struct MiscView: View {
 
     var app: PlayApp
 
+    @State var applicationCategoryType: LSApplicationCategoryType
+
     var body: some View {
         ScrollView {
             VStack {
+                HStack {
+                    Text("settings.applicationCategoryType")
+                    Spacer()
+                    Picker("", selection: $applicationCategoryType) {
+                        ForEach(LSApplicationCategoryType.allCases, id: \.rawValue) { value in
+                            Text(value.localizedName)
+                                .tag(value)
+                        }
+                    }
+                    .frame(width: 225)
+                    .onChange(of: applicationCategoryType) { _ in
+                        app.info.applicationCategoryType = applicationCategoryType
+                        Task(priority: .userInitiated) {
+                            do {
+                                try Shell.signApp(app.executable)
+                            } catch {
+                                Log.shared.error(error)
+                            }
+                        }
+                    }
+                }
+                Spacer()
+                    .frame(height: 20)
                 HStack {
                     Toggle("settings.toggle.discord", isOn: $settings.settings.discordActivity.enable)
                     Spacer()
@@ -618,6 +653,11 @@ struct InfoView: View {
                 Text("settings.info.bundleVersion")
                 Spacer()
                 Text("\(info.bundleVersion)")
+            }
+            HStack {
+                Text("settings.applicationCategoryType") + Text(":")
+                Spacer()
+                Text("\(info.applicationCategoryType.rawValue)")
             }
             HStack {
                 Text("settings.info.executableName")
