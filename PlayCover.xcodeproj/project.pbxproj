@@ -85,6 +85,7 @@
 		B6603E1128E206A300DEFA3F /* UninstallSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6603E1028E206A300DEFA3F /* UninstallSettings.swift */; };
 		B6603E1328E2257800DEFA3F /* Uninstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6603E1228E2257800DEFA3F /* Uninstaller.swift */; };
 		B6825C3528F3D23600E3015A /* InstallSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6825C3428F3D23600E3015A /* InstallSettings.swift */; };
+		B68FD80D2ACB642100683778 /* PlayAppExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68FD80C2ACB642100683778 /* PlayAppExtensions.swift */; };
 		B6AB53C929232B4F00039B2E /* KeyCodeNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AB53C829232B4F00039B2E /* KeyCodeNames.swift */; };
 		B6ABDA2A2971EEF700A46E80 /* ProgressVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ABDA292971EEF700A46E80 /* ProgressVM.swift */; };
 /* End PBXBuildFile section */
@@ -189,6 +190,7 @@
 		B6603E1028E206A300DEFA3F /* UninstallSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UninstallSettings.swift; sourceTree = "<group>"; };
 		B6603E1228E2257800DEFA3F /* Uninstaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Uninstaller.swift; sourceTree = "<group>"; };
 		B6825C3428F3D23600E3015A /* InstallSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallSettings.swift; sourceTree = "<group>"; };
+		B68FD80C2ACB642100683778 /* PlayAppExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAppExtensions.swift; sourceTree = "<group>"; };
 		B6AB53C829232B4F00039B2E /* KeyCodeNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCodeNames.swift; sourceTree = "<group>"; };
 		B6ABDA292971EEF700A46E80 /* ProgressVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -358,6 +360,7 @@
 				8783D00A26B8C9E600171041 /* URLExtensions.swift */,
 				6ECB1D0D29798DFA00CD92AA /* DataExtensions.swift */,
 				6E25096E297F5032004D754C /* FileExtensions.swift */,
+				B68FD80C2ACB642100683778 /* PlayAppExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -695,6 +698,7 @@
 				28361D662892800200B35EDB /* DeleteStoredGenshinUserData.swift in Sources */,
 				53D9DAF326C1849D0071959E /* PlayCoverError.swift in Sources */,
 				9286D296273A7E4200958DD3 /* AppSettings.swift in Sources */,
+				B68FD80D2ACB642100683778 /* PlayAppExtensions.swift in Sources */,
 				9272F19E273B74C800DFBEF1 /* AppsVM.swift in Sources */,
 				923421F7275F40300030CD7D /* AppContainer.swift in Sources */,
 			);

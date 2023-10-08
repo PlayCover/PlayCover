@@ -60,7 +60,7 @@ class Installer {
                 let app = try ipa.unzip()
                 InstallVM.shared.next(.library, 0.5, 0.55)
                 try saveEntitlements(app)
-                let machos = try resolveValidMachOs(app)
+                let machos = resolveValidMachOs(app)
                 app.validMachOs = machos
 
                 InstallVM.shared.next(.playtools, 0.55, 0.85)
@@ -150,14 +150,14 @@ class Installer {
     }
 
     /// Returns an array of URLs to MachO files within the app
-    static func resolveValidMachOs(_ baseApp: BaseApp) throws -> [URL] {
+    static func resolveValidMachOs(_ baseApp: BaseApp) -> [URL] {
         if let validMachOs = baseApp.validMachOs {
             return validMachOs
         }
 
         var resolved: [URL] = []
 
-        try baseApp.url.enumerateContents { url, attributes in
+        baseApp.url.enumerateContents { url, attributes in
             guard attributes.isRegularFile == true, let fileSize = attributes.fileSize, fileSize > 4 else {
                 return
             }

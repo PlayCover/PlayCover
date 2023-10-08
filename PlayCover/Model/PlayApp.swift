@@ -8,7 +8,6 @@ import Foundation
 import IOKit.pwr_mgt
 
 class PlayApp: BaseApp {
-    private static let library = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library")
     var displaySleepAssertionID: IOPMAssertionID?
     public var isStarting = false
 
@@ -16,6 +15,11 @@ class PlayApp: BaseApp {
         info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
     }
     var sessionDisableKeychain: Bool = false
+
+    override init(appUrl: URL) {
+        super.init(appUrl: appUrl)
+        self.loadDiscordIPC()
+    }
 
     func launch() async {
         do {
@@ -65,10 +69,6 @@ class PlayApp: BaseApp {
 
     func runAppExec() {
         let config = NSWorkspace.OpenConfiguration()
-
-        if settings.settings.injectIntrospection {
-            config.environment["DYLD_LIBRARY_PATH"] = "/usr/lib/system/introspection"
-        }
 
         NSWorkspace.shared.openApplication(
             at: url,
@@ -187,11 +187,11 @@ class PlayApp: BaseApp {
 
     lazy var playChainURL = PlayApp.playChainDirectory.appendingPathComponent(info.bundleIdentifier)
 
-    lazy var settings = AppSettings(info, container: container)
+    lazy var settings = AppSettings(info)
 
-    lazy var keymapping = Keymapping(info, container: container)
+    lazy var keymapping = Keymapping(info)
 
-    var container: AppContainer?
+    lazy var container = AppContainer(bundleId: info.bundleIdentifier)
 
     func hasPlayTools() -> Bool {
         do {
@@ -242,7 +242,7 @@ class PlayApp: BaseApp {
     }
 
     func openAppCache() {
-        container?.containerUrl.showInFinderAndSelectLastComponent()
+        container.containerUrl.showInFinderAndSelectLastComponent()
     }
 
     func clearAllCache() {

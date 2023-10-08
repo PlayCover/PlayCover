@@ -28,15 +28,11 @@ class Cacher {
         var bestResImage: NSImage?
         let compareStr = app.info.bundleIdentifier + app.info.bundleVersion
 
-        do {
-            try app.url.enumerateContents { file, _ in
-                if file.lastPathComponent.contains(app.info.primaryIconName), let icon = NSImage(contentsOf: file),
-                    checkImageDimensions(icon, bestResImage) {
-                    bestResImage = icon
-                }
+        app.url.enumerateContents(blocking: false) { file, _ in
+            if file.lastPathComponent.contains(app.info.primaryIconName), let icon = NSImage(contentsOf: file),
+               self.checkImageDimensions(icon, bestResImage) {
+                bestResImage = icon
             }
-        } catch {
-            Log.shared.error(error)
         }
 
         if let assetsExtractor = try? AssetsExtractor(appUrl: app.url) {
