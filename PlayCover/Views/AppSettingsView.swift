@@ -210,7 +210,7 @@ struct GraphicsView: View {
                         Divider()
                         Text("iPhone 13 Pro Max | A15 | 6GB").tag("iPhone14,3")
                         Text("iPhone 14 Pro Max | A16 | 6GB").tag("iPhone15,3")
-                    }
+                        Text("iPhone 15 Pro Max | A17 Pro | 8GB").tag("iPhone16,2")
                     .frame(width: 250)
                 }
                 HStack {
