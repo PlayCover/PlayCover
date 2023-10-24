@@ -17,6 +17,7 @@ struct StoreAppView: View {
     @State var app: StoreAppData
     @State var isList: Bool
     @State var observation: NSKeyValueObservation?
+    @State var showInfo = false
 
     @State var warningSymbol: String?
     @State var warningMessage: String?
@@ -42,9 +43,20 @@ struct StoreAppView: View {
                 }
             }
         })
+        .contextMenu {
+            Button(action: {
+                showInfo.toggle()
+            }, label: {
+                Text("ipaLibrary.info")
+            })
+        }
         .simultaneousGesture(TapGesture().onEnded {
             selected = app
         })
+        .sheet(isPresented: $showInfo) {
+            StoreInfoAppView(viewModel: StoreAppVM(data: app))
+                .environmentObject(downloadVM)
+        }
         .environmentObject(downloadVM)
         .task(priority: .background) {
             if let sourceApp = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == app.bundleID }) {
@@ -191,7 +203,7 @@ struct StoreAppConditionalView: View {
                 .frame(width: 130, height: 130)
             }
         }
-        .task(priority: .userInitiated) {
+        .task(priority: .background) {
             if !cache.hasData(forKey: app.itunesLookup) {
                 await Cacher().resolveITunesData(app.itunesLookup)
             }
