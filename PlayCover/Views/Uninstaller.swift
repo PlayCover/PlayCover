@@ -153,27 +153,23 @@ class Uninstaller {
         let bundleIds = AppsVM.shared.apps.map { $0.info.bundleIdentifier }
         let appNames = AppsVM.shared.apps.map { $0.info.displayName }
 
-        do {
-            for url in pruneURLs {
-                try url.enumerateContents { file, _ in
-                    let bundleId = file.deletingPathExtension().lastPathComponent
-                    if !bundleIds.contains(bundleId) {
-                        clearExternalCache(bundleId)
+        for url in pruneURLs {
+            url.enumerateContents(options: []) { file, _ in
+                let bundleId = file.deletingPathExtension().lastPathComponent
+                if !bundleIds.contains(bundleId) {
+                    clearExternalCache(bundleId)
 
-                        FileManager.default.delete(at: file)
-                    }
+                    FileManager.default.delete(at: file)
                 }
             }
-            for url in otherPruneURLs {
-                try url.enumerateContents { file, _ in
-                    let appName = file.deletingPathExtension().lastPathComponent
-                    if !appNames.contains(appName) {
-                        FileManager.default.delete(at: file)
-                    }
+        }
+        for url in otherPruneURLs {
+            url.enumerateContents(options: []) { file, _ in
+                let appName = file.deletingPathExtension().lastPathComponent
+                if !appNames.contains(appName) {
+                    FileManager.default.delete(at: file)
                 }
             }
-        } catch {
-            Log.shared.error(error)
         }
     }
 }

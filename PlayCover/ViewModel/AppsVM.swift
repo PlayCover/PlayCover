@@ -27,7 +27,6 @@ class AppsVM: ObservableObject {
             apps.removeAll()
 
             do {
-                let containers = try AppContainer.containers()
                 let directoryContents = try FileManager.default
                     .contentsOfDirectory(at: PlayTools.playCoverContainer, includingPropertiesForKeys: nil, options: [])
 
@@ -39,10 +38,8 @@ class AppsVM: ObservableObject {
                                                                   .appendingPathExtension("plist")
                                                                   .path) {
                         let app = PlayApp(appUrl: sub)
-                        if let container = containers[app.info.bundleIdentifier] {
-                            app.container = container
-                            print("Application installed under:", sub.path)
-                        }
+                        print("Application installed under:", sub.path)
+
                         apps.append(app)
                         if searchText.isEmpty || app.searchText.contains(searchText.lowercased()) {
                             filteredApps.append(app)

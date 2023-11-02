@@ -92,16 +92,14 @@ class AppSettings {
     let settingsUrl: URL
     var openWithLLDB: Bool = false
     var openLLDBWithTerminal: Bool = true
-    var container: AppContainer?
     var settings: AppSettingsData {
         didSet {
             encode()
         }
     }
 
-    init(_ info: AppInfo, container: AppContainer?) {
+    init(_ info: AppInfo) {
         self.info = info
-        self.container = container
         settingsUrl = AppSettings.appSettingsDir.appendingPathComponent(info.bundleIdentifier)
                                                 .appendingPathExtension("plist")
         settings = AppSettingsData()
