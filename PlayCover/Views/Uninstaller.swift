@@ -171,25 +171,29 @@ class Uninstaller {
     }
 
     static func pruneFiles() {
-        let bundleIds = AppsVM.shared.apps.map { $0.info.bundleIdentifier }
-        let danglingItems = try PlayApp.bundleIDCache.filter { !bundleIds.contains($0) }
+        do {
+            let bundleIds = AppsVM.shared.apps.map { $0.info.bundleIdentifier }
+            let danglingItems = try PlayApp.bundleIDCache.filter { !bundleIds.contains($0) }
 
-        var fullPruneURLs = pruneURLs
-        fullPruneURLs.append(contentsOf: cacheURLs)
+            var fullPruneURLs = pruneURLs
+            fullPruneURLs.append(contentsOf: cacheURLs)
 
-        var prunedIds: [String] = []
+            var prunedIds: [String] = []
 
-        for url in fullPruneURLs {
-            url.enumerateContents(options: []) { file, _ in
-                let bundleId = file.deletingPathExtension().lastPathComponent
-                if danglingItems.contains(bundleId) {
-                    try FileManager.default.trashItem(at: file, resultingItemURL: nil)
-                    prunedIds.append(bundleId)
+            for url in fullPruneURLs {
+                url.enumerateContents(options: []) { file, _ in
+                    let bundleId = file.deletingPathExtension().lastPathComponent
+                    if danglingItems.contains(bundleId) {
+                        try FileManager.default.trashItem(at: file, resultingItemURL: nil)
+                        prunedIds.append(bundleId)
+                    }
                 }
             }
-        }
 
-        try "\(PlayApp.bundleIDCache.filter({ !Set(prunedIds).contains($0) }).joined(separator: "\n"))\n"
-            .write(to: PlayApp.bundleIDCacheURL, atomically: false, encoding: .utf8)
+            try "\(PlayApp.bundleIDCache.filter({ !Set(prunedIds).contains($0) }).joined(separator: "\n"))\n"
+                .write(to: PlayApp.bundleIDCacheURL, atomically: false, encoding: .utf8)
+        } catch {
+            Log.shared.error(error)
+        }
     }
 }
