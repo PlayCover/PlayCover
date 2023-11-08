@@ -33,4 +33,8 @@ struct AppContainer {
     public func clear() {
         FileManager.default.delete(at: containerUrl)
     }
+
+    public func doesExist() -> Bool {
+        FileManager.default.fileExists(atPath: containerUrl.path)
+    }
 }

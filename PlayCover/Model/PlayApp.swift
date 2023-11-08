@@ -32,6 +32,11 @@ class PlayApp: BaseApp {
     }
     var sessionDisableKeychain: Bool = false
 
+    override init(appUrl: URL) {
+        super.init(appUrl: appUrl)
+        self.loadDiscordIPC()
+    }
+
     func launch() async {
         do {
             isStarting = true
