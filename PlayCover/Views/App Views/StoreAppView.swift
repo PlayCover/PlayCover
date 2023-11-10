@@ -86,10 +86,9 @@ struct StoreAppConditionalView: View {
 
     @State private var cache = DataCache.instance
 
-    func waitForIconLoad() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
-            loadingLocalIcon = false
-        }
+    @Sendable private func waitForIconLoad() async {
+        try? await Task.sleep(nanoseconds: 6_000_000_000)
+        loadingLocalIcon = false
     }
 
     var body: some View {
@@ -123,9 +122,7 @@ struct StoreAppConditionalView: View {
                                                      .opacity(0.5)
                                              }
                                          }
-                                         .onAppear {
-                                             self.waitForIconLoad()
-                                         }
+                                         .task(self.waitForIconLoad)
                                 }
                             }
                         }
@@ -178,9 +175,7 @@ struct StoreAppConditionalView: View {
                                                      .opacity(0.5)
                                              }
                                          }
-                                         .onAppear {
-                                             self.waitForIconLoad()
-                                         }
+                                         .task(self.waitForIconLoad)
                                 }
                             }
                         }
