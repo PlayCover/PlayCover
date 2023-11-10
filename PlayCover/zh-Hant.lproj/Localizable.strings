@@ -1,20 +1,20 @@
 /* (No Comment) */
-"alert.app.delete" = "所有應用程式數據將被清除； 有些軟體可能需要重新下載數據。確定繼續？";
+"alert.app.delete" = "所有應用程式資料將被清除； 有些軟體可能需要重新下載資料。確定繼續？";
 
 /* (No Comment) */
 "alert.app.preferences" = "所有應用程式的偏好設定將被刪除，確定要繼續嗎？";
 
 /* (No Comment) */
-"alert.appCacheCleared" = "應用程式數據應用已被清除！";
+"alert.appCacheCleared" = "應用程式快取已被清除！";
 
 /* (No Comment) */
-"alert.error" = "遇到了問題！";
+"alert.error" = "遇到問題了！";
 
 /* (No Comment) */
 "alert.errorImportKm" = "導入過程中出現問題！";
 
 /* (No Comment) */
-"alert.kmImported" = "鍵盤映射佈局已導入！";
+"alert.kmImported" = "已匯入鍵盤映射佈局！";
 
 /* (No Comment) */
 "alert.moveAppToApplications.move" = "移至應用程式資料夾";
@@ -23,7 +23,7 @@
 "alert.restart" = "請重啟 PlayCover。";
 
 /* (No Comment) */
-"alert.storeAccount.regionIsNotValid" = "此帳號現所在的服務器與選項不符。打開遊戲，更改服務器並進入大門後保存，然後再試";
+"alert.storeAccount.regionIsNotValid" = "此帳號現所在的伺服器與選項不符。打開遊戲，更改伺服器並進入大門後保存，然後重試";
 
 /* (No Comment) */
 "alert.success" = "成功";
@@ -74,16 +74,16 @@
 "notification.appInstalled" = "應用程式安裝成功！";
 
 /* (No Comment) */
-"notification.appInstalled.message" = "馬上來看一看吧!";
+"notification.appInstalled.message" = "馬上來看看吧!";
 
 /* (No Comment) */
 "playapp.activateAccount" = "切換帳號";
 
 /* (No Comment) */
-"playapp.clearCache" = "清除應用程式數據";
+"playapp.clearCache" = "清除應用程式快取";
 
 /* (No Comment) */
-"playapp.clearPreferences" = "清除應用偏好設置";
+"playapp.clearPreferences" = "清除應用程式偏好設置";
 
 /* (No Comment) */
 "playapp.delete" = "解除安裝應用程式";
@@ -92,10 +92,10 @@
 "playapp.deleteAccount" = "刪除帳號";
 
 /* (No Comment) */
-"playapp.exportKm" = "導出鍵盤映射佈局";
+"playapp.exportKm" = "匯出鍵盤映射佈局";
 
 /* (No Comment) */
-"playapp.importKm" = "導入鍵盤映射佈局";
+"playapp.importKm" = "匯入鍵盤映射佈局";
 
 /* (No Comment) */
 "playapp.install.addToLib" = "正在將應用程式移至軟體庫...";
@@ -125,7 +125,7 @@
 "playapp.settings" = "偏好設定";
 
 /* (No Comment) */
-"playapp.showInFinder" = "在Finder中查看";
+"playapp.showInFinder" = "在 Finder 中查看";
 
 /* (No Comment) */
 "playapp.storeCurrentAccount" = "保存現有帳號";
@@ -208,18 +208,18 @@
 "button.Quit" = "離開";
 "settings.info.bundleName" = "Bundle 名稱:";
 "playapp.exportKmPanel.fieldLabel" = "PlayMap 名稱:";
-"sidebar.appLibrary" = "App資料庫";
-"sidebar.ipaLibrary" = "IPA資料庫";
+"sidebar.appLibrary" = "APP 資料庫";
+"sidebar.ipaLibrary" = "IPA 資料庫";
 "storeAccount.alert.restoreAccount.button" = "還原帳號";
 "storeAccount.alert.restoreAccount.msg" = "這將會覆蓋你目前已登入的帳號。";
 "storeAccount.alert.deleteAccount" = "確定要刪除帳號嗎？";
 "storeAccount.alert.deleteAccount.button" = "刪除帳號";
 "alert.moveAppToApplications.title" = "是否移動到應用程式資料夾？";
-"alert.moveAppToApplications.subtitle" = "PlayCover必須在應用程式資料夾中才能正常運作。點擊下方按鈕會使PlayCover自動移至應用程式資料夾。";
-"error.appEncrypted" = "此應用程式已被加密！請使用未加密的IPA文件。現已不再支援使用iMazing輸出的IPA檔案！";
-"error.appCorrupted" = "此IPA檔案中包含一些錯誤。請嘗試使用其他IPA檔案。";
-"error.appProhibited" = "在PlayCover中使用這個應用程式可能會遭到封禁！";
-"error.noGenshinAccount" = "無法找到原神帳號！你是否已在該應用程式中登入帳號？";
+"alert.moveAppToApplications.subtitle" = "PlayCover 必須在應用程式資料夾中才能正常運作。點擊下方按鈕會使 PlayCover 自動移至應用程式資料夾。";
+"error.appEncrypted" = "此應用程式已被加密！請使用未加密的 IPA 文件。現已不再支援使用 iMazing 輸出的 IPA 檔案！";
+"error.appCorrupted" = "此 IPA 檔案中包含一些錯誤。請嘗試使用其他IPA檔案。";
+"error.appProhibited" = "在 PlayCover 中使用這個應用程式可能會遭到官方封鎖！";
+"error.noGenshinAccount" = "無法找到原神帳號！你是否已在應用程式中登入？";
 "settings.title" = "%@ 設定";
 "settings.tab.info" = "詳細資料";
 "settings.tab.km" = "鍵盤映射佈局";
@@ -243,8 +243,8 @@
 "settings.resetSettingsCompleted" = "偏好設定已被重置為預設值！";
 "settings.resetKmCompleted" = "鍵盤映射佈局已被重置！";
 "settings.tab.misc" = "雜項";
-"settings.button.discord" = "自定義Discord動態";
-"settings.button.clearActivity" = "清除自定義動態";
+"settings.button.discord" = "自訂 Discord 動態";
+"settings.button.clearActivity" = "清除自訂動態";
 "settings.text.applicationID" = "應用程式 ID";
 "settings.text.details" = "詳細資料";
 "settings.text.details.help" = "標題下方首列";
@@ -266,7 +266,7 @@
 "alert.wrongFileType.subtitle" = "PlayCover 只可以安裝有效的 .ipa 檔案。";
 "playapp.addSource" = "新增來源";
 "ipaLibrary.noSources.title" = "沒有新增 IPA 來源";
-"ipaLibrary.noSources.subtitle" = "您目前沒有新增IPA來源。點擊下面的按鈕來新增一個。";
+"ipaLibrary.noSources.subtitle" = "您目前沒有新增 IPA 來源。點擊下面的按鈕來新增一個。";
 "ipaLibrary.noSources.button" = "新增來源";
 "ipaLibrary.noNetworkConnection.toast" = "沒有網路連線！";
 "preferences.tab.ipasource" = "IPA 來源";
@@ -277,13 +277,13 @@
 "preferences.popover.valid" = "鏈結有效";
 "preferences.popover.badurl" = "無效的鏈結!";
 "preferences.popover.badjson" = "JSON 無效或不存在！";
-"preferences.textfield.url" = "來源URL鏈結...";
+"preferences.textfield.url" = "來源 URL 鏈結...";
 "playapp.download.downloading" = "下載中";
 "error.waitDownload" = "請等待下載完成！";
 "preferences.tab.uninstall" = "解除安裝";
 "preferences.whenUninstalling" = "解除安裝同時：";
 "preferences.toggle.showUninstall" = "顯示警告提示";
-"preferences.toggle.clearAppData" = "清理APP資料";
+"preferences.toggle.clearAppData" = "清理 APP 資料";
 "preferences.toggle.removeKeymap" = "刪除鍵盤映射";
 "preferences.toggle.removeSetting" = "移除設定";
 "preferences.toggle.removeEntitlements" = "移除授權";
@@ -292,9 +292,9 @@
 "preferences.prune.message" = "這將刪除所有未使用的檔案，包括設定、鍵盤映射、授權和應用程式數據";
 "playapp.progress.failed" = "失敗";
 "alert.supression" = "你可以在 PlayCover 偏好設定中更改";
-"menubar.clearCache" = "清理緩存";
+"menubar.clearCache" = "清理快取";
 "preferences.tab.install" = "安裝";
-"preferences.toggle.showInstallPopup" = "顯示安裝 PlayTools 彈窗";
+"preferences.toggle.showInstallPopup" = "顯示安裝 PlayTools 彈出視窗";
 "preferences.toggle.alwaysInstallPlayTools" = "總是安裝 PlayTools";
 "settings.removePlayTools" = "移除 PlayTools";
 "settings.info.playTools" = "已安裝PlayTools:";
@@ -302,10 +302,10 @@
 "button.Yes" = "是";
 "button.No" = "否";
 "settings.noPlayTools" = "該應用程式沒有安裝PlayTools";
-"playapp.refreshSources" = "刷新來源";
+"playapp.refreshSources" = "重新整理來源";
 "error.appMaliciousProhibited" = "此應用程式在 Mac 上存在惡意行為，使用它可能會使您的設備處於無法啟動的狀態，因此它會被 PlayCover 封鎖。 （正在解除安裝...）";
 "alert.install.injectPlayToolsQuestion" = "你要在這個應用程序裡面植入 PlayTools 嗎？";
-"alert.install.playToolsInformative" = "PlayTools是一個讓您將按鍵綁定到螢幕觸控，自定義顯示分辨率，和更多的工具，但它有可能會讓某些應用程序崩潰";
+"alert.install.playToolsInformative" = "PlayTools是一個讓您將按鍵綁定到螢幕觸控，自定義顯示解析度，和更多的工具，但它有可能會導致某些應用程式無法正常運作";
 "button.Help" = "幫助";
 "button.Dismiss" = "關閉";
 "state.enabled" = "啟用";
@@ -337,13 +337,13 @@
 "alert.differentBundleIdKeymap.message" = "這個鍵盤映射文件可能是為其他應用程序創建的。";
 "alert.differentBundleIdKeymap.text" = "你確定你要導入這個鍵盤映射文件嗎？";
 "settings.text.debugger" = "調試器：";
-"settings.toggle.lldb" = "用 LLDB 高性能調試器打開";
-"settings.toggle.lldbWithTerminal" = "用終端機打開";
+"settings.toggle.lldb" = "將 LLDB 高性能除錯工具打開";
+"settings.toggle.lldbWithTerminal" = "使用終端機打開";
 "settings.unavailable.hud" = "Metal HUD 不可用";
 "settings.playChain.debugging" = "PlayChain 調試";
 "error.failedToStripBinary" = "無法在通用二進制文件中檢索到 ARM64 架構！";
 "settings.playChain.enable" = "啟用 PlayChain (試驗階段)";
-"settings.playChain.help" = "在此應用程序啟用 PlayChain 將使應用程式（部分）使用 Apple Keychain 服務";
+"settings.playChain.help" = "在此應用程式啟用 PlayChain 將使應用程式（部分）使用 Apple Keychain 服務";
 "playapp.noSources.title" = "沒有安裝任何 IPA";
 "playapp.noSources.subtitle" = "暫時沒有安裝任何 IPA 文件。按下下面的按鈕來導入一個。";
 "settings.tab.bypasses" = "Bypasses";
@@ -355,11 +355,11 @@
 "playapp.progress.canceled" = "Canceled";
 "playapp.importIPA" = "導入 IPA";
 "preferences.popover.duplicate" = "複製連結";
-"button.Reload" = "刷新";
-"playapp.clearPlayChain" = "清除 PlayChain 數據";
-"ipaLibrary.noNetworkConnection.required" = "連接實際網路以查看 IPA Library";
+"button.Reload" = "更新";
+"playapp.clearPlayChain" = "清除 PlayChain 資料";
+"ipaLibrary.noNetworkConnection.required" = "連線至網際網路以查看 IPA Library";
 "preferences.toggle.removePlayChain" = "移除 PlayChain";
-"alert.app.clearPlayChain" = "所有 PlayChain 數據將被清除。您可能需要重新登錄應用程式。 您還希望繼續嗎?";
+"alert.app.clearPlayChain" = "所有 PlayChain 資料將被清除。您可能需要重新登錄應用程式。 您還希望繼續嗎?";
 "settings.highResolution" = "高畫質可能會導致閃退";
 "settings.picker.windowFix" = "修復視窗模式顯示問題";
 "settings.picker.windowFix.help" = "啟用視窗修復也許可以讓你的程序正常顯示";
