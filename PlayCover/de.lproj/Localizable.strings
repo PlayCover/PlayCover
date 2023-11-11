@@ -418,3 +418,6 @@
 "keycover.unlockPrompt.title" = "Gib dein Master-Passwort ein, um KeyCover zu entsperren";
 "keycover.alert.title" = "Schlüsselbund wurde nicht entsperrt";
 "keycover.alert.content" = "Der Zugriff auf den Schlüsselbund wurde für die aktuelle Sitzung deaktiviert";
+"settings.toggle.autoKM" = "Smart Keymap";
+"settings.toggle.autoKM.help" = "Tastenbelegung automatisch deaktivieren, wenn eine Texteingabe erkannt wird";
+"settings.applicationCategoryType" = "Anwendungsart";
