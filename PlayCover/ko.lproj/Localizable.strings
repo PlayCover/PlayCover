@@ -1,20 +1,20 @@
 /* (No Comment) */
-"alert.app.delete" = "모든 앱 데이터가 삭제됩니다. 앱 내부 파일들을 다시 다운로드해야 할 수도 있습니다. 정말로 진행하시겠습니까?";
+"alert.app.delete" = "모든 앱 데이터가 삭제됩니다. 앱 내부 파일을 다시 다운로드해야 할 수 있습니다. 정말로 진행하겠습니까?";
 
 /* (No Comment) */
-"alert.app.preferences" = "모든 인앱 설정이 삭제됩니다. 정말로 진행하시겠습니까?";
+"alert.app.preferences" = "모든 인앱 설정이 삭제됩니다. 정말로 진행하겠습니까?";
 
 /* (No Comment) */
-"alert.appCacheCleared" = "앱 데이터가 초기화 되었습니다!";
+"alert.appCacheCleared" = "앱 데이터가 지워졌습니다!";
 
 /* (No Comment) */
 "alert.error" = "오류가 발생했습니다!";
 
 /* (No Comment) */
-"alert.errorImportKm" = "키매핑을 불러오는데 문제가 발생했습니다!";
+"alert.errorImportKm" = "키매핑을 가져오는 데 문제가 발생했습니다!";
 
 /* (No Comment) */
-"alert.kmImported" = "키매핑을 불러왔습니다!";
+"alert.kmImported" = "키매핑을 가져왔습니다!";
 
 /* (No Comment) */
 "alert.moveAppToApplications.move" = "응용 프로그램 폴더로 이동하기";
@@ -53,7 +53,7 @@
 "menubar.checkForUpdates" = "업데이트 확인...";
 
 /* (No Comment) */
-"menubar.discord" = "디스코드";
+"menubar.discord" = "Discord";
 
 /* (No Comment) */
 "menubar.documentation" = "문서";
@@ -62,13 +62,13 @@
 "menubar.exportToSideloady" = "Sideloadly로 내보내기";
 
 /* (No Comment) */
-"menubar.github" = "깃허브";
+"menubar.github" = "GitHub";
 
 /* (No Comment) */
 "menubar.log.copy" = "로그 복사";
 
 /* (No Comment) */
-"menubar.website" = "공식 홈페이지";
+"menubar.website" = "웹사이트";
 
 /* (No Comment) */
 "notification.appInstalled" = "앱이 설치되었습니다!";
@@ -80,13 +80,13 @@
 "playapp.activateAccount" = "계정 전환하기";
 
 /* (No Comment) */
-"playapp.clearCache" = "앱 데이터 초기화";
+"playapp.clearCache" = "앱 데이터 지우기";
 
 /* (No Comment) */
-"playapp.clearPreferences" = "앱 설정 초기화";
+"playapp.clearPreferences" = "앱 설정 지우기";
 
 /* (No Comment) */
-"playapp.delete" = "앱 삭제";
+"playapp.delete" = "앱 삭제하기";
 
 /* (No Comment) */
 "playapp.deleteAccount" = "계정 삭제하기";
@@ -95,13 +95,13 @@
 "playapp.exportKm" = "키매핑 내보내기";
 
 /* (No Comment) */
-"playapp.importKm" = "키매핑 불러오기";
+"playapp.importKm" = "키매핑 가져오기";
 
 /* (No Comment) */
 "playapp.install.addToLib" = "보관함에 앱을 추가하는 중...";
 
 /* (No Comment) */
-"playapp.install.copy" = "앱 복사 중...";
+"playapp.install.copy" = "앱 복사하는 중...";
 
 /* (No Comment) */
 "playapp.install.createWrapper" = "앱 컨테이너 만드는 중...";
@@ -125,7 +125,7 @@
 "playapp.settings" = "설정";
 
 /* (No Comment) */
-"playapp.showInFinder" = "Finder에서 열기";
+"playapp.showInFinder" = "Finder에서 보기";
 
 /* (No Comment) */
 "playapp.storeCurrentAccount" = "계정 보관하기";
@@ -140,19 +140,19 @@
 "preferences.toggle.automaticUpdates" = "자동으로 업데이트 확인";
 
 /* (No Comment) */
-"settings.button.discord" = "사용자 지정 디스코드 활동 상태";
+"settings.button.discord" = "사용자 지정 Discord 활동 상태";
 
 /* (No Comment) */
-"settings.button.clearActivity" = "사용자 지정 활동 상태 초기화";
+"settings.button.clearActivity" = "사용자 지정 활동 상태 지우기";
 
 /* (No Comment) */
-"settings.picker.iosDevice" = "iOS 기종 선택:";
+"settings.picker.iosDevice" = "iOS 기기:";
 
 /* %.f */
 "settings.slider.mouseSensitivity" = "마우스 감도: %.f";
 
 /* (No Comment) */
-"settings.text.applicationID" = "앱 ID";
+"settings.text.applicationID" = "애플리케이션 ID";
 
 /* (No Comment) */
 "settings.text.customHeight" = "높이";
@@ -179,28 +179,28 @@
 "settings.text.state.help" = "제목 아래의 두 번째 줄";
 
 /* (No Comment) */
-"settings.toggle.disableDisplaySleep" = "화면 잠자기 비활성화";
+"settings.toggle.disableDisplaySleep" = "화면 잠자기 사용 안 함";
 
 /* (No Comment) */
-"settings.toggle.discord" = "디스코드 활동 상태 활성화";
+"settings.toggle.discord" = "Discord 활동 상태 사용";
 
 /* (No Comment) */
-"settings.toggle.jbBypass" = "탈옥 우회 활성화 (Experimetal)";
+"settings.toggle.jbBypass" = "탈옥 우회 사용 (실험적)";
 
 /* (No Comment) */
-"settings.toggle.km" = "키매핑 활성화";
+"settings.toggle.km" = "키매핑";
 
 /* (No Comment) */
-"soundAlert.failureText" = "현재 출력 장치의 샘플 레이트를 48 kHz로 설정하는데 실패하였습니다. ‘오디오 MIDI 설정’ 앱에서 수동으로 샘플 레이트를 설정할 수 있습니다";
+"soundAlert.failureText" = "현재 출력 장치의 샘플 레이트를 48 kHz로 설정하지 못했습니다. ‘오디오 MIDI 설정’ 앱에서 수동으로 샘플 레이트를 설정할 수 있습니다";
 
 /* (No Comment) */
-"soundAlert.informativeText" = "현재 출력 장치의 샘플 레이트가 44.1 또는 48 KHz가 아닙니다! 충돌이 발생할 수도 있습니다. 현재 출력장치의 샘플 레이트를 48 kHz로 설정하시겠어요?";
+"soundAlert.informativeText" = "현재 출력 장치의 샘플 레이트가 44.1 또는 48 KHz가 아닙니다! 충돌이 발생할 수 있습니다. 현재 출력 장치의 샘플 레이트를 48 kHz로 설정하겠습니까?";
 
 /* (No Comment) */
 "soundAlert.messageText" = "올바르지 않은 오디오 설정이 감지되었습니다!";
 
 /* (No Comment) */
-"soundAlert.successText" = "현재 출력장치의 샘플 레이트를 48 kHz로 설정했습니다";
+"soundAlert.successText" = "현재 출력 장치의 샘플 레이트를 48 kHz로 설정했습니다";
 
 /* (No Comment) */
 "storeAccount.deleteAcc" = "계정 삭제하기";
@@ -238,53 +238,53 @@
 "playapp.exportKmPanel.fieldLabel" = "PlayMap 이름:";
 "sidebar.appLibrary" = "앱 보관함";
 "sidebar.ipaLibrary" = "IPA 보관함";
-"storeAccount.alert.restoreAccount" = "정말로 계정을 복구하시겠습니까?";
+"storeAccount.alert.restoreAccount" = "정말로 계정을 복구하겠습니까?";
 "storeAccount.alert.restoreAccount.button" = "계정 복구하기";
 "storeAccount.alert.restoreAccount.msg" = "현재 로그인한 계정을 덮어씁니다.";
-"storeAccount.alert.deleteAccount" = "정말로 계정을 삭제하시겠습니까?";
+"storeAccount.alert.deleteAccount" = "정말로 계정을 삭제하겠습니까?";
 "storeAccount.alert.deleteAccount.button" = "계정 삭제하기";
 "alert.moveAppToApplications.title" = "응용 프로그램 폴더로 이동할까요?";
-"alert.moveAppToApplications.subtitle" = "PlayCover는 올바르게 실행되려면 반드시 응용 프로그램 폴더에 있어야 합니다. PlayCover를 자동으로 이동하려면 아래 버튼을 누르세요.";
+"alert.moveAppToApplications.subtitle" = "PlayCover가 올바르게 실행되려면 반드시 응용 프로그램 폴더에 있어야 합니다. PlayCover를 자동으로 이동하려면 아래 버튼을 누르세요.";
 "button.Quit" = "종료";
-"error.appEncrypted" = "이 앱은 암호화되어 있습니다! 복호화된 IPA를 사용해주세요. iMazing IPA는 지원되지 않습니다!";
-"error.appCorrupted" = "이 IPA에 문제가 발생했습니다. 다른 IPA를 사용해보세요.";
-"error.appProhibited" = "PlayCover를 통해 이 앱을 사용하면 밴될 수 있습니다!";
-"error.noGenshinAccount" = "원신 계정을 찾을 수 없습니다! 앱 내 계정에 로그인하셨나요?";
+"error.appEncrypted" = "이 앱은 암호화되어 있습니다! 복호화된 IPA를 사용해 주세요. iMazing IPA는 지원되지 않습니다!";
+"error.appCorrupted" = "이 IPA에 문제가 발생했습니다. 다른 IPA를 사용해 보세요.";
+"error.appProhibited" = "PlayCover를 통해 이 앱을 사용하면 차단될 수 있습니다!";
+"error.noGenshinAccount" = "원신 계정을 찾을 수 없습니다! 앱 내 계정에 로그인했습니까?";
 "settings.tab.info" = "정보";
 "settings.tab.km" = "키매핑";
-"settings.toggle.km.help" = "터치 전용 게임에 키보드 지원을 추가합니다. Command + K 키로 에디터 창을 열 수 있습니다.";
+"settings.toggle.km.help" = "터치 전용 게임에 키보드 지원을 추가합니다. Command + K로 편집기 창을 열 수 있습니다.";
 "settings.tab.graphics" = "그래픽";
 "settings.picker.adaptiveRes" = "해상도:";
-"settings.picker.adaptiveRes.help" = "앱 화면 해상도를 변경합니다";
+"settings.picker.adaptiveRes.help" = "앱 화면의 해상도를 변경합니다";
 "settings.picker.adaptiveRes.0" = "앱 기본값";
 "settings.picker.adaptiveRes.1" = "자동 (디스플레이 기반)";
 "settings.picker.adaptiveRes.5" = "사용자화";
-"settings.picker.aspectRatio" = "가로세로 비율:";
-"settings.toggle.disableDisplaySleep.help" = "이 앱이 작동하는 중에 화면이 꺼지는 것을 방지합니다";
+"settings.picker.aspectRatio" = "화면비:";
+"settings.toggle.disableDisplaySleep.help" = "이 앱이 작동하는 중 화면이 꺼지는 것을 방지합니다";
 "settings.toggle.jbBypass.help" = "일부 게임에서의 탈옥 감지를 우회하려고 시도합니다 (항상 작동이 보장되지는 않습니다)";
 "settings.info.bundleName" = "번들 이름:";
 "settings.info.bundleIdentifier" = "번들 식별자:";
 "settings.info.executableName" = "실행 파일 이름:";
 "settings.info.minimumOSVersion" = "최소 OS 버전:";
-"settings.info.url" = "경로:";
+"settings.info.url" = "위치:";
 "settings.resetSettings" = "설정 초기화";
 "settings.resetKm" = "키매핑 초기화";
 "settings.resetSettingsCompleted" = "설정을 기본값으로 되돌렸습니다!";
-"settings.resetKmCompleted" = "키매핑이 재설정되었습니다!";
+"settings.resetKmCompleted" = "키매핑을 초기화했습니다!";
 "settings.tab.misc" = "기타";
-"settings.toggle.hud" = "Metal HUD 활성화";
+"settings.toggle.hud" = "Metal HUD 사용";
 "settings.info.bundleVersion" = "번들 버전:";
-"playapp.deleteConfirm" = "삭제";
-"playapp.deleteMessage" = "%@을(를) 삭제하시겠습니까?";
+"playapp.deleteConfirm" = "삭제하기";
+"playapp.deleteMessage" = "%@을(를) 삭제하겠습니까?";
 "alert.legacyImport.title" = "레거시 앱 설정이 감지되었습니다!";
-"alert.legacyImport.subtitle" = "이전 버전의 설정과 키맵 파일이 존재합니다. 새로운 버전의 포맷으로 변환하시겠습니까?";
+"alert.legacyImport.subtitle" = "이전 버전의 설정과 키맵 파일이 존재합니다. 새 포맷으로 변환하겠습니까?";
 "button.Convert" = "변환";
-"settings.info.displayName" = "보이는 제목:";
+"settings.info.displayName" = "표시 이름:";
 "settings.text.detectedResolution" = "감지된 해상도:";
 "playapp.add" = "앱 추가하기";
-"alert.wrongFileType.title" = "잘못된 파일 형식입니다!";
+"alert.wrongFileType.title" = "파일 형식 잘못됨!";
 "alert.wrongFileType.subtitle" = "PlayCover는 유효한 .ipa 파일만 설치할 수 있습니다.";
-"ipaLibrary.noSources.title" = "IPA 소스들이 추가되지 않았습니다";
+"ipaLibrary.noSources.title" = "추가된 IPA 소스 없음";
 "ipaLibrary.noSources.button" = "소스 추가하기";
 "playapp.addSource" = "소스 추가하기";
 "ipaLibrary.noSources.subtitle" = "현재 어떠한 IPA 소스도 추가되지 않았습니다. 다음 버튼을 클릭하고 하나를 추가하세요.";
@@ -302,119 +302,122 @@
 "error.waitDownload" = "현재 다운로드가 끝날 때까지 기다려 주세요!";
 "playapp.progress.failed" = "실패함";
 "alert.supression" = "PlayCover 환경설정에서 변경할 수 있습니다";
-"preferences.toggle.clearAppData" = "데이터 초기화";
-"preferences.tab.uninstall" = "제거";
-"preferences.whenUninstalling" = "제거 할 때:";
+"preferences.toggle.clearAppData" = "데이터 지우기";
+"preferences.tab.uninstall" = "삭제";
+"preferences.whenUninstalling" = "삭제할 때:";
 "preferences.toggle.showUninstall" = "경고 팝업 보기";
 "preferences.toggle.removeKeymap" = "키맵 제거하기";
 "preferences.toggle.removeSetting" = "설정 제거하기";
 "preferences.toggle.removeEntitlements" = "권한 제거하기";
 "preferences.button.pruneFiles" = "파일 정리";
-"preferences.prune.alert" = "모든 파일을 정리하시겠습니까?";
-"preferences.prune.message" = "이는 설정, 키매핑, 권한, 앱데이터를 포함한 모든 불필요한 것들을 제거합니다";
-"menubar.clearCache" = "캐시 제거";
-"preferences.tab.install" = "설치";
+"preferences.prune.alert" = "모든 파일을 정리하겠습니까?";
+"preferences.prune.message" = "설정, 키매핑, 자격 증명, 앱 데이터를 포함한 모든 불필요한 것을 제거합니다";
+"menubar.clearCache" = "캐시 지우기";
+"preferences.tab.install" = "설치하기";
 "preferences.toggle.showInstallPopup" = "PlayTools 설치 팝업 보기";
 "preferences.toggle.alwaysInstallPlayTools" = "항상 PlayTools 설치";
 "alert.install.injectPlayTools" = "PlayTools 주입";
 "button.Yes" = "예";
-"button.No" = "아니오";
-"settings.noPlayTools" = "이 앱에는 PlayTools 가 설치되지 않았습니다";
+"button.No" = "아니요";
+"settings.noPlayTools" = "이 앱에는 PlayTools가 설치되지 않았습니다";
 "settings.removePlayTools" = "PlayTools 제거";
-"settings.info.playTools" = "PlayTools 설치 여부:";
-"playapp.refreshSources" = "소스 새로고침";
-"error.appMaliciousProhibited" = "이 앱은 Mac에서 악의적으로 작동하며 기기를 부팅할 수 없는 상태로 만들 수 있으므로 PlayCover에서 차단됩니다. (제거 중...)";
-"alert.install.injectPlayToolsQuestion" = "이 애플리케이션에 PlayTools를 주입하시겠습니까?";
-"alert.install.playToolsInformative" = "PlayTools는 화면 터치, 사용자 지정 디스플레이 해상도 등에 키를 바인딩할 수 있는 도구이지만 특정 앱이 중단될 수 있습니다";
+"settings.info.playTools" = "PlayTools 설치:";
+"playapp.refreshSources" = "소스 다시 로드";
+"error.appMaliciousProhibited" = "이 앱은 Mac에서 악의적으로 작동하며 기기를 부팅할 수 없는 상태로 만들 수 있으므로 PlayCover에서 차단됩니다. (삭제하는 중...)";
+"alert.install.injectPlayToolsQuestion" = "이 응용 프로그램에 PlayTools를 주입하겠습니까?";
+"alert.install.playToolsInformative" = "PlayTools는 화면 터치, 사용자 지정 디스플레이 해상도 등에 키를 바인딩할 수 있는 도구이지만 특정 앱에서 중단될 수 있습니다";
 "state.pendingReboot" = "재시동 대기 중";
-"configSigning.info.SIP" = "AMFI를 끄려면 SIP을 완전히 비활성화해야 합니다.";
-"configSigning.info.SIPHeader" = "시스템 무결성 보호(SIP)";
-"configSigning.info.AMFI" = "가짜 서명을 허용하여 앱을 올바른 팀 ID로 실행하기 위해서는 AMFI를 꺼야합니다";
-"configSigning.info.AMFIHeader" = "Apple 모바일 파일 무결성(AMFI)";
-"configSigning.action.shutdown" = "사용자의 Mac 종료";
-"configSigning.action.copyCommand" = "명령 복사하기";
-"configSigning.action.restart" = "사용자의 Mac 재시동";
-"configSigning.step.disableSIP" = "리커버리 모드에서 SIP를 비활성화 해주세요";
-"configSigning.step.disableAMFI" = "AMFI를 비활성화 해주세요";
-"configSigning.step.AMFIreboot" = "AMFI가 비활성화되었습니다. 재부팅 해주세요";
+"configSigning.info.SIP" = "AMFI를 끄려면 SIP를 완전히 종료해야 합니다.";
+"configSigning.info.SIPHeader" = "시스템 무결성 보호 (SIP)";
+"configSigning.info.AMFI" = "가짜 서명을 허용하여 앱을 올바른 팀 ID로 실행하기 위해서는 AMFI를 종료해야 합니다";
+"configSigning.info.AMFIHeader" = "Apple 모바일 파일 무결성 (AMFI)";
+"configSigning.action.shutdown" = "내 Mac 종료";
+"configSigning.action.copyCommand" = "클립보드에 명령 복사하기";
+"configSigning.action.restart" = "내 Mac 재시동";
+"configSigning.step.disableSIP" = "복구 모드에서 SIP를 사용 해제해 주세요";
+"configSigning.step.disableAMFI" = "AMFI를 사용 해제해 주세요";
+"configSigning.step.AMFIreboot" = "AMFI가 사용 해제되었습니다. 재시동해 주세요";
 "button.Help" = "도움말";
 "button.Dismiss" = "닫기";
 "state.enabled" = "사용";
 "state.disabled" = "사용 안 함";
 "menubar.configSigning" = "서명 구성";
 "configSigning.header" = "패키지 서명 구성";
-"configSigning.subtext" = "패키지 서명은 인증 같은 작업을 위해 올바른 팀 ID를 필요로 하는 \n앱의 문제를 해결하는 데 도움이 됩니다. \n이 기능을 사용하도록 설정하면 보안 위험이 발생할 수도 있습니다.\n\n 따라서 필요하지 않다면 비활성화 하는 것이 좋습니다";
+"configSigning.subtext" = "패키지 서명은 인증 같은 작업을 위해 올바른 팀 ID를 필요로 하는 \n앱의 문제를 해결하는 데 도움이 됩니다. \n이 기능을 사용 설정하면 보안 위험이 발생할 수 있습니다.\n\n 따라서 필요하지 않다면 사용하지 않는 것이 좋습니다";
 "configSigning.step.complete" = "패키지 서명을 성공적으로 구성했습니다";
 "configSigning.alert.copied" = "명령이 복사되었습니다!";
-"configSigning.alert.info" = "Terminal.app에 명령을 붙여넣고 실행하세요. Mac이 재부팅됩니다";
+"configSigning.alert.info" = "Terminal.app에 명령을 붙여넣고 실행하세요. Mac이 재시동됩니다";
 "alert.power.title" = "저전력 모드가 켜져 있습니다!";
-"alert.power.subtitle" = "몇몇 앱들은 저전력 모드가 켜져 있는 경우 작동하지 않을 수 있습니다. 저전력 모드를 끄는 것이 권장됩니다.";
-"ipaLibrary.version.older" = "이 버전은 설치되어 있는 버전보다 구버전입니다";
-"ipaLibrary.version.same" = "앱이 이미 설치되어있습니다";
+"alert.power.subtitle" = "일부 앱은 저전력 모드가 켜져 있는 경우 작동하지 않을 수 있습니다. 저전력 모드를 끄는 것을 권장합니다.";
+"ipaLibrary.version.older" = "이 버전은 설치되어 있는 버전보다 오래됐습니다";
+"ipaLibrary.version.same" = "앱이 이미 설치되어 있습니다";
 "settings.text.debugger" = "디버거:";
-"settings.toggle.lldb" = "LLDB를 통해 열기";
+"settings.toggle.lldb" = "LLDB로 열기";
 "settings.toggle.lldbWithTerminal" = "터미널에서 열기";
-"ipaLibrary.version.newer" = "이 버전은 이미 설치되어있는 버전보다 최신버전입니다";
-"ipaLibrary.alert.download" = "이 버전의 %@을 정말로 다운받으시겠습니까?";
+"ipaLibrary.version.newer" = "이 버전은 설치되어 있는 버전보다 최신입니다";
+"ipaLibrary.alert.download" = "이 버전의 %@을(를) 다운로드하겠습니까?";
 "ipaLibrary.download" = "다운로드";
-"alert.differentBundleIdKeymap.message" = "이 키매핑은 다른 앱을 위해 만들어졌을수도 있습니다.";
-"alert.differentBundleIdKeymap.text" = "정말로 이 키매핑을 불러오시겠습니까?";
+"alert.differentBundleIdKeymap.message" = "이 키매핑은 다른 앱을 위해 만들어졌을 수 있습니다.";
+"alert.differentBundleIdKeymap.text" = "정말로 이 키매핑을 가져오겠습니까?";
 "settings.unavailable.hud" = "Metal HUD를 사용할 수 없습니다";
-"error.failedToStripBinary" = "fat binary에서 ARM64 arch를 찾을 수 없습니다!";
+"error.failedToStripBinary" = "fat 바이너리에서 ARM64 아키텍처를 찾을 수 없습니다!";
 "settings.playChain.debugging" = "PlayChain 디버깅";
-"settings.playChain.enable" = "PlayChain 활성화(실험적 기능)";
+"settings.playChain.enable" = "PlayChain 사용 (실험적)";
 "settings.playChain.help" = "이 애플리케이션에 대한 PlayChain 지원을 활성화하여 Apple 키체인 서비스를 (부분적으로) 사용할 수 있도록 합니다";
-"playapp.noSources.title" = "설치된 IPA가 없음";
+"playapp.noSources.title" = "설치된 IPA 없음";
 "playapp.noSources.subtitle" = "현재 설치된 IPA가 없습니다. 아래 버튼을 클릭하여 가져오세요.";
 "settings.tab.bypasses" = "우회";
-"settings.addToLaunchpad" = "런치패드에 추가";
-"settings.removeFromLaunchpad" = "런치패드에서 제거";
+"settings.addToLaunchpad" = "Launchpad에 추가하기";
+"settings.removeFromLaunchpad" = "Launchpad에서 제거하기";
 "playapp.download.integrityCheck" = "파일 무결성 확인:";
-"playapp.download.differentChecksum" = "체크섬이 다릅니다! 설치를 계속하시겠습니까?";
-"playapp.download.differentChecksumDesc" = "\"%@\"가 아닌 \"%@\"을(를) 받았습니다";
+"playapp.download.differentChecksum" = "체크섬이 다릅니다! 설치를 계속하겠습니까?";
+"playapp.download.differentChecksumDesc" = "\"%@\"이(가) 아닌 \"%@\"을(를) 받았습니다";
 "playapp.progress.canceled" = "취소됨";
-"playapp.clearPlayChain" = "PlayChain(플레이 체인) 데이터 초기화하기";
-"playapp.importIPA" = "IPA 불러오기";
+"playapp.clearPlayChain" = "PlayChain 데이터 지우기";
+"playapp.importIPA" = "IPA 가져오기";
 "ipaLibrary.noNetworkConnection.required" = "IPA 라이브러리는 인터넷 연결이 필요합니다";
-"preferences.toggle.removePlayChain" = "PlayChain 제거";
-"preferences.popover.duplicate" = "링크 복사";
-"alert.app.clearPlayChain" = "모든 PlayChain 데이터가 지워집니다. 앱에 다시 로그인해야 할 수도 있습니다. 계속하시겠습니까?";
-"button.Reload" = "새로고침";
-"settings.highResolution" = "고해상도는 충돌을 야기할 수 있습니다";
-"settings.picker.windowFix" = "창 표시 문제 수정";
+"preferences.toggle.removePlayChain" = "PlayChain 제거하기";
+"preferences.popover.duplicate" = "링크 복사하기";
+"alert.app.clearPlayChain" = "모든 PlayChain 데이터가 지워집니다. 앱에 다시 로그인해야 할 수 있습니다. 계속하겠습니까?";
+"button.Reload" = "다시 로드";
+"settings.highResolution" = "높은 해상도는 충돌을 일으킬 수 있습니다";
+"settings.picker.windowFix" = "디스플레이 문제 수정";
 "settings.picker.windowFix.help" = "앱이 정상적으로 표시되는 데 도움이 될 수 있는 창 수정 적용";
 "settings.picker.windowFixMethod.0" = "기본";
-"settings.picker.windowFixMethod.1" = "Alternate";
-"settings.toggle.introspection" = "Insert Introspection libraries";
-"settings.toggle.introspection.help" = "Add the system introspection libraries to the app. Known to fix issues with some apps not starting correctly";
+"settings.picker.windowFixMethod.1" = "대체";
+"settings.toggle.introspection" = "내장 보관함 삽입";
+"settings.toggle.introspection.help" = "앱에 시스템 내장 라이브러리를 추가합니다. 일부 앱이 올바르게 시작되지 않는 문제를 해결할 수 있습니다";
 "preferences.popover.checking" = "URL 검사";
 "settings.picker.scaler" = "해상도";
-"keycover.button.lockAll" = "Lock All Chains";
-"keycover.button.changePassword" = "Change Master Password";
-"keycover.toggle.startupPrompt" = "Prompt for KeyCover at startup";
-"keycover.toggle.startupPrompt.help" = "KeyCover will prompt for your master password when you launch the application. If this is disabled, it will be prompted when you launch an app that uses PlayChain.";
-"keycover.setup.useGeneratedKey" = "Managed Automatically";
-"keycover.setup.useUserKey" = "Use my own key";
-"button.Enable" = "Enable";
-"button.Reset" = "Reset";
-"button.Unlock" = "Unlock";
-"settings.toggle.rootWorkDir" = "Start app at root directory";
-"settings.toggle.rootWorkDir.help" = "Change the working directory of the app to / just like on iOS. Turn this off if the app misbehave";
-"keycover.masterPassword" = "Master Password";
-"keycover.confirmMasterPassword" = "Confirm Master Password";
-"keycover.oldMasterPassword" = "Current Master Password";
-"keycover.error.blankPassword" = "Password cannot be blank";
-"keycover.error.notMatch" = "Passwords do not match";
-"keycover.error.incorrectPassword" = "Incorrect Password";
-"keycover.status.title" = "KeyCover Status:";
-"keycover.status.managedPassword" = "Enabled with Managed Password";
-"keycover.status.userPassword" = "Enabled with User Password";
-"keycover.status.chainCount" = "KeyCover Chain Status: ";
-"keycover.status.unlockedCount %@ %@" = "%@ unlocked chains in %@ total";
-"keycover.setup.encryptionKey" = "Encryption Key: ";
-"keycover.setupPrompt.title" = "Enter a master password to use for KeyCover";
-"keycover.changePasswordPrompt.title" = "Enter your old master password and a new one to update your KeyCover encryption key";
-"keycover.removePrompt.title" = "Enter your master password to remove KeyCover encryption";
-"keycover.unlockPrompt.title" = "Enter your master password to unlock KeyCover";
-"keycover.alert.title" = "Keychain was not unlocked";
-"keycover.alert.content" = "Keychain access has been disabled for the current session";
+"keycover.button.lockAll" = "모든 체인 잠그기";
+"keycover.button.changePassword" = "마스터 암호 변경";
+"keycover.toggle.startupPrompt" = "KeyCover 시작 시 암호 묻기";
+"keycover.toggle.startupPrompt.help" = "KeyCover가 애플리케이션을 시작할 때 마스터 암호를 묻는 메시지를 표시합니다. 사용 해제하면 PlayChain을 사용하는 앱을 시작할 때 메시지가 표시됩니다.";
+"keycover.setup.useGeneratedKey" = "자동으로 관리";
+"keycover.setup.useUserKey" = "내 키 사용";
+"button.Enable" = "사용";
+"button.Reset" = "초기화";
+"button.Unlock" = "잠금 해제";
+"settings.toggle.rootWorkDir" = "최상위 디렉토리에서 앱 시작";
+"settings.toggle.rootWorkDir.help" = "iOS에서와 마찬가지로 앱의 작업 디렉토리를 /로 변경합니다. 앱이 오작동할 경우 이 기능을 끄세요";
+"keycover.masterPassword" = "마스터 암호";
+"keycover.confirmMasterPassword" = "마스터 암호 확인";
+"keycover.oldMasterPassword" = "현재 마스터 암호";
+"keycover.error.blankPassword" = "암호는 비워둘 수 없습니다";
+"keycover.error.notMatch" = "암호가 일치하지 않습니다";
+"keycover.error.incorrectPassword" = "잘못된 암호";
+"keycover.status.title" = "KeyCover 상태:";
+"keycover.status.managedPassword" = "관리 암호로 사용 설정됨";
+"keycover.status.userPassword" = "사용자 암호로 사용 설정됨";
+"keycover.status.chainCount" = "KeyCover 체인 상태: ";
+"keycover.status.unlockedCount %@ %@" = "잠금 해제된 체인 %@개 (총 %@개)";
+"keycover.setup.encryptionKey" = "암호화 키: ";
+"keycover.setupPrompt.title" = "KeyCover에 사용할 마스터 암호를 입력하세요";
+"keycover.changePasswordPrompt.title" = "기존 마스터 암호와 새 암호를 입력하여 KeyCover 암호화 키를 업데이트하세요";
+"keycover.removePrompt.title" = "KeyCover 암호화를 제거하려면 마스터 암호를 입력하세요";
+"keycover.unlockPrompt.title" = "KeyCover를 잠금 해제하려면 마스터 암호를 입력하세요";
+"keycover.alert.title" = "Keychain이 잠금 해제되지 않았습니다";
+"keycover.alert.content" = "현재 세션의 Keychain 접근이 비활성화되었습니다";
+"settings.toggle.autoKM" = "키매핑 시작";
+"settings.toggle.autoKM.help" = "텍스트 입력이 감지되면 자동으로 키매핑 비활성화";
+"settings.applicationCategoryType" = "Application Type";
