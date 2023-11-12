@@ -40,6 +40,7 @@ struct AppSettingsData: Codable {
     var injectIntrospection = false
     var rootWorkDir = true
     var noKMOnInput = true
+    var enableScrollWheel = true
 
     init() {}
 
@@ -69,6 +70,7 @@ struct AppSettingsData: Codable {
         injectIntrospection = try container.decodeIfPresent(Bool.self, forKey: .injectIntrospection) ?? false
         rootWorkDir = try container.decodeIfPresent(Bool.self, forKey: .rootWorkDir) ?? true
         noKMOnInput = try container.decodeIfPresent(Bool.self, forKey: .noKMOnInput) ?? true
+        enableScrollWheel = try container.decodeIfPresent(Bool.self, forKey: .enableScrollWheel) ?? true
     }
 }
 

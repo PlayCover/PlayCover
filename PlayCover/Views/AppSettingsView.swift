@@ -157,6 +157,11 @@ struct KeymappingView: View {
                         .help("settings.toggle.autoKM.help")
                 }
                 HStack {
+                    Toggle("settings.toggle.enableScrollWheel", isOn: $settings.settings.keymapping)
+                        .help("settings.toggle.enableScrollWheel.help")
+                    Spacer()
+                }
+                HStack {
                     Text(String(
                         format: NSLocalizedString("settings.slider.mouseSensitivity", comment: ""),
                         settings.settings.sensitivity))
