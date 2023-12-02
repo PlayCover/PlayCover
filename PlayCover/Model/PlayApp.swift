@@ -279,7 +279,7 @@ class PlayApp: BaseApp {
             let conf = try Entitlements.composeEntitlements(self)
             try conf.store(tmpEnts)
             try Shell.signAppWith(executable, entitlements: tmpEnts)
-            try FileManager.default.removeItem(at: tmpDir)
+            try FileManager.default.removeItem(at: tmpEnts)
         } catch {
             print(error)
             Log.shared.error(error)
