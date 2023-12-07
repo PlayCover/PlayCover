@@ -161,8 +161,8 @@
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
 "settings.toggle.autoKM" = "Smart Keymap";
 "settings.toggle.autoKM.help" = "Automatically disable keymapping when text input is sensed";
-"settings.toggle.enableScrollWheel" = "Enable Scroll Wheel"
-"settings.toggle.enableScrollWheel.help" = "Enable scroll wheel in keymapping"
+"settings.toggle.enableScrollWheel" = "Enable Scroll Wheel";
+"settings.toggle.enableScrollWheel.help" = "Enable scroll wheel in keymapping";
 
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";
