@@ -207,8 +207,8 @@ class Installer {
         let info = AppInfo(contentsOf: baseApp.url
             .appendingPathComponent("Info")
             .appendingPathExtension("plist"))
-        let location = PlayTools.playCoverContainer
-            .appendingEscapedPathComponent(info.displayName)
+        let location = AppsVM.appDirectory
+            .appendingEscapedPathComponent(info.bundleIdentifier)
             .appendingPathExtension("app")
         if FileManager.default.fileExists(atPath: location.path) {
             try FileManager.default.removeItem(at: location)

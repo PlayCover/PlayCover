@@ -196,8 +196,6 @@
 
 "settings.applicationCategoryType" = "Application Type";
 "settings.removePlayTools" = "Remove PlayTools";
-"settings.addToLaunchpad" = "Add to Launchpad";
-"settings.removeFromLaunchpad" = "Remove from Launchpad";
 
 "settings.info.displayName" = "Display name:";
 "settings.info.bundleName" = "Bundle name:";
@@ -207,6 +205,7 @@
 "settings.info.minimumOSVersion" = "Minimum OS version:";
 "settings.info.playTools" = "PlayTools installed:";
 "settings.info.url" = "URL:";
+"settings.info.alias" = "Alias:";
 
 "settings.resetSettings" = "Reset settings";
 "settings.resetKm" = "Reset keymapping";
