@@ -19,9 +19,11 @@ jobs:
       - name: Install dependencies
         shell: bash
         run: |
-          brew install graphicsmagick imagemagick create-dmg
+          brew install graphicsmagick imagemagick
           gem install fastlane
           bundle install
+          pip install setuptools
+          npm install --global create-dmg
 
       - name: Fastlane Release
         shell: bash
