@@ -80,10 +80,10 @@
 "playapp.activateAccount" = "切換帳號";
 
 /* (No Comment) */
-"playapp.clearCache" = "清除應用程式數據";
+"playapp.clearCache" = "清除應用程式資料";
 
 /* (No Comment) */
-"playapp.clearPreferences" = "清除應用偏好設置";
+"playapp.clearPreferences" = "清除應用程式偏好設定";
 
 /* (No Comment) */
 "playapp.delete" = "解除安裝應用程式";
@@ -119,13 +119,13 @@
 "playapp.install.unzip" = "正在從文件中提取應用程式...";
 
 /* (No Comment) */
-"playapp.openCache" = "顯示應用程式數據";
+"playapp.openCache" = "顯示應用程式資料";
 
 /* (No Comment) */
 "playapp.settings" = "偏好設定";
 
 /* (No Comment) */
-"playapp.showInFinder" = "在Finder中查看";
+"playapp.showInFinder" = "在 Finder 中查看";
 
 /* (No Comment) */
 "playapp.storeCurrentAccount" = "保存現有帳號";
@@ -161,10 +161,10 @@
 "settings.toggle.km" = "啟用鍵盤映射佈局";
 
 /* (No Comment) */
-"soundAlert.failureText" = "未能成功更改現有音響設備取樣率為 48 KHz。您可以在 “音訊 MIDI 設定” 應用程式中手動設置";
+"soundAlert.failureText" = "未能成功更改現有音訊輸出設備取樣率為 48 KHz。您可以在 “音訊 MIDI 設定” 應用程式中自行手動設定";
 
 /* (No Comment) */
-"soundAlert.informativeText" = "現有的音訊設備並無 48 或者 44.1 KHz 取樣率! 程式可能會崩潰。你希望把現有的音響設備設定成 48 KHz 取樣率嗎?";
+"soundAlert.informativeText" = "現有的音訊設備並無 48 或 44.1 KHz 取樣率! 程式可能會崩潰。你希望把現有的音響設備設定成 48 KHz 取樣率嗎?";
 
 /* (No Comment) */
 "soundAlert.messageText" = "檢測到聲音設定有問題!";
@@ -243,7 +243,7 @@
 "settings.resetSettingsCompleted" = "偏好設定已被重置為預設值！";
 "settings.resetKmCompleted" = "鍵盤映射佈局已被重置！";
 "settings.tab.misc" = "雜項";
-"settings.button.discord" = "自定義Discord動態";
+"settings.button.discord" = "自訂 Discord 動態";
 "settings.button.clearActivity" = "清除自定義動態";
 "settings.text.applicationID" = "應用程式 ID";
 "settings.text.details" = "詳細資料";
@@ -261,12 +261,12 @@
 "alert.legacyImport.subtitle" = "檢測到舊版應用程式設置及鍵盤映射佈局。是否要把這些檔案轉換為新版格式？";
 "button.Convert" = "轉換";
 "settings.text.detectedResolution" = "檢測到的解析度:";
-"playapp.add" = "添加應用程式";
+"playapp.add" = "新增應用程式";
 "alert.wrongFileType.title" = "錯誤的檔案類型！";
 "alert.wrongFileType.subtitle" = "PlayCover 只可以安裝有效的 .ipa 檔案。";
 "playapp.addSource" = "新增來源";
-"ipaLibrary.noSources.title" = "沒有新增 IPA 來源";
-"ipaLibrary.noSources.subtitle" = "您目前沒有新增IPA來源。點擊下面的按鈕來新增一個。";
+"ipaLibrary.noSources.title" = "尚未新增 IPA 來源";
+"ipaLibrary.noSources.subtitle" = "您目前沒有新增 IPA 來源。點擊下方的按鈕來新增一個。";
 "ipaLibrary.noSources.button" = "新增來源";
 "ipaLibrary.noNetworkConnection.toast" = "沒有網路連線！";
 "preferences.tab.ipasource" = "IPA 來源";
@@ -292,7 +292,7 @@
 "preferences.prune.message" = "這將刪除所有未使用的檔案，包括設定、鍵盤映射、授權和應用程式數據";
 "playapp.progress.failed" = "失敗";
 "alert.supression" = "你可以在 PlayCover 偏好設定中更改";
-"menubar.clearCache" = "清理緩存";
+"menubar.clearCache" = "清理快取";
 "preferences.tab.install" = "安裝";
 "preferences.toggle.showInstallPopup" = "顯示安裝 PlayTools 彈窗";
 "preferences.toggle.alwaysInstallPlayTools" = "總是安裝 PlayTools";
@@ -302,7 +302,7 @@
 "button.Yes" = "是";
 "button.No" = "否";
 "settings.noPlayTools" = "該應用程式沒有安裝PlayTools";
-"playapp.refreshSources" = "刷新來源";
+"playapp.refreshSources" = "重新整理來源";
 "error.appMaliciousProhibited" = "此應用程式在 Mac 上存在惡意行為，使用它可能會使您的設備處於無法啟動的狀態，因此它會被 PlayCover 封鎖。 （正在解除安裝...）";
 "alert.install.injectPlayToolsQuestion" = "你要在這個應用程序裡面植入 PlayTools 嗎？";
 "alert.install.playToolsInformative" = "PlayTools是一個讓您將按鍵綁定到螢幕觸控，自定義顯示分辨率，和更多的工具，但它有可能會讓某些應用程序崩潰";
@@ -311,13 +311,13 @@
 "state.enabled" = "啟用";
 "state.disabled" = "禁用";
 "state.pendingReboot" = "等待重啟";
-"menubar.configSigning" = "配置登錄";
+"menubar.configSigning" = "配置簽署";
 "configSigning.header" = "配置應用程式包簽名";
 "configSigning.subtext" = "應用程式包簽名幫助修復需要依靠正確 團隊 ID\n來處理身分驗證等操作的應用程序。\n這個功能有可能會帶來風險。\n\n因此，我們建議在不必要的情況下禁用它";
 "configSigning.info.SIP" = "部分的 系統完整性保護（SIP）需要禁用，以便關閉 蘋果移動文件完整性（AMFI）.";
 "configSigning.info.SIPHeader" = "系統完整性保護";
 "configSigning.info.AMFI" = "蘋果移動文件完整性（AMFI）需要關閉以允許應用程序假簽名，以便它們使用正確的 團隊ID 運行";
-"configSigning.info.AMFIHeader" = "蘋果移動文件完整性";
+"configSigning.info.AMFIHeader" = "蘋果移動檔案完整性（AMFI）";
 "configSigning.action.shutdown" = "將我的 Mac 關機";
 "configSigning.action.copyCommand" = "複製指令至剪貼板";
 "configSigning.action.restart" = "將我的 Mac 重啟";
@@ -344,19 +344,19 @@
 "error.failedToStripBinary" = "無法在通用二進制文件中檢索到 ARM64 架構！";
 "settings.playChain.enable" = "啟用 PlayChain (試驗階段)";
 "settings.playChain.help" = "在此應用程序啟用 PlayChain 將使應用程式（部分）使用 Apple Keychain 服務";
-"playapp.noSources.title" = "沒有安裝任何 IPA";
-"playapp.noSources.subtitle" = "暫時沒有安裝任何 IPA 文件。按下下面的按鈕來導入一個。";
-"settings.tab.bypasses" = "Bypasses";
-"settings.removeFromLaunchpad" = "Remove from Launchpad";
-"settings.addToLaunchpad" = "Add to Launchpad";
-"playapp.download.integrityCheck" = "Verifying file integrity:";
-"playapp.download.differentChecksum" = "Different checksums! Do you want to continue to install?";
-"playapp.download.differentChecksumDesc" = "Expected \"%@\", got \"%@\"";
-"playapp.progress.canceled" = "Canceled";
+"playapp.noSources.title" = "尚未安裝任何 IPA";
+"playapp.noSources.subtitle" = "暫時沒有安裝任何 IPA 文件。點擊下方的按鈕來導入一個。";
+"settings.tab.bypasses" = "繞道";
+"settings.removeFromLaunchpad" = "自啟動台移除";
+"settings.addToLaunchpad" = "加入啟動台";
+"playapp.download.integrityCheck" = "驗證檔案的完整性：";
+"playapp.download.differentChecksum" = "checksum 不相符！是否繼續安裝？";
+"playapp.download.differentChecksumDesc" = "預期「%@」，得到「%@」";
+"playapp.progress.canceled" = "已取消";
 "playapp.importIPA" = "導入 IPA";
 "preferences.popover.duplicate" = "複製連結";
 "button.Reload" = "刷新";
-"playapp.clearPlayChain" = "清除 PlayChain 數據";
+"playapp.clearPlayChain" = "清除 PlayChain 資料";
 "ipaLibrary.noNetworkConnection.required" = "連接實際網路以查看 IPA Library";
 "preferences.toggle.removePlayChain" = "移除 PlayChain";
 "alert.app.clearPlayChain" = "所有 PlayChain 數據將被清除。您可能需要重新登錄應用程式。 您還希望繼續嗎?";
@@ -366,35 +366,38 @@
 "settings.picker.windowFixMethod.0" = "正常";
 "settings.picker.windowFixMethod.1" = "備用";
 "preferences.popover.checking" = "檢查 URL";
-"settings.toggle.introspection" = "Insert Introspection libraries";
-"settings.toggle.introspection.help" = "Add the system introspection libraries to the app. Known to fix issues with some apps not starting correctly";
-"settings.picker.scaler" = "Resolution Scaler";
-"settings.toggle.rootWorkDir" = "Start app at root directory";
-"keycover.masterPassword" = "Master Password";
-"keycover.button.changePassword" = "Change Master Password";
-"button.Enable" = "Enable";
-"button.Reset" = "Reset";
-"button.Unlock" = "Unlock";
-"settings.toggle.rootWorkDir.help" = "Change the working directory of the app to / just like on iOS. Turn this off if the app misbehave";
-"keycover.confirmMasterPassword" = "Confirm Master Password";
-"keycover.oldMasterPassword" = "Current Master Password";
-"keycover.error.blankPassword" = "Password cannot be blank";
-"keycover.error.notMatch" = "Passwords do not match";
-"keycover.error.incorrectPassword" = "Incorrect Password";
-"keycover.status.title" = "KeyCover Status:";
-"keycover.status.managedPassword" = "Enabled with Managed Password";
-"keycover.status.userPassword" = "Enabled with User Password";
-"keycover.status.chainCount" = "KeyCover Chain Status: ";
-"keycover.status.unlockedCount %@ %@" = "%@ unlocked chains in %@ total";
-"keycover.button.lockAll" = "Lock All Chains";
-"keycover.toggle.startupPrompt" = "Prompt for KeyCover at startup";
-"keycover.toggle.startupPrompt.help" = "KeyCover will prompt for your master password when you launch the application. If this is disabled, it will be prompted when you launch an app that uses PlayChain.";
-"keycover.setup.useGeneratedKey" = "Managed Automatically";
-"keycover.setup.useUserKey" = "Use my own key";
-"keycover.setup.encryptionKey" = "Encryption Key: ";
-"keycover.setupPrompt.title" = "Enter a master password to use for KeyCover";
-"keycover.changePasswordPrompt.title" = "Enter your old master password and a new one to update your KeyCover encryption key";
-"keycover.removePrompt.title" = "Enter your master password to remove KeyCover encryption";
-"keycover.unlockPrompt.title" = "Enter your master password to unlock KeyCover";
-"keycover.alert.title" = "Keychain was not unlocked";
-"keycover.alert.content" = "Keychain access has been disabled for the current session";
+"settings.toggle.introspection" = "插入內檢庫";
+"settings.toggle.introspection.help" = "將系統自檢庫增加到應用程式中。修復了應用程式不能正確啓動的一些已知問題";
+"settings.picker.scaler" = "解像度縮放器";
+"settings.toggle.rootWorkDir" = "在根目錄下啓動應用程式";
+"keycover.masterPassword" = "主密碼";
+"keycover.button.changePassword" = "更改主密碼";
+"button.Enable" = "啟用";
+"button.Reset" = "重設";
+"button.Unlock" = "解鎖";
+"settings.toggle.rootWorkDir.help" = "將應用程式的工作目錄改為/，就像在 iOS 上一樣。如果應用程式表現不正常，請將其關閉";
+"keycover.confirmMasterPassword" = "確認主密碼";
+"keycover.oldMasterPassword" = "目前主密碼";
+"keycover.error.blankPassword" = "密碼不能留空";
+"keycover.error.notMatch" = "密碼不符合";
+"keycover.error.incorrectPassword" = "密碼不正確";
+"keycover.status.title" = "KeyCover 狀態：";
+"keycover.status.managedPassword" = "已通過受管理密碼啓用";
+"keycover.status.userPassword" = "已通過使用者密碼啓用";
+"keycover.status.chainCount" = "KeyCover Chain 狀態： ";
+"keycover.status.unlockedCount %@ %@" = "%@ 個已解鎖鏈（共 %@ 個）";
+"keycover.button.lockAll" = "鎖定所有鏈";
+"keycover.toggle.startupPrompt" = "啓動時提示使用 KeyCover";
+"keycover.toggle.startupPrompt.help" = "當你啓動應用程式時，KeyCover 會彈出視窗要求主密碼。如果停用這個功能，則當你啓動使用 PlayChain 的應用程式時才會彈出視窗。";
+"keycover.setup.useGeneratedKey" = "已自動管理";
+"keycover.setup.useUserKey" = "使用我自己的鑰匙";
+"keycover.setup.encryptionKey" = "加密密鑰： ";
+"keycover.setupPrompt.title" = "輸入一個用於 KeyCover 的主密碼";
+"keycover.changePasswordPrompt.title" = "輸入你的舊主密碼和新密碼，以更新你的 KeyCover 加密密鑰";
+"keycover.removePrompt.title" = "輸入主密碼以刪除 KeyCover 加密";
+"keycover.unlockPrompt.title" = "輸入你的主密碼以解鎖 KeyCover";
+"keycover.alert.title" = "鑰匙圈未解鎖";
+"keycover.alert.content" = "已停用目前工作階段的密鑰圈存取";
+"settings.toggle.autoKM" = "智能按鍵映射";
+"settings.toggle.autoKM.help" = "當感應到文本輸入時，自動停用按鍵映射";
+"settings.applicationCategoryType" = "應用程式類型";

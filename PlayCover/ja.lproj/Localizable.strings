@@ -389,9 +389,9 @@
 "settings.toggle.introspection" = "イントロスペクション ライブラリを挿入する";
 "settings.toggle.introspection.help" = "システム イントロスペクション ライブラリをアプリに追加します。 一部のアプリが正しく起動しない問題を修正することが知られています";
 "settings.picker.scaler" = "解像度スケーラー";
-"button.Enable" = "Enable";
-"button.Reset" = "Reset";
-"button.Unlock" = "Unlock";
+"button.Enable" = "有効化";
+"button.Reset" = "リセット";
+"button.Unlock" = "ロック解除";
 "settings.toggle.rootWorkDir" = "Start app at root directory";
 "settings.toggle.rootWorkDir.help" = "Change the working directory of the app to / just like on iOS. Turn this off if the app misbehave";
 "keycover.masterPassword" = "Master Password";
@@ -418,3 +418,6 @@
 "keycover.unlockPrompt.title" = "Enter your master password to unlock KeyCover";
 "keycover.alert.title" = "Keychain was not unlocked";
 "keycover.alert.content" = "Keychain access has been disabled for the current session";
+"settings.toggle.autoKM" = "Smart Keymap";
+"settings.toggle.autoKM.help" = "Automatically disable keymapping when text input is sensed";
+"settings.applicationCategoryType" = "Application Type";

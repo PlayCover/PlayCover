@@ -32,19 +32,19 @@
 "button.Cancel" = "Cancelar";
 
 /* (No Comment) */
-"button.Close" = "Salir";
+"button.Close" = "Cerrar";
 
 /* (No Comment) */
 "button.Install" = "Instalar";
 
 /* (No Comment) */
-"button.OK" = "OK";
+"button.OK" = "Aceptar";
 
 /* (No Comment) */
 "button.Proceed" = "Continuar";
 
 /* (No Comment) */
-"error.corruptedIPA" = "Este archivo .ipa está dañado. No contiene un archivo \"Info.plist\".";
+"error.corruptedIPA" = "Este archivo .ipa está dañado. No contiene un archivo «Info.plist».";
 
 /* (No Comment) */
 "error.waitInstallation" = "¡Por favor espere a que finalice la instalación!";
@@ -77,7 +77,7 @@
 "notification.appInstalled.message" = "¡Compruébelo en PlayCover!";
 
 /* (No Comment) */
-"playapp.activateAccount" = "Restaurar cuenta";
+"playapp.activateAccount" = "Cambiar cuenta";
 
 /* (No Comment) */
 "playapp.clearCache" = "Eliminar datos de la aplicación";
@@ -200,7 +200,7 @@
 "soundAlert.messageText" = "¡Se ha detectado una configuración de audio incorrecta!";
 
 /* (No Comment) */
-"soundAlert.successText" = "Frecuencia de muestreo del dispositivo de salida actual está establecida en 48 kHz";
+"soundAlert.successText" = "La tasa de muestreo del dispositivo de salida actual está establecida en 48 kHz";
 
 /* (No Comment) */
 "storeAccount.deleteAcc" = "Eliminar una cuenta";
@@ -245,8 +245,8 @@
 "storeAccount.alert.restoreAccount.msg" = "Esto anulará la sesión de su cuenta actual.";
 "storeAccount.alert.deleteAccount" = "¿Confirma que quiere eliminar la cuenta?";
 "storeAccount.alert.deleteAccount.button" = "Eliminar cuenta";
-"alert.moveAppToApplications.title" = "Mover a la carpeta de Aplicaciones?";
-"alert.moveAppToApplications.subtitle" = "PlayCover debe estar en la carpeta de Aplicaciones para funcionar correctamente. Presione el botón de abajo para mover PlayCover automáticamente.";
+"alert.moveAppToApplications.title" = "¿Quiere moverlo a la carpeta Aplicaciones?";
+"alert.moveAppToApplications.subtitle" = "PlayCover debe estar en la carpeta Aplicaciones para funcionar correctamente. Pulse el botón de abajo para que PlayCover se mueva automáticamente.";
 "button.Quit" = "Salir";
 "error.appEncrypted" = "¡Esta aplicación está encriptada! Por favor utilice un IPA descifrado. ¡Los IPA de iMazing no son compatibles!";
 "error.appCorrupted" = "Algo ha ido mal con este IPA. Por favor, intente utilizar otro archivo IPA.";
@@ -351,8 +351,8 @@
 "alert.power.subtitle" = "Algunas aplicaciones no funcionarán con el modo de bajo consumo activado. Se recomienda desactivarlo.";
 "ipaLibrary.version.same" = "Aplicación ya instalada";
 "ipaLibrary.download" = "Descargar";
-"ipaLibrary.version.older" = "Esta versión es más vieja que la instalada actualmente";
-"ipaLibrary.version.newer" = "Esta versión es más nueva que la instalada actualmente";
+"ipaLibrary.version.older" = "Esta versión es más antigua que la instalada actualmente";
+"ipaLibrary.version.newer" = "Esta versión es más reciente que la instalada actualmente";
 "ipaLibrary.alert.download" = "¿Confirma que quiere descargar esta versión de %@?";
 "alert.differentBundleIdKeymap.message" = "Esta asignación de teclas pudo haber sido creada para otra aplicación.";
 "alert.differentBundleIdKeymap.text" = "¿Confirma que quiere importar esta asignación de teclas?";
@@ -370,8 +370,8 @@
 "settings.addToLaunchpad" = "Agregar al Launchpad";
 "settings.removeFromLaunchpad" = "Quitar del Launchpad";
 "playapp.download.integrityCheck" = "Verificar la integridad de los archivos:";
-"playapp.download.differentChecksum" = "¡Diferentes sumas de control! ¿Desea continuar con la instalación?";
-"playapp.download.differentChecksumDesc" = "Esperado \"%@\", obtenido \"%@\"";
+"playapp.download.differentChecksum" = "Las sumas de control difieren. ¿Quiere proceder con la instalación?";
+"playapp.download.differentChecksumDesc" = "Se esperaba «%@»; se obtuvo «%@»";
 "playapp.progress.canceled" = "Cancelado";
 "button.Reload" = "Recargar";
 "playapp.clearPlayChain" = "Borrar los datos de PlayChain";
@@ -389,32 +389,35 @@
 "settings.toggle.introspection" = "Insertar bibliotecas de introspección";
 "settings.toggle.introspection.help" = "Añade las bibliotecas de introspección del sistema a la aplicación. Se sabe que soluciona problemas con algunas aplicaciones que no se inician correctamente";
 "settings.picker.scaler" = "Escalar la resolución";
-"button.Enable" = "Enable";
-"button.Reset" = "Reset";
-"button.Unlock" = "Unlock";
-"settings.toggle.rootWorkDir" = "Start app at root directory";
-"settings.toggle.rootWorkDir.help" = "Change the working directory of the app to / just like on iOS. Turn this off if the app misbehave";
-"keycover.masterPassword" = "Master Password";
-"keycover.confirmMasterPassword" = "Confirm Master Password";
-"keycover.oldMasterPassword" = "Current Master Password";
-"keycover.error.blankPassword" = "Password cannot be blank";
-"keycover.error.notMatch" = "Passwords do not match";
-"keycover.error.incorrectPassword" = "Incorrect Password";
-"keycover.status.title" = "KeyCover Status:";
-"keycover.status.managedPassword" = "Enabled with Managed Password";
-"keycover.status.userPassword" = "Enabled with User Password";
-"keycover.status.chainCount" = "KeyCover Chain Status: ";
-"keycover.status.unlockedCount %@ %@" = "%@ unlocked chains in %@ total";
-"keycover.button.lockAll" = "Lock All Chains";
-"keycover.button.changePassword" = "Change Master Password";
-"keycover.toggle.startupPrompt" = "Prompt for KeyCover at startup";
-"keycover.toggle.startupPrompt.help" = "KeyCover will prompt for your master password when you launch the application. If this is disabled, it will be prompted when you launch an app that uses PlayChain.";
-"keycover.setup.useGeneratedKey" = "Managed Automatically";
-"keycover.setup.useUserKey" = "Use my own key";
-"keycover.setup.encryptionKey" = "Encryption Key: ";
-"keycover.setupPrompt.title" = "Enter a master password to use for KeyCover";
-"keycover.changePasswordPrompt.title" = "Enter your old master password and a new one to update your KeyCover encryption key";
-"keycover.removePrompt.title" = "Enter your master password to remove KeyCover encryption";
-"keycover.unlockPrompt.title" = "Enter your master password to unlock KeyCover";
-"keycover.alert.title" = "Keychain was not unlocked";
-"keycover.alert.content" = "Keychain access has been disabled for the current session";
+"button.Enable" = "Activar";
+"button.Reset" = "Restablecer";
+"button.Unlock" = "Desbloquear";
+"settings.toggle.rootWorkDir" = "Iniciar la aplicación en el directorio raíz";
+"settings.toggle.rootWorkDir.help" = "Cambia el directorio de trabajo de la aplicación a / como en iOS. Si la aplicación no funciona correctamente, desactive esta función";
+"keycover.masterPassword" = "Contraseña maestra";
+"keycover.confirmMasterPassword" = "Confirmar la contraseña maestra";
+"keycover.oldMasterPassword" = "Contraseña maestra actual";
+"keycover.error.blankPassword" = "La contraseña no puede quedar vacía";
+"keycover.error.notMatch" = "Las contraseñas no coinciden";
+"keycover.error.incorrectPassword" = "Contraseña incorrecta";
+"keycover.status.title" = "Estado de KeyCover:";
+"keycover.status.managedPassword" = "Activado con la contraseña gestionada";
+"keycover.status.userPassword" = "Activado con la contraseña del usuario";
+"keycover.status.chainCount" = "Estado de la cadena KeyCover: ";
+"keycover.status.unlockedCount %@ %@" = "%@ cadenas desbloqueadas en %@ total";
+"keycover.button.lockAll" = "Bloquear todas las cadenas";
+"keycover.button.changePassword" = "Cambiar la contraseña maestra";
+"keycover.toggle.startupPrompt" = "Solicitud de KeyCover al inicio";
+"keycover.toggle.startupPrompt.help" = "KeyCover le solicitará la contraseña maestra cuando se inicie la aplicación. Si se desactiva este comportamiento, se le solicitará cuando abra una aplicación que utilice PlayChain.";
+"keycover.setup.useGeneratedKey" = "Gestión automática";
+"keycover.setup.useUserKey" = "Utilizar mi propia clave";
+"keycover.setup.encryptionKey" = "Clave de cifrado: ";
+"keycover.setupPrompt.title" = "Introduce una contraseña maestra para KeyCover";
+"keycover.changePasswordPrompt.title" = "Ingresa tu contraseña maestra anterior y una nueva para actualizar tu clave de cifrado KeyCover";
+"keycover.removePrompt.title" = "Ingresa tu contraseña maestra para eliminar el cifrado KeyCover";
+"keycover.unlockPrompt.title" = "Ingresa tu contraseña maestra para desbloquear KeyCover";
+"keycover.alert.title" = "El llavero no estaba desbloqueado";
+"keycover.alert.content" = "Se ha desactivado el acceso al llavero para la sesión actual";
+"settings.toggle.autoKM" = "Mapa de teclas inteligente";
+"settings.toggle.autoKM.help" = "Desactivación automática de la asignación de las teclas cuando se detecta la entrada del texto";
+"settings.applicationCategoryType" = "Tipo de la aplicación";

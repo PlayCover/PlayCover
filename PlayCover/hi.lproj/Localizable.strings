@@ -261,3 +261,6 @@
 "keycover.removePrompt.title" = "Enter your master password to remove KeyCover encryption";
 "keycover.unlockPrompt.title" = "Enter your master password to unlock KeyCover";
 "keycover.alert.content" = "Keychain access has been disabled for the current session";
+"settings.toggle.autoKM" = "Smart Keymap";
+"settings.toggle.autoKM.help" = "Automatically disable keymapping when text input is sensed";
+"settings.applicationCategoryType" = "Application Type";

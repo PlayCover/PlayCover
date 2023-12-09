@@ -241,7 +241,7 @@
 "keycover.confirmMasterPassword" = "Confirm Master Password";
 "keycover.oldMasterPassword" = "Current Master Password";
 "keycover.error.blankPassword" = "Password cannot be blank";
-"keycover.error.notMatch" = "Passwords do not match";
+"keycover.error.notMatch" = "Senhas não coincidem";
 "keycover.error.incorrectPassword" = "Incorrect Password";
 "keycover.status.title" = "KeyCover Status:";
 "keycover.status.managedPassword" = "Enabled with Managed Password";
@@ -261,3 +261,6 @@
 "keycover.unlockPrompt.title" = "Enter your master password to unlock KeyCover";
 "keycover.alert.title" = "Keychain was not unlocked";
 "keycover.alert.content" = "Keychain access has been disabled for the current session";
+"settings.toggle.autoKM" = "Smart Keymap";
+"settings.toggle.autoKM.help" = "Automatically disable keymapping when text input is sensed";
+"settings.applicationCategoryType" = "Application Type";

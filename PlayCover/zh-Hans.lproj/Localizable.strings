@@ -393,7 +393,7 @@
 "button.Enable" = "启用";
 "button.Reset" = "重置";
 "button.Unlock" = "解锁";
-"settings.toggle.rootWorkDir" = "在root目录启动应用程序";
+"settings.toggle.rootWorkDir" = "在 root 目录启动应用程序";
 "settings.toggle.rootWorkDir.help" = "将应用程序的工作目录改为/，就像在iOS上一样。如果应用程序运行不正常，请关闭此功能";
 "keycover.confirmMasterPassword" = "确认主密码";
 "keycover.oldMasterPassword" = "当前主密码";
@@ -418,3 +418,6 @@
 "keycover.unlockPrompt.title" = "输入您的主密码以解锁 KeyCover";
 "keycover.alert.title" = "钥匙串未解锁";
 "keycover.alert.content" = "当前会话已禁用钥匙串访问";
+"settings.toggle.autoKM" = "智能按键映射";
+"settings.toggle.autoKM.help" = "当检测到文本输入时自动禁用按键映射";
+"settings.applicationCategoryType" = "应用程序类型";
