@@ -16,6 +16,7 @@ jobs:
         shell: bash
         run: |
           brew install graphicsmagick imagemagick create-dmg
+          gem install fastlane
           bundle install
 
       - name: Set build number
