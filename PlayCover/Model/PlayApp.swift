@@ -8,18 +8,29 @@ import Foundation
 import IOKit.pwr_mgt
 
 class PlayApp: BaseApp {
+    public static let bundleIDCacheURL = PlayTools.playCoverContainer.appendingPathComponent("CACHE")
     var displaySleepAssertionID: IOPMAssertionID?
     public var isStarting = false
+
+    public static var bundleIDCache: [String] {
+        get throws {
+            (try String(contentsOf: bundleIDCacheURL)).split(whereSeparator: \.isNewline).map({ String($0) })
+        }
+    }
+
+    override init(appUrl: URL) {
+        super.init(appUrl: appUrl)
+
+        removeAlias()
+        createAlias()
+
+        loadDiscordIPC()
+    }
 
     var searchText: String {
         info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
     }
     var sessionDisableKeychain: Bool = false
-
-    override init(appUrl: URL) {
-        super.init(appUrl: appUrl)
-        self.loadDiscordIPC()
-    }
 
     func launch() async {
         do {
@@ -71,7 +82,7 @@ class PlayApp: BaseApp {
         let config = NSWorkspace.OpenConfiguration()
 
         NSWorkspace.shared.openApplication(
-            at: url,
+            at: aliasURL,
             configuration: config,
             completionHandler: { runningApp, error in
                 guard error == nil else { return }
@@ -183,7 +194,7 @@ class PlayApp: BaseApp {
 
     static let playChainDirectory = PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
 
-    lazy var aliasURL = PlayApp.aliasDirectory.appendingPathComponent(name)
+    lazy var aliasURL = PlayApp.aliasDirectory.appendingPathComponent(name).appendingPathExtension("app")
 
     lazy var playChainURL = PlayApp.playChainDirectory.appendingPathComponent(info.bundleIdentifier)
 
@@ -254,23 +265,6 @@ class PlayApp: BaseApp {
         FileManager.default.delete(at: playChainURL.appendingPathExtension("keyCover"))
     }
 
-    func createAlias() {
-        do {
-            try FileManager.default.createDirectory(atPath: PlayApp.aliasDirectory.path,
-                                                    withIntermediateDirectories: true,
-                                                    attributes: nil)
-            let data = try url.bookmarkData(options: .suitableForBookmarkFile,
-                                                includingResourceValuesForKeys: nil, relativeTo: nil)
-            try URL.writeBookmarkData(data, to: aliasURL)
-        } catch {
-            Log.shared.log(error.localizedDescription)
-        }
-    }
-
-    func removeAlias() {
-        FileManager.default.delete(at: aliasURL)
-    }
-
     func deleteApp() {
         FileManager.default.delete(at: URL(fileURLWithPath: url.path))
         AppsVM.shared.fetchApps()
@@ -278,17 +272,14 @@ class PlayApp: BaseApp {
 
     func sign() {
         do {
-            let tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
-                                                  in: .userDomainMask,
-                                                  appropriateFor: URL(fileURLWithPath: "/Users"),
-                                                  create: true)
+            let tmpDir = FileManager.default.temporaryDirectory
             let tmpEnts = tmpDir
                 .appendingEscapedPathComponent(ProcessInfo().globallyUniqueString)
                 .appendingPathExtension("plist")
             let conf = try Entitlements.composeEntitlements(self)
             try conf.store(tmpEnts)
             try Shell.signAppWith(executable, entitlements: tmpEnts)
-            try FileManager.default.removeItem(at: tmpDir)
+            try FileManager.default.removeItem(at: tmpEnts)
         } catch {
             print(error)
             Log.shared.error(error)

@@ -157,6 +157,11 @@ struct KeymappingView: View {
                         .help("settings.toggle.autoKM.help")
                 }
                 HStack {
+                    Toggle("settings.toggle.enableScrollWheel", isOn: $settings.settings.keymapping)
+                        .help("settings.toggle.enableScrollWheel.help")
+                    Spacer()
+                }
+                HStack {
                     Text(String(
                         format: NSLocalizedString("settings.slider.mouseSensitivity", comment: ""),
                         settings.settings.sensitivity))
@@ -603,16 +608,6 @@ struct MiscView: View {
                         }
                     }
                     Spacer()
-                    Button((hasAlias ?? true) ? "settings.removeFromLaunchpad" : "settings.addToLaunchpad") {
-                        closeView.toggle()
-                        if !(hasAlias ?? true) {
-                            app.createAlias()
-                            hasAlias = true
-                        } else {
-                            app.removeAlias()
-                            hasAlias = false
-                        }
-                    }
                 }
                 Spacer()
                     .frame(height: 20)
@@ -688,6 +683,11 @@ struct InfoView: View {
                 Text("settings.info.url")
                 Spacer()
                 Text("\(info.url.relativePath)")
+            }
+            HStack {
+                Text("settings.info.alias")
+                Spacer()
+                Text("\(PlayApp.aliasDirectory.appendingPathComponent(info.bundleIdentifier))")
             }
         }
         .listStyle(.bordered(alternatesRowBackgrounds: true))

@@ -44,6 +44,13 @@ struct MainView: View {
                             Label("sidebar.ipaLibrary", systemImage: "arrow.down.circle")
                         }
                     }
+                    .toolbar {
+                        ToolbarItem { // Sits on the left by default
+                            Button(action: toggleSidebar, label: {
+                                Image(systemName: "sidebar.leading")
+                            })
+                        }
+                    }
                     .onChange(of: sidebarGeom.size) { newSize in
                         navWidth = newSize.width
                     }
@@ -87,13 +94,6 @@ struct MainView: View {
             }
             .onAppear {
                 self.selectedView = URLObserved.type == .source ? 2 : 1
-            }
-            .toolbar {
-                ToolbarItem { // Sits on the left by default
-                    Button(action: toggleSidebar, label: {
-                        Image(systemName: "sidebar.leading")
-                    })
-                }
             }
             .overlay {
                 HStack {
