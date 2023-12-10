@@ -82,7 +82,8 @@ struct AppSettingsView: View {
                     .disabled(!(hasPlayTools ?? true))
                 BypassesView(settings: $viewModel.settings,
                              hasPlayTools: $hasPlayTools,
-                             hasIntrospection: viewModel.app.introspection(),
+                             hasIntrospection: viewModel.app.changeDyldLibraryPath(path: PlayApp.introspection),
+                             hasIosFrameworks: viewModel.app.changeDyldLibraryPath(path: PlayApp.iosFrameworks),
                              app: viewModel.app)
                     .tabItem {
                         Text("settings.tab.bypasses")
@@ -450,6 +451,7 @@ struct BypassesView: View {
     @Binding var hasPlayTools: Bool?
 
     @State var hasIntrospection: Bool
+    @State var hasIosFrameworks: Bool
 
     var app: PlayApp
 
@@ -477,11 +479,20 @@ struct BypassesView: View {
                         .help("settings.toggle.introspection.help")
                     Spacer()
                 }
+                Spacer()
+                HStack {
+                    Toggle("settings.toggle.iosFrameworks", isOn: $hasIosFrameworks)
+                        .help("settings.toggle.iosFrameworks.help")
+                    Spacer()
+                }
             }
             .padding()
         }
         .onChange(of: hasIntrospection) {_ in
-            _ = app.introspection(set: hasIntrospection)
+            _ = app.changeDyldLibraryPath(set: hasIntrospection, path: PlayApp.introspection)
+        }
+        .onChange(of: hasIosFrameworks) {_ in
+            _ = app.changeDyldLibraryPath(set: hasIosFrameworks, path: PlayApp.iosFrameworks)
         }
     }
 }
