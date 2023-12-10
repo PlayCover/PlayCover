@@ -157,7 +157,7 @@ struct KeymappingView: View {
                         .help("settings.toggle.autoKM.help")
                 }
                 HStack {
-                    Toggle("settings.toggle.enableScrollWheel", isOn: $settings.settings.keymapping)
+                    Toggle("settings.toggle.enableScrollWheel", isOn: $settings.settings.enableScrollWheel)
                         .help("settings.toggle.enableScrollWheel.help")
                     Spacer()
                 }
