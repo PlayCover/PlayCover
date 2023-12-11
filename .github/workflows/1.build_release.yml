@@ -3,8 +3,10 @@ on:
   push:
     tags:
       - "*"
+
 env:
   CI: true
+
 jobs:
   build:
     runs-on: macos-12
@@ -43,16 +45,12 @@ jobs:
         shell: bash
         run: |
           create-dmg ./output/PlayCover.app ./output
-          mv ./output/*.dmg ./output/PlayCover_${{ env.TAG_NAME }}.dmg
-        env:
-          TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
+          mv ./output/*.dmg ./output/PlayCover.dmg
 
       - name: Notarize DMG
         shell: bash
         run: |
-          fastlane notarize_dmg package:output/PlayCover_${{ env.TAG_NAME }}.dmg
-        env:
-          TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
+          fastlane notarize_dmg package:output/PlayCover.dmg
 
       - name: Clean Up
         shell: bash
@@ -61,10 +59,8 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: PlayCover_${{ env.TAG_NAME }}.dmg
-          path: output/PlayCover_${{ env.TAG_NAME }}.dmg
-        env:
-          TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
+          name: PlayCover.dmg
+          path: output/PlayCover.dmg
 
       - name: Release
         if: startsWith(github.ref, 'refs/tags/')
@@ -72,6 +68,53 @@ jobs:
         with:
           draft: true
           files: |
-            output/PlayCover_${{ env.TAG_NAME }}.dmg
-        env:
-          TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
+            output/PlayCover.dmg
+
+  # manual release
+  # bump-sparkle:
+  #   needs: build
+  #   runs-on: macos-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+  #       with:
+  #         ref: update # let me know if i should push to another branch
+
+  #     - name: Download Artifact
+  #       uses: actions/download-artifact@v3.0.0
+  #       with:
+  #         path: ./updates/
+
+  #     - name: Download Sparkle Toolset
+  #       run: |
+  #         mkdir sparkle
+  #         curl -L "https://github.com/sparkle-project/Sparkle/releases/download/2.2.1/Sparkle-2.2.1.tar.xz" -o sparkle.tar.xz
+  #         tar -xf sparkle.tar.xz -C sparkle
+
+  #     - name: Update appcast.xml
+  #       run: |
+  #         echo ${{ secrets.SPARKLE_KEY }} | ./sparkle/bin/generate_appcast --channel stable \
+  #         --download-url-prefix 'https://github.com/PlayCover/PlayCover/releases/download/${{ env.TAG_NAME }}/' \
+  #         --link 'https://github.com/PlayCover/PlayCover/releases/tag/${{ env.TAG_NAME }}' \
+  #         --full-release-notes-url 'https://github.com/PlayCover/PlayCover/releases/tag/${{ env.TAG_NAME }}' \
+  #         -o appcast.xml \
+  #         ./updates --ed-key-file -
+  #       env:
+  #         TAG_NAME: ${{ needs.build.outputs.TAG_NAME }}
+
+  #     - name: Cleanup tmp files
+  #       run: |
+  #         rm -rf sparkle/
+  #         rm sparkle.tar.xz
+
+  #     - name: Commit changes
+  #       run: |
+  #         git add appcast.xml
+  #         git config --local user.email "$GITHUB_EMAIL"
+  #         git config --local user.name "$GITHUB_USERNAME"
+  #         git commit -m "chore: add release ${{ env.TAG_NAME }}" -a
+  #         git push
+  #       env:
+  #         GITHUB_USERNAME: github-actions[bot]
+  #         GITHUB_EMAIL: actions@github.com
+  #         TAG_NAME: ${{ needs.build.outputs.TAG_NAME }}
