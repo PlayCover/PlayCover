@@ -1,5 +1,6 @@
 name: Build & Release macOS App
 on:
+  workflow_dispatch:
   push:
     tags:
       - "*"
