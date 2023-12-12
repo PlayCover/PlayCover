@@ -7,10 +7,21 @@
 
 import Foundation
 
-class DownloadVM: ObservableObject {
-    @Published var progress: Double = 0
-    @Published var downloading = false
+enum DownloadStepsNative: String {
+    case downloading = "playapp.download.downloading",
+         integrity = "playapp.download.integrityCheck",
+         finish = "playapp.progress.finished",
+         failed = "playapp.progress.failed",
+         canceled = "playapp.progress.canceled"
+}
+
+class DownloadVM: ProgressVM<DownloadStepsNative> {
     @Published var storeAppData: StoreAppData?
 
     static let shared = DownloadVM()
+
+    init() {
+        super.init(start: .downloading, ends: [.finish, .failed, .canceled])
+    }
+
 }

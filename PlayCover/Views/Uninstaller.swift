@@ -18,7 +18,8 @@ class Uninstaller {
     private static let pruneURLs: [URL] = [
         PlayTools.playCoverContainer.appendingPathComponent("App Settings"),
         PlayTools.playCoverContainer.appendingPathComponent("Entitlements"),
-        PlayTools.playCoverContainer.appendingPathComponent("Keymapping")
+        PlayTools.playCoverContainer.appendingPathComponent("Keymapping"),
+        PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
     ]
     private static let cacheURLs: [URL] = [
         Uninstaller.libraryUrl.appendingPathComponent("Containers"),
@@ -47,6 +48,7 @@ class Uninstaller {
     static func uninstallPopup(_ app: PlayApp) {
         if UninstallPreferences.shared.showUninstallPopup {
             let boxmakers: [(String, String)] = [
+                ("removePlayChain", NSLocalizedString("preferences.toggle.removePlayChain", comment: "")),
                 ("removeAppEntitlements", NSLocalizedString("preferences.toggle.removeEntitlements", comment: "")),
                 ("removeAppSettings", NSLocalizedString("preferences.toggle.removeSetting", comment: "")),
                 ("removeAppKeymap", NSLocalizedString("preferences.toggle.removeKeymap", comment: "")),
@@ -64,7 +66,7 @@ class Uninstaller {
 
             let viewWidth = checkboxes.max(by: { $0.view.frame.width < $1.view.frame.width })?.view.frame.width
 
-            let settingsView = NSStackView(frame: NSRect(x: 0, y: 0, width: viewWidth!, height: viewY))
+            let settingsView = NSStackView(frame: NSRect(x: 0, y: 0, width: viewWidth ?? 0, height: viewY))
 
             for checkboxhelper in checkboxes {
                 settingsView.addSubview(checkboxhelper.view)
@@ -107,47 +109,91 @@ class Uninstaller {
     }
 
     static func uninstall(_ app: PlayApp) {
+        var uninstallNum = 0
+
         if UninstallPreferences.shared.clearAppData {
             app.clearAllCache()
+            uninstallNum += 1
         }
 
         if UninstallPreferences.shared.removeAppKeymap {
             FileManager.default.delete(at: app.keymapping.keymapURL)
+            uninstallNum += 1
         }
 
         if UninstallPreferences.shared.removeAppSettings {
             FileManager.default.delete(at: app.settings.settingsUrl)
+            uninstallNum += 1
         }
 
         if UninstallPreferences.shared.removeAppEntitlements {
             FileManager.default.delete(at: app.entitlements)
+            uninstallNum += 1
         }
 
+        if UninstallPreferences.shared.removePlayChain {
+            let url = PlayTools.playCoverContainer
+                .appendingPathComponent("PlayChain")
+                .appendingPathComponent(app.info.bundleIdentifier)
+            FileManager.default.delete(at: url)
+
+            // KeyCover encrypted chain
+            let keyCoverURL = url.appendingPathExtension("keyCover")
+            FileManager.default.delete(at: keyCoverURL)
+            uninstallNum += 1
+        }
+
+        app.removeAlias()
         app.deleteApp()
+
+        if uninstallNum >= 5 {
+            do {
+                let apps = (try PlayApp.bundleIDCache).filter({ $0 != app.info.bundleIdentifier })
+                    .joined(separator: "\n") + "\n"
+
+                try apps.write(to: PlayApp.bundleIDCacheURL, atomically: false, encoding: .utf8)
+            } catch {
+                Log.shared.error(error)
+            }
+        }
     }
 
     static func clearExternalCache(_ bundleId: String) {
-        for cache in cacheURLs {
-            FileManager.default.delete(at: cache.appendingPathComponent(bundleId))
+        do {
+            for cache in cacheURLs {
+                cache.enumerateContents(options: []) { file, _ in
+                    if file.path.contains(bundleId) {
+                        try FileManager.default.trashItem(at: file, resultingItemURL: nil)
+                    }
+                }
+            }
         }
     }
 
     static func pruneFiles() {
-        let bundleIds = AppsVM.shared.apps.map { $0.info.bundleIdentifier }
+        do {
+            let bundleIds = AppsVM.shared.apps.map { $0.info.bundleIdentifier }
+            let danglingItems = try PlayApp.bundleIDCache.filter { !bundleIds.contains($0) }
 
-        for url in pruneURLs {
-            do {
-                try url.enumerateContents { file, _ in
+            var fullPruneURLs = pruneURLs
+            fullPruneURLs.append(contentsOf: cacheURLs)
+
+            var prunedIds: [String] = []
+
+            for url in fullPruneURLs {
+                url.enumerateContents(options: []) { file, _ in
                     let bundleId = file.deletingPathExtension().lastPathComponent
-                    if !bundleIds.contains(bundleId) {
-                        clearExternalCache(bundleId)
-
-                        FileManager.default.delete(at: file)
+                    if danglingItems.contains(bundleId) {
+                        try FileManager.default.trashItem(at: file, resultingItemURL: nil)
+                        prunedIds.append(bundleId)
                     }
                 }
-            } catch {
-                Log.shared.error(error)
             }
+
+            try "\(PlayApp.bundleIDCache.filter({ !Set(prunedIds).contains($0) }).joined(separator: "\n"))\n"
+                .write(to: PlayApp.bundleIDCacheURL, atomically: false, encoding: .utf8)
+        } catch {
+            Log.shared.error(error)
         }
     }
 }

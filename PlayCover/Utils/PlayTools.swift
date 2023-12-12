@@ -71,23 +71,10 @@ class PlayTools {
         }
     }
 
-    static func stripBinary(_ exec: URL) {
-        if Shell.shell("/usr/bin/lipo -archs \(exec.esc)")
-            .rangeOfCharacter(from: .whitespacesAndNewlines) != nil {
-            Shell.shell("/usr/bin/lipo \(exec.esc) -thin arm64 -output \(exec.esc)")
-        }
-    }
-
-    static func replaceLibraries(atURL url: URL) throws {
-        Log.shared.log("Replacing libswiftUIKit.dylib")
-        try shell.shello(
-            install_name_tool.path,
-            "-change", "@rpath/libswiftUIKit.dylib", "/System/iOSSupport/usr/lib/swift/libswiftUIKit.dylib",
-            url.path)
-    }
-
     static func installInIPA(_ exec: URL) throws {
-        stripBinary(exec)
+        var binary = try Data(contentsOf: exec)
+        try Macho.stripBinary(&binary)
+
         Inject.injectMachO(machoPath: exec.path,
                            cmdType: .loadDylib,
                            backup: false,
@@ -96,7 +83,7 @@ class PlayTools {
             if result {
                 do {
                     try installPluginInIPA(exec.deletingLastPathComponent())
-                    shell.signApp(exec)
+                    try Shell.signApp(exec)
                 } catch {
                     Log.shared.error(error)
                 }
@@ -105,29 +92,46 @@ class PlayTools {
     }
 
     static func installPluginInIPA(_ payload: URL) throws {
-        let pluginsURL = payload.appendingPathComponent("PlugIns")
-        if !FileManager.default.fileExists(atPath: pluginsURL.path) {
-            try FileManager.default.createDirectory(at: pluginsURL, withIntermediateDirectories: true)
+        let allFiles = try FileManager.default.contentsOfDirectory(
+            at: bundledPlayToolsFramework, includingPropertiesForKeys: [])
+        for localizationDirectory in allFiles where localizationDirectory.pathExtension == "lproj" {
+            _ = try copyAsset(target: payload,
+                              directoryName: localizationDirectory.lastPathComponent,
+                              component: "Playtools", pathExtension: "strings")
         }
 
-        let bundleTarget = pluginsURL
-            .appendingPathComponent("AKInterface")
-            .appendingPathExtension("bundle")
-
-        let akInterface = bundledPlayToolsFramework.appendingPathComponent("PlugIns")
-            .appendingPathComponent("AKInterface")
-            .appendingPathExtension("bundle")
-
-        if FileManager.default.fileExists(atPath: bundleTarget.path) {
-            try FileManager.default.removeItem(at: bundleTarget)
-        }
-        try FileManager.default.copyItem(at: akInterface, to: bundleTarget)
+        let bundleTarget = try copyAsset(target: payload, directoryName: "PlugIns",
+                                         component: "AKInterface", pathExtension: "bundle")
         try bundleTarget.fixExecutable()
-        Shell.codesign(bundleTarget)
+        try Shell.signMacho(bundleTarget)
+    }
+
+    static func copyAsset(target: URL, directoryName: String,
+                          component: String, pathExtension: String) throws -> URL {
+        let directory = target.appendingPathComponent(directoryName)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+
+        let target = directory
+                    .appendingPathComponent(component)
+                    .appendingPathExtension(pathExtension)
+
+        let source = bundledPlayToolsFramework
+                    .appendingPathComponent(directoryName)
+                    .appendingPathComponent(component)
+                    .appendingPathExtension(pathExtension)
+        do {
+            try FileManager.default.copyItem(at: source, to: target)
+        } catch {
+            try FileManager.default.removeItem(at: target)
+            try FileManager.default.copyItem(at: source, to: target)
+        }
+        return target
     }
 
     static func injectInIPA(_ exec: URL, payload: URL) throws {
-        stripBinary(exec)
+        var binary = try Data(contentsOf: exec)
+        try Macho.stripBinary(&binary)
+
         Inject.injectMachO(machoPath: exec.path,
                            cmdType: .loadDylib,
                            backup: false,
@@ -141,38 +145,21 @@ class PlayTools {
                                 at: payload.appendingPathComponent("Frameworks"),
                                 withIntermediateDirectories: true)
                         }
-                        if !FileManager.default.fileExists(atPath: payload.appendingPathComponent("PlugIns").path) {
-                            try FileManager.default.createDirectory(
-                                at: payload.appendingPathComponent("PlugIns"),
-                                withIntermediateDirectories: true)
-                        }
 
                         let libraryTarget = payload.appendingPathComponent("Frameworks")
                             .appendingPathComponent("PlayTools")
                             .appendingPathExtension("dylib")
-                        let bundleTarget = payload.appendingPathComponent("PlugIns")
-                            .appendingPathComponent("AKInterface")
-                            .appendingPathExtension("bundle")
 
                         let tools = bundledPlayToolsFramework
                             .appendingPathComponent("PlayTools")
-                        let akInterface = bundledPlayToolsFramework.appendingPathComponent("PlugIns")
-                            .appendingPathComponent("AKInterface")
-                            .appendingPathExtension("bundle")
 
                         if FileManager.default.fileExists(atPath: libraryTarget.path) {
                             try FileManager.default.removeItem(at: libraryTarget)
                         }
                         try FileManager.default.copyItem(at: tools, to: libraryTarget)
 
-                        if FileManager.default.fileExists(atPath: bundleTarget.path) {
-                            try FileManager.default.removeItem(at: bundleTarget)
-                        }
-                        try FileManager.default.copyItem(at: akInterface, to: bundleTarget)
-
                         try libraryTarget.fixExecutable()
-                        try bundleTarget.fixExecutable()
-                        Shell.codesign(bundleTarget)
+                        try installPluginInIPA(payload)
                     } catch {
                         Log.shared.error(error)
                     }
@@ -198,7 +185,7 @@ class PlayTools {
                         try FileManager.default.removeItem(at: pluginUrl)
                     }
 
-                    shell.signApp(exec)
+                    try Shell.signApp(exec)
                 } catch {
                     Log.shared.error(error)
                 }
@@ -206,46 +193,40 @@ class PlayTools {
         })
     }
 
-    static func convertMacho(_ macho: URL) throws {
-        Log.shared.log("Converting \(macho.lastPathComponent) binary")
-        try shell.shello(
-            vtool.path,
-            "-set-build-version", "maccatalyst", "11.0", "14.0",
-            "-replace", "-output",
-            macho.path, macho.path)
-    }
-
-    static func isMachoEncrypted(atURL url: URL) throws -> Bool {
-        // Split output into blocks
-        let otoolOutput = try shell.shello(otool.path, "-l", url.path).components(separatedBy: "Load command")
-        // Check specifically for encryption info on the 64 bit block
-        for block in otoolOutput where (block.contains("LC_ENCRYPTION_INFO_64") && block.contains("cryptid 1")) {
-            return true
-        }
-        return false
-    }
-
     static func installedInExec(atURL url: URL) throws -> Bool {
-        try shell.shello(print: false, otool.path, "-L", url.path).contains(playToolsPath.esc)
+        var binary = try Data(contentsOf: url)
+        try Macho.stripBinary(&binary)
+        var result = false
+        try _ = Macho.iterateLoadCommands(binary: binary) { offset, shouldSwap in
+            let loadCommand = binary.extract(load_command.self, offset: offset,
+                                             swap: shouldSwap ? swap_load_command:nil)
+            if loadCommand.cmd == UInt32(LC_LOAD_DYLIB) {
+                let dylibCommand = binary.extract(dylib_command.self, offset: offset,
+                                                  swap: shouldSwap ? swap_dylib_command:nil)
+
+                let dylibName = String(data: binary,
+                                       offset: offset,
+                                       commandSize: Int(dylibCommand.cmdsize),
+                                       loadCommandString: dylibCommand.dylib.name)
+                if dylibName == playToolsPath.esc {
+                    result = true
+                    return true
+                }
+            }
+            return false
+        }
+        return result
     }
 
     static func isInstalled() throws -> Bool {
         try FileManager.default.fileExists(atPath: playToolsPath.path)
             && FileManager.default.fileExists(atPath: akInterfacePath.path)
-            && isValidArch(playToolsPath.path)
-    }
-
-    static func isValidArch(_ path: String) throws -> Bool {
-        guard let output = try? shell.shello(vtool.path, "-show-build", path) else {
-            return false
-        }
-        return output.contains("MACCATALYST")
+            && Macho.isMachoValidArch(playToolsPath)
     }
 
 	static func fetchEntitlements(_ exec: URL) throws -> String {
         do {
-            return  try shell.sh("codesign --display --entitlements - --xml \(exec.path.esc)" +
-                            " | xmllint --format -", pipeStdErr: false)
+            return try Shell.run("/usr/bin/codesign", "-d", "--entitlements", "-", "--xml", exec.path)
         } catch {
             if error.localizedDescription.contains("Document is empty") {
                 // Empty entitlements
@@ -255,32 +236,4 @@ class PlayTools {
             }
         }
 	}
-
-    private static func binPath(_ bin: String) throws -> URL {
-        URL(fileURLWithPath: try shell.sh("which \(bin)", print: false).trimmingCharacters(in: .newlines))
-    }
-
-    private static var vtool: URL {
-        get throws {
-            try binPath("vtool")
-        }
-    }
-
-    private static var otool: URL {
-        get throws {
-            try binPath("otool")
-        }
-    }
-
-    private static var install_name_tool: URL {
-        get throws {
-            try binPath("install_name_tool")
-        }
-    }
-}
-
-extension URL {
-    func setBinaryPosixPermissions(_ permissions: Int) throws {
-        try FileManager.default.setAttributes([.posixPermissions: permissions], ofItemAtPath: path)
-    }
 }

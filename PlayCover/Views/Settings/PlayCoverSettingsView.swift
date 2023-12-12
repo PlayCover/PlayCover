@@ -13,7 +13,7 @@ struct PlayCoverSettingsView: View {
     @EnvironmentObject var storeVM: StoreVM
 
     private enum Tabs: Hashable {
-        case updates, ipasource, install, uninstall
+        case updates, ipasource, keyCover, install, uninstall
     }
 
     var body: some View {
@@ -29,6 +29,11 @@ struct PlayCoverSettingsView: View {
                 }
                 .tag(Tabs.ipasource)
                 .environmentObject(storeVM)
+            KeyCoverSettings.shared
+                .tabItem {
+                    Label("KeyCover", systemImage: "key.fill")
+                }
+                .tag(Tabs.keyCover)
             InstallSettings.shared
                 .tabItem {
                     Label("preferences.tab.install", systemImage: "arrow.down.app")

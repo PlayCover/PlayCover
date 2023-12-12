@@ -1,10 +1,11 @@
 //
-//  Utils.swift
+//  URLExtensions.swift
 //  PlayCover
 //
 
 import AppKit
 import Foundation
+import CryptoKit
 import SwiftUI
 
 extension String {
@@ -26,20 +27,22 @@ extension String {
 }
 
 extension URL {
-    func subDirectories() throws -> [URL] {
-        // @available(macOS 10.11, iOS 9.0, *)
-        guard hasDirectoryPath else { return [] }
-        return try FileManager.default
-            .contentsOfDirectory(at: self, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
-            .filter(\.hasDirectoryPath)
-    }
-
     var esc: String {
         path.esc
     }
 
     var isDirectory: Bool {
         (try? resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory == true
+    }
+
+    var sha256: String? {
+        do {
+            return SHA256.hash(data: try Data(contentsOf: self))
+                .map { String(format: "%02hhx", $0) }
+                .joined()
+        } catch {
+            return nil
+        }
     }
 
     func openInFinder() {
@@ -64,15 +67,6 @@ extension URL {
         NSWorkspace.shared.activateFileViewerSelecting([self])
     }
 
-    func bytesFromFile() -> [UInt8]? {
-        guard let data = NSData(contentsOfFile: path) else { return nil }
-
-        var buffer = [UInt8](repeating: 0, count: data.length)
-        data.getBytes(&buffer, length: data.length)
-
-        return buffer
-    }
-
     func fixExecutable() throws {
         var attributes = [FileAttributeKey: Any]()
         attributes[.posixPermissions] = 0o777
@@ -80,18 +74,36 @@ extension URL {
     }
 
     // Wraps NSFileEnumerator since the geniuses at corelibs-foundation decided it should be completely untyped
-    func enumerateContents(_ callback: (URL, URLResourceValues) throws -> Void) throws {
+    func enumerateContents(blocking: Bool = true,
+                           includingPropertiesForKeys keys: [URLResourceKey]? = nil,
+                           options: FileManager.DirectoryEnumerationOptions? = nil,
+                           _ callback: @escaping(URL, URLResourceValues) throws -> Void) {
         guard let enumerator = FileManager.default.enumerator(
             at: self,
-            includingPropertiesForKeys: [.isRegularFileKey],
-            options: [.skipsHiddenFiles, .skipsPackageDescendants]) else {
+            includingPropertiesForKeys: keys ?? [.isRegularFileKey],
+            options: options ?? [.skipsHiddenFiles, .skipsPackageDescendants]) else {
             return
         }
 
+        let queue = OperationQueue()
+        queue.name = "io.playcover.PlayCover.URLExtension"
+        queue.qualityOfService = .userInitiated
+        queue.maxConcurrentOperationCount = 15
+
         for case let fileURL as URL in enumerator {
-            do {
-                try callback(fileURL, fileURL.resourceValues(forKeys: [.isRegularFileKey, .fileSizeKey]))
+            queue.addOperation {
+                do {
+                    try callback(fileURL, fileURL.resourceValues(forKeys: [.isRegularFileKey, .fileSizeKey]))
+                } catch {
+                    // Don't show error, as there could be many files within the folder
+                    // that would fail the callback
+                    print(error)
+                }
             }
+        }
+
+        if blocking {
+            queue.waitUntilAllOperationsAreFinished()
         }
     }
 
@@ -105,5 +117,9 @@ extension URL {
         }
 
         return self.appendingPathComponent(newPathComponent)
+    }
+
+    func setBinaryPosixPermissions(_ permissions: Int) throws {
+        try FileManager.default.setAttributes([.posixPermissions: permissions], ofItemAtPath: path)
     }
 }

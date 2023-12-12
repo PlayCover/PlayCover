@@ -8,30 +8,51 @@ import Foundation
 import IOKit.pwr_mgt
 
 class PlayApp: BaseApp {
-    private static let library = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library")
+    public static let bundleIDCacheURL = PlayTools.playCoverContainer.appendingPathComponent("CACHE")
+    var displaySleepAssertionID: IOPMAssertionID?
+    public var isStarting = false
+
+    public static var bundleIDCache: [String] {
+        get throws {
+            (try String(contentsOf: bundleIDCacheURL)).split(whereSeparator: \.isNewline).map({ String($0) })
+        }
+    }
+
+    override init(appUrl: URL) {
+        super.init(appUrl: appUrl)
+
+        removeAlias()
+        createAlias()
+
+        loadDiscordIPC()
+    }
 
     var searchText: String {
         info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
     }
+    var sessionDisableKeychain: Bool = false
 
-    func launch() {
+    func launch() async {
         do {
+            isStarting = true
             if prohibitedToPlay {
                 clearAllCache()
                 throw PlayCoverError.appProhibited
-            }
-            if maliciousProhibited {
+            } else if maliciousProhibited {
                 clearAllCache()
                 deleteApp()
                 throw PlayCoverError.appMaliciousProhibited
             }
-            AppsVM.shared.updatingApps = true
+
             AppsVM.shared.fetchApps()
             settings.sync()
 
             if try !Entitlements.areEntitlementsValid(app: self) {
                 sign()
             }
+
+            // call unlockKeyCover() and WAIT for it to finish
+            await unlockKeyCover()
 
             // If the app does not have PlayTools, do not install PlugIns
             if hasPlayTools() {
@@ -40,21 +61,19 @@ class PlayApp: BaseApp {
 
             if try !PlayTools.isInstalled() {
                 Log.shared.error("PlayTools are not installed! Please move PlayCover.app into Applications!")
-            } else if try !PlayTools.isValidArch(executable.path) {
+            } else if try !Macho.isMachoValidArch(executable) {
                 Log.shared.error("The app threw an error during conversion.")
             } else if try !isCodesigned() {
                 Log.shared.error("The app is not codesigned! Please open Xcode and accept license agreement.")
             } else {
                 if settings.openWithLLDB {
-                    Shell.lldb(executable, withTerminalWindow: settings.openLLDBWithTerminal)
+                    try Shell.lldb(executable, withTerminalWindow: settings.openLLDBWithTerminal)
                 } else {
                     runAppExec() // Splitting to reduce complexity
                 }
             }
-
-            AppsVM.shared.updatingApps = false
+            isStarting = false
         } catch {
-            AppsVM.shared.updatingApps = false
             Log.shared.error(error)
         }
     }
@@ -62,41 +81,103 @@ class PlayApp: BaseApp {
     func runAppExec() {
         let config = NSWorkspace.OpenConfiguration()
 
-        if settings.metalHudEnabled {
-            config.environment = ["MTL_HUD_ENABLED": "1"]
-        } else {
-            config.environment = ["MTL_HUD_ENABLED": "0"]
-        }
-
         NSWorkspace.shared.openApplication(
-            at: url,
+            at: aliasURL,
             configuration: config,
             completionHandler: { runningApp, error in
                 guard error == nil else { return }
-                if self.settings.settings.disableTimeout {
-                    // Yeet into a thread
-                    Task {
-                        debugPrint("Disabling timeout...")
-                        let reason = "PlayCover: " + self.name + " disabled screen timeout" as CFString
-                        var assertionID: IOPMAssertionID = 0
-                        var success = IOPMAssertionCreateWithName(
-                            kIOPMAssertionTypeNoDisplaySleep as CFString,
-                            IOPMAssertionLevel(kIOPMAssertionLevelOn),
-                            reason,
-                            &assertionID)
-                        if success == kIOReturnSuccess {
-                            while true { // Run a loop until the app closes
-                                try await Task.sleep(nanoseconds: 10000000000) // Sleep for 10 seconds
-                                guard
-                                    let isFinish = runningApp?.isTerminated,
-                                    !isFinish else { break }
+                // Run a thread loop in the background to handle background tasks
+                Task(priority: .background) {
+                    if let runningApp = runningApp {
+                        while !(runningApp.isTerminated) {
+                            // Check if the app is in the foreground
+                            if runningApp.isActive {
+                                // If the app is in the foreground, disable the display sleep
+                                self.disableTimeOut()
+                            } else {
+                                // If the app is not in the foreground, enable the display sleep
+                                self.enableTimeOut()
                             }
-                            success = IOPMAssertionRelease(assertionID)
-                            debugPrint("Enabling timeout...")
+                            sleep(1)
                         }
+                        sleep(1)
                     }
+                    // Things that are ran after the app is closed
+                    self.lockKeyCover()
                 }
             })
+    }
+
+    func disableTimeOut() {
+        if displaySleepAssertionID != nil {
+            return
+        }
+        // Disable display sleep
+        let reason = "PlayCover: \(info.bundleIdentifier) is disabling sleep" as CFString
+        var assertionID: IOPMAssertionID = 0
+        let result = IOPMAssertionCreateWithName(
+            kIOPMAssertionTypeNoDisplaySleep as CFString,
+            IOPMAssertionLevel(kIOPMAssertionLevelOn),
+            reason,
+            &assertionID)
+        if result == kIOReturnSuccess {
+            displaySleepAssertionID = assertionID
+        }
+    }
+
+    func enableTimeOut() {
+        // Enable display sleep
+        if let assertionID = displaySleepAssertionID {
+            IOPMAssertionRelease(assertionID)
+            displaySleepAssertionID = nil
+        }
+    }
+
+    func unlockKeyCover() async {
+        if KeyCover.shared.isKeyCoverEnabled() {
+            // Check if the app have any keychains
+            let keychain = KeyCover.shared.listKeychains()
+                .first(where: { $0.appBundleID == self.info.bundleIdentifier })
+            // Check the status of that keychain
+            if let keychain = keychain, keychain.chainEncryptionStatus {
+                // If the keychain is encrypted, unlock it
+                try? await KeyCover.shared.unlockChain(keychain)
+
+                if KeyCover.shared.keyCoverPlainTextKey == nil {
+                    // Pop an alert telling the user that keychain was not unlocked
+                    // and keychain is disabled for the session
+                    Task { @MainActor in
+                        let alert = NSAlert()
+                        alert.messageText = NSLocalizedString("keycover.alert.title", comment: "")
+                        alert.informativeText = NSLocalizedString("keycover.alert.content", comment: "")
+                        alert.alertStyle = .warning
+                        alert.addButton(withTitle: NSLocalizedString("button.OK", comment: ""))
+                        alert.runModal()
+                    }
+                    settings.settings.playChain = false
+                    sessionDisableKeychain = true
+                }
+
+            }
+        }
+    }
+
+    func lockKeyCover() {
+        if KeyCover.shared.isKeyCoverEnabled() {
+            if sessionDisableKeychain {
+                settings.settings.playChain = true
+                sessionDisableKeychain = false
+                return
+            }
+            // Check if the app have any keychains
+            let keychain = KeyCover.shared.listKeychains()
+                .first(where: { $0.appBundleID == self.info.bundleIdentifier })
+            // Check the status of that keychain
+            if let keychain = keychain, !keychain.chainEncryptionStatus {
+                // If the keychain is encrypted, lock it
+                try? KeyCover.shared.lockChain(keychain)
+            }
+        }
     }
 
     var name: String {
@@ -107,11 +188,21 @@ class PlayApp: BaseApp {
         }
     }
 
-    lazy var settings = AppSettings(info, container: container)
+    static let aliasDirectory = FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent("Applications")
+            .appendingPathComponent("PlayCover")
 
-    lazy var keymapping = Keymapping(info, container: container)
+    static let playChainDirectory = PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
 
-    var container: AppContainer?
+    lazy var aliasURL = PlayApp.aliasDirectory.appendingPathComponent(name).appendingPathExtension("app")
+
+    lazy var playChainURL = PlayApp.playChainDirectory.appendingPathComponent(info.bundleIdentifier)
+
+    lazy var settings = AppSettings(info)
+
+    lazy var keymapping = Keymapping(info)
+
+    lazy var container = AppContainer(bundleId: info.bundleIdentifier)
 
     func hasPlayTools() -> Bool {
         do {
@@ -122,8 +213,40 @@ class PlayApp: BaseApp {
         }
     }
 
+    static let introspection: String = "/usr/lib/system/introspection"
+    static let iosFrameworks: String = "/System/iOSSupport/System/Library/Frameworks"
+
+    func changeDyldLibraryPath(set: Bool? = nil, path: String) -> Bool {
+        info.lsEnvironment["DYLD_LIBRARY_PATH"] = info.lsEnvironment["DYLD_LIBRARY_PATH"] ?? ""
+
+        if let set = set {
+            if set {
+                info.lsEnvironment["DYLD_LIBRARY_PATH"]? += "\(path):"
+            } else {
+                info.lsEnvironment["DYLD_LIBRARY_PATH"] = info.lsEnvironment["DYLD_LIBRARY_PATH"]?
+                    .replacingOccurrences(of: "\(path):", with: "")
+            }
+
+            do {
+                try Shell.signApp(executable)
+            } catch {
+                Log.shared.error(error)
+            }
+        }
+
+        guard let result = info.lsEnvironment["DYLD_LIBRARY_PATH"] else {
+            return false
+        }
+
+        return result.contains(path)
+    }
+
+    func hasAlias() -> Bool {
+        return FileManager.default.fileExists(atPath: aliasURL.path)
+    }
+
     func isCodesigned() throws -> Bool {
-        try shell.shello("/usr/bin/codesign", "-dv", executable.path).contains("adhoc")
+        try Shell.run("/usr/bin/codesign", "-dv", executable.path).contains("adhoc")
     }
 
     func showInFinder() {
@@ -131,11 +254,16 @@ class PlayApp: BaseApp {
     }
 
     func openAppCache() {
-        container?.containerUrl.showInFinderAndSelectLastComponent()
+        container.containerUrl.showInFinderAndSelectLastComponent()
     }
 
     func clearAllCache() {
         Uninstaller.clearExternalCache(info.bundleIdentifier)
+    }
+
+    func clearPlayChain() {
+        FileManager.default.delete(at: playChainURL)
+        FileManager.default.delete(at: playChainURL.appendingPathExtension("keyCover"))
     }
 
     func deleteApp() {
@@ -145,48 +273,42 @@ class PlayApp: BaseApp {
 
     func sign() {
         do {
-            let tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
-                                                  in: .userDomainMask,
-                                                  appropriateFor: URL(fileURLWithPath: "/Users"),
-                                                  create: true)
+            let tmpDir = FileManager.default.temporaryDirectory
             let tmpEnts = tmpDir
                 .appendingEscapedPathComponent(ProcessInfo().globallyUniqueString)
                 .appendingPathExtension("plist")
             let conf = try Entitlements.composeEntitlements(self)
             try conf.store(tmpEnts)
-            shell.signAppWith(executable, entitlements: tmpEnts)
-            try FileManager.default.removeItem(at: tmpDir)
+            try Shell.signAppWith(executable, entitlements: tmpEnts)
+            try FileManager.default.removeItem(at: tmpEnts)
         } catch {
             print(error)
             Log.shared.error(error)
         }
     }
 
-    func largerImage(image imageA: NSImage, compareTo imageB: NSImage?) -> NSImage {
-        if imageA.size.height > imageB?.size.height ?? -1 {
-            return imageA
-        }
-        return imageB!
-    }
-
     var prohibitedToPlay: Bool {
         PlayApp.PROHIBITED_APPS.contains(info.bundleIdentifier)
     }
+
     var maliciousProhibited: Bool {
         PlayApp.MALICIOUS_APPS.contains(info.bundleIdentifier)
     }
+
     static let PROHIBITED_APPS = [
         "com.activision.callofduty.shooter",
         "com.ea.ios.apexlegendsmobilefps",
-        "com.garena.game.codm",
         "com.tencent.tmgp.cod",
         "com.tencent.ig",
         "com.pubg.newstate",
         "com.tencent.tmgp.pubgmhd",
         "com.dts.freefireth",
-        "com.dts.freefiremax"
-]
+        "com.dts.freefiremax",
+        "vn.vng.codmvn",
+        "com.ngame.allstar.eu"
+    ]
+
     static let MALICIOUS_APPS = [
         "com.zhiliaoapp.musically"
-]
+    ]
 }

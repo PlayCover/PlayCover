@@ -8,47 +8,71 @@ import SwiftUI
 struct AppLibraryView: View {
     @EnvironmentObject var appsVM: AppsVM
     @EnvironmentObject var installVM: InstallVM
+    @EnvironmentObject var downloadVM: DownloadVM
 
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
 
     @State private var gridLayout = [GridItem(.adaptive(minimum: 130, maximum: .infinity))]
     @State private var searchString = ""
-    @State private var isList = UserDefaults.standard.bool(forKey: "AppLibrayView")
+    @State private var isList = UserDefaults.standard.bool(forKey: "AppLibraryView")
     @State private var selected: PlayApp?
     @State private var showSettings = false
     @State private var showLegacyConvertAlert = false
     @State private var showWrongfileTypeAlert = false
 
     var body: some View {
-        ScrollView {
-            if !isList {
-                LazyVGrid(columns: gridLayout, alignment: .center) {
-                    ForEach(appsVM.apps, id: \.url) { app in
-                        PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                    selectedTextColor: $selectedTextColor,
-                                    selected: $selected,
-                                    app: app,
-                                    isList: isList)
+        Group {
+            if !appsVM.apps.isEmpty || appsVM.updatingApps {
+                ScrollView {
+                    if !isList {
+                        LazyVGrid(columns: gridLayout, alignment: .center) {
+                            ForEach(appsVM.filteredApps, id: \.url) { app in
+                                PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                            selectedTextColor: $selectedTextColor,
+                                            selected: $selected,
+                                            app: app,
+                                            isList: isList)
+                            }
+                        }
+                        .padding()
+                    } else {
+                        VStack {
+                            ForEach(appsVM.filteredApps, id: \.url) { app in
+                                PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                                            selectedTextColor: $selectedTextColor,
+                                            selected: $selected,
+                                            app: app,
+                                            isList: isList)
+                            }
+                            Spacer()
+                        }
+                        .padding()
                     }
                 }
-                .padding()
+                .onTapGesture {
+                    selected = nil
+                }
             } else {
                 VStack {
-                    ForEach(appsVM.apps, id: \.url) { app in
-                        PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                    selectedTextColor: $selectedTextColor,
-                                    selected: $selected,
-                                    app: app,
-                                    isList: isList)
+                    Text("playapp.noSources.title")
+                        .font(.title)
+                        .padding(.bottom, 2)
+                    Text("playapp.noSources.subtitle")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                    Button("playapp.importIPA") {
+                        if installVM.inProgress {
+                            Log.shared.error(PlayCoverError.waitInstallation)
+                        } else if downloadVM.inProgress {
+                            Log.shared.error(PlayCoverError.waitDownload)
+                        } else {
+                            selectFile()
+                        }
                     }
-                    Spacer()
                 }
-                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-        }
-        .onTapGesture {
-            selected = nil
         }
         .navigationTitle("sidebar.appLibrary")
         .toolbar {
@@ -65,9 +89,9 @@ struct AppLibraryView: View {
             }
             ToolbarItem(placement: .primaryAction) {
                 Button(action: {
-                    if installVM.installing {
+                    if installVM.inProgress {
                         Log.shared.error(PlayCoverError.waitInstallation)
-                    } else if DownloadVM.shared.downloading {
+                    } else if downloadVM.inProgress {
                         Log.shared.error(PlayCoverError.waitDownload)
                     } else {
                         selectFile()
@@ -88,23 +112,29 @@ struct AppLibraryView: View {
         }
         .searchable(text: $searchString, placement: .toolbar)
         .onChange(of: searchString, perform: { value in
-            uif.searchText = value
+            appsVM.searchText = value
             appsVM.fetchApps()
         })
+        .onAppear {
+            appsVM.searchText = ""
+            appsVM.fetchApps()
+        }
         .onChange(of: isList, perform: { value in
-            UserDefaults.standard.set(value, forKey: "AppLibrayView")
+            UserDefaults.standard.set(value, forKey: "AppLibraryView")
         })
         .sheet(isPresented: $showSettings) {
-            AppSettingsView(viewModel: AppSettingsVM(app: selected!))
+            if let selected = selected {
+                AppSettingsView(viewModel: AppSettingsVM(app: selected))
+            }
         }
         .onAppear {
             showLegacyConvertAlert = LegacySettings.doesMonolithExist
         }
         .onDrop(of: ["public.url", "public.file-url"], isTargeted: nil) { (items) -> Bool in
-            if installVM.installing {
+            if installVM.inProgress {
                 Log.shared.error(PlayCoverError.waitInstallation)
                 return false
-            } else if DownloadVM.shared.downloading {
+            } else if downloadVM.inProgress {
                 Log.shared.error(PlayCoverError.waitDownload)
                 return false
             } else if let item = items.first {
@@ -115,8 +145,7 @@ struct AppLibraryView: View {
                                 if let urlData = urlData as? Data {
                                     let url = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
                                     if url.pathExtension == "ipa" {
-                                        uif.ipaUrl = url
-                                        installApp()
+                                        installApp(url)
                                     } else {
                                         showWrongfileTypeAlert = true
                                     }
@@ -152,10 +181,9 @@ struct AppLibraryView: View {
         })
     }
 
-    private func installApp() {
-        Installer.install(ipaUrl: uif.ipaUrl!, export: false, returnCompletion: { _ in
+    private func installApp(_ url: URL) {
+        Installer.install(ipaUrl: url, export: false, returnCompletion: { _ in
             Task { @MainActor in
-                appsVM.apps = []
                 appsVM.fetchApps()
                 NotifyService.shared.notify(
                     NSLocalizedString("notification.appInstalled", comment: ""),
@@ -167,8 +195,7 @@ struct AppLibraryView: View {
     private func selectFile() {
         NSOpenPanel.selectIPA { result in
             if case .success(let url) = result {
-                uif.ipaUrl = url
-                installApp()
+                installApp(url)
             }
         }
     }

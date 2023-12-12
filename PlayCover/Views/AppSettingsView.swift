@@ -19,6 +19,7 @@ struct AppSettingsView: View {
     @State var closeView = false
     @State var appIcon: NSImage?
     @State var hasPlayTools: Bool?
+    @State var hasAlias: Bool?
 
     @State private var cache = DataCache.instance
 
@@ -79,15 +80,21 @@ struct AppSettingsView: View {
                         Text("settings.tab.graphics")
                     }
                     .disabled(!(hasPlayTools ?? true))
-                JBBypassView(settings: $viewModel.settings)
+                BypassesView(settings: $viewModel.settings,
+                             hasPlayTools: $hasPlayTools,
+                             hasIntrospection: viewModel.app.changeDyldLibraryPath(path: PlayApp.introspection),
+                             hasIosFrameworks: viewModel.app.changeDyldLibraryPath(path: PlayApp.iosFrameworks),
+                             app: viewModel.app)
                     .tabItem {
-                        Text("settings.tab.jbBypass")
+                        Text("settings.tab.bypasses")
                     }
                     .disabled(!(hasPlayTools ?? true))
                 MiscView(settings: $viewModel.settings,
                          closeView: $closeView,
                          hasPlayTools: $hasPlayTools,
-                         app: viewModel.app)
+                         hasAlias: $hasAlias,
+                         app: viewModel.app,
+                         applicationCategoryType: viewModel.app.info.applicationCategoryType)
                     .tabItem {
                         Text("settings.tab.misc")
                     }
@@ -96,7 +103,7 @@ struct AppSettingsView: View {
                         Text("settings.tab.info")
                     }
             }
-            .frame(minWidth: 450, minHeight: 200)
+            .frame(minWidth: 500, minHeight: 250)
             HStack {
                 Spacer()
                 Button("settings.resetSettings") {
@@ -131,6 +138,7 @@ struct AppSettingsView: View {
         }
         .task(priority: .background) {
             hasPlayTools = viewModel.app.hasPlayTools()
+            hasAlias = viewModel.app.hasAlias()
         }
         .padding()
     }
@@ -146,9 +154,13 @@ struct KeymappingView: View {
                     Toggle("settings.toggle.km", isOn: $settings.settings.keymapping)
                         .help("settings.toggle.km.help")
                     Spacer()
-                    Toggle("settings.toggle.mm", isOn: $settings.settings.mouseMapping)
-                        .help("settings.toggle.mm.help")
-                        .disabled(!settings.settings.keymapping)
+                    Toggle("settings.toggle.autoKM", isOn: $settings.settings.noKMOnInput)
+                        .help("settings.toggle.autoKM.help")
+                }
+                HStack {
+                    Toggle("settings.toggle.enableScrollWheel", isOn: $settings.settings.enableScrollWheel)
+                        .help("settings.toggle.enableScrollWheel.help")
+                    Spacer()
                 }
                 HStack {
                     Text(String(
@@ -180,6 +192,16 @@ struct GraphicsView: View {
         return formatter
     }
 
+    @State var customScaler = 2.0
+    static var fractionFormatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 1
+        formatter.minimumFractionDigits = 1
+        formatter.decimalSeparator = "."
+        return formatter
+    }
+
     var body: some View {
         ScrollView {
             VStack {
@@ -188,7 +210,7 @@ struct GraphicsView: View {
                     Spacer()
                     Picker("", selection: $settings.settings.iosDeviceModel) {
                         Text("iPad Pro (12.9-inch) (1st gen) | A9X | 4GB").tag("iPad6,7")
-                        Text("iPad Pro (12.9-inch) (3rd gen) | A12Z | 4GB").tag("iPad8,6")
+                        Text("iPad Pro (12.9-inch) (3rd gen) | A12X | 4GB").tag("iPad8,6")
                         Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
                         Text("iPad Pro (12.9-inch) (6th gen) | M2 | 8GB").tag("iPad14,5")
                         Divider()
@@ -282,9 +304,46 @@ struct GraphicsView: View {
                     }
                 }
                 HStack {
+                    Text("settings.picker.scaler")
+                    Spacer()
+                    Stepper {
+                        TextField(
+                            "settings.text.scaler",
+                            value: $customScaler,
+                            formatter: GraphicsView.fractionFormatter,
+                            onCommit: {
+                                Task { @MainActor in
+                                    NSApp.keyWindow?.makeFirstResponder(nil)
+                                }
+                            })
+                            .frame(width: 125)
+                    } onIncrement: {
+                        customScaler += 0.1
+                    } onDecrement: {
+                        if customScaler > 0.5 {
+                            customScaler -= 0.1
+                        }
+                    }
+                }
+                VStack(alignment: .leading) {
                     if #available(macOS 13.2, *) {
-                        Toggle("settings.toggle.windowExperimentalFix", isOn: $settings.settings.inverseScreenValues)
-                            .help("settings.toggle.windowExperimentalFix.help")
+                        HStack {
+                            Toggle("settings.picker.windowFix", isOn: $settings.settings.inverseScreenValues)
+                                .help("settings.picker.windowFix.help")
+                                .onChange(of: settings.settings.inverseScreenValues) { _ in
+                                    settings.settings.windowFixMethod = 0
+                                }
+                            Spacer()
+                            // Dropdown to choose fix method
+                            Picker("", selection: $settings.settings.windowFixMethod) {
+                                Text("settings.picker.windowFixMethod.0").tag(0)
+                                Text("settings.picker.windowFixMethod.1").tag(1)
+                            }
+                            .frame(alignment: .leading)
+                            .help("settings.picker.windowFixMethod.help")
+                            .disabled(!settings.settings.inverseScreenValues)
+                            .disabled(settings.settings.resolution != 0)
+                        }
                         Spacer()
                     }
                     Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.settings.disableTimeout)
@@ -297,6 +356,7 @@ struct GraphicsView: View {
             .onAppear {
                 customWidth = settings.settings.windowWidth
                 customHeight = settings.settings.windowHeight
+                customScaler = settings.settings.customScaler
             }
             .onChange(of: settings.settings.resolution) { _ in
                 setResolution()
@@ -308,6 +368,9 @@ struct GraphicsView: View {
                 setResolution()
             }
             .onChange(of: customHeight) { _ in
+                setResolution()
+            }
+            .onChange(of: customScaler) { _ in
                 setResolution()
             }
         }
@@ -346,8 +409,10 @@ struct GraphicsView: View {
 
         settings.settings.windowWidth = width
         settings.settings.windowHeight = height
+        settings.settings.customScaler = customScaler
 
-        showResolutionWarning = width*height >= 2621440 // Tends to crash when the number of pixels exceeds that
+        showResolutionWarning = Double(width * height) * customScaler >= 2621440 * 2.0
+        // Tends to crash when the number of pixels exceeds that
     }
 
     func getWidthFromAspectRatio(_ height: Int) -> Int {
@@ -381,19 +446,53 @@ struct GraphicsView: View {
     }
 }
 
-struct JBBypassView: View {
+struct BypassesView: View {
     @Binding var settings: AppSettings
+    @Binding var hasPlayTools: Bool?
+
+    @State var hasIntrospection: Bool
+    @State var hasIosFrameworks: Bool
+
+    var app: PlayApp
 
     var body: some View {
         ScrollView {
             VStack {
+                HStack(alignment: .center) {
+                    Toggle("settings.playChain.enable", isOn: $settings.settings.playChain)
+                        .help("settings.playChain.help")
+                        .disabled(!(hasPlayTools ?? true))
+                    Spacer()
+                    Toggle("settings.playChain.debugging", isOn: $settings.settings.playChainDebugging)
+                        .disabled(!settings.settings.playChain)
+                }
+                Spacer()
+                    .frame(height: 20)
                 HStack {
                     Toggle("settings.toggle.jbBypass", isOn: $settings.settings.bypass)
                         .help("settings.toggle.jbBypass.help")
                     Spacer()
                 }
+                Spacer()
+                HStack {
+                    Toggle("settings.toggle.introspection", isOn: $hasIntrospection)
+                        .help("settings.toggle.introspection.help")
+                    Spacer()
+                }
+                Spacer()
+                HStack {
+                    Toggle("settings.toggle.iosFrameworks", isOn: $hasIosFrameworks)
+                        .help("settings.toggle.iosFrameworks.help")
+                    Spacer()
+                }
             }
             .padding()
+        }
+        .onChange(of: hasIntrospection) {_ in
+            _ = app.changeDyldLibraryPath(set: hasIntrospection, path: PlayApp.introspection)
+        }
+        .onChange(of: hasIosFrameworks) {_ in
+            _ = app.changeDyldLibraryPath(set: hasIosFrameworks, path: PlayApp.iosFrameworks)
         }
     }
 }
@@ -402,14 +501,40 @@ struct MiscView: View {
     @Binding var settings: AppSettings
     @Binding var closeView: Bool
     @Binding var hasPlayTools: Bool?
+    @Binding var hasAlias: Bool?
 
     @State var showPopover = false
 
     var app: PlayApp
 
+    @State var applicationCategoryType: LSApplicationCategoryType
+
     var body: some View {
         ScrollView {
             VStack {
+                HStack {
+                    Text("settings.applicationCategoryType")
+                    Spacer()
+                    Picker("", selection: $applicationCategoryType) {
+                        ForEach(LSApplicationCategoryType.allCases, id: \.rawValue) { value in
+                            Text(value.localizedName)
+                                .tag(value)
+                        }
+                    }
+                    .frame(width: 225)
+                    .onChange(of: applicationCategoryType) { _ in
+                        app.info.applicationCategoryType = applicationCategoryType
+                        Task(priority: .userInitiated) {
+                            do {
+                                try Shell.signApp(app.executable)
+                            } catch {
+                                Log.shared.error(error)
+                            }
+                        }
+                    }
+                }
+                Spacer()
+                    .frame(height: 20)
                 HStack {
                     Toggle("settings.toggle.discord", isOn: $settings.settings.discordActivity.enable)
                     Spacer()
@@ -457,7 +582,7 @@ struct MiscView: View {
                     .frame(height: 20)
                 HStack {
                     HStack {
-                        Toggle("settings.toggle.hud", isOn: $settings.metalHudEnabled)
+                        Toggle("settings.toggle.hud", isOn: $settings.settings.metalHUD)
                             .disabled(!isVenturaGreater())
                             .help(!isVenturaGreater() ? "settings.unavailable.hud" : "")
                         Spacer()
@@ -488,11 +613,21 @@ struct MiscView: View {
                             }
 
                             Task { @MainActor in
-                                AppsVM.shared.apps = []
+                                AppsVM.shared.filteredApps = []
                                 AppsVM.shared.fetchApps()
                             }
                         }
                     }
+                    Spacer()
+                }
+                Spacer()
+                    .frame(height: 20)
+                // swiftlint:disable:next todo
+                // TODO: Test and remove before 3.0 release
+                HStack {
+                    Toggle("settings.toggle.rootWorkDir", isOn: $settings.settings.rootWorkDir)
+                        .disabled(!(hasPlayTools ?? true))
+                        .help("settings.toggle.rootWorkDir.help")
                     Spacer()
                 }
             }
@@ -536,6 +671,11 @@ struct InfoView: View {
                 Text("\(info.bundleVersion)")
             }
             HStack {
+                Text("settings.applicationCategoryType") + Text(":")
+                Spacer()
+                Text("\(info.applicationCategoryType.rawValue)")
+            }
+            HStack {
                 Text("settings.info.executableName")
                 Spacer()
                 Text("\(info.executableName)")
@@ -554,6 +694,11 @@ struct InfoView: View {
                 Text("settings.info.url")
                 Spacer()
                 Text("\(info.url.relativePath)")
+            }
+            HStack {
+                Text("settings.info.alias")
+                Spacer()
+                Text("\(PlayApp.aliasDirectory.appendingPathComponent(info.bundleIdentifier))")
             }
         }
         .listStyle(.bordered(alternatesRowBackgrounds: true))

@@ -35,11 +35,12 @@ class Installer {
         return response == .alertFirstButtonReturn
     }
 
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     static func install(ipaUrl: URL, export: Bool, returnCompletion: @escaping (URL?) -> Void) {
         // If (the option key is held or the install playtools popup settings is true) and its not an export,
         //    then show the installer dialog
         let installPlayTools: Bool
+        let applicationType = InstallPreferences.shared.defaultAppType
 
         if (Installer.isOptionKeyHeld || InstallPreferences.shared.showInstallPopup) && !export {
             installPlayTools = installPlayToolsPopup()
@@ -59,28 +60,29 @@ class Installer {
                 let app = try ipa.unzip()
                 InstallVM.shared.next(.library, 0.5, 0.55)
                 try saveEntitlements(app)
-                let machos = try resolveValidMachOs(app)
+                let machos = resolveValidMachOs(app)
                 app.validMachOs = machos
 
-                if export {
-                    InstallVM.shared.next(.playtools, 0.55, 0.85)
-                    try PlayTools.injectInIPA(app.executable, payload: app.url)
-                } else if installPlayTools {
-                    InstallVM.shared.next(.playtools, 0.55, 0.85)
-                    try PlayTools.installInIPA(app.executable)
-                }
+                InstallVM.shared.next(.playtools, 0.55, 0.85)
 
                 for macho in machos {
-                    if try PlayTools.isMachoEncrypted(atURL: macho) {
+                    if try Macho.isMachoEncrypted(atURL: macho) {
                         throw PlayCoverError.appEncrypted
                     }
 
                     if !export {
-                        try PlayTools.replaceLibraries(atURL: macho)
-                        try PlayTools.convertMacho(macho)
-                        try fakesign(macho)
+                        try Macho.convertMacho(macho)
+                        try Shell.signMacho(macho)
                     }
                 }
+
+                if export {
+                    try PlayTools.injectInIPA(app.executable, payload: app.url)
+                } else if installPlayTools {
+                    try PlayTools.installInIPA(app.executable)
+                }
+
+                app.info.applicationCategoryType = applicationType
 
                 if !export {
                     // -rwxr-xr-x
@@ -148,14 +150,14 @@ class Installer {
     }
 
     /// Returns an array of URLs to MachO files within the app
-    static func resolveValidMachOs(_ baseApp: BaseApp) throws -> [URL] {
+    static func resolveValidMachOs(_ baseApp: BaseApp) -> [URL] {
         if let validMachOs = baseApp.validMachOs {
             return validMachOs
         }
 
         var resolved: [URL] = []
 
-        try baseApp.url.enumerateContents { url, attributes in
+        baseApp.url.enumerateContents { url, attributes in
             guard attributes.isRegularFile == true, let fileSize = attributes.fileSize, fileSize > 4 else {
                 return
             }
@@ -205,8 +207,8 @@ class Installer {
         let info = AppInfo(contentsOf: baseApp.url
             .appendingPathComponent("Info")
             .appendingPathExtension("plist"))
-        let location = PlayTools.playCoverContainer
-            .appendingEscapedPathComponent(info.displayName)
+        let location = AppsVM.appDirectory
+            .appendingEscapedPathComponent(info.bundleIdentifier)
             .appendingPathExtension("app")
         if FileManager.default.fileExists(atPath: location.path) {
             try FileManager.default.removeItem(at: location)
@@ -214,11 +216,6 @@ class Installer {
 
         try FileManager.default.moveItem(at: baseApp.url, to: location)
         return location
-    }
-
-    /// Regular codesign, does not accept entitlements. Used to re-seal an app after you've modified it.
-    static func fakesign(_ url: URL) throws {
-        try shell.shello("/usr/bin/codesign", "-fs-", url.path)
     }
 
     static var isOptionKeyHeld: Bool {

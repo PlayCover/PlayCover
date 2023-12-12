@@ -1,29 +1,29 @@
 /* (No Comment) */
-"alert.app.delete" = "Все данные приложение будут удалены. Возможно, нужно будет повторно загрузить приложение. Вы хотите продолжить?";
+"alert.app.delete" = "Все данные приложение будут удалены. Возможно, вам надо будет повторно скачать приложение. Вы хотите продолжить?";
 
 /* (No Comment) */
 "alert.app.preferences" = "Все настройки в приложении будут удалены. Вы хотите продолжить?";
 
 /* (No Comment) */
-"alert.appCacheCleared" = "Все данные приложения будут удалены!";
+"alert.appCacheCleared" = "Все данные приложения были удалены!";
 
 /* (No Comment) */
 "alert.error" = "Произошла ошибка!";
 
 /* (No Comment) */
-"alert.errorImportKm" = "Произошла ошибка при импорте!";
+"alert.errorImportKm" = "Произошла ошибка при импортировании!";
 
 /* (No Comment) */
 "alert.kmImported" = "Раскладка клавиш импортирована!";
 
 /* (No Comment) */
-"alert.moveAppToApplications.move" = "Переместить в Приложения";
+"alert.moveAppToApplications.move" = "Переместить в папку Приложения (Applications)";
 
 /* (No Comment) */
 "alert.restart" = "Пожалуйста перезапустите PlayCover.";
 
 /* (No Comment) */
-"alert.storeAccount.regionIsNotValid" = "Текущий аккаунт находится в другом регионе. Запустите игру, смените регион и пройдите через ворота, чтобы сохраниться. Затем попробуйте еще раз";
+"alert.storeAccount.regionIsNotValid" = "Текущий аккаунт находится в другом регионе. Запустите игру, смените регион, пройдите через ворота, чтобы сохранить изменения. Затем попробуйте еще раз";
 
 /* (No Comment) */
 "alert.success" = "Успешно";
@@ -38,7 +38,7 @@
 "button.Install" = "Установить";
 
 /* (No Comment) */
-"button.OK" = "OK";
+"button.OK" = "ОК";
 
 /* (No Comment) */
 "button.Proceed" = "Продолжить";
@@ -47,7 +47,7 @@
 "error.corruptedIPA" = "Этот файл .ipa поврежден. Он не содержит файла «Info.plist».";
 
 /* (No Comment) */
-"error.waitInstallation" = "Дождитесь завершения текущей установки!";
+"error.waitInstallation" = "Пожалуйста дождитесь завершения установки!";
 
 /* (No Comment) */
 "menubar.checkForUpdates" = "Проверить наличие обновлений...";
@@ -80,7 +80,7 @@
 "playapp.activateAccount" = "Сменить аккаунт";
 
 /* (No Comment) */
-"playapp.clearCache" = "Очистить Данные Приложения";
+"playapp.clearCache" = "Очистить данные приложения";
 
 /* (No Comment) */
 "playapp.clearPreferences" = "Очистить настройки приложения";
@@ -92,22 +92,22 @@
 "playapp.deleteAccount" = "Удалить аккаунт";
 
 /* (No Comment) */
-"playapp.exportKm" = "Экспортировать назначение ключей";
+"playapp.exportKm" = "Экспортировать раскладку";
 
 /* (No Comment) */
-"playapp.importKm" = "Импортировать кеймаппинг";
+"playapp.importKm" = "Импортировать раскладку";
 
 /* (No Comment) */
-"playapp.install.addToLib" = "Добавление приложения в библиотеку...";
+"playapp.install.addToLib" = "Приложения добавляется в библиотеку...";
 
 /* (No Comment) */
-"playapp.install.copy" = "Копирование приложения...";
+"playapp.install.copy" = "Приложение копируется...";
 
 /* (No Comment) */
 "playapp.install.createWrapper" = "Создание оболочки приложения...";
 
 /* (No Comment) */
-"playapp.install.finished" = "Завершено";
+"playapp.progress.finished" = "Завершено";
 
 /* (No Comment) */
 "playapp.install.installPlayTools" = "Установка PlayTools...";
@@ -122,7 +122,7 @@
 "playapp.openCache" = "Открыть данные приложения";
 
 /* (No Comment) */
-"playapp.settings" = "Настройки приложения";
+"playapp.settings" = "Настройки";
 
 /* (No Comment) */
 "playapp.showInFinder" = "Показать в Finder";
@@ -131,64 +131,64 @@
 "playapp.storeCurrentAccount" = "Сохранить аккаунт";
 
 /* (No Comment) */
-"preferences.button.checkForUpdates" = "Проверка наличия обновлений";
+"preferences.button.checkForUpdates" = "Проверить на наличие обновлений";
 
 /* (No Comment) */
 "preferences.tab.updates" = "Обновления";
 
 /* (No Comment) */
-"preferences.toggle.automaticUpdates" = "Автоматическая проверка наличия обновлений";
+"preferences.toggle.automaticUpdates" = "Автоматическая проверка наличие обновлений";
 
 /* (No Comment) */
-"settings.button.discord" = "Custom Discord activity";
+"settings.button.discord" = "Пользовательская активность Discord";
 
 /* (No Comment) */
-"settings.button.clearActivity" = "Clear custom activity";
+"settings.button.clearActivity" = "Очистить пользовательскую активность";
 
 /* (No Comment) */
 "settings.picker.iosDevice" = "iOS устройство:";
 
 /* %.f */
-"settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
+"settings.slider.mouseSensitivity" = "Чувствительность мыши: %.f";
 
 /* (No Comment) */
-"settings.text.applicationID" = "Application ID";
+"settings.text.applicationID" = "ID Приложения";
 
 /* (No Comment) */
-"settings.text.customHeight" = "Height";
+"settings.text.customHeight" = "Высота";
 
 /* (No Comment) */
 "settings.text.customWidth" = "Ширина";
 
 /* (No Comment) */
-"settings.text.details" = "Details";
+"settings.text.details" = "Детали";
 
 /* (No Comment) */
-"settings.text.details.help" = "First row below title";
+"settings.text.details.help" = "Первая строка под заголовком";
 
 /* (No Comment) */
-"settings.text.image" = "Image";
+"settings.text.image" = "Изображение";
 
 /* (No Comment) */
-"settings.text.image.help" = "Link to image or Dev portal asset name";
+"settings.text.image.help" = "Ссылка на образ или название ресурса Разработчиков";
 
 /* (No Comment) */
-"settings.text.state" = "State";
+"settings.text.state" = "Состояние";
 
 /* (No Comment) */
-"settings.text.state.help" = "Second row below title";
+"settings.text.state.help" = "Вторая строка после заголовка";
 
 /* (No Comment) */
 "settings.toggle.disableDisplaySleep" = "Отключить спящий режим дисплея";
 
 /* (No Comment) */
-"settings.toggle.discord" = "Enable Discord activity";
+"settings.toggle.discord" = "Включить активность Discord";
 
 /* (No Comment) */
-"settings.toggle.jbBypass" = "Включить обход Jailbreak (Alpha)";
+"settings.toggle.jbBypass" = "Включить обход Jailbreak (Экспериментально)";
 
 /* (No Comment) */
-"settings.toggle.km" = "Включить кеймаппинг";
+"settings.toggle.km" = "Включить клавиатурную раскладку";
 
 /* (No Comment) */
 "soundAlert.failureText" = "Не удалось установить частоту дискретизации текущего устройства вывода на 48 кГц. Вы можете вручную установить частоту дискретизации в приложении Audio MIDI Setup";
@@ -221,7 +221,7 @@
 "storeAccount.selectAccRegion.asia" = "Азия";
 
 /* (No Comment) */
-"storeAccount.selectAccRegion.cht" = "TW, HK, MO";
+"storeAccount.selectAccRegion.cht" = "Тайвань, Гонконг, Макао";
 
 /* (No Comment) */
 "storeAccount.selectAccRegion.euro" = "Европа";
@@ -234,74 +234,54 @@
 
 /* (No Comment) */
 "storeAccount.storeAcc" = "Сохранить аккаунт";
-
-/* (No Comment) */
-"xcode.install.failed" = "Ошибка установки инструментов командной строки Xcode";
-
-/* (No Comment) */
-"xcode.install.message" = "Вам необходимо установить инструменты командной строки Xcode и перезапустить PlayCover";
-
-/* (No Comment) */
-"xcode.install.progress" = "Установка инструментов командной строки Xcode";
-
-/* (No Comment) */
-"xcode.install.progress.subtext" = "Может занять около 5-10 минут в зависимости от скорости интернета";
-
-/* (No Comment) */
-"xcode.install.success" = "Установка инструментов командной строки Xcode выполнена успешно";
-"playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
+"playapp.exportKmPanel.fieldLabel" = "Имя PlayMap:";
 "sidebar.appLibrary" = "Библиотека приложений";
-"button.Quit" = "Выход";
-"storeAccount.alert.restoreAccount" = "Восстановить учетную запись?";
+"button.Quit" = "Выйти";
+"storeAccount.alert.restoreAccount" = "Вы хотите восстановить учетную запись?";
 "storeAccount.alert.restoreAccount.button" = "Восстановить учетную запись";
 "sidebar.ipaLibrary" = "Библиотека IPA";
-"storeAccount.alert.restoreAccount.msg" = "Это действие перезапишет учетную запись, в которой вы авторизованы сейчас.";
+"storeAccount.alert.restoreAccount.msg" = "Данное действие выкинет вас из аккаунта, в которой вы сейчас авторизованы.";
 "storeAccount.alert.deleteAccount" = "Удалить учетную запись?";
 "storeAccount.alert.deleteAccount.button" = "Удалить учетную запись";
 "alert.moveAppToApplications.title" = "Переместить в папку Applications (Программы)?";
-"alert.moveAppToApplications.subtitle" = "Приложение PlayCover должно находиться в папке Applications (Программы), чтобы оно работало корректно. Нажмите на кнопку ниже, чтобы переместить PlayCover автоматически.";
+"alert.moveAppToApplications.subtitle" = "Для корректной работы PlayCover должен находиться в папке Applications (Программы). Нажмите на кнопку ниже, чтобы переместить PlayCover автоматически.";
 "error.appEncrypted" = "Это приложение зашифровано! Пожалуйста, используйте расшифрованные файлы IPA. Файлы IPA из iMazing не поддерживаются!";
 "error.appCorrupted" = "С данным IPA что-то пошло не так. Пожалуйста, попробуйте другой файл IPA.";
 "error.appProhibited" = "Использование этого приложения через PlayCover скорее всего приведет к бану!";
 "error.noGenshinAccount" = "Мы не смогли найти аккаунт Genshin! Вы вошли в аккаунт внутри приложения?";
 "settings.title" = "Настройки %@";
-"settings.tab.info" = "Инфо";
-"settings.tab.km" = "Keymapping";
+"settings.tab.info" = "Информация";
+"settings.tab.km" = "Раскладка клавиатуры";
 "settings.toggle.km.help" = "Добавить поддержку клавиатуры для игр только с тач-интерфейсом. Нажмите Command + K, чтобы открыть меню редактирования.";
-"settings.toggle.mm" = "Mouse mapping";
-"settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
 "settings.tab.graphics" = "Графика";
 "settings.picker.adaptiveRes" = "Разрешение:";
 "settings.picker.adaptiveRes.help" = "Меняет разрешение окна приложения";
-"settings.picker.adaptiveRes.0" = "По-умолчанию";
-"settings.picker.adaptiveRes.1" = "Авто (в зависимости от дисплея)";
-"settings.picker.adaptiveRes.5" = "Собственное";
+"settings.picker.adaptiveRes.0" = "По умолчанию";
+"settings.picker.adaptiveRes.1" = "Автоматически (в зависимости от разрешения дисплея)";
+"settings.picker.adaptiveRes.5" = "Пользовательское";
 "settings.picker.aspectRatio" = "Соотношение сторон:";
-"settings.resetKmCompleted" = "Keymapping has been reset!";
+"settings.resetKmCompleted" = "Кеймаппинг сброшен!";
 "settings.toggle.disableDisplaySleep.help" = "Предотвращать выключение дисплея во время работы приложения";
-"settings.tab.jbBypass" = "Обход Jailbreak";
 "settings.toggle.jbBypass.help" = "Попытаться обойти обнаружение Jailbreak в некоторых играх (может работать не всегда)";
 "settings.info.displayName" = "Название дисплея:";
 "settings.info.bundleName" = "Название пакета:";
 "settings.info.bundleIdentifier" = "Идентификатор пакета:";
 "settings.info.executableName" = "Название исполняющего файла:";
 "settings.info.minimumOSVersion" = "Минимальная версия OS:";
-"xcode.install.failed.altInstructions" = "Click the button below to see alternate install instructions";
 "settings.info.url" = "URL:";
 "settings.resetSettings" = "Сброс настроек";
-"settings.resetKm" = "Reset keymapping";
+"settings.resetKm" = "Сбросить кеймаппинг";
 "settings.resetSettingsCompleted" = "Настройки были сброшены к стандартным!";
-"xcode.install.failed.altButton" = "Alternate Instructions";
-"settings.tab.misc" = "Misc";
+"settings.tab.misc" = "Разное";
 "settings.toggle.hud" = "Metal HUD";
 "settings.info.bundleVersion" = "Версия пакета:";
 "playapp.deleteConfirm" = "Удалить";
 "playapp.deleteMessage" = "Вы уверены, что хотите удалить %@?";
 "alert.legacyImport.title" = "Обнаружены настройки приложения из старой версии!";
-"alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
+"alert.legacyImport.subtitle" = "Были обнаружены устаревшие настройки и файлы раскладки клавиатуры. Хотели бы вы преобразовать эти файлы в новый формат?";
 "button.Convert" = "Конвертировать";
 "settings.text.detectedResolution" = "Обнаруженное разрешение:";
-"playapp.add" = "Установить приложение";
+"playapp.add" = "Добавить приложение";
 "alert.wrongFileType.title" = "Неверный тип файла!";
 "alert.wrongFileType.subtitle" = "PlayCover может установить только корректные .ipa файлы.";
 "playapp.addSource" = "Добавить источник";
@@ -314,92 +294,130 @@
 "preferences.button.deleteSource" = "Удалить источник";
 "preferences.button.moveSourceUp" = "Переместить выше";
 "preferences.button.moveSourceDown" = "Переместить ниже";
-"preferences.popover.valid" = "Link Valid";
-"preferences.popover.badurl" = "URL неверен!";
-"preferences.popover.badjson" = "Файл JSON неверен или не найден!";
-"preferences.textfield.url" = "URL источника...";
-"playapp.download" = "Скачивание...";
-"error.waitDownload" = "Пожалуйста, подождите окончания текущей загрузки!";
+"preferences.popover.valid" = "Ссылка действительна";
+"preferences.popover.badurl" = "URL-адрес недействителен!";
+"preferences.popover.badjson" = "Файл JSON недействителен или не найден!";
+"preferences.textfield.url" = "URL-адрес источника...";
+"playapp.download.downloading" = "Скачивание";
+"error.waitDownload" = "Пожалуйста дождитесь завершения загрузки!";
 "preferences.tab.uninstall" = "Удалить";
-"menubar.clearCache" = "Очистить кэш изображений";
+"menubar.clearCache" = "Очистить кэш";
 "preferences.whenUninstalling" = "При удалении:";
-"preferences.toggle.showUninstall" = "Отобразить всплывающее предупреждение";
+"preferences.toggle.showUninstall" = "Показывать всплывающее предупреждение";
 "preferences.toggle.clearAppData" = "Очистить данные";
-"preferences.toggle.removeKeymap" = "Очистить кеймап";
-"preferences.toggle.removeSetting" = "Очистить настройки";
-"preferences.toggle.removeEntitlements" = "Очистить разрешения прав";
-"preferences.button.pruneFiles" = "Prune files";
+"preferences.toggle.removeKeymap" = "Удалить раскладку";
+"preferences.toggle.removeSetting" = "Удалить настройки";
+"preferences.toggle.removeEntitlements" = "Забрать разрешения";
+"preferences.button.pruneFiles" = "Удалить файлы";
 "preferences.prune.alert" = "Вы уверены, что хотите удалить все файлы?";
-"preferences.prune.message" = "Это действие удалит все неиспользуемые файлы, включая настройки, кеймаппы, разрешения прав и данные приложения";
-"playapp.install.failed" = "Произошла ошибка";
+"preferences.prune.message" = "Данное действие удалит все не используемые файлы, включая настройки, раскладки, разрешения и данные приложения";
+"playapp.progress.failed" = "Произошла ошибка";
 "alert.supression" = "Вы можете изменить это в настройках PlayCover";
 "alert.install.injectPlayTools" = "Внедрить PlayTools";
 "button.Yes" = "Да";
 "button.No" = "Нет";
-"preferences.tab.install" = "Установка";
-"preferences.toggle.showInstallPopup" = "Показывать запрос на установку PlayTools";
+"preferences.tab.install" = "Установить";
+"preferences.toggle.showInstallPopup" = "Показать окно установки PlayTools";
 "preferences.toggle.alwaysInstallPlayTools" = "Всегда устанавливать PlayTools";
 "settings.noPlayTools" = "PlayTools не установлены в этом приложении";
 "settings.removePlayTools" = "Удалить PlayTools";
 "settings.info.playTools" = "PlayTools установлен:";
 "playapp.refreshSources" = "Обновить источники";
-"error.appMaliciousProhibited" = "Это приложение вредоносно для Mac. Используя его, вы можете привести свое устройство в незагружаемое состояние, поэтому оно заблокировано в PlayCover. (Удаление...)";
+"error.appMaliciousProhibited" = "Это приложение вредоносно для Mac. Используя его, вы можете привести свое устройство в незагружаемое состояние, поэтому оно заблокировано в PlayCover. (Удаляется...)";
 "alert.install.injectPlayToolsQuestion" = "Вы хотите внедрить PlayTools в это приложение?";
-"alert.install.playToolsInformative" = "PlayTools – это инструмент, позволяющий связывать нажатия клавиш с жестами экрана, устанавливать собственное разрешение экрана и т.д., однако он может повредить некоторые приложения.";
+"alert.install.playToolsInformative" = "PlayTools – это инструмент, позволяющий связывать нажатия клавиш с жестами экрана, устанавливать собственное разрешение экрана и т.д., однако он может нарушить корректную работу некоторых приложений";
 "button.Help" = "Помощь";
 "button.Dismiss" = "Закрыть";
 "state.enabled" = "Включено";
 "state.disabled" = "Выключено";
 "state.pendingReboot" = "Ожидание перезагрузки";
-"menubar.configSigning" = "Configure Signing";
-"configSigning.header" = "Configure Package Signing";
-"configSigning.subtext" = "Package Signing helps fixing issues with apps that rely on \ncorrect Team IDs for operations like authorization. \nThere may be security risks associated with enabling this feature.\n\n As such, we recommend disabling it when it's not necessary";
-"configSigning.info.SIP" = "SIP is required to be fully to partially disabled in order for AMFI to be turned off.";
-"configSigning.info.SIPHeader" = "System Integrity Protection";
-"configSigning.info.AMFI" = "AMFI is required to be turned off in order to allow fake signing of apps, allowing them to run with the correct Team ID";
-"configSigning.info.AMFIHeader" = "Apple Mobile File Integrity";
-"configSigning.action.shutdown" = "Shut down my Mac";
-"configSigning.action.copyCommand" = "Copy Command to Clipboard";
-"configSigning.action.restart" = "Restart my Mac";
-"configSigning.step.disableSIP" = "Please disable SIP from Recovery Mode";
-"configSigning.step.disableAMFI" = "Please disable AMFI";
-"configSigning.step.AMFIreboot" = "AMFI Disabled. Please reboot";
-"configSigning.step.complete" = "Package Signing has been configured successfully";
-"configSigning.alert.copied" = "Command Copied!";
-"configSigning.alert.info" = "Please paste and run the command in Terminal.app. Your Mac will reboot after";
-"alert.power.title" = "Low Power Mode Enabled!";
-"alert.power.subtitle" = "Some apps will not work with Low Power Mode enabled. It is recommended to disable it.";
-"ipaLibrary.download" = "Download";
-"alert.differentBundleIdKeymap.message" = "The keymap may have been created for another application.";
+"menubar.configSigning" = "Настроить Подпись";
+"configSigning.header" = "Настроить подпись пакета";
+"configSigning.subtext" = "Подпись пакетов помогает исправлять проблемы с приложениями которые полагаются на \nправильные идентификаторы команд для таких операций, как авторизация. \nВключение этой функции может быть связано с рисками безопасности.\n\n Таким образом, мы рекомендуем отключить его, когда в этом нет необходимости";
+"configSigning.info.SIP" = "Для отключения AMFI требуется чтобы SIP был полностью или частично отключен.";
+"configSigning.info.SIPHeader" = "Защита целостности системы";
+"configSigning.info.AMFI" = "AMFI необходимо отключить, чтобы разрешить поддельную подпись приложений, позволяя им запускаться с правильным ID команды";
+"configSigning.info.AMFIHeader" = "Целостность Apple Mobile File";
+"configSigning.action.shutdown" = "Выключить мой Mac";
+"configSigning.action.copyCommand" = "Скопировать команду в буфер обмена";
+"configSigning.action.restart" = "Перезагрузить мой Mac";
+"configSigning.step.disableSIP" = "Пожалуйста, отключите SIP из режима восстановления";
+"configSigning.step.disableAMFI" = "Пожалуйста, отключите AMFI";
+"configSigning.step.AMFIreboot" = "AMFI Отключён. Пожалуйста, перезагрузитесь";
+"configSigning.step.complete" = "Подпись пакета была настроена успешно";
+"configSigning.alert.copied" = "Команда скопирована!";
+"configSigning.alert.info" = "Пожалуйста, вставьте и запустите команду в Terminal.app. Ваш Mac перезагрузится после";
+"alert.power.title" = "Режим низкого энергопотребления включён!";
+"alert.power.subtitle" = "Некоторые приложения не будут работать, когда режим энергосбережения включён. Это рекомендуется отключить.";
+"ipaLibrary.download" = "Скачать";
+"alert.differentBundleIdKeymap.message" = "Данная клавиатурная раскладка, возможно, была создана для другого приложения.";
 "ipaLibrary.version.older" = "Эта версия старше установленной";
 "ipaLibrary.version.same" = "Приложение уже установлено";
-"ipaLibrary.version.newer" = "Эта версия новее, чем версия, которую вы установили";
-"ipaLibrary.alert.download" = "Вы уверены что хотите установить версию %@?";
-"alert.differentBundleIdKeymap.text" = "Вы действительно хотите импортировать этот кеймап?";
+"ipaLibrary.version.newer" = "Эта версия является более новой, чем установленная";
+"ipaLibrary.alert.download" = "Вы уверены, что хотите установить версию %@?";
+"alert.differentBundleIdKeymap.text" = "Вы действительно хотите импортировать эту раскладку клавиатуры?";
 "settings.text.debugger" = "Дебагер:";
 "settings.toggle.lldb" = "Открыть с помощью LLDB";
 "settings.toggle.lldbWithTerminal" = "Открыть в терминале";
 "settings.unavailable.hud" = "Metal HUD недоступен";
-"error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
-"settings.playChain.enable" = "Enable PlayChain (experimental)";
-"settings.playChain.help" = "Enable PlayChain support for this application, allowing it to (partially) use Apple Keychain Services";
-"settings.playChain.debugging" = "PlayChain debugging";
-"playapp.noSources.title" = "No IPAs Installed";
-"playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";
-"settings.removeFromLaunchpad" = "Remove from Launchpad";
-"settings.tab.bypasses" = "Bypasses";
-"settings.addToLaunchpad" = "Add to Launchpad";
-"playapp.download.integrityCheck" = "Verifying file integrity:";
-"playapp.download.differentChecksum" = "Different checksums! Do you want to continue to install?";
-"playapp.download.differentChecksumDesc" = "Expected \"%@\", got \"%@\"";
-"playapp.progress.canceled" = "Canceled";
-"ipaLibrary.noNetworkConnection.required" = "IPA Library requires internet connection";
-"playapp.clearPlayChain" = "Clear PlayChain Data";
-"playapp.importIPA" = "Import IPA";
-"preferences.toggle.removePlayChain" = "Remove PlayChain";
-"preferences.popover.duplicate" = "Duplicate Link";
-"alert.app.clearPlayChain" = "All PlayChain data will be erased. You may need to login to the app again. Do you wish to continue?";
-"button.Reload" = "Reload";
-"settings.toggle.windowExperimentalFix.help" = "Attempts to fix your app scene if you have problems with it";
-"settings.toggle.windowExperimentalFix" = "Fix window issues";
-"settings.highResolution" = "High resolution may cause crashing";
+"error.failedToStripBinary" = "Не удалось найти исполняемый файл для ARM64 архитектуры!";
+"settings.playChain.enable" = "Включить PlayChain (Экспериментально)";
+"settings.playChain.help" = "Включить поддержку PlayChain для этого приложения, позволяя ему частично использовать сервисы Apple Keychain (связки ключей)";
+"settings.playChain.debugging" = "Откладка PlayChain";
+"playapp.noSources.title" = "IPA не установлены";
+"playapp.noSources.subtitle" = "Сейчас у вас нет установленных IPA. Нажмите на кнопку ниже для импорта.";
+"settings.removeFromLaunchpad" = "Удалить из Launchpad";
+"settings.tab.bypasses" = "Обходы";
+"settings.addToLaunchpad" = "Добавить в Launchpad";
+"playapp.download.integrityCheck" = "Проверка целостности файлов:";
+"playapp.download.differentChecksum" = "Контрольные суммы не совпадают! Вы хотите продолжить установку?";
+"playapp.download.differentChecksumDesc" = "Ожидалось \"%@\", получено \"%@\"";
+"playapp.progress.canceled" = "Отменена";
+"ipaLibrary.noNetworkConnection.required" = "IPA Библиотека требует интернет-соединение";
+"playapp.clearPlayChain" = "Очистить данные PlayChain";
+"playapp.importIPA" = "Импортировать IPA";
+"preferences.toggle.removePlayChain" = "Очистить PlayChain";
+"preferences.popover.duplicate" = "Дублирующая ссылка";
+"alert.app.clearPlayChain" = "Все данные PlayChain будут удалены. Возможно, вам придется снова проходить авторизацию в приложении. Вы хотите продолжить?";
+"button.Reload" = "Перезагрузить";
+"settings.highResolution" = "Высокое разрешение может вызвать сбой приложения";
+"settings.picker.windowFix" = "Исправить проблемы с отображением окна";
+"settings.picker.windowFix.help" = "Примените исправления окон, это может помочь вашим приложениям корректно отображаться";
+"settings.picker.windowFixMethod.0" = "Нормальный";
+"settings.picker.windowFixMethod.1" = "Альтернативный";
+"preferences.popover.checking" = "Проверка URL-адреса";
+"settings.toggle.introspection" = "Вставить библиотеки интроспекции";
+"settings.toggle.introspection.help" = "Добавить системные библиотеки интроспекции в приложение. Известно исправление проблем с некорректным запуском некоторых приложений";
+"settings.picker.scaler" = "Масштаб разрешения";
+"button.Enable" = "Включить";
+"settings.toggle.rootWorkDir.help" = "Изменить рабочий каталог приложения на / как на iOS. Отключите это в случае некорректной работы";
+"button.Reset" = "Сбросить";
+"button.Unlock" = "Разблокировать";
+"settings.toggle.rootWorkDir" = "Запустить приложение в корневой директории";
+"keycover.masterPassword" = "Мастер-пароль";
+"keycover.confirmMasterPassword" = "Потвердить мастер-пароль";
+"keycover.oldMasterPassword" = "Текущий мастер-пароль";
+"keycover.error.blankPassword" = "Пароль не может быть пустым";
+"keycover.error.notMatch" = "Пароли не совпадают друг с другом";
+"keycover.error.incorrectPassword" = "Неправильный пароль";
+"keycover.status.title" = "KeyCover статус:";
+"keycover.status.managedPassword" = "Включено с управляемым паролем";
+"keycover.status.userPassword" = "Включено с пользовательским паролем";
+"keycover.status.chainCount" = "KeyCover Chain статус: ";
+"keycover.status.unlockedCount %@ %@" = "%@ разблокированных цепочек из %@ всего";
+"keycover.button.lockAll" = "Заблокировать все цепочки";
+"keycover.button.changePassword" = "Сменить мастер-пароль";
+"keycover.toggle.startupPrompt" = "Запрашивать KeyCover при запуске";
+"keycover.toggle.startupPrompt.help" = "KeyCover будет запрашивать ваш мастер-пароль при запуске этого приложения. Если отключено, тогда будет запрашиваться при запуске приложения, использующего PlayChain.";
+"keycover.setup.useGeneratedKey" = "Управляется автоматически";
+"keycover.setup.useUserKey" = "Использовать мой собственный ключ";
+"keycover.setup.encryptionKey" = "Ключ шифрования: ";
+"keycover.setupPrompt.title" = "Введите мастер-пароль, который будет использоваться для KeyCover";
+"keycover.changePasswordPrompt.title" = "Введите старый мастер-пароль и новый, чтобы обновить ваш ключ шифрования для KeyCover";
+"keycover.removePrompt.title" = "Введите мастер-пароль, чтобы убрать шифрование KeyCover";
+"keycover.unlockPrompt.title" = "Введите мастер-пароль, чтобы разблокировать KeyCover";
+"keycover.alert.title" = "Keychain не был разблокирован";
+"keycover.alert.content" = "Доступ к Keychain был отключен для текущей сессии";
+"settings.toggle.autoKM" = "Умная раскладка";
+"settings.toggle.autoKM.help" = "Автоматически выключать раскладку при вводе текста";
+"settings.applicationCategoryType" = "Application Type";

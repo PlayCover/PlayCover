@@ -107,7 +107,7 @@
 "playapp.install.createWrapper" = "Membuat pembungkus aplikasi...";
 
 /* (No Comment) */
-"playapp.install.finished" = "Selesai";
+"playapp.progress.finished" = "Selesai";
 
 /* (No Comment) */
 "playapp.install.installPlayTools" = "Menginstall PlayTools...";
@@ -234,21 +234,6 @@
 
 /* (No Comment) */
 "storeAccount.storeAcc" = "Simpan akun";
-
-/* (No Comment) */
-"xcode.install.failed" = "Instalasi otomatis Xcode Command Line Tools gagal";
-
-/* (No Comment) */
-"xcode.install.message" = "Anda perlu menginstal Xcode Command Line Tools dan memulai ulang PlayCover";
-
-/* (No Comment) */
-"xcode.install.progress" = "Menginstalasi Xcode Command Line Tools";
-
-/* (No Comment) */
-"xcode.install.progress.subtext" = "Ini mungkin memakan waktu sekitar 5-10 menit tergantung pada kecepatan internet anda";
-
-/* (No Comment) */
-"xcode.install.success" = "Instalasi Xcode Command Line Tools berhasil";
 "settings.tab.misc" = "Lain-lain";
 "playapp.exportKmPanel.fieldLabel" = "nama PetaMain:";
 "storeAccount.alert.restoreAccount.button" = "Pulihkan akun";
@@ -269,8 +254,6 @@
 "settings.tab.info" = "Informasi";
 "settings.tab.km" = "Pemetaan kontrol";
 "settings.toggle.km.help" = "Tambahkan dukungan keyboard ke game hanya sentuh. Gunakan Command + K untuk membuka menu editor.";
-"settings.toggle.mm" = "Pemetaan mouse";
-"settings.toggle.mm.help" = "Tambahkan kontrol mouse yang meniru gerakan sentuh. Gunakan Command + K untuk membuka menu editor.";
 "settings.tab.graphics" = "Grafis";
 "settings.picker.adaptiveRes" = "Resolusi:";
 "settings.picker.adaptiveRes.help" = "Mengubah resolusi jendela aplikasi";
@@ -279,7 +262,6 @@
 "settings.picker.adaptiveRes.5" = "Kustom";
 "settings.picker.aspectRatio" = "Rasio aspek:";
 "settings.toggle.disableDisplaySleep.help" = "Cegah tampilan mati saat aplikasi ini berjalan";
-"settings.tab.jbBypass" = "Lewati Jailbreak";
 "settings.toggle.jbBypass.help" = "Upaya untuk melewati Deteksi Jailbreak di beberapa game (Tidak dijamin selalu berfungsi)";
 "settings.info.displayName" = "Nama tampilan:";
 "settings.info.bundleName" = "Nama paket:";
@@ -291,8 +273,6 @@
 "settings.resetKm" = "Setel ulang pemetaan kontrol";
 "settings.resetSettingsCompleted" = "Pengaturan telah dikembalikan ke default!";
 "settings.resetKmCompleted" = "Pemetaan kontrol telah disetel ulang!";
-"xcode.install.failed.altInstructions" = "Klik tombol di bawah ini untuk melihat petunjuk pemasangan alternatif";
-"xcode.install.failed.altButton" = "Instruksi alternatif";
 "settings.toggle.hud" = "HUD Logam";
 "settings.info.bundleVersion" = "Versi paket:";
 "playapp.deleteConfirm" = "Uninstall";
@@ -318,7 +298,7 @@
 "preferences.popover.badurl" = "URL tidak valid!";
 "preferences.popover.badjson" = "JSON tidak valid atau tidak ditemukan!";
 "preferences.textfield.url" = "Sumber URL...";
-"playapp.download" = "Menginstall...";
+"playapp.download.downloading" = "Mengunduh";
 "error.waitDownload" = "Harap tunggu hingga unduhan selesai!";
 "preferences.tab.uninstall" = "Hapus instalan";
 "preferences.whenUninstalling" = "Ketika uninstall:";
@@ -330,7 +310,7 @@
 "preferences.button.pruneFiles" = "Pangkas file";
 "preferences.prune.alert" = "Apakah anda yakin ingin memangkas semua file?";
 "preferences.prune.message" = "Ini akan menghapus semua file yang tidak digunakan termasuk pengaturan, pemetaan kontrol, hak, dan data aplikasi";
-"playapp.install.failed" = "Gagal";
+"playapp.progress.failed" = "Gagal";
 "alert.supression" = "Anda dapat mengubah ini di preferensi PlayCover";
 "menubar.clearCache" = "Hapus data gambar";
 "alert.install.injectPlayTools" = "Masukkan PlayTools";
@@ -344,10 +324,10 @@
 "settings.info.playTools" = "PlayTools terpasang:";
 "playapp.refreshSources" = "Menyegarkan sumber";
 "error.appMaliciousProhibited" = "This App behaves maliciously on Macs, and using it can leave your device in an unbootable state, therefore it is blocked from PlayCover. (Uninstalling...)";
-"alert.install.injectPlayToolsQuestion" = "Do you want to inject PlayTools into this application?";
-"alert.install.playToolsInformative" = "PlayTools is a tool that allows you to bind keys to screen touches, custom display resolutions, and more, but it may break certain apps";
-"button.Help" = "Help";
-"button.Dismiss" = "Dismiss";
+"alert.install.injectPlayToolsQuestion" = "Apakah Anda ingin menyuntikkan PlayTools ke dalam aplikasi ini?";
+"alert.install.playToolsInformative" = "PlayTools adalah alat yang memungkinkan Anda untuk mengikat tombol ke sentuhan layar, resolusi tampilan khusus, dan banyak lagi, tetapi dapat merusak aplikasi tertentu";
+"button.Help" = "Bantuan";
+"button.Dismiss" = "Abaikan";
 "state.enabled" = "Enabled";
 "state.disabled" = "Disabled";
 "configSigning.header" = "Configure Package Signing";
@@ -367,15 +347,15 @@
 "configSigning.alert.info" = "Please paste and run the command in Terminal.app. Your Mac will reboot after";
 "state.pendingReboot" = "Pending Reboot";
 "menubar.configSigning" = "Configure Signing";
-"alert.power.title" = "Low Power Mode Enabled!";
-"alert.power.subtitle" = "Some apps will not work with Low Power Mode enabled. It is recommended to disable it.";
-"ipaLibrary.version.older" = "This version is older than the one you have installed";
-"ipaLibrary.version.same" = "App already installed";
-"ipaLibrary.version.newer" = "This version is newer than the version you have installed";
-"ipaLibrary.alert.download" = "Are you sure you want to download this version of %@?";
-"ipaLibrary.download" = "Download";
-"alert.differentBundleIdKeymap.message" = "The keymap may have been created for another application.";
-"alert.differentBundleIdKeymap.text" = "Are you sure you want to import this keymap?";
+"alert.power.title" = "Mode Daya Rendah Diaktifkan!";
+"alert.power.subtitle" = "Beberapa aplikasi tidak akan berfungsi dengan Mode Daya Rendah diaktifkan. Disarankan untuk menonaktifkannya.";
+"ipaLibrary.version.older" = "Versi ini lebih tua dari versi yang telah Anda instal";
+"ipaLibrary.version.same" = "Aplikasi sudah diinstal";
+"ipaLibrary.version.newer" = "Versi ini lebih baru daripada versi yang telah Anda instal";
+"ipaLibrary.alert.download" = "Apakah Anda yakin ingin mengunduh versi %@ ini?";
+"ipaLibrary.download" = "Unduh";
+"alert.differentBundleIdKeymap.message" = "Keymap mungkin telah dibuat untuk aplikasi lain.";
+"alert.differentBundleIdKeymap.text" = "Apakah Anda yakin ingin mengimpor keymap ini?";
 "settings.text.debugger" = "Debugger:";
 "settings.toggle.lldb" = "Open with LLDB";
 "settings.toggle.lldbWithTerminal" = "Open in terminal";
@@ -384,22 +364,60 @@
 "settings.playChain.help" = "Enable PlayChain support for this application, allowing it to (partially) use Apple Keychain Services";
 "settings.playChain.debugging" = "PlayChain debugging";
 "error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
-"playapp.noSources.title" = "No IPAs Installed";
-"playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";
+"playapp.noSources.title" = "Tidak ada IPA yang Diinstal";
+"playapp.noSources.subtitle" = "Saat ini Anda belum memiliki IPA yang terinstal. Klik tombol di bawah ini untuk mengimpornya.";
 "settings.tab.bypasses" = "Bypasses";
 "settings.addToLaunchpad" = "Add to Launchpad";
 "settings.removeFromLaunchpad" = "Remove from Launchpad";
-"playapp.download.integrityCheck" = "Verifying file integrity:";
-"playapp.download.differentChecksum" = "Different checksums! Do you want to continue to install?";
-"playapp.download.differentChecksumDesc" = "Expected \"%@\", got \"%@\"";
-"playapp.progress.canceled" = "Canceled";
-"playapp.importIPA" = "Import IPA";
-"ipaLibrary.noNetworkConnection.required" = "IPA Library requires internet connection";
-"preferences.toggle.removePlayChain" = "Remove PlayChain";
-"preferences.popover.duplicate" = "Duplicate Link";
-"playapp.clearPlayChain" = "Clear PlayChain Data";
-"alert.app.clearPlayChain" = "All PlayChain data will be erased. You may need to login to the app again. Do you wish to continue?";
-"button.Reload" = "Reload";
-"settings.toggle.windowExperimentalFix.help" = "Attempts to fix your app scene if you have problems with it";
-"settings.toggle.windowExperimentalFix" = "Fix window issues";
+"playapp.download.integrityCheck" = "Memverifikasi integritas file:";
+"playapp.download.differentChecksum" = "Checksum yang berbeda! Apakah Anda ingin melanjutkan penginstalan?";
+"playapp.download.differentChecksumDesc" = "Diharapkan \"%@\", yang didapat adalah \"%@\"";
+"playapp.progress.canceled" = "Dibatalkan";
+"playapp.importIPA" = "Impor IPA";
+"ipaLibrary.noNetworkConnection.required" = "IPA Library membutuhkan koneksi internet";
+"preferences.toggle.removePlayChain" = "Hapus PlayChain";
+"preferences.popover.duplicate" = "Tautan Duplikat";
+"playapp.clearPlayChain" = "Bersihkan Data PlayChain";
+"alert.app.clearPlayChain" = "Semua data PlayChain akan dihapus. Anda mungkin perlu masuk ke aplikasi lagi. Apakah Anda ingin melanjutkan?";
+"button.Reload" = "Muat ulang";
 "settings.highResolution" = "High resolution may cause crashing";
+"settings.picker.windowFix" = "Fix window display issues";
+"settings.picker.windowFixMethod.0" = "Normal";
+"settings.picker.windowFixMethod.1" = "Alternate";
+"settings.picker.windowFix.help" = "Apply window fixes that may helps your apps display normally";
+"preferences.popover.checking" = "Memeriksa URL";
+"settings.toggle.introspection" = "Insert Introspection libraries";
+"settings.toggle.introspection.help" = "Add the system introspection libraries to the app. Known to fix issues with some apps not starting correctly";
+"settings.picker.scaler" = "Resolution Scaler";
+"button.Enable" = "Aktifkan";
+"button.Reset" = "Reset";
+"button.Unlock" = "Unlock";
+"settings.toggle.rootWorkDir" = "Start app at root directory";
+"keycover.masterPassword" = "Master Password";
+"keycover.alert.content" = "Keychain access has been disabled for the current session";
+"settings.toggle.rootWorkDir.help" = "Change the working directory of the app to / just like on iOS. Turn this off if the app misbehave";
+"keycover.confirmMasterPassword" = "Confirm Master Password";
+"keycover.oldMasterPassword" = "Current Master Password";
+"keycover.error.blankPassword" = "Password cannot be blank";
+"keycover.error.notMatch" = "Passwords do not match";
+"keycover.error.incorrectPassword" = "Incorrect Password";
+"keycover.status.title" = "KeyCover Status:";
+"keycover.status.managedPassword" = "Enabled with Managed Password";
+"keycover.status.userPassword" = "Enabled with User Password";
+"keycover.status.chainCount" = "KeyCover Chain Status: ";
+"keycover.status.unlockedCount %@ %@" = "%@ unlocked chains in %@ total";
+"keycover.button.lockAll" = "Lock All Chains";
+"keycover.button.changePassword" = "Change Master Password";
+"keycover.toggle.startupPrompt" = "Prompt for KeyCover at startup";
+"keycover.toggle.startupPrompt.help" = "KeyCover will prompt for your master password when you launch the application. If this is disabled, it will be prompted when you launch an app that uses PlayChain.";
+"keycover.setup.useGeneratedKey" = "Managed Automatically";
+"keycover.setup.useUserKey" = "Use my own key";
+"keycover.setup.encryptionKey" = "Encryption Key: ";
+"keycover.setupPrompt.title" = "Enter a master password to use for KeyCover";
+"keycover.changePasswordPrompt.title" = "Enter your old master password and a new one to update your KeyCover encryption key";
+"keycover.removePrompt.title" = "Enter your master password to remove KeyCover encryption";
+"keycover.unlockPrompt.title" = "Enter your master password to unlock KeyCover";
+"keycover.alert.title" = "Keychain was not unlocked";
+"settings.toggle.autoKM" = "Smart Keymap";
+"settings.toggle.autoKM.help" = "Automatically disable keymapping when text input is sensed";
+"settings.applicationCategoryType" = "Application Type";

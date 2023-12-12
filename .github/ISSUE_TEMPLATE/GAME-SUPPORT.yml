@@ -34,6 +34,28 @@ body:
       label: Crash log
       description: Copy and paste in any relevant crash logs in plain text.
       render: shell
+  - type: dropdown
+    id: pc-version
+    attributes:
+      label: What version of PlayCover are you using?
+      options:
+        - Nightly/beta
+        - 2.0.4
+        - 2.0.5
+        - 3.0.0
+    validations:
+        required: true
+  - type: dropdown
+    id: mac-version
+    attributes:
+      label: What version of macOS are you using?
+      options:
+        - "Monterey (macOS 12)"
+        - "Ventura (macOS 13)"
+        - "Sonoma (macOS 14)"
+        - macOS beta (please state the specific version)
+    validations:
+      required: true
   - type: checkboxes
     attributes:
       label: Issue Language

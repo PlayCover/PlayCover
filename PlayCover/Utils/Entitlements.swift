@@ -7,7 +7,6 @@ import Foundation
 import Yams
 
 class Entitlements {
-
     static var playCoverEntitlementsDir: URL {
         let entFolder = PlayTools.playCoverContainer.appendingPathComponent("Entitlements")
         if !FileManager.default.fileExists(atPath: entFolder.path) {
@@ -54,7 +53,7 @@ class Entitlements {
         base["com.apple.security.print"] = true
     }
 
-    // swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable:next cyclomatic_complexity
     static func composeEntitlements(_ app: PlayApp) throws -> [String: Any] {
         var base = [String: Any]()
         let bundleID = app.info.bundleIdentifier
@@ -92,14 +91,14 @@ class Entitlements {
         sandboxProfile.append(contentsOf: PlayRules.buildRules(rules: rules.allow ?? [], bundleID: bundleID))
 
         if app.settings.settings.bypass {
-            for file in PlayRules.buildRules(rules: rules.blacklist ?? [], bundleID: bundleID) {
+            for file in PlayRules.buildRules(rules: rules.blocklist ?? [], bundleID: bundleID) {
                 sandboxProfile.append(
                     """
                      (deny file* file-read* file-read-metadata file-ioctl (literal "\(file)"))
                     """)
             }
 
-            for file in PlayRules.buildRules(rules: rules.whitelist ?? [], bundleID: bundleID) {
+            for file in PlayRules.buildRules(rules: rules.greenlist ?? [], bundleID: bundleID) {
                 sandboxProfile.append(
                     """
                      (allow file* file-read* file-read-metadata file-ioctl (literal "\(file)"))

@@ -5,6 +5,35 @@
 
 import Foundation
 
+enum LSApplicationCategoryType: String, CaseIterable {
+    case business = "public.app-category.business"
+    case developerTools = "public.app-category.developer-tools"
+    case education = "public.app-category.education"
+    case entertainment = "public.app-category.entertainment"
+    case finance = "public.app-category.finance"
+    case games = "public.app-category.games"
+    case graphicsDesign = "public.app-category.graphics-design"
+    case healthcareFitness = "public.app-category.healthcare-fitness"
+    case lifestyle = "public.app-category.lifestyle"
+    case medical = "public.app-category.medical"
+    case music = "public.app-category.music"
+    case news = "public.app-category.news"
+    case photography = "public.app-category.photography"
+    case productivity = "public.app-category.productivity"
+    case reference = "public.app-category.reference"
+    case socialNetworking = "public.app-category.social-networking"
+    case sports = "public.app-category.sports"
+    case travel = "public.app-category.travel"
+    case utilities = "public.app-category.utilities"
+    case video = "public.app-category.video"
+    case weather = "public.app-category.weather"
+    case none = "public.app-category.none" // Note: This is not in an official category type
+
+    var localizedName: String {
+        NSLocalizedString(rawValue, comment: "")
+    }
+}
+
 public class AppInfo {
     public let url: URL
     fileprivate var rawStorage: NSMutableDictionary
@@ -122,9 +151,29 @@ public class AppInfo {
         }
     }
 
+    var applicationCategoryType: LSApplicationCategoryType {
+        get {
+            LSApplicationCategoryType(
+                rawValue: self[string: "LSApplicationCategoryType"] ?? ""
+            ) ?? LSApplicationCategoryType.none
+        }
+        set {
+            if newValue == .none {
+                rawStorage.removeObject(forKey: "LSApplicationCategoryType")
+            } else {
+                self[string: "LSApplicationCategoryType"] = newValue.rawValue
+            }
+            do {
+                try write()
+            } catch {
+                Log.shared.error(error)
+            }
+        }
+    }
+
     var minimumOSVersion: String {
         get {
-            self[string: "MinimumOSVersion"]!
+            self[string: "MinimumOSVersion"] ?? ""
         }
         set {
             self[string: "MinimumOSVersion"] = newValue
@@ -133,30 +182,30 @@ public class AppInfo {
 
     var bundleName: String {
         if self[string: "CFBundleName"] == nil || self[string: "CFBundleName"] == "" {
-            return self[string: "CFBundleDisplayName"]!
+            return self[string: "CFBundleDisplayName"] ?? ""
         } else {
-            return self[string: "CFBundleName"]!
+            return self[string: "CFBundleName"] ?? ""
         }
     }
 
     var displayName: String {
         if self[string: "CFBundleDisplayName"] == nil || self[string: "CFBundleDisplayName"] == "" {
-            return self[string: "CFBundleName"]!
+            return self[string: "CFBundleName"] ?? ""
         } else {
-            return self[string: "CFBundleDisplayName"]!
+            return self[string: "CFBundleDisplayName"] ?? ""
         }
     }
 
     var bundleIdentifier: String {
-        self[string: "CFBundleIdentifier"]!
+        self[string: "CFBundleIdentifier"] ?? ""
     }
 
     var executableName: String {
-        self[string: "CFBundleExecutable"]!
+        self[string: "CFBundleExecutable"] ?? ""
     }
 
     var bundleVersion: String {
-        self[string: "CFBundleShortVersionString"]!
+        self[string: "CFBundleShortVersionString"] ?? ""
     }
 
     var primaryIconName: String {
@@ -186,18 +235,36 @@ public class AppInfo {
         return "AppIcon"
     }
 
-    var supportsTrueScreenSizeOnMac: Bool {
+    var lsEnvironment: [String: String] {
         get {
-            self[bool: "UISupportsTrueScreenSizeOnMac"]!
+            if self[dictionary: "LSEnvironment"] == nil {
+                self[dictionary: "LSEnvironment"] = NSMutableDictionary(dictionary: [String: String]())
+            }
+
+            return self[dictionary: "LSEnvironment"] as? [String: String] ?? [:]
         }
         set {
-            self[bool: "UISupportsTrueScreenSizeOnMac"] = newValue
+            if self[dictionary: "LSEnvironment"] == nil {
+                self[dictionary: "LSEnvironment"] = NSMutableDictionary(dictionary: [String: String]())
+            }
+
+            if let key = newValue.first?.key, let value = newValue.first?.value {
+                self[dictionary: "LSEnvironment"]?[key] = value
+
+                do {
+                    try write()
+                } catch {
+                    Log.shared.error(error)
+                }
+            }
         }
     }
 
     func assert(minimumVersion: Double) {
-        if Double(minimumOSVersion)! > 11.0 {
-            minimumOSVersion = Int(minimumVersion).description
+        if let double = Double(minimumOSVersion) {
+            if double > 11.0 {
+                minimumOSVersion = Int(minimumVersion).description
+            }
         }
     }
 }
