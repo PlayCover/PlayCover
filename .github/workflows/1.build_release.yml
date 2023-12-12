@@ -17,7 +17,7 @@ jobs:
 
       - name: Get the version
         id: tag_version
-        run: echo ::set-output name=TAG_NAME::${GITHUB_REF/refs\/tags\//}
+        run: echo ::set-output name=TAG_NAME::PlayCover_3.0.0rc2
 
       - name: Install dependencies
         shell: bash
@@ -46,9 +46,9 @@ jobs:
         shell: bash
         run: |
           create-dmg ./output/PlayCover.app ./output
-          mv ./output/*.dmg ./output/PlayCover_${{ env.TAG_NAME }}.dmg
+          mv ./output/*.dmg ./output/PlayCover_3.0.0rc2.dmg
         env:
-          TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
+          TAG_NAME: PlayCover_3.0.0rc2
 
       - name: Notarize DMG
         shell: bash
