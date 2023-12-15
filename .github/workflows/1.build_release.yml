@@ -49,13 +49,14 @@ jobs:
           mv ./output/*.dmg ./output/PlayCover_3.0.0rc2.dmg
         env:
           TAG_NAME: PlayCover_3.0.0rc2
-
-      - name: Notarize DMG
-        shell: bash
-        run: |
-          fastlane notarize_dmg package:output/PlayCover_${{ env.TAG_NAME }}.dmg
-        env:
-          TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
+          
+      # Will bring back with new settings to bring notorization back
+      # - name: Notarize DMG
+      #   shell: bash
+      #   run: |
+      #     fastlane notarize_dmg package:output/PlayCover_${{ env.TAG_NAME }}.dmg
+      #   env:
+      #     TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
 
       - name: Clean Up
         shell: bash
