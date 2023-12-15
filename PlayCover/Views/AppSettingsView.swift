@@ -20,6 +20,8 @@ struct AppSettingsView: View {
     @State var appIcon: NSImage?
     @State var hasPlayTools: Bool?
     @State var hasAlias: Bool?
+    
+    @State private var isPlayToolsInProgress = false
 
     @State private var cache = DataCache.instance
 
@@ -92,7 +94,8 @@ struct AppSettingsView: View {
                 MiscView(settings: $viewModel.settings,
                          closeView: $closeView,
                          hasPlayTools: $hasPlayTools,
-                         hasAlias: $hasAlias,
+                         hasAlias: $hasAlias, 
+                         isPlayToolsInProgress: $isPlayToolsInProgress,
                          app: viewModel.app,
                          applicationCategoryType: viewModel.app.info.applicationCategoryType)
                     .tabItem {
@@ -123,6 +126,7 @@ struct AppSettingsView: View {
                 .keyboardShortcut(.defaultAction)
             }
         }
+        .disabled(isPlayToolsInProgress)
         .onChange(of: resetSettingsCompletedAlert) { _ in
             ToastVM.shared.showToast(
                 toastType: .notice,
@@ -502,7 +506,8 @@ struct MiscView: View {
     @Binding var closeView: Bool
     @Binding var hasPlayTools: Bool?
     @Binding var hasAlias: Bool?
-
+    @Binding var isPlayToolsInProgress: Bool
+    
     @State var showPopover = false
 
     var app: PlayApp
@@ -599,14 +604,15 @@ struct MiscView: View {
                 Spacer()
                     .frame(height: 20)
                 HStack {
+                    if isPlayToolsInProgress { ProgressView().scaleEffect(0.5) }
                     Button((hasPlayTools ?? true) ? "settings.removePlayTools" : "alert.install.injectPlayTools") {
-                        closeView.toggle()
+                        isPlayToolsInProgress.toggle()
                         Task(priority: .userInitiated) {
                             if hasPlayTools ?? true {
-                                PlayTools.removeFromApp(app.executable)
+                                await PlayTools.removeFromApp(app.executable)
                             } else {
                                 do {
-                                    try PlayTools.installInIPA(app.executable)
+                                    try await PlayTools.installInIPA(app.executable)
                                 } catch {
                                     Log.shared.error(error)
                                 }
@@ -616,6 +622,9 @@ struct MiscView: View {
                                 AppsVM.shared.filteredApps = []
                                 AppsVM.shared.fetchApps()
                             }
+
+                            isPlayToolsInProgress.toggle()
+                            closeView.toggle()
                         }
                     }
                     Spacer()

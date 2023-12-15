@@ -71,7 +71,7 @@ class PlayTools {
         }
     }
 
-    static func installInIPA(_ exec: URL) throws {
+    static func installInIPA(_ exec: URL) async throws {
         var binary = try Data(contentsOf: exec)
         try Macho.stripBinary(&binary)
 
@@ -168,7 +168,7 @@ class PlayTools {
         })
     }
 
-    static func removeFromApp(_ exec: URL) {
+    static func removeFromApp(_ exec: URL) async {
         Inject.removeMachO(machoPath: exec.path,
                            cmdType: .loadDylib,
                            backup: false,
