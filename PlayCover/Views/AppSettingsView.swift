@@ -20,7 +20,6 @@ struct AppSettingsView: View {
     @State var appIcon: NSImage?
     @State var hasPlayTools: Bool?
     @State var hasAlias: Bool?
-    
     @State private var isPlayToolsInProgress = false
 
     @State private var cache = DataCache.instance
@@ -94,7 +93,7 @@ struct AppSettingsView: View {
                 MiscView(settings: $viewModel.settings,
                          closeView: $closeView,
                          hasPlayTools: $hasPlayTools,
-                         hasAlias: $hasAlias, 
+                         hasAlias: $hasAlias,
                          isPlayToolsInProgress: $isPlayToolsInProgress,
                          app: viewModel.app,
                          applicationCategoryType: viewModel.app.info.applicationCategoryType)
@@ -507,7 +506,7 @@ struct MiscView: View {
     @Binding var hasPlayTools: Bool?
     @Binding var hasAlias: Bool?
     @Binding var isPlayToolsInProgress: Bool
-    
+
     @State var showPopover = false
 
     var app: PlayApp
