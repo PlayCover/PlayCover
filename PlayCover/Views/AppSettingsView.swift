@@ -20,7 +20,10 @@ struct AppSettingsView: View {
     @State var appIcon: NSImage?
     @State var hasPlayTools: Bool?
     @State var hasAlias: Bool?
-    @State private var isPlayToolsInProgress = false
+
+    @State private var isSwitchingPlayToolsInjection = false
+    @State private var isSwitchingIntrospection = false
+    @State private var isSwitchingIosFrameworks = false
 
     @State private var cache = DataCache.instance
 
@@ -83,8 +86,8 @@ struct AppSettingsView: View {
                     .disabled(!(hasPlayTools ?? true))
                 BypassesView(settings: $viewModel.settings,
                              hasPlayTools: $hasPlayTools,
-                             hasIntrospection: viewModel.app.changeDyldLibraryPath(path: PlayApp.introspection),
-                             hasIosFrameworks: viewModel.app.changeDyldLibraryPath(path: PlayApp.iosFrameworks),
+                             isSwitchingIntrospectionLibraryInsertion: $isSwitchingIntrospection,
+                             isSwitchingIosFrameworksInsertion: $isSwitchingIosFrameworks,
                              app: viewModel.app)
                     .tabItem {
                         Text("settings.tab.bypasses")
@@ -94,7 +97,7 @@ struct AppSettingsView: View {
                          closeView: $closeView,
                          hasPlayTools: $hasPlayTools,
                          hasAlias: $hasAlias,
-                         isPlayToolsInProgress: $isPlayToolsInProgress,
+                         isSwitchingPlayToolsInjection: $isSwitchingPlayToolsInjection,
                          app: viewModel.app,
                          applicationCategoryType: viewModel.app.info.applicationCategoryType)
                     .tabItem {
@@ -125,7 +128,7 @@ struct AppSettingsView: View {
                 .keyboardShortcut(.defaultAction)
             }
         }
-        .disabled(isPlayToolsInProgress)
+        .disabled(isWaitingForTasks)
         .onChange(of: resetSettingsCompletedAlert) { _ in
             ToastVM.shared.showToast(
                 toastType: .notice,
@@ -144,6 +147,10 @@ struct AppSettingsView: View {
             hasAlias = viewModel.app.hasAlias()
         }
         .padding()
+    }
+
+    private var isWaitingForTasks: Bool {
+        isSwitchingPlayToolsInjection || isSwitchingIntrospection || isSwitchingIosFrameworks
     }
 }
 
@@ -452,9 +459,11 @@ struct GraphicsView: View {
 struct BypassesView: View {
     @Binding var settings: AppSettings
     @Binding var hasPlayTools: Bool?
+    @Binding var isSwitchingIntrospectionLibraryInsertion: Bool
+    @Binding var isSwitchingIosFrameworksInsertion: Bool
 
-    @State var hasIntrospection: Bool
-    @State var hasIosFrameworks: Bool
+    @State private var hasIntrospection: Bool = false
+    @State private var hasIosFrameworks: Bool = false
 
     var app: PlayApp
 
@@ -478,24 +487,54 @@ struct BypassesView: View {
                 }
                 Spacer()
                 HStack {
-                    Toggle("settings.toggle.introspection", isOn: $hasIntrospection)
-                        .help("settings.toggle.introspection.help")
+                    if isSwitchingIntrospectionLibraryInsertion {
+                        HStack {
+                            ProgressView()
+                                .scaleEffect(0.5)
+                                .frame(width: 10, height: 20)
+                            Text("settings.toggle.introspection")
+                        }
+                    } else {
+                        Toggle("settings.toggle.introspection", isOn: $hasIntrospection)
+                            .help("settings.toggle.introspection.help")
+                    }
                     Spacer()
                 }
                 Spacer()
                 HStack {
-                    Toggle("settings.toggle.iosFrameworks", isOn: $hasIosFrameworks)
-                        .help("settings.toggle.iosFrameworks.help")
+                    if isSwitchingIosFrameworksInsertion {
+                        HStack {
+                            ProgressView()
+                                .scaleEffect(0.5)
+                                .frame(width: 10, height: 20)
+                            Text("settings.toggle.iosFrameworks")
+                        }
+                    } else {
+                        Toggle("settings.toggle.iosFrameworks", isOn: $hasIosFrameworks)
+                            .help("settings.toggle.iosFrameworks.help")
+                    }
                     Spacer()
                 }
             }
             .padding()
         }
         .onChange(of: hasIntrospection) {_ in
-            _ = app.changeDyldLibraryPath(set: hasIntrospection, path: PlayApp.introspection)
+            isSwitchingIntrospectionLibraryInsertion.toggle()
+            Task {
+                _ = await app.changeDyldLibraryPath(set: hasIntrospection, path: PlayApp.introspection)
+                isSwitchingIntrospectionLibraryInsertion.toggle()
+            }
         }
         .onChange(of: hasIosFrameworks) {_ in
-            _ = app.changeDyldLibraryPath(set: hasIosFrameworks, path: PlayApp.iosFrameworks)
+            isSwitchingIosFrameworksInsertion.toggle()
+            Task {
+                _ = await app.changeDyldLibraryPath(set: hasIosFrameworks, path: PlayApp.iosFrameworks)
+                isSwitchingIosFrameworksInsertion.toggle()
+            }
+        }
+        .task {
+            hasIntrospection = await app.changeDyldLibraryPath(path: PlayApp.introspection)
+            hasIosFrameworks = await app.changeDyldLibraryPath(path: PlayApp.iosFrameworks)
         }
     }
 }
@@ -505,7 +544,7 @@ struct MiscView: View {
     @Binding var closeView: Bool
     @Binding var hasPlayTools: Bool?
     @Binding var hasAlias: Bool?
-    @Binding var isPlayToolsInProgress: Bool
+    @Binding var isSwitchingPlayToolsInjection: Bool
 
     @State var showPopover = false
 
@@ -603,13 +642,13 @@ struct MiscView: View {
                 Spacer()
                     .frame(height: 20)
                 HStack {
-                    if isPlayToolsInProgress {
+                    if isSwitchingPlayToolsInjection {
                         ProgressView()
                             .scaleEffect(0.5)
                             .frame(height: 20)
                     }
                     Button((hasPlayTools ?? true) ? "settings.removePlayTools" : "alert.install.injectPlayTools") {
-                        isPlayToolsInProgress.toggle()
+                        isSwitchingPlayToolsInjection.toggle()
                         Task(priority: .userInitiated) {
                             if hasPlayTools ?? true {
                                 await PlayTools.removeFromApp(app.executable)
@@ -626,7 +665,7 @@ struct MiscView: View {
                                 AppsVM.shared.fetchApps()
                             }
 
-                            isPlayToolsInProgress.toggle()
+                            isSwitchingPlayToolsInjection.toggle()
                             closeView.toggle()
                         }
                     }

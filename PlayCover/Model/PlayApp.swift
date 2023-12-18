@@ -216,7 +216,7 @@ class PlayApp: BaseApp {
     static let introspection: String = "/usr/lib/system/introspection"
     static let iosFrameworks: String = "/System/iOSSupport/System/Library/Frameworks"
 
-    func changeDyldLibraryPath(set: Bool? = nil, path: String) -> Bool {
+    func changeDyldLibraryPath(set: Bool? = nil, path: String) async -> Bool {
         info.lsEnvironment["DYLD_LIBRARY_PATH"] = info.lsEnvironment["DYLD_LIBRARY_PATH"] ?? ""
 
         if let set = set {
