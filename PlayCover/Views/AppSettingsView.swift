@@ -603,7 +603,11 @@ struct MiscView: View {
                 Spacer()
                     .frame(height: 20)
                 HStack {
-                    if isPlayToolsInProgress { ProgressView().scaleEffect(0.5) }
+                    if isPlayToolsInProgress {
+                        ProgressView()
+                            .scaleEffect(0.5)
+                            .frame(height: 20)
+                    }
                     Button((hasPlayTools ?? true) ? "settings.removePlayTools" : "alert.install.injectPlayTools") {
                         isPlayToolsInProgress.toggle()
                         Task(priority: .userInitiated) {
