@@ -51,6 +51,7 @@ class Entitlements {
         base["com.apple.security.personal-information.calendars"] = true
         base["com.apple.security.personal-information.location"] = true
         base["com.apple.security.print"] = true
+        base["com.apple.developer.applesignin"] = "Default"
     }
 
     // swiftlint:disable:next cyclomatic_complexity
