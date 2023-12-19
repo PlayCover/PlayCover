@@ -112,7 +112,7 @@ class Uninstaller {
         var uninstallNum = 0
 
         if UninstallPreferences.shared.clearAppData {
-            app.clearAllCache()
+            Task { await app.clearAllCache() }
             uninstallNum += 1
         }
 

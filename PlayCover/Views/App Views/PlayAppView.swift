@@ -136,13 +136,15 @@ struct PlayAppView: View {
             .sheet(isPresented: $showDeleteGenshinAccount) {
                 DeleteGenshinAccountView()
             }
-            .alert("alert.app.delete", isPresented: $showClearCacheAlert) {
-                Button("button.Proceed", role: .destructive) {
-                    app.clearAllCache()
-                    showClearCacheToast.toggle()
-                }
-                Button("button.Cancel", role: .cancel) { }
-            }
+
+        /*
+         * Since SwiftUI‘s native alert does not support being dismissed programmatically,
+         * an async method will immediately hide the dialog after clicking the button,
+         * this leads to the execution state of the task not being observed by the user, 
+         * resulting in the risk of misoperation,
+         * so a customized sheet is used as an alternative.
+         */
+            .sheet(isPresented: $showClearCacheAlert) { ClearCacheModalView(app: $app) }
             .alert("alert.app.preferences", isPresented: $showClearPreferencesAlert) {
                 Button("button.Proceed", role: .destructive) {
                     deletePreferences(app: app.info.bundleIdentifier)
@@ -328,6 +330,71 @@ struct PlayAppConditionalView: View {
         }
         .task(priority: .background) {
             hasPlayTools = app.hasPlayTools()
+        }
+    }
+}
+
+struct ClearCacheModalView: View {
+    @Environment(\.dismiss) private var dismiss
+    @Binding var app: PlayApp
+    @State private var isClearingCache = false
+    @State private var appIcon: NSImage?
+    @State private var cache = DataCache.instance
+
+    var body: some View {
+        VStack {
+            Group {
+                if let image = appIcon {
+                    Image(nsImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                } else {
+                    Rectangle()
+                        .fill(.regularMaterial)
+                        .overlay {
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                                .controlSize(.small)
+                        }
+                }
+            }
+            .cornerRadius(15)
+            .shadow(radius: 1)
+            .frame(width: 60, height: 60)
+            .padding()
+            Text("alert.app.delete")
+                .bold()
+                .frame(width: 250)
+        }
+        .padding()
+        .fixedSize()
+        .toolbar {
+            ToolbarItem(placement: .destructiveAction) {
+                if isClearingCache {
+                    ProgressView()
+                        .scaleEffect(0.5)
+                } else {
+                    Button("\(Text("button.Proceed").foregroundColor(.red))") {
+                        isClearingCache.toggle()
+                        Task {
+                            await app.clearAllCache()
+                            isClearingCache.toggle()
+                            dismiss()
+                        }
+                    }
+                }
+            }
+            ToolbarItem(placement: .cancellationAction) {
+                Button("button.Cancel") { dismiss() }
+            }
+        }
+        .disabled(isClearingCache)
+        .task(priority: .userInitiated) {
+            let compareStr = app.info.bundleIdentifier + app.info.bundleVersion
+            if cache.readImage(forKey: app.info.bundleIdentifier) != nil
+                && cache.readString(forKey: compareStr) != nil {
+                appIcon = cache.readImage(forKey: app.info.bundleIdentifier)
+            } else { appIcon = Cacher().resolveLocalIcon(app) }
         }
     }
 }

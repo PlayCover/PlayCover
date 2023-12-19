@@ -36,10 +36,10 @@ class PlayApp: BaseApp {
         do {
             isStarting = true
             if prohibitedToPlay {
-                clearAllCache()
+                await clearAllCache()
                 throw PlayCoverError.appProhibited
             } else if maliciousProhibited {
-                clearAllCache()
+                await clearAllCache()
                 deleteApp()
                 throw PlayCoverError.appMaliciousProhibited
             }
@@ -257,7 +257,7 @@ class PlayApp: BaseApp {
         container.containerUrl.showInFinderAndSelectLastComponent()
     }
 
-    func clearAllCache() {
+    func clearAllCache() async {
         Uninstaller.clearExternalCache(info.bundleIdentifier)
     }
 
