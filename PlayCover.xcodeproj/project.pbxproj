@@ -72,6 +72,8 @@
 		AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA71964A287A0EA800623C15 /* PlayRules.swift */; };
 		AA71964D287A35F400623C15 /* com.nexon.bluearchive.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA71964C287A35F400623C15 /* com.nexon.bluearchive.yaml */; };
 		AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = AA818CB4287ABEC3000BEE9D /* Yams */; };
+		AACF11A42B31769C008BAA81 /* UnintallVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF11A32B31769C008BAA81 /* UnintallVM.swift */; };
+		AACF11A62B3176B2008BAA81 /* ClearCacheModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF11A52B3176B2008BAA81 /* ClearCacheModalView.swift */; };
 		AB00EB5229A7BF17006F3225 /* KeyCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB00EB5129A7BF17006F3225 /* KeyCover.swift */; };
 		AB6F21EB299B7FA20078ADEC /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6F21EA299B7FA20078ADEC /* URLHandler.swift */; };
 		ABDAD80629893CF900DC164F /* KeyCoverSetupViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDAD80529893CF900DC164F /* KeyCoverSetupViews.swift */; };
@@ -175,6 +177,8 @@
 		AA71964A287A0EA800623C15 /* PlayRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayRules.swift; sourceTree = "<group>"; };
 		AA71964C287A35F400623C15 /* com.nexon.bluearchive.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = com.nexon.bluearchive.yaml; sourceTree = "<group>"; };
 		AA970FD228793A310099A5D0 /* PlayCoverRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayCoverRelease.entitlements; sourceTree = "<group>"; };
+		AACF11A32B31769C008BAA81 /* UnintallVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnintallVM.swift; sourceTree = "<group>"; };
+		AACF11A52B3176B2008BAA81 /* ClearCacheModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearCacheModalView.swift; sourceTree = "<group>"; };
 		AB00EB5129A7BF17006F3225 /* KeyCover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCover.swift; sourceTree = "<group>"; };
 		AB6F21EA299B7FA20078ADEC /* URLHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHandler.swift; sourceTree = "<group>"; };
 		ABDAD80529893CF900DC164F /* KeyCoverSetupViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCoverSetupViews.swift; sourceTree = "<group>"; };
@@ -307,6 +311,7 @@
 				6E66B0D828A135360099B907 /* ToastVM.swift */,
 				53F4D29F26C43C690020167C /* Log.swift */,
 				B6ABDA292971EEF700A46E80 /* ProgressVM.swift */,
+				AACF11A32B31769C008BAA81 /* UnintallVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -370,6 +375,7 @@
 			children = (
 				92EE06D3274EA604002C907B /* PlayAppView.swift */,
 				6E66B0D2289F5A010099B907 /* StoreAppView.swift */,
+				AACF11A52B3176B2008BAA81 /* ClearCacheModalView.swift */,
 			);
 			path = "App Views";
 			sourceTree = "<group>";
@@ -675,6 +681,8 @@
 				68E48B97295704A600C39879 /* Downloader.swift in Sources */,
 				28361D5E2892781200B35EDB /* RestoreGenshinUserData.swift in Sources */,
 				36B26B97288C724600859EFD /* UpdateSettings.swift in Sources */,
+				AACF11A42B31769C008BAA81 /* UnintallVM.swift in Sources */,
+				AACF11A62B3176B2008BAA81 /* ClearCacheModalView.swift in Sources */,
 				ABDAD80A29893EA300DC164F /* KeyCoverSettings.swift in Sources */,
 				8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */,
 				AB6F21EB299B7FA20078ADEC /* URLHandler.swift in Sources */,

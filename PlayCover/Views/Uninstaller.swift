@@ -101,18 +101,19 @@ class Uninstaller {
                     UninstallPreferences.shared.showUninstallPopup = false
                 }
 
-                uninstall(app)
+                Task { await uninstall(app) }
             }
         } else {
-            uninstall(app)
+            Task { await uninstall(app) }
         }
     }
 
-    static func uninstall(_ app: PlayApp) {
+    static func uninstall(_ app: PlayApp) async {
         var uninstallNum = 0
 
+        UninstallVM.shared.next(.begin, 0.0, 0.0)
         if UninstallPreferences.shared.clearAppData {
-            Task { await app.clearAllCache() }
+            await app.clearAllCache()
             uninstallNum += 1
         }
 
@@ -150,12 +151,12 @@ class Uninstaller {
             do {
                 let apps = (try PlayApp.bundleIDCache).filter({ $0 != app.info.bundleIdentifier })
                     .joined(separator: "\n") + "\n"
-
                 try apps.write(to: PlayApp.bundleIDCacheURL, atomically: false, encoding: .utf8)
             } catch {
                 Log.shared.error(error)
             }
         }
+        UninstallVM.shared.next(.finish, 0.95, 1.0)
     }
 
     static func clearExternalCache(_ bundleId: String) {
