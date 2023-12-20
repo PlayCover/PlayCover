@@ -46,13 +46,23 @@ struct ClearCacheModalView: View {
                     ProgressView()
                         .scaleEffect(0.5)
                 } else {
-                    Button("\(Text("button.Proceed").foregroundColor(.red))") {
+                    Button {
                         isClearingCache.toggle()
                         Task {
                             await app.clearAllCache()
                             isClearingCache.toggle()
                             dismiss()
                         }
+                    } label: {
+                        Text("button.Proceed")
+                            .foregroundStyle(.red)
+                            .opacity(isClearingCache ? 0 : 1)
+                            .overlay {
+                                if isClearingCache {
+                                    ProgressView()
+                                        .scaleEffect(0.5)
+                                }
+                            }
                     }
                 }
             }
@@ -70,4 +80,3 @@ struct ClearCacheModalView: View {
         }
     }
 }
-

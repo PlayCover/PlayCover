@@ -487,32 +487,16 @@ struct BypassesView: View {
                 }
                 Spacer()
                 HStack {
-                    if isSwitchingIntrospectionLibraryInsertion {
-                        HStack {
-                            ProgressView()
-                                .scaleEffect(0.5)
-                                .frame(width: 10, height: 20)
-                            Text("settings.toggle.introspection")
-                        }
-                    } else {
-                        Toggle("settings.toggle.introspection", isOn: $hasIntrospection)
-                            .help("settings.toggle.introspection.help")
-                    }
+                    Toggle("settings.toggle.introspection", isOn: $hasIntrospection)
+                        .help("settings.toggle.introspection.help")
+                        .toggleStyle(.async(isProcessing: $isSwitchingIntrospectionLibraryInsertion))
                     Spacer()
                 }
                 Spacer()
                 HStack {
-                    if isSwitchingIosFrameworksInsertion {
-                        HStack {
-                            ProgressView()
-                                .scaleEffect(0.5)
-                                .frame(width: 10, height: 20)
-                            Text("settings.toggle.iosFrameworks")
-                        }
-                    } else {
-                        Toggle("settings.toggle.iosFrameworks", isOn: $hasIosFrameworks)
-                            .help("settings.toggle.iosFrameworks.help")
-                    }
+                    Toggle("settings.toggle.iosFrameworks", isOn: $hasIosFrameworks)
+                        .help("settings.toggle.iosFrameworks.help")
+                        .toggleStyle(.async(isProcessing: $isSwitchingIosFrameworksInsertion))
                     Spacer()
                 }
             }
@@ -642,12 +626,7 @@ struct MiscView: View {
                 Spacer()
                     .frame(height: 20)
                 HStack {
-                    if isSwitchingPlayToolsInjection {
-                        ProgressView()
-                            .scaleEffect(0.5)
-                            .frame(height: 20)
-                    }
-                    Button((hasPlayTools ?? true) ? "settings.removePlayTools" : "alert.install.injectPlayTools") {
+                    Button {
                         isSwitchingPlayToolsInjection.toggle()
                         Task(priority: .userInitiated) {
                             if hasPlayTools ?? true {
@@ -668,6 +647,14 @@ struct MiscView: View {
                             isSwitchingPlayToolsInjection.toggle()
                             closeView.toggle()
                         }
+                    } label: {
+                        Text((hasPlayTools ?? true) ? "settings.removePlayTools" : "alert.install.injectPlayTools")
+                            .opacity(isSwitchingPlayToolsInjection ? 0 : 1)
+                            .overlay {
+                                if isSwitchingPlayToolsInjection {
+                                    ProgressView().scaleEffect(0.5)
+                                }
+                            }
                     }
                     Spacer()
                 }
@@ -754,5 +741,33 @@ struct InfoView: View {
         }
         .listStyle(.bordered(alternatesRowBackgrounds: true))
         .padding()
+    }
+}
+
+struct AsyncToggleStyle: ToggleStyle {
+    @Binding var isProcessing: Bool
+    func makeBody(configuration: Configuration) -> some View {
+        if isProcessing {
+            return AnyView(
+                HStack(spacing: 3) {
+                    ProgressView()
+                        .scaleEffect(0.5)
+                        .frame(width: 16, height: 16)
+
+                    configuration.label
+                }
+                    .offset(y: 3)
+            )
+        } else {
+            return AnyView(
+                Toggle(isOn: configuration.$isOn) { configuration.label }
+            )
+        }
+    }
+}
+
+extension ToggleStyle where Self == AsyncToggleStyle {
+    static func async(isProcessing: Binding<Bool>) -> AsyncToggleStyle {
+        AsyncToggleStyle(isProcessing: isProcessing)
     }
 }
