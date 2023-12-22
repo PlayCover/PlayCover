@@ -46,9 +46,9 @@ jobs:
         shell: bash
         run: |
           create-dmg ./output/PlayCover.app ./output
-          mv ./output/*.dmg ./output/PlayCover_3.0.0rc2.dmg
+          mv ./output/*.dmg ./output/${{ env.TAG_NAME }}.dmg
         env:
-          TAG_NAME: PlayCover_3.0.0rc2
+          TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
           
       # Will bring back with new settings to bring notorization back
       # - name: Notarize DMG
@@ -65,8 +65,8 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: PlayCover_${{ env.TAG_NAME }}.dmg
-          path: output/PlayCover_${{ env.TAG_NAME }}.dmg
+          name: ${{ env.TAG_NAME }}.dmg
+          path: output/${{ env.TAG_NAME }}.dmg
         env:
           TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
 
@@ -76,6 +76,6 @@ jobs:
         with:
           draft: true
           files: |
-            output/PlayCover_${{ env.TAG_NAME }}.dmg
+            output/${{ env.TAG_NAME }}.dmg
         env:
           TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
