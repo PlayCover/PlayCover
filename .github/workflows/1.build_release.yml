@@ -23,7 +23,9 @@ jobs:
         shell: bash
         run: |
           brew install graphicsmagick imagemagick
+          gem install fastlane
           bundle install
+          pip install setuptools
           npm install --global create-dmg
 
       - name: Fastlane Release
