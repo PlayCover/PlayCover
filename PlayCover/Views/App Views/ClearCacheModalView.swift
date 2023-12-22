@@ -8,7 +8,9 @@ import DataCache
 
 struct ClearCacheModalView: View {
     @Environment(\.dismiss) private var dismiss
+
     @Binding var app: PlayApp
+
     @State private var isClearingCache = false
     @State private var appIcon: NSImage?
     @State private var cache = DataCache.instance

@@ -24,11 +24,9 @@ struct AppSettingsView: View {
     @State var appIcon: NSImage?
     @State var hasPlayTools: Bool?
     @State var hasAlias: Bool?
+
     @State private var currentTask = BlockingTask.none
-
     @State private var cache = DataCache.instance
-
-    private var isInBlockingTask: Bool { currentTask != .none }
 
     var body: some View {
         VStack {
@@ -130,7 +128,7 @@ struct AppSettingsView: View {
                 .keyboardShortcut(.defaultAction)
             }
         }
-        .disabled(isInBlockingTask)
+        .disabled(currentTask != .none)
         .onChange(of: resetSettingsCompletedAlert) { _ in
             ToastVM.shared.showToast(
                 toastType: .notice,
@@ -743,7 +741,9 @@ struct InfoView: View {
 
 struct AsyncToggleStyle: ToggleStyle {
     @Binding var task: BlockingTask
-    @State var role: BlockingTask
+
+    var role: BlockingTask
+
     func makeBody(configuration: Configuration) -> some View {
         if task == role {
             return AnyView(
