@@ -17,7 +17,7 @@ jobs:
 
       - name: Get the version
         id: tag_version
-        run: echo ::set-output name=TAG_NAME::PlayCover_3.0.0rc2
+        run: echo "TAG_NAME=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
 
       - name: Install dependencies
         shell: bash
@@ -46,11 +46,9 @@ jobs:
         shell: bash
         run: |
           create-dmg ./output/PlayCover.app ./output
-          mv ./output/*.dmg ./output/${{ env.TAG_NAME }}.dmg
-        env:
-          TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
-          
-      # Will bring back with new settings to bring notorization back
+          mv ./output/*.dmg ./output/PlayCover_${{ env.TAG_NAME }}.dmg
+
+      # Will bring back when codesign id is updated
       # - name: Notarize DMG
       #   shell: bash
       #   run: |
@@ -65,10 +63,8 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.TAG_NAME }}.dmg
-          path: output/${{ env.TAG_NAME }}.dmg
-        env:
-          TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
+          name: PlayCover_${{ env.TAG_NAME }}.dmg
+          path: output/PlayCover_${{ env.TAG_NAME }}.dmg
 
       - name: Release
         if: startsWith(github.ref, 'refs/tags/')
@@ -76,6 +72,4 @@ jobs:
         with:
           draft: true
           files: |
-            output/${{ env.TAG_NAME }}.dmg
-        env:
-          TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
+            output/PlayCover_${{ env.TAG_NAME }}.dmg
