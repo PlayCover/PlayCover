@@ -457,10 +457,24 @@ struct BypassesView: View {
     @Binding var hasPlayTools: Bool?
     @Binding var task: BlockingTask
 
-    @State private var hasIntrospection: Bool = false
-    @State private var hasIosFrameworks: Bool = false
+    @State private var hasIntrospection: Bool
+    @State private var hasIosFrameworks: Bool
 
     var app: PlayApp
+
+    init(settings: Binding<AppSettings>,
+         hasPlayTools: Binding<Bool?>,
+         task: Binding<BlockingTask>,
+         app: PlayApp) {
+        self._settings = settings
+        self._hasPlayTools = hasPlayTools
+        self._task = task
+        self.app = app
+
+        let lsEnvironment = app.info.lsEnvironment["DYLD_LIBRARY_PATH"] ?? ""
+        self.hasIntrospection = lsEnvironment.contains(PlayApp.introspection)
+        self.hasIosFrameworks = lsEnvironment.contains(PlayApp.iosFrameworks)
+    }
 
     var body: some View {
         ScrollView {
@@ -510,10 +524,6 @@ struct BypassesView: View {
                 _ = await app.changeDyldLibraryPath(set: hasIosFrameworks, path: PlayApp.iosFrameworks)
                 task = .none
             }
-        }
-        .task {
-            hasIntrospection = await app.changeDyldLibraryPath(path: PlayApp.introspection)
-            hasIosFrameworks = await app.changeDyldLibraryPath(path: PlayApp.iosFrameworks)
         }
     }
 }
