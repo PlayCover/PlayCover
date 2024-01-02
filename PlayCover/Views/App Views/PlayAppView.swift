@@ -139,14 +139,6 @@ struct PlayAppView: View {
             .sheet(isPresented: $showDeleteGenshinAccount) {
                 DeleteGenshinAccountView()
             }
-
-        /*
-         * Since SwiftUI‘s native alert does not support being dismissed programmatically,
-         * an async method will immediately hide the dialog after clicking the button,
-         * this leads to the execution state of the task not being observed by the user,
-         * resulting in the risk of misoperation,
-         * so a customized sheet is used as an alternative.
-         */
             .sheet(isPresented: $showClearCacheAlert) { ClearCacheModalView(app: $app) }
             .alert("alert.app.preferences", isPresented: $showClearPreferencesAlert) {
                 Button("button.Proceed", role: .destructive) {
