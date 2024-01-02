@@ -17,8 +17,6 @@ struct PlayAppView: View {
     @State var isList: Bool
 
     @State private var showSettings = false
-    @State private var showClearCacheAlert = false
-    @State private var showClearCacheToast = false
     @State private var showClearPreferencesAlert = false
     @State private var showClearPlayChainAlert = false
 
@@ -153,11 +151,6 @@ struct PlayAppView: View {
                     showClearPlayChainAlert.toggle()
                 }
                 Button("button.Cancel", role: .cancel) { }
-            }
-            .onChange(of: showClearCacheToast) { _ in
-                ToastVM.shared.showToast(
-                    toastType: .notice,
-                    toastDetails: NSLocalizedString("alert.appCacheCleared", comment: ""))
             }
             .onChange(of: showImportSuccess) { _ in
                 ToastVM.shared.showToast(
