@@ -106,7 +106,8 @@ struct PlayAppView: View {
                 Divider()
                 Group {
                     Button(action: {
-                        showClearCacheAlert.toggle()
+                        selected = nil
+                        Uninstaller.clearCachePopup(app)
                     }, label: {
                         Text("playapp.clearCache")
                     })
@@ -139,7 +140,6 @@ struct PlayAppView: View {
             .sheet(isPresented: $showDeleteGenshinAccount) {
                 DeleteGenshinAccountView()
             }
-            .sheet(isPresented: $showClearCacheAlert) { ClearCacheModalView(app: $app) }
             .alert("alert.app.preferences", isPresented: $showClearPreferencesAlert) {
                 Button("button.Proceed", role: .destructive) {
                     deletePreferences(app: app.info.bundleIdentifier)

@@ -95,6 +95,7 @@
 "playapp.progress.finished" = "Finished";
 "playapp.progress.failed" = "Failed";
 "playapp.progress.canceled" = "Canceled";
+"playapp.clearCache.begin" = "Clearing app data...";
 
 "alert.appCacheCleared" = "App data has been cleared!";
 "alert.kmImported" = "Keymapping imported!";
