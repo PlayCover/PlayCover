@@ -45,7 +45,8 @@ class Uninstaller {
         return CheckBoxHelper(view: view, button: button, buttonvar: varname)
     }
 
-    static func uninstallPopup(_ app: PlayApp) {
+    @MainActor
+    static func uninstallPopup(_ app: PlayApp) async {
         if UninstallPreferences.shared.showUninstallPopup {
             let boxmakers: [(String, String)] = [
                 ("removePlayChain", NSLocalizedString("preferences.toggle.removePlayChain", comment: "")),
@@ -90,23 +91,20 @@ class Uninstaller {
             delete.hasDestructiveAction = true
 
             NSApplication.shared.requestUserAttention(.criticalRequest)
-            guard let window = NSApplication.shared.windows.first else { return }
-            alert.beginSheetModal(for: window) { response in
-                if response == .alertFirstButtonReturn {
-                    for checkboxhelper in checkboxes {
-                        UninstallPreferences.shared.setValue(checkboxhelper.button.state == .on,
-                                                             forKey: checkboxhelper.buttonvar)
-                    }
-
-                    if alert.suppressionButton?.state == .on {
-                        UninstallPreferences.shared.showUninstallPopup = false
-                    }
-
-                    Task { await uninstall(app) }
-                }
+            guard let window = NSApplication.shared.windows.first,
+                  await alert.beginSheetModal(for: window) == .alertFirstButtonReturn else { return }
+            for checkboxhelper in checkboxes {
+                UninstallPreferences.shared.setValue(checkboxhelper.button.state == .on,
+                                                     forKey: checkboxhelper.buttonvar)
             }
+
+            if alert.suppressionButton?.state == .on {
+                UninstallPreferences.shared.showUninstallPopup = false
+            }
+
+            await uninstall(app)
         } else {
-            Task { await uninstall(app) }
+            await uninstall(app)
         }
     }
 
@@ -161,7 +159,8 @@ class Uninstaller {
         UninstallVM.shared.next(.finish, 0.95, 1.0)
     }
 
-    static func clearCachePopup(_ app: PlayApp) {
+    @MainActor
+    static func clearCachePopup(_ app: PlayApp) async {
         let alert = NSAlert()
         alert.messageText = NSLocalizedString("alert.app.delete", comment: "")
         alert.alertStyle = .warning
@@ -171,12 +170,10 @@ class Uninstaller {
         alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
 
         NSApplication.shared.requestUserAttention(.criticalRequest)
-        guard let window = NSApplication.shared.windows.first else { return }
-        alert.beginSheetModal(for: window) { response in
-            if response == .alertFirstButtonReturn {
-                Task { await clearCache(of: app) }
-            }
-        }
+        guard let window = NSApplication.shared.windows.first,
+              await alert.beginSheetModal(for: window) == .alertFirstButtonReturn else { return }
+
+        await clearCache(of: app)
     }
 
     static func clearCache(of app: PlayApp) async {

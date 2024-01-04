@@ -105,7 +105,7 @@ struct PlayAppView: View {
                 Group {
                     Button(action: {
                         selected = nil
-                        Uninstaller.clearCachePopup(app)
+                        Task { await Uninstaller.clearCachePopup(app) }
                     }, label: {
                         Text("playapp.clearCache")
                     })
@@ -123,7 +123,7 @@ struct PlayAppView: View {
                 Divider()
                 Button(action: {
                     selected = nil
-                    Uninstaller.uninstallPopup(app)
+                    Task { await Uninstaller.uninstallPopup(app) }
                 }, label: {
                     Text("playapp.delete")
                 })
