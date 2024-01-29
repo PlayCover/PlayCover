@@ -10,7 +10,7 @@ jobs:
     runs-on: macos-12
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.0
 
       - name: Install dependencies
         shell: bash
@@ -57,7 +57,7 @@ jobs:
         run: rm apikey.json
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.3.0
         with:
           name: PlayCover_nightly_${{ github.run_number }}.dmg
           path: output/PlayCover_nightly_${{ github.run_number }}.dmg
