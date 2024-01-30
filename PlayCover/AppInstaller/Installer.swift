@@ -107,6 +107,7 @@ class Installer {
                 }
 
                 ipa.releaseTempDir()
+                try ipa.removeQuarantine(finalURL)
                 InstallVM.shared.next(.finish, 0.95, 1.0)
                 returnCompletion(finalURL)
             } catch {
