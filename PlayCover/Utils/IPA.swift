@@ -30,7 +30,7 @@ public class IPA {
         tmpDir = nil
     }
 
-    func removeQuarantine(_ execUrl: URL) throws {
+    public func removeQuarantine(_ execUrl: URL) throws {
         try Shell.run("/usr/bin/xattr", "-r", "-d", "com.apple.quarantine", execUrl.relativePath)
     }
 
@@ -38,7 +38,6 @@ public class IPA {
         if let workDir = tmpDir {
             if try Shell.run("/usr/bin/unzip",
                              "-oq", url.path, "-d", workDir.path) == "" {
-                try removeQuarantine(workDir)
                 return try Installer.fromIPA(detectingAppNameInFolder: workDir.appendingPathComponent("Payload"))
             } else {
                 throw PlayCoverError.appCorrupted
