@@ -90,7 +90,6 @@ class NetworkVM {
         }.resume()
 
         semaphore.wait()
-
         return (finalURL, avaliable)
     }
 }

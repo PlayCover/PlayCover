@@ -6,184 +6,180 @@
 //
 
 import Foundation
+import Semaphore
 
 class StoreVM: ObservableObject, @unchecked Sendable {
-
-    static let shared = StoreVM()
+    public static let shared = StoreVM()
+    private let plistSource: URL
 
     private init() {
-        sourcesUrl = PlayTools.playCoverContainer
+        plistSource = PlayTools.playCoverContainer
             .appendingPathComponent("Sources")
             .appendingPathExtension("plist")
-        sources = []
-        if !decode() {
-            encode()
-        }
+        sourcesList = []
+        if !decode() { encode() }
         resolveSources()
     }
 
-    @Published var apps: [StoreAppData] = []
-    @Published var searchText: String = ""
-    @Published var filteredApps: [StoreAppData] = []
-    @Published var sources: [SourceData] {
+    @Published var sourcesData: [SourceJSON] = []
+    @Published var sourcesList: [SourceData] {
         didSet {
             encode()
         }
     }
+    private var resolveTask: Task<Void, Never>?
 
-    let sourcesUrl: URL
+    //
+    func addSource(_ source: SourceData) {
+        sourcesList.append(source)
+        resolveSources()
+    }
 
-    @discardableResult
-    public func decode() -> Bool {
-        do {
-            let data = try Data(contentsOf: sourcesUrl)
-            sources = try PropertyListDecoder().decode([SourceData].self, from: data)
-            return true
-        } catch {
-            print(error)
-            return false
+    //
+    func deleteSource(_ selectedSource: inout Set<UUID>) {
+        sourcesList.removeAll {
+            selectedSource.contains($0.id)
+        }
+        resolveSources()
+    }
+
+    //
+    func moveSourceUp(_ selectedSource: inout Set<UUID>) {
+        let selected = sourcesList.filter {
+            selectedSource.contains($0.id)
+        }
+        if let first = sourcesList.first,
+           let data = selected.first {
+            if data != first {
+                if var index = sourcesList.firstIndex(of: data) {
+                    index -= 1
+                    sourcesList.removeAll {
+                        selectedSource.contains($0.id)
+                    }
+                    sourcesList.insert(contentsOf: selected, at: index)
+                }
+                resolveSources()
+            }
         }
     }
 
-    @discardableResult
-    public func encode() -> Bool {
+    //
+    func moveSourceDown(_ selectedSource: inout Set<UUID>) {
+        let selected = sourcesList.filter {
+            selectedSource.contains($0.id)
+        }
+
+        if let last = sourcesList.last,
+           let data = selected.first {
+            if data != last {
+                if var index = sourcesList.firstIndex(of: data) {
+                    index += 1
+                    sourcesList.removeAll {
+                        selectedSource.contains($0.id)
+                    }
+                    sourcesList.insert(contentsOf: selected, at: index)
+                }
+                resolveSources()
+            }
+        }
+    }
+
+    //
+    func resolveSources() {
+        resolveTask?.cancel()
+        resolveTask = Task { @MainActor in
+            let semaphore = AsyncSemaphore(value: 0)
+            guard NetworkVM.isConnectedToNetwork() else { return }
+            sourcesData.removeAll()
+            if !sourcesList.isEmpty {
+                for index in sourcesList.indices {
+                    sourcesList[index].status = .checking
+                    let (sourceJson, sourceState) = await getSourceData(sourceLink: sourcesList[index].source)
+                    sourcesList[index].status = sourceState
+                    if sourceState == .valid {
+                        if let json = sourceJson {
+                            sourcesData.append(json)
+                            semaphore.signal()
+                        }
+                    } else {
+                        semaphore.signal()
+                    }
+                    await semaphore.wait()
+                }
+            }
+        }
+    }
+
+    //
+    @discardableResult private func encode() -> Bool {
         let encoder = PropertyListEncoder()
         encoder.outputFormat = .xml
 
         do {
-            let data = try encoder.encode(sources)
-            try data.write(to: sourcesUrl)
+            let data = try encoder.encode(sourcesList)
+            try data.write(to: plistSource)
             return true
         } catch {
-            print(error)
+            print("StoreVM: Failed to encode Sources.plist! ", error)
             return false
         }
     }
 
-    func appendAppData(_ data: [StoreAppData]) {
-        for element in data {
-            if let index = apps.firstIndex(where: {$0.bundleID == element.bundleID}) {
-                if apps[index].version < element.version {
-                    apps[index] = element
-                    continue
+    //
+    @discardableResult private func decode() -> Bool {
+        do {
+            let data = try Data(contentsOf: plistSource)
+            sourcesList = try PropertyListDecoder().decode([SourceData].self, from: data)
+            return true
+        } catch {
+            print("StoreVM: Failed to decode Sources.plist! ", error)
+            return false
+        }
+    }
+
+    //
+    private func getSourceData(sourceLink: String) async -> (SourceJSON?, SourceValidation) {
+        guard let url = URL(string: sourceLink) else { return (nil, .badurl) }
+        do {
+            let (data, response) = try await URLSession.shared.data(
+                for: URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
+            )
+            if !url.isFileURL {
+                guard (response as? HTTPURLResponse)?.statusCode == 200 else { return (nil, .badurl) }
+            }
+            let jsonResult: SourceJSON = try JSONDecoder().decode(SourceJSON.self, from: data)
+            debugPrint("SourceJSON from \(url) Fetched")
+            return (jsonResult, .valid)
+        } catch {
+            do {
+                let (data, response) = try await URLSession.shared.data(
+                    for: URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
+                )
+                if !url.isFileURL {
+                    guard (response as? HTTPURLResponse)?.statusCode == 200 else { return (nil, .badurl) }
                 }
-            } else {
-                apps.append(element)
+                let jsonResult: [SourceAppsData] = try JSONDecoder().decode([SourceAppsData].self, from: data)
+                let newJson = SourceJSON(name: url.isFileURL ? "localhost" : url.host ?? url.absoluteString,
+                                         logo: "NoLogo",
+                                         data: jsonResult)
+                return (newJson, .valid)
+            } catch {
+                debugPrint("Error decoding data from URL: \(url): \(error)")
+                return (nil, .badjson)
             }
         }
-        fetchApps()
-    }
-
-    func fetchApps() {
-        filteredApps.removeAll()
-        filteredApps = apps
-        if !searchText.isEmpty {
-            filteredApps = filteredApps.filter({
-                $0.name.lowercased().contains(searchText.lowercased())
-            })
-        }
-    }
-
-    func resolveSources() {
-        guard NetworkVM.isConnectedToNetwork() else {
-            return
-        }
-
-        apps.removeAll()
-        for index in 0..<sources.endIndex {
-            sources[index].status = .empty
-            Task {
-                if let url = URL(string: self.sources[index].source) {
-                    URLSession.shared.dataTask(with: URLRequest(url: url)) { jsonData, response, error in
-                        guard error == nil,
-                              ((response as? HTTPURLResponse)?.statusCode ?? 200) == 200,
-                              let jsonData = jsonData else {
-                            Task { @MainActor in
-                                self.sources[index].status = .badurl
-                            }
-
-                            return
-                        }
-
-                        do {
-                            let data: [StoreAppData] = try JSONDecoder().decode([StoreAppData].self,
-                                                                                from: jsonData)
-                            if data.count > 0 {
-                                Task { @MainActor in
-                                    self.sources[index].status = self.sources[0..<index].filter({
-                                        $0.source == self.sources[index].source && $0.id != self.sources[index].id
-                                    }).isEmpty ? .valid : .duplicate
-
-                                    self.appendAppData(data)
-                                }
-                            }
-                        } catch {
-                            Task { @MainActor in
-                                self.sources[index].status = .badjson
-                            }
-                        }
-                    }.resume()
-
-                    Task { @MainActor in
-                        self.sources[index].status = .checking
-                    }
-
-                    return
-                }
-
-                Task { @MainActor in
-                    sources[index].status = .badurl
-                }
-            }
-        }
-
-        fetchApps()
-    }
-
-    func deleteSource(_ selected: inout Set<UUID>) {
-        self.sources.removeAll(where: { selected.contains($0.id) })
-        selected.removeAll()
-        resolveSources()
-    }
-
-    func moveSourceUp(_ selected: inout Set<UUID>) {
-        let selectedData = self.sources.filter({ selected.contains($0.id) })
-
-        if let first = selectedData.first {
-            if var index = self.sources.firstIndex(of: first) {
-                index -= 1
-                self.sources.removeAll(where: { selected.contains($0.id) })
-                if index < 0 {
-                    index = 0
-                }
-                self.sources.insert(contentsOf: selectedData, at: index)
-            }
-        }
-    }
-
-    func moveSourceDown(_ selected: inout Set<UUID>) {
-        let selectedData = self.sources.filter({ selected.contains($0.id) })
-
-        if let first = selectedData.first {
-            if var index = self.sources.firstIndex(of: first) {
-                index += 1
-                self.sources.removeAll(where: { selected.contains($0.id) })
-                if index > self.sources.endIndex {
-                    index = self.sources.endIndex
-                }
-                self.sources.insert(contentsOf: selectedData, at: index)
-            }
-        }
-    }
-
-    func appendSourceData(_ data: SourceData) {
-        self.sources.append(data)
-        self.resolveSources()
     }
 }
 
-struct StoreAppData: Codable, Equatable {
-    var bundleID: String
+// Source Data Structure
+struct SourceJSON: Codable, Equatable, Hashable {
+    let name: String
+    let logo: String
+    let data: [SourceAppsData]
+}
+
+struct SourceAppsData: Codable, Equatable, Hashable {
+    let bundleID: String
     let name: String
     let version: String
     let itunesLookup: String
