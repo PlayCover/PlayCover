@@ -42,7 +42,8 @@ class Installer {
         let installPlayTools: Bool
         let applicationType = InstallPreferences.shared.defaultAppType
 
-        if (Installer.isOptionKeyHeld || InstallPreferences.shared.showInstallPopup) && !export {
+        if (ModifierKeyObserver.shared.isOptionKeyPressed
+                || InstallPreferences.shared.showInstallPopup) && !export {
             installPlayTools = installPlayToolsPopup()
         } else {
             installPlayTools = InstallPreferences.shared.alwaysInstallPlayTools
@@ -217,9 +218,5 @@ class Installer {
 
         try FileManager.default.moveItem(at: baseApp.url, to: location)
         return location
-    }
-
-    static var isOptionKeyHeld: Bool {
-        NSEvent.modifierFlags.contains(.option)
     }
 }
