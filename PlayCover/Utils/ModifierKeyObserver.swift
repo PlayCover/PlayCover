@@ -22,7 +22,7 @@ class ModifierKeyObserver: ObservableObject {
         eventMonitor = NSEvent.addLocalMonitorForEvents(matching: mask) { [weak self] event in
             guard let self = self else { return event }
             if event.type == .flagsChanged {
-                debugPrint("Event received: \(event)")
+//                debugPrint("Event received: \(event)")
                 self.isOptionKeyPressed = event.modifierFlags.contains(.option)
                 self.isCommandKeyPressed = event.modifierFlags.contains(.command)
                 self.isControlKeyPressed = event.modifierFlags.contains(.control)
