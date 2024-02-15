@@ -10,7 +10,7 @@ env:
   CI: true
 jobs:
   build:
-    runs-on: macos-12
+    runs-on: macos-14
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.0
@@ -48,13 +48,10 @@ jobs:
           create-dmg ./output/PlayCover.app ./output
           mv ./output/*.dmg ./output/PlayCover_${{ env.TAG_NAME }}.dmg
 
-      # Will bring back when codesign id is updated
-      # - name: Notarize DMG
-      #   shell: bash
-      #   run: |
-      #     fastlane notarize_dmg package:output/PlayCover_${{ env.TAG_NAME }}.dmg
-      #   env:
-      #     TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
+      - name: Notarize DMG
+        shell: bash
+        run: |
+          fastlane notarize_dmg package:output/PlayCover_${{ env.TAG_NAME }}.dmg
 
       - name: Clean Up
         shell: bash

@@ -4,7 +4,7 @@ on:
   # Run on PR and push to every branch
   pull_request:
   push:
-  
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.0
-      
       - name: SwiftLint
         uses: norio-nomura/action-swiftlint@3.2.1
         with:
