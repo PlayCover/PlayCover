@@ -15,6 +15,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.0
 
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'
+
       - name: Get the version
         id: tag_version
         run: echo "TAG_NAME=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
