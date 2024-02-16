@@ -11,6 +11,8 @@ env:
 jobs:
   build:
     runs-on: macos-14
+    env:
+      GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.0
@@ -59,6 +61,7 @@ jobs:
           mv ./output/*.dmg ./output/PlayCover_${{ env.TAG_NAME }}.dmg
 
       - name: Notarize DMG
+        continue-on-error: true
         shell: bash
         run: |
           fastlane notarize_dmg package:output/PlayCover_${{ env.TAG_NAME }}.dmg
