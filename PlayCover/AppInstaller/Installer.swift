@@ -80,7 +80,7 @@ class Installer {
                 if export {
                     try PlayTools.injectInIPA(app.executable, payload: app.url)
                 } else if installPlayTools {
-                    try PlayTools.installInIPA(app.executable)
+                    try await PlayTools.installInIPA(app.executable)
                 }
 
                 app.info.applicationCategoryType = applicationType

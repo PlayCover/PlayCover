@@ -13,6 +13,7 @@ struct MainView: View {
     @EnvironmentObject var apps: AppsVM
     @EnvironmentObject var store: StoreVM
     @EnvironmentObject var integrity: AppIntegrity
+    @EnvironmentObject var uninstallVM: UninstallVM
 
     @ObservedObject var keyCoverObserved = KeyCoverObservable.shared
 
@@ -44,6 +45,7 @@ struct MainView: View {
                             Label("sidebar.ipaLibrary", systemImage: "arrow.down.circle")
                         }
                     }
+                    .disabled(uninstallVM.inProgress)
                     .toolbar {
                         ToolbarItem { // Sits on the left by default
                             Button(action: toggleSidebar, label: {
@@ -105,6 +107,7 @@ struct MainView: View {
                         .environmentObject(ToastVM.shared)
                         .environmentObject(InstallVM.shared)
                         .environmentObject(DownloadVM.shared)
+                        .environmentObject(UninstallVM.shared)
                         .frame(width: collapsed || viewWidth < navWidth ? viewWidth : (viewWidth - navWidth))
                         .animation(.spring(), value: collapsed)
                 }
