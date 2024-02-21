@@ -137,7 +137,7 @@ struct SourceView: View {
                                 imageColor: .yellow,
                                 popoverText: "preferences.popover.duplicate",
                                 showingPopover: $showingPopover)
-            case .empty:
+            case .empty, .graylist:
                 EmptyView()
             case .valid:
                 StatusBadgeView(imageName: "checkmark.circle.fill",
@@ -171,7 +171,7 @@ struct StatusBadgeView: View {
 }
 
 enum SourceValidation {
-    case badjson, badurl, checking, duplicate, valid, empty
+    case badjson, badurl, checking, duplicate, valid, graylist, empty
 }
 
 struct AddSourceView: View {
@@ -183,6 +183,8 @@ struct AddSourceView: View {
 
     @State var checkTask: Task<Void, Error>?
     @State var urlSessionTask: URLSessionTask?
+
+    @State var addGraylistedSource = false
 
     var body: some View {
         VStack {
@@ -211,7 +213,7 @@ struct AddSourceView: View {
                         .foregroundColor(.yellow)
                     Text("preferences.popover.duplicate")
                         .font(.system(.subheadline))
-                case .empty:
+                case .empty, .graylist:
                     EmptyView()
                 case .valid:
                     Image(systemName: "checkmark.circle.fill")
@@ -226,16 +228,45 @@ struct AddSourceView: View {
                     Text("button.Cancel")
                 })
                 Button(action: {
-                    if let sourceURL = newSourceURL {
-                        storeVM.appendSourceData(SourceData(source: sourceURL.absoluteString))
-                        addSourceSheet.toggle()
+                    Task {
+                        if sourceValidationState == .graylist && addGraylistedSource == false {
+                            // Pop a warning to the user
+                            Task { @MainActor in
+                                let alert = NSAlert()
+                                alert.messageText = NSLocalizedString("ipaLibrary.alert.graylist", comment: "")
+                                alert.informativeText = NSLocalizedString("ipaLibrary.alert.graylist.informative",
+                                                                          comment: "")
+                                alert.addButton(
+                                    withTitle: NSLocalizedString("button.Cancel", comment: ""))
+                                alert.addButton(
+                                    withTitle: NSLocalizedString("ipaLibrary.button.graylist.addAnyway", comment: ""))
+
+                                alert.alertStyle = .warning
+                                if alert.runModal() == NSApplication.ModalResponse.alertFirstButtonReturn {
+                                    Task { @MainActor in
+                                        newSource = ""
+                                    }
+                                } else {
+                                    Task { @MainActor in
+                                        addGraylistedSource = true
+                                        validateSource(newSource)
+                                    }
+                                }
+                            }
+                            return
+
+                        }
+                        if let sourceURL = newSourceURL {
+                            storeVM.appendSourceData(SourceData(source: sourceURL.absoluteString))
+                            addSourceSheet.toggle()
+                        }
                     }
                 }, label: {
                     Text("button.OK")
                 })
                 .tint(.accentColor)
                 .keyboardShortcut(.defaultAction)
-                .disabled(![.valid, .duplicate].contains(sourceValidationState))
+                .disabled(![.valid, .duplicate, .graylist].contains(sourceValidationState))
             }
         }
         .padding()
@@ -277,6 +308,11 @@ struct AddSourceView: View {
 
                 newSourceURL = url
 
+                if !performGraylistValidation(newSourceURL) {
+                    sourceValidationState = .graylist
+                    return
+                }
+
                 urlSessionTask = URLSession.shared.dataTask(with: URLRequest(url: url)) { jsonData, response, error in
                     guard error == nil,
                           ((response as? HTTPURLResponse)?.statusCode ?? 200) == 200,
@@ -314,8 +350,23 @@ struct AddSourceView: View {
             Task { @MainActor in
                 self.sourceValidationState = .badurl
             }
+
         }
     }
+
+    func performGraylistValidation(_ source: URL?) -> Bool {
+        // Check against the graylist for known problematic sources
+        if !addGraylistedSource {
+            for url in SOURCE_GRAYLIST where source?.host?.contains(url) ?? false {
+                return false
+            }
+        }
+        return true
+    }
+
+    var SOURCE_GRAYLIST = [
+        "sketchy.source"
+    ]
 }
 
 struct IPASourceSettings_Previews: PreviewProvider {
