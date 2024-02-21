@@ -34,7 +34,7 @@ jobs:
       - name: Install dependencies
         shell: bash
         run: |
-          brew install graphicsmagick imagemagick
+          brew install graphicsmagick imagemagick swiftlint
           gem install fastlane
           bundle install
           pip install setuptools
