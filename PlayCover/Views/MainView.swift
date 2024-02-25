@@ -39,7 +39,8 @@ struct MainView: View {
                         }
                         NavigationLink(destination: IPALibraryView(selectedBackgroundColor: $selectedBackgroundColor,
                                                                    selectedTextColor: $selectedTextColor)
-                            .environmentObject(store),
+                            .environmentObject(store)
+                            .environmentObject(DownloadVM.shared),
                                        tag: 2, selection: self.$selectedView) {
                             Label("sidebar.ipaLibrary", systemImage: "arrow.down.circle")
                         }

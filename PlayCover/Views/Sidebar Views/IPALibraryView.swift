@@ -9,6 +9,7 @@ import SwiftUI
 
 struct IPALibraryView: View {
     @EnvironmentObject var storeVM: StoreVM
+    @EnvironmentObject var downloadVM: DownloadVM
 
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
@@ -18,6 +19,7 @@ struct IPALibraryView: View {
     @State private var isList = UserDefaults.standard.bool(forKey: "IPALibraryView")
     @State private var selected: StoreAppData?
     @State private var addSourcePresented = false
+    @State private var showInfo = false
 
     @ObservedObject private var URLObserved = URLObservable.shared
 
@@ -91,6 +93,17 @@ struct IPALibraryView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button(action: {
+                    showInfo.toggle()
+                }, label: {
+                    Image(systemName: "info.circle")
+                })
+                .disabled(selected == nil)
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Spacer()
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: {
                     storeVM.resolveSources()
                 }, label: {
                     Image(systemName: "arrow.clockwise")
@@ -133,6 +146,12 @@ struct IPALibraryView: View {
         .sheet(isPresented: $addSourcePresented) {
             AddSourceView(addSourceSheet: $addSourcePresented)
                 .environmentObject(storeVM)
+        }
+        .sheet(isPresented: $showInfo) {
+            if let selected = selected {
+                StoreInfoAppView(viewModel: StoreAppVM(data: selected))
+                    .environmentObject(downloadVM)
+            }
         }
         .onChange(of: URLObserved.type) {_ in
             addSourcePresented = URLObserved.type == .source

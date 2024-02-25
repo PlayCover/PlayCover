@@ -58,15 +58,18 @@ class NetworkVM {
         })
     }
 
-    static func urlAccessible(url: URL, popup: Bool = false) -> (URL?, Bool) {
+    static func urlAccessible(url: URL,
+                              popup: Bool = false,
+                              completion: ((URL?, Bool) -> Void)? = nil) -> (URL?, Bool) {
         guard isConnectedToNetwork() else {
+            completion?(nil, false)
             return (nil, false)
         }
 
         let semaphore = DispatchSemaphore(value: 0)
         let validStatusCodes = [200, 301, 302, 303, 307, 308]
 
-        var avaliable = false
+        var available = false
         var finalURL: URL?
 
         var request = URLRequest(url: url)
@@ -75,22 +78,30 @@ class NetworkVM {
         URLSession.shared.dataTask(with: request) { _, response, error in
             defer { semaphore.signal() }
             if let error = error {
-                Log.shared.error(error)
+                if popup {
+                    Log.shared.error(error)
+                } else {
+                    Log.shared.log(error.localizedDescription, isError: true)
+                }
             } else {
                 if let httpResponse = response as? HTTPURLResponse {
                     if validStatusCodes.contains(httpResponse.statusCode) {
                         finalURL = httpResponse.url
-                        avaliable = true
+                        available = true
                     } else if popup {
                         Log.shared.error("Unable to download: \(httpResponse.statusCode) " +
                                          "\(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))")
                     }
                 }
             }
+
+            completion?(finalURL, available)
         }.resume()
 
-        semaphore.wait()
+        if completion == nil {
+            semaphore.wait()
+        }
 
-        return (finalURL, avaliable)
+        return (finalURL, available)
     }
 }
