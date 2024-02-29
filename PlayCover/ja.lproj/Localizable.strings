@@ -366,9 +366,7 @@
 "settings.playChain.debugging" = "PlayChain のデバッグ";
 "playapp.noSources.title" = "IPA がインストールされていません";
 "playapp.noSources.subtitle" = "現在、IPA はインストールされていません。 下のボタンをクリックしてインポートします。";
-"settings.addToLaunchpad" = "Launchpadに追加";
 "settings.tab.bypasses" = "回避";
-"settings.removeFromLaunchpad" = "Launchpadから削除";
 "playapp.download.integrityCheck" = "ファイルの整合性の検証中:";
 "playapp.download.differentChecksum" = "チェックサムが異なります！ インストールを続行しますか?";
 "playapp.download.differentChecksumDesc" = "期待される \"%@\", got \"%@\"";
@@ -421,3 +419,8 @@
 "settings.toggle.autoKM" = "Smart Keymap";
 "settings.toggle.autoKM.help" = "Automatically disable keymapping when text input is sensed";
 "settings.applicationCategoryType" = "Application Type";
+"settings.toggle.iosFrameworks" = "Force Insert iOS Frameworks";
+"settings.info.alias" = "Alias:";
+"settings.toggle.enableScrollWheel.help" = "Enable scroll wheel in keymapping";
+"settings.toggle.iosFrameworks.help" = "Add the system ios libraries to the app. Known to fix issues with some apps cannot find ios framework";
+"settings.toggle.enableScrollWheel" = "Enable Scroll Wheel";
