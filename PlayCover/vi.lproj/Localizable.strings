@@ -218,8 +218,6 @@
 "playapp.noSources.title" = "Chưa có ứng dụng nào";
 "playapp.noSources.subtitle" = "Hiện tại bạn chưa có ứng dụng nào cả. Click bên dưới để nhập file IPA.";
 "settings.tab.bypasses" = "Bypass";
-"settings.addToLaunchpad" = "Thêm vào Launchpad";
-"settings.removeFromLaunchpad" = "Xóa khỏi Launchpad";
 "playapp.download.integrityCheck" = "Xác minh tính toàn vẹn của tệp:";
 "playapp.download.differentChecksum" = "Checksum khác nhau! Bạn có muốn tiếp tục cài đặt không?";
 "playapp.download.differentChecksumDesc" = "Dự kiến \"%@\", đã xong \"%@\"";
@@ -272,3 +270,8 @@
 "settings.toggle.autoKM" = "Keymap thông minh";
 "settings.toggle.autoKM.help" = "Tự động vô hiệu hóa keymapping khi phát hiện nhập văn bản";
 "settings.applicationCategoryType" = "Loại ứng dụng";
+"settings.toggle.iosFrameworks" = "Force Insert iOS Frameworks";
+"settings.info.alias" = "Alias:";
+"settings.toggle.enableScrollWheel.help" = "Enable scroll wheel in keymapping";
+"settings.toggle.iosFrameworks.help" = "Add the system ios libraries to the app. Known to fix issues with some apps cannot find ios framework";
+"settings.toggle.enableScrollWheel" = "Enable Scroll Wheel";
