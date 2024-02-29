@@ -347,8 +347,6 @@
 "playapp.noSources.title" = "尚未安裝任何 IPA";
 "playapp.noSources.subtitle" = "暫時沒有安裝任何 IPA 文件。點擊下方的按鈕來導入一個。";
 "settings.tab.bypasses" = "繞道";
-"settings.removeFromLaunchpad" = "自啟動台移除";
-"settings.addToLaunchpad" = "加入啟動台";
 "playapp.download.integrityCheck" = "驗證檔案的完整性：";
 "playapp.download.differentChecksum" = "checksum 不相符！是否繼續安裝？";
 "playapp.download.differentChecksumDesc" = "預期「%@」，得到「%@」";
@@ -401,3 +399,8 @@
 "settings.toggle.autoKM" = "智能按鍵映射";
 "settings.toggle.autoKM.help" = "當感應到文本輸入時，自動停用按鍵映射";
 "settings.applicationCategoryType" = "應用程式類型";
+"settings.toggle.iosFrameworks" = "強制插入 iOS 框架";
+"settings.info.alias" = "別名：";
+"settings.toggle.enableScrollWheel.help" = "在鍵盤映射中啟用滾輪";
+"settings.toggle.iosFrameworks.help" = "將系統 ios 庫新增至應用程式。 已知修復某些應用程式找不到 ios 框架的問題";
+"settings.toggle.enableScrollWheel" = "啟用滾輪";
