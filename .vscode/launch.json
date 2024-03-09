@@ -6,6 +6,38 @@
     "configurations": [
         {
             "type": "lldb",
+            "request": "attach",
+            "name": "Attach",
+            "program": "${workspaceFolder}/<program>"
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {
+            "type": "lldb",
             "request": "launch",
             "name": "Debug",
             "program": "${workspaceFolder}/<executable file>",
