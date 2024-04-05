@@ -366,9 +366,7 @@
 "settings.playChain.debugging" = "Откладка PlayChain";
 "playapp.noSources.title" = "IPA не установлены";
 "playapp.noSources.subtitle" = "Сейчас у вас нет установленных IPA. Нажмите на кнопку ниже для импорта.";
-"settings.removeFromLaunchpad" = "Удалить из Launchpad";
 "settings.tab.bypasses" = "Обходы";
-"settings.addToLaunchpad" = "Добавить в Launchpad";
 "playapp.download.integrityCheck" = "Проверка целостности файлов:";
 "playapp.download.differentChecksum" = "Контрольные суммы не совпадают! Вы хотите продолжить установку?";
 "playapp.download.differentChecksumDesc" = "Ожидалось \"%@\", получено \"%@\"";
@@ -421,3 +419,8 @@
 "settings.toggle.autoKM" = "Умная раскладка";
 "settings.toggle.autoKM.help" = "Автоматически выключать раскладку при вводе текста";
 "settings.applicationCategoryType" = "Application Type";
+"settings.toggle.iosFrameworks" = "Force Insert iOS Frameworks";
+"settings.info.alias" = "Alias:";
+"settings.toggle.enableScrollWheel.help" = "Enable scroll wheel in keymapping";
+"settings.toggle.iosFrameworks.help" = "Add the system ios libraries to the app. Known to fix issues with some apps cannot find ios framework";
+"settings.toggle.enableScrollWheel" = "Enable Scroll Wheel";
