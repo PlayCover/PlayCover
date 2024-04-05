@@ -367,8 +367,6 @@
 "playapp.noSources.title" = "No hay IPA instalados";
 "playapp.noSources.subtitle" = "Actualmente no tiene ninguna IPA instalada. Haga clic en el botón de abajo para importar uno.";
 "settings.tab.bypasses" = "Bypass";
-"settings.addToLaunchpad" = "Agregar al Launchpad";
-"settings.removeFromLaunchpad" = "Quitar del Launchpad";
 "playapp.download.integrityCheck" = "Verificar la integridad de los archivos:";
 "playapp.download.differentChecksum" = "Las sumas de control difieren. ¿Quiere proceder con la instalación?";
 "playapp.download.differentChecksumDesc" = "Se esperaba «%@»; se obtuvo «%@»";
@@ -421,3 +419,8 @@
 "settings.toggle.autoKM" = "Mapa de teclas inteligente";
 "settings.toggle.autoKM.help" = "Desactivación automática de la asignación de las teclas cuando se detecta la entrada del texto";
 "settings.applicationCategoryType" = "Tipo de la aplicación";
+"settings.toggle.iosFrameworks" = "Forzar la inserción de marcos iOS";
+"settings.info.alias" = "Alias:";
+"settings.toggle.enableScrollWheel.help" = "Activar la rueda de desplazamiento en la asignación de teclas";
+"settings.toggle.iosFrameworks.help" = "Agregue las bibliotecas del sistema ios a la aplicación. Se sabe que soluciona problemas en los que algunas aplicaciones no pueden encontrar el marco de iOS";
+"settings.toggle.enableScrollWheel" = "Activar rueda de desplazamiento";
