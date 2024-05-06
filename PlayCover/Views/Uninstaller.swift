@@ -161,7 +161,7 @@ class Uninstaller {
     static func clearExternalCache(_ bundleId: String) {
         do {
             for cache in cacheURLs {
-                cache.enumerateContents(options: []) { file, _ in
+                cache.enumerateContents(options: [.skipsSubdirectoryDescendants]) { file, _ in
                     if file.path.contains(bundleId) {
                         try FileManager.default.trashItem(at: file, resultingItemURL: nil)
                     }
@@ -181,7 +181,7 @@ class Uninstaller {
             var prunedIds: [String] = []
 
             for url in fullPruneURLs {
-                url.enumerateContents(options: []) { file, _ in
+                url.enumerateContents(options: [.skipsSubdirectoryDescendants]) { file, _ in
                     let bundleId = file.deletingPathExtension().lastPathComponent
                     if danglingItems.contains(bundleId) {
                         try FileManager.default.trashItem(at: file, resultingItemURL: nil)
