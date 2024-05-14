@@ -213,9 +213,11 @@ struct GraphicsView: View {
                         Text("iPad Pro (12.9-inch) (3rd gen) | A12X | 4GB").tag("iPad8,6")
                         Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
                         Text("iPad Pro (12.9-inch) (6th gen) | M2 | 8GB").tag("iPad14,5")
+                        Text("iPad Pro (13-inch) (7th gen) | M4 | 16GB").tag("iPad16,6")
                         Divider()
                         Text("iPhone 13 Pro Max | A15 | 6GB").tag("iPhone14,3")
                         Text("iPhone 14 Pro Max | A16 | 6GB").tag("iPhone15,3")
+                        Text("iPhone 15 Pro Max | A17 Pro | 8GB").tag("iPhone16,2")
                     }
                     .frame(width: 250)
                 }
