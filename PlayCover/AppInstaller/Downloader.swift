@@ -7,7 +7,6 @@
 
 import Foundation
 import DownloadManager
-
 /// DownloaderManager can be configured through this struct, default values are as the same as below
 /// `public struct DownloadManagerConfig {`
 ///    `public var maximumRetries = 3`
@@ -19,6 +18,7 @@ import DownloadManager
 ///  Use `downloader.configuration = DownloadManagerConfig()` in
 ///  `DownloadApp` class before `downloader.addDownload` to apply
 ///  More details: https://github.com/shapedbyiris/download-manager/blob/master/README.md
+
 
 class DownloadApp {
     var url: URL?
@@ -35,14 +35,14 @@ class DownloadApp {
     let installVM = InstallVM.shared
     let downloader = DownloadManager.shared
 
+
+
     func start() {
         let redirectHandler = RedirectHandler() //checking page redirect
         redirectHandler.redirectCatch(from: url!)
         
         // MUST be reworked, i need to wait for redirect and scraping to end
-        do {
-            sleep(3)
-        }
+        redirectHandler.waitForAllTasksToComplete()
         if (redirectHandler.finalURL.contains("drive")){
             url = URL(string:redirectHandler.finalURL)
         }
@@ -74,8 +74,11 @@ class DownloadApp {
                         proceedDownload(newWrappedURL)
                     }
                 }
+
             }
+
         }
+
     }
 
     func cancel() {

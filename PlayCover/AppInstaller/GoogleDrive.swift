@@ -1,15 +1,11 @@
-//
-//  GoogleDrive.swift
-//  PlayCover
-//
-//  Created by Edoardo C. on 14.05.2024.
-//
-
 import Foundation
 import SwiftSoup
 
 class RedirectHandler: NSObject, URLSessionTaskDelegate {
     var finalURL = ""
+    let dispatchGroup = DispatchGroup() // DispatchGroup
+    var completion: (() -> Void)? // completion handler
+    
     lazy var session: URLSession = {
         let configuration = URLSessionConfiguration.default
         return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
@@ -21,7 +17,10 @@ class RedirectHandler: NSObject, URLSessionTaskDelegate {
             completion(nil)
             return
         }
+        dispatchGroup.enter() // Enter Group
         let task = session.dataTask(with: url) { data, response, error in
+            defer { self.dispatchGroup.leave() } // Leave group
+            
             guard let data = data, error == nil else {
                 completion(nil)
                 return
@@ -70,21 +69,25 @@ class RedirectHandler: NSObject, URLSessionTaskDelegate {
         return URL(string: newLink)
     }
     
-    func getDirectDownloadLink(for googleDriveLink: String) {
-        
+    func getDirectDownloadLink(for googleDriveLink: String, completion: @escaping () -> Void) {
+        self.completion = completion
         fetchGoogleDrivePageContent(url: googleDriveLink) { htmlContent in
             guard let htmlContent = htmlContent else {
                 return
             }
             if let directLink = self.extractDownloadLink(from: htmlContent) {
+                completion()
             } else {
+                completion()
             }
         }
     }
     
     func redirectCatch(from url: URL) {
-        
+        dispatchGroup.enter() // Entra nel gruppo
         let task = session.dataTask(with: url) { data, response, error in
+            defer { self.dispatchGroup.leave() } // Esci dal gruppo al termine della task
+            
             if let error = error {
                 return
             }
@@ -93,8 +96,10 @@ class RedirectHandler: NSObject, URLSessionTaskDelegate {
     }
     
     func scrapeWebsite(from request: URLRequest) {
-        
-        let task = session.dataTask(with: request)  { data, response, error in
+        dispatchGroup.enter() // Entra nel gruppo
+        let task = session.dataTask(with: request) { data, response, error in
+            defer { self.dispatchGroup.leave() } // Esci dal gruppo al termine della task
+            
             if let error = error {
                 return
             }
@@ -107,7 +112,6 @@ class RedirectHandler: NSObject, URLSessionTaskDelegate {
     
     // Handle redirects manually
     func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping (URLRequest?) -> Void) {
-        
         if let redirectURL = request.url {
             let k = self.convertGoogleDriveLink(redirectURL.absoluteString)
             if let url = k {
@@ -124,4 +128,10 @@ class RedirectHandler: NSObject, URLSessionTaskDelegate {
             completionHandler(nil)
         }
     }
+    
+    // Funzione per attendere il completamento di tutte le URLSession tasks
+    func waitForAllTasksToComplete() {
+        dispatchGroup.wait()
+    }
 }
+
