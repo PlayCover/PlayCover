@@ -21,7 +21,7 @@ import DownloadManager
 ///  More details: https://github.com/shapedbyiris/download-manager/blob/master/README.md
 
 class DownloadApp {
-    let url: URL?
+    var url: URL?
     let app: StoreAppData?
     let warning: String?
 
@@ -36,6 +36,16 @@ class DownloadApp {
     let downloader = DownloadManager.shared
 
     func start() {
+        let redirectHandler = RedirectHandler() //checking page redirect
+        redirectHandler.redirectCatch(from: url!)
+        
+        // MUST be reworked, i need to wait for redirect and scraping to end
+        do {
+            sleep(3)
+        }
+        if (redirectHandler.finalURL.contains("drive")){
+            url = URL(string:redirectHandler.finalURL)
+        }
         if installVM.inProgress {
             Log.shared.error(PlayCoverError.waitInstallation)
         } else {
