@@ -43,8 +43,7 @@ struct StoreAppView: View {
                     if redirectHandler.finalURL.contains("drive") { // Drive hosted IPA
                         DownloadApp(url: URL(string: redirectHandler.finalURL), app: app,
                                     warning: warningMessage).start()
-                    }
-                    else {
+                    } else {
                         DownloadApp(url: url, app: app,
                                     warning: warningMessage).start()
                     }
