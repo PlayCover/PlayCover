@@ -7,6 +7,7 @@
 
 import Foundation
 import DownloadManager
+
 /// DownloaderManager can be configured through this struct, default values are as the same as below
 /// `public struct DownloadManagerConfig {`
 ///    `public var maximumRetries = 3`
@@ -63,11 +64,8 @@ class DownloadApp {
                         proceedDownload(newWrappedURL)
                     }
                 }
-
             }
-
         }
-
     }
 
     func cancel() {
