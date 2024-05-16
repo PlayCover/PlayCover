@@ -37,8 +37,17 @@ struct StoreAppView: View {
                 if downloadVM.inProgress {
                     Log.shared.error(PlayCoverError.waitDownload)
                 } else {
-                    DownloadApp(url: url, app: app,
-                                warning: warningMessage).start()
+                    let redirectHandler = RedirectHandler() // checking page redirect
+                    redirectHandler.redirectCatch(from: url)
+                    redirectHandler.waitForAllTasksToComplete()
+                    if redirectHandler.finalURL.contains("drive") { // Drive hosted IPA
+                        DownloadApp(url: URL(string: redirectHandler.finalURL), app: app,
+                                    warning: warningMessage).start()
+                    }
+                    else {
+                        DownloadApp(url: url, app: app,
+                                    warning: warningMessage).start()
+                    }
                 }
             }
         })
