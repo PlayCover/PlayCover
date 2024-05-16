@@ -84,6 +84,7 @@
 		B17FD03C28C70C2100B1D4CA /* CoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B17FD03828C70BAE00B1D4CA /* CoreUI.framework */; };
 		B17FD04728C7B0D900B1D4CA /* AssetsExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17FD04628C7B0D900B1D4CA /* AssetsExtractor.swift */; };
 		B4263FA82BF6096D00EE1714 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = B4263FA72BF6096D00EE1714 /* SwiftSoup */; };
+		B4699A482BF60F1A00D4B521 /* GoogleDrive.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4699A472BF60F1A00D4B521 /* GoogleDrive.swift */; };
 		B6603E1128E206A300DEFA3F /* UninstallSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6603E1028E206A300DEFA3F /* UninstallSettings.swift */; };
 		B6603E1328E2257800DEFA3F /* Uninstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6603E1228E2257800DEFA3F /* Uninstaller.swift */; };
 		B6825C3528F3D23600E3015A /* InstallSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6825C3428F3D23600E3015A /* InstallSettings.swift */; };
@@ -296,6 +297,7 @@
 			children = (
 				92ECD8A2274E75CD00DB7AC6 /* Installer.swift */,
 				68E48B96295704A600C39879 /* Downloader.swift */,
+				B4699A472BF60F1A00D4B521 /* GoogleDrive.swift */,
 			);
 			path = AppInstaller;
 			sourceTree = "<group>";
@@ -681,6 +683,7 @@
 				92EE06D0274EA433002C907B /* BaseApp.swift in Sources */,
 				ABBC85B92B7C5CBA00DCF223 /* ModifierKeyObserver.swift in Sources */,
 				92F8500A27675124005CE6BE /* AppIntegrity.swift in Sources */,
+				B4699A482BF60F1A00D4B521 /* GoogleDrive.swift in Sources */,
 				6E06193828B3C4240012C771 /* ChangeGenshinAccountView.swift in Sources */,
 				68E48B97295704A600C39879 /* Downloader.swift in Sources */,
 				28361D5E2892781200B35EDB /* RestoreGenshinUserData.swift in Sources */,
