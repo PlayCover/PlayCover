@@ -120,6 +120,7 @@ class RedirectHandler: NSObject, URLSessionTaskDelegate {
     }
     // Wait URL Session
     func waitForAllTasksToComplete() {
-        dispatchGroup.wait()
+        let timeout = DispatchTime.now() + DispatchTimeInterval.seconds(5)
+        _ = dispatchGroup.wait(timeout: timeout)
     }
 }
