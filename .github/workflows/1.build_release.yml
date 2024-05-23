@@ -10,10 +10,22 @@ env:
   CI: true
 jobs:
   build:
-    runs-on: macos-12
+    runs-on: macos-14
+    env:
+      GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.0
+
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'
 
       - name: Get the version
         id: tag_version
@@ -22,7 +34,7 @@ jobs:
       - name: Install dependencies
         shell: bash
         run: |
-          brew install graphicsmagick imagemagick
+          brew install graphicsmagick imagemagick swiftlint
           gem install fastlane
           bundle install
           pip install setuptools
@@ -48,20 +60,18 @@ jobs:
           create-dmg ./output/PlayCover.app ./output
           mv ./output/*.dmg ./output/PlayCover_${{ env.TAG_NAME }}.dmg
 
-      # Will bring back when codesign id is updated
-      # - name: Notarize DMG
-      #   shell: bash
-      #   run: |
-      #     fastlane notarize_dmg package:output/PlayCover_${{ env.TAG_NAME }}.dmg
-      #   env:
-      #     TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
+      - name: Notarize DMG
+        continue-on-error: true
+        shell: bash
+        run: |
+          fastlane notarize_dmg package:output/PlayCover_${{ env.TAG_NAME }}.dmg
 
       - name: Clean Up
         shell: bash
         run: rm apikey.json
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.3.0
         with:
           name: PlayCover_${{ env.TAG_NAME }}.dmg
           path: output/PlayCover_${{ env.TAG_NAME }}.dmg

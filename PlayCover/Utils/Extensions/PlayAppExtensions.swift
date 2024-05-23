@@ -15,7 +15,7 @@ extension PlayApp {
 
             try? FileManager.default.createDirectory(at: appTmp, withIntermediateDirectories: false)
 
-            appTmp.enumerateContents(options: []) { url, type in
+            appTmp.enumerateContents { url, type in
                 if url.lastPathComponent.contains("discord-ipc-") && (type.isSymbolicLink ?? true) {
                     FileManager.default.delete(at: url)
                 }
