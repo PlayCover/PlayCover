@@ -9,7 +9,6 @@ struct AppLibraryView: View {
     @EnvironmentObject var appsVM: AppsVM
     @EnvironmentObject var installVM: InstallVM
     @EnvironmentObject var downloadVM: DownloadVM
-    @EnvironmentObject var uninstallVM: UninstallVM
 
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
@@ -34,7 +33,6 @@ struct AppLibraryView: View {
                                             selected: $selected,
                                             app: app,
                                             isList: isList)
-                                .environmentObject(uninstallVM)
                             }
                         }
                         .padding()
@@ -46,7 +44,6 @@ struct AppLibraryView: View {
                                             selected: $selected,
                                             app: app,
                                             isList: isList)
-                                .environmentObject(uninstallVM)
                             }
                             Spacer()
                         }
@@ -114,7 +111,6 @@ struct AppLibraryView: View {
             }
         }
         .searchable(text: $searchString, placement: .toolbar)
-        .disabled(uninstallVM.inProgress)
         .onChange(of: searchString, perform: { value in
             appsVM.searchText = value
             appsVM.fetchApps()

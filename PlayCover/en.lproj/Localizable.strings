@@ -90,12 +90,9 @@
 "playapp.install.signing" = "Signing app...";
 "playapp.install.addToLib" = "Adding app to library...";
 "playapp.install.copy" = "Copying app...";
-"playapp.uninstall.begin" = "Uninstalling app...";
-"playapp.uninstall.finished" = "Finished";
 "playapp.progress.finished" = "Finished";
 "playapp.progress.failed" = "Failed";
 "playapp.progress.canceled" = "Canceled";
-"playapp.clearCache.begin" = "Clearing app data...";
 
 "alert.appCacheCleared" = "App data has been cleared!";
 "alert.kmImported" = "Keymapping imported!";

@@ -111,7 +111,6 @@ class Uninstaller {
     static func uninstall(_ app: PlayApp) async {
         var uninstallNum = 0
 
-        UninstallVM.shared.next(.begin, 0.0, 0.0)
         if UninstallPreferences.shared.clearAppData {
             await app.clearAllCache()
             uninstallNum += 1
@@ -156,7 +155,6 @@ class Uninstaller {
                 Log.shared.error(error)
             }
         }
-        UninstallVM.shared.next(.finish, 0.95, 1.0)
     }
 
     @MainActor
@@ -177,10 +175,7 @@ class Uninstaller {
     }
 
     static func clearCache(of app: PlayApp) async {
-        UninstallVM.shared.next(.begin, 0.0, 0.0)
-        UninstallVM.shared.next(.clearCache, 0.0, 0.8)
         await app.clearAllCache()
-        UninstallVM.shared.next(.appCacheCleared, 0.95, 1.0)
     }
 
     static func clearExternalCache(_ bundleId: String) {

@@ -11,7 +11,6 @@ struct ToastView: View {
     @EnvironmentObject var toastVM: ToastVM
     @EnvironmentObject var installVM: InstallVM
     @EnvironmentObject var downloadVM: DownloadVM
-    @EnvironmentObject var uninstallVM: UninstallVM
 
     var body: some View {
         if toastVM.isShown {
@@ -74,21 +73,10 @@ struct ToastView: View {
                                     RoundedRectangle(cornerRadius: 10))
                     .padding()
                 }
-                if uninstallVM.inProgress {
-                    VStack {
-                        Text(NSLocalizedString(uninstallVM.status.rawValue, comment: ""))
-                        ProgressView(value: uninstallVM.progress)
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
-                    .padding()
-                }
             }
             .animation(.easeInOut(duration: 0.25), value: toastVM.toasts.count)
             .animation(.easeInOut(duration: 0.25), value: installVM.inProgress)
             .animation(.easeInOut(duration: 0.25), value: downloadVM.inProgress)
-            .animation(.easeInOut(duration: 0.25), value: uninstallVM.inProgress)
         }
     }
 }
@@ -99,6 +87,5 @@ struct ToastView_Preview: PreviewProvider {
             .environmentObject(ToastVM.shared)
             .environmentObject(InstallVM.shared)
             .environmentObject(DownloadVM.shared)
-            .environmentObject(UninstallVM.shared)
     }
 }

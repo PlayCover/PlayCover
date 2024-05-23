@@ -80,7 +80,6 @@ struct PlayCoverApp: App {
             MainView(isSigningSetupShown: $isSigningSetupShown)
                 .environmentObject(InstallVM.shared)
                 .environmentObject(DownloadVM.shared)
-                .environmentObject(UninstallVM.shared)
                 .environmentObject(AppsVM.shared)
                 .environmentObject(storeVM)
                 .environmentObject(AppIntegrity())

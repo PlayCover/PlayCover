@@ -7,7 +7,6 @@ import SwiftUI
 import DataCache
 
 struct PlayAppView: View {
-    @EnvironmentObject var uninstallVM: UninstallVM
 
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
@@ -128,7 +127,6 @@ struct PlayAppView: View {
                     Text("playapp.delete")
                 })
             }
-            .disabled(uninstallVM.inProgress)
             .sheet(isPresented: $showChangeGenshinAccount) {
                 ChangeGenshinAccountView(app: app)
             }
