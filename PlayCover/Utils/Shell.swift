@@ -81,7 +81,7 @@ class Shell: ObservableObject {
                 "--deep", "--entitlements", entitlements.path)
     }
 
-    static func signApp(_ exec: URL) throws {
+    static func signApp(_ exec: URL) async throws {
         try run("/usr/bin/codesign", "-fs-", exec.deletingLastPathComponent().path,
                 "--deep", "--preserve-metadata=entitlements")
     }

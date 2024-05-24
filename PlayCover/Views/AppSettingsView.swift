@@ -9,7 +9,7 @@ import SwiftUI
 import DataCache
 
 enum BlockingTask {
-    case none, playTools, introspection, iosFrameworks
+    case none, playTools, introspection, iosFrameworks, applicationCategoryType
 }
 
 // swiftlint:disable file_length
@@ -547,6 +547,11 @@ struct MiscView: View {
                 HStack {
                     Text("settings.applicationCategoryType")
                     Spacer()
+                    if task == .applicationCategoryType {
+                        ProgressView()
+                            .scaleEffect(0.5)
+                            .frame(width: 16, height: 16)
+                    }
                     Picker("", selection: $applicationCategoryType) {
                         ForEach(LSApplicationCategoryType.allCases, id: \.rawValue) { value in
                             Text(value.localizedName)
@@ -555,13 +560,15 @@ struct MiscView: View {
                     }
                     .frame(width: 225)
                     .onChange(of: applicationCategoryType) { _ in
+                        task = .applicationCategoryType
                         app.info.applicationCategoryType = applicationCategoryType
                         Task(priority: .userInitiated) {
                             do {
-                                try Shell.signApp(app.executable)
+                                try await Shell.signApp(app.executable)
                             } catch {
                                 Log.shared.error(error)
                             }
+                            task = .none
                         }
                     }
                 }
