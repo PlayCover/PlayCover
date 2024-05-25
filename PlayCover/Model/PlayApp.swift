@@ -228,7 +228,7 @@ class PlayApp: BaseApp {
             }
 
             do {
-                try await Shell.signApp(executable)
+                try Shell.signApp(executable)
             } catch {
                 Log.shared.error(error)
             }

@@ -83,7 +83,7 @@ class PlayTools {
             if result {
                 do {
                     try installPluginInIPA(exec.deletingLastPathComponent())
-                    Task { try await Shell.signApp(exec) }
+                    try Shell.signApp(exec)
                 } catch {
                     Log.shared.error(error)
                 }
@@ -184,7 +184,7 @@ class PlayTools {
                     if FileManager.default.fileExists(atPath: pluginUrl.path) {
                         try FileManager.default.removeItem(at: pluginUrl)
                     }
-                    Task { try await Shell.signApp(exec) }
+                    try Shell.signApp(exec)
                 } catch {
                     Log.shared.error(error)
                 }
