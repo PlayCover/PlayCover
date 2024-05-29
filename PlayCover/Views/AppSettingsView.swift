@@ -562,7 +562,7 @@ struct MiscView: View {
                     .onChange(of: applicationCategoryType) { _ in
                         task = .applicationCategoryType
                         app.info.applicationCategoryType = applicationCategoryType
-                        DispatchQueue.global(qos: .background).async {
+                        Task.detached {
                             do {
                                 try Shell.signApp(app.executable)
                                 task = .none
