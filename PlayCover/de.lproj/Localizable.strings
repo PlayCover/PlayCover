@@ -367,8 +367,6 @@
 "playapp.noSources.title" = "Keine IPAs installiert";
 "playapp.noSources.subtitle" = "Du hast derzeit keine IPAs installiert. Klicke auf die Schaltfläche unten, um eine zu importieren.";
 "settings.tab.bypasses" = "Umgehungen";
-"settings.addToLaunchpad" = "Zum Launchpad hinzufügen";
-"settings.removeFromLaunchpad" = "Vom Launchpad entfernen";
 "playapp.download.integrityCheck" = "Überprüfung der Dateiintegrität:";
 "playapp.download.differentChecksum" = "Unterschiedliche Prüfsummen! Möchtest du mit der Installation fortfahren?";
 "playapp.download.differentChecksumDesc" = "\"%@\" erwartet, \"%@\" erhalten";
@@ -421,3 +419,8 @@
 "settings.toggle.autoKM" = "Smart Keymap";
 "settings.toggle.autoKM.help" = "Tastenbelegung automatisch deaktivieren, wenn eine Texteingabe erkannt wird";
 "settings.applicationCategoryType" = "Anwendungsart";
+"settings.toggle.iosFrameworks" = "Das Einfügen von iOS-Frameworks erzwingen";
+"settings.info.alias" = "Alias:";
+"settings.toggle.enableScrollWheel.help" = "Scrollrad in Keymapping aktivieren";
+"settings.toggle.iosFrameworks.help" = "Füge der App die System-ios-Bibliotheken hinzu. Es ist bekannt, dass Probleme behoben werden, bei denen einige Apps das ios-Framework nicht finden können";
+"settings.toggle.enableScrollWheel" = "Scrollrad aktivieren";
