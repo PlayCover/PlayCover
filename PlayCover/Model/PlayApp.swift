@@ -264,6 +264,7 @@ class PlayApp: BaseApp {
     func clearPlayChain() {
         FileManager.default.delete(at: playChainURL)
         FileManager.default.delete(at: playChainURL.appendingPathExtension("keyCover"))
+        FileManager.default.delete(at: playChainURL.appendingPathExtension("db"))
     }
 
     func deleteApp() {
