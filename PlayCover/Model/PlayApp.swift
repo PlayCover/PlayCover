@@ -301,6 +301,7 @@ class PlayApp: BaseApp {
         "com.tencent.tmgp.cod",
         "com.tencent.ig",
         "com.pubg.newstate",
+        "com.pubg.imobile",
         "com.tencent.tmgp.pubgmhd",
         "com.dts.freefireth",
         "com.dts.freefiremax",
