@@ -39,12 +39,12 @@ class DownloadApp {
         if installVM.inProgress {
             Log.shared.error(PlayCoverError.waitInstallation)
         } else {
-            if PlayApp.PROHIBITED_APPS.contains(app!.bundleID) {
+            if let app = app, PlayApp.PROHIBITED_APPS.contains(app.bundleID) {
                 let alert = NSAlert()
                 alert.messageText = NSLocalizedString("alert.error", comment: "")
                 alert.informativeText = String(
                     format: NSLocalizedString("error.appProhibited", comment: ""),
-                    arguments: [app!.name]
+                    arguments: [app.name]
                 )
                 alert.alertStyle = .warning
                 alert.addButton(withTitle: NSLocalizedString("Ok", comment: ""))
