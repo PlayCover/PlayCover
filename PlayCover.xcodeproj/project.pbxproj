@@ -83,8 +83,9 @@
 		B1419FB628BA82EE000CB69F /* DiscordActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1419FB528BA82EE000CB69F /* DiscordActivity.swift */; };
 		B17FD03C28C70C2100B1D4CA /* CoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B17FD03828C70BAE00B1D4CA /* CoreUI.framework */; };
 		B17FD04728C7B0D900B1D4CA /* AssetsExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17FD04628C7B0D900B1D4CA /* AssetsExtractor.swift */; };
-		B4263FA82BF6096D00EE1714 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = B4263FA72BF6096D00EE1714 /* SwiftSoup */; };
-		B4699A482BF60F1A00D4B521 /* GoogleDrive.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4699A472BF60F1A00D4B521 /* GoogleDrive.swift */; };
+		B4699A482BF60F1A00D4B521 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		B4CFC2EA2BF66DCC006E57DB /* GoogleDrive.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4CFC2E92BF66DCC006E57DB /* GoogleDrive.swift */; };
+		B4E6CE312C11C9B40059E353 /* SwiftSoup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4E6CE302C11C9B40059E353 /* SwiftSoup.framework */; };
 		B6603E1128E206A300DEFA3F /* UninstallSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6603E1028E206A300DEFA3F /* UninstallSettings.swift */; };
 		B6603E1328E2257800DEFA3F /* Uninstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6603E1228E2257800DEFA3F /* Uninstaller.swift */; };
 		B6825C3528F3D23600E3015A /* InstallSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6825C3428F3D23600E3015A /* InstallSettings.swift */; };
@@ -192,6 +193,8 @@
 		B17FD03F28C70C7300B1D4CA /* CoreUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreUI.h; sourceTree = "<group>"; };
 		B17FD04628C7B0D900B1D4CA /* AssetsExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsExtractor.swift; sourceTree = "<group>"; };
 		B490E8692C0D0E8A004383FA /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B4CFC2E92BF66DCC006E57DB /* GoogleDrive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleDrive.swift; sourceTree = "<group>"; };
+		B4E6CE302C11C9B40059E353 /* SwiftSoup.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSoup.framework; path = "Carthage/Build/SwiftSoup.xcframework/ios-arm64/SwiftSoup.framework"; sourceTree = "<group>"; };
 		B6603E1028E206A300DEFA3F /* UninstallSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UninstallSettings.swift; sourceTree = "<group>"; };
 		B6603E1228E2257800DEFA3F /* Uninstaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Uninstaller.swift; sourceTree = "<group>"; };
 		B6825C3428F3D23600E3015A /* InstallSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallSettings.swift; sourceTree = "<group>"; };
@@ -208,9 +211,9 @@
 				68E48B9F29570A0400C39879 /* DataCache in Frameworks */,
 				68E48B9A295708C800C39879 /* Injection in Frameworks */,
 				365AFB0628847B2E008B3542 /* Sparkle in Frameworks */,
+				B4E6CE312C11C9B40059E353 /* SwiftSoup.framework in Frameworks */,
 				68E48BA229570A2B00C39879 /* CachedAsyncImage in Frameworks */,
 				AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */,
-				B4263FA82BF6096D00EE1714 /* SwiftSoup in Frameworks */,
 				68E48B952957046D00C39879 /* DownloadManager in Frameworks */,
 				B17FD03C28C70C2100B1D4CA /* CoreUI.framework in Frameworks */,
 			);
@@ -256,6 +259,7 @@
 		53841CC826D9D7920021D27C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B4E6CE302C11C9B40059E353 /* SwiftSoup.framework */,
 				B17FD03828C70BAE00B1D4CA /* CoreUI.framework */,
 				92D79316273C065A001CC964 /* libsandbox.1.tbd */,
 				53468A4A2712917900887A08 /* libmis.tbd */,
@@ -297,7 +301,6 @@
 			children = (
 				92ECD8A2274E75CD00DB7AC6 /* Installer.swift */,
 				68E48B96295704A600C39879 /* Downloader.swift */,
-				B4699A472BF60F1A00D4B521 /* GoogleDrive.swift */,
 			);
 			path = AppInstaller;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				92B4D38E2737CF3D0001D7BB /* PlayTools.swift */,
 				6E550A8A29BA507200EFC15C /* Macho.swift */,
 				68E48B9B295709BF00C39879 /* Cacher.swift */,
+				B4CFC2E92BF66DCC006E57DB /* GoogleDrive.swift */,
 				92A8AAC8275EFEA800D89B50 /* SystemConfig.swift */,
 				92F8500927675124005CE6BE /* AppIntegrity.swift */,
 				B17FD04628C7B0D900B1D4CA /* AssetsExtractor.swift */,
@@ -476,7 +480,6 @@
 				68E48B9E29570A0400C39879 /* DataCache */,
 				68E48BA129570A2B00C39879 /* CachedAsyncImage */,
 				68E48B99295708C800C39879 /* Injection */,
-				B4263FA72BF6096D00EE1714 /* SwiftSoup */,
 			);
 			productName = PlayCover;
 			productReference = 8783CFF726B8C52D00171041 /* PlayCover.app */;
@@ -532,7 +535,6 @@
 				68E48B9D29570A0400C39879 /* XCRemoteSwiftPackageReference "DataCache" */,
 				68E48BA029570A2B00C39879 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				68E48B98295708C800C39879 /* XCRemoteSwiftPackageReference "inject" */,
-				B4263FA62BF6096D00EE1714 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 			);
 			productRefGroup = 8783CFF826B8C52D00171041 /* Products */;
 			projectDirPath = "";
@@ -588,12 +590,14 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/PlayTools.xcframework/ios-arm64/PlayTools.framework",
+				"$(SRCROOT)/Carthage/Build/SwiftSoup.xcframework/ios-arm64/SwiftSoup.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/PlayTools.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftSoup.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
@@ -616,7 +620,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nset -euo pipefail\n\nIDENTITY=${EXPANDED_CODE_SIGN_IDENTITY_NAME};\n# Apple Development: XIN LI (33X85HBRP6)\necho Signing identity $IDENTITY;\n\ncodesign --verbose --force --deep --sign \"$IDENTITY\" ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework/PlugIns/AKInterface.bundle;\ncodesign --verbose --force --deep --sign \"$IDENTITY\" ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework;\n\n# sign sparkle\nLOCATION=\"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework\";\necho Sparkle Signing location $LOCATION;\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/Autoupdate\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/Updater.app\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/XPCServices/Downloader.xpc\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/XPCServices/Installer.xpc\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION\";\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nset -euo pipefail\n\nIDENTITY=${EXPANDED_CODE_SIGN_IDENTITY_NAME};\n# Apple Development: XIN LI (33X85HBRP6)\necho Signing identity $IDENTITY;\n\ncodesign --verbose --force --deep --sign \"$IDENTITY\" ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework/PlugIns/AKInterface.bundle;\ncodesign --verbose --force --deep --sign \"$IDENTITY\" ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework;\ncodesign --verbose --force --deep --sign \"$IDENTITY\" ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework;\n# sign sparkle\nLOCATION=\"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework\";\necho Sparkle Signing location $LOCATION;\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/Autoupdate\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/Updater.app\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/XPCServices/Downloader.xpc\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/XPCServices/Installer.xpc\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION\";\n";
 		};
 		AAE8809C287ACA4900FBB23C /* Carthage Bootstrap */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -635,7 +639,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ -z \"$FASTLANE\" ]]; then\n\tset -euo pipefail\n\techo \"Bootstraping carthage\"\n\n\tif [ -x /usr/local/bin/carthage ]; then\n\t\tcarthage=/usr/local/bin/carthage\n\telif [ -x /opt/homebrew/bin/carthage ]; then\n\t\tcarthage=/opt/homebrew/bin/carthage\n\telse\n\t\techo \"Cannot find carthage\"\n\t\texit 1\n\tfi\n\n\t$carthage update --use-xcframeworks\nfi\n";
+			shellScript = "if [[ -z \"$FASTLANE\" ]]; then\n    set -euo pipefail\n    echo \"Bootstraping carthage\"\n\n    if [ -x /usr/local/bin/carthage ]; then\n        carthage=/usr/local/bin/carthage\n    elif [ -x /opt/homebrew/bin/carthage ]; then\n        carthage=/opt/homebrew/bin/carthage\n    else\n        echo \"Cannot find carthage\"\n        exit 1\n    fi\n\n    $carthage update PlayTools --use-xcframeworks\n    $carthage update SwiftSoup --platform iOS --use-xcframeworks\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -647,6 +651,7 @@
 				6E66B0D3289F5A010099B907 /* StoreAppView.swift in Sources */,
 				6E66B0D528A0039D0099B907 /* ToastView.swift in Sources */,
 				92ECD8A3274E75CD00DB7AC6 /* Installer.swift in Sources */,
+				B4CFC2EA2BF66DCC006E57DB /* GoogleDrive.swift in Sources */,
 				B6825C3528F3D23600E3015A /* InstallSettings.swift in Sources */,
 				92EE06DE274EC09F002C907B /* Entitlements.swift in Sources */,
 				92ECD8A5274E763700DB7AC6 /* IPA.swift in Sources */,
@@ -683,7 +688,7 @@
 				92EE06D0274EA433002C907B /* BaseApp.swift in Sources */,
 				ABBC85B92B7C5CBA00DCF223 /* ModifierKeyObserver.swift in Sources */,
 				92F8500A27675124005CE6BE /* AppIntegrity.swift in Sources */,
-				B4699A482BF60F1A00D4B521 /* GoogleDrive.swift in Sources */,
+				B4699A482BF60F1A00D4B521 /* (null) in Sources */,
 				6E06193828B3C4240012C771 /* ChangeGenshinAccountView.swift in Sources */,
 				68E48B97295704A600C39879 /* Downloader.swift in Sources */,
 				28361D5E2892781200B35EDB /* RestoreGenshinUserData.swift in Sources */,
@@ -829,6 +834,11 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = x86_64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/SwiftSoup.xcframework/macos-arm64",
+					"$(PROJECT_DIR)/Carthage/Build/SwiftSoup.xcframework/ios-arm64",
+				);
 				INFOPLIST_FILE = PlayCover/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -932,6 +942,11 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = x86_64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/SwiftSoup.xcframework/macos-arm64",
+					"$(PROJECT_DIR)/Carthage/Build/SwiftSoup.xcframework/ios-arm64",
+				);
 				INFOPLIST_FILE = PlayCover/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1027,14 +1042,6 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		B4263FA62BF6096D00EE1714 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/scinfu/SwiftSoup";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.7.2;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1067,11 +1074,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AA818CB3287ABEC3000BEE9D /* XCRemoteSwiftPackageReference "Yams" */;
 			productName = Yams;
-		};
-		B4263FA72BF6096D00EE1714 /* SwiftSoup */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B4263FA62BF6096D00EE1714 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
-			productName = SwiftSoup;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
