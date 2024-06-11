@@ -152,20 +152,37 @@ struct AppSettingsView: View {
 
 struct KeymappingView: View {
     @Binding var settings: AppSettings
-
+    @AppStorage("settings.settings.keymapping") private var keymapping = false
+    @AppStorage("settings.settings.noKMOnInput") private var noKMOnInput = false
+    @AppStorage("settings.settings.enableScrollWheel") private var enableScrollWheel = false
+    init(settings: Binding<AppSettings>){
+        self._settings = settings
+        self.keymapping = settings.settings.keymapping.wrappedValue
+        self.noKMOnInput = settings.settings.noKMOnInput.wrappedValue
+        self.enableScrollWheel = settings.settings.enableScrollWheel.wrappedValue
+    }
     var body: some View {
         ScrollView {
             VStack {
                 HStack {
                     Toggle("settings.toggle.km", isOn: $settings.settings.keymapping)
                         .help("settings.toggle.km.help")
+                        .onChange(of: settings.settings.keymapping) { _ in
+                            settings.settings.keymapping = settings.settings.keymapping
+                        }
                     Spacer()
                     Toggle("settings.toggle.autoKM", isOn: $settings.settings.noKMOnInput)
                         .help("settings.toggle.autoKM.help")
+                        .onChange(of: settings.settings.noKMOnInput) { _ in
+                            settings.settings.noKMOnInput = settings.settings.noKMOnInput
+                        }
                 }
                 HStack {
                     Toggle("settings.toggle.enableScrollWheel", isOn: $settings.settings.enableScrollWheel)
                         .help("settings.toggle.enableScrollWheel.help")
+                        .onChange(of: settings.settings.enableScrollWheel) { _ in
+                            settings.settings.enableScrollWheel = settings.settings.enableScrollWheel
+                        }
                     Spacer()
                 }
                 HStack {
@@ -191,7 +208,8 @@ struct GraphicsView: View {
     @State var customHeight = 1080
 
     @State var showResolutionWarning = false
-
+    @AppStorage("settings.settings.inverseScreenValues") private var inverseScreenValues = false
+    @AppStorage("settings.settings.disableTimeout") private var disableTimeout = false
     static var number: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .none
@@ -207,7 +225,11 @@ struct GraphicsView: View {
         formatter.decimalSeparator = "."
         return formatter
     }
-
+    init(settings: Binding<AppSettings>){
+        self._settings = settings
+        self.inverseScreenValues = settings.settings.inverseScreenValues.wrappedValue
+        self.disableTimeout = settings.settings.disableTimeout.wrappedValue
+    }
     var body: some View {
         ScrollView {
             VStack {
@@ -337,6 +359,7 @@ struct GraphicsView: View {
                             Toggle("settings.picker.windowFix", isOn: $settings.settings.inverseScreenValues)
                                 .help("settings.picker.windowFix.help")
                                 .onChange(of: settings.settings.inverseScreenValues) { _ in
+                                    settings.settings.inverseScreenValues = settings.settings.inverseScreenValues
                                     settings.settings.windowFixMethod = 0
                                 }
                             Spacer()
@@ -354,6 +377,10 @@ struct GraphicsView: View {
                     }
                     Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.settings.disableTimeout)
                         .help("settings.toggle.disableDisplaySleep.help")
+                        .onChange(of: settings.settings.disableTimeout) { _ in
+                            settings.settings.disableTimeout = settings.settings.disableTimeout
+                        }
+
                     Spacer()
                 }
                 Spacer()
@@ -542,19 +569,23 @@ struct BypassesView: View {
     }
 }
 
+
 struct MiscView: View {
     @Binding var settings: AppSettings
     @Binding var closeView: Bool
     @Binding var hasPlayTools: Bool?
     @Binding var hasAlias: Bool?
     @Binding var task: BlockingTask
-
+    @AppStorage("settings.settings.discordActivity.enable") private var discordActivity = false
+    @AppStorage("settings.settings.metalHUD") private var metalHUD = false
+    @AppStorage("settings.openWithLLDB") private var openWithLLDB = false
+    @AppStorage("settings.openLLDBWithTerminal") private var openLLDBWithTerminal = false
     @State var showPopover = false
 
     var app: PlayApp
 
     @State var applicationCategoryType: LSApplicationCategoryType
-
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -653,7 +684,7 @@ struct MiscView: View {
                                         settings.openWithLLDB = settings.openWithLLDB
                                     }
                                 Toggle("settings.toggle.lldbWithTerminal", isOn: $settings.openLLDBWithTerminal)
-                                    .disabled(!settings.openLLDBWithTerminal)
+                                    .disabled(!settings.openWithLLDB)
                                     .onChange(of:settings.openLLDBWithTerminal) { _ in
                                         settings.openLLDBWithTerminal = settings.openLLDBWithTerminal
                                     }
