@@ -155,12 +155,6 @@ struct KeymappingView: View {
     @AppStorage("settings.settings.keymapping") private var keymapping = false
     @AppStorage("settings.settings.noKMOnInput") private var noKMOnInput = false
     @AppStorage("settings.settings.enableScrollWheel") private var enableScrollWheel = false
-    init(settings: Binding<AppSettings>){
-        self._settings = settings
-        self.keymapping = settings.settings.keymapping.wrappedValue
-        self.noKMOnInput = settings.settings.noKMOnInput.wrappedValue
-        self.enableScrollWheel = settings.settings.enableScrollWheel.wrappedValue
-    }
     var body: some View {
         ScrollView {
             VStack {
@@ -225,11 +219,7 @@ struct GraphicsView: View {
         formatter.decimalSeparator = "."
         return formatter
     }
-    init(settings: Binding<AppSettings>){
-        self._settings = settings
-        self.inverseScreenValues = settings.settings.inverseScreenValues.wrappedValue
-        self.disableTimeout = settings.settings.disableTimeout.wrappedValue
-    }
+
     var body: some View {
         ScrollView {
             VStack {
@@ -503,9 +493,6 @@ struct BypassesView: View {
         let lsEnvironment = app.info.lsEnvironment["DYLD_LIBRARY_PATH"] ?? ""
         self.hasIntrospection = lsEnvironment.contains(PlayApp.introspection)
         self.hasIosFrameworks = lsEnvironment.contains(PlayApp.iosFrameworks)
-        self.playChain = settings.settings.playChain.wrappedValue
-        self.playChainDebugging = settings.settings.playChainDebugging.wrappedValue
-        self.bypass = settings.settings.bypass.wrappedValue
     }
 
     var body: some View {
