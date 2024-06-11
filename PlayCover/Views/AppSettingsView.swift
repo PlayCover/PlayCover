@@ -152,20 +152,24 @@ struct AppSettingsView: View {
 
 struct KeymappingView: View {
     @Binding var settings: AppSettings
-
+    @AppStorage("settings.settings.keymapping") private var keymapping = false
+    @AppStorage("settings.settings.noKMOnInput") private var noKMOnInput = false
+    @AppStorage("settings.settings.enableScrollWheel") private var enableScrollWheel = false
+    @State private var toggle2 = false
     var body: some View {
         ScrollView {
             VStack {
                 HStack {
-                    Toggle("settings.toggle.km", isOn: $settings.settings.keymapping)
+                    Toggle("settings.toggle.km", isOn: $keymapping)
                         .help("settings.toggle.km.help")
                     Spacer()
-                    Toggle("settings.toggle.autoKM", isOn: $settings.settings.noKMOnInput)
+                    Toggle("settings.toggle.autoKM", isOn: $noKMOnInput)
                         .help("settings.toggle.autoKM.help")
                 }
                 HStack {
-                    Toggle("settings.toggle.enableScrollWheel", isOn: $settings.settings.enableScrollWheel)
+                    Toggle("settings.toggle.enableScrollWheel", isOn:  $enableScrollWheel)
                         .help("settings.toggle.enableScrollWheel.help")
+                        .animation(.easeIn, value: true)
                     Spacer()
                 }
                 HStack {
@@ -459,7 +463,12 @@ struct BypassesView: View {
 
     @State private var hasIntrospection: Bool
     @State private var hasIosFrameworks: Bool
-
+    @AppStorage("settings.settings.playChain") private var playChain = false
+    @AppStorage("settings.settings.playChainDebugging") private var playChainDebugging = false
+    @AppStorage("settings.settings.bypass") private var bypass = false
+    @AppStorage("hasIntrospection") private var myhasIntrospection = false
+    @AppStorage("hasIosFrameworks") private var myhasIosFrameworks = false
+    
     var app: PlayApp
 
     init(settings: Binding<AppSettings>,
@@ -480,30 +489,30 @@ struct BypassesView: View {
         ScrollView {
             VStack {
                 HStack(alignment: .center) {
-                    Toggle("settings.playChain.enable", isOn: $settings.settings.playChain)
+                    Toggle("settings.playChain.enable", isOn: $playChain)
                         .help("settings.playChain.help")
                         .disabled(!(hasPlayTools ?? true))
                     Spacer()
-                    Toggle("settings.playChain.debugging", isOn: $settings.settings.playChainDebugging)
+                    Toggle("settings.playChain.debugging", isOn: $playChainDebugging)
                         .disabled(!settings.settings.playChain)
                 }
                 Spacer()
                     .frame(height: 20)
                 HStack {
-                    Toggle("settings.toggle.jbBypass", isOn: $settings.settings.bypass)
+                    Toggle("settings.toggle.jbBypass", isOn: $bypass)
                         .help("settings.toggle.jbBypass.help")
                     Spacer()
                 }
                 Spacer()
                 HStack {
-                    Toggle("settings.toggle.introspection", isOn: $hasIntrospection)
+                    Toggle("settings.toggle.introspection", isOn: $myhasIntrospection)
                         .help("settings.toggle.introspection.help")
                         .toggleStyle(.async($task, role: .introspection))
                     Spacer()
                 }
                 Spacer()
                 HStack {
-                    Toggle("settings.toggle.iosFrameworks", isOn: $hasIosFrameworks)
+                    Toggle("settings.toggle.iosFrameworks", isOn: $myhasIosFrameworks)
                         .help("settings.toggle.iosFrameworks.help")
                         .toggleStyle(.async($task, role: .iosFrameworks))
                     Spacer()
