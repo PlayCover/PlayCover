@@ -152,24 +152,20 @@ struct AppSettingsView: View {
 
 struct KeymappingView: View {
     @Binding var settings: AppSettings
-    @AppStorage("settings.settings.keymapping") private var keymapping = false
-    @AppStorage("settings.settings.noKMOnInput") private var noKMOnInput = false
-    @AppStorage("settings.settings.enableScrollWheel") private var enableScrollWheel = false
-    @State private var toggle2 = false
+
     var body: some View {
         ScrollView {
             VStack {
                 HStack {
-                    Toggle("settings.toggle.km", isOn: $keymapping)
+                    Toggle("settings.toggle.km", isOn: $settings.settings.keymapping)
                         .help("settings.toggle.km.help")
                     Spacer()
-                    Toggle("settings.toggle.autoKM", isOn: $noKMOnInput)
+                    Toggle("settings.toggle.autoKM", isOn: $settings.settings.noKMOnInput)
                         .help("settings.toggle.autoKM.help")
                 }
                 HStack {
-                    Toggle("settings.toggle.enableScrollWheel", isOn:  $enableScrollWheel)
+                    Toggle("settings.toggle.enableScrollWheel", isOn: $settings.settings.enableScrollWheel)
                         .help("settings.toggle.enableScrollWheel.help")
-                        .animation(.easeIn, value: true)
                     Spacer()
                 }
                 HStack {
@@ -460,15 +456,12 @@ struct BypassesView: View {
     @Binding var settings: AppSettings
     @Binding var hasPlayTools: Bool?
     @Binding var task: BlockingTask
-
-    @State private var hasIntrospection: Bool
-    @State private var hasIosFrameworks: Bool
     @AppStorage("settings.settings.playChain") private var playChain = false
     @AppStorage("settings.settings.playChainDebugging") private var playChainDebugging = false
     @AppStorage("settings.settings.bypass") private var bypass = false
-    @AppStorage("hasIntrospection") private var myhasIntrospection = false
-    @AppStorage("hasIosFrameworks") private var myhasIosFrameworks = false
-    
+    @State private var hasIntrospection: Bool
+    @State private var hasIosFrameworks: Bool
+
     var app: PlayApp
 
     init(settings: Binding<AppSettings>,
@@ -483,36 +476,48 @@ struct BypassesView: View {
         let lsEnvironment = app.info.lsEnvironment["DYLD_LIBRARY_PATH"] ?? ""
         self.hasIntrospection = lsEnvironment.contains(PlayApp.introspection)
         self.hasIosFrameworks = lsEnvironment.contains(PlayApp.iosFrameworks)
+        self.playChain = settings.settings.playChain.wrappedValue
+        self.playChainDebugging = settings.settings.playChainDebugging.wrappedValue
+        self.bypass = settings.settings.bypass.wrappedValue
     }
 
     var body: some View {
         ScrollView {
             VStack {
                 HStack(alignment: .center) {
-                    Toggle("settings.playChain.enable", isOn: $playChain)
+                    Toggle("settings.playChain.enable", isOn: $settings.settings.playChain)
                         .help("settings.playChain.help")
                         .disabled(!(hasPlayTools ?? true))
+                        .onChange(of:settings.settings.playChain ) { _ in
+                            settings.settings.playChain = settings.settings.playChain
+                        }
                     Spacer()
-                    Toggle("settings.playChain.debugging", isOn: $playChainDebugging)
+                    Toggle("settings.playChain.debugging", isOn: $settings.settings.playChainDebugging)
                         .disabled(!settings.settings.playChain)
+                        .onChange(of:settings.settings.playChainDebugging ) { _ in
+                            settings.settings.playChainDebugging = settings.settings.playChainDebugging
+                        }
                 }
                 Spacer()
                     .frame(height: 20)
                 HStack {
-                    Toggle("settings.toggle.jbBypass", isOn: $bypass)
+                    Toggle("settings.toggle.jbBypass", isOn: $settings.settings.bypass)
                         .help("settings.toggle.jbBypass.help")
+                        .onChange(of:settings.settings.bypass ) { _ in
+                            settings.settings.bypass = settings.settings.bypass
+                        }
                     Spacer()
                 }
                 Spacer()
                 HStack {
-                    Toggle("settings.toggle.introspection", isOn: $myhasIntrospection)
+                    Toggle("settings.toggle.introspection", isOn: $hasIntrospection)
                         .help("settings.toggle.introspection.help")
                         .toggleStyle(.async($task, role: .introspection))
                     Spacer()
                 }
                 Spacer()
                 HStack {
-                    Toggle("settings.toggle.iosFrameworks", isOn: $myhasIosFrameworks)
+                    Toggle("settings.toggle.iosFrameworks", isOn: $hasIosFrameworks)
                         .help("settings.toggle.iosFrameworks.help")
                         .toggleStyle(.async($task, role: .iosFrameworks))
                     Spacer()
@@ -585,6 +590,9 @@ struct MiscView: View {
                     .frame(height: 20)
                 HStack {
                     Toggle("settings.toggle.discord", isOn: $settings.settings.discordActivity.enable)
+                        .onChange(of:settings.settings.discordActivity.enable ) { _ in
+                            settings.settings.discordActivity.enable = settings.settings.discordActivity.enable
+                        }
                     Spacer()
                     Button("settings.button.discord") { showPopover = true }
                         .popover(isPresented: $showPopover, arrowEdge: .bottom) {
@@ -633,13 +641,22 @@ struct MiscView: View {
                         Toggle("settings.toggle.hud", isOn: $settings.settings.metalHUD)
                             .disabled(!isVenturaGreater())
                             .help(!isVenturaGreater() ? "settings.unavailable.hud" : "")
+                            .onChange(of:settings.settings.metalHUD ) { _ in
+                                settings.settings.metalHUD = settings.settings.metalHUD
+                            }
                         Spacer()
                         HStack {
                             Text("settings.text.debugger")
                             VStack {
                                 Toggle("settings.toggle.lldb", isOn: $settings.openWithLLDB)
+                                    .onChange(of:settings.openWithLLDB) { _ in
+                                        settings.openWithLLDB = settings.openWithLLDB
+                                    }
                                 Toggle("settings.toggle.lldbWithTerminal", isOn: $settings.openLLDBWithTerminal)
-                                    .disabled(!settings.openWithLLDB)
+                                    .disabled(!settings.openLLDBWithTerminal)
+                                    .onChange(of:settings.openLLDBWithTerminal) { _ in
+                                        settings.openLLDBWithTerminal = settings.openLLDBWithTerminal
+                                    }
                             }
                         }
                     }
@@ -687,6 +704,9 @@ struct MiscView: View {
                     Toggle("settings.toggle.rootWorkDir", isOn: $settings.settings.rootWorkDir)
                         .disabled(!(hasPlayTools ?? true))
                         .help("settings.toggle.rootWorkDir.help")
+                        .onChange(of:settings.settings.rootWorkDir) { _ in
+                            settings.settings.rootWorkDir = settings.settings.rootWorkDir
+                        }
                     Spacer()
                 }
             }
