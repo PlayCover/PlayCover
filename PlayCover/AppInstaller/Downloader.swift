@@ -48,11 +48,12 @@ class DownloadApp {
                 )
                 alert.alertStyle = .warning
                 alert.addButton(withTitle: NSLocalizedString("Ok", comment: ""))
+                alert.addButton(withTitle: NSLocalizedString("alert.download.downloadAnyway", comment: ""))
                 if alert.runModal() == .alertFirstButtonReturn {
-                    cancel()
                     return
                 }
             }
+
             if let warningMessage = warning, let app = app {
                 let alert = NSAlert()
                 alert.messageText = NSLocalizedString(warningMessage, comment: "")
