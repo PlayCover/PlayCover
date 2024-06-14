@@ -18,7 +18,7 @@ struct DeleteGenshinAccountView: View {
             Text("storeAccount.deleteAcc").font(.largeTitle).lineLimit(1).fixedSize()
             Spacer()
             ForEach(accountList, id: \.self) { account in
-                if account != ".DS_Store"{
+                if account != ".DS_Store" {
                     Button(action: {
                         self.folderName = account
                         self.deleteAlert = true
