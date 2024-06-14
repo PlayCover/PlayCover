@@ -9,13 +9,25 @@ import Foundation
 import SwiftSoup
 
 class RedirectHandler: NSObject, URLSessionTaskDelegate {
-    var finalURL = ""
+    private var finalURL: URL
     let dispatchGroup = DispatchGroup() // DispatchGroup
     var completion: (() -> Void)? // completion handler
     lazy var session: URLSession = {
         let configuration = URLSessionConfiguration.default
         return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
     }()
+    init(url: URL) {
+        self.finalURL = url
+        super.init()
+        self.redirectCatch(from: url)
+        self.waitForAllTasksToComplete()
+    }
+    func getFinal() -> URL {
+        return finalURL
+    }
+    func setFinal(url: URL) {
+        self.finalURL = url
+    }
     func fetchGoogleDrivePageContent(url: String, completion: @escaping (String?) -> Void) {
         guard let url = URL(string: url) else {
             completion(nil)
@@ -33,21 +45,20 @@ class RedirectHandler: NSObject, URLSessionTaskDelegate {
         }
         task.resume()
     }
-    func extractDownloadLink(from htmlContent: String) -> String? {
+    func extractDownloadLink(from htmlContent: String) {
         do {
             let doc = try SwiftSoup.parse(htmlContent)
             guard let form = try doc.select("form#download-form").first() else {
-                return nil
+                return
             }
             let action = try form.attr("action")
             let id = try form.select("input[name=id]").attr("value")
             let confirm = try form.select("input[name=confirm]").attr("value")
             let uuid = try form.select("input[name=uuid]").attr("value")
             let directDownloadLink = "\(action)?id=\(id)&confirm=\(confirm)&uuid=\(uuid)"
-            finalURL = directDownloadLink
-            return directDownloadLink
+            setFinal(url: URL(string: directDownloadLink)!)
         } catch {
-            return nil
+            return
         }
     }
     func convertGoogleDriveLink(_ originalLink: String) -> URL? {
@@ -65,20 +76,16 @@ class RedirectHandler: NSObject, URLSessionTaskDelegate {
     func getDirectDownloadLink(for googleDriveLink: String, completion: @escaping () -> Void) {
         self.completion = completion
         fetchGoogleDrivePageContent(url: googleDriveLink) { htmlContent in
-            guard let htmlContent = htmlContent else {
-                return
-            }
-            if self.extractDownloadLink(from: htmlContent) != nil {
-                completion()
-            } else {
-                completion()
-            }
-        }
+                    guard let htmlContent = htmlContent else {
+                        return
+                    }
+                    completion()
+                }
     }
     func redirectCatch(from url: URL) {
         dispatchGroup.enter() // Enter group
         let task = session.dataTask(with: url) { _, _, error in
-            defer { self.dispatchGroup.leave() } // Esci dal gruppo al termine della task
+            defer { self.dispatchGroup.leave() } // Exit from the group at end of task
             if error != nil {
                 return
             }
@@ -88,12 +95,12 @@ class RedirectHandler: NSObject, URLSessionTaskDelegate {
     func scrapeWebsite(from request: URLRequest) {
         dispatchGroup.enter() // Enter group
         let task = session.dataTask(with: request) { data, _, error in
-            defer { self.dispatchGroup.leave() } // Esci dal gruppo al termine della task
+            defer { self.dispatchGroup.leave() } // Exit from the group at end of task
             if error != nil {
                 return
             }
             if let data = data, let html = String(data: data, encoding: .utf8) {
-                _ = self.extractDownloadLink(from: html)
+                self.extractDownloadLink(from: html)
             }
         }
         task.resume()
