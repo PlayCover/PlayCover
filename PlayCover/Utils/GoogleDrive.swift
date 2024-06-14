@@ -56,7 +56,10 @@ class RedirectHandler: NSObject, URLSessionTaskDelegate {
             let confirm = try form.select("input[name=confirm]").attr("value")
             let uuid = try form.select("input[name=uuid]").attr("value")
             let directDownloadLink = "\(action)?id=\(id)&confirm=\(confirm)&uuid=\(uuid)"
-            setFinal(url: URL(string: directDownloadLink)!)
+            let url = URL(string: directDownloadLink)
+            if let url = url {
+                setFinal(url: url)
+            }
         } catch {
             return
         }
@@ -76,7 +79,7 @@ class RedirectHandler: NSObject, URLSessionTaskDelegate {
     func getDirectDownloadLink(for googleDriveLink: String, completion: @escaping () -> Void) {
         self.completion = completion
         fetchGoogleDrivePageContent(url: googleDriveLink) { htmlContent in
-                    guard let htmlContent = htmlContent else {
+            guard htmlContent != nil else {
                         return
                     }
                     completion()

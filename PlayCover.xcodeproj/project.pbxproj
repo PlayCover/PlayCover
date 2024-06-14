@@ -83,7 +83,6 @@
 		B1419FB628BA82EE000CB69F /* DiscordActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1419FB528BA82EE000CB69F /* DiscordActivity.swift */; };
 		B17FD03C28C70C2100B1D4CA /* CoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B17FD03828C70BAE00B1D4CA /* CoreUI.framework */; };
 		B17FD04728C7B0D900B1D4CA /* AssetsExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17FD04628C7B0D900B1D4CA /* AssetsExtractor.swift */; };
-		B4699A482BF60F1A00D4B521 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		B4CFC2EA2BF66DCC006E57DB /* GoogleDrive.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4CFC2E92BF66DCC006E57DB /* GoogleDrive.swift */; };
 		B4E6CE312C11C9B40059E353 /* SwiftSoup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4E6CE302C11C9B40059E353 /* SwiftSoup.framework */; };
 		B6603E1128E206A300DEFA3F /* UninstallSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6603E1028E206A300DEFA3F /* UninstallSettings.swift */; };
@@ -688,7 +687,6 @@
 				92EE06D0274EA433002C907B /* BaseApp.swift in Sources */,
 				ABBC85B92B7C5CBA00DCF223 /* ModifierKeyObserver.swift in Sources */,
 				92F8500A27675124005CE6BE /* AppIntegrity.swift in Sources */,
-				B4699A482BF60F1A00D4B521 /* (null) in Sources */,
 				6E06193828B3C4240012C771 /* ChangeGenshinAccountView.swift in Sources */,
 				68E48B97295704A600C39879 /* Downloader.swift in Sources */,
 				28361D5E2892781200B35EDB /* RestoreGenshinUserData.swift in Sources */,
