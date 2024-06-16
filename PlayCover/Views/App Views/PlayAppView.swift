@@ -18,6 +18,7 @@ struct PlayAppView: View {
     @State private var showSettings = false
     @State private var showClearPreferencesAlert = false
     @State private var showClearPlayChainAlert = false
+    @State private var showStartingProgress = false
 
     @State var showImportSuccess = false
     @State var showImportFail = false
@@ -30,6 +31,7 @@ struct PlayAppView: View {
         PlayAppConditionalView(selectedBackgroundColor: $selectedBackgroundColor,
                                selectedTextColor: $selectedTextColor,
                                selected: $selected,
+                               showStartingProgress: $showStartingProgress,
                                app: app,
                                isList: isList)
             .gesture(TapGesture(count: 2).onEnded {
@@ -38,7 +40,11 @@ struct PlayAppView: View {
                 }
                 // Launch the app from a separate thread (allow us to Sayori it if needed)
                 Task(priority: .userInitiated) {
-                    if !app.isStarting { await app.launch() }
+                    if !app.isStarting {
+                        showStartingProgress = true
+                        await app.launch()
+                        showStartingProgress = false
+                    }
                 }
             })
             .simultaneousGesture(TapGesture().onEnded {
@@ -209,6 +215,7 @@ struct PlayAppConditionalView: View {
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
     @Binding var selected: PlayApp?
+    @Binding var showStartingProgress: Bool
 
     @State var app: PlayApp
     @State var appIcon: NSImage?
@@ -250,6 +257,11 @@ struct PlayAppConditionalView: View {
                             .padding(.leading, 15)
                             .help("settings.noPlayTools")
                     }
+                    if showStartingProgress {
+                        ProgressView()
+                            .scaleEffect(0.5)
+                            .frame(width: 30, height: 30)
+                    }
                     Spacer()
                     Text(app.settings.info.bundleVersion)
                         .padding(.horizontal, 15)
@@ -285,22 +297,28 @@ struct PlayAppConditionalView: View {
                     let noPlayToolsWarning = Text(
                         (hasPlayTools ?? true) ? "" : "\(Image(systemName: "exclamationmark.triangle"))  "
                     )
-
-                    Text("\(noPlayToolsWarning)\(app.name)")
-                        .lineLimit(1)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 4)
-                        .padding(.vertical, 2)
-                        .foregroundColor(selected?.url == app.url ?
-                                         selectedTextColor : Color.primary)
-                        .background(
-                            RoundedRectangle(cornerRadius: 4)
-                                .fill(selected?.url == app.url ?
-                                      selectedBackgroundColor : Color.clear)
-                                .brightness(-0.2)
+                    HStack {
+                        Text("\(noPlayToolsWarning)\(app.name)")
+                            .lineLimit(1)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 4)
+                            .padding(.vertical, 2)
+                            .foregroundColor(selected?.url == app.url ?
+                                             selectedTextColor : Color.primary)
+                            .background(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(selected?.url == app.url ?
+                                          selectedBackgroundColor : Color.clear)
+                                    .brightness(-0.2)
                             )
-                        .help(!(hasPlayTools ?? true) ? "settings.noPlayTools" : "")
-                        .frame(width: 130, height: 20)
+                            .help(!(hasPlayTools ?? true) ? "settings.noPlayTools" : "")
+                            .frame(width: 130, height: 20)
+                        if showStartingProgress {
+                            ProgressView()
+                                .scaleEffect(0.5)
+                                .frame(width: 20, height: 20)
+                        }
+                    }
                 }
                 .frame(width: 130, height: 130)
             }
@@ -316,6 +334,7 @@ struct PlayAppConditionalView: View {
         }
         .task(priority: .background) {
             hasPlayTools = app.hasPlayTools()
+            showStartingProgress = app.isStarting
         }
     }
 }

@@ -51,6 +51,10 @@ class PlayApp: BaseApp {
                 sign()
             }
 
+            if try !isInfoPlistSigned() {
+                try Shell.signApp(executable)
+            }
+
             // call unlockKeyCover() and WAIT for it to finish
             await unlockKeyCover()
 
@@ -63,8 +67,6 @@ class PlayApp: BaseApp {
                 Log.shared.error("PlayTools are not installed! Please move PlayCover.app into Applications!")
             } else if try !Macho.isMachoValidArch(executable) {
                 Log.shared.error("The app threw an error during conversion.")
-            } else if try !isCodesigned() {
-                Log.shared.error("The app is not codesigned! Please open Xcode and accept license agreement.")
             } else {
                 if settings.openWithLLDB {
                     try Shell.lldb(executable, withTerminalWindow: settings.openLLDBWithTerminal)
@@ -245,8 +247,8 @@ class PlayApp: BaseApp {
         return FileManager.default.fileExists(atPath: aliasURL.path)
     }
 
-    func isCodesigned() throws -> Bool {
-        try Shell.run("/usr/bin/codesign", "-dv", executable.path).contains("adhoc")
+    func isInfoPlistSigned() throws -> Bool {
+        try Shell.run("/usr/bin/codesign", "-dv", executable.path).contains("Info.plist entries")
     }
 
     func showInFinder() {
