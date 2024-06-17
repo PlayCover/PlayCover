@@ -48,7 +48,7 @@ class DownloadApp {
                 )
                 alert.alertStyle = .warning
                 alert.addButton(withTitle: NSLocalizedString("Ok", comment: ""))
-                alert.addButton(withTitle: NSLocalizedString("alert.download.downloadAnyway", comment: "")).hasDestructiveAction = true
+                alert.addButton(withTitle: NSLocalizedString("alert.download.downloadAnyway", comment: ""))
                 if alert.runModal() == .alertFirstButtonReturn {
                     return
                 }
