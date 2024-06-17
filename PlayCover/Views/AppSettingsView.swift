@@ -161,22 +161,13 @@ struct KeymappingView: View {
                 HStack {
                     Toggle("settings.toggle.km", isOn: $settings.settings.keymapping)
                         .help("settings.toggle.km.help")
-                        .onChange(of: settings.settings.keymapping) { _ in
-                            settings.settings.keymapping = settings.settings.keymapping
-                        }
                     Spacer()
                     Toggle("settings.toggle.autoKM", isOn: $settings.settings.noKMOnInput)
                         .help("settings.toggle.autoKM.help")
-                        .onChange(of: settings.settings.noKMOnInput) { _ in
-                            settings.settings.noKMOnInput = settings.settings.noKMOnInput
-                        }
                 }
                 HStack {
                     Toggle("settings.toggle.enableScrollWheel", isOn: $settings.settings.enableScrollWheel)
                         .help("settings.toggle.enableScrollWheel.help")
-                        .onChange(of: settings.settings.enableScrollWheel) { _ in
-                            settings.settings.enableScrollWheel = settings.settings.enableScrollWheel
-                        }
                     Spacer()
                 }
                 HStack {
@@ -349,7 +340,6 @@ struct GraphicsView: View {
                             Toggle("settings.picker.windowFix", isOn: $settings.settings.inverseScreenValues)
                                 .help("settings.picker.windowFix.help")
                                 .onChange(of: settings.settings.inverseScreenValues) { _ in
-                                    settings.settings.inverseScreenValues = settings.settings.inverseScreenValues
                                     settings.settings.windowFixMethod = 0
                                 }
                             Spacer()
@@ -367,10 +357,6 @@ struct GraphicsView: View {
                     }
                     Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.settings.disableTimeout)
                         .help("settings.toggle.disableDisplaySleep.help")
-                        .onChange(of: settings.settings.disableTimeout) { _ in
-                            settings.settings.disableTimeout = settings.settings.disableTimeout
-                        }
-
                     Spacer()
                 }
                 Spacer()
@@ -502,24 +488,15 @@ struct BypassesView: View {
                     Toggle("settings.playChain.enable", isOn: $settings.settings.playChain)
                         .help("settings.playChain.help")
                         .disabled(!(hasPlayTools ?? true))
-                        .onChange(of: settings.settings.playChain ) { _ in
-                            settings.settings.playChain = settings.settings.playChain
-                        }
                     Spacer()
                     Toggle("settings.playChain.debugging", isOn: $settings.settings.playChainDebugging)
                         .disabled(!settings.settings.playChain)
-                        .onChange(of: settings.settings.playChainDebugging ) { _ in
-                            settings.settings.playChainDebugging = settings.settings.playChainDebugging
-                        }
                 }
                 Spacer()
                     .frame(height: 20)
                 HStack {
                     Toggle("settings.toggle.jbBypass", isOn: $settings.settings.bypass)
                         .help("settings.toggle.jbBypass.help")
-                        .onChange(of: settings.settings.bypass ) { _ in
-                            settings.settings.bypass = settings.settings.bypass
-                        }
                     Spacer()
                 }
                 Spacer()
@@ -604,9 +581,6 @@ struct MiscView: View {
                     .frame(height: 20)
                 HStack {
                     Toggle("settings.toggle.discord", isOn: $settings.settings.discordActivity.enable)
-                        .onChange(of: settings.settings.discordActivity.enable ) { _ in
-                            settings.settings.discordActivity.enable = settings.settings.discordActivity.enable
-                        }
                     Spacer()
                     Button("settings.button.discord") { showPopover = true }
                         .popover(isPresented: $showPopover, arrowEdge: .bottom) {
@@ -655,22 +629,13 @@ struct MiscView: View {
                         Toggle("settings.toggle.hud", isOn: $settings.settings.metalHUD)
                             .disabled(!isVenturaGreater())
                             .help(!isVenturaGreater() ? "settings.unavailable.hud" : "")
-                            .onChange(of: settings.settings.metalHUD ) { _ in
-                                settings.settings.metalHUD = settings.settings.metalHUD
-                            }
                         Spacer()
                         HStack {
                             Text("settings.text.debugger")
                             VStack {
                                 Toggle("settings.toggle.lldb", isOn: $settings.openWithLLDB)
-                                    .onChange(of: settings.openWithLLDB) { _ in
-                                        settings.openWithLLDB = settings.openWithLLDB
-                                    }
                                 Toggle("settings.toggle.lldbWithTerminal", isOn: $settings.openLLDBWithTerminal)
                                     .disabled(!settings.openWithLLDB)
-                                    .onChange(of: settings.openLLDBWithTerminal) { _ in
-                                        settings.openLLDBWithTerminal = settings.openLLDBWithTerminal
-                                    }
                             }
                         }
                     }
@@ -718,9 +683,6 @@ struct MiscView: View {
                     Toggle("settings.toggle.rootWorkDir", isOn: $settings.settings.rootWorkDir)
                         .disabled(!(hasPlayTools ?? true))
                         .help("settings.toggle.rootWorkDir.help")
-                        .onChange(of: settings.settings.rootWorkDir) { _ in
-                            settings.settings.rootWorkDir = settings.settings.rootWorkDir
-                        }
                     Spacer()
                 }
             }
