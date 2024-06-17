@@ -502,13 +502,13 @@ struct BypassesView: View {
                     Toggle("settings.playChain.enable", isOn: $settings.settings.playChain)
                         .help("settings.playChain.help")
                         .disabled(!(hasPlayTools ?? true))
-                        .onChange(of:settings.settings.playChain ) { _ in
+                        .onChange(of: settings.settings.playChain ) { _ in
                             settings.settings.playChain = settings.settings.playChain
                         }
                     Spacer()
                     Toggle("settings.playChain.debugging", isOn: $settings.settings.playChainDebugging)
                         .disabled(!settings.settings.playChain)
-                        .onChange(of:settings.settings.playChainDebugging ) { _ in
+                        .onChange(of: settings.settings.playChainDebugging ) { _ in
                             settings.settings.playChainDebugging = settings.settings.playChainDebugging
                         }
                 }
@@ -517,7 +517,7 @@ struct BypassesView: View {
                 HStack {
                     Toggle("settings.toggle.jbBypass", isOn: $settings.settings.bypass)
                         .help("settings.toggle.jbBypass.help")
-                        .onChange(of:settings.settings.bypass ) { _ in
+                        .onChange(of: settings.settings.bypass ) { _ in
                             settings.settings.bypass = settings.settings.bypass
                         }
                     Spacer()
@@ -556,7 +556,6 @@ struct BypassesView: View {
     }
 }
 
-
 struct MiscView: View {
     @Binding var settings: AppSettings
     @Binding var closeView: Bool
@@ -568,11 +567,8 @@ struct MiscView: View {
     @AppStorage("settings.openWithLLDB") private var openWithLLDB = false
     @AppStorage("settings.openLLDBWithTerminal") private var openLLDBWithTerminal = false
     @State var showPopover = false
-
     var app: PlayApp
-
     @State var applicationCategoryType: LSApplicationCategoryType
-    
     var body: some View {
         ScrollView {
             VStack {
@@ -608,7 +604,7 @@ struct MiscView: View {
                     .frame(height: 20)
                 HStack {
                     Toggle("settings.toggle.discord", isOn: $settings.settings.discordActivity.enable)
-                        .onChange(of:settings.settings.discordActivity.enable ) { _ in
+                        .onChange(of: settings.settings.discordActivity.enable ) { _ in
                             settings.settings.discordActivity.enable = settings.settings.discordActivity.enable
                         }
                     Spacer()
@@ -659,7 +655,7 @@ struct MiscView: View {
                         Toggle("settings.toggle.hud", isOn: $settings.settings.metalHUD)
                             .disabled(!isVenturaGreater())
                             .help(!isVenturaGreater() ? "settings.unavailable.hud" : "")
-                            .onChange(of:settings.settings.metalHUD ) { _ in
+                            .onChange(of: settings.settings.metalHUD ) { _ in
                                 settings.settings.metalHUD = settings.settings.metalHUD
                             }
                         Spacer()
@@ -667,12 +663,12 @@ struct MiscView: View {
                             Text("settings.text.debugger")
                             VStack {
                                 Toggle("settings.toggle.lldb", isOn: $settings.openWithLLDB)
-                                    .onChange(of:settings.openWithLLDB) { _ in
+                                    .onChange(of: settings.openWithLLDB) { _ in
                                         settings.openWithLLDB = settings.openWithLLDB
                                     }
                                 Toggle("settings.toggle.lldbWithTerminal", isOn: $settings.openLLDBWithTerminal)
                                     .disabled(!settings.openWithLLDB)
-                                    .onChange(of:settings.openLLDBWithTerminal) { _ in
+                                    .onChange(of: settings.openLLDBWithTerminal) { _ in
                                         settings.openLLDBWithTerminal = settings.openLLDBWithTerminal
                                     }
                             }
@@ -722,7 +718,7 @@ struct MiscView: View {
                     Toggle("settings.toggle.rootWorkDir", isOn: $settings.settings.rootWorkDir)
                         .disabled(!(hasPlayTools ?? true))
                         .help("settings.toggle.rootWorkDir.help")
-                        .onChange(of:settings.settings.rootWorkDir) { _ in
+                        .onChange(of: settings.settings.rootWorkDir) { _ in
                             settings.settings.rootWorkDir = settings.settings.rootWorkDir
                         }
                     Spacer()
