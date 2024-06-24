@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import Cocoa
 class InstallPreferences: NSObject, ObservableObject {
     static var shared = InstallPreferences()
 
@@ -21,6 +21,8 @@ struct InstallSettings: View {
     public static var shared = InstallSettings()
 
     @ObservedObject var installPreferences = InstallPreferences.shared
+
+    @State private var folderPath: String = "Nessuna cartella selezionata"
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -51,8 +53,51 @@ struct InstallSettings: View {
                         .frame(height: 20)
                 }
             }.disabled(installPreferences.showInstallPopup)
+            Spacer()
+                .frame(height: 20)
+            GroupBox {
+                VStack(alignment: .leading) {
+                    Text("Cartella selezionata:")
+                    Text(folderPath)
+                        .padding(.bottom, 10)
+                    Button(action: selectFolder) {
+                        Text("Seleziona Cartella")
+                    }
+                }
+            }
         }
         .padding(20)
-        .frame(width: 400, height: 200)
+        .frame(width: 400, height: 300)
+    }
+
+    private func selectFolder() {
+        let folderPicker = FolderPicker()
+        folderPicker.pickFolder { url in
+            if let url = url {
+                folderPath = url.path
+                print(folderPath)
+                print(folderPath)
+                print(folderPath)
+                print(folderPath)
+            } else {
+                folderPath = "Nessuna cartella selezionata"
+            }
+        }
+    }
+}
+
+class FolderPicker {
+    func pickFolder(completion: @escaping (URL?) -> Void) {
+        let openPanel = NSOpenPanel()
+        openPanel.canChooseFiles = false
+        openPanel.canChooseDirectories = true
+        openPanel.allowsMultipleSelection = false
+        openPanel.begin { response in
+            if response == .OK {
+                completion(openPanel.url)
+            } else {
+                completion(nil)
+            }
+        }
     }
 }
