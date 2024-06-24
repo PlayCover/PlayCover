@@ -24,7 +24,7 @@ struct InstallSettings: View {
 
     @ObservedObject var installPreferences = InstallPreferences.shared
 
-    @State private var folderPath: String = "Nessuna cartella selezionata"
+    @State private var folderPath: String = "No Folder Selected"
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -59,11 +59,11 @@ struct InstallSettings: View {
                 .frame(height: 20)
             GroupBox {
                 VStack(alignment: .leading) {
-                    Text("Cartella selezionata:")
+                    Text("Select Folder:")
                     Text(installPreferences.defaultAppPath.absoluteString)
                         .padding(.bottom, 10)
                     Button(action: selectFolder) {
-                        Text("Seleziona Cartella")
+                        Text("Select Folder")
                     }
                 }
             }
@@ -79,7 +79,7 @@ struct InstallSettings: View {
                 installPreferences.defaultAppPath = url
                 folderPath = url.path
             } else {
-                folderPath = "Nessuna cartella selezionata"
+                folderPath = "No Folder selected"
             }
         }
     }
