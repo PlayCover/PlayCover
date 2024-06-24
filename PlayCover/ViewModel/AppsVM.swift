@@ -11,7 +11,7 @@ class AppsVM: ObservableObject {
     public static var currentVersion: String {
         (try? String(contentsOf: AppsVM.versionsFile)) ?? "2"
     }
-    public static let appDirectory = PlayTools.playCoverContainer.appendingPathComponent("Applications")
+    public static let appDirectory = InstallSettings.shared.installPreferences.defaultAppPath.appendingPathComponent("Applications")
 
     static let shared = AppsVM()
 

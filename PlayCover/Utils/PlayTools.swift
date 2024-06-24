@@ -26,7 +26,7 @@ class PlayTools {
         .appendingPathExtension("framework")
 
     public static var playCoverContainer: URL {
-        let playCoverPath = FileManager.default.homeDirectoryForCurrentUser
+        let playCoverPath = InstallSettings.shared.installPreferences.defaultAppPath
             .appendingPathComponent("Library")
             .appendingPathComponent("Containers")
             .appendingPathComponent("io.playcover.PlayCover")

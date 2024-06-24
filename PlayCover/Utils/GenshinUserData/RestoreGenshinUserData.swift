@@ -87,7 +87,7 @@ func modifyPlist(newRegion: String) {
 }
 
 func getAccountList() -> [String] {
-    let storePath = FileManager.default.homeDirectoryForCurrentUser
+    let storePath = InstallSettings.shared.installPreferences.defaultAppPath
         .appendingPathComponent("Library")
         .appendingPathComponent("Containers")
         .appendingPathComponent("io.playcover.PlayCover")

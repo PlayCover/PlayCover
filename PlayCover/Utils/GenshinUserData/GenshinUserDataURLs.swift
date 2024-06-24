@@ -12,7 +12,7 @@ class GenshinUserDataURLs {
     static let kibanaReportArrayKey = "MIHOYO_KIBANA_REPORT_ARRAY_KEY_Encryption"
     static let lastAccountModel = "MIHOYO_LAST_ACCOUNT_MODEL_Encryption"
 
-    static let plistPath = FileManager.default.homeDirectoryForCurrentUser
+    static let plistPath = InstallSettings.shared.installPreferences.defaultAppPath
         .appendingPathComponent("Library")
         .appendingPathComponent("Containers")
         .appendingPathComponent("com.miHoYo.GenshinImpact")
@@ -23,7 +23,7 @@ class GenshinUserDataURLs {
         .appendingPathExtension("plist")
 
     static func getGameDataPath(bundleID: String) -> URL {
-        return FileManager.default.homeDirectoryForCurrentUser
+        return InstallSettings.shared.installPreferences.defaultAppPath
             .appendingPathComponent("Library")
             .appendingPathComponent("Containers")
             .appendingPathComponent(bundleID)
@@ -32,7 +32,7 @@ class GenshinUserDataURLs {
     }
 
     static func getStorePath() -> URL {
-        return FileManager.default.homeDirectoryForCurrentUser
+        return InstallSettings.shared.installPreferences.defaultAppPath
             .appendingPathComponent("Library")
             .appendingPathComponent("Containers")
             .appendingPathComponent("io.playcover.PlayCover")

@@ -15,6 +15,8 @@ class InstallPreferences: NSObject, ObservableObject {
     @AppStorage("DefaultAppType") var defaultAppType: LSApplicationCategoryType = .none
 
     @AppStorage("ShowInstallPopup") var showInstallPopup = false
+    
+    @AppStorage("DefaultAppPath") var defaultAppPath = FileManager.default.homeDirectoryForCurrentUser
 }
 
 struct InstallSettings: View {
@@ -58,7 +60,7 @@ struct InstallSettings: View {
             GroupBox {
                 VStack(alignment: .leading) {
                     Text("Cartella selezionata:")
-                    Text(folderPath)
+                    Text(installPreferences.defaultAppPath.absoluteString)
                         .padding(.bottom, 10)
                     Button(action: selectFolder) {
                         Text("Seleziona Cartella")
@@ -74,11 +76,8 @@ struct InstallSettings: View {
         let folderPicker = FolderPicker()
         folderPicker.pickFolder { url in
             if let url = url {
+                installPreferences.defaultAppPath = url
                 folderPath = url.path
-                print(folderPath)
-                print(folderPath)
-                print(folderPath)
-                print(folderPath)
             } else {
                 folderPath = "Nessuna cartella selezionata"
             }

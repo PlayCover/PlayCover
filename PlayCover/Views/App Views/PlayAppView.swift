@@ -167,7 +167,7 @@ struct PlayAppView: View {
 
     func removeTwitterSessionCookie() {
         do {
-            let cookieURL = FileManager.default.homeDirectoryForCurrentUser
+            let cookieURL = InstallSettings.shared.installPreferences.defaultAppPath
                 .appendingPathComponent("Library")
                 .appendingPathComponent("Containers")
                 .appendingPathComponent("com.miHoYo.GenshinImpact")
@@ -185,7 +185,7 @@ struct PlayAppView: View {
     }
 
     func deletePreferences(app: String) {
-        let plistURL = FileManager.default.homeDirectoryForCurrentUser
+        let plistURL = InstallSettings.shared.installPreferences.defaultAppPath
             .appendingPathComponent("Library")
             .appendingPathComponent("Containers")
             .appendingEscapedPathComponent(app)

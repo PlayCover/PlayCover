@@ -188,7 +188,7 @@ class PlayApp: BaseApp {
         }
     }
 
-    static let aliasDirectory = FileManager.default.homeDirectoryForCurrentUser
+    static let aliasDirectory = InstallSettings.shared.installPreferences.defaultAppPath
             .appendingPathComponent("Applications")
             .appendingPathComponent("PlayCover")
 

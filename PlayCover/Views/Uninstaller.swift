@@ -14,7 +14,7 @@ struct CheckBoxHelper {
 }
 
 class Uninstaller {
-    private static let libraryUrl = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library")
+    private static let libraryUrl = InstallSettings.shared.installPreferences.defaultAppPath.appendingPathComponent("Library")
     private static let pruneURLs: [URL] = [
         PlayTools.playCoverContainer.appendingPathComponent("App Settings"),
         PlayTools.playCoverContainer.appendingPathComponent("Entitlements"),
