@@ -15,7 +15,7 @@ extension PlayApp {
 
             try? FileManager.default.createDirectory(at: appTmp, withIntermediateDirectories: false)
 
-            appTmp.enumerateContents(options: []) { url, type in
+            appTmp.enumerateContents { url, type in
                 if url.lastPathComponent.contains("discord-ipc-") && (type.isSymbolicLink ?? true) {
                     FileManager.default.delete(at: url)
                 }
@@ -45,5 +45,24 @@ extension PlayApp {
 
             print("Unable to link discordipc for \(self.info.bundleIdentifier)")
         }
+    }
+
+    func createAlias() {
+        do {
+            try FileManager.default.createDirectory(atPath: aliasURL.path,
+                                                    withIntermediateDirectories: true,
+                                                    attributes: nil)
+            url.enumerateContents(options: [.skipsSubdirectoryDescendants]) { ctxUrl, _ in
+                try FileManager.default.createSymbolicLink(
+                    at: self.aliasURL.appendingPathComponent(ctxUrl.lastPathComponent),
+                    withDestinationURL: ctxUrl)
+            }
+        } catch {
+            Log.shared.log(error.localizedDescription)
+        }
+    }
+
+    func removeAlias() {
+        FileManager.default.delete(at: aliasURL)
     }
 }

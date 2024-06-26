@@ -1,5 +1,8 @@
 name: Build & Release macOS App
 on:
+  workflow_dispatch:
+    tags:
+          - "*"
   push:
     tags:
       - "*"
@@ -7,20 +10,34 @@ env:
   CI: true
 jobs:
   build:
-    runs-on: macos-12
+    runs-on: macos-14
+    env:
+      GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.0
+
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'
 
       - name: Get the version
         id: tag_version
-        run: echo ::set-output name=TAG_NAME::${GITHUB_REF/refs\/tags\//}
+        run: echo "TAG_NAME=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
 
       - name: Install dependencies
         shell: bash
         run: |
-          brew install graphicsmagick imagemagick
+          brew install graphicsmagick imagemagick swiftlint
+          gem install fastlane
           bundle install
+          pip install setuptools
           npm install --global create-dmg
 
       - name: Fastlane Release
@@ -42,27 +59,22 @@ jobs:
         run: |
           create-dmg ./output/PlayCover.app ./output
           mv ./output/*.dmg ./output/PlayCover_${{ env.TAG_NAME }}.dmg
-        env:
-          TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
 
       - name: Notarize DMG
+        continue-on-error: true
         shell: bash
         run: |
           fastlane notarize_dmg package:output/PlayCover_${{ env.TAG_NAME }}.dmg
-        env:
-          TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
 
       - name: Clean Up
         shell: bash
         run: rm apikey.json
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.3.0
         with:
           name: PlayCover_${{ env.TAG_NAME }}.dmg
           path: output/PlayCover_${{ env.TAG_NAME }}.dmg
-        env:
-          TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}
 
       - name: Release
         if: startsWith(github.ref, 'refs/tags/')
@@ -71,5 +83,3 @@ jobs:
           draft: true
           files: |
             output/PlayCover_${{ env.TAG_NAME }}.dmg
-        env:
-          TAG_NAME: ${{ steps.tag_version.outputs.TAG_NAME }}

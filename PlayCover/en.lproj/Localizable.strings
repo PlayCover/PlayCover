@@ -161,6 +161,8 @@
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
 "settings.toggle.autoKM" = "Smart Keymap";
 "settings.toggle.autoKM.help" = "Automatically disable keymapping when text input is sensed";
+"settings.toggle.enableScrollWheel" = "Enable Scroll Wheel";
+"settings.toggle.enableScrollWheel.help" = "Enable scroll wheel in keymapping";
 
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";
@@ -191,11 +193,11 @@
 "settings.playChain.debugging" = "PlayChain debugging";
 "settings.toggle.introspection" = "Insert Introspection libraries";
 "settings.toggle.introspection.help" = "Add the system introspection libraries to the app. Known to fix issues with some apps not starting correctly";
+"settings.toggle.iosFrameworks" = "Force Insert iOS Frameworks";
+"settings.toggle.iosFrameworks.help" = "Add the system ios libraries to the app. Known to fix issues with some apps cannot find ios framework";
 
 "settings.applicationCategoryType" = "Application Type";
 "settings.removePlayTools" = "Remove PlayTools";
-"settings.addToLaunchpad" = "Add to Launchpad";
-"settings.removeFromLaunchpad" = "Remove from Launchpad";
 
 "settings.info.displayName" = "Display name:";
 "settings.info.bundleName" = "Bundle name:";
@@ -205,6 +207,7 @@
 "settings.info.minimumOSVersion" = "Minimum OS version:";
 "settings.info.playTools" = "PlayTools installed:";
 "settings.info.url" = "URL:";
+"settings.info.alias" = "Alias:";
 
 "settings.resetSettings" = "Reset settings";
 "settings.resetKm" = "Reset keymapping";

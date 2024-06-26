@@ -42,7 +42,8 @@ class Installer {
         let installPlayTools: Bool
         let applicationType = InstallPreferences.shared.defaultAppType
 
-        if (Installer.isOptionKeyHeld || InstallPreferences.shared.showInstallPopup) && !export {
+        if (ModifierKeyObserver.shared.isOptionKeyPressed
+                || InstallPreferences.shared.showInstallPopup) && !export {
             installPlayTools = installPlayToolsPopup()
         } else {
             installPlayTools = InstallPreferences.shared.alwaysInstallPlayTools
@@ -79,7 +80,7 @@ class Installer {
                 if export {
                     try PlayTools.injectInIPA(app.executable, payload: app.url)
                 } else if installPlayTools {
-                    try PlayTools.installInIPA(app.executable)
+                    try await PlayTools.installInIPA(app.executable)
                 }
 
                 app.info.applicationCategoryType = applicationType
@@ -107,6 +108,7 @@ class Installer {
                 }
 
                 ipa.releaseTempDir()
+                try ipa.removeQuarantine(finalURL)
                 InstallVM.shared.next(.finish, 0.95, 1.0)
                 returnCompletion(finalURL)
             } catch {
@@ -207,8 +209,8 @@ class Installer {
         let info = AppInfo(contentsOf: baseApp.url
             .appendingPathComponent("Info")
             .appendingPathExtension("plist"))
-        let location = PlayTools.playCoverContainer
-            .appendingEscapedPathComponent(info.displayName)
+        let location = AppsVM.appDirectory
+            .appendingEscapedPathComponent(info.bundleIdentifier)
             .appendingPathExtension("app")
         if FileManager.default.fileExists(atPath: location.path) {
             try FileManager.default.removeItem(at: location)
@@ -216,9 +218,5 @@ class Installer {
 
         try FileManager.default.moveItem(at: baseApp.url, to: location)
         return location
-    }
-
-    static var isOptionKeyHeld: Bool {
-        NSEvent.modifierFlags.contains(.option)
     }
 }
