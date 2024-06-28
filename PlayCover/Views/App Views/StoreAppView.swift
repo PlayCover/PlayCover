@@ -87,6 +87,7 @@ struct StoreAppConditionalView: View {
     @State private var cache = DataCache.instance
 
     @Sendable private func waitForIconLoad() async {
+        loadingLocalIcon = true
         try? await Task.sleep(nanoseconds: 6_000_000_000)
         loadingLocalIcon = false
     }
