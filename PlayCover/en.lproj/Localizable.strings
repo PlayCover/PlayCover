@@ -23,12 +23,7 @@
 "ipaLibrary.info" = "App Info";
 "ipaLibrary.info.title" = "%@ Info";
 "ipaLibrary.info.notAvailable" = "Link not valid for this app";
-"ipaLibrary.info.tab.info" = "Info";
-"ipaLibrary.info.appName" = "App Name:";
-"ipaLibrary.info.bundleIdentifier" = "Bundle Identifier:";
-"ipaLibrary.info.bundleVersion" = "Bundle Version:";
 "ipaLibrary.info.itunes" = "ITunes Lookup:";
-"ipaLibrary.info.directLink" = "Direct Link:";
 "ipaLibrary.info.checksum" = "Checksum:";
 "ipaLibrary.info.checksum.none" = "None provided";
 

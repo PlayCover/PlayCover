@@ -88,7 +88,7 @@ struct StoreInfoAppView: View {
             TabView {
                 StoreInfoView(data: $viewModel.data)
                     .tabItem {
-                        Text("ipaLibrary.info.tab.info")
+                        Text("settings.tab.info")
                     }
             }
             .frame(minWidth: 500, minHeight: 250)
@@ -135,17 +135,17 @@ struct StoreInfoView: View {
     var body: some View {
         List {
             HStack {
-                Text("ipaLibrary.info.appName")
+                Text("settings.info.bundleName")
                 Spacer()
                 Text("\(data.name)")
             }
             HStack {
-                Text("ipaLibrary.info.bundleIdentifier")
+                Text("settings.info.bundleIdentifier")
                 Spacer()
                 Text("\(data.bundleID)")
             }
             HStack {
-                Text("ipaLibrary.info.bundleVersion")
+                Text("settings.info.bundleVersion")
                 Spacer()
                 Text("\(data.version)")
             }
@@ -155,7 +155,7 @@ struct StoreInfoView: View {
                 Text(.init("[\(data.itunesLookup)](\(data.itunesLookup))"))
             }
             HStack {
-                Text("ipaLibrary.info.directLink")
+                Text("settings.info.url")
                 Spacer()
                 Text(.init("[\(data.link)](\(data.link))"))
             }
