@@ -76,6 +76,7 @@ struct StoreAppConditionalView: View {
     @State var itunesResponse: ITunesResponse?
     @State var onlineIcon: URL?
     @State var localIcon: NSImage?
+    @State var loadingLocalIcon: Bool = true
     @State var isList: Bool
 
     @Binding var warningSymbol: String?
@@ -84,6 +85,12 @@ struct StoreAppConditionalView: View {
     @EnvironmentObject var downloadVM: DownloadVM
 
     @State private var cache = DataCache.instance
+
+    @Sendable private func waitForIconLoad() async {
+        loadingLocalIcon = true
+        try? await Task.sleep(nanoseconds: 6_000_000_000)
+        loadingLocalIcon = false
+    }
 
     var body: some View {
         Group {
@@ -107,10 +114,16 @@ struct StoreAppConditionalView: View {
                                     Rectangle()
                                          .fill(.regularMaterial)
                                          .overlay {
-                                             ProgressView()
-                                                 .progressViewStyle(.circular)
-                                                 .controlSize(.small)
+                                             if loadingLocalIcon {
+                                                 ProgressView()
+                                                     .progressViewStyle(.circular)
+                                                     .controlSize(.small)
+                                             } else {
+                                                 Image(systemName: "exclamationmark.triangle")
+                                                     .opacity(0.5)
+                                             }
                                          }
+                                         .task(self.waitForIconLoad)
                                 }
                             }
                         }
@@ -154,9 +167,16 @@ struct StoreAppConditionalView: View {
                                     Rectangle()
                                          .fill(.regularMaterial)
                                          .overlay {
-                                             ProgressView()
-                                                 .progressViewStyle(.circular)
+                                             if loadingLocalIcon {
+                                                 ProgressView()
+                                                     .progressViewStyle(.circular)
+                                             } else {
+                                                 Image(systemName: "exclamationmark.triangle")
+                                                     .font(.system(size: 24))
+                                                     .opacity(0.5)
+                                             }
                                          }
+                                         .task(self.waitForIconLoad)
                                 }
                             }
                         }
