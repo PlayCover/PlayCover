@@ -38,7 +38,8 @@ struct StoreAppView: View {
                 if downloadVM.inProgress {
                     Log.shared.error(PlayCoverError.waitDownload)
                 } else {
-                    DownloadApp(url: url, app: app,
+                    let redirectHandler = RedirectHandler(url: url) // checking page redirect
+                    DownloadApp(url: redirectHandler.getFinal(), app: app,
                                 warning: warningMessage).start()
                 }
             }
