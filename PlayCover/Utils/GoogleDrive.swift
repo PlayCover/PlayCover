@@ -19,7 +19,13 @@ class RedirectHandler: NSObject, URLSessionTaskDelegate {
     init(url: URL) {
         self.finalURL = url
         super.init()
-        self.redirectCatch(from: url)
+        if url.absoluteString.contains("drive.google.com") {
+            if let myurl = self.convertGoogleDriveLink(url.absoluteString) {
+                self.scrapeWebsite(from: URLRequest(url: myurl))
+            }
+        } else {
+            self.redirectCatch(from: url)
+        }
         self.waitForAllTasksToComplete()
     }
     func getFinal() -> URL {
