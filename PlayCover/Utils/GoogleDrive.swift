@@ -23,6 +23,8 @@ class RedirectHandler: NSObject, URLSessionTaskDelegate {
             if let myurl = self.convertGoogleDriveLink(url.absoluteString) {
                 self.scrapeWebsite(from: URLRequest(url: myurl))
             }
+        } else if url.absoluteString.contains("drive.usercontent.google.com") {
+            self.scrapeWebsite(from: URLRequest(url: url))
         } else {
             self.redirectCatch(from: url)
         }
