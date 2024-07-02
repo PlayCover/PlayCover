@@ -19,7 +19,7 @@ struct StoreGenshinAccountView: View {
             Spacer()
             Text("storeAccount.storeAcc").font(.largeTitle).lineLimit(1).fixedSize()
             Spacer()
-            if app.info.bundleIdentifier == "com.miHoYo.GenshinImpact"{
+            if app.info.bundleIdentifier == "com.miHoYo.GenshinImpact" {
                 HStack(spacing: 0) {
                     Picker(selection: $selectedRegion,
                            label: Text("storeAccount.selectAccRegion")

@@ -22,7 +22,7 @@ struct ChangeGenshinAccountView: View {
             Text("storeAccount.selectAcc").font(.largeTitle).lineLimit(1).fixedSize()
             Spacer()
             ForEach(filteredList, id: \.self) { account in
-                if account != ".DS_Store"{
+                if account != ".DS_Store" {
                     Button(action: {
                         self.folderName = account
                         self.restoreAlert = true

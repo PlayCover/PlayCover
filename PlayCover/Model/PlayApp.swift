@@ -36,10 +36,10 @@ class PlayApp: BaseApp {
         do {
             isStarting = true
             if prohibitedToPlay {
-                clearAllCache()
+                await clearAllCache()
                 throw PlayCoverError.appProhibited
             } else if maliciousProhibited {
-                clearAllCache()
+                await clearAllCache()
                 deleteApp()
                 throw PlayCoverError.appMaliciousProhibited
             }
@@ -216,7 +216,7 @@ class PlayApp: BaseApp {
     static let introspection: String = "/usr/lib/system/introspection"
     static let iosFrameworks: String = "/System/iOSSupport/System/Library/Frameworks"
 
-    func changeDyldLibraryPath(set: Bool? = nil, path: String) -> Bool {
+    func changeDyldLibraryPath(set: Bool? = nil, path: String) async -> Bool {
         info.lsEnvironment["DYLD_LIBRARY_PATH"] = info.lsEnvironment["DYLD_LIBRARY_PATH"] ?? ""
 
         if let set = set {
@@ -257,13 +257,14 @@ class PlayApp: BaseApp {
         container.containerUrl.showInFinderAndSelectLastComponent()
     }
 
-    func clearAllCache() {
+    func clearAllCache() async {
         Uninstaller.clearExternalCache(info.bundleIdentifier)
     }
 
     func clearPlayChain() {
         FileManager.default.delete(at: playChainURL)
         FileManager.default.delete(at: playChainURL.appendingPathExtension("keyCover"))
+        FileManager.default.delete(at: playChainURL.appendingPathExtension("db"))
     }
 
     func deleteApp() {
@@ -301,6 +302,7 @@ class PlayApp: BaseApp {
         "com.tencent.tmgp.cod",
         "com.tencent.ig",
         "com.pubg.newstate",
+        "com.pubg.imobile",
         "com.tencent.tmgp.pubgmhd",
         "com.dts.freefireth",
         "com.dts.freefiremax",

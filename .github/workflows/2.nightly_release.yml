@@ -7,15 +7,27 @@ env:
   CI: true
 jobs:
   build:
-    runs-on: macos-12
+    runs-on: macos-14
+    env:
+      GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.0
+
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'
 
       - name: Install dependencies
         shell: bash
         run: |
-          brew install graphicsmagick imagemagick
+          brew install graphicsmagick imagemagick swiftlint
           gem install fastlane
           bundle install
           pip install setuptools
@@ -57,7 +69,7 @@ jobs:
         run: rm apikey.json
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.3.0
         with:
           name: PlayCover_nightly_${{ github.run_number }}.dmg
           path: output/PlayCover_nightly_${{ github.run_number }}.dmg

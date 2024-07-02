@@ -210,8 +210,6 @@
 "playapp.noSources.title" = "Nenhum IPA instalado";
 "playapp.noSources.subtitle" = "Você atualmente não possui nenhum IPA instalado. Clique no botão abaixo para importar um.";
 "settings.tab.bypasses" = "Bypasses";
-"settings.addToLaunchpad" = "Adicionar ao Launchpad";
-"settings.removeFromLaunchpad" = "Remover do Launchpad";
 "playapp.download.integrityCheck" = "Verificando integridade do arquivo:";
 "playapp.download.differentChecksum" = "Checksums diferentes! Continuar a instalação?";
 "playapp.download.differentChecksumDesc" = "Era esperado o valor \"%@\", porém foi recebido \"%@\"";
@@ -264,3 +262,8 @@
 "settings.toggle.autoKM" = "Smart Keymap";
 "settings.toggle.autoKM.help" = "Automatically disable keymapping when text input is sensed";
 "settings.applicationCategoryType" = "Application Type";
+"settings.toggle.iosFrameworks" = "Force Insert iOS Frameworks";
+"settings.info.alias" = "Alias:";
+"settings.toggle.enableScrollWheel.help" = "Enable scroll wheel in keymapping";
+"settings.toggle.iosFrameworks.help" = "Add the system ios libraries to the app. Known to fix issues with some apps cannot find ios framework";
+"settings.toggle.enableScrollWheel" = "Enable Scroll Wheel";

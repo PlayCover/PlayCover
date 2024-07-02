@@ -45,7 +45,8 @@ class Uninstaller {
         return CheckBoxHelper(view: view, button: button, buttonvar: varname)
     }
 
-    static func uninstallPopup(_ app: PlayApp) {
+    @MainActor
+    static func uninstallPopup(_ app: PlayApp) async {
         if UninstallPreferences.shared.showUninstallPopup {
             let boxmakers: [(String, String)] = [
                 ("removePlayChain", NSLocalizedString("preferences.toggle.removePlayChain", comment: "")),
@@ -89,30 +90,29 @@ class Uninstaller {
 
             delete.hasDestructiveAction = true
 
-            let response = alert.runModal()
-
-            if response == .alertFirstButtonReturn {
-                for checkboxhelper in checkboxes {
-                    UninstallPreferences.shared.setValue(checkboxhelper.button.state == .on,
-                                                         forKey: checkboxhelper.buttonvar)
-                }
-
-                if alert.suppressionButton?.state == .on {
-                    UninstallPreferences.shared.showUninstallPopup = false
-                }
-
-                uninstall(app)
+            NSApplication.shared.requestUserAttention(.criticalRequest)
+            guard let window = NSApplication.shared.windows.first,
+                  await alert.beginSheetModal(for: window) == .alertFirstButtonReturn else { return }
+            for checkboxhelper in checkboxes {
+                UninstallPreferences.shared.setValue(checkboxhelper.button.state == .on,
+                                                     forKey: checkboxhelper.buttonvar)
             }
+
+            if alert.suppressionButton?.state == .on {
+                UninstallPreferences.shared.showUninstallPopup = false
+            }
+
+            await uninstall(app)
         } else {
-            uninstall(app)
+            await uninstall(app)
         }
     }
 
-    static func uninstall(_ app: PlayApp) {
+    static func uninstall(_ app: PlayApp) async {
         var uninstallNum = 0
 
         if UninstallPreferences.shared.clearAppData {
-            app.clearAllCache()
+            await app.clearAllCache()
             uninstallNum += 1
         }
 
@@ -150,7 +150,6 @@ class Uninstaller {
             do {
                 let apps = (try PlayApp.bundleIDCache).filter({ $0 != app.info.bundleIdentifier })
                     .joined(separator: "\n") + "\n"
-
                 try apps.write(to: PlayApp.bundleIDCacheURL, atomically: false, encoding: .utf8)
             } catch {
                 Log.shared.error(error)
@@ -158,10 +157,31 @@ class Uninstaller {
         }
     }
 
+    @MainActor
+    static func clearCachePopup(_ app: PlayApp) async {
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("alert.app.delete", comment: "")
+        alert.alertStyle = .warning
+
+        let proceed = alert.addButton(withTitle: NSLocalizedString("button.Proceed", comment: ""))
+        proceed.hasDestructiveAction = true
+        alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
+
+        NSApplication.shared.requestUserAttention(.criticalRequest)
+        guard let window = NSApplication.shared.windows.first,
+              await alert.beginSheetModal(for: window) == .alertFirstButtonReturn else { return }
+
+        await clearCache(of: app)
+    }
+
+    static func clearCache(of app: PlayApp) async {
+        await app.clearAllCache()
+    }
+
     static func clearExternalCache(_ bundleId: String) {
         do {
             for cache in cacheURLs {
-                cache.enumerateContents(options: []) { file, _ in
+                cache.enumerateContents(options: [.skipsSubdirectoryDescendants]) { file, _ in
                     if file.path.contains(bundleId) {
                         try FileManager.default.trashItem(at: file, resultingItemURL: nil)
                     }
@@ -181,7 +201,7 @@ class Uninstaller {
             var prunedIds: [String] = []
 
             for url in fullPruneURLs {
-                url.enumerateContents(options: []) { file, _ in
+                url.enumerateContents(options: [.skipsSubdirectoryDescendants]) { file, _ in
                     let bundleId = file.deletingPathExtension().lastPathComponent
                     if danglingItems.contains(bundleId) {
                         try FileManager.default.trashItem(at: file, resultingItemURL: nil)

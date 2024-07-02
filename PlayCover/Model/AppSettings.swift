@@ -148,15 +148,11 @@ class AppSettings {
     }
 }
 
-let notchModels = ["MacBookPro18,3", "MacBookPro18,4", "MacBookPro18,1", "MacBookPro18,2", "Mac14,2"]
-
 extension NSScreen {
     public static func hasNotch() -> Bool {
-        if let model = NSScreen.getMacModel() {
-            return notchModels.contains(model)
-        } else {
-            return false
-        }
+        guard #available(macOS 12, *) else { return false }
+        // check if any of the connected screens contains a notch
+        return NSScreen.screens.contains { $0.safeAreaInsets.top != 0 }
     }
 
     private static func getMacModel() -> String? {

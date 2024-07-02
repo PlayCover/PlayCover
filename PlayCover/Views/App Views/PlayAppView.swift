@@ -7,6 +7,7 @@ import SwiftUI
 import DataCache
 
 struct PlayAppView: View {
+
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
     @Binding var selected: PlayApp?
@@ -15,8 +16,6 @@ struct PlayAppView: View {
     @State var isList: Bool
 
     @State private var showSettings = false
-    @State private var showClearCacheAlert = false
-    @State private var showClearCacheToast = false
     @State private var showClearPreferencesAlert = false
     @State private var showClearPlayChainAlert = false
 
@@ -104,7 +103,8 @@ struct PlayAppView: View {
                 Divider()
                 Group {
                     Button(action: {
-                        showClearCacheAlert.toggle()
+                        selected = nil
+                        Task { await Uninstaller.clearCachePopup(app) }
                     }, label: {
                         Text("playapp.clearCache")
                     })
@@ -122,7 +122,7 @@ struct PlayAppView: View {
                 Divider()
                 Button(action: {
                     selected = nil
-                    Uninstaller.uninstallPopup(app)
+                    Task { await Uninstaller.uninstallPopup(app) }
                 }, label: {
                     Text("playapp.delete")
                 })
@@ -135,13 +135,6 @@ struct PlayAppView: View {
             }
             .sheet(isPresented: $showDeleteGenshinAccount) {
                 DeleteGenshinAccountView()
-            }
-            .alert("alert.app.delete", isPresented: $showClearCacheAlert) {
-                Button("button.Proceed", role: .destructive) {
-                    app.clearAllCache()
-                    showClearCacheToast.toggle()
-                }
-                Button("button.Cancel", role: .cancel) { }
             }
             .alert("alert.app.preferences", isPresented: $showClearPreferencesAlert) {
                 Button("button.Proceed", role: .destructive) {
@@ -156,11 +149,6 @@ struct PlayAppView: View {
                     showClearPlayChainAlert.toggle()
                 }
                 Button("button.Cancel", role: .cancel) { }
-            }
-            .onChange(of: showClearCacheToast) { _ in
-                ToastVM.shared.showToast(
-                    toastType: .notice,
-                    toastDetails: NSLocalizedString("alert.appCacheCleared", comment: ""))
             }
             .onChange(of: showImportSuccess) { _ in
                 ToastVM.shared.showToast(

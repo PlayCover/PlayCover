@@ -313,7 +313,7 @@
 "preferences.prune.alert" = "모든 파일을 정리하겠습니까?";
 "preferences.prune.message" = "설정, 키매핑, 자격 증명, 앱 데이터를 포함한 모든 불필요한 것을 제거합니다";
 "menubar.clearCache" = "캐시 지우기";
-"preferences.tab.install" = "설치하기";
+"preferences.tab.install" = "설치";
 "preferences.toggle.showInstallPopup" = "PlayTools 설치 팝업 보기";
 "preferences.toggle.alwaysInstallPlayTools" = "항상 PlayTools 설치";
 "alert.install.injectPlayTools" = "PlayTools 주입";
@@ -367,8 +367,6 @@
 "playapp.noSources.title" = "설치된 IPA 없음";
 "playapp.noSources.subtitle" = "현재 설치된 IPA가 없습니다. 아래 버튼을 클릭하여 가져오세요.";
 "settings.tab.bypasses" = "우회";
-"settings.addToLaunchpad" = "Launchpad에 추가하기";
-"settings.removeFromLaunchpad" = "Launchpad에서 제거하기";
 "playapp.download.integrityCheck" = "파일 무결성 확인:";
 "playapp.download.differentChecksum" = "체크섬이 다릅니다! 설치를 계속하겠습니까?";
 "playapp.download.differentChecksumDesc" = "\"%@\"이(가) 아닌 \"%@\"을(를) 받았습니다";
@@ -420,4 +418,9 @@
 "keycover.alert.content" = "현재 세션의 Keychain 접근이 비활성화되었습니다";
 "settings.toggle.autoKM" = "키매핑 시작";
 "settings.toggle.autoKM.help" = "텍스트 입력이 감지되면 자동으로 키매핑 비활성화";
-"settings.applicationCategoryType" = "Application Type";
+"settings.applicationCategoryType" = "애플리케이션 유형";
+"settings.toggle.iosFrameworks" = "iOS 프레임워크 강제 삽입";
+"settings.info.alias" = "별명:";
+"settings.toggle.enableScrollWheel.help" = "키매핑에서 스크롤 휠 사용";
+"settings.toggle.iosFrameworks.help" = "앱에 시스템 iOS 라이브러리를 추가합니다. iOS 프레임워크를 찾을 수 없는 일부 앱의 문제를 해결합니다";
+"settings.toggle.enableScrollWheel" = "스크롤 휠 사용";
