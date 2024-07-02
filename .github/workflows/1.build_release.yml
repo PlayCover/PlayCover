@@ -66,6 +66,7 @@ jobs:
         run: |
           fastlane notarize_dmg package:output/PlayCover_${{ env.TAG_NAME }}.dmg
 
+
       - name: Clean Up
         shell: bash
         run: rm apikey.json
