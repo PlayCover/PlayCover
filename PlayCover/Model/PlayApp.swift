@@ -38,6 +38,8 @@ class PlayApp: BaseApp {
             if prohibitedToPlay {
                 await clearAllCache()
                 throw PlayCoverError.appProhibited
+            } else if hasMacVersion {
+                // show warning with "play anyway", "quit" and "open app store"
             } else if maliciousProhibited {
                 await clearAllCache()
                 deleteApp()
@@ -288,6 +290,10 @@ class PlayApp: BaseApp {
         }
     }
 
+    var hasMacVersion: Bool {
+        PlayApp.MACOS_APPS.contains(info.bundleIdentifier)
+    }
+    
     var prohibitedToPlay: Bool {
         PlayApp.PROHIBITED_APPS.contains(info.bundleIdentifier)
     }
@@ -296,6 +302,12 @@ class PlayApp: BaseApp {
         PlayApp.MALICIOUS_APPS.contains(info.bundleIdentifier)
     }
 
+    static let MACOS_APPS = [
+        "com.innersloth.amongus",
+        "com.devsisters.ck",
+        "com.miHoYo.bh3global"
+    ]
+    
     static let PROHIBITED_APPS = [
         "com.activision.callofduty.shooter",
         "com.ea.ios.apexlegendsmobilefps",
