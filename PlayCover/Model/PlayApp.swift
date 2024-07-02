@@ -6,6 +6,7 @@
 import Cocoa
 import Foundation
 import IOKit.pwr_mgt
+import StoreKit
 
 class PlayApp: BaseApp {
     public static let bundleIDCacheURL = PlayTools.playCoverContainer.appendingPathComponent("CACHE")
@@ -32,6 +33,34 @@ class PlayApp: BaseApp {
     }
     var sessionDisableKeychain: Bool = false
 
+    func fetchAppID(bundleID: String, completion: @escaping (String?) -> Void) {
+        let urlString = "https://itunes.apple.com/lookup?bundleId=\(bundleID)"
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
+        let session = URLSession.shared
+        let task = session.dataTask(with: url) { data, response, error in
+            guard error == nil, let data = data else {
+                completion(nil)
+                return
+            }
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let results = json["results"] as? [[String: Any]],
+                   let appInfo = results.first,
+                   let trackId = appInfo["trackId"] as? Int {
+                    completion(String(trackId))
+                } else {
+                    completion(nil)
+                }
+            } catch {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+
     func launch() async {
         do {
             isStarting = true
@@ -39,7 +68,27 @@ class PlayApp: BaseApp {
                 await clearAllCache()
                 throw PlayCoverError.appProhibited
             } else if hasMacVersion {
-                // show warning with "play anyway", "quit" and "open app store"
+                let alert = await NSAlert()
+                alert.messageText = NSLocalizedString("alert.error", comment: "")
+                alert.informativeText = String(
+                 format: NSLocalizedString("macos.version", comment: "")
+                )
+                alert.alertStyle = .warning
+                await alert.addButton(withTitle: NSLocalizedString("alert.start.anyway", comment: ""))
+                await alert.addButton(withTitle: NSLocalizedString("alert.open.appstore", comment: ""))
+                await alert.addButton(withTitle: NSLocalizedString("alert.quit", comment: ""))
+                if await alert.runModal() == .alertSecondButtonReturn {
+                    self.fetchAppID(bundleID: info.bundleIdentifier) { appID in
+                        if let appID = appID {
+                            if let appStoreURL = URL(string:"itms-apps://apps.apple.com/app/id\(appID)") {
+                                NSWorkspace.shared.open(appStoreURL)
+                            }
+                        }
+                    }
+                }
+                if await alert.runModal() == .alertThirdButtonReturn {
+                 return
+                }
             } else if maliciousProhibited {
                 await clearAllCache()
                 deleteApp()
