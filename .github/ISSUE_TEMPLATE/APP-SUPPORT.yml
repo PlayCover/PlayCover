@@ -1,5 +1,5 @@
 name: App Support Request
-description: Request support for a currently unsupported app(not game).
+description: Request support for a currently unsupported app (for games, use the GAME-SUPPORT template).
 title: "[App Support]: "
 labels: ["app-support"]
 body:
@@ -39,10 +39,8 @@ body:
     attributes:
       label: What version of PlayCover are you using?
       options:
-        - "3.0.0 beta 2"
-        - "3.0.0 beta 1"
-        - 2.0.5
-        - 2.0.4
+        - "3.0.0"
+        - "2.0.5"
         - "Nightly/beta (please specify build number)"
         - "Other (please specify)"
     validations:

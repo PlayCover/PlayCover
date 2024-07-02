@@ -35,10 +35,8 @@ body:
     attributes:
       label: What version of PlayCover are you using?
       options:
-        - "3.0.0 beta 2"
-        - "3.0.0 beta 1"
-        - 2.0.5
-        - 2.0.4
+        - "3.0.0"
+        - "2.0.5"
         - "Nightly/beta (please specify build number)"
         - "Other (please specify)"
     validations:
