@@ -1,5 +1,5 @@
 "playapp.add" = "Aggiungi app";
-"playapp.addSource" = "Add sorgente";
+"playapp.addSource" = "Aggiungi sorgente";
 "playapp.settings" = "Impostazioni";
 "playapp.showInFinder" = "Mostra nel Finder";
 "playapp.openCache" = "Apri App Data";
@@ -20,11 +20,11 @@
 "playapp.noSources.title" = "Nessun IPA installato";
 "playapp.noSources.subtitle" = "Al momento non hai nessun IPA installato. Clicca il bottone sottostante per aggiungerne uno.";
 
-"ipaLibrary.noSources.title" = "Nessuna Sorgente IPA Aggiuta";
-"ipaLibrary.noSources.subtitle" = "Al momento non hai nessuna Sorgnente IPA aggiunta. Clicca il bottone sottostante per aggiungerne una.";
+"ipaLibrary.noSources.title" = "Nessuna Sorgente IPA Aggiunta";
+"ipaLibrary.noSources.subtitle" = "Al momento non hai nessuna Sorgente IPA aggiunta. Clicca il bottone sottostante per aggiungerne una.";
 "ipaLibrary.noSources.button" = "Aggiungi Sorgente";
 "ipaLibrary.noNetworkConnection.toast" = "Nessuna connessione ad Internet!";
-"ipaLibrary.noNetworkConnection.required" = "Le libreria IPA Library richiedono una connessione ad Internet";
+"ipaLibrary.noNetworkConnection.required" = "La libreria IPA richiede una connessione ad Internet";
 "ipaLibrary.version.older" = "Questa versione è più vecchia di quella installata";
 "ipaLibrary.version.same" = "App già installata";
 "ipaLibrary.version.newer" = "Questa versione è più nuova di quella installata";
@@ -50,7 +50,7 @@
 "preferences.button.deleteSource" = "Elimina Sorgente";
 "preferences.button.moveSourceUp" = "Muovi la sorgente in alto";
 "preferences.button.moveSourceDown" = "Muovi la sorgente in basso";
-"preferences.popover.valid" = "Link Vaido";
+"preferences.popover.valid" = "Link Valido";
 "preferences.popover.badurl"  = "URL Invalido!";
 "preferences.popover.badjson" = "JSON Invalido o non Trovato!";
 "preferences.popover.duplicate" = "Link Duplicato";
@@ -60,7 +60,7 @@
 "preferences.toggle.showInstallPopup" = "Mostra popup di installazione PlayTools";
 "preferences.toggle.alwaysInstallPlayTools" = "Installa sempre PlayTools";
 
-"sidebar.appLibrary" = "Libraria App";
+"sidebar.appLibrary" = "Libreria App";
 "sidebar.ipaLibrary" = "Libreria IPA";
 
 "storeAccount.selectAccRegion" = "Seleziona la regione dell'account";
@@ -195,9 +195,9 @@
 "settings.playChain.help" = "Abilita il supporto PlayChain per questa applicazione, consentendo (parzialmente) l'uso dei servizi Apple Keychain";
 "settings.playChain.debugging" = "Debugging di PlayChain";
 "settings.toggle.introspection" = "Inserisci librerie di introspezione";
-"settings.toggle.introspection.help" = "Aggiunge le librerie di introspezione di sistema all'app. Conosciuto per risolvere problemi con alcune app che non si avviano correttamente";
+"settings.toggle.introspection.help" = "Aggiunge le librerie di introspezione di sistema all'app. Noto per risolvere problemi con alcune app che non si avviano correttamente";
 "settings.toggle.iosFrameworks" = "Forza l'inserimento dei framework iOS";
-"settings.toggle.iosFrameworks.help" = "Aggiunge le librerie ios di sistema all'app. Conosciuto per risolvere problemi con alcune app che non riescono a trovare i framework ios";
+"settings.toggle.iosFrameworks.help" = "Aggiunge le librerie ios di sistema all'app. Noto per risolvere problemi con alcune app che non riescono a trovare i framework ios";
 
 
 "settings.applicationCategoryType" = "Tipo di Applicazione";
