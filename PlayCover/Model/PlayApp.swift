@@ -40,7 +40,7 @@ class PlayApp: BaseApp {
             return
         }
         let session = URLSession.shared
-        let task = session.dataTask(with: url) { data, response, error in
+        let task = session.dataTask(with: url) { data, _, error in
             guard error == nil, let data = data else {
                 completion(nil)
                 return
@@ -61,6 +61,32 @@ class PlayApp: BaseApp {
         task.resume()
     }
 
+    private func runmacOSWarning() async -> Bool {
+        let alert = await NSAlert()
+        alert.messageText = NSLocalizedString("alert.error", comment: "")
+        alert.informativeText = String(
+         format: NSLocalizedString("macos.version", comment: "")
+        )
+        alert.alertStyle = .warning
+        await alert.addButton(withTitle: NSLocalizedString("alert.start.anyway", comment: ""))
+        await alert.addButton(withTitle: NSLocalizedString("alert.open.appstore", comment: ""))
+        await alert.addButton(withTitle: NSLocalizedString("alert.quit", comment: ""))
+        let result = await alert.runModal()
+        switch result {
+        case .alertFirstButtonReturn:
+            return true
+        case .alertSecondButtonReturn:
+            self.fetchAppID(bundleID: info.bundleIdentifier) { appID in
+                if let appID = appID, let appStoreURL = URL(string: "itms-apps://apps.apple.com/app/id\(appID)") {
+                    NSWorkspace.shared.open(appStoreURL)
+                }
+            }
+            return false
+        default:
+            return false
+        }
+    }
+
     func launch() async {
         do {
             isStarting = true
@@ -68,26 +94,10 @@ class PlayApp: BaseApp {
                 await clearAllCache()
                 throw PlayCoverError.appProhibited
             } else if hasMacVersion {
-                let alert = await NSAlert()
-                alert.messageText = NSLocalizedString("alert.error", comment: "")
-                alert.informativeText = String(
-                 format: NSLocalizedString("macos.version", comment: "")
-                )
-                alert.alertStyle = .warning
-                await alert.addButton(withTitle: NSLocalizedString("alert.start.anyway", comment: ""))
-                await alert.addButton(withTitle: NSLocalizedString("alert.open.appstore", comment: ""))
-                await alert.addButton(withTitle: NSLocalizedString("alert.quit", comment: ""))
-                if await alert.runModal() == .alertSecondButtonReturn {
-                    self.fetchAppID(bundleID: info.bundleIdentifier) { appID in
-                        if let appID = appID {
-                            if let appStoreURL = URL(string:"itms-apps://apps.apple.com/app/id\(appID)") {
-                                NSWorkspace.shared.open(appStoreURL)
-                            }
-                        }
-                    }
-                }
-                if await alert.runModal() == .alertThirdButtonReturn {
-                 return
+                if await !runmacOSWarning() {
+                    await clearAllCache()
+                    isStarting = false
+                    return
                 }
             } else if maliciousProhibited {
                 await clearAllCache()
@@ -342,7 +352,7 @@ class PlayApp: BaseApp {
     var hasMacVersion: Bool {
         PlayApp.MACOS_APPS.contains(info.bundleIdentifier)
     }
-    
+
     var prohibitedToPlay: Bool {
         PlayApp.PROHIBITED_APPS.contains(info.bundleIdentifier)
     }
@@ -356,7 +366,7 @@ class PlayApp: BaseApp {
         "com.devsisters.ck",
         "com.miHoYo.bh3global"
     ]
-    
+
     static let PROHIBITED_APPS = [
         "com.activision.callofduty.shooter",
         "com.ea.ios.apexlegendsmobilefps",
