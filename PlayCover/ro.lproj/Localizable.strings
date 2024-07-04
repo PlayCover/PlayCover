@@ -267,3 +267,10 @@
 "settings.toggle.enableScrollWheel.help" = "Enable scroll wheel in keymapping";
 "settings.toggle.iosFrameworks.help" = "Add the system ios libraries to the app. Known to fix issues with some apps cannot find ios framework";
 "settings.toggle.enableScrollWheel" = "Enable Scroll Wheel";
+"ipaLibrary.info.checksum.none" = "None provided";
+"ipaLibrary.unavailable" = "The link is unavailable";
+"ipaLibrary.info.notAvailable" = "Link not valid for this app";
+"ipaLibrary.info" = "App Info";
+"ipaLibrary.info.title" = "%@ Info";
+"ipaLibrary.info.itunes" = "ITunes Lookup:";
+"ipaLibrary.info.checksum" = "Checksum:";
