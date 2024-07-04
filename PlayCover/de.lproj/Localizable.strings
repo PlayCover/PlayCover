@@ -424,3 +424,10 @@
 "settings.toggle.enableScrollWheel.help" = "Scrollrad in Keymapping aktivieren";
 "settings.toggle.iosFrameworks.help" = "Füge der App die System-ios-Bibliotheken hinzu. Es ist bekannt, dass Probleme behoben werden, bei denen einige Apps das ios-Framework nicht finden können";
 "settings.toggle.enableScrollWheel" = "Scrollrad aktivieren";
+"ipaLibrary.info.notAvailable" = "Link not valid for this app";
+"ipaLibrary.info" = "App Info";
+"ipaLibrary.info.checksum.none" = "None provided";
+"ipaLibrary.info.title" = "%@ Info";
+"ipaLibrary.unavailable" = "The link is unavailable";
+"ipaLibrary.info.itunes" = "ITunes Lookup:";
+"ipaLibrary.info.checksum" = "Checksum:";
