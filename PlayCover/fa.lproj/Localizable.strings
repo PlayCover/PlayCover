@@ -275,3 +275,10 @@
 "settings.toggle.enableScrollWheel.help" = "فعالسازی پیمایش در نقشه کلید";
 "settings.toggle.iosFrameworks.help" = "افزودن کتابخانه های سیستمی iOS به برنامه، برای رفع مشکل برخی از برنامه ها که نمیتوانند کتابخانه های iOS را پیدا کنند";
 "settings.toggle.enableScrollWheel" = "فعال سازی اسکرول";
+"ipaLibrary.info" = "App Info";
+"ipaLibrary.info.notAvailable" = "Link not valid for this app";
+"ipaLibrary.info.checksum.none" = "None provided";
+"ipaLibrary.info.title" = "%@ Info";
+"ipaLibrary.unavailable" = "The link is unavailable";
+"ipaLibrary.info.itunes" = "ITunes Lookup:";
+"ipaLibrary.info.checksum" = "Checksum:";
