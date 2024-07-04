@@ -267,3 +267,10 @@
 "playapp.clearPreferences" = "Clear App Preferences";
 "preferences.tab.updates" = "Updates";
 "preferences.toggle.showUninstall" = "Show warning popup";
+"ipaLibrary.info.notAvailable" = "Link not valid for this app";
+"ipaLibrary.info" = "App Info";
+"ipaLibrary.info.checksum.none" = "None provided";
+"ipaLibrary.info.title" = "%@ Info";
+"ipaLibrary.unavailable" = "The link is unavailable";
+"ipaLibrary.info.itunes" = "ITunes Lookup:";
+"ipaLibrary.info.checksum" = "Checksum:";
