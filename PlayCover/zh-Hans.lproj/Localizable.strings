@@ -424,3 +424,10 @@
 "settings.toggle.enableScrollWheel.help" = "在按键映射启用滚轮";
 "settings.toggle.iosFrameworks.help" = "将系统 ios 库添加到应用程序中。已知可修复某些应用程序找不到 ios 框架的问题";
 "settings.toggle.enableScrollWheel" = "启用滚轮";
+"ipaLibrary.info.notAvailable" = "Link not valid for this app";
+"ipaLibrary.info" = "App Info";
+"ipaLibrary.info.checksum.none" = "None provided";
+"ipaLibrary.info.title" = "%@ Info";
+"ipaLibrary.unavailable" = "The link is unavailable";
+"ipaLibrary.info.itunes" = "ITunes Lookup:";
+"ipaLibrary.info.checksum" = "Checksum:";
