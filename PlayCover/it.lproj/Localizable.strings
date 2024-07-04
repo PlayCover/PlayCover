@@ -19,7 +19,6 @@
 "playapp.refreshSources" = "Aggiorna Sorgenti";
 "playapp.noSources.title" = "Nessun IPA installato";
 "playapp.noSources.subtitle" = "Al momento non hai nessun IPA installato. Clicca il bottone sottostante per aggiungerne uno.";
-
 "ipaLibrary.noSources.title" = "Nessuna Sorgente IPA Aggiunta";
 "ipaLibrary.noSources.subtitle" = "Al momento non hai nessuna Sorgente IPA aggiunta. Clicca il bottone sottostante per aggiungerne una.";
 "ipaLibrary.noSources.button" = "Aggiungi Sorgente";
@@ -30,7 +29,6 @@
 "ipaLibrary.version.newer" = "Questa versione è più nuova di quella installata";
 "ipaLibrary.alert.download" = "Sei sicuro di voler scaricare qusta versione di %@?";
 "ipaLibrary.download" = "Scarica";
-
 "preferences.button.checkForUpdates" = "Controlla Aggiornamenti";
 "preferences.tab.updates" = "Aggiornamenti";
 "preferences.toggle.automaticUpdates" = "Controlla automaticamente gli Aggiornamenti";
@@ -51,7 +49,7 @@
 "preferences.button.moveSourceUp" = "Muovi la sorgente in alto";
 "preferences.button.moveSourceDown" = "Muovi la sorgente in basso";
 "preferences.popover.valid" = "Link Valido";
-"preferences.popover.badurl"  = "URL Invalido!";
+"preferences.popover.badurl" = "URL Invalido!";
 "preferences.popover.badjson" = "JSON Invalido o non Trovato!";
 "preferences.popover.duplicate" = "Link Duplicato";
 "preferences.popover.checking" = "Controllo URL";
@@ -59,10 +57,8 @@
 "preferences.tab.install" = "Installa";
 "preferences.toggle.showInstallPopup" = "Mostra popup di installazione PlayTools";
 "preferences.toggle.alwaysInstallPlayTools" = "Installa sempre PlayTools";
-
 "sidebar.appLibrary" = "Libreria App";
 "sidebar.ipaLibrary" = "Libreria IPA";
-
 "storeAccount.selectAccRegion" = "Seleziona la regione dell'account";
 "storeAccount.selectAccRegion.usa" = "America";
 "storeAccount.selectAccRegion.euro" = "Europa";
@@ -79,7 +75,6 @@
 "storeAccount.alert.restoreAccount.msg" = "Questo sovrascriverà l'attuale account.";
 "storeAccount.alert.deleteAccount" = "Eliminare davvero l'Account?";
 "storeAccount.alert.deleteAccount.button" = "Elimina Account";
-
 "playapp.download.downloading" = "Scaricando";
 "playapp.download.integrityCheck" = "Verificando l'integrità del file:";
 "playapp.download.differentChecksum" = "checksum diversi! Vuoi continuare l'installazione?";
@@ -93,7 +88,6 @@
 "playapp.progress.finished" = "Finito";
 "playapp.progress.failed" = "Fallito";
 "playapp.progress.canceled" = "Cancellato";
-
 "alert.appCacheCleared" = "I dati dell'app sono stati cancellati!";
 "alert.kmImported" = "Mappatura Tasti importata!";
 "alert.errorImportKm" = "Si è verificato un errore durante l'importazione!";
@@ -141,7 +135,6 @@
 "state.enabled" = "Abilita";
 "state.disabled" = "Disabilita";
 "state.pendingReboot" = "Riavvio in sospeso";
-
 "error.corruptedIPA" = "Questo file .ipa è corrotto. Non contiene il file \"Info.plist\".";
 "error.waitInstallation" = "Attendere il completamento dell'installazione corrente!";
 "error.waitDownload" = "Attendere il completamento del download corrente!";
@@ -154,10 +147,8 @@
 
 
 "menubar.exportToSideloady" = "Esporta su Sideloadly";
-
 "settings.title" = "Impostazioni di %@";
 "settings.tab.info" = "Informazioni";
-
 "settings.tab.km" = "Mappatura tasti";
 "settings.toggle.km" = "Mappatura tasti";
 "settings.toggle.km.help" = "Aggiunge il supporto alla tastiera ai giochi solo touch. Usa Comando + K per aprire il menu dell'editor.";
@@ -166,11 +157,10 @@
 "settings.toggle.autoKM.help" = "Disabilita automaticamente la mappatura dei tasti quando viene rilevata l'input di testo";
 "settings.toggle.enableScrollWheel" = "Abilita la rotella del mouse";
 "settings.toggle.enableScrollWheel.help" = "Abilita la rotella del mouse nella mappatura dei tasti";
-
 "settings.tab.graphics" = "Grafica";
 "settings.picker.iosDevice" = "Dispositivo iOS:";
 "settings.picker.adaptiveRes" = "Risoluzione:";
-"settings.picker.adaptiveRes.help" ="Cambia la risoluzione della finestra dell'app";
+"settings.picker.adaptiveRes.help" = "Cambia la risoluzione della finestra dell'app";
 "settings.picker.adaptiveRes.0" = "Predefinita dell'app";
 "settings.picker.adaptiveRes.1" = "Automatica (Basata sul Display)";
 "settings.picker.adaptiveRes.5" = "Personalizzata";
@@ -187,7 +177,6 @@
 "settings.noPlayTools" = "PlayTools non è installato in questa app";
 "settings.highResolution" = "L'alta risoluzione potrebbe causare crash";
 "settings.picker.scaler" = "Scalatore di risoluzione";
-
 "settings.tab.bypasses" = "Bypass";
 "settings.toggle.jbBypass" = "Abilita Bypass del Jailbreak (Sperimentale)";
 "settings.toggle.jbBypass.help" = "Tenta di bypassare il rilevamento del jailbreak in alcuni giochi (Non garantito di funzionare sempre)";
@@ -202,7 +191,6 @@
 
 "settings.applicationCategoryType" = "Tipo di Applicazione";
 "settings.removePlayTools" = "Rimuovi PlayTools";
-
 "settings.info.displayName" = "Nome visualizzato:";
 "settings.info.bundleName" = "Nome bundle:";
 "settings.info.bundleIdentifier" = "Identificatore bundle:";
@@ -212,16 +200,12 @@
 "settings.info.playTools" = "PlayTools installato:";
 "settings.info.url" = "URL:";
 "settings.info.alias" = "Alias:";
-
 "settings.resetSettings" = "Ripristina impostazioni";
 "settings.resetKm" = "Ripristina mappatura tasti";
-
 "settings.resetSettingsCompleted" = "Le impostazioni sono state ripristinate ai valori predefiniti!";
 "settings.resetKmCompleted" = "La mappatura tasti è stata ripristinata!";
-
 "notification.appInstalled" = "App installata!";
 "notification.appInstalled.message" = "Controllala in PlayCover!";
-
 "menubar.log.copy" = "Copia Log";
 "menubar.documentation" = "Documentazione";
 "menubar.website" = "Sito web";
@@ -230,7 +214,6 @@
 "menubar.checkForUpdates" = "Controlla Aggiornamenti...";
 "menubar.clearCache" = "Cancella Cache";
 "menubar.configSigning" = "Configura la Firma";
-
 "soundAlert.messageText" = "Impostazioni Audio Errate Rilevate!";
 "soundAlert.informativeText" = "Il tuo dispositivo di output corrente non ha un tasso di campionamento di 48 o 44,1 kHz! Potrebbero verificarsi crash. Desideri cambiare il tasso di campionamento del tuo dispositivo di output corrente a 48 kHz?";
 "soundAlert.successText" = "Il tasso di campionamento del dispositivo di output corrente è stato impostato su 48 kHz";
@@ -255,10 +238,8 @@
 "settings.toggle.lldbWithTerminal" = "Apri nel terminale";
 "settings.toggle.rootWorkDir" = "Avvia app nella directory radice";
 "settings.toggle.rootWorkDir.help" = "Cambia la directory di lavoro dell'app in / come su iOS. Disabilita questa opzione se l'app si comporta male";
-
 "configSigning.header" = "Configura la Firma del Pacchetto";
 "configSigning.subtext" = "La Firma del Pacchetto aiuta a risolvere problemi con le app che dipendono da ID Team corretti per operazioni come l'autorizzazione. Potrebbero esserci rischi per la sicurezza associati all'abilitazione di questa funzione. Pertanto, raccomandiamo di disabilitarla quando non è necessaria.";
-
 "configSigning.info.SIP" = "SIP deve essere disabilitato totalmente o parzialmente affinché AMFI possa essere disabilitato.";
 "configSigning.info.SIPHeader" = "Protezione dell'Integrità del Sistema";
 "configSigning.info.AMFI" = "AMFI deve essere disabilitato per consentire la falsa firma delle app, permettendo loro di eseguire con il corretto ID Team";
@@ -274,15 +255,12 @@
 
 "configSigning.alert.copied" = "Comando Copiato!";
 "configSigning.alert.info" = "Incolla ed esegui il comando in Terminal.app. Il tuo Mac si riavvierà dopo";
-
 "keycover.masterPassword" = "Password Principale";
 "keycover.confirmMasterPassword" = "Conferma Password Principale";
 "keycover.oldMasterPassword" = "Password Principale Attuale";
-
 "keycover.error.blankPassword" = "La password non può essere vuota";
 "keycover.error.notMatch" = "Le password non corrispondono";
 "keycover.error.incorrectPassword" = "Password non corretta";
-
 "keycover.status.title" = "Stato KeyCover:";
 "keycover.status.managedPassword" = "Abilitato con Password Gestita";
 "keycover.status.userPassword" = "Abilitato con Password Utente";
@@ -292,17 +270,19 @@
 "keycover.button.changePassword" = "Cambia Password Principale";
 "keycover.toggle.startupPrompt" = "Richiedi KeyCover all'avvio";
 "keycover.toggle.startupPrompt.help" = "KeyCover richiederà la tua password principale quando avvierai l'applicazione. Se disabilitato, verrà richiesta quando avvii un'app che utilizza PlayChain.";
-
 "keycover.setup.useGeneratedKey" = "Gestito automaticamente";
 "keycover.setup.useUserKey" = "Usa la mia chiave";
 "keycover.setup.encryptionKey" = "Chiave di Crittografia: ";
-
 "keycover.setupPrompt.title" = "Inserisci una password principale da utilizzare per KeyCover";
 "keycover.changePasswordPrompt.title" = "Inserisci la tua vecchia password principale e una nuova per aggiornare la tua chiave di crittografia di KeyCover";
 "keycover.removePrompt.title" = "Inserisci la tua password principale per rimuovere la crittografia di KeyCover";
-
 "keycover.unlockPrompt.title" = "Inserisci la tua password principale per sbloccare KeyCover";
-
 "keycover.alert.title" = "Il portachiavi non è stato sbloccato";
 "keycover.alert.content" = "L'accesso al portachiavi è stato disabilitato per la sessione corrente";
-
+"ipaLibrary.info.notAvailable" = "Link not valid for this app";
+"ipaLibrary.info" = "App Info";
+"ipaLibrary.info.checksum.none" = "None provided";
+"ipaLibrary.unavailable" = "The link is unavailable";
+"ipaLibrary.info.title" = "%@ Info";
+"ipaLibrary.info.itunes" = "ITunes Lookup:";
+"ipaLibrary.info.checksum" = "Checksum:";
