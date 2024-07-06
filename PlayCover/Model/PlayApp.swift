@@ -307,7 +307,8 @@ class PlayApp: BaseApp {
         "com.dts.freefireth",
         "com.dts.freefiremax",
         "vn.vng.codmvn",
-        "com.ngame.allstar.eu"
+        "com.ngame.allstar.eu",
+        "com.axlebolt.standoff2"
     ]
 
     static let MALICIOUS_APPS = [
