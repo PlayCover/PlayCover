@@ -152,7 +152,9 @@ struct AppSettingsView: View {
 
 struct KeymappingView: View {
     @Binding var settings: AppSettings
-
+    @AppStorage("settings.settings.keymapping") private var keymapping = false
+    @AppStorage("settings.settings.noKMOnInput") private var noKMOnInput = false
+    @AppStorage("settings.settings.enableScrollWheel") private var enableScrollWheel = false
     var body: some View {
         ScrollView {
             VStack {
@@ -191,7 +193,8 @@ struct GraphicsView: View {
     @State var customHeight = 1080
 
     @State var showResolutionWarning = false
-
+    @AppStorage("settings.settings.inverseScreenValues") private var inverseScreenValues = false
+    @AppStorage("settings.settings.disableTimeout") private var disableTimeout = false
     static var number: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .none
@@ -458,7 +461,9 @@ struct BypassesView: View {
     @Binding var settings: AppSettings
     @Binding var hasPlayTools: Bool?
     @Binding var task: BlockingTask
-
+    @AppStorage("settings.settings.playChain") private var playChain = false
+    @AppStorage("settings.settings.playChainDebugging") private var playChainDebugging = false
+    @AppStorage("settings.settings.bypass") private var bypass = false
     @State private var hasIntrospection: Bool
     @State private var hasIosFrameworks: Bool
 
@@ -536,13 +541,13 @@ struct MiscView: View {
     @Binding var hasPlayTools: Bool?
     @Binding var hasAlias: Bool?
     @Binding var task: BlockingTask
-
+    @AppStorage("settings.settings.discordActivity.enable") private var discordActivity = false
+    @AppStorage("settings.settings.metalHUD") private var metalHUD = false
+    @AppStorage("settings.openWithLLDB") private var openWithLLDB = false
+    @AppStorage("settings.openLLDBWithTerminal") private var openLLDBWithTerminal = false
     @State var showPopover = false
-
     var app: PlayApp
-
     @State var applicationCategoryType: LSApplicationCategoryType
-
     var body: some View {
         ScrollView {
             VStack {
