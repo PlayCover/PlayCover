@@ -92,6 +92,11 @@ struct Keymap: Codable {
     var version = "2.0.0"
 }
 
+struct KeymapConfig: Codable {
+    var defaultKm: String
+    var aspectRatio: String
+}
+
 class Keymapping {
     static var keymappingDir: URL {
         let keymappingFolder = PlayTools.playCoverContainer.appendingPathComponent("Keymapping")
@@ -108,16 +113,18 @@ class Keymapping {
     }
 
     let info: AppInfo
-    let keymapURL: URL
-    var keymap: Keymap {
+    let baseKeymapURL: URL
+    let configURL: URL
+
+    var keymapConfig: KeymapConfig {
         get {
             do {
-                let data = try Data(contentsOf: keymapURL)
-                let map = try PropertyListDecoder().decode(Keymap.self, from: data)
+                let data = try Data(contentsOf: configURL)
+                let map = try PropertyListDecoder().decode(KeymapConfig.self, from: data)
                 return map
             } catch {
                 print(error)
-                return reset()
+                return resetConfig()
             }
         }
         set {
@@ -126,25 +133,149 @@ class Keymapping {
 
             do {
                 let data = try encoder.encode(newValue)
-                try data.write(to: keymapURL)
+                try data.write(to: configURL)
             } catch {
                 print(error)
             }
         }
     }
 
+    public private(set) var keymapURLs: [String: URL]
+
     init(_ info: AppInfo) {
         self.info = info
-        keymapURL = Keymapping.keymappingDir.appendingPathComponent("\(info.bundleIdentifier).plist")
+
+        baseKeymapURL = Keymapping.keymappingDir.appendingPathComponent(info.bundleIdentifier)
+        self.configURL = baseKeymapURL.appendingPathComponent(".config").appendingPathExtension("plist")
+        keymapURLs = [:]
+
+        reloadKeymapCache()
+    }
+
+    public func reloadKeymapCache() {
+        keymapURLs = [:]
+
+        do {
+            let directoryContents = try FileManager.default
+                .contentsOfDirectory(at: baseKeymapURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
+
+            if directoryContents.count > 0 {
+                for keymap in directoryContents where keymap.pathExtension.contains("plist") {
+                    keymapURLs[keymap.deletingPathExtension().lastPathComponent] = keymap
+                }
+
+                return
+            }
+        } catch {
+            print("failed to get keymapping directory")
+            Log.shared.error(error)
+        }
+
+        setKeymap(name: "default", map: Keymap(bundleIdentifier: info.bundleIdentifier))
+        reloadKeymapCache()
+    }
+
+    public func getKeymap(name: String) -> Keymap {
+        if let keymapURL = keymapURLs[name] {
+            do {
+                let data = try Data(contentsOf: keymapURL)
+                let map = try PropertyListDecoder().decode(Keymap.self, from: data)
+                return map
+            } catch {
+                print(error)
+                return reset(name: name)
+            }
+        } else {
+            Log.shared.error("error.unknown.keymap")
+            return reset(name: name)
+        }
+    }
+
+    public func setKeymap(name: String, map: Keymap) {
+        let encoder = PropertyListEncoder()
+        encoder.outputFormat = .xml
+
+        if !keymapURLs.keys.contains(name) {
+            let mapURL = baseKeymapURL.appendingPathComponent(name).appendingPathExtension("plist")
+
+            keymapURLs[name] = mapURL
+        }
+
+        if let keymapURL = keymapURLs[name] {
+            do {
+                let data = try encoder.encode(map)
+                try data.write(to: keymapURL)
+            } catch {
+                print(error)
+            }
+        } else {
+            Log.shared.error("error.unknown.unknownError")
+        }
+    }
+
+    public func renameKeymap(prevName: String, newName: String) -> Bool {
+        if let keymapURL = keymapURLs[prevName] {
+            do {
+                let newKeymapURL = baseKeymapURL.appendingPathComponent(newName).appendingPathExtension("plist")
+
+                try FileManager.default.moveItem(
+                    at: keymapURL,
+                    to: newKeymapURL
+                )
+
+                keymapURLs[newName] = newKeymapURL
+                keymapURLs.removeValue(forKey: prevName)
+
+                return true
+            } catch {
+                Log.shared.error(error)
+                return false
+            }
+        } else {
+            print("could not find keymap with name: \(prevName)")
+            return false
+        }
+    }
+
+    public func deleteKeymap(name: String) -> Bool {
+        if let keymapURL = keymapURLs[name] {
+            do {
+                try FileManager.default.trashItem(at: keymapURL, resultingItemURL: nil)
+
+                keymapURLs.removeValue(forKey: name)
+
+                return true
+            } catch {
+                Log.shared.error(error)
+                return false
+            }
+        } else {
+            print("could not find keymap with name: \(name)")
+            return false
+        }
     }
 
     @discardableResult
-    public func reset() -> Keymap {
-        keymap = Keymap(bundleIdentifier: info.bundleIdentifier)
-        return keymap
+    public func reset(name: String) -> Keymap {
+        setKeymap(name: name, map: Keymap(bundleIdentifier: info.bundleIdentifier))
+        return getKeymap(name: name)
     }
 
-    public func importKeymap(success: @escaping (Bool) -> Void) {
+    @discardableResult
+    private func resetConfig() -> KeymapConfig {
+        let defaultKm = keymapURLs.keys.contains("default") ? "default" : keymapURLs.keys.first
+
+        guard let defaultKm = defaultKm else {
+            reloadKeymapCache()
+            return resetConfig()
+        }
+
+        keymapConfig = KeymapConfig(defaultKm: defaultKm, aspectRatio: "auto")
+
+        return keymapConfig
+    }
+
+    public func importKeymap(name: String, success: @escaping (Bool) -> Void) {
         let openPanel = NSOpenPanel()
         openPanel.canChooseFiles = true
         openPanel.allowsMultipleSelection = false
@@ -159,12 +290,12 @@ class Keymapping {
                     if let selectedPath = openPanel.url {
                         let data = try Data(contentsOf: selectedPath)
                         let importedKeymap = try PropertyListDecoder().decode(Keymap.self, from: data)
-                        if importedKeymap.bundleIdentifier == self.keymap.bundleIdentifier {
-                            self.keymap = importedKeymap
+                        if importedKeymap.bundleIdentifier == self.info.bundleIdentifier {
+                            self.setKeymap(name: name, map: importedKeymap)
                             success(true)
                         } else {
                             if self.differentBundleIdKeymapAlert() {
-                                self.keymap = importedKeymap
+                                self.setKeymap(name: name, map: importedKeymap)
                                 success(true)
                             } else {
                                 success(false)
@@ -174,12 +305,12 @@ class Keymapping {
                 } catch {
                     if let selectedPath = openPanel.url {
                         if let keymap = LegacySettings.convertLegacyKeymapFile(selectedPath) {
-                            if keymap.bundleIdentifier == self.keymap.bundleIdentifier {
-                                self.keymap = keymap
+                            if keymap.bundleIdentifier == self.info.bundleIdentifier {
+                                self.setKeymap(name: name, map: keymap)
                                 success(true)
                             } else {
                                 if self.differentBundleIdKeymapAlert() {
-                                    self.keymap = keymap
+                                    self.setKeymap(name: name, map: keymap)
                                     success(true)
                                 } else {
                                     success(false)
@@ -195,7 +326,7 @@ class Keymapping {
         }
     }
 
-    public func exportKeymap() {
+    public func exportKeymap(name: String) {
         let savePanel = NSSavePanel()
         savePanel.title = NSLocalizedString("playapp.exportKm", comment: "")
         savePanel.nameFieldLabel = NSLocalizedString("playapp.exportKmPanel.fieldLabel", comment: "")
@@ -210,7 +341,7 @@ class Keymapping {
                     if let selectedPath = savePanel.url {
                         let encoder = PropertyListEncoder()
                         encoder.outputFormat = .xml
-                        let data = try encoder.encode(self.keymap)
+                        let data = try encoder.encode(self.getKeymap(name: name))
                         try data.write(to: selectedPath)
                         selectedPath.openInFinder()
                     }

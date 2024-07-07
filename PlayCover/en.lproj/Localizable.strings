@@ -1,13 +1,14 @@
 "playapp.add" = "Add app";
 "playapp.addSource" = "Add source";
 "playapp.settings" = "Settings";
+"playapp.keymap" = "View Keymaps";
 "playapp.showInFinder" = "Show in Finder";
 "playapp.openCache" = "Open App Data";
 "playapp.clearCache" = "Clear App Data";
 "playapp.clearPlayChain" = "Clear PlayChain Data";
 "playapp.importIPA" = "Import IPA";
-"playapp.importKm" = "Import Keymapping";
-"playapp.exportKm" = "Export Keymapping";
+"playapp.importKm" = "Import";
+"playapp.exportKm" = "Export";
 "playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
 "playapp.delete" = "Uninstall App";
 "playapp.deleteConfirm" = "Uninstall";
@@ -59,9 +60,12 @@
 "preferences.button.moveSourceUp" = "Move Source Up";
 "preferences.button.moveSourceDown" = "Move Source Down";
 "preferences.popover.valid" = "Link Valid";
+"preferences.popover.valid.keymap" = "Name Valid";
 "preferences.popover.badurl"  = "URL Invalid!";
+"preferences.popover.malformed.keymap" = "Malformed Name";
 "preferences.popover.badjson" = "JSON Invalid or Not Found!";
 "preferences.popover.duplicate" = "Duplicate Link";
+"preferences.popover.duplicate.keymap" = "Duplicate Name";
 "preferences.popover.checking" = "Checking URL";
 "preferences.textfield.url" = "Source URL...";
 "preferences.tab.install" = "Install";
@@ -105,6 +109,8 @@
 "alert.appCacheCleared" = "App data has been cleared!";
 "alert.kmImported" = "Keymapping imported!";
 "alert.errorImportKm" = "Error occured when importing!";
+"alert.kmRenamed" = "Keymap renamed!";
+"alert.errorRenameKm" = "Error occured when renaming keymap";
 "alert.app.delete" = "All app data will be erased. You may need to download app files again. Do you wish to continue?";
 "alert.app.preferences" = "All in-app preferences will be deleted. Do you wish to continue?";
 "alert.app.clearPlayChain" = "All PlayChain data will be erased. You may need to login to the app again. Do you wish to continue?";
@@ -218,10 +224,15 @@
 "settings.info.alias" = "Alias:";
 
 "settings.resetSettings" = "Reset settings";
-"settings.resetKm" = "Reset keymapping";
+"settings.resetKm" = "Reset Keymapping";
+"settings.deleteKm" = "Delete Keymapping";
+"settings.renameKm" = "Rename Keymapping";
+"settings.defaultKm" = "Set default";
 
 "settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
 "settings.resetKmCompleted" = "Keymapping has been reset!";
+"settings.deleteKmCompleted" = "Keymap %@ has been deleted";
+"settings.deleteKmFailed" = "Keymap %@ failed to delete";
 
 "notification.appInstalled" = "App installed!";
 "notification.appInstalled.message" = "Check it out in PlayCover!";
@@ -307,3 +318,9 @@
 
 "keycover.alert.title" = "Keychain was not unlocked";
 "keycover.alert.content" = "Keychain access has been disabled for the current session";
+
+"keymap.title" = "%@ Keymaps";
+"keymap.title.import" = "Import Keymap Name";
+"keymap.title.rename" = "Rename Keymap Name";
+"keymap.sheet.name" = "Keymap Name";
+"keymap.default" = "Default";

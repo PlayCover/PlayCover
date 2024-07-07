@@ -19,8 +19,7 @@ struct PlayAppView: View {
     @State private var showClearPreferencesAlert = false
     @State private var showClearPlayChainAlert = false
 
-    @State var showImportSuccess = false
-    @State var showImportFail = false
+    @State var showKeymapSheet = false
 
     @State private var showChangeGenshinAccount = false
     @State private var showStoreGenshinAccount = false
@@ -63,20 +62,9 @@ struct PlayAppView: View {
                 Divider()
                 Group {
                     Button(action: {
-                        app.keymapping.importKeymap { result in
-                            if result {
-                                showImportSuccess.toggle()
-                            } else {
-                                showImportFail.toggle()
-                            }
-                        }
+                        showKeymapSheet.toggle()
                     }, label: {
-                        Text("playapp.importKm")
-                    })
-                    Button(action: {
-                        app.keymapping.exportKeymap()
-                    }, label: {
-                        Text("playapp.exportKm")
+                        Text("playapp.keymap")
                     })
                 }
                 Group {
@@ -150,18 +138,11 @@ struct PlayAppView: View {
                 }
                 Button("button.Cancel", role: .cancel) { }
             }
-            .onChange(of: showImportSuccess) { _ in
-                ToastVM.shared.showToast(
-                    toastType: .notice,
-                    toastDetails: NSLocalizedString("alert.kmImported", comment: ""))
-            }
-            .onChange(of: showImportFail) { _ in
-                ToastVM.shared.showToast(
-                    toastType: .error,
-                    toastDetails: NSLocalizedString("alert.errorImportKm", comment: ""))
-            }
             .sheet(isPresented: $showSettings) {
-                AppSettingsView(viewModel: AppSettingsVM(app: app))
+                AppSettingsView(viewModel: AppSettingsVM(app: app), showKeymapSheet: $showKeymapSheet)
+            }
+            .sheet(isPresented: $showKeymapSheet) {
+                KeymapView(app: app, showKeymapSheet: $showKeymapSheet)
             }
     }
 
