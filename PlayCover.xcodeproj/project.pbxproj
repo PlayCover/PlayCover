@@ -584,7 +584,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ -z \"$FASTLANE\" ]]; then\n    export PATH=\"$PATH:/opt/homebrew/bin\"\n    if which swiftlint > /dev/null; then\n        swiftlint\n    else\n        echo \"error: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n        exit -1\n    fi\nfi\n";
+			shellScript = "if [[ -z \"$FASTLANE\" ]]; then\n    export PATH=\"$PATH:/opt/homebrew/bin:/opt/local/bin\"\n    if which swiftlint > /dev/null; then\n        swiftlint\n    else\n        echo \"error: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n        exit -1\n    fi\nfi\n";
 		};
 		AA818CBC287AC1C6000BEE9D /* Copy Carthage frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -604,7 +604,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "set -euo pipefail\n\nif [ -x /usr/local/bin/carthage ]; then\n    carthage=/usr/local/bin/carthage\nelif [ -x /opt/homebrew/bin/carthage ]; then\n    carthage=/opt/homebrew/bin/carthage\nelse\n    echo \"Cannot find carthage\"\n    exit 1\nfi\n\necho \"Converting to maccatalyst\"\nvtool \\\n\t-set-build-version maccatalyst 11.0 14.0 \\\n\t-replace -output \\\n\t\"${SCRIPT_INPUT_FILE_0}/PlayTools\" \\\n\t\"${SCRIPT_INPUT_FILE_0}/PlayTools\"\n\necho \"Codesigning PlayTools\"\n\n$carthage copy-frameworks\n\necho cp -rf ${SRCROOT}/Carthage/Build/PlayTools.xcframework/ios-arm64/PlayTools.framework/PlugIns/AKInterface.bundle ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework/PlugIns/AKInterface.bundle\n\nrm -rf ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework/PlugIns/AKInterface.bundle\ncp -rf ${SRCROOT}/Carthage/Build/PlayTools.xcframework/ios-arm64/PlayTools.framework/PlugIns/AKInterface.bundle ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework/PlugIns/AKInterface.bundle\n";
+			shellScript = "set -euo pipefail\n\nif [ -x /usr/local/bin/carthage ]; then\n    carthage=/usr/local/bin/carthage\nelif [ -x /opt/homebrew/bin/carthage ]; then\n    carthage=/opt/homebrew/bin/carthage\nelif [ -x /opt/local/bin/carthage ]; then\n    carthage=/opt/local/bin/carthage\nelse\n    echo \"Cannot find carthage\"\n    exit 1\nfi\n\necho \"Converting to maccatalyst\"\nvtool \\\n    -set-build-version maccatalyst 11.0 14.0 \\\n    -replace -output \\\n    \"${SCRIPT_INPUT_FILE_0}/PlayTools\" \\\n    \"${SCRIPT_INPUT_FILE_0}/PlayTools\"\n\necho \"Codesigning PlayTools\"\n\n$carthage copy-frameworks\n\necho cp -rf ${SRCROOT}/Carthage/Build/PlayTools.xcframework/ios-arm64/PlayTools.framework/PlugIns/AKInterface.bundle ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework/PlugIns/AKInterface.bundle\n\nrm -rf ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework/PlugIns/AKInterface.bundle\ncp -rf ${SRCROOT}/Carthage/Build/PlayTools.xcframework/ios-arm64/PlayTools.framework/PlugIns/AKInterface.bundle ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework/PlugIns/AKInterface.bundle\n";
 		};
 		AAC28F222899A05B005057FB /* Codesign sparkle */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -642,7 +642,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ -z \"$FASTLANE\" ]]; then\n\tset -euo pipefail\n\techo \"Bootstraping carthage\"\n\n\tif [ -x /usr/local/bin/carthage ]; then\n\t\tcarthage=/usr/local/bin/carthage\n\telif [ -x /opt/homebrew/bin/carthage ]; then\n\t\tcarthage=/opt/homebrew/bin/carthage\n\telse\n\t\techo \"Cannot find carthage\"\n\t\texit 1\n\tfi\n\n\t$carthage update --use-xcframeworks\nfi\n";
+			shellScript = "if [[ -z \"$FASTLANE\" ]]; then\n    set -euo pipefail\n    echo \"Bootstraping carthage\"\n\n    if [ -x /usr/local/bin/carthage ]; then\n        carthage=/usr/local/bin/carthage\n    elif [ -x /opt/homebrew/bin/carthage ]; then\n        carthage=/opt/homebrew/bin/carthage\n    elif [ -x /opt/local/bin/carthage ]; then\n        carthage=/opt/local/bin/carthage\n    else\n        echo \"Cannot find carthage\"\n        exit 1\n    fi\n\n    $carthage update --use-xcframeworks\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
