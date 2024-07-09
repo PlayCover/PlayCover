@@ -299,9 +299,10 @@ struct PlayAppConditionalView: View {
                                     .brightness(-0.2)
                             )
                             .help(!(hasPlayTools ?? true) ? "settings.noPlayTools" : "")
-                            .frame(width: 130, height: 20)
+                            .frame(height: 20)
                         if showStartingProgress {
                             ProgressView()
+                                .padding(.leading, 10)
                                 .scaleEffect(0.5)
                                 .frame(width: 20, height: 20)
                         }
