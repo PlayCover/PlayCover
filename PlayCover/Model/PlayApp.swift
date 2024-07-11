@@ -31,7 +31,7 @@ class PlayApp: BaseApp {
         info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
     }
     var sessionDisableKeychain: Bool = false
-
+        
     func launch() async {
         do {
             isStarting = true
@@ -77,10 +77,10 @@ class PlayApp: BaseApp {
             Log.shared.error(error)
         }
     }
-
+    
     func runAppExec() {
         let config = NSWorkspace.OpenConfiguration()
-
+        
         NSWorkspace.shared.openApplication(
             at: aliasURL,
             configuration: config,
@@ -132,8 +132,18 @@ class PlayApp: BaseApp {
             displaySleepAssertionID = nil
         }
     }
+    
+    var preCheck = PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
 
     func unlockKeyCover() async {
+        //Avoid PlayChain issues by checking if directory exists
+        if !FileManager.default.fileExists(atPath: preCheck.path) {
+            do {
+                try FileManager.default.createDirectory(atPath: preCheck.path, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
         if KeyCover.shared.isKeyCoverEnabled() {
             // Check if the app have any keychains
             let keychain = KeyCover.shared.listKeychains()
