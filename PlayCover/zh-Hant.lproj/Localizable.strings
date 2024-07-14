@@ -23,9 +23,6 @@
 "alert.restart" = "請重啟 PlayCover。";
 
 /* (No Comment) */
-"alert.storeAccount.regionIsNotValid" = "此帳號現所在的服務器與選項不符。打開遊戲，更改服務器並進入大門後保存，然後再試";
-
-/* (No Comment) */
 "alert.success" = "成功";
 
 /* (No Comment) */
@@ -77,9 +74,6 @@
 "notification.appInstalled.message" = "馬上來看一看吧!";
 
 /* (No Comment) */
-"playapp.activateAccount" = "切換帳號";
-
-/* (No Comment) */
 "playapp.clearCache" = "清除應用程式資料";
 
 /* (No Comment) */
@@ -87,9 +81,6 @@
 
 /* (No Comment) */
 "playapp.delete" = "解除安裝應用程式";
-
-/* (No Comment) */
-"playapp.deleteAccount" = "刪除帳號";
 
 /* (No Comment) */
 "playapp.exportKm" = "導出鍵盤映射佈局";
@@ -126,9 +117,6 @@
 
 /* (No Comment) */
 "playapp.showInFinder" = "在 Finder 中查看";
-
-/* (No Comment) */
-"playapp.storeCurrentAccount" = "保存現有帳號";
 
 /* (No Comment) */
 "preferences.button.checkForUpdates" = "檢查更新";
@@ -173,53 +161,16 @@
 "soundAlert.successText" = "現有音訊設備取樣率已設為 48 KHz";
 
 /* (No Comment) */
-"storeAccount.deleteAcc" = "刪除一個帳號";
-
-/* (No Comment) */
-"storeAccount.nameOfAcc" = "帳號用戶名稱";
-
-/* (No Comment) */
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "用戶名...";
-
-/* (No Comment) */
-"storeAccount.selectAcc" = "選擇一個帳號";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion" = "選擇帳號地區伺服器";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.asia" = "亞服";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.cht" = "港澳臺服";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.euro" = "歐服";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.usa" = "美服";
-
-/* (No Comment) */
-"storeAccount.store" = "保存帳號";
-
-/* (No Comment) */
-"storeAccount.storeAcc" = "保存一個帳號";
-"storeAccount.alert.restoreAccount" = "確定要還原帳號？";
 "button.Quit" = "離開";
 "settings.info.bundleName" = "Bundle 名稱:";
 "playapp.exportKmPanel.fieldLabel" = "PlayMap 名稱:";
 "sidebar.appLibrary" = "App資料庫";
 "sidebar.ipaLibrary" = "IPA資料庫";
-"storeAccount.alert.restoreAccount.button" = "還原帳號";
-"storeAccount.alert.restoreAccount.msg" = "這將會覆蓋你目前已登入的帳號。";
-"storeAccount.alert.deleteAccount" = "確定要刪除帳號嗎？";
-"storeAccount.alert.deleteAccount.button" = "刪除帳號";
 "alert.moveAppToApplications.title" = "是否移動到應用程式資料夾？";
 "alert.moveAppToApplications.subtitle" = "PlayCover必須在應用程式資料夾中才能正常運作。點擊下方按鈕會使PlayCover自動移至應用程式資料夾。";
 "error.appEncrypted" = "此應用程式已被加密！請使用未加密的IPA文件。現已不再支援使用iMazing輸出的IPA檔案！";
 "error.appCorrupted" = "此IPA檔案中包含一些錯誤。請嘗試使用其他IPA檔案。";
 "error.appProhibited" = "在PlayCover中使用這個應用程式可能會遭到封禁！";
-"error.noGenshinAccount" = "無法找到原神帳號！你是否已在該應用程式中登入帳號？";
 "settings.title" = "%@ 設定";
 "settings.tab.info" = "詳細資料";
 "settings.tab.km" = "鍵盤映射佈局";
