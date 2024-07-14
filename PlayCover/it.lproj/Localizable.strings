@@ -12,9 +12,6 @@
 "playapp.delete" = "Disinstalla App";
 "playapp.deleteConfirm" = "Disinstalla";
 "playapp.deleteMessage" = "Sei sicuro di voler disinstallare %@?";
-"playapp.storeCurrentAccount" = "Archivia Account";
-"playapp.activateAccount" = "Cambia Account";
-"playapp.deleteAccount" = "Elimina Account";
 "playapp.clearPreferences" = "Elimina Preferenze App";
 "playapp.refreshSources" = "Aggiorna Sorgenti";
 "playapp.noSources.title" = "Nessun IPA installato";
@@ -59,22 +56,6 @@
 "preferences.toggle.alwaysInstallPlayTools" = "Installa sempre PlayTools";
 "sidebar.appLibrary" = "Libreria App";
 "sidebar.ipaLibrary" = "Libreria IPA";
-"storeAccount.selectAccRegion" = "Seleziona la regione dell'account";
-"storeAccount.selectAccRegion.usa" = "America";
-"storeAccount.selectAccRegion.euro" = "Europa";
-"storeAccount.selectAccRegion.asia" = "Asia";
-"storeAccount.selectAccRegion.cht" = "TW, HK, MO";
-"storeAccount.nameOfAcc" = "Nome dell'account";
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "Nome dell'account...";
-"storeAccount.store" = "Archivia Account";
-"storeAccount.selectAcc" = "Seleziona un account";
-"storeAccount.storeAcc" = "Archivia un account";
-"storeAccount.deleteAcc" = "Elimina un account";
-"storeAccount.alert.restoreAccount" = "Ripristinare davvero l'Account?";
-"storeAccount.alert.restoreAccount.button" = "Ripristina Account";
-"storeAccount.alert.restoreAccount.msg" = "Questo sovrascriverà l'attuale account.";
-"storeAccount.alert.deleteAccount" = "Eliminare davvero l'Account?";
-"storeAccount.alert.deleteAccount.button" = "Elimina Account";
 "playapp.download.downloading" = "Scaricando";
 "playapp.download.integrityCheck" = "Verificando l'integrità del file:";
 "playapp.download.differentChecksum" = "checksum diversi! Vuoi continuare l'installazione?";
@@ -100,7 +81,6 @@
 "alert.moveAppToApplications.title" = "Spostare nella cartella Applicazioni?";
 "alert.moveAppToApplications.subtitle" = "PlayCover deve trovarsi nella cartella Applicazioni per funzionare correttamente. Premi il pulsante sottostante per spostare automaticamente PlayCover.";
 "alert.moveAppToApplications.move" = "Sposta nella cartella Applicazioni";
-"alert.storeAccount.regionIsNotValid" = "L'account attuale è impostato su una regione diversa. Avvia il gioco, cambia la regione e passa attraverso i cancelli per salvare. Quindi riprova";
 "alert.legacyImport.title" = "Impostazioni dell'app legacy rilevate!";
 "alert.legacyImport.subtitle" = "Sono state rilevate impostazioni e file di mappatura legacy. Vuoi convertire questi file nel nuovo formato?";
 "alert.wrongFileType.title" = "Tipo di file errato!";
@@ -142,7 +122,6 @@
 "error.appCorrupted" = "Qualcosa è andato storto con questo IPA. Si prega di provare a utilizzare un altro file IPA.";
 "error.appProhibited" = "L'utilizzo di questa app tramite PlayCover probabilmente comporterà un ban!";
 "error.appMaliciousProhibited" = "Questa app si comporta in modo dannoso sui Mac e usarla può rendere il dispositivo non avviabile, quindi è bloccata da PlayCover. (Disinstallazione...)";
-"error.noGenshinAccount" = "Non è stato possibile trovare un account Genshin! Hai effettuato l'accesso a un account nell'app?";
 "error.failedToStripBinary" = "Impossibile trovare l'architettura ARM64 nel binario multiplo!";
 
 

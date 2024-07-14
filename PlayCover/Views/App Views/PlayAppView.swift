@@ -22,10 +22,6 @@ struct PlayAppView: View {
     @State var showImportSuccess = false
     @State var showImportFail = false
 
-    @State private var showChangeGenshinAccount = false
-    @State private var showStoreGenshinAccount = false
-    @State private var showDeleteGenshinAccount = false
-
     var body: some View {
         PlayAppConditionalView(selectedBackgroundColor: $selectedBackgroundColor,
                                selectedTextColor: $selectedTextColor,
@@ -33,9 +29,6 @@ struct PlayAppView: View {
                                app: app,
                                isList: isList)
             .gesture(TapGesture(count: 2).onEnded {
-                if app.info.bundleIdentifier == "com.miHoYo.GenshinImpact" {
-                    removeTwitterSessionCookie()
-                }
                 // Launch the app from a separate thread (allow us to Sayori it if needed)
                 Task(priority: .userInitiated) {
                     if !app.isStarting { await app.launch() }
@@ -79,27 +72,6 @@ struct PlayAppView: View {
                         Text("playapp.exportKm")
                     })
                 }
-                Group {
-                    if app.info.bundleIdentifier.contains("GenshinImpact")
-                        || app.info.bundleIdentifier.contains("Yuanshen") {
-                        Divider()
-                        Button(action: {
-                            showStoreGenshinAccount.toggle()
-                        }, label: {
-                            Text("playapp.storeCurrentAccount")
-                        })
-                        Button(action: {
-                            showChangeGenshinAccount.toggle()
-                        }, label: {
-                            Text("playapp.activateAccount")
-                        })
-                        Button(action: {
-                            showDeleteGenshinAccount.toggle()
-                        }, label: {
-                            Text("playapp.deleteAccount")
-                        })
-                    }
-                }
                 Divider()
                 Group {
                     Button(action: {
@@ -126,15 +98,6 @@ struct PlayAppView: View {
                 }, label: {
                     Text("playapp.delete")
                 })
-            }
-            .sheet(isPresented: $showChangeGenshinAccount) {
-                ChangeGenshinAccountView(app: app)
-            }
-            .sheet(isPresented: $showStoreGenshinAccount) {
-                StoreGenshinAccountView(app: app)
-            }
-            .sheet(isPresented: $showDeleteGenshinAccount) {
-                DeleteGenshinAccountView()
             }
             .alert("alert.app.preferences", isPresented: $showClearPreferencesAlert) {
                 Button("button.Proceed", role: .destructive) {
@@ -163,25 +126,6 @@ struct PlayAppView: View {
             .sheet(isPresented: $showSettings) {
                 AppSettingsView(viewModel: AppSettingsVM(app: app))
             }
-    }
-
-    func removeTwitterSessionCookie() {
-        do {
-            let cookieURL = FileManager.default.homeDirectoryForCurrentUser
-                .appendingPathComponent("Library")
-                .appendingPathComponent("Containers")
-                .appendingPathComponent("com.miHoYo.GenshinImpact")
-                .appendingPathComponent("Data")
-                .appendingPathComponent("Library")
-                .appendingPathComponent("Cookies")
-                .appendingPathComponent("Cookies")
-                .appendingPathExtension("binarycookies")
-            if FileManager.default.fileExists(atPath: cookieURL.path) {
-                try FileManager.default.removeItem(at: cookieURL)
-            }
-        } catch {
-            print("Error when attempting to remove Twitter session cookie: \(error)")
-        }
     }
 
     func deletePreferences(app: String) {

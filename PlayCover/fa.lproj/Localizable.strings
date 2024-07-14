@@ -5,21 +5,7 @@
 "playapp.importKm" = "درون‌ریزی Keymap";
 "playapp.exportKm" = "برون‌ریزی Keymap";
 "playapp.delete" = "حذف برنامه";
-"playapp.storeCurrentAccount" = "ذخیره حساب کاربری کنونی در حافظه";
-"playapp.activateAccount" = "جابجایی میان حساب‌های کاربری ذخیره‌شده";
-"playapp.deleteAccount" = "مدیریت حساب‌های کاربری ذخیره‌شده";
 "playapp.clearPreferences" = "بازنشانی پیکربندی‌های درون برنامه‌ای";
-"storeAccount.selectAccRegion" = "منطقه کاربری";
-"storeAccount.selectAccRegion.usa" = "آمریکا";
-"storeAccount.selectAccRegion.euro" = "اروپا";
-"storeAccount.selectAccRegion.asia" = "آسیا";
-"storeAccount.selectAccRegion.cht" = "تایوان - هنگ کنگ - ماکائو";
-"storeAccount.nameOfAcc" = "نام حساب کاربری";
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "اینجا بنویسید...";
-"storeAccount.store" = "ذخیره کردن در حافظه";
-"storeAccount.selectAcc" = "حساب کاربری مورد نظرتان را انتخاب کنید";
-"storeAccount.storeAcc" = "پیکربندی حساب کاربری کنونی برای ذخیره‌سازی";
-"storeAccount.deleteAcc" = "حساب کاربری مورد نظرتان را انتخاب کنید";
 "playapp.install.unzip" = "استخراج برنامه از پرونده IPA...";
 "playapp.install.createWrapper" = "بارپیچی پیش‌نیازهای برنامه...";
 "playapp.install.installPlayTools" = "نصب PlayTools در برنامه...";
@@ -36,9 +22,6 @@
 "alert.error" = "خطائی رخ داد!";
 "alert.success" = "انجام شد";
 "alert.moveAppToApplications.move" = "انتقال به پوشه Applications مک";
-"alert.storeAccount.regionIsNotValid" = "این حساب کاربری برای منطقه‌ی کاربری دیگری پیکربندی شده است. بازی را باز کرده، منطقه‌ی کاربری را تغییر داده و از دروازه عبور کنید تا پیکربندی آن ذخیره شود. سپس دوباره تلاش کنید";
-
-
 "button.OK" = "تأیید";
 "button.Proceed" = "ادامه دادن";
 "button.Cancel" = "لغو";
@@ -75,23 +58,17 @@
 
 /* (No Comment) */
 "preferences.toggle.automaticUpdates" = "به صورت خودکار وضعیت به‌روزی را بررسی کن";
-"storeAccount.alert.restoreAccount" = "از این کار مطمئن هستید؟";
 "button.Quit" = "خروج";
 "settings.resetSettingsCompleted" = "پیکربندی‌ها به حالت پیش‌فرض بازنشانی شدند!";
 "settings.resetKmCompleted" = "بازنشانی Keymap انجام شد!";
 "playapp.exportKmPanel.fieldLabel" = "نام PlayMap:";
 "sidebar.appLibrary" = "کتابخانه نصب‌شده‌ها";
 "sidebar.ipaLibrary" = "کتابخانه پرونده‌های IPA";
-"storeAccount.alert.restoreAccount.button" = "بله";
-"storeAccount.alert.restoreAccount.msg" = "این کار منجر به جایگزین شدن حساب کاربری کنونی با حساب کاربری انتخاب‌شده خواهد شد.";
-"storeAccount.alert.deleteAccount" = "از این کار مطمئن هستید؟";
-"storeAccount.alert.deleteAccount.button" = "بله، آن رااز حافظه پاک کن";
 "alert.moveAppToApplications.title" = "PlayCover در پوشه‌ی Applications مک قرار ندارد؟";
 "alert.moveAppToApplications.subtitle" = "برنامه PlayCover برای این که به درستی کار کند می‌بایست در پوشه Applications مک قرار داشته باشد. برای انتقال خودکار PlayCover به آن پوشه، بر روی دکمه‌ی زیر کلیک کنید.";
 "error.appEncrypted" = "این یک پرونده رمزنگاری‌شده است! لطفاً از یک پرونده IPA رمزشکسته (Decrypted) استفاده کنید. پرونده‌های IPA که از طریق نرم‌افزار iMazing بدست آمده‌اند، قابل استفاده نیستند!";
 "error.appCorrupted" = "چیزی در مورد این پرونده IPA درست نیست. لطفاً از پرونده‌ی IPA دیگری استفاده کنید.";
 "error.appProhibited" = "استفاده از این برنامه از طریق PlayCover ممکن است منجر به مسدود شدن حساب کاربری شما شود!";
-"error.noGenshinAccount" = "هیچ حساب کاربری برای Genshin Impact پیدا نشد! آیا در درون بازی اقدام به وارد شدن به حساب کاربری‌تان کرده‌اید؟";
 "settings.title" = "پیکربندی‌های %@";
 "settings.tab.info" = "درباره برنامه";
 "settings.tab.km" = "Keymapping";
