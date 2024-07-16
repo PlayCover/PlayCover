@@ -40,8 +40,10 @@ class Installer {
         // If (the option key is held or the install playtools popup settings is true) and its not an export,
         //    then show the installer dialog
         let installPlayTools: Bool
+        let applicationType = InstallPreferences.shared.defaultAppType
 
-        if (Installer.isOptionKeyHeld || InstallPreferences.shared.showInstallPopup) && !export {
+        if (ModifierKeyObserver.shared.isOptionKeyPressed
+                || InstallPreferences.shared.showInstallPopup) && !export {
             installPlayTools = installPlayToolsPopup()
         } else {
             installPlayTools = InstallPreferences.shared.alwaysInstallPlayTools
@@ -59,7 +61,7 @@ class Installer {
                 let app = try ipa.unzip()
                 InstallVM.shared.next(.library, 0.5, 0.55)
                 try saveEntitlements(app)
-                let machos = try resolveValidMachOs(app)
+                let machos = resolveValidMachOs(app)
                 app.validMachOs = machos
 
                 InstallVM.shared.next(.playtools, 0.55, 0.85)
@@ -78,8 +80,10 @@ class Installer {
                 if export {
                     try PlayTools.injectInIPA(app.executable, payload: app.url)
                 } else if installPlayTools {
-                    try PlayTools.installInIPA(app.executable)
+                    try await PlayTools.installInIPA(app.executable)
                 }
+
+                app.info.applicationCategoryType = applicationType
 
                 if !export {
                     // -rwxr-xr-x
@@ -104,6 +108,7 @@ class Installer {
                 }
 
                 ipa.releaseTempDir()
+                try ipa.removeQuarantine(finalURL)
                 InstallVM.shared.next(.finish, 0.95, 1.0)
                 returnCompletion(finalURL)
             } catch {
@@ -147,14 +152,14 @@ class Installer {
     }
 
     /// Returns an array of URLs to MachO files within the app
-    static func resolveValidMachOs(_ baseApp: BaseApp) throws -> [URL] {
+    static func resolveValidMachOs(_ baseApp: BaseApp) -> [URL] {
         if let validMachOs = baseApp.validMachOs {
             return validMachOs
         }
 
         var resolved: [URL] = []
 
-        try baseApp.url.enumerateContents { url, attributes in
+        baseApp.url.enumerateContents { url, attributes in
             guard attributes.isRegularFile == true, let fileSize = attributes.fileSize, fileSize > 4 else {
                 return
             }
@@ -204,8 +209,8 @@ class Installer {
         let info = AppInfo(contentsOf: baseApp.url
             .appendingPathComponent("Info")
             .appendingPathExtension("plist"))
-        let location = PlayTools.playCoverContainer
-            .appendingEscapedPathComponent(info.displayName)
+        let location = AppsVM.appDirectory
+            .appendingEscapedPathComponent(info.bundleIdentifier)
             .appendingPathExtension("app")
         if FileManager.default.fileExists(atPath: location.path) {
             try FileManager.default.removeItem(at: location)
@@ -213,9 +218,5 @@ class Installer {
 
         try FileManager.default.moveItem(at: baseApp.url, to: location)
         return location
-    }
-
-    static var isOptionKeyHeld: Bool {
-        NSEvent.modifierFlags.contains(.option)
     }
 }

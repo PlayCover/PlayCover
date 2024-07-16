@@ -23,9 +23,6 @@
 "alert.restart" = "请重启 PlayCover。";
 
 /* (No Comment) */
-"alert.storeAccount.regionIsNotValid" = "此账号现所在的服务器与选项不符。 打开游戏，更改服区并进入大门后保存，然后再试";
-
-/* (No Comment) */
 "alert.success" = "成功";
 
 /* (No Comment) */
@@ -77,9 +74,6 @@
 "notification.appInstalled.message" = "立即来看一看吧!";
 
 /* (No Comment) */
-"playapp.activateAccount" = "切换账号";
-
-/* (No Comment) */
 "playapp.clearCache" = "清除应用数据";
 
 /* (No Comment) */
@@ -87,9 +81,6 @@
 
 /* (No Comment) */
 "playapp.delete" = "卸载应用";
-
-/* (No Comment) */
-"playapp.deleteAccount" = "删除账号";
 
 /* (No Comment) */
 "playapp.exportKm" = "导出键盘映射布局";
@@ -126,9 +117,6 @@
 
 /* (No Comment) */
 "playapp.showInFinder" = "在访达中查看";
-
-/* (No Comment) */
-"playapp.storeCurrentAccount" = "保存现有账号";
 
 /* (No Comment) */
 "preferences.button.checkForUpdates" = "检查更新";
@@ -203,58 +191,19 @@
 "soundAlert.successText" = "当前音频设备采样率已设为 48 kHz";
 
 /* (No Comment) */
-"storeAccount.deleteAcc" = "删除一个账号";
-
-/* (No Comment) */
-"storeAccount.nameOfAcc" = "账号用户名";
-
-/* (No Comment) */
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "用户名...";
-
-/* (No Comment) */
-"storeAccount.selectAcc" = "选择一个账号";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion" = "选择账号地区服务器";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.asia" = "亚服";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.cht" = "港澳台服";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.euro" = "欧服";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.usa" = "美服";
-
-/* (No Comment) */
-"storeAccount.store" = "保存账号";
-
-/* (No Comment) */
-"storeAccount.storeAcc" = "保存一个账号";
 "button.Quit" = "退出";
 "error.appProhibited" = "通过 PlayCover 使用这个应用程序很可能会导致帐号被封停！";
 "settings.title" = "%@ 设定";
 "playapp.exportKmPanel.fieldLabel" = "PlayMap 名称：";
 "sidebar.appLibrary" = "App 库";
 "sidebar.ipaLibrary" = "IPA 资源库";
-"storeAccount.alert.restoreAccount" = "确定要重置帐号吗？";
-"storeAccount.alert.restoreAccount.button" = "重置帐号";
-"storeAccount.alert.restoreAccount.msg" = "这将会覆盖当前已登录账户。";
-"storeAccount.alert.deleteAccount" = "确认是否删除账户？";
-"storeAccount.alert.deleteAccount.button" = "删除账户";
 "alert.moveAppToApplications.title" = "是否移动至应用程序文件夹？";
-"settings.toggle.mm" = "启用鼠标映射";
 "alert.moveAppToApplications.subtitle" = "PlayCover必须在应用程序文件夹下才能正常运行。点击下方按钮将会自动移动PlayCover至应用程序文件夹。";
 "error.appEncrypted" = "此应用已被加密！请使用未加密的 ipa 文件。 现已不再支持来自 iMazing 的 ipa！";
 "error.appCorrupted" = "此 ipa 文件是错误的。请尝试使用其他 ipa 文件。";
-"error.noGenshinAccount" = "我们没有找到原神帐户！ 您是否已登录帐户？";
 "settings.tab.info" = "详细信息";
 "settings.tab.km" = "键盘映射";
 "settings.toggle.km.help" = "为仅支持触摸游戏添加键盘支持，使用 Command + K 打开编辑菜单。";
-"settings.toggle.mm.help" = "添加鼠标控制模拟触摸动作。使用 Command + K 来打开编辑器菜单。";
 "settings.tab.graphics" = "图像设置";
 "settings.picker.adaptiveRes" = "分辨率：";
 "settings.picker.adaptiveRes.help" = "修改应用程序的窗口分辨率";
@@ -369,8 +318,6 @@
 "playapp.noSources.title" = "没有已安装的 IPA";
 "playapp.noSources.subtitle" = "当前你没有安装任何 IPA。点击下面的按钮来导入一个。";
 "settings.tab.bypasses" = "绕过";
-"settings.addToLaunchpad" = "添加到启动台";
-"settings.removeFromLaunchpad" = "从启动台移除";
 "playapp.download.integrityCheck" = "正在验证文件完整性:";
 "playapp.download.differentChecksum" = "校验不一致！你是否想要继续安装？";
 "playapp.download.differentChecksumDesc" = "预期为 \"%@\", 当前为 \"%@\"";
@@ -391,3 +338,47 @@
 "settings.toggle.introspection" = "插入内省库";
 "settings.toggle.introspection.help" = "添加系统内省库到 app。已知可修复某些应用程序无法正确启动的问题";
 "settings.picker.scaler" = "分辨率缩放";
+"keycover.masterPassword" = "主密码";
+"button.Enable" = "启用";
+"button.Reset" = "重置";
+"button.Unlock" = "解锁";
+"settings.toggle.rootWorkDir" = "在 root 目录启动应用程序";
+"settings.toggle.rootWorkDir.help" = "将应用程序的工作目录改为/，就像在iOS上一样。如果应用程序运行不正常，请关闭此功能";
+"keycover.confirmMasterPassword" = "确认主密码";
+"keycover.oldMasterPassword" = "当前主密码";
+"keycover.error.blankPassword" = "密码不能为空";
+"keycover.error.notMatch" = "密码不匹配";
+"keycover.error.incorrectPassword" = "密码不正确";
+"keycover.status.title" = "KeyCover 状态:";
+"keycover.status.managedPassword" = "使用管理密码启用";
+"keycover.status.userPassword" = "启用用户密码";
+"keycover.status.chainCount" = "KeyCover链状态: ";
+"keycover.status.unlockedCount %@ %@" = "%@ 总共解锁了 %@ 条链";
+"keycover.button.lockAll" = "锁定所有链";
+"keycover.button.changePassword" = "更改主密码";
+"keycover.toggle.startupPrompt" = "启动时提示KeyCover";
+"keycover.toggle.startupPrompt.help" = "当您启动应用程序时，KeyCover将提示您输入主密码。如果禁用此选项，则当您启动使用PlayChain的应用程序时，系统会提示您。";
+"keycover.setup.useGeneratedKey" = "自动管理";
+"keycover.setup.useUserKey" = "使用我自己的密钥";
+"keycover.setup.encryptionKey" = "加密密钥: ";
+"keycover.setupPrompt.title" = "输入用于 KeyCover 的主密码";
+"keycover.changePasswordPrompt.title" = "输入您的旧主密码和一个新主密码以更新您的 KeyCover 加密密钥";
+"keycover.removePrompt.title" = "输入您的主密码以删除 KeyCover 加密";
+"keycover.unlockPrompt.title" = "输入您的主密码以解锁 KeyCover";
+"keycover.alert.title" = "钥匙串未解锁";
+"keycover.alert.content" = "当前会话已禁用钥匙串访问";
+"settings.toggle.autoKM" = "智能按键映射";
+"settings.toggle.autoKM.help" = "当检测到文本输入时自动禁用按键映射";
+"settings.applicationCategoryType" = "应用程序类型";
+"settings.toggle.iosFrameworks" = "强制插入iOS框架";
+"settings.info.alias" = "别名:";
+"settings.toggle.enableScrollWheel.help" = "在按键映射启用滚轮";
+"settings.toggle.iosFrameworks.help" = "将系统 ios 库添加到应用程序中。已知可修复某些应用程序找不到 ios 框架的问题";
+"settings.toggle.enableScrollWheel" = "启用滚轮";
+"ipaLibrary.info.notAvailable" = "Link not valid for this app";
+"ipaLibrary.info" = "App Info";
+"ipaLibrary.info.checksum.none" = "None provided";
+"ipaLibrary.info.title" = "%@ Info";
+"ipaLibrary.unavailable" = "The link is unavailable";
+"ipaLibrary.info.itunes" = "ITunes Lookup:";
+"ipaLibrary.info.checksum" = "Checksum:";

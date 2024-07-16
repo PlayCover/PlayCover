@@ -12,13 +12,17 @@
 "playapp.delete" = "Uninstall App";
 "playapp.deleteConfirm" = "Uninstall";
 "playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
-"playapp.storeCurrentAccount" = "Store Account";
-"playapp.activateAccount" = "Switch Account";
-"playapp.deleteAccount" = "Delete Account";
 "playapp.clearPreferences" = "Clear App Preferences";
 "playapp.refreshSources" = "Refresh Sources";
 "playapp.noSources.title" = "No IPAs Installed";
 "playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";
+
+"ipaLibrary.info" = "App Info";
+"ipaLibrary.info.title" = "%@ Info";
+"ipaLibrary.info.notAvailable" = "Link not valid for this app";
+"ipaLibrary.info.itunes" = "ITunes Lookup:";
+"ipaLibrary.info.checksum" = "Checksum:";
+"ipaLibrary.info.checksum.none" = "None provided";
 
 "ipaLibrary.noSources.title" = "No IPA Sources Added";
 "ipaLibrary.noSources.subtitle" = "You currently have no IPA Sources added. Click the button below to add one.";
@@ -28,6 +32,7 @@
 "ipaLibrary.version.older" = "This version is older than the one you have installed";
 "ipaLibrary.version.same" = "App already installed";
 "ipaLibrary.version.newer" = "This version is newer than the version you have installed";
+"ipaLibrary.unavailable" = "The link is unavailable";
 "ipaLibrary.alert.download" = "Are you sure you want to download this version of %@?";
 "ipaLibrary.download" = "Download";
 "ipaLibrary.AlphabeticalSort" = "Sort source apps alphabetically";
@@ -63,24 +68,6 @@
 
 "sidebar.appLibrary" = "App Library";
 "sidebar.ipaLibrary" = "IPA Library";
-
-"storeAccount.selectAccRegion" = "Select account region";
-"storeAccount.selectAccRegion.usa" = "America";
-"storeAccount.selectAccRegion.euro" = "Europe";
-"storeAccount.selectAccRegion.asia" = "Asia";
-"storeAccount.selectAccRegion.cht" = "TW, HK, MO";
-"storeAccount.nameOfAcc" = "Name of your account";
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "Name of account...";
-"storeAccount.store" = "Store account";
-"storeAccount.selectAcc" = "Select an account";
-"storeAccount.storeAcc" = "Store an account";
-"storeAccount.deleteAcc" = "Delete an account";
-"storeAccount.alert.restoreAccount" = "Really Restore Account?";
-"storeAccount.alert.restoreAccount.button" = "Restore Account";
-"storeAccount.alert.restoreAccount.msg" = "This will override your currently signed-in account.";
-"storeAccount.alert.deleteAccount" = "Really Delete Account?";
-"storeAccount.alert.deleteAccount.button" = "Delete Account";
-
 "playapp.download.downloading" = "Downloading";
 "playapp.download.integrityCheck" = "Verifying file integrity:";
 "playapp.download.differentChecksum" = "Different checksums! Do you want to continue to install?";
@@ -107,7 +94,6 @@
 "alert.moveAppToApplications.title" = "Move to Applications folder?";
 "alert.moveAppToApplications.subtitle" = "PlayCover must be in the Applications folder to run correctly. Press the button below to move PlayCover automatically.";
 "alert.moveAppToApplications.move" = "Move to Applications folder";
-"alert.storeAccount.regionIsNotValid" = "The current account is set to a different Region. Launch the game, Change the region, and pass through the gates to save. Then try again";
 "alert.legacyImport.title" = "Legacy App Settings Detected!";
 "alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
 "alert.wrongFileType.title" = "Wrong file type!";
@@ -148,7 +134,6 @@
 "error.appCorrupted" = "Something went wrong with this IPA. Please try to use another IPA file.";
 "error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";
 "error.appMaliciousProhibited" = "This App behaves maliciously on Macs, and using it can leave your device in an unbootable state, therefore it is blocked from PlayCover. (Uninstalling...)";
-"error.noGenshinAccount" = "We couldn't find a Genshin account! Are you signed into an account in-app?";
 "error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
 
 "menubar.exportToSideloady" = "Export to Sideloadly";
@@ -159,9 +144,11 @@
 "settings.tab.km" = "Keymapping";
 "settings.toggle.km" = "Keymapping";
 "settings.toggle.km.help" = "Add keyboard support to touch-only games. Use Command + K to open editor menu.";
-"settings.toggle.mm" = "Mouse mapping";
-"settings.toggle.mm.help" = "Add mouse controls that emulate touch movements. Use Command + K to open editor menu.";
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
+"settings.toggle.autoKM" = "Smart Keymap";
+"settings.toggle.autoKM.help" = "Automatically disable keymapping when text input is sensed";
+"settings.toggle.enableScrollWheel" = "Enable Scroll Wheel";
+"settings.toggle.enableScrollWheel.help" = "Enable scroll wheel in keymapping";
 
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";
@@ -192,10 +179,11 @@
 "settings.playChain.debugging" = "PlayChain debugging";
 "settings.toggle.introspection" = "Insert Introspection libraries";
 "settings.toggle.introspection.help" = "Add the system introspection libraries to the app. Known to fix issues with some apps not starting correctly";
+"settings.toggle.iosFrameworks" = "Force Insert iOS Frameworks";
+"settings.toggle.iosFrameworks.help" = "Add the system ios libraries to the app. Known to fix issues with some apps cannot find ios framework";
 
+"settings.applicationCategoryType" = "Application Type";
 "settings.removePlayTools" = "Remove PlayTools";
-"settings.addToLaunchpad" = "Add to Launchpad";
-"settings.removeFromLaunchpad" = "Remove from Launchpad";
 
 "settings.info.displayName" = "Display name:";
 "settings.info.bundleName" = "Bundle name:";
@@ -205,6 +193,7 @@
 "settings.info.minimumOSVersion" = "Minimum OS version:";
 "settings.info.playTools" = "PlayTools installed:";
 "settings.info.url" = "URL:";
+"settings.info.alias" = "Alias:";
 
 "settings.resetSettings" = "Reset settings";
 "settings.resetKm" = "Reset keymapping";
@@ -245,6 +234,8 @@
 "settings.text.debugger" = "Debugger:";
 "settings.toggle.lldb" = "Open with LLDB";
 "settings.toggle.lldbWithTerminal" = "Open in terminal";
+"settings.toggle.rootWorkDir" = "Start app at root directory";
+"settings.toggle.rootWorkDir.help" = "Change the working directory of the app to / just like on iOS. Turn this off if the app misbehave";
 
 "configSigning.header" = "Configure Package Signing";
 "configSigning.subtext" = "Package Signing helps fixing issues with apps that rely on \ncorrect Team IDs for operations like authorization. \nThere may be security risks associated with enabling this feature.\n\n As such, we recommend disabling it when it's not necessary";

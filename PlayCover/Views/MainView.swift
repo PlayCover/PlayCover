@@ -71,6 +71,19 @@ struct MainView: View {
                                         .padding(.leading)
                                 }
                             }
+                        NavigationLink(destination: IPALibraryView(selectedBackgroundColor: $selectedBackgroundColor,
+                                                                   selectedTextColor: $selectedTextColor)
+                            .environmentObject(store)
+                            .environmentObject(DownloadVM.shared),
+                                       tag: 2, selection: self.$selectedView) {
+                            Label("sidebar.ipaLibrary", systemImage: "arrow.down.circle")
+                        }
+                    }
+                    .toolbar {
+                        ToolbarItem { // Sits on the left by default
+                            Button(action: toggleSidebar, label: {
+                                Image(systemName: "sidebar.leading")
+                            })
                         }
                     }
                     .onChange(of: sidebarGeom.size) { newSize in
@@ -116,13 +129,6 @@ struct MainView: View {
             }
             .onAppear {
                 self.selectedView = URLObserved.type == .source ? 2 : 1
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigation) {
-                    Button(action: toggleSidebar, label: {
-                        Image(systemName: "sidebar.leading")
-                    })
-                }
             }
             .overlay {
                 HStack {

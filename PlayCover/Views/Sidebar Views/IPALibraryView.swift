@@ -12,6 +12,7 @@ struct IPALibraryView: View {
 
     @ObservedObject var storeVM: StoreVM
     @ObservedObject private var URLObserved = URLObservable.shared
+    @EnvironmentObject var downloadVM: DownloadVM
 
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
@@ -22,6 +23,7 @@ struct IPALibraryView: View {
     @State private var showingSubview = false
     @State private var searchString = ""
     @State private var filteredSources: [SourceJSON] = []
+    @State private var showInfo = false
 
     var body: some View {
         StackNavigationView(currentSubview: $currentSubview,
@@ -132,15 +134,13 @@ struct IPALibraryView: View {
                     StackNavigationSearchable(searchTitle: "textfield.searchSources",
                                               searchString: $searchString)
                 }
-            }
-        }
-        .sheet(isPresented: $addSourcePresented) {
-            AddSourceView(addSourceSheet: $addSourcePresented)
-                .environmentObject(storeVM)
-        }
         .onChange(of: searchString) { value in
             filteredSources = storeVM.sourcesData.filter {
                 $0.name.lowercased().contains(value.lowercased())
+        .sheet(isPresented: $showInfo) {
+            if let selected = selected {
+                StoreInfoAppView(viewModel: StoreAppVM(data: selected))
+                    .environmentObject(downloadVM)
             }
         }
         .onChange(of: URLObserved.type) {_ in
