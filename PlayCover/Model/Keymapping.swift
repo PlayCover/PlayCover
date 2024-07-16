@@ -109,7 +109,6 @@ class Keymapping {
 
     let info: AppInfo
     let keymapURL: URL
-    var container: AppContainer?
     var keymap: Keymap {
         get {
             do {
@@ -134,9 +133,8 @@ class Keymapping {
         }
     }
 
-    init(_ info: AppInfo, container: AppContainer?) {
+    init(_ info: AppInfo) {
         self.info = info
-        self.container = container
         keymapURL = Keymapping.keymappingDir.appendingPathComponent("\(info.bundleIdentifier).plist")
     }
 

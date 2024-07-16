@@ -11,3 +11,7 @@ identifier_name:
 
 type_name:
   allowed_symbols: ['_']
+
+disabled_rules:
+  # see https://github.com/realm/SwiftLint/issues/5263
+  - non_optional_string_data_conversion

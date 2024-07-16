@@ -8,8 +8,9 @@ import Foundation
 import UniformTypeIdentifiers
 
 struct AppSettingsData: Codable {
+    var bundleIdentifier: String = ""
+
     var keymapping = true
-    var mouseMapping = true
     var sensitivity: Float = 50
 
     var disableTimeout = false
@@ -23,20 +24,31 @@ struct AppSettingsData: Codable {
     var bypass = false
     var discordActivity = DiscordActivity()
     var version = "3.0.0"
-    var playChain = false
+    var playChain = true
     var playChainDebugging = false
     var inverseScreenValues = false
-    var metalHUD = false
+    var metalHUD = false {
+        didSet {
+            do {
+                try Shell.setMetalHUD(bundleIdentifier, enabled: metalHUD)
+            } catch {
+                Log.shared.error(error)
+            }
+        }
+    }
     var windowFixMethod = 0
     var injectIntrospection = false
+    var rootWorkDir = true
+    var noKMOnInput = true
+    var enableScrollWheel = true
 
     init() {}
 
     // handle old 2.x settings where PlayChain did not exist yet
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        bundleIdentifier = try container.decodeIfPresent(String.self, forKey: .bundleIdentifier) ?? ""
         keymapping = try container.decodeIfPresent(Bool.self, forKey: .keymapping) ?? true
-        mouseMapping = try container.decodeIfPresent(Bool.self, forKey: .mouseMapping) ?? true
         sensitivity = try container.decodeIfPresent(Float.self, forKey: .sensitivity) ?? 50
         disableTimeout = try container.decodeIfPresent(Bool.self, forKey: .disableTimeout) ?? false
         iosDeviceModel = try container.decodeIfPresent(String.self, forKey: .iosDeviceModel) ?? "iPad13,8"
@@ -50,12 +62,15 @@ struct AppSettingsData: Codable {
         discordActivity = try container.decodeIfPresent(DiscordActivity.self,
                                                         forKey: .discordActivity) ?? DiscordActivity()
         version = try container.decodeIfPresent(String.self, forKey: .version) ?? "3.0.0"
-        playChain = try container.decodeIfPresent(Bool.self, forKey: .playChain) ?? false
+        playChain = try container.decodeIfPresent(Bool.self, forKey: .playChain) ?? true
         playChainDebugging = try container.decodeIfPresent(Bool.self, forKey: .playChainDebugging) ?? false
         inverseScreenValues = try container.decodeIfPresent(Bool.self, forKey: .inverseScreenValues) ?? false
         metalHUD = try container.decodeIfPresent(Bool.self, forKey: .metalHUD) ?? false
         windowFixMethod = try container.decodeIfPresent(Int.self, forKey: .windowFixMethod) ?? 0
         injectIntrospection = try container.decodeIfPresent(Bool.self, forKey: .injectIntrospection) ?? false
+        rootWorkDir = try container.decodeIfPresent(Bool.self, forKey: .rootWorkDir) ?? true
+        noKMOnInput = try container.decodeIfPresent(Bool.self, forKey: .noKMOnInput) ?? true
+        enableScrollWheel = try container.decodeIfPresent(Bool.self, forKey: .enableScrollWheel) ?? true
     }
 }
 
@@ -79,22 +94,22 @@ class AppSettings {
     let settingsUrl: URL
     var openWithLLDB: Bool = false
     var openLLDBWithTerminal: Bool = true
-    var container: AppContainer?
     var settings: AppSettingsData {
         didSet {
             encode()
         }
     }
 
-    init(_ info: AppInfo, container: AppContainer?) {
+    init(_ info: AppInfo) {
         self.info = info
-        self.container = container
         settingsUrl = AppSettings.appSettingsDir.appendingPathComponent(info.bundleIdentifier)
                                                 .appendingPathExtension("plist")
         settings = AppSettingsData()
         if !decode() {
             encode()
         }
+
+        settings.bundleIdentifier = info.bundleIdentifier
     }
 
     public func sync() {
@@ -133,15 +148,11 @@ class AppSettings {
     }
 }
 
-let notchModels = ["MacBookPro18,3", "MacBookPro18,4", "MacBookPro18,1", "MacBookPro18,2", "Mac14,2"]
-
 extension NSScreen {
     public static func hasNotch() -> Bool {
-        if let model = NSScreen.getMacModel() {
-            return notchModels.contains(model)
-        } else {
-            return false
-        }
+        guard #available(macOS 12, *) else { return false }
+        // check if any of the connected screens contains a notch
+        return NSScreen.screens.contains { $0.safeAreaInsets.top != 0 }
     }
 
     private static func getMacModel() -> String? {

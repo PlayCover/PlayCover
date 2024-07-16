@@ -12,12 +12,14 @@ struct IPALibraryView: View {
 
     @ObservedObject var storeVM: StoreVM
     @ObservedObject private var URLObserved = URLObservable.shared
+    @EnvironmentObject var downloadVM: DownloadVM
 
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
 
     @State private var gridLayout = [GridItem(.adaptive(minimum: 130, maximum: .infinity))]
     @State private var addSourcePresented = false
+
     @State private var currentSubview = AnyView(EmptyView())
     @State private var showingSubview = false
     @State private var searchString = ""
