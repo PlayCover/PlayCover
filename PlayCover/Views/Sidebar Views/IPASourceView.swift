@@ -9,6 +9,8 @@ import SwiftUI
 
 struct IPASourceView: View {
 
+    @EnvironmentObject var downloadVM: DownloadVM
+
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
     @State var sourceName: String
@@ -20,6 +22,8 @@ struct IPASourceView: View {
     @State private var selected: SourceAppsData?
     @State private var searchString = ""
     @State private var filteredApps: [SourceAppsData] = []
+
+    @State private var showInfo = false
 
     var body: some View {
     let sortedApps = sourceApps.sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
@@ -62,6 +66,17 @@ struct IPASourceView: View {
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    showInfo.toggle()
+                }, label: {
+                    Image(systemName: "info.circle")
+                })
+                .disabled(selected == nil)
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Spacer()
+            }
+            ToolbarItem(placement: .primaryAction) {
                 Toggle("A", isOn: $sortAlphabetical)
                     .help("ipaLibrary.AlphabeticalSort")
             }
@@ -77,6 +92,12 @@ struct IPASourceView: View {
             ToolbarItem(placement: .primaryAction) {
                 StackNavigationSearchable(searchTitle: "textfield.searchApps",
                                           searchString: $searchString)
+            }
+        }
+        .sheet(isPresented: $showInfo) {
+            if let selected = selected {
+                StoreInfoAppView(viewModel: StoreAppVM(data: selected))
+                    .environmentObject(downloadVM)
             }
         }
         .onChange(of: isList) { value in

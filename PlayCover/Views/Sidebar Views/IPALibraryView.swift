@@ -57,7 +57,7 @@ struct IPALibraryView: View {
                                             selectedBackgroundColor: $selectedBackgroundColor,
                                             selectedTextColor: $selectedTextColor,
                                             sourceName: source.name,
-                                            sourceApps: source.data)
+                                            sourceApps: source.data).environmentObject(downloadVM)
                                         )
                                         showingSubview = true
                                     } label: {
