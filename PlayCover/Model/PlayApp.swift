@@ -8,24 +8,9 @@ import Foundation
 import IOKit.pwr_mgt
 
 class PlayApp: BaseApp {
-    public static let bundleIDCacheURL = PlayTools.playCoverContainer.appendingPathComponent("CACHE")
+    private static let library = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library")
     var displaySleepAssertionID: IOPMAssertionID?
     public var isStarting = false
-
-    public static var bundleIDCache: [String] {
-        get throws {
-            (try String(contentsOf: bundleIDCacheURL)).split(whereSeparator: \.isNewline).map({ String($0) })
-        }
-    }
-
-    override init(appUrl: URL) {
-        super.init(appUrl: appUrl)
-
-        removeAlias()
-        createAlias()
-
-        loadDiscordIPC()
-    }
 
     var searchText: String {
         info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
@@ -36,10 +21,10 @@ class PlayApp: BaseApp {
         do {
             isStarting = true
             if prohibitedToPlay {
-                await clearAllCache()
+                clearAllCache()
                 throw PlayCoverError.appProhibited
             } else if maliciousProhibited {
-                await clearAllCache()
+                clearAllCache()
                 deleteApp()
                 throw PlayCoverError.appMaliciousProhibited
             }
@@ -81,8 +66,18 @@ class PlayApp: BaseApp {
     func runAppExec() {
         let config = NSWorkspace.OpenConfiguration()
 
+        if settings.settings.metalHUD {
+            config.environment = ["MTL_HUD_ENABLED": "1"]
+        } else {
+            config.environment = ["MTL_HUD_ENABLED": "0"]
+        }
+
+        if settings.settings.injectIntrospection {
+            config.environment["DYLD_LIBRARY_PATH"] = "/usr/lib/system/introspection"
+        }
+
         NSWorkspace.shared.openApplication(
-            at: aliasURL,
+            at: url,
             configuration: config,
             completionHandler: { runningApp, error in
                 guard error == nil else { return }
@@ -194,15 +189,15 @@ class PlayApp: BaseApp {
 
     static let playChainDirectory = PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
 
-    lazy var aliasURL = PlayApp.aliasDirectory.appendingPathComponent(name).appendingPathExtension("app")
+    lazy var aliasURL = PlayApp.aliasDirectory.appendingPathComponent(name)
 
     lazy var playChainURL = PlayApp.playChainDirectory.appendingPathComponent(info.bundleIdentifier)
 
-    lazy var settings = AppSettings(info)
+    lazy var settings = AppSettings(info, container: container)
 
-    lazy var keymapping = Keymapping(info)
+    lazy var keymapping = Keymapping(info, container: container)
 
-    lazy var container = AppContainer(bundleId: info.bundleIdentifier)
+    var container: AppContainer?
 
     func hasPlayTools() -> Bool {
         do {
@@ -211,34 +206,6 @@ class PlayApp: BaseApp {
             Log.shared.error(error)
             return true
         }
-    }
-
-    static let introspection: String = "/usr/lib/system/introspection"
-    static let iosFrameworks: String = "/System/iOSSupport/System/Library/Frameworks"
-
-    func changeDyldLibraryPath(set: Bool? = nil, path: String) async -> Bool {
-        info.lsEnvironment["DYLD_LIBRARY_PATH"] = info.lsEnvironment["DYLD_LIBRARY_PATH"] ?? ""
-
-        if let set = set {
-            if set {
-                info.lsEnvironment["DYLD_LIBRARY_PATH"]? += "\(path):"
-            } else {
-                info.lsEnvironment["DYLD_LIBRARY_PATH"] = info.lsEnvironment["DYLD_LIBRARY_PATH"]?
-                    .replacingOccurrences(of: "\(path):", with: "")
-            }
-
-            do {
-                try Shell.signApp(executable)
-            } catch {
-                Log.shared.error(error)
-            }
-        }
-
-        guard let result = info.lsEnvironment["DYLD_LIBRARY_PATH"] else {
-            return false
-        }
-
-        return result.contains(path)
     }
 
     func hasAlias() -> Bool {
@@ -254,17 +221,33 @@ class PlayApp: BaseApp {
     }
 
     func openAppCache() {
-        container.containerUrl.showInFinderAndSelectLastComponent()
+        container?.containerUrl.showInFinderAndSelectLastComponent()
     }
 
-    func clearAllCache() async {
+    func clearAllCache() {
         Uninstaller.clearExternalCache(info.bundleIdentifier)
     }
 
     func clearPlayChain() {
         FileManager.default.delete(at: playChainURL)
         FileManager.default.delete(at: playChainURL.appendingPathExtension("keyCover"))
-        FileManager.default.delete(at: playChainURL.appendingPathExtension("db"))
+    }
+
+    func createAlias() {
+        do {
+            try FileManager.default.createDirectory(atPath: PlayApp.aliasDirectory.path,
+                                                    withIntermediateDirectories: true,
+                                                    attributes: nil)
+            let data = try url.bookmarkData(options: .suitableForBookmarkFile,
+                                                includingResourceValuesForKeys: nil, relativeTo: nil)
+            try URL.writeBookmarkData(data, to: aliasURL)
+        } catch {
+            Log.shared.log(error.localizedDescription)
+        }
+    }
+
+    func removeAlias() {
+        FileManager.default.delete(at: aliasURL)
     }
 
     func deleteApp() {
@@ -274,14 +257,17 @@ class PlayApp: BaseApp {
 
     func sign() {
         do {
-            let tmpDir = FileManager.default.temporaryDirectory
+            let tmpDir = try FileManager.default.url(for: .itemReplacementDirectory,
+                                                  in: .userDomainMask,
+                                                  appropriateFor: URL(fileURLWithPath: "/Users"),
+                                                  create: true)
             let tmpEnts = tmpDir
                 .appendingEscapedPathComponent(ProcessInfo().globallyUniqueString)
                 .appendingPathExtension("plist")
             let conf = try Entitlements.composeEntitlements(self)
             try conf.store(tmpEnts)
             try Shell.signAppWith(executable, entitlements: tmpEnts)
-            try FileManager.default.removeItem(at: tmpEnts)
+            try FileManager.default.removeItem(at: tmpDir)
         } catch {
             print(error)
             Log.shared.error(error)
@@ -302,13 +288,9 @@ class PlayApp: BaseApp {
         "com.tencent.tmgp.cod",
         "com.tencent.ig",
         "com.pubg.newstate",
-        "com.pubg.imobile",
         "com.tencent.tmgp.pubgmhd",
         "com.dts.freefireth",
-        "com.dts.freefiremax",
-        "vn.vng.codmvn",
-        "com.ngame.allstar.eu",
-        "com.axlebolt.standoff2"
+        "com.dts.freefiremax"
     ]
 
     static let MALICIOUS_APPS = [

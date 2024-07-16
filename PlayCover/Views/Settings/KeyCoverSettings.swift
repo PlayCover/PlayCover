@@ -30,8 +30,6 @@ struct KeyCoverSettings: View {
     @ObservedObject var keyCoverPreferences = KeyCoverPreferences.shared
     @ObservedObject var keyCoverObserved = KeyCoverObservable.shared
 
-    @ObservedObject var modifierKeyObserver = ModifierKeyObserver.shared
-
     var body: some View {
         VStack {
             HStack {
@@ -47,7 +45,7 @@ struct KeyCoverSettings: View {
                 Spacer()
                 Button(keyCoverObserved.keyCoverEnabled ? "button.Reset" : "button.Enable") {
                     if keyCoverObserved.keyCoverEnabled {
-                        if modifierKeyObserver.isOptionKeyPressed {
+                        if isOptionKeyHeld() {
                             KeyCoverPassword.shared.forceResetKeyCoverPassword()
                         } else {
                             keyCoverRemovalViewShown = true
@@ -56,9 +54,7 @@ struct KeyCoverSettings: View {
                         keyCoverInitialSetupShown = true
                     }
                 }
-                .foregroundColor((keyCoverObserved.keyCoverEnabled
-                                 && modifierKeyObserver.isOptionKeyPressed)
-                                    ? .red : .none)
+                .foregroundColor(keyCoverObserved.keyCoverEnabled ? .red : .none)
             }
             .padding()
             Spacer()
@@ -102,6 +98,10 @@ struct KeyCoverSettings: View {
         .sheet(isPresented: $keyCoverRemovalViewShown) {
             KeyCoverRemovalView(isPresented: $keyCoverRemovalViewShown)
         }
+    }
+
+    func isOptionKeyHeld() -> Bool {
+        NSEvent.modifierFlags.contains(.option)
     }
 }
 

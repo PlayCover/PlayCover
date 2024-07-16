@@ -74,36 +74,18 @@ extension URL {
     }
 
     // Wraps NSFileEnumerator since the geniuses at corelibs-foundation decided it should be completely untyped
-    func enumerateContents(blocking: Bool = true,
-                           includingPropertiesForKeys keys: [URLResourceKey]? = nil,
-                           options: FileManager.DirectoryEnumerationOptions? = nil,
-                           _ callback: @escaping(URL, URLResourceValues) throws -> Void) {
+    func enumerateContents(_ callback: (URL, URLResourceValues) throws -> Void) throws {
         guard let enumerator = FileManager.default.enumerator(
             at: self,
-            includingPropertiesForKeys: keys ?? [.isRegularFileKey],
-            options: options ?? [.skipsHiddenFiles, .skipsPackageDescendants]) else {
+            includingPropertiesForKeys: [.isRegularFileKey],
+            options: [.skipsHiddenFiles, .skipsPackageDescendants]) else {
             return
         }
 
-        let queue = OperationQueue()
-        queue.name = "io.playcover.PlayCover.URLExtension"
-        queue.qualityOfService = .userInitiated
-        queue.maxConcurrentOperationCount = 15
-
         for case let fileURL as URL in enumerator {
-            queue.addOperation {
-                do {
-                    try callback(fileURL, fileURL.resourceValues(forKeys: [.isRegularFileKey, .fileSizeKey]))
-                } catch {
-                    // Don't show error, as there could be many files within the folder
-                    // that would fail the callback
-                    print(error)
-                }
+            do {
+                try callback(fileURL, fileURL.resourceValues(forKeys: [.isRegularFileKey, .fileSizeKey]))
             }
-        }
-
-        if blocking {
-            queue.waitUntilAllOperationsAreFinished()
         }
     }
 

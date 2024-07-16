@@ -23,6 +23,9 @@
 "alert.restart" = "Starte bitte PlayCover neu.";
 
 /* (No Comment) */
+"alert.storeAccount.regionIsNotValid" = "Der aktuelle Account ist auf eine andere Region eingestellt. Starte das Spiel, ändere die Region und gehe durch die Tore, um zu speichern. Dann versuche es erneut";
+
+/* (No Comment) */
 "alert.success" = "Erfolgreich";
 
 /* (No Comment) */
@@ -74,6 +77,9 @@
 "notification.appInstalled.message" = "In PlayCover ansehen!";
 
 /* (No Comment) */
+"playapp.activateAccount" = "Account wechseln";
+
+/* (No Comment) */
 "playapp.clearCache" = "App-Daten löschen";
 
 /* (No Comment) */
@@ -81,6 +87,9 @@
 
 /* (No Comment) */
 "playapp.delete" = "App deinstallieren";
+
+/* (No Comment) */
+"playapp.deleteAccount" = "Account löschen";
 
 /* (No Comment) */
 "playapp.exportKm" = "Tastenbelegung exportieren";
@@ -117,6 +126,9 @@
 
 /* (No Comment) */
 "playapp.showInFinder" = "Im Finder anzeigen";
+
+/* (No Comment) */
+"playapp.storeCurrentAccount" = "Account speichern";
 
 /* (No Comment) */
 "preferences.button.checkForUpdates" = "Nach Updates suchen";
@@ -191,6 +203,37 @@
 "soundAlert.successText" = "Aktuelle Abtastrate des Ausgabegeräts auf 48 kHz eingestellt";
 
 /* (No Comment) */
+"storeAccount.deleteAcc" = "Ein Account löschen";
+
+/* (No Comment) */
+"storeAccount.nameOfAcc" = "Name deines Accounts";
+
+/* (No Comment) */
+"storeAccount.nameOfAcc.textfieldPlaceholder" = "Name des Accounts...";
+
+/* (No Comment) */
+"storeAccount.selectAcc" = "Account auswählen";
+
+/* (No Comment) */
+"storeAccount.selectAccRegion" = "Account Region auswählen";
+
+/* (No Comment) */
+"storeAccount.selectAccRegion.asia" = "Asien";
+
+/* (No Comment) */
+"storeAccount.selectAccRegion.cht" = "TW, HK, MO";
+
+/* (No Comment) */
+"storeAccount.selectAccRegion.euro" = "Europa";
+
+/* (No Comment) */
+"storeAccount.selectAccRegion.usa" = "Amerika";
+
+/* (No Comment) */
+"storeAccount.store" = "Account speichern";
+
+/* (No Comment) */
+"storeAccount.storeAcc" = "Ein Account speichern";
 "sidebar.ipaLibrary" = "IPA-Bibliothek";
 "button.Quit" = "Verlassen";
 "settings.info.minimumOSVersion" = "Mindest Betriebssystemversion:";
@@ -198,18 +241,26 @@
 "settings.toggle.hud" = "Metal HUD";
 "playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
 "sidebar.appLibrary" = "App-Bibliothek";
+"storeAccount.alert.restoreAccount" = "Account wirklich wiederherstellen?";
+"storeAccount.alert.restoreAccount.button" = "Account wiederherstellen";
+"storeAccount.alert.restoreAccount.msg" = "Dadurch wird dein aktuell angemeldetes Konto überschrieben.";
+"storeAccount.alert.deleteAccount" = "Account wirklich löschen?";
+"storeAccount.alert.deleteAccount.button" = "Account löschen";
 "alert.moveAppToApplications.title" = "In den Anwendungsordner verschieben?";
 "alert.moveAppToApplications.subtitle" = "PlayCover muss im Anwendungsordner sein, damit es ordnungsgemäß ausgeführt werden kann. Drücke die untere Schaltfläche, um PlayCover automatisch zu verschieben.";
 "error.appEncrypted" = "Diese App ist verschlüsselt! Bitte verwende eine entschlüsselte IPA. iMazing IPAs werden nicht unterstützt!";
 "error.appCorrupted" = "Bei dieser IPA ist etwas schief gelaufen. Bitte versuche, eine andere IPA-Datei zu verwenden.";
 "error.appProhibited" = "Die Verwendung dieser App über PlayCover wird wahrscheinlich zu einem Ban führen!";
+"error.noGenshinAccount" = "Wir konnten kein Genshin-Account finden! Bist du in einem Account in der App angemeldet?";
 "settings.title" = "%@ Einstellungen";
 "settings.tab.info" = "Informationen";
 "settings.tab.km" = "Tastenbelegung";
 "settings.toggle.km.help" = "Tastaturunterstützung für Touch-Only-Spiele hinzufügen. Verwende Befehlstaste + K, um das Editor-Menü zu öffnen.";
+"settings.toggle.mm" = "Mausbelegung";
 "settings.picker.adaptiveRes.1" = "Automatisch (basierend auf Anzeige)";
 "settings.picker.adaptiveRes.5" = "Benutzerdefiniert";
 "settings.picker.aspectRatio" = "Seitenverhältnis:";
+"settings.toggle.mm.help" = "Füge Maussteuerungen hinzu, die Berührungsbewegungen emulieren. Verwende Befehlstaste + K, um das Editor-Menü zu öffnen.";
 "settings.tab.graphics" = "Grafik";
 "settings.picker.adaptiveRes" = "Auflösung:";
 "settings.picker.adaptiveRes.help" = "Ändert die Fensterauflösung der App";
@@ -318,6 +369,8 @@
 "playapp.noSources.title" = "Keine IPAs installiert";
 "playapp.noSources.subtitle" = "Du hast derzeit keine IPAs installiert. Klicke auf die Schaltfläche unten, um eine zu importieren.";
 "settings.tab.bypasses" = "Umgehungen";
+"settings.addToLaunchpad" = "Zum Launchpad hinzufügen";
+"settings.removeFromLaunchpad" = "Vom Launchpad entfernen";
 "playapp.download.integrityCheck" = "Überprüfung der Dateiintegrität:";
 "playapp.download.differentChecksum" = "Unterschiedliche Prüfsummen! Möchtest du mit der Installation fortfahren?";
 "playapp.download.differentChecksumDesc" = "\"%@\" erwartet, \"%@\" erhalten";
@@ -338,47 +391,3 @@
 "preferences.popover.checking" = "URL prüfen";
 "settings.toggle.introspection.help" = "Füge der App die Systemintrospektionbibliotheken hinzu. Behebt bekanntermaßen Probleme mit einigen Apps, die nicht richtig starten";
 "settings.picker.scaler" = "Auflösungsskalierer";
-"button.Enable" = "Aktivieren";
-"button.Reset" = "Zurücksetzen";
-"button.Unlock" = "Freischalten";
-"settings.toggle.rootWorkDir" = "App im Stammverzeichnis starten";
-"settings.toggle.rootWorkDir.help" = "Ändere das Arbeitsverzeichnis der App auf bzw. wie unter iOS. Deaktiviere dies, wenn sich die App schlecht verhält";
-"keycover.masterPassword" = "Master-Passwort";
-"keycover.confirmMasterPassword" = "Master-Passwort bestätigen";
-"keycover.oldMasterPassword" = "Aktuelles Master-Passwort";
-"keycover.error.blankPassword" = "Passwort darf nicht leer sein";
-"keycover.error.notMatch" = "Passwörter stimmen nicht überein";
-"keycover.error.incorrectPassword" = "Falsches Passwort";
-"keycover.status.title" = "KeyCover Status:";
-"keycover.status.managedPassword" = "Mit verwaltetem Passwort aktiviert";
-"keycover.status.userPassword" = "Mit Benutzerpasswort aktiviert";
-"keycover.status.chainCount" = "KeyCover Kettenstatus: ";
-"keycover.status.unlockedCount %@ %@" = "%@ entsperrte insgesamt %@ Ketten";
-"keycover.button.lockAll" = "Alle Ketten sperren";
-"keycover.button.changePassword" = "Master-Passwort ändern";
-"keycover.toggle.startupPrompt" = "Beim Start nach KeyCover fragen";
-"keycover.toggle.startupPrompt.help" = "KeyCover fordert beim Starten der Anwendung nach deinem Master-Passwort. Wenn dies deaktiviert ist, wird es beim Starten einer App, die PlayChain verwendet, abgefragt.";
-"keycover.setup.useGeneratedKey" = "Automatisch verwaltet";
-"keycover.setup.useUserKey" = "Verwende meine eigenen Schlüssel";
-"keycover.setup.encryptionKey" = "Verschlüsselungsschlüssel: ";
-"keycover.setupPrompt.title" = "Gib ein Master-Passwort ein, das für KeyCover verwendet werden soll";
-"keycover.changePasswordPrompt.title" = "Gib dein altes und ein neues Master-Passwort ein, um deinen KeyCover-Verschlüsselungsschlüssel zu aktualisieren";
-"keycover.removePrompt.title" = "Gib dein Master-Passwort ein, um die KeyCover-Verschlüsselung zu entfernen";
-"keycover.unlockPrompt.title" = "Gib dein Master-Passwort ein, um KeyCover zu entsperren";
-"keycover.alert.title" = "Schlüsselbund wurde nicht entsperrt";
-"keycover.alert.content" = "Der Zugriff auf den Schlüsselbund wurde für die aktuelle Sitzung deaktiviert";
-"settings.toggle.autoKM" = "Smart Keymap";
-"settings.toggle.autoKM.help" = "Tastenbelegung automatisch deaktivieren, wenn eine Texteingabe erkannt wird";
-"settings.applicationCategoryType" = "Anwendungsart";
-"settings.toggle.iosFrameworks" = "Das Einfügen von iOS-Frameworks erzwingen";
-"settings.info.alias" = "Alias:";
-"settings.toggle.enableScrollWheel.help" = "Scrollrad in Keymapping aktivieren";
-"settings.toggle.iosFrameworks.help" = "Füge der App die System-ios-Bibliotheken hinzu. Es ist bekannt, dass Probleme behoben werden, bei denen einige Apps das ios-Framework nicht finden können";
-"settings.toggle.enableScrollWheel" = "Scrollrad aktivieren";
-"ipaLibrary.info.notAvailable" = "Link not valid for this app";
-"ipaLibrary.info" = "App Info";
-"ipaLibrary.info.checksum.none" = "None provided";
-"ipaLibrary.info.title" = "%@ Info";
-"ipaLibrary.unavailable" = "The link is unavailable";
-"ipaLibrary.info.itunes" = "ITunes Lookup:";
-"ipaLibrary.info.checksum" = "Checksum:";

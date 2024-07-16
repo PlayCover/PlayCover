@@ -1,5 +1,5 @@
 name: App Support Request
-description: Request support for a currently unsupported app (for games, use the GAME-SUPPORT template).
+description: Request support for a currently unsupported app(not game).
 title: "[App Support]: "
 labels: ["app-support"]
 body:
@@ -34,29 +34,6 @@ body:
       label: Crash log
       description: Copy and paste in any relevant crash logs in plain text.
       render: shell
-  - type: dropdown
-    id: pc-version
-    attributes:
-      label: What version of PlayCover are you using?
-      options:
-        - "3.0.0"
-        - "2.0.5"
-        - "Nightly/beta (please specify build number)"
-        - "Other (please specify)"
-    validations:
-        required: true
-  - type: dropdown
-    id: mac-version
-    attributes:
-      label: What version of macOS are you using?
-      options:
-        - "Sonoma (macOS 14)"
-        - "Ventura (macOS 13)"
-        - "Monterey (macOS 12)"
-        - "macOS beta (please state the specific version)"
-        - "Other (please specify)"
-    validations:
-      required: true
   - type: checkboxes
     attributes:
       label: Issue Language

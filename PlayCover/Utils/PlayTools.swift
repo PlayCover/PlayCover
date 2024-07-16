@@ -71,7 +71,7 @@ class PlayTools {
         }
     }
 
-    static func installInIPA(_ exec: URL) async throws {
+    static func installInIPA(_ exec: URL) throws {
         var binary = try Data(contentsOf: exec)
         try Macho.stripBinary(&binary)
 
@@ -168,7 +168,7 @@ class PlayTools {
         })
     }
 
-    static func removeFromApp(_ exec: URL) async {
+    static func removeFromApp(_ exec: URL) {
         Inject.removeMachO(machoPath: exec.path,
                            cmdType: .loadDylib,
                            backup: false,
@@ -184,6 +184,7 @@ class PlayTools {
                     if FileManager.default.fileExists(atPath: pluginUrl.path) {
                         try FileManager.default.removeItem(at: pluginUrl)
                     }
+
                     try Shell.signApp(exec)
                 } catch {
                     Log.shared.error(error)

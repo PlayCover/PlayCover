@@ -17,7 +17,6 @@ struct StoreAppView: View {
     @State var app: SourceAppsData
     @State var isList: Bool
     @State var observation: NSKeyValueObservation?
-    @State var showInfo = false
 
     @State var warningSymbol: String?
     @State var warningMessage: String?
@@ -38,26 +37,14 @@ struct StoreAppView: View {
                 if downloadVM.inProgress {
                     Log.shared.error(PlayCoverError.waitDownload)
                 } else {
-                    let redirectHandler = RedirectHandler(url: url) // checking page redirect
-                    DownloadApp(url: redirectHandler.getFinal(), app: app,
+                    DownloadApp(url: url, app: app,
                                 warning: warningMessage).start()
                 }
             }
         })
-        .contextMenu {
-            Button(action: {
-                showInfo.toggle()
-            }, label: {
-                Text("ipaLibrary.info")
-            })
-        }
         .simultaneousGesture(TapGesture().onEnded {
             selected = app
         })
-        .sheet(isPresented: $showInfo) {
-            StoreInfoAppView(viewModel: StoreAppVM(data: app))
-                .environmentObject(downloadVM)
-        }
         .environmentObject(downloadVM)
         .task(priority: .background) {
             if let sourceApp = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == app.bundleID }) {
@@ -89,7 +76,6 @@ struct StoreAppConditionalView: View {
     @State var itunesResponse: ITunesResponse?
     @State var onlineIcon: URL?
     @State var localIcon: NSImage?
-    @State var loadingLocalIcon: Bool = true
     @State var isList: Bool
 
     @Binding var warningSymbol: String?
@@ -98,12 +84,6 @@ struct StoreAppConditionalView: View {
     @EnvironmentObject var downloadVM: DownloadVM
 
     @State private var cache = DataCache.instance
-
-    @Sendable private func waitForIconLoad() async {
-        loadingLocalIcon = true
-        try? await Task.sleep(nanoseconds: 6_000_000_000)
-        loadingLocalIcon = false
-    }
 
     var body: some View {
         Group {
@@ -127,16 +107,10 @@ struct StoreAppConditionalView: View {
                                     Rectangle()
                                          .fill(.regularMaterial)
                                          .overlay {
-                                             if loadingLocalIcon {
-                                                 ProgressView()
-                                                     .progressViewStyle(.circular)
-                                                     .controlSize(.small)
-                                             } else {
-                                                 Image(systemName: "exclamationmark.triangle")
-                                                     .opacity(0.5)
-                                             }
+                                             ProgressView()
+                                                 .progressViewStyle(.circular)
+                                                 .controlSize(.small)
                                          }
-                                         .task(self.waitForIconLoad)
                                 }
                             }
                         }
@@ -180,16 +154,9 @@ struct StoreAppConditionalView: View {
                                     Rectangle()
                                          .fill(.regularMaterial)
                                          .overlay {
-                                             if loadingLocalIcon {
-                                                 ProgressView()
-                                                     .progressViewStyle(.circular)
-                                             } else {
-                                                 Image(systemName: "exclamationmark.triangle")
-                                                     .font(.system(size: 24))
-                                                     .opacity(0.5)
-                                             }
+                                             ProgressView()
+                                                 .progressViewStyle(.circular)
                                          }
-                                         .task(self.waitForIconLoad)
                                 }
                             }
                         }
@@ -224,7 +191,7 @@ struct StoreAppConditionalView: View {
                 .frame(width: 130, height: 130)
             }
         }
-        .task(priority: .background) {
+        .task(priority: .userInitiated) {
             if !cache.hasData(forKey: app.itunesLookup) {
                 await Cacher().resolveITunesData(app.itunesLookup)
             }
