@@ -33,49 +33,13 @@ class PlayApp: BaseApp {
     }
     var sessionDisableKeychain: Bool = false
 
-    func fetchAppID(bundleID: String) async -> Int {
-        let urlString = "https://itunes.apple.com/lookup?bundleId=\(bundleID)"
-        let itunes: ITunesResponse? = await getITunesData(urlString)
-        if let appID = itunes?.results.first?.trackId {
-            return appID
-        } else {
-            return 0
-        }
-    }
-
-    @MainActor
-    private func runmacOSWarning() async -> Bool {
-        let alert = NSAlert()
-        alert.messageText = NSLocalizedString("alert.error", comment: "")
-        alert.informativeText = String(
-         format: NSLocalizedString("macos.version", comment: "")
-        )
-        alert.alertStyle = .warning
-        alert.addButton(withTitle: NSLocalizedString("alert.start.anyway", comment: ""))
-        alert.addButton(withTitle: NSLocalizedString("alert.open.appstore", comment: ""))
-        alert.addButton(withTitle: NSLocalizedString("alert.quit", comment: ""))
-        let result = alert.runModal()
-        switch result {
-        case .alertFirstButtonReturn:
-            return true
-        case .alertSecondButtonReturn:
-            let appID = await self.fetchAppID(bundleID: info.bundleIdentifier)
-            if let appLink: URL = URL(string: "itms-apps://apps.apple.com/app/id\(appID)") {
-                NSWorkspace.shared.open(appLink)
-            }
-            return false
-        default:
-            return false
-        }
-    }
-
     func launch() async {
         do {
             isStarting = true
             if prohibitedToPlay {
                 await clearAllCache()
                 throw PlayCoverError.appProhibited
-            } else if hasMacVersion, await !runmacOSWarning() {
+            } else if hasMacVersion, await !runMacOSWarning() {
                 await clearAllCache()
                 isStarting = false
                 return
@@ -329,10 +293,6 @@ class PlayApp: BaseApp {
         }
     }
 
-    var hasMacVersion: Bool {
-        PlayApp.MACOS_APPS.contains(info.bundleIdentifier)
-    }
-
     var prohibitedToPlay: Bool {
         PlayApp.PROHIBITED_APPS.contains(info.bundleIdentifier)
     }
@@ -340,12 +300,6 @@ class PlayApp: BaseApp {
     var maliciousProhibited: Bool {
         PlayApp.MALICIOUS_APPS.contains(info.bundleIdentifier)
     }
-
-    static let MACOS_APPS = [
-        "com.innersloth.amongus",
-        "com.devsisters.ck",
-        "com.miHoYo.bh3global"
-    ]
 
     static let PROHIBITED_APPS = [
         "com.activision.callofduty.shooter",

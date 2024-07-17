@@ -65,4 +65,43 @@ extension PlayApp {
     func removeAlias() {
         FileManager.default.delete(at: aliasURL)
     }
+
+    @MainActor
+    func runMacOSWarning() async -> Bool {
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("alert.error", comment: "")
+        alert.informativeText = String(
+         format: NSLocalizedString("macos.version", comment: "")
+        )
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: NSLocalizedString("alert.start.anyway", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("alert.open.appstore", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("alert.quit", comment: ""))
+        let result = alert.runModal()
+        switch result {
+        case .alertFirstButtonReturn:
+            return true
+        case .alertSecondButtonReturn:
+            let urlString = "https://itunes.apple.com/lookup?bundleId=\(info.bundleIdentifier)"
+            let itunes: ITunesResponse? = await getITunesData(urlString)
+            guard let appID = itunes?.results.first?.trackId else { return false }
+            if let appLink: URL = URL(string: "itms-apps://apps.apple.com/app/id\(appID)") {
+                NSWorkspace.shared.open(appLink)
+            }
+            return false
+        default:
+            return false
+        }
+    }
+
+    var hasMacVersion: Bool {
+        PlayApp.MACOS_APPS.contains(info.bundleIdentifier)
+    }
+
+    static let MACOS_APPS = [
+        "com.innersloth.amongus",
+        "com.devsisters.ck",
+        "com.miHoYo.bh3global"
+    ]
+
 }
