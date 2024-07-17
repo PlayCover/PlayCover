@@ -307,3 +307,8 @@
 
 "keycover.alert.title" = "Keychain was not unlocked";
 "keycover.alert.content" = "Keychain access has been disabled for the current session";
+
+"macos.version" = "This app has a native MacOS version on AppStre";
+"alert.start.anyway" = "Start Anyway";
+"alert.quit" = "Quit";
+"alert.open.appstore" = "Open AppStore";

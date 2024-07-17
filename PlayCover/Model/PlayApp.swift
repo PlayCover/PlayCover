@@ -33,53 +33,35 @@ class PlayApp: BaseApp {
     }
     var sessionDisableKeychain: Bool = false
 
-    func fetchAppID(bundleID: String, completion: @escaping (String?) -> Void) {
+    func fetchAppID(bundleID: String) async -> Int {
         let urlString = "https://itunes.apple.com/lookup?bundleId=\(bundleID)"
-        guard let url = URL(string: urlString) else {
-            completion(nil)
-            return
+        let itunes: ITunesResponse? = await getITunesData(urlString)
+        if let appID = itunes?.results.first?.trackId {
+            return appID
+        } else {
+            return 0
         }
-        let session = URLSession.shared
-        let task = session.dataTask(with: url) { data, _, error in
-            guard error == nil, let data = data else {
-                completion(nil)
-                return
-            }
-            do {
-                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                   let results = json["results"] as? [[String: Any]],
-                   let appInfo = results.first,
-                   let trackId = appInfo["trackId"] as? Int {
-                    completion(String(trackId))
-                } else {
-                    completion(nil)
-                }
-            } catch {
-                completion(nil)
-            }
-        }
-        task.resume()
     }
 
+    @MainActor
     private func runmacOSWarning() async -> Bool {
-        let alert = await NSAlert()
+        let alert = NSAlert()
         alert.messageText = NSLocalizedString("alert.error", comment: "")
         alert.informativeText = String(
          format: NSLocalizedString("macos.version", comment: "")
         )
         alert.alertStyle = .warning
-        await alert.addButton(withTitle: NSLocalizedString("alert.start.anyway", comment: ""))
-        await alert.addButton(withTitle: NSLocalizedString("alert.open.appstore", comment: ""))
-        await alert.addButton(withTitle: NSLocalizedString("alert.quit", comment: ""))
-        let result = await alert.runModal()
+        alert.addButton(withTitle: NSLocalizedString("alert.start.anyway", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("alert.open.appstore", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("alert.quit", comment: ""))
+        let result = alert.runModal()
         switch result {
         case .alertFirstButtonReturn:
             return true
         case .alertSecondButtonReturn:
-            self.fetchAppID(bundleID: info.bundleIdentifier) { appID in
-                if let appID = appID, let appStoreURL = URL(string: "itms-apps://apps.apple.com/app/id\(appID)") {
-                    NSWorkspace.shared.open(appStoreURL)
-                }
+            let appID = await self.fetchAppID(bundleID: info.bundleIdentifier)
+            if let appLink: URL = URL(string: "itms-apps://apps.apple.com/app/id\(appID)") {
+                NSWorkspace.shared.open(appLink)
             }
             return false
         default:
@@ -93,12 +75,10 @@ class PlayApp: BaseApp {
             if prohibitedToPlay {
                 await clearAllCache()
                 throw PlayCoverError.appProhibited
-            } else if hasMacVersion {
-                if await !runmacOSWarning() {
-                    await clearAllCache()
-                    isStarting = false
-                    return
-                }
+            } else if hasMacVersion, await !runmacOSWarning() {
+                await clearAllCache()
+                isStarting = false
+                return
             } else if maliciousProhibited {
                 await clearAllCache()
                 deleteApp()
