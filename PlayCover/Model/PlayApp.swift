@@ -192,11 +192,9 @@ class PlayApp: BaseApp {
             .appendingPathComponent("Applications")
             .appendingPathComponent("PlayCover")
 
-    static let playChainDirectory = PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
-
     lazy var aliasURL = PlayApp.aliasDirectory.appendingPathComponent(name).appendingPathExtension("app")
 
-    lazy var playChainURL = PlayApp.playChainDirectory.appendingPathComponent(info.bundleIdentifier)
+    lazy var playChainURL = KeyCover.playChainPath.appendingPathComponent(info.bundleIdentifier)
 
     lazy var settings = AppSettings(info)
 

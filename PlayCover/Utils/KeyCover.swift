@@ -12,6 +12,19 @@ import Security
 
 struct KeyCover {
     static var shared = KeyCover()
+    static var playChainPath: URL {
+        let playChainDir = PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
+
+        if !FileManager.default.fileExists(atPath: playChainDir.path) {
+            do {
+                try FileManager.default.createDirectory(at: playChainDir, withIntermediateDirectories: true)
+            } catch {
+                Log.shared.error(error)
+            }
+        }
+
+        return playChainDir
+    }
 
     // This is only exposed at runtime
     var keyCoverPlainTextKey: String? = KeyCoverPreferences.shared.keyCoverEnabled == .selfGeneratedPassword
@@ -24,12 +37,12 @@ struct KeyCover {
     func listKeychains() -> [KeyCoverKey] {
         // Enumerate all the keychains
         let keychains = try? FileManager.default
-            .contentsOfDirectory(at: PlayTools.playCoverContainer.appendingPathComponent("PlayChain"),
-                                 includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
+            .contentsOfDirectory(at: KeyCover.playChainPath,
+                                 includingPropertiesForKeys: nil,
+                                 options: .skipsHiddenFiles)
         var keychainList: [KeyCoverKey] = []
         for keychain in keychains ?? [] {
-            let keychainName = keychain.lastPathComponent
-                .replacingOccurrences(of: ".\(KeyCoverKey.encryptedKeyExtension)", with: "")
+            let keychainName = keychain.deletingPathExtension().lastPathComponent
             let keychain = KeyCoverKey(appBundleID: keychainName)
             keychainList.append(keychain)
         }
@@ -55,7 +68,7 @@ struct KeyCover {
             }
         }
         if keychain.chainEncryptionStatus {
-            try? keychain.decryptKeyFolder()
+            try keychain.decryptKeyDB()
         }
     }
 
@@ -64,14 +77,14 @@ struct KeyCover {
             return
         }
         if !keychain.chainEncryptionStatus {
-            try? keychain.encryptKeyFolder()
+            try keychain.encryptKeyDB()
         }
     }
 
     func lockAllChainsAsync() {
         Task {
             for keychain in KeyCover.shared.listKeychains() where !keychain.chainEncryptionStatus {
-                try? keychain.encryptKeyFolder()
+                try? keychain.encryptKeyDB()
             }
         }
     }
@@ -98,46 +111,38 @@ class KeyCoverObservable: ObservableObject {
 struct KeyCoverKey {
     static let encryptedKeyExtension = "keyCover"
 
-    var keyFolderPath = PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
     var appBundleID: String
-    var encryptedKeyFile: URL {
-        return keyFolderPath
-            .appendingPathComponent("\(appBundleID).\(KeyCoverKey.encryptedKeyExtension)")
+
+    var decryptedKeyDB: URL {
+        KeyCover.playChainPath
+            .appendingPathComponent(appBundleID)
+            .appendingPathExtension("db")
+    }
+    var encryptedKeyDB: URL {
+        KeyCover.playChainPath
+            .appendingPathComponent(appBundleID)
+            .appendingPathExtension(KeyCoverKey.encryptedKeyExtension)
     }
 
     var chainEncryptionStatus: Bool {
-        return FileManager.default.fileExists(atPath: encryptedKeyFile.path)
+        return FileManager.default.fileExists(atPath: encryptedKeyDB.path)
     }
 
-    func encryptKeyFolder() throws {
+    func encryptKeyDB() throws {
         if let plainTextKey = KeyCover.shared.keyCoverPlainTextKey {
-            // zip up the key folder
-            // make sure to only compress the key folder, not the entire path to it
-            let source = keyFolderPath.appendingPathComponent(appBundleID)
-            let destination = keyFolderPath.appendingPathComponent("\(appBundleID).zip")
+            // encrypt the db file
             let task = Process()
-            task.launchPath = "/usr/bin/zip"
-            task.currentDirectoryPath = keyFolderPath.path
-            task.arguments = ["-q", "-r", destination.path, source.lastPathComponent]
+            task.launchPath = "/usr/bin/openssl"
+            task.currentDirectoryPath = KeyCover.playChainPath.path
+            task.arguments = ["enc", "-aes-256-cbc", "-A",
+                                "-in", decryptedKeyDB.path,
+                                "-out", encryptedKeyDB.path,
+                                "-k", plainTextKey]
             task.launch()
             task.waitUntilExit()
 
-            // encrypt the zip file
-            let task2 = Process()
-            task2.launchPath = "/usr/bin/openssl"
-            task2.currentDirectoryPath = keyFolderPath.path
-            task2.arguments = ["enc", "-aes-256-cbc", "-A",
-                                "-in", destination.path,
-                                "-out", encryptedKeyFile.path,
-                                "-k", plainTextKey]
-            task2.launch()
-            task2.waitUntilExit()
-
-            // delete the zip file
-            try? FileManager.default.removeItem(at: destination)
-
-            // delete the key folder
-            try? deleteKeyFolder()
+            // delete the key dbs
+            try deleteKeyDB()
 
             Task { @MainActor in
                 KeyCoverObservable.shared.update()
@@ -145,31 +150,18 @@ struct KeyCoverKey {
         }
     }
 
-    func decryptKeyFolder() throws {
+    func decryptKeyDB() throws {
         if let plainTextKey = KeyCover.shared.keyCoverPlainTextKey {
             // decrypt the zip file
             let task = Process()
             task.launchPath = "/usr/bin/openssl"
-            task.arguments = ["enc", "-aes-256-cbc", "-A", "-d", "-in", encryptedKeyFile.path, "-out",
-                              keyFolderPath.appendingPathComponent("\(appBundleID).zip").path,
+            task.arguments = ["enc", "-aes-256-cbc", "-A", "-d", "-in", encryptedKeyDB.path, "-out",
+                              decryptedKeyDB.path,
                               "-k", plainTextKey]
             task.launch()
             task.waitUntilExit()
-
-            // unzip the zip file
-            let task2 = Process()
-            task2.launchPath = "/usr/bin/unzip"
-            task2.currentDirectoryPath = keyFolderPath.path
-            task2.arguments = ["-qq", "-o", keyFolderPath.appendingPathComponent("\(appBundleID).zip").path,
-                               "-d", keyFolderPath.path]
-            task2.launch()
-            task2.waitUntilExit()
-
-            // delete the zip file
-            try? FileManager.default.removeItem(at: keyFolderPath.appendingPathComponent("\(appBundleID).zip"))
-
             // delete the encrypted key file
-            try? FileManager.default.removeItem(at: encryptedKeyFile)
+            try FileManager.default.removeItem(at: encryptedKeyDB)
 
             Task { @MainActor in
                 KeyCoverObservable.shared.update()
@@ -177,12 +169,12 @@ struct KeyCoverKey {
         }
     }
 
-    func deleteKeyFolder() throws {
-        try? FileManager.default.removeItem(at: keyFolderPath.appendingPathComponent(appBundleID))
+    func deleteKeyDB() throws {
+        try FileManager.default.removeItem(at: decryptedKeyDB)
     }
 
-    func wipeEncryptedKeyFile() throws {
-        try? FileManager.default.removeItem(at: encryptedKeyFile)
+    func deleteEncryptedKeyDB() throws {
+        try FileManager.default.removeItem(at: encryptedKeyDB)
     }
 }
 
@@ -205,7 +197,7 @@ class KeyCoverPassword {
         if oldKey != nil {
             KeyCover.shared.keyCoverPlainTextKey = oldKey
             for keychain in KeyCover.shared.listKeychains() where keychain.chainEncryptionStatus {
-                try? keychain.decryptKeyFolder()
+                try? keychain.decryptKeyDB()
             }
             KeyCover.shared.keyCoverPlainTextKey = nil
             // Remove any existing master key
@@ -224,7 +216,7 @@ class KeyCoverPassword {
 
         // Encrypts all keychains
         for keychain in KeyCover.shared.listKeychains() where !keychain.chainEncryptionStatus {
-            try? keychain.encryptKeyFolder()
+            try? keychain.encryptKeyDB()
         }
 
         Task { @MainActor in
@@ -251,9 +243,9 @@ class KeyCoverPassword {
     }
 
     func removeKeyCoverPassword() {
-        // Decrypt all key folders
+        // Decrypt all key dbs
         for chain in KeyCover.shared.listKeychains() where chain.chainEncryptionStatus {
-                try? chain.decryptKeyFolder()
+                try? chain.decryptKeyDB()
         }
 
         // Remove the master key from macOS keychain
@@ -296,7 +288,7 @@ class KeyCoverPassword {
 
         // Being a force reset, we have to nuke everything (because it's useless otherwise)
         for chain in KeyCover.shared.listKeychains() {
-            try? chain.wipeEncryptedKeyFile()
+            try? chain.deleteEncryptedKeyDB()
         }
 
         Task { @MainActor in
