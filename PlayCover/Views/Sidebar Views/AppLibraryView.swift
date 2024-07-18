@@ -20,6 +20,7 @@ struct AppLibraryView: View {
     @State private var showSettings = false
     @State private var showLegacyConvertAlert = false
     @State private var showWrongfileTypeAlert = false
+    @State var showKeymapSheet = false
 
     var body: some View {
         Group {
@@ -124,7 +125,12 @@ struct AppLibraryView: View {
         })
         .sheet(isPresented: $showSettings) {
             if let selected = selected {
-                AppSettingsView(viewModel: AppSettingsVM(app: selected))
+                AppSettingsView(viewModel: AppSettingsVM(app: selected), showKeymapSheet: $showKeymapSheet)
+            }
+        }
+        .sheet(isPresented: $showKeymapSheet) {
+            if let selected = selected {
+                KeymapView(app: selected, showKeymapSheet: $showKeymapSheet)
             }
         }
         .onAppear {

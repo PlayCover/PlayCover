@@ -117,7 +117,7 @@ class Uninstaller {
         }
 
         if UninstallPreferences.shared.removeAppKeymap {
-            FileManager.default.delete(at: app.keymapping.keymapURL)
+            FileManager.default.delete(at: app.keymapping.baseKeymapURL)
             uninstallNum += 1
         }
 
