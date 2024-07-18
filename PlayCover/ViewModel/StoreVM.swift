@@ -92,19 +92,22 @@ class StoreVM: ObservableObject, @unchecked Sendable {
             guard NetworkVM.isConnectedToNetwork() else { return }
             sourcesData.removeAll()
             if !sourcesList.isEmpty {
+                let sourcesCount = sourcesList.count
                 for index in sourcesList.indices {
                     sourcesList[index].status = .checking
                     let (sourceJson, sourceState) = await getSourceData(sourceLink: sourcesList[index].source)
-                    sourcesList[index].status = sourceState
-                    if sourceState == .valid {
-                        if let json = sourceJson {
-                            sourcesData.append(json)
+                    if sourcesCount == sourcesList.count {
+                        sourcesList[index].status = sourceState
+                        if sourceState == .valid {
+                            if let json = sourceJson {
+                                sourcesData.append(json)
+                                semaphore.signal()
+                            }
+                        } else {
                             semaphore.signal()
                         }
-                    } else {
-                        semaphore.signal()
+                        await semaphore.wait()
                     }
-                    await semaphore.wait()
                 }
             }
         }
