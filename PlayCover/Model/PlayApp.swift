@@ -12,7 +12,6 @@ class PlayApp: BaseApp {
     public static let bundleIDCacheURL = PlayTools.playCoverContainer.appendingPathComponent("CACHE")
     var displaySleepAssertionID: IOPMAssertionID?
     public var isStarting = false
-
     public static var bundleIDCache: [String] {
         get throws {
             (try String(contentsOf: bundleIDCacheURL)).split(whereSeparator: \.isNewline).map({ String($0) })
@@ -36,11 +35,11 @@ class PlayApp: BaseApp {
     func launch() async {
         do {
             isStarting = true
+            let noMacAlert = UserDefaults.standard.bool(forKey: "\(info.bundleIdentifier).noMacAlert")
             if prohibitedToPlay {
                 await clearAllCache()
                 throw PlayCoverError.appProhibited
-            } else if hasMacVersion, await !runMacOSWarning() {
-                await clearAllCache()
+            } else if hasMacVersion && !noMacAlert, await !runMacOSWarning() {
                 isStarting = false
                 return
             } else if maliciousProhibited {

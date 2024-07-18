@@ -76,10 +76,11 @@ extension PlayApp {
         alert.alertStyle = .warning
         alert.addButton(withTitle: NSLocalizedString("alert.start.anyway", comment: ""))
         alert.addButton(withTitle: NSLocalizedString("alert.open.appstore", comment: ""))
-        alert.addButton(withTitle: NSLocalizedString("alert.quit", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
         let result = alert.runModal()
         switch result {
         case .alertFirstButtonReturn:
+            UserDefaults.standard.set(true, forKey: "\(info.bundleIdentifier).noMacAlert")
             return true
         case .alertSecondButtonReturn:
             let urlString = "https://itunes.apple.com/lookup?bundleId=\(info.bundleIdentifier)"
