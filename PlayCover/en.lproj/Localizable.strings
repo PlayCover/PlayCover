@@ -255,10 +255,6 @@
 "configSigning.alert.copied" = "Command Copied!";
 "configSigning.alert.info" = "Please paste and run the command in Terminal.app. Your Mac will reboot after";
 
-
-"textfield.searchSources" = "Search Sources...";
-"textfield.searchApps" = "Search Apps...";
-
 "keycover.masterPassword" = "Master Password";
 "keycover.confirmMasterPassword" = "Confirm Master Password";
 "keycover.oldMasterPassword" = "Current Master Password";
