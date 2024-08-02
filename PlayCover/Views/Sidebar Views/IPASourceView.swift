@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct IPASourceView: View {
 
@@ -44,7 +45,7 @@ struct IPASourceView: View {
                 Spacer()
             } else {
                 VStack {
-                    ForEach(searchString == ""
+                    ForEach(searchString.isEmpty
                             ? sortAlphabetical ? sortedApps : sourceApps
                             : filteredApps, id: \.bundleID) { app in
                         StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
@@ -65,6 +66,11 @@ struct IPASourceView: View {
             selected = nil
         }
         .toolbar {
+            ToolbarItem(placement: .navigation) {
+                PopView(destination: .root) {
+                    Image(systemName: "chevron.left")
+                }
+            }
             ToolbarItem(placement: .primaryAction) {
                 Button(action: {
                     showInfo.toggle()
@@ -89,11 +95,8 @@ struct IPASourceView: View {
                 }
                 .pickerStyle(.segmented)
             }
-            ToolbarItem(placement: .primaryAction) {
-                StackNavigationSearchable(searchTitle: "textfield.searchApps",
-                                          searchString: $searchString)
-            }
         }
+        .searchable(text: $searchString, placement: .toolbar)
         .sheet(isPresented: $showInfo) {
             if let selected = selected {
                 StoreInfoAppView(viewModel: StoreAppVM(data: selected))

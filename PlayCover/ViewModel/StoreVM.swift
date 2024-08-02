@@ -143,6 +143,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     //
     private func getSourceData(sourceLink: String) async -> (SourceJSON?, SourceValidation) {
         guard let url = URL(string: sourceLink) else { return (nil, .badurl) }
+        var dataToDecode: Data?
         do {
             let (data, response) = try await URLSession.shared.data(
                 for: URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
@@ -150,22 +151,24 @@ class StoreVM: ObservableObject, @unchecked Sendable {
             if !url.isFileURL {
                 guard (response as? HTTPURLResponse)?.statusCode == 200 else { return (nil, .badurl) }
             }
-            let jsonResult: SourceJSON = try JSONDecoder().decode(SourceJSON.self, from: data)
+            dataToDecode = data
+        } catch {
+            debugPrint("Error decoding data from URL: \(url): \(error)")
+            return (nil, .badjson)
+        }
+        guard let unwrappedData = dataToDecode else { return (nil, .badurl) }
+        var decodedData: SourceJSON?
+        do {
+            decodedData = try JSONDecoder().decode(SourceJSON.self, from: unwrappedData)
             debugPrint("SourceJSON from \(url) Fetched")
-            return (jsonResult, .valid)
+            return (decodedData, .valid)
         } catch {
             do {
-                let (data, response) = try await URLSession.shared.data(
-                    for: URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
-                )
-                if !url.isFileURL {
-                    guard (response as? HTTPURLResponse)?.statusCode == 200 else { return (nil, .badurl) }
-                }
-                let jsonResult: [SourceAppsData] = try JSONDecoder().decode([SourceAppsData].self, from: data)
-                let newJson = SourceJSON(name: url.isFileURL ? "localhost" : url.host ?? url.absoluteString,
+                let oldTypeJson: [SourceAppsData] = try JSONDecoder().decode([SourceAppsData].self, from: unwrappedData)
+                decodedData = SourceJSON(name: url.isFileURL ? "localhost" : url.host ?? url.absoluteString,
                                          logo: "NoLogo",
-                                         data: jsonResult)
-                return (newJson, .valid)
+                                         data: oldTypeJson)
+                return (decodedData, .valid)
             } catch {
                 debugPrint("Error decoding data from URL: \(url): \(error)")
                 return (nil, .badjson)

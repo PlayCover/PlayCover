@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CachedAsyncImage
+import NavigationStack
 
 struct IPALibraryView: View {
 
@@ -20,15 +21,12 @@ struct IPALibraryView: View {
     @State private var gridLayout = [GridItem(.adaptive(minimum: 130, maximum: .infinity))]
     @State private var addSourcePresented = false
 
-    @State private var currentSubview = AnyView(EmptyView())
-    @State private var showingSubview = false
+    @State private var showSubview = false
     @State private var searchString = ""
     @State private var filteredSources: [SourceJSON] = []
 
     var body: some View {
-        StackNavigationView(currentSubview: $currentSubview,
-                            showingSubview: $showingSubview,
-                            transition: .none) {
+        NavigationStackView(transitionType: .none) {
             Group {
                 if NetworkVM.isConnectedToNetwork() {
                     if storeVM.sourcesList.isEmpty {
@@ -49,45 +47,41 @@ struct IPALibraryView: View {
                     } else {
                         ScrollView {
                             LazyVGrid(columns: gridLayout, alignment: .center) {
-                                ForEach(searchString == ""
+                                ForEach(searchString.isEmpty
                                         ? storeVM.sourcesData
                                         : filteredSources, id: \.hashValue) { source in
-                                    Button {
-                                        currentSubview = AnyView(IPASourceView(
-                                            selectedBackgroundColor: $selectedBackgroundColor,
-                                            selectedTextColor: $selectedTextColor,
-                                            sourceName: source.name,
-                                            sourceApps: source.data).environmentObject(downloadVM)
-                                        )
-                                        showingSubview = true
-                                    } label: {
-                                        VStack {
-                                            if let url = URL(string: source.logo) {
-                                                CachedAsyncImage(url: url, urlCache: .iconCache) { image in
-                                                    image
-                                                        .resizable()
-                                                        .aspectRatio(contentMode: .fit)
-                                                } placeholder: {
-                                                    Rectangle()
-                                                         .fill(.regularMaterial)
-                                                         .overlay {
-                                                             ProgressView()
-                                                                 .progressViewStyle(.circular)
-                                                         }
+                                    PushView(destination: IPASourceView(
+                                        selectedBackgroundColor: $selectedBackgroundColor,
+                                        selectedTextColor: $selectedTextColor,
+                                        sourceName: source.name,
+                                        sourceApps: source.data).environmentObject(downloadVM),
+                                             isActive: $showSubview) {
+                                            VStack {
+                                                if let url = URL(string: source.logo) {
+                                                    CachedAsyncImage(url: url, urlCache: .iconCache) { image in
+                                                        image
+                                                            .resizable()
+                                                            .aspectRatio(contentMode: .fit)
+                                                    } placeholder: {
+                                                        Rectangle()
+                                                            .fill(.regularMaterial)
+                                                            .overlay {
+                                                                ProgressView()
+                                                                    .progressViewStyle(.circular)
+                                                            }
+                                                    }
+                                                    .frame(width: 60, height: 60)
+                                                    .cornerRadius(15)
+                                                    .shadow(radius: 1)
                                                 }
-                                                .frame(width: 60, height: 60)
-                                                .cornerRadius(15)
-                                                .shadow(radius: 1)
+                                                Text(source.name)
+                                                    .lineLimit(1)
+                                                    .multilineTextAlignment(.center)
+                                                    .padding(.horizontal, 4)
+                                                    .padding(.vertical, 2)
                                             }
-                                            Text(source.name)
-                                                .lineLimit(1)
-                                                .multilineTextAlignment(.center)
-                                                .padding(.horizontal, 4)
-                                                .padding(.vertical, 2)
+                                            .frame(width: 130, height: 130)
                                         }
-                                        .frame(width: 130, height: 130)
-                                    }
-                                    .buttonStyle(.plain)
                                 }
                             }
                             .padding()
@@ -130,12 +124,9 @@ struct IPALibraryView: View {
                             .help("playapp.addSource")
                     }
                 }
-                ToolbarItem(placement: .primaryAction) {
-                    StackNavigationSearchable(searchTitle: "textfield.searchSources",
-                                              searchString: $searchString)
-                }
             }
         }
+//        .searchable(text: $searchString, placement: .toolbar)
         .sheet(isPresented: $addSourcePresented) {
             AddSourceView(addSourceSheet: $addSourcePresented)
                 .environmentObject(storeVM)
