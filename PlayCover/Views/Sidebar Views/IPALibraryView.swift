@@ -126,7 +126,7 @@ struct IPALibraryView: View {
                 }
             }
         }
-//        .searchable(text: $searchString, placement: .toolbar)
+        .searchable(text: $searchString, placement: .toolbar)
         .sheet(isPresented: $addSourcePresented) {
             AddSourceView(addSourceSheet: $addSourcePresented)
                 .environmentObject(storeVM)
