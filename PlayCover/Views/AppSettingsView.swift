@@ -152,7 +152,9 @@ struct AppSettingsView: View {
 
 struct KeymappingView: View {
     @Binding var settings: AppSettings
-
+    @AppStorage("settings.settings.keymapping") private var keymapping = false
+    @AppStorage("settings.settings.noKMOnInput") private var noKMOnInput = false
+    @AppStorage("settings.settings.enableScrollWheel") private var enableScrollWheel = false
     var body: some View {
         ScrollView {
             VStack {
@@ -191,7 +193,8 @@ struct GraphicsView: View {
     @State var customHeight = 1080
 
     @State var showResolutionWarning = false
-
+    @AppStorage("settings.settings.inverseScreenValues") private var inverseScreenValues = false
+    @AppStorage("settings.settings.disableTimeout") private var disableTimeout = false
     static var number: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .none
@@ -219,9 +222,11 @@ struct GraphicsView: View {
                         Text("iPad Pro (12.9-inch) (3rd gen) | A12X | 4GB").tag("iPad8,6")
                         Text("iPad Pro (12.9-inch) (5th gen) | M1 | 8GB").tag("iPad13,8")
                         Text("iPad Pro (12.9-inch) (6th gen) | M2 | 8GB").tag("iPad14,5")
+                        Text("iPad Pro (13-inch) (7th gen) | M4 | 8GB").tag("iPad16,6")
                         Divider()
                         Text("iPhone 13 Pro Max | A15 | 6GB").tag("iPhone14,3")
                         Text("iPhone 14 Pro Max | A16 | 6GB").tag("iPhone15,3")
+                        Text("iPhone 15 Pro Max | A17 Pro | 8GB").tag("iPhone16,2")
                     }
                     .frame(width: 250)
                 }
@@ -456,7 +461,9 @@ struct BypassesView: View {
     @Binding var settings: AppSettings
     @Binding var hasPlayTools: Bool?
     @Binding var task: BlockingTask
-
+    @AppStorage("settings.settings.playChain") private var playChain = false
+    @AppStorage("settings.settings.playChainDebugging") private var playChainDebugging = false
+    @AppStorage("settings.settings.bypass") private var bypass = false
     @State private var hasIntrospection: Bool
     @State private var hasIosFrameworks: Bool
 
@@ -534,13 +541,13 @@ struct MiscView: View {
     @Binding var hasPlayTools: Bool?
     @Binding var hasAlias: Bool?
     @Binding var task: BlockingTask
-
+    @AppStorage("settings.settings.discordActivity.enable") private var discordActivity = false
+    @AppStorage("settings.settings.metalHUD") private var metalHUD = false
+    @AppStorage("settings.openWithLLDB") private var openWithLLDB = false
+    @AppStorage("settings.openLLDBWithTerminal") private var openLLDBWithTerminal = false
     @State var showPopover = false
-
     var app: PlayApp
-
     @State var applicationCategoryType: LSApplicationCategoryType
-
     var body: some View {
         ScrollView {
             VStack {

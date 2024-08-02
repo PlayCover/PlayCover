@@ -194,11 +194,9 @@ class PlayApp: BaseApp {
             .appendingPathComponent("Applications")
             .appendingPathComponent("PlayCover")
 
-    static let playChainDirectory = PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
-
     lazy var aliasURL = PlayApp.aliasDirectory.appendingPathComponent(name).appendingPathExtension("app")
 
-    lazy var playChainURL = PlayApp.playChainDirectory.appendingPathComponent(info.bundleIdentifier)
+    lazy var playChainURL = KeyCover.playChainPath.appendingPathComponent(info.bundleIdentifier)
 
     lazy var settings = AppSettings(info)
 
@@ -266,6 +264,7 @@ class PlayApp: BaseApp {
     func clearPlayChain() {
         FileManager.default.delete(at: playChainURL)
         FileManager.default.delete(at: playChainURL.appendingPathExtension("keyCover"))
+        FileManager.default.delete(at: playChainURL.appendingPathExtension("db"))
     }
 
     func deleteApp() {
@@ -308,7 +307,8 @@ class PlayApp: BaseApp {
         "com.dts.freefireth",
         "com.dts.freefiremax",
         "vn.vng.codmvn",
-        "com.ngame.allstar.eu"
+        "com.ngame.allstar.eu",
+        "com.axlebolt.standoff2"
     ]
 
     static let MALICIOUS_APPS = [

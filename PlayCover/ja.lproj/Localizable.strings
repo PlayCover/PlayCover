@@ -23,9 +23,6 @@
 "alert.restart" = "PlayCoverを再起動してください。";
 
 /* (No Comment) */
-"alert.storeAccount.regionIsNotValid" = "現在のアカウントは他の地域に設定されています。ゲームを起動して、地域を変更してから、ゲートを通過して保存してください。その後、再度試してください";
-
-/* (No Comment) */
 "alert.success" = "完了しました";
 
 /* (No Comment) */
@@ -77,9 +74,6 @@
 "notification.appInstalled.message" = "PlayCoverでチェックしてください！";
 
 /* (No Comment) */
-"playapp.activateAccount" = "アカウントを変更する";
-
-/* (No Comment) */
 "playapp.clearCache" = "アプリのキャッシュを消去";
 
 /* (No Comment) */
@@ -87,9 +81,6 @@
 
 /* (No Comment) */
 "playapp.delete" = "アプリをアンインストール";
-
-/* (No Comment) */
-"playapp.deleteAccount" = "アカウントを削除";
 
 /* (No Comment) */
 "playapp.exportKm" = "キーマッピングをエクスポート";
@@ -126,9 +117,6 @@
 
 /* (No Comment) */
 "playapp.showInFinder" = "Finderで表示";
-
-/* (No Comment) */
-"playapp.storeCurrentAccount" = "ストアのアカウント";
 
 /* (No Comment) */
 "preferences.button.checkForUpdates" = "更新の確認";
@@ -203,54 +191,17 @@
 "soundAlert.successText" = "現在のデバイスのサンプルレートを48KHzに変更しました";
 
 /* (No Comment) */
-"storeAccount.deleteAcc" = "アカウントを削除";
-
-/* (No Comment) */
-"storeAccount.nameOfAcc" = "アカウント名";
-
-/* (No Comment) */
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "アカウントの名前...";
-
-/* (No Comment) */
-"storeAccount.selectAcc" = "アカウントの選択";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion" = "アカウントの地域を変更する";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.asia" = "アジア";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.cht" = "台湾";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.euro" = "ヨーロッパ";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.usa" = "米国";
-
-/* (No Comment) */
-"storeAccount.store" = "アカウントを保存";
-
-/* (No Comment) */
-"storeAccount.storeAcc" = "アカウントを保存";
 "settings.resetKmCompleted" = "キーマップは初期化されました！";
 "settings.tab.misc" = "その他";
 "playapp.exportKmPanel.fieldLabel" = "キーマップの名前:";
 "sidebar.appLibrary" = "アプリケーションライブラリ";
 "sidebar.ipaLibrary" = "IPAライブラリ";
-"storeAccount.alert.restoreAccount" = "本当にアカウントを復元しますか？";
-"storeAccount.alert.restoreAccount.button" = "アカウントを復元";
-"storeAccount.alert.restoreAccount.msg" = "これにより、現在サインインしているアカウントが上書きされます。";
-"storeAccount.alert.deleteAccount" = "本当にアカウントを削除しますか？";
-"storeAccount.alert.deleteAccount.button" = "アカウントを削除";
 "alert.moveAppToApplications.title" = "アプリケーションフォルダに移動させますか？";
 "alert.moveAppToApplications.subtitle" = "正しく実行するには、PlayCoverがアプリケーションフォルダにある必要があります。下のボタンを押すと、PlayCoverが自動的に移動されます。";
 "button.Quit" = "終了";
 "error.appEncrypted" = "このアプリは暗号化されています!復号化されたIPAを使用してください。iMazing IPAはサポートされていません！";
 "error.appCorrupted" = "問題が発生しました。 別の IPA ファイルを使用してみてください。";
 "error.appProhibited" = "PlayCoverでこのアプリを使用すると、BAN される可能性があります!";
-"error.noGenshinAccount" = "Genshin アカウントが見つかりませんでした。 アプリ内でアカウントにサインインしていますか?";
 "settings.title" = "%@設定";
 "settings.tab.info" = "情報";
 "settings.tab.km" = "キーマップ";
@@ -424,3 +375,10 @@
 "settings.toggle.enableScrollWheel.help" = "Enable scroll wheel in keymapping";
 "settings.toggle.iosFrameworks.help" = "Add the system ios libraries to the app. Known to fix issues with some apps cannot find ios framework";
 "settings.toggle.enableScrollWheel" = "Enable Scroll Wheel";
+"ipaLibrary.info.notAvailable" = "Link not valid for this app";
+"ipaLibrary.info" = "App Info";
+"ipaLibrary.info.checksum.none" = "None provided";
+"ipaLibrary.info.title" = "%@ Info";
+"ipaLibrary.unavailable" = "The link is unavailable";
+"ipaLibrary.info.itunes" = "ITunes Lookup:";
+"ipaLibrary.info.checksum" = "Checksum:";
