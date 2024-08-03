@@ -67,7 +67,7 @@ class DownloadApp {
          }
         return false
     }
-    
+
     func start() {
         if installVM.inProgress {
             Log.shared.error(PlayCoverError.waitInstallation)
