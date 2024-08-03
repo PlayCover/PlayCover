@@ -6,7 +6,6 @@
 import Cocoa
 import Foundation
 import IOKit.pwr_mgt
-import StoreKit
 
 class PlayApp: BaseApp {
     public static let bundleIDCacheURL = PlayTools.playCoverContainer.appendingPathComponent("CACHE")

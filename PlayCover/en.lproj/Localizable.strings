@@ -310,4 +310,5 @@
 
 "macos.version" = "This app can be installed from Mac App Store";
 "alert.start.anyway" = "Start Anyway";
+"alert.install.anyway" = "Install Anyway";
 "alert.open.appstore" = "Open Mac App Store";
