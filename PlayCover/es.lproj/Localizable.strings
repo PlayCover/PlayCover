@@ -375,10 +375,10 @@
 "settings.toggle.enableScrollWheel.help" = "Activar la rueda de desplazamiento en la asignación de teclas";
 "settings.toggle.iosFrameworks.help" = "Agregue las bibliotecas del sistema ios a la aplicación. Se sabe que soluciona problemas en los que algunas aplicaciones no pueden encontrar el marco de iOS";
 "settings.toggle.enableScrollWheel" = "Activar rueda de desplazamiento";
-"ipaLibrary.info" = "App Info";
-"ipaLibrary.info.notAvailable" = "Link not valid for this app";
-"ipaLibrary.info.checksum.none" = "None provided";
-"ipaLibrary.info.title" = "%@ Info";
-"ipaLibrary.unavailable" = "The link is unavailable";
-"ipaLibrary.info.itunes" = "ITunes Lookup:";
-"ipaLibrary.info.checksum" = "Checksum:";
+"ipaLibrary.info" = "Información de la aplicación";
+"ipaLibrary.info.notAvailable" = "Enlace no válido para esta aplicación";
+"ipaLibrary.info.checksum.none" = "No se proporciona";
+"ipaLibrary.info.title" = "%@ Información";
+"ipaLibrary.unavailable" = "El enlace no está disponible";
+"ipaLibrary.info.itunes" = "Búscar en iTunes:";
+"ipaLibrary.info.checksum" = "Suma de verificación:";
