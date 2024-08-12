@@ -11,6 +11,7 @@ class PlayApp: BaseApp {
     public static let bundleIDCacheURL = PlayTools.playCoverContainer.appendingPathComponent("CACHE")
     var displaySleepAssertionID: IOPMAssertionID?
     public var isStarting = false
+    
     public static var bundleIDCache: [String] {
         get throws {
             (try String(contentsOf: bundleIDCacheURL)).split(whereSeparator: \.isNewline).map({ String($0) })
