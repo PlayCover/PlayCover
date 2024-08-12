@@ -52,12 +52,12 @@ class DownloadApp {
             case .alertFirstButtonReturn:
                 UserDefaults.standard.set(true, forKey: "\(app.bundleID).noMacAlert")
             case .alertSecondButtonReturn:
-                Task {
-                    let urlString = "https://itunes.apple.com/lookup?bundleId=\(app.bundleID)"
-                    let itunes: ITunesResponse? = await getITunesData(urlString)
-                    guard let appID = itunes?.results.first?.trackId else {return}
-                    if let appLink: URL = URL(string: "itms-apps://apps.apple.com/app/id\(appID)") {
-                        NSWorkspace.shared.open(appLink)
+                let stringArray = app.itunesLookup.components(separatedBy: CharacterSet.decimalDigits.inverted)
+                for item in stringArray {
+                    if let number = Int(item) {
+                        if let appLink: URL = URL(string: "itms-apps://apps.apple.com/app/id\(number)") {
+                            NSWorkspace.shared.open(appLink)
+                        }
                     }
                 }
                 return true

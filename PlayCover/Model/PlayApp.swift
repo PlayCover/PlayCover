@@ -34,13 +34,9 @@ class PlayApp: BaseApp {
     func launch() async {
         do {
             isStarting = true
-            let noMacAlert = UserDefaults.standard.bool(forKey: "\(info.bundleIdentifier).noMacAlert")
             if prohibitedToPlay {
                 await clearAllCache()
                 throw PlayCoverError.appProhibited
-            } else if hasMacVersion && !noMacAlert, await !runMacOSWarning() {
-                isStarting = false
-                return
             } else if maliciousProhibited {
                 await clearAllCache()
                 deleteApp()
