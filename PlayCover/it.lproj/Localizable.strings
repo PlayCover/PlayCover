@@ -112,8 +112,8 @@
 "button.Unlock" = "Sblocca";
 
 
-"state.enabled" = "Abilita";
-"state.disabled" = "Disabilita";
+"state.enabled" = "Abilitato";
+"state.disabled" = "Disabilitato";
 "state.pendingReboot" = "Riavvio in sospeso";
 "error.corruptedIPA" = "Questo file .ipa è corrotto. Non contiene il file \"Info.plist\".";
 "error.waitInstallation" = "Attendere il completamento dell'installazione corrente!";
@@ -218,11 +218,11 @@
 "settings.toggle.rootWorkDir" = "Avvia app nella directory radice";
 "settings.toggle.rootWorkDir.help" = "Cambia la directory di lavoro dell'app in / come su iOS. Disabilita questa opzione se l'app si comporta male";
 "configSigning.header" = "Configura la Firma del Pacchetto";
-"configSigning.subtext" = "La Firma del Pacchetto aiuta a risolvere problemi con le app che dipendono da ID Team corretti per operazioni come l'autorizzazione. Potrebbero esserci rischi per la sicurezza associati all'abilitazione di questa funzione. Pertanto, raccomandiamo di disabilitarla quando non è necessaria.";
+"configSigning.subtext" = "La Firma del Pacchetto aiuta a risolvere problemi con le app\nche dipendono da ID Team corretti per operazioni come l'autorizzazione.\nPotrebbero esserci rischi per la sicurezza associati all'abilitazione di questa funzione.\n\nPertanto, raccomandiamo di disabilitarla quando non è necessaria";
 "configSigning.info.SIP" = "SIP deve essere disabilitato totalmente o parzialmente affinché AMFI possa essere disabilitato.";
 "configSigning.info.SIPHeader" = "Protezione dell'Integrità del Sistema";
 "configSigning.info.AMFI" = "AMFI deve essere disabilitato per consentire la falsa firma delle app, permettendo loro di eseguire con il corretto ID Team";
-"configSigning.info.AMFIHeader" = "Integrità dei File Mobili Apple";
+"configSigning.info.AMFIHeader" = "Apple Mobile File Integrity";
 "configSigning.action.shutdown" = "Spegni il mio Mac";
 "configSigning.action.copyCommand" = "Copia il Comando negli Appunti";
 "configSigning.action.restart" = "Riavvia il mio Mac";
@@ -258,10 +258,10 @@
 "keycover.unlockPrompt.title" = "Inserisci la tua password principale per sbloccare KeyCover";
 "keycover.alert.title" = "Il portachiavi non è stato sbloccato";
 "keycover.alert.content" = "L'accesso al portachiavi è stato disabilitato per la sessione corrente";
-"ipaLibrary.info.notAvailable" = "Link not valid for this app";
-"ipaLibrary.info" = "App Info";
-"ipaLibrary.info.checksum.none" = "None provided";
-"ipaLibrary.unavailable" = "The link is unavailable";
+"ipaLibrary.info.notAvailable" = "Link non valido per questa app";
+"ipaLibrary.info" = "Informazioni sull'app";
+"ipaLibrary.info.checksum.none" = "Nessuno Fornito";
+"ipaLibrary.unavailable" = "Questo link non è disponibile";
 "ipaLibrary.info.title" = "%@ Info";
 "ipaLibrary.info.itunes" = "ITunes Lookup:";
 "ipaLibrary.info.checksum" = "Checksum:";
