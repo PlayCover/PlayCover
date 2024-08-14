@@ -9,40 +9,6 @@ import Foundation
 
 class Installer {
 
-    @MainActor
-    static func hasMacVersion(bundleID: String) async -> Bool {
-        let noMacAlert = UserDefaults.standard.bool(forKey: "\(bundleID).noMacAlert")
-        if PlayApp.MACOS_APPS.contains(bundleID), !noMacAlert {
-            let alert = NSAlert()
-            alert.messageText = NSLocalizedString("alert.error", comment: "")
-            alert.informativeText = String(
-             format: NSLocalizedString("macos.version", comment: "")
-            )
-            alert.alertStyle = .warning
-            alert.addButton(withTitle: NSLocalizedString("alert.install.anyway", comment: ""))
-            alert.addButton(withTitle: NSLocalizedString("alert.open.appstore", comment: ""))
-            alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
-            let result = alert.runModal()
-            switch result {
-            case .alertFirstButtonReturn:
-                UserDefaults.standard.set(true, forKey: "\(bundleID).noMacAlert")
-            case .alertSecondButtonReturn:
-                Task {
-                     let urlString = "https://itunes.apple.com/lookup?bundleId=\(bundleID)"
-                     let itunes: ITunesResponse? = await getITunesData(urlString)
-                     guard let appID = itunes?.results.first?.trackId else {return}
-                     if let appLink: URL = URL(string: "itms-apps://apps.apple.com/app/id\(appID)") {
-                         NSWorkspace.shared.open(appLink)
-                     }
-                 }
-                return true
-            default:
-                return true
-            }
-         }
-        return false
-    }
-
     static func installPlayToolsPopup() -> Bool {
         let alert = NSAlert()
         alert.messageText = NSLocalizedString("alert.install.injectPlayToolsQuestion", comment: "")
@@ -93,7 +59,7 @@ class Installer {
                 try ipa.allocateTempDir()
 
                 let app = try ipa.unzip()
-                if await hasMacVersion(bundleID: app.info.bundleIdentifier) {
+                if await ipa.hasMacVersion(app: IPA.Application.base(app)) {
                     ipa.releaseTempDir()
                     InstallVM.shared.next(.failed, 0.95, 1.0)
                     returnCompletion(nil)

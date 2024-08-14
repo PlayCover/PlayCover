@@ -35,44 +35,10 @@ class DownloadApp {
     let installVM = InstallVM.shared
     let downloader = DownloadManager.shared
 
-    func hasMacVersion() -> Bool {
-        let noMacAlert = UserDefaults.standard.bool(forKey: "\(String(describing: app?.bundleID)).noMacAlert")
-        if let app = app, PlayApp.MACOS_APPS.contains(app.bundleID), !noMacAlert {
-            let alert = NSAlert()
-            alert.messageText = NSLocalizedString("alert.error", comment: "")
-            alert.informativeText = String(
-             format: NSLocalizedString("macos.version", comment: "")
-            )
-            alert.alertStyle = .warning
-            alert.addButton(withTitle: NSLocalizedString("alert.install.anyway", comment: ""))
-            alert.addButton(withTitle: NSLocalizedString("alert.open.appstore", comment: ""))
-            alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
-            let result = alert.runModal()
-            switch result {
-            case .alertFirstButtonReturn:
-                UserDefaults.standard.set(true, forKey: "\(app.bundleID).noMacAlert")
-            case .alertSecondButtonReturn:
-                let stringArray = app.itunesLookup.components(separatedBy: CharacterSet.decimalDigits.inverted)
-                for item in stringArray {
-                    if let number = Int(item) {
-                        if let appLink: URL = URL(string: "itms-apps://apps.apple.com/app/id\(number)") {
-                            NSWorkspace.shared.open(appLink)
-                        }
-                    }
-                }
-                return true
-            default:
-                return true
-            }
-         }
-        return false
-    }
-
     func start() {
         if installVM.inProgress {
             Log.shared.error(PlayCoverError.waitInstallation)
         } else {
-            if hasMacVersion() {return}
             if let warningMessage = warning, let app = app {
                 let alert = NSAlert()
                 alert.messageText = NSLocalizedString(warningMessage, comment: "")
@@ -88,14 +54,20 @@ class DownloadApp {
                     return
                 }
             }
-
-            if let wrapedURL = url {
-                if wrapedURL.isFileURL {
-                    proceedInstall(url, deleteIPA: false)
-                } else {
-                    let (finalURL, urlIsValid) = NetworkVM.urlAccessible(url: wrapedURL, popup: true)
-                    if urlIsValid, let newWrappedURL = finalURL {
-                        proceedDownload(newWrappedURL)
+            if let url = url, let app = app {
+                let ipa = IPA(url: url)
+                Task {
+                    if await ipa.hasMacVersion(app: IPA.Application.store(app)) {
+                        cancel()
+                    } else {
+                        if url.isFileURL {
+                            proceedInstall(url, deleteIPA: false)
+                        } else {
+                            let (finalURL, urlIsValid) = NetworkVM.urlAccessible(url: url, popup: true)
+                            if urlIsValid, let newWrappedURL = finalURL {
+                                proceedDownload(newWrappedURL)
+                            }
+                        }
                     }
                 }
             }
