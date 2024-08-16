@@ -92,7 +92,7 @@ public class IPA {
             let alert = NSAlert()
             alert.messageText = NSLocalizedString("alert.error", comment: "")
             alert.informativeText = String(
-             format: NSLocalizedString("macos.version", comment: "")
+                format: NSLocalizedString("macos.version", comment: "")
             )
             alert.alertStyle = .warning
             alert.addButton(withTitle: NSLocalizedString("alert.install.anyway", comment: ""))
@@ -113,7 +113,7 @@ public class IPA {
             default:
                 return true
             }
-         }
+        }
         return false
     }
 }
