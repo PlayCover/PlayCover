@@ -21,12 +21,21 @@ class StoreVM: ObservableObject, @unchecked Sendable {
         resolveSources()
     }
 
-    @Published var sourcesData: [SourceJSON] = []
     @Published var sourcesList: [SourceData] {
         didSet {
             encode()
         }
     }
+    @Published var sourcesData: [SourceJSON] = [] {
+        didSet {
+            sourcesApps.removeAll()
+            for source in sourcesData {
+                appendSourceData(source)
+            }
+        }
+    }
+    @Published var sourcesApps: [SourceAppsData] = []
+
     private var resolveTask: Task<Void, Never>?
 
     //
@@ -88,28 +97,36 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     func resolveSources() {
         resolveTask?.cancel()
         resolveTask = Task { @MainActor in
+
+            guard NetworkVM.isConnectedToNetwork() && !sourcesList.isEmpty else { return }
+
             let semaphore = AsyncSemaphore(value: 0)
-            guard NetworkVM.isConnectedToNetwork() else { return }
+            let sourcesCount = sourcesList.count
             sourcesData.removeAll()
-            if !sourcesList.isEmpty {
-                let sourcesCount = sourcesList.count
-                for index in sourcesList.indices {
-                    sourcesList[index].status = .checking
-                    let (sourceJson, sourceState) = await getSourceData(sourceLink: sourcesList[index].source)
-                    if sourcesCount == sourcesList.count {
-                        sourcesList[index].status = sourceState
-                        if sourceState == .valid {
-                            if let json = sourceJson {
-                                sourcesData.append(json)
-                                semaphore.signal()
-                            }
-                        } else {
-                            semaphore.signal()
-                        }
-                        await semaphore.wait()
+
+            for index in sourcesList.indices {
+                sourcesList[index].status = .checking
+                let (sourceJson, sourceState) = await getSourceData(sourceLink: sourcesList[index].source)
+                guard sourcesCount == sourcesList.count else { return }
+                sourcesList[index].status = sourceState
+                if sourceState == .valid {
+                    if let sourceJson {
+                        sourcesData.append(sourceJson)
+                        semaphore.signal()
                     }
+                } else {
+                    semaphore.signal()
                 }
+                await semaphore.wait()
             }
+
+        }
+    }
+
+    //
+    func appendSourceData(_ source: SourceJSON) {
+        for app in source.data where !sourcesApps.contains(app) {
+            sourcesApps.append(app)
         }
     }
 
@@ -159,20 +176,13 @@ class StoreVM: ObservableObject, @unchecked Sendable {
         guard let unwrappedData = dataToDecode else { return (nil, .badurl) }
         var decodedData: SourceJSON?
         do {
-            decodedData = try JSONDecoder().decode(SourceJSON.self, from: unwrappedData)
-            debugPrint("SourceJSON from \(url) Fetched")
+            let oldTypeJson: [SourceAppsData] = try JSONDecoder().decode([SourceAppsData].self, from: unwrappedData)
+            decodedData = SourceJSON(name: url.isFileURL ? "localhost" : url.host ?? url.absoluteString,
+                                     data: oldTypeJson)
             return (decodedData, .valid)
         } catch {
-            do {
-                let oldTypeJson: [SourceAppsData] = try JSONDecoder().decode([SourceAppsData].self, from: unwrappedData)
-                decodedData = SourceJSON(name: url.isFileURL ? "localhost" : url.host ?? url.absoluteString,
-                                         logo: "NoLogo",
-                                         data: oldTypeJson)
-                return (decodedData, .valid)
-            } catch {
-                debugPrint("Error decoding data from URL: \(url): \(error)")
-                return (nil, .badjson)
-            }
+            debugPrint("Error decoding data from URL: \(url): \(error)")
+            return (nil, .badjson)
         }
     }
 }
@@ -180,7 +190,6 @@ class StoreVM: ObservableObject, @unchecked Sendable {
 // Source Data Structure
 struct SourceJSON: Codable, Equatable, Hashable {
     let name: String
-    let logo: String
     let data: [SourceAppsData]
 }
 

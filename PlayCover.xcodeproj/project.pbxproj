@@ -17,7 +17,6 @@
 		53F3802826EB6F6B00D6B525 /* NotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F3802726EB6F6B00D6B525 /* NotifyService.swift */; };
 		53F4D2A026C43C690020167C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29F26C43C690020167C /* Log.swift */; };
 		53F50C4926E3CA42007AD2D3 /* AppLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */; };
-		681533CB2C5D5AB700FC3F32 /* NavigationStack in Frameworks */ = {isa = PBXBuildFile; productRef = 681533CA2C5D5AB700FC3F32 /* NavigationStack */; };
 		6829140C29C901C000DC55E2 /* Semaphore in Frameworks */ = {isa = PBXBuildFile; productRef = 6829140B29C901C000DC55E2 /* Semaphore */; };
 		6888981729F9158700105D9C /* IPASourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6888981629F9158700105D9C /* IPASourceView.swift */; };
 		68E48B952957046D00C39879 /* DownloadManager in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48B942957046D00C39879 /* DownloadManager */; };
@@ -207,7 +206,6 @@
 				AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */,
 				6829140C29C901C000DC55E2 /* Semaphore in Frameworks */,
 				B44E8CD32C31C50200542038 /* SwiftSoup in Frameworks */,
-				681533CB2C5D5AB700FC3F32 /* NavigationStack in Frameworks */,
 				68E48B952957046D00C39879 /* DownloadManager in Frameworks */,
 				B17FD03C28C70C2100B1D4CA /* CoreUI.framework in Frameworks */,
 			);
@@ -455,7 +453,6 @@
 				68E48B99295708C800C39879 /* Injection */,
 				6829140B29C901C000DC55E2 /* Semaphore */,
 				B44E8CD22C31C50200542038 /* SwiftSoup */,
-				681533CA2C5D5AB700FC3F32 /* NavigationStack */,
 			);
 			productName = PlayCover;
 			productReference = 8783CFF726B8C52D00171041 /* PlayCover.app */;
@@ -513,7 +510,6 @@
 				68E48B98295708C800C39879 /* XCRemoteSwiftPackageReference "inject" */,
 				6829140A29C901C000DC55E2 /* XCRemoteSwiftPackageReference "Semaphore" */,
 				B44E8CD12C31C50200542038 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
-				681533C92C5D5AB700FC3F32 /* XCRemoteSwiftPackageReference "NavigationStack-Backport" */,
 			);
 			productRefGroup = 8783CFF826B8C52D00171041 /* Products */;
 			projectDirPath = "";
@@ -963,14 +959,6 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		681533C92C5D5AB700FC3F32 /* XCRemoteSwiftPackageReference "NavigationStack-Backport" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/amirsaam/NavigationStack-Backport.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		6829140A29C901C000DC55E2 /* XCRemoteSwiftPackageReference "Semaphore" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/groue/Semaphore";
@@ -1035,11 +1023,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */;
 			productName = Sparkle;
-		};
-		681533CA2C5D5AB700FC3F32 /* NavigationStack */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 681533C92C5D5AB700FC3F32 /* XCRemoteSwiftPackageReference "NavigationStack-Backport" */;
-			productName = NavigationStack;
 		};
 		6829140B29C901C000DC55E2 /* Semaphore */ = {
 			isa = XCSwiftPackageProductDependency;

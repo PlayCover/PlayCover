@@ -61,10 +61,12 @@ struct MainView: View {
                         if showSourceFolders {
                             ForEach(store.sourcesData, id: \.hashValue) { source in
                                 NavigationLink {
-                                    IPASourceView(selectedBackgroundColor: $selectedBackgroundColor,
+                                    IPASourceView(storeVM: store,
+                                                  selectedBackgroundColor: $selectedBackgroundColor,
                                                   selectedTextColor: $selectedTextColor,
                                                   sourceName: source.name,
                                                   sourceApps: source.data)
+                                    .environmentObject(store)
                                 } label: {
                                     Label(source.name, systemImage: "folder")
                                         .font(.caption)
@@ -75,9 +77,11 @@ struct MainView: View {
                     }
                     .toolbar {
                         ToolbarItem { // Sits on the left by default
-                            Button(action: toggleSidebar, label: {
+                            Button {
+                                toggleSidebar()
+                            } label: {
                                 Image(systemName: "sidebar.leading")
-                            })
+                            }
                         }
                     }
                     .onChange(of: sidebarGeom.size) { newSize in
