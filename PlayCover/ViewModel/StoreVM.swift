@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Semaphore
 
 class StoreVM: ObservableObject, @unchecked Sendable {
     public static let shared = StoreVM()
@@ -100,7 +99,6 @@ class StoreVM: ObservableObject, @unchecked Sendable {
 
             guard NetworkVM.isConnectedToNetwork() && !sourcesList.isEmpty else { return }
 
-            let semaphore = AsyncSemaphore(value: 0)
             let sourcesCount = sourcesList.count
             sourcesData.removeAll()
 
@@ -109,15 +107,9 @@ class StoreVM: ObservableObject, @unchecked Sendable {
                 let (sourceJson, sourceState) = await getSourceData(sourceLink: sourcesList[index].source)
                 guard sourcesCount == sourcesList.count else { return }
                 sourcesList[index].status = sourceState
-                if sourceState == .valid {
-                    if let sourceJson {
-                        sourcesData.append(sourceJson)
-                        semaphore.signal()
-                    }
-                } else {
-                    semaphore.signal()
+                if sourceState == .valid, let sourceJson {
+                    sourcesData.append(sourceJson)
                 }
-                await semaphore.wait()
             }
 
         }
@@ -176,13 +168,20 @@ class StoreVM: ObservableObject, @unchecked Sendable {
         guard let unwrappedData = dataToDecode else { return (nil, .badurl) }
         var decodedData: SourceJSON?
         do {
-            let oldTypeJson: [SourceAppsData] = try JSONDecoder().decode([SourceAppsData].self, from: unwrappedData)
-            decodedData = SourceJSON(name: url.isFileURL ? "localhost" : url.host ?? url.absoluteString,
-                                     data: oldTypeJson)
+            decodedData = try JSONDecoder().decode(SourceJSON.self, from: unwrappedData)
             return (decodedData, .valid)
         } catch {
-            debugPrint("Error decoding data from URL: \(url): \(error)")
-            return (nil, .badjson)
+            do {
+                var sourceName = url.isFileURL
+                ? (url.absoluteString as NSString).lastPathComponent.replacingOccurrences(of: ".json", with: "")
+                : url.host ?? url.absoluteString
+                let oldTypeJson: [SourceAppsData] = try JSONDecoder().decode([SourceAppsData].self, from: unwrappedData)
+                decodedData = SourceJSON(name: sourceName, data: oldTypeJson)
+                return (decodedData, .valid)
+            } catch {
+                debugPrint("Error decoding data from URL: \(url): \(error)")
+                return (nil, .badjson)
+            }
         }
     }
 }
