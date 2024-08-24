@@ -172,7 +172,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
             return (decodedData, .valid)
         } catch {
             do {
-                var sourceName = url.isFileURL
+                let sourceName = url.isFileURL
                 ? (url.absoluteString as NSString).lastPathComponent.replacingOccurrences(of: ".json", with: "")
                 : url.host ?? url.absoluteString
                 let oldTypeJson: [SourceAppsData] = try JSONDecoder().decode([SourceAppsData].self, from: unwrappedData)

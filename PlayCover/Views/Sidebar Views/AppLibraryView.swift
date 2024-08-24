@@ -77,18 +77,7 @@ struct AppLibraryView: View {
         .navigationTitle("sidebar.appLibrary")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                Button(action: {
-                    showSettings.toggle()
-                }, label: {
-                    Image(systemName: "gear")
-                })
-                .disabled(selected == nil)
-            }
-            ToolbarItem(placement: .primaryAction) {
-                Spacer()
-            }
-            ToolbarItem(placement: .primaryAction) {
-                Button(action: {
+                Button {
                     if installVM.inProgress {
                         Log.shared.error(PlayCoverError.waitInstallation)
                     } else if downloadVM.inProgress {
@@ -96,10 +85,21 @@ struct AppLibraryView: View {
                     } else {
                         selectFile()
                     }
-                }, label: {
-                    Image(systemName: "plus")
+                } label: {
+                    Image(systemName: "plus.circle")
                         .help("playapp.add")
-                })
+                }
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Spacer()
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    showSettings.toggle()
+                } label: {
+                    Image(systemName: "gear")
+                }
+                .disabled(selected == nil)
             }
             ToolbarItem(placement: .primaryAction) {
                 Picker("Grid View Layout", selection: $isList) {
