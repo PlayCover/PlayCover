@@ -299,3 +299,5 @@
 
 "keycover.alert.title" = "Keychain was not unlocked";
 "keycover.alert.content" = "Keychain access has been disabled for the current session";
+
+"alert.install.anyway" = "Install Anyway";

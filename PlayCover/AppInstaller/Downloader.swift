@@ -58,7 +58,7 @@ class DownloadApp {
                 let alert = NSAlert()
                 alert.messageText = NSLocalizedString(warningMessage, comment: "")
                 alert.informativeText = String(
-                    format: NSLocalizedString("ipaLibrary.alert.download", comment: ""),
+                    format: NSLocalizedString("alert.install.anyway", comment: ""),
                     arguments: [app.name]
                 )
                 alert.alertStyle = .warning
