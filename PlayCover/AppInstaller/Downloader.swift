@@ -39,11 +39,26 @@ class DownloadApp {
         if installVM.inProgress {
             Log.shared.error(PlayCoverError.waitInstallation)
         } else {
+            if let app = app, PlayApp.PROHIBITED_APPS.contains(app.bundleID) {
+                let alert = NSAlert()
+                alert.messageText = NSLocalizedString("alert.error", comment: "")
+                alert.informativeText = String(
+                    format: NSLocalizedString("error.appProhibited", comment: ""),
+                    arguments: [app.name]
+                )
+                alert.alertStyle = .warning
+                alert.addButton(withTitle: NSLocalizedString("Ok", comment: ""))
+                alert.addButton(withTitle: NSLocalizedString("alert.download.downloadAnyway", comment: ""))
+                if alert.runModal() == .alertFirstButtonReturn {
+                    return
+                }
+            }
+
             if let warningMessage = warning, let app = app {
                 let alert = NSAlert()
                 alert.messageText = NSLocalizedString(warningMessage, comment: "")
                 alert.informativeText = String(
-                    format: NSLocalizedString("ipaLibrary.alert.download", comment: ""),
+                    format: NSLocalizedString("alert.install.anyway", comment: ""),
                     arguments: [app.name]
                 )
                 alert.alertStyle = .warning
