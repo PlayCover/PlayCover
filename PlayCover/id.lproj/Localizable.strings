@@ -23,9 +23,6 @@
 "alert.restart" = "Mohon mulai ulang PlayCover.";
 
 /* (No Comment) */
-"alert.storeAccount.regionIsNotValid" = "Akun saat ini diatur ke wilayah yang berbeda. Luncurkan game, ubah wilayah, dan lewati gerbang untuk menyimpan. Kemudian coba lagi";
-
-/* (No Comment) */
 "alert.success" = "Berhasil";
 
 /* (No Comment) */
@@ -77,9 +74,6 @@
 "notification.appInstalled.message" = "Lihat di PlayCover!";
 
 /* (No Comment) */
-"playapp.activateAccount" = "Ganti akun";
-
-/* (No Comment) */
 "playapp.clearCache" = "Hapus data app";
 
 /* (No Comment) */
@@ -87,9 +81,6 @@
 
 /* (No Comment) */
 "playapp.delete" = "Uninstall aplikasi";
-
-/* (No Comment) */
-"playapp.deleteAccount" = "Hapus akun";
 
 /* (No Comment) */
 "playapp.exportKm" = "Ekspor pemetaan kontrol";
@@ -126,9 +117,6 @@
 
 /* (No Comment) */
 "playapp.showInFinder" = "Tunjukan di Finder";
-
-/* (No Comment) */
-"playapp.storeCurrentAccount" = "Simpan akun";
 
 /* (No Comment) */
 "preferences.button.checkForUpdates" = "Periksa pembaruan";
@@ -203,53 +191,16 @@
 "soundAlert.successText" = "Laju sampel perangkat keluaran saat ini disetel ke 48 KHz";
 
 /* (No Comment) */
-"storeAccount.deleteAcc" = "Hapus akun";
-
-/* (No Comment) */
-"storeAccount.nameOfAcc" = "Nama akunmu";
-
-/* (No Comment) */
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "Nama akun...";
-
-/* (No Comment) */
-"storeAccount.selectAcc" = "Pilih akun";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion" = "Pilih wilayah akun";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.asia" = "Asian";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.cht" = "Taiwan, Hong Kong, Makau";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.euro" = "Eropa";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.usa" = "Amerika";
-
-/* (No Comment) */
-"storeAccount.store" = "Simpan akun";
-
-/* (No Comment) */
-"storeAccount.storeAcc" = "Simpan akun";
 "settings.tab.misc" = "Lain-lain";
 "playapp.exportKmPanel.fieldLabel" = "nama PetaMain:";
-"storeAccount.alert.restoreAccount.button" = "Pulihkan akun";
 "sidebar.appLibrary" = "Perpustakaan aplikasi";
 "sidebar.ipaLibrary" = "Perpustakaan IPA";
-"storeAccount.alert.restoreAccount" = "Benarkah pulihkan akun?";
-"storeAccount.alert.restoreAccount.msg" = "Ini akan menimpa akun anda yang saat ini masuk.";
-"storeAccount.alert.deleteAccount" = "Benarkah hapus akun?";
-"storeAccount.alert.deleteAccount.button" = "Hapus akun";
 "alert.moveAppToApplications.title" = "Pindah ke folder aplikasi?";
 "alert.moveAppToApplications.subtitle" = "PlayCover harus berada di folder aplikasi agar dapat berjalan dengan benar. Tekan tombol di bawah untuk memindahkan PlayCover secara otomatis.";
 "button.Quit" = "Keluar";
 "error.appEncrypted" = "Aplikasi ini dienkripsi! Harap gunakan IPA yang didekripsi. iMazing IPA tidak didukung!";
 "error.appCorrupted" = "Ada yang salah dengan IPA ini. Coba gunakan file IPA lain.";
 "error.appProhibited" = "Menggunakan aplikasi ini melalui PlayCover kemungkinan akan mengakibatkan ban!";
-"error.noGenshinAccount" = "Kami tidak dapat menemukan akun Genshin! Apakah anda masuk ke akun dalam aplikasi?";
 "settings.title" = "Pengaturan";
 "settings.tab.info" = "Informasi";
 "settings.tab.km" = "Pemetaan kontrol";
@@ -424,3 +375,10 @@
 "settings.toggle.enableScrollWheel.help" = "Enable scroll wheel in keymapping";
 "settings.toggle.iosFrameworks.help" = "Add the system ios libraries to the app. Known to fix issues with some apps cannot find ios framework";
 "settings.toggle.enableScrollWheel" = "Enable Scroll Wheel";
+"ipaLibrary.info.checksum.none" = "None provided";
+"ipaLibrary.info.itunes" = "ITunes Lookup:";
+"ipaLibrary.info.checksum" = "Checksum:";
+"ipaLibrary.info.notAvailable" = "Link not valid for this app";
+"ipaLibrary.info" = "App Info";
+"ipaLibrary.info.title" = "%@ Info";
+"ipaLibrary.unavailable" = "The link is unavailable";

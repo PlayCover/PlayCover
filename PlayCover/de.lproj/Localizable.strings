@@ -23,9 +23,6 @@
 "alert.restart" = "Starte bitte PlayCover neu.";
 
 /* (No Comment) */
-"alert.storeAccount.regionIsNotValid" = "Der aktuelle Account ist auf eine andere Region eingestellt. Starte das Spiel, ändere die Region und gehe durch die Tore, um zu speichern. Dann versuche es erneut";
-
-/* (No Comment) */
 "alert.success" = "Erfolgreich";
 
 /* (No Comment) */
@@ -77,9 +74,6 @@
 "notification.appInstalled.message" = "In PlayCover ansehen!";
 
 /* (No Comment) */
-"playapp.activateAccount" = "Account wechseln";
-
-/* (No Comment) */
 "playapp.clearCache" = "App-Daten löschen";
 
 /* (No Comment) */
@@ -87,9 +81,6 @@
 
 /* (No Comment) */
 "playapp.delete" = "App deinstallieren";
-
-/* (No Comment) */
-"playapp.deleteAccount" = "Account löschen";
 
 /* (No Comment) */
 "playapp.exportKm" = "Tastenbelegung exportieren";
@@ -126,9 +117,6 @@
 
 /* (No Comment) */
 "playapp.showInFinder" = "Im Finder anzeigen";
-
-/* (No Comment) */
-"playapp.storeCurrentAccount" = "Account speichern";
 
 /* (No Comment) */
 "preferences.button.checkForUpdates" = "Nach Updates suchen";
@@ -203,37 +191,6 @@
 "soundAlert.successText" = "Aktuelle Abtastrate des Ausgabegeräts auf 48 kHz eingestellt";
 
 /* (No Comment) */
-"storeAccount.deleteAcc" = "Ein Account löschen";
-
-/* (No Comment) */
-"storeAccount.nameOfAcc" = "Name deines Accounts";
-
-/* (No Comment) */
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "Name des Accounts...";
-
-/* (No Comment) */
-"storeAccount.selectAcc" = "Account auswählen";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion" = "Account Region auswählen";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.asia" = "Asien";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.cht" = "TW, HK, MO";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.euro" = "Europa";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.usa" = "Amerika";
-
-/* (No Comment) */
-"storeAccount.store" = "Account speichern";
-
-/* (No Comment) */
-"storeAccount.storeAcc" = "Ein Account speichern";
 "sidebar.ipaLibrary" = "IPA-Bibliothek";
 "button.Quit" = "Verlassen";
 "settings.info.minimumOSVersion" = "Mindest Betriebssystemversion:";
@@ -241,17 +198,11 @@
 "settings.toggle.hud" = "Metal HUD";
 "playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
 "sidebar.appLibrary" = "App-Bibliothek";
-"storeAccount.alert.restoreAccount" = "Account wirklich wiederherstellen?";
-"storeAccount.alert.restoreAccount.button" = "Account wiederherstellen";
-"storeAccount.alert.restoreAccount.msg" = "Dadurch wird dein aktuell angemeldetes Konto überschrieben.";
-"storeAccount.alert.deleteAccount" = "Account wirklich löschen?";
-"storeAccount.alert.deleteAccount.button" = "Account löschen";
 "alert.moveAppToApplications.title" = "In den Anwendungsordner verschieben?";
 "alert.moveAppToApplications.subtitle" = "PlayCover muss im Anwendungsordner sein, damit es ordnungsgemäß ausgeführt werden kann. Drücke die untere Schaltfläche, um PlayCover automatisch zu verschieben.";
 "error.appEncrypted" = "Diese App ist verschlüsselt! Bitte verwende eine entschlüsselte IPA. iMazing IPAs werden nicht unterstützt!";
 "error.appCorrupted" = "Bei dieser IPA ist etwas schief gelaufen. Bitte versuche, eine andere IPA-Datei zu verwenden.";
 "error.appProhibited" = "Die Verwendung dieser App über PlayCover wird wahrscheinlich zu einem Ban führen!";
-"error.noGenshinAccount" = "Wir konnten kein Genshin-Account finden! Bist du in einem Account in der App angemeldet?";
 "settings.title" = "%@ Einstellungen";
 "settings.tab.info" = "Informationen";
 "settings.tab.km" = "Tastenbelegung";
@@ -424,3 +375,10 @@
 "settings.toggle.enableScrollWheel.help" = "Scrollrad in Keymapping aktivieren";
 "settings.toggle.iosFrameworks.help" = "Füge der App die System-ios-Bibliotheken hinzu. Es ist bekannt, dass Probleme behoben werden, bei denen einige Apps das ios-Framework nicht finden können";
 "settings.toggle.enableScrollWheel" = "Scrollrad aktivieren";
+"ipaLibrary.info.notAvailable" = "Link nicht gültig für diese App";
+"ipaLibrary.info" = "App-Info";
+"ipaLibrary.info.checksum.none" = "Keine Angabe";
+"ipaLibrary.info.title" = "%@ Info";
+"ipaLibrary.unavailable" = "Der Link ist nicht verfügbar";
+"ipaLibrary.info.itunes" = "ITunes Lookup:";
+"ipaLibrary.info.checksum" = "Prüfsumme:";

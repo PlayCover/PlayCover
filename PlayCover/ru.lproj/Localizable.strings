@@ -23,9 +23,6 @@
 "alert.restart" = "Пожалуйста перезапустите PlayCover.";
 
 /* (No Comment) */
-"alert.storeAccount.regionIsNotValid" = "Текущий аккаунт находится в другом регионе. Запустите игру, смените регион, пройдите через ворота, чтобы сохранить изменения. Затем попробуйте еще раз";
-
-/* (No Comment) */
 "alert.success" = "Успешно";
 
 /* (No Comment) */
@@ -77,9 +74,6 @@
 "notification.appInstalled.message" = "Проверьте в PlayCover!";
 
 /* (No Comment) */
-"playapp.activateAccount" = "Сменить аккаунт";
-
-/* (No Comment) */
 "playapp.clearCache" = "Очистить данные приложения";
 
 /* (No Comment) */
@@ -87,9 +81,6 @@
 
 /* (No Comment) */
 "playapp.delete" = "Удалить приложение";
-
-/* (No Comment) */
-"playapp.deleteAccount" = "Удалить аккаунт";
 
 /* (No Comment) */
 "playapp.exportKm" = "Экспортировать раскладку";
@@ -126,9 +117,6 @@
 
 /* (No Comment) */
 "playapp.showInFinder" = "Показать в Finder";
-
-/* (No Comment) */
-"playapp.storeCurrentAccount" = "Сохранить аккаунт";
 
 /* (No Comment) */
 "preferences.button.checkForUpdates" = "Проверить на наличие обновлений";
@@ -203,52 +191,15 @@
 "soundAlert.successText" = "Текущая частота дискретизации выходного устройства установлена на 48 кГц";
 
 /* (No Comment) */
-"storeAccount.deleteAcc" = "Удалить аккаунт";
-
-/* (No Comment) */
-"storeAccount.nameOfAcc" = "Имя вашего аккаунта";
-
-/* (No Comment) */
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "Имя аккаунта...";
-
-/* (No Comment) */
-"storeAccount.selectAcc" = "Выбрать аккаунт";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion" = "Выбрать регион аккаунта";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.asia" = "Азия";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.cht" = "Тайвань, Гонконг, Макао";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.euro" = "Европа";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.usa" = "Америка";
-
-/* (No Comment) */
-"storeAccount.store" = "Сохранить аккаунт";
-
-/* (No Comment) */
-"storeAccount.storeAcc" = "Сохранить аккаунт";
 "playapp.exportKmPanel.fieldLabel" = "Имя PlayMap:";
 "sidebar.appLibrary" = "Библиотека приложений";
 "button.Quit" = "Выйти";
-"storeAccount.alert.restoreAccount" = "Вы хотите восстановить учетную запись?";
-"storeAccount.alert.restoreAccount.button" = "Восстановить учетную запись";
 "sidebar.ipaLibrary" = "Библиотека IPA";
-"storeAccount.alert.restoreAccount.msg" = "Данное действие выкинет вас из аккаунта, в которой вы сейчас авторизованы.";
-"storeAccount.alert.deleteAccount" = "Удалить учетную запись?";
-"storeAccount.alert.deleteAccount.button" = "Удалить учетную запись";
 "alert.moveAppToApplications.title" = "Переместить в папку Applications (Программы)?";
 "alert.moveAppToApplications.subtitle" = "Для корректной работы PlayCover должен находиться в папке Applications (Программы). Нажмите на кнопку ниже, чтобы переместить PlayCover автоматически.";
 "error.appEncrypted" = "Это приложение зашифровано! Пожалуйста, используйте расшифрованные файлы IPA. Файлы IPA из iMazing не поддерживаются!";
 "error.appCorrupted" = "С данным IPA что-то пошло не так. Пожалуйста, попробуйте другой файл IPA.";
 "error.appProhibited" = "Использование этого приложения через PlayCover скорее всего приведет к бану!";
-"error.noGenshinAccount" = "Мы не смогли найти аккаунт Genshin! Вы вошли в аккаунт внутри приложения?";
 "settings.title" = "Настройки %@";
 "settings.tab.info" = "Информация";
 "settings.tab.km" = "Раскладка клавиатуры";
@@ -418,9 +369,16 @@
 "keycover.alert.content" = "Доступ к Keychain был отключен для текущей сессии";
 "settings.toggle.autoKM" = "Умная раскладка";
 "settings.toggle.autoKM.help" = "Автоматически выключать раскладку при вводе текста";
-"settings.applicationCategoryType" = "Application Type";
-"settings.toggle.iosFrameworks" = "Force Insert iOS Frameworks";
-"settings.info.alias" = "Alias:";
-"settings.toggle.enableScrollWheel.help" = "Enable scroll wheel in keymapping";
-"settings.toggle.iosFrameworks.help" = "Add the system ios libraries to the app. Known to fix issues with some apps cannot find ios framework";
-"settings.toggle.enableScrollWheel" = "Enable Scroll Wheel";
+"settings.applicationCategoryType" = "Тип приложения";
+"settings.toggle.iosFrameworks" = "Принудительно вставить фреймворки iOS";
+"settings.info.alias" = "Псевдоним:";
+"settings.toggle.enableScrollWheel.help" = "Включить колесо прокрутки в настройках клавиш";
+"settings.toggle.iosFrameworks.help" = "Добавляет системные библиотеки iOS в приложение. Известно, что это решает проблемы с тем, что некоторые приложения не могут найти фреймворк iOS";
+"settings.toggle.enableScrollWheel" = "Включить колесо прокрутки";
+"ipaLibrary.info.notAvailable" = "Ссылка недействительна для этого приложения";
+"ipaLibrary.info" = "Информация о приложении";
+"ipaLibrary.info.checksum.none" = "Не предоставлено";
+"ipaLibrary.info.title" = "Информация о %@";
+"ipaLibrary.unavailable" = "Ссылка недоступна";
+"ipaLibrary.info.itunes" = "Поиск в ITunes:";
+"ipaLibrary.info.checksum" = "Контрольная сумма:";

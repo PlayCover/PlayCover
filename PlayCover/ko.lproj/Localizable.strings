@@ -23,9 +23,6 @@
 "alert.restart" = "PlayCover를 다시 시작하세요.";
 
 /* (No Comment) */
-"alert.storeAccount.regionIsNotValid" = "현재 계정은 다른 지역으로 설정되어 있습니다. 게임 실행 후 지역을 변경하고 게이트를 통과해 저장한 뒤, 다시 시도하세요";
-
-/* (No Comment) */
 "alert.success" = "성공";
 
 /* (No Comment) */
@@ -77,9 +74,6 @@
 "notification.appInstalled.message" = "PlayCover에서 확인하세요!";
 
 /* (No Comment) */
-"playapp.activateAccount" = "계정 전환하기";
-
-/* (No Comment) */
 "playapp.clearCache" = "앱 데이터 지우기";
 
 /* (No Comment) */
@@ -87,9 +81,6 @@
 
 /* (No Comment) */
 "playapp.delete" = "앱 삭제하기";
-
-/* (No Comment) */
-"playapp.deleteAccount" = "계정 삭제하기";
 
 /* (No Comment) */
 "playapp.exportKm" = "키매핑 내보내기";
@@ -126,9 +117,6 @@
 
 /* (No Comment) */
 "playapp.showInFinder" = "Finder에서 보기";
-
-/* (No Comment) */
-"playapp.storeCurrentAccount" = "계정 보관하기";
 
 /* (No Comment) */
 "preferences.button.checkForUpdates" = "업데이트 확인";
@@ -203,53 +191,16 @@
 "soundAlert.successText" = "현재 출력 장치의 샘플 레이트를 48 kHz로 설정했습니다";
 
 /* (No Comment) */
-"storeAccount.deleteAcc" = "계정 삭제하기";
-
-/* (No Comment) */
-"storeAccount.nameOfAcc" = "사용자의 계정 이름";
-
-/* (No Comment) */
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "계정 이름...";
-
-/* (No Comment) */
-"storeAccount.selectAcc" = "계정을 선택하세요";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion" = "계정 지역 선택하기";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.asia" = "아시아";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.cht" = "대만, 홍콩, 마카오";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.euro" = "유럽";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.usa" = "아메리카";
-
-/* (No Comment) */
-"storeAccount.store" = "계정 보관하기";
-
-/* (No Comment) */
-"storeAccount.storeAcc" = "계정 보관하기";
 "settings.title" = "%@ 설정";
 "playapp.exportKmPanel.fieldLabel" = "PlayMap 이름:";
 "sidebar.appLibrary" = "앱 보관함";
 "sidebar.ipaLibrary" = "IPA 보관함";
-"storeAccount.alert.restoreAccount" = "정말로 계정을 복구하겠습니까?";
-"storeAccount.alert.restoreAccount.button" = "계정 복구하기";
-"storeAccount.alert.restoreAccount.msg" = "현재 로그인한 계정을 덮어씁니다.";
-"storeAccount.alert.deleteAccount" = "정말로 계정을 삭제하겠습니까?";
-"storeAccount.alert.deleteAccount.button" = "계정 삭제하기";
 "alert.moveAppToApplications.title" = "응용 프로그램 폴더로 이동할까요?";
 "alert.moveAppToApplications.subtitle" = "PlayCover가 올바르게 실행되려면 반드시 응용 프로그램 폴더에 있어야 합니다. PlayCover를 자동으로 이동하려면 아래 버튼을 누르세요.";
 "button.Quit" = "종료";
 "error.appEncrypted" = "이 앱은 암호화되어 있습니다! 복호화된 IPA를 사용해 주세요. iMazing IPA는 지원되지 않습니다!";
 "error.appCorrupted" = "이 IPA에 문제가 발생했습니다. 다른 IPA를 사용해 보세요.";
 "error.appProhibited" = "PlayCover를 통해 이 앱을 사용하면 차단될 수 있습니다!";
-"error.noGenshinAccount" = "원신 계정을 찾을 수 없습니다! 앱 내 계정에 로그인했습니까?";
 "settings.tab.info" = "정보";
 "settings.tab.km" = "키매핑";
 "settings.toggle.km.help" = "터치 전용 게임에 키보드 지원을 추가합니다. Command + K로 편집기 창을 열 수 있습니다.";
@@ -424,3 +375,10 @@
 "settings.toggle.enableScrollWheel.help" = "키매핑에서 스크롤 휠 사용";
 "settings.toggle.iosFrameworks.help" = "앱에 시스템 iOS 라이브러리를 추가합니다. iOS 프레임워크를 찾을 수 없는 일부 앱의 문제를 해결합니다";
 "settings.toggle.enableScrollWheel" = "스크롤 휠 사용";
+"ipaLibrary.info" = "App Info";
+"ipaLibrary.info.notAvailable" = "Link not valid for this app";
+"ipaLibrary.info.checksum.none" = "None provided";
+"ipaLibrary.info.title" = "%@ Info";
+"ipaLibrary.unavailable" = "The link is unavailable";
+"ipaLibrary.info.itunes" = "ITunes Lookup:";
+"ipaLibrary.info.checksum" = "Checksum:";

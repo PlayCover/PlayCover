@@ -23,9 +23,6 @@
 "alert.restart" = "Reinicie PlayCover.";
 
 /* (No Comment) */
-"alert.storeAccount.regionIsNotValid" = "La cuenta actual está configurada en una región diferente. Inicie el juego, cambie la región y pase por la puerta para guardar. Después vuelva a intentarlo";
-
-/* (No Comment) */
 "alert.success" = "Operación completada";
 
 /* (No Comment) */
@@ -77,9 +74,6 @@
 "notification.appInstalled.message" = "¡Compruébelo en PlayCover!";
 
 /* (No Comment) */
-"playapp.activateAccount" = "Cambiar cuenta";
-
-/* (No Comment) */
 "playapp.clearCache" = "Eliminar datos de la aplicación";
 
 /* (No Comment) */
@@ -87,9 +81,6 @@
 
 /* (No Comment) */
 "playapp.delete" = "Desinstalar aplicación";
-
-/* (No Comment) */
-"playapp.deleteAccount" = "Eliminar cuenta";
 
 /* (No Comment) */
 "playapp.exportKm" = "Exportar asignación de teclas";
@@ -126,9 +117,6 @@
 
 /* (No Comment) */
 "playapp.showInFinder" = "Mostrar en el Finder";
-
-/* (No Comment) */
-"playapp.storeCurrentAccount" = "Guardar cuenta";
 
 /* (No Comment) */
 "preferences.button.checkForUpdates" = "Buscar actualizaciones";
@@ -203,55 +191,18 @@
 "soundAlert.successText" = "La tasa de muestreo del dispositivo de salida actual está establecida en 48 kHz";
 
 /* (No Comment) */
-"storeAccount.deleteAcc" = "Eliminar una cuenta";
-
-/* (No Comment) */
-"storeAccount.nameOfAcc" = "Nombre de su cuenta";
-
-/* (No Comment) */
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "Nombre de la cuenta...";
-
-/* (No Comment) */
-"storeAccount.selectAcc" = "Seleccione una cuenta";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion" = "Seleccione la región de la cuenta";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.asia" = "Asia";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.cht" = "TW, HK, MO";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.euro" = "Europa";
-
-/* (No Comment) */
-"storeAccount.selectAccRegion.usa" = "América";
-
-/* (No Comment) */
-"storeAccount.store" = "Guardar cuenta";
-
-/* (No Comment) */
-"storeAccount.storeAcc" = "Guardar una cuenta";
 "sidebar.ipaLibrary" = "Galería de IPA";
 "settings.title" = "Configuración de %@";
 "settings.tab.graphics" = "Gráficos";
 "settings.info.bundleName" = "Nombre del paquete:";
 "playapp.exportKmPanel.fieldLabel" = "Nombre del PlayMap:";
 "sidebar.appLibrary" = "Aplicaciones";
-"storeAccount.alert.restoreAccount" = "¿Confirma que quiere restaurar la cuenta?";
-"storeAccount.alert.restoreAccount.button" = "Restaurar cuenta";
-"storeAccount.alert.restoreAccount.msg" = "Esto anulará la sesión de su cuenta actual.";
-"storeAccount.alert.deleteAccount" = "¿Confirma que quiere eliminar la cuenta?";
-"storeAccount.alert.deleteAccount.button" = "Eliminar cuenta";
 "alert.moveAppToApplications.title" = "¿Quiere moverlo a la carpeta Aplicaciones?";
 "alert.moveAppToApplications.subtitle" = "PlayCover debe estar en la carpeta Aplicaciones para funcionar correctamente. Pulse el botón de abajo para que PlayCover se mueva automáticamente.";
 "button.Quit" = "Salir";
 "error.appEncrypted" = "¡Esta aplicación está encriptada! Por favor utilice un IPA descifrado. ¡Los IPA de iMazing no son compatibles!";
 "error.appCorrupted" = "Algo ha ido mal con este IPA. Por favor, intente utilizar otro archivo IPA.";
 "error.appProhibited" = "¡Usar esta aplicación a través de PlayCover probablemente resultará en una prohibición!";
-"error.noGenshinAccount" = "¡No se pudo encontrar una cuenta de Genshin! ¿Ha iniciado sesión en una cuenta en la aplicación?";
 "settings.tab.info" = "Info";
 "settings.tab.km" = "Asignación de teclas";
 "settings.toggle.km.help" = "Añade soporte para teclado en juegos exclusivamente táctiles. Utilice Command + K para abrir el editor.";
@@ -424,3 +375,10 @@
 "settings.toggle.enableScrollWheel.help" = "Activar la rueda de desplazamiento en la asignación de teclas";
 "settings.toggle.iosFrameworks.help" = "Agregue las bibliotecas del sistema ios a la aplicación. Se sabe que soluciona problemas en los que algunas aplicaciones no pueden encontrar el marco de iOS";
 "settings.toggle.enableScrollWheel" = "Activar rueda de desplazamiento";
+"ipaLibrary.info" = "Información de la aplicación";
+"ipaLibrary.info.notAvailable" = "Enlace no válido para esta aplicación";
+"ipaLibrary.info.checksum.none" = "No se proporciona";
+"ipaLibrary.info.title" = "%@ Información";
+"ipaLibrary.unavailable" = "El enlace no está disponible";
+"ipaLibrary.info.itunes" = "Búscar en iTunes:";
+"ipaLibrary.info.checksum" = "Suma de verificación:";
