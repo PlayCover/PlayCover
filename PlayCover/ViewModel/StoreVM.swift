@@ -116,13 +116,6 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     }
 
     //
-    func appendSourceData(_ source: SourceJSON) {
-        for app in source.data where !sourcesApps.contains(app) {
-            sourcesApps.append(app)
-        }
-    }
-
-    //
     @discardableResult private func encode() -> Bool {
         let encoder = PropertyListEncoder()
         encoder.outputFormat = .xml
@@ -184,6 +177,14 @@ class StoreVM: ObservableObject, @unchecked Sendable {
             }
         }
     }
+
+    //
+    private func appendSourceData(_ source: SourceJSON) {
+        for app in source.data where !sourcesApps.contains(app) {
+            sourcesApps.append(app)
+        }
+    }
+
 }
 
 // Source Data Structure
