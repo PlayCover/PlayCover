@@ -285,4 +285,7 @@
 "keycover.alert.title" = "Keychain was not unlocked";
 "keycover.alert.content" = "Keychain access has been disabled for the current session";
 
+"macos.version" = "This app can be installed from Mac App Store";
 "alert.install.anyway" = "Install Anyway";
+"alert.open.appstore" = "Open Mac App Store";
+

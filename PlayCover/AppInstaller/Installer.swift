@@ -59,6 +59,12 @@ class Installer {
                 try ipa.allocateTempDir()
 
                 let app = try ipa.unzip()
+                if await ipa.hasMacVersion(app: IPA.Application.base(app)) {
+                    ipa.releaseTempDir()
+                    InstallVM.shared.next(.failed, 0.95, 1.0)
+                    returnCompletion(nil)
+                    return
+                }
                 InstallVM.shared.next(.library, 0.5, 0.55)
                 try saveEntitlements(app)
                 let machos = resolveValidMachOs(app)

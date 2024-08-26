@@ -69,14 +69,20 @@ class DownloadApp {
                     return
                 }
             }
-
-            if let wrapedURL = url {
-                if wrapedURL.isFileURL {
-                    proceedInstall(url, deleteIPA: false)
-                } else {
-                    let (finalURL, urlIsValid) = NetworkVM.urlAccessible(url: wrapedURL, popup: true)
-                    if urlIsValid, let newWrappedURL = finalURL {
-                        proceedDownload(newWrappedURL)
+            if let url = url, let app = app {
+                let ipa = IPA(url: url)
+                Task {
+                    if await ipa.hasMacVersion(app: IPA.Application.store(app)) {
+                        cancel()
+                    } else {
+                        if url.isFileURL {
+                            proceedInstall(url, deleteIPA: false)
+                        } else {
+                            let (finalURL, urlIsValid) = NetworkVM.urlAccessible(url: url, popup: true)
+                            if urlIsValid, let newWrappedURL = finalURL {
+                                proceedDownload(newWrappedURL)
+                            }
+                        }
                     }
                 }
             }
