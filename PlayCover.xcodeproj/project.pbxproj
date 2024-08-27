@@ -17,6 +17,7 @@
 		53F3802826EB6F6B00D6B525 /* NotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F3802726EB6F6B00D6B525 /* NotifyService.swift */; };
 		53F4D2A026C43C690020167C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29F26C43C690020167C /* Log.swift */; };
 		53F50C4926E3CA42007AD2D3 /* AppLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */; };
+		6888981729F9158700105D9C /* IPASourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6888981629F9158700105D9C /* IPASourceView.swift */; };
 		68E48B952957046D00C39879 /* DownloadManager in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48B942957046D00C39879 /* DownloadManager */; };
 		68E48B97295704A600C39879 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E48B96295704A600C39879 /* Downloader.swift */; };
 		68E48B9A295708C800C39879 /* Injection in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48B99295708C800C39879 /* Injection */; };
@@ -111,6 +112,7 @@
 		53F4D29F26C43C690020167C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLibraryView.swift; sourceTree = "<group>"; };
 		6854C5E528D53C9500CE28A0 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6888981629F9158700105D9C /* IPASourceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPASourceView.swift; sourceTree = "<group>"; };
 		68C79E67296741580041DBC9 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		68E48B96295704A600C39879 /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Downloader.swift; path = PlayCover/AppInstaller/Downloader.swift; sourceTree = SOURCE_ROOT; };
 		68E48B9B295709BF00C39879 /* Cacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cacher.swift; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 			children = (
 				53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */,
 				6E66B0C8289F52800099B907 /* IPALibraryView.swift */,
+				6888981629F9158700105D9C /* IPASourceView.swift */,
 			);
 			path = "Sidebar Views";
 			sourceTree = "<group>";
@@ -675,6 +678,7 @@
 				B67C1A112AE8091F00F396CC /* StoreInfoAppView.swift in Sources */,
 				B17FD04728C7B0D900B1D4CA /* AssetsExtractor.swift in Sources */,
 				ABDAD80629893CF900DC164F /* KeyCoverSetupViews.swift in Sources */,
+				6888981729F9158700105D9C /* IPASourceView.swift in Sources */,
 				6EE8265028E8AB2B003935BC /* DownloadVM.swift in Sources */,
 				AB00EB5229A7BF17006F3225 /* KeyCover.swift in Sources */,
 				68E48B9C295709C000C39879 /* Cacher.swift in Sources */,

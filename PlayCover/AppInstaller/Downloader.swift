@@ -22,10 +22,10 @@ import DownloadManager
 
 class DownloadApp {
     let url: URL?
-    let app: StoreAppData?
+    let app: SourceAppsData?
     let warning: String?
 
-    init(url: URL?, app: StoreAppData?, warning: String?) {
+    init(url: URL?, app: SourceAppsData?, warning: String?) {
         self.url = url
         self.app = app
         self.warning = warning

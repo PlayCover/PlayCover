@@ -35,6 +35,7 @@
 "ipaLibrary.unavailable" = "The link is unavailable";
 "ipaLibrary.alert.download" = "Are you sure you want to download this version of %@?";
 "ipaLibrary.download" = "Download";
+"ipaLibrary.AlphabeticalSort" = "Sort source apps alphabetically";
 
 "preferences.button.checkForUpdates" = "Check for Updates";
 "preferences.tab.updates" = "Updates";

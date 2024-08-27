@@ -130,7 +130,7 @@ struct StoreInfoAppView: View {
 
 struct StoreInfoView: View {
 
-    @Binding var data: StoreAppData
+    @Binding var data: SourceAppsData
 
     var body: some View {
         List {
