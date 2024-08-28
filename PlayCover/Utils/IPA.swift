@@ -68,7 +68,7 @@ public class IPA {
 
     enum Application {
         case base(BaseApp)
-        case store(StoreAppData)
+        case store(SourceAppsData)
     }
 
     @MainActor
