@@ -382,3 +382,7 @@
 "ipaLibrary.info" = "App Info";
 "ipaLibrary.info.title" = "%@ Info";
 "ipaLibrary.unavailable" = "The link is unavailable";
+"ipaLibrary.AlphabeticalSort" = "Sort source apps alphabetically";
+"alert.open.appstore" = "Open Mac App Store";
+"macos.version" = "This app can be installed from Mac App Store";
+"alert.install.anyway" = "Install Anyway";
