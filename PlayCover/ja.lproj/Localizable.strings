@@ -382,3 +382,7 @@
 "ipaLibrary.unavailable" = "リンクが無効です";
 "ipaLibrary.info.itunes" = "ITunes Lookup:";
 "ipaLibrary.info.checksum" = "チェックサム:";
+"ipaLibrary.AlphabeticalSort" = "Sort source apps alphabetically";
+"alert.open.appstore" = "Open Mac App Store";
+"macos.version" = "This app can be installed from Mac App Store";
+"alert.install.anyway" = "Install Anyway";
