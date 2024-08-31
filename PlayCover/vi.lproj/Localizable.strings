@@ -259,3 +259,7 @@
 "ipaLibrary.unavailable" = "Liên kết không có sẵn";
 "ipaLibrary.info.itunes" = "Tra cứu iTunes:";
 "ipaLibrary.info.checksum" = "Checksum:";
+"alert.open.appstore" = "Open Mac App Store";
+"macos.version" = "This app can be installed from Mac App Store";
+"ipaLibrary.AlphabeticalSort" = "Sort source apps alphabetically";
+"alert.install.anyway" = "Install Anyway";
