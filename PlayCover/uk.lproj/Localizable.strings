@@ -253,3 +253,7 @@
 "ipaLibrary.unavailable" = "Посилання недоступне";
 "ipaLibrary.info.itunes" = "Пошук в ITunes:";
 "ipaLibrary.info.checksum" = "Контрольна сума:";
+"alert.open.appstore" = "Open Mac App Store";
+"macos.version" = "This app can be installed from Mac App Store";
+"ipaLibrary.AlphabeticalSort" = "Sort source apps alphabetically";
+"alert.install.anyway" = "Install Anyway";
