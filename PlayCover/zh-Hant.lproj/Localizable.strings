@@ -362,3 +362,7 @@
 "ipaLibrary.unavailable" = "The link is unavailable";
 "ipaLibrary.info.itunes" = "ITunes Lookup:";
 "ipaLibrary.info.checksum" = "Checksum:";
+"alert.open.appstore" = "Open Mac App Store";
+"macos.version" = "This app can be installed from Mac App Store";
+"ipaLibrary.AlphabeticalSort" = "Sort source apps alphabetically";
+"alert.install.anyway" = "Install Anyway";
