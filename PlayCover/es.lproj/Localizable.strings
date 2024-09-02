@@ -383,6 +383,6 @@
 "ipaLibrary.info.itunes" = "Búscar en iTunes:";
 "ipaLibrary.info.checksum" = "Suma de verificación:";
 "alert.open.appstore" = "Abrir Mac App Store";
-"macos.version" = "Esta aplicación se puede instalar en Mac App Store";
-"alert.install.anyway" = "Instala de todos modos";
+"macos.version" = "Esta aplicación se puede instalar desde Mac App Store";
+"alert.install.anyway" = "Instalar de todos modos";
 "ipaLibrary.AlphabeticalSort" = "Ordenar aplicaciones de fuente alfabéticamente";
