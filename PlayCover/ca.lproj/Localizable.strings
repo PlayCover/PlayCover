@@ -253,3 +253,7 @@
 "playapp.clearPreferences" = "Clear App Preferences";
 "preferences.tab.updates" = "Updates";
 "preferences.toggle.showUninstall" = "Show warning popup";
+"alert.open.appstore" = "Open Mac App Store";
+"macos.version" = "This app can be installed from Mac App Store";
+"ipaLibrary.AlphabeticalSort" = "Sort source apps alphabetically";
+"alert.install.anyway" = "Install Anyway";

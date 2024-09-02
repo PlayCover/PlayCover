@@ -382,3 +382,7 @@
 "ipaLibrary.unavailable" = "Ссылка недоступна";
 "ipaLibrary.info.itunes" = "Поиск в ITunes:";
 "ipaLibrary.info.checksum" = "Контрольная сумма:";
+"ipaLibrary.AlphabeticalSort" = "Sort source apps alphabetically";
+"macos.version" = "This app can be installed from Mac App Store";
+"alert.install.anyway" = "Install Anyway";
+"alert.open.appstore" = "Open Mac App Store";

@@ -265,3 +265,7 @@
 "ipaLibrary.info.title" = "%@ Info";
 "ipaLibrary.info.itunes" = "ITunes Lookup:";
 "ipaLibrary.info.checksum" = "Checksum:";
+"ipaLibrary.AlphabeticalSort" = "Ordina le sorgenti alfabeticamente";
+"alert.open.appstore" = "Apri Mac App Store";
+"macos.version" = "Questa app può essere installata dal Mac App Store";
+"alert.install.anyway" = "Installa Comunque";
