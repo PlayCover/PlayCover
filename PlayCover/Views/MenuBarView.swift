@@ -48,7 +48,7 @@ struct PlayCoverHelpMenuView: Commands {
                 }
             }
             Button("menubar.discord") {
-                if let url = URL(string: "https://discord.gg/PlayCover") {
+                if let url = URL(string: "https://discord.gg/RNCHsQHr3S") {
                     NSWorkspace.shared.open(url)
                 }
             }
