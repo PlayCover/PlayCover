@@ -142,7 +142,7 @@ class DownloadApp {
         }
     }
 
-    private func verifyChecksum(checksum: String?, file: URL?, completion: @escaping(Bool) -> Void) {
+    private func verifyChecksum(checksum: String?, file: URL?, completion: @escaping (Bool) -> Void) {
         Task {
             if let originalSum = checksum, !originalSum.isEmpty, let fileURL = file {
                 if let sha256 = fileURL.sha256, originalSum != sha256 {
@@ -155,7 +155,7 @@ class DownloadApp {
         }
     }
 
-    private func checksumAlert(originalSum: String, givenSum: String, completion: @escaping(Bool) -> Void) {
+    private func checksumAlert(originalSum: String, givenSum: String, completion: @escaping (Bool) -> Void) {
         Task { @MainActor in
             let alert = NSAlert()
             alert.messageText = NSLocalizedString("playapp.download.differentChecksum", comment: "")

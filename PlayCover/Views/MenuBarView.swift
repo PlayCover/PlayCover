@@ -73,7 +73,7 @@ struct PlayCoverViewMenuView: Commands {
                     } else if DownloadVM.shared.inProgress {
                         Log.shared.error(PlayCoverError.waitDownload)
                     } else {
-                        await NSOpenPanel.selectIPA { result in
+                        NSOpenPanel.selectIPA { result in
                             if case .success(let url) = result {
                                 Task {
                                     Installer.install(ipaUrl: url,
@@ -86,11 +86,10 @@ struct PlayCoverViewMenuView: Commands {
                                                 config.promptsUserIfNeeded = true
                                                 let url = NSWorkspace.shared
                                                     .urlForApplication(withBundleIdentifier:
-                                                                        "com.sideloadly.sideloadly")
-                                                if url != nil {
-                                                    let unwrap = url.unsafelyUnwrapped
-                                                    try await NSWorkspace.shared
-                                                        .open([ipa], withApplicationAt: unwrap, configuration: config)
+                                                                        "io.sideloadly.sideloadly")
+                                                if let url = url {
+                                                    NSWorkspace.shared
+                                                        .open([ipa], withApplicationAt: url, configuration: config)
                                                 } else {
                                                     Log.shared.error("Could not find Sideloadly!")
                                                 }
