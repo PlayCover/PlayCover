@@ -60,7 +60,7 @@ struct MainView: View {
                         }
                         if showSourceFolders {
                             ForEach(store.sourcesData, id: \.hashValue) { source in
-                                NavigationLink {
+                              NavigationLink(tag: source.hashValue, selection: $selectedView) {
                                     IPASourceView(storeVM: store,
                                                   selectedBackgroundColor: $selectedBackgroundColor,
                                                   selectedTextColor: $selectedTextColor,
