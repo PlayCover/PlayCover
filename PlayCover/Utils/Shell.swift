@@ -20,15 +20,15 @@ class Shell: ObservableObject {
 
         let output = try pipe.fileHandleForReading.readToEnd() ?? Data()
         if print {
-            Log.shared.log(String(decoding: output, as: UTF8.self))
+            Log.shared.log(String(data: output, encoding: .utf8) ?? "Shell error occured")
         }
 
         process.waitUntilExit()
         let status = process.terminationStatus
         if status != 0 {
-            throw String(decoding: output, as: UTF8.self)
+            throw String(data: output, encoding: .utf8) ?? "Shell error occured"
         }
-        return String(decoding: output, as: UTF8.self)
+        return String(data: output, encoding: .utf8) ?? "Shell error occured"
     }
 
     static func runSu(_ args: [String], _ argc: String) -> Bool {
@@ -121,8 +121,8 @@ class Shell: ObservableObject {
     }
 }
 
-extension String: Error { }
+extension Swift.String: Swift.Error { }
 
-extension String: LocalizedError {
+extension Swift.String: Foundation.LocalizedError {
     public var errorDescription: String? { self }
 }

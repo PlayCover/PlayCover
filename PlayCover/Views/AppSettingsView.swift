@@ -571,8 +571,11 @@ struct MiscView: View {
                         app.info.applicationCategoryType = applicationCategoryType
                         Task.detached {
                             do {
-                                try Shell.signApp(app.executable)
-                                task = .none
+                                try await Shell.signApp(app.executable)
+
+                                Task { @MainActor in
+                                    task = .none
+                                }
                             } catch {
                                 Log.shared.error(error)
                             }
@@ -679,8 +682,6 @@ struct MiscView: View {
                 }
                 Spacer()
                     .frame(height: 20)
-                // swiftlint:disable:next todo
-                // TODO: Test and remove before 3.0 release
                 HStack {
                     Toggle("settings.toggle.rootWorkDir", isOn: $settings.settings.rootWorkDir)
                         .disabled(!(hasPlayTools ?? true))

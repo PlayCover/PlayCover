@@ -27,7 +27,9 @@ class SoundDeviceService {
         result: inout T
     ) -> OSStatus {
         var size = UInt32(MemoryLayout<T>.size)
-        return AudioObjectGetPropertyData(objectID, &address, UInt32(0), nil, &size, &result)
+        return withUnsafeMutablePointer(to: &result) { result in
+            AudioObjectGetPropertyData(objectID, &address, UInt32(0), nil, &size, result)
+        }
     }
 
     private func setAudioPropertyData<T>(
@@ -36,7 +38,9 @@ class SoundDeviceService {
         value: inout T)
     -> OSStatus {
         let size = UInt32(MemoryLayout<T>.size)
-        return AudioObjectSetPropertyData(objectID, &address, UInt32(0), nil, size, &value)
+        return withUnsafeMutablePointer(to: &value) { value in
+            AudioObjectSetPropertyData(objectID, &address, UInt32(0), nil, size, value)
+        }
     }
 
     private func getSoundDevice() -> AudioDeviceID? {

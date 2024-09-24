@@ -77,7 +77,7 @@ extension URL {
     func enumerateContents(blocking: Bool = true,
                            includingPropertiesForKeys keys: [URLResourceKey]? = nil,
                            options: FileManager.DirectoryEnumerationOptions? = nil,
-                           _ callback: @escaping(URL, URLResourceValues) throws -> Void) {
+                           _ callback: @escaping (URL, URLResourceValues) throws -> Void) {
         guard let enumerator = FileManager.default.enumerator(
             at: self,
             includingPropertiesForKeys: keys ?? [.isRegularFileKey],
