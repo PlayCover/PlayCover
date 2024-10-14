@@ -42,7 +42,8 @@ struct IPASourceSettings: View {
         Form {
             HStack {
                 List(storeVM.sourcesList, id: \.id, selection: $selected) { source in
-                    SourceView(source: source, isEnabled: storeVM.enabledsourcesList.contains(where: { $0.source == source.source }))
+                    SourceView(source: source,
+                               isEnabled: storeVM.enabledsourcesList.contains(where: { $0.source == source.source }))
                 }
                 .listStyle(.bordered(alternatesRowBackgrounds: true))
                 Spacer()
