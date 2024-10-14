@@ -16,6 +16,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
             .appendingPathComponent("Sources")
             .appendingPathExtension("plist")
         sourcesList = []
+        enabledsourcesList = []
         if !decode() { encode() }
         resolveSources()
     }
@@ -25,6 +26,22 @@ class StoreVM: ObservableObject, @unchecked Sendable {
             encode()
         }
     }
+
+    @Published var enabledsourcesList: [SourceData] {
+        didSet {
+            encode()
+        }
+    }
+
+    @Published var sourcesEnabledData: [SourceJSON] = [] {
+        didSet {
+            sourcesApps.removeAll()
+            for source in sourcesData {
+                appendSourceData(source)
+            }
+        }
+    }
+    
     @Published var sourcesData: [SourceJSON] = [] {
         didSet {
             sourcesApps.removeAll()
@@ -33,19 +50,39 @@ class StoreVM: ObservableObject, @unchecked Sendable {
             }
         }
     }
+
     @Published var sourcesApps: [SourceAppsData] = []
 
     private var resolveTask: Task<Void, Never>?
-
+    //
+    func enableSourceToggle(_ source: SourceData) -> Bool {
+        if !enabledsourcesList.contains(source) {
+            enabledsourcesList.append(source)
+        } else {
+            enabledsourcesList = enabledsourcesList.filter { $0 != source }
+        }
+        print("------------------------")
+        print("enabledsourcesList")
+        print(enabledsourcesList)
+        print("------------------------")
+        print("sourcesList")
+        print(sourcesList)
+        print("------------------------")
+        return enabledsourcesList.contains(source)
+    }
     //
     func addSource(_ source: SourceData) {
         sourcesList.append(source)
+        enabledsourcesList.append(source)
         resolveSources()
     }
 
     //
     func deleteSource(_ selectedSource: inout Set<UUID>) {
         sourcesList.removeAll {
+            selectedSource.contains($0.id)
+        }
+        enabledsourcesList.removeAll {
             selectedSource.contains($0.id)
         }
         resolveSources()
@@ -101,7 +138,6 @@ class StoreVM: ObservableObject, @unchecked Sendable {
 
             let sourcesCount = sourcesList.count
             sourcesData.removeAll()
-
             for index in sourcesList.indices {
                 sourcesList[index].status = .checking
                 let (sourceJson, sourceState) = await getSourceData(sourceLink: sourcesList[index].source)
@@ -111,7 +147,16 @@ class StoreVM: ObservableObject, @unchecked Sendable {
                     sourcesData.append(sourceJson)
                 }
             }
-
+            enabledsourcesList.removeAll()
+            for index in enabledsourcesList.indices {
+                enabledsourcesList[index].status = .checking
+                let (sourceJson, sourceState) = await getSourceData(sourceLink: enabledsourcesList[index].source)
+                guard sourcesCount == enabledsourcesList.count else { return }
+                enabledsourcesList[index].status = sourceState
+                if sourceState == .valid, let sourceJson {
+                    sourcesData.append(sourceJson)
+                }
+            }
         }
     }
 

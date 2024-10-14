@@ -102,8 +102,8 @@ struct IPASourceSettings: View {
 
 struct SourceView: View {
     var source: SourceData
+    @AppStorage("isSourceEnabled") var isSourceEnabled = true
     @State var showingPopover = false
-
     var body: some View {
         HStack {
             Text(source.source)
@@ -136,6 +136,13 @@ struct SourceView: View {
                                 imageColor: .green,
                                 popoverText: "preferences.popover.valid",
                                 showingPopover: $showingPopover)
+            }
+            if #available(macOS 14.0, *) {
+                Toggle(source.source, isOn: $isSourceEnabled).onChange(of: isSourceEnabled) {
+                    StoreVM.shared.enableSourceToggle(source)
+                }
+            } else {
+                // Fallback on earlier versions
             }
         }
     }
@@ -279,7 +286,7 @@ struct AddSourceView: View {
                     do {
                         let _: SourceJSON = try JSONDecoder().decode(SourceJSON.self, from: jsonData)
                         Task { @MainActor in
-                            sourceValidationState = storeVM.sourcesList.filter {
+                            sourceValidationState = storeVM.enabledsourcesList.filter {
                                 $0.source == source
                             }.isEmpty ? .valid : .duplicate
                         }
@@ -288,7 +295,7 @@ struct AddSourceView: View {
                             let data: [SourceAppsData] = try JSONDecoder().decode([SourceAppsData].self, from: jsonData)
                             if data.count > 0 {
                                 Task { @MainActor in
-                                    sourceValidationState = storeVM.sourcesList.filter {
+                                    sourceValidationState = storeVM.enabledsourcesList.filter {
                                         $0.source == source
                                     }.isEmpty ? .valid : .duplicate
                                 }
