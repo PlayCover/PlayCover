@@ -36,12 +36,12 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     @Published var sourcesEnabledData: [SourceJSON] = [] {
         didSet {
             sourcesApps.removeAll()
-            for source in sourcesData {
-                appendSourceData(source)
+            for source in sourcesEnabledData {
+                appendSourceEnabledData(source)
             }
         }
     }
-    
+
     @Published var sourcesData: [SourceJSON] = [] {
         didSet {
             sourcesApps.removeAll()
@@ -55,20 +55,12 @@ class StoreVM: ObservableObject, @unchecked Sendable {
 
     private var resolveTask: Task<Void, Never>?
     //
-    func enableSourceToggle(_ source: SourceData) -> Bool {
-        if !enabledsourcesList.contains(source) {
+    func enableSourceToggle(_ source: SourceData, _ value:Bool) {
+        if value {
             enabledsourcesList.append(source)
         } else {
             enabledsourcesList = enabledsourcesList.filter { $0 != source }
         }
-        print("------------------------")
-        print("enabledsourcesList")
-        print(enabledsourcesList)
-        print("------------------------")
-        print("sourcesList")
-        print(sourcesList)
-        print("------------------------")
-        return enabledsourcesList.contains(source)
     }
     //
     func addSource(_ source: SourceData) {
@@ -154,7 +146,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
                 guard sourcesCount == enabledsourcesList.count else { return }
                 enabledsourcesList[index].status = sourceState
                 if sourceState == .valid, let sourceJson {
-                    sourcesData.append(sourceJson)
+                    sourcesEnabledData.append(sourceJson)
                 }
             }
         }
@@ -225,6 +217,12 @@ class StoreVM: ObservableObject, @unchecked Sendable {
 
     //
     private func appendSourceData(_ source: SourceJSON) {
+        for app in source.data where !sourcesApps.contains(app) {
+            sourcesApps.append(app)
+        }
+    }
+    //
+    private func appendSourceEnabledData(_ source: SourceJSON) {
         for app in source.data where !sourcesApps.contains(app) {
             sourcesApps.append(app)
         }

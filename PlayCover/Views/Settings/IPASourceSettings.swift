@@ -139,7 +139,7 @@ struct SourceView: View {
             }
             if #available(macOS 14.0, *) {
                 Toggle(source.source, isOn: $isEnabled).onChange(of: isEnabled){ value in
-                    StoreVM.shared.enableSourceToggle(source)
+                    StoreVM.shared.enableSourceToggle(source, value)
                 }
             } else {
                 // Fallback on earlier versions
