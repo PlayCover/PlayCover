@@ -56,12 +56,13 @@ class StoreVM: ObservableObject, @unchecked Sendable {
 
     private var resolveTask: Task<Void, Never>?
     //
-    func enableSourceToggle(_ source: SourceData, _ value:Bool) {
+    func enableSourceToggle(_ source: SourceData, _ value: Bool) {
         if value {
             enabledsourcesList.append(source)
         } else {
             enabledsourcesList = enabledsourcesList.filter { $0 != source }
         }
+        updateEnabled()
     }
     //
     func addSource(_ source: SourceData) {
@@ -122,6 +123,25 @@ class StoreVM: ObservableObject, @unchecked Sendable {
         }
     }
 
+    func updateEnabled() {
+        resolveTask?.cancel()
+
+        resolveTask = Task { @MainActor in
+            guard NetworkVM.isConnectedToNetwork() && !enabledsourcesList.isEmpty else { return }
+            let sourcesEnabldeCount = enabledsourcesList.count
+            sourcesEnabledData.removeAll()
+            for index in enabledsourcesList.indices {
+                enabledsourcesList[index].status = .checking
+                let (sourceJson, sourceState) = await getSourceData(sourceLink: enabledsourcesList[index].source)
+                guard sourcesEnabldeCount == enabledsourcesList.count else { return }
+                enabledsourcesList[index].status = sourceState
+                if sourceState == .valid, let sourceJson {
+                    sourcesEnabledData.append(sourceJson)
+                }
+            }
+        }
+    }
+
     //
     func resolveSources() {
         resolveTask?.cancel()
@@ -138,16 +158,6 @@ class StoreVM: ObservableObject, @unchecked Sendable {
                 sourcesList[index].status = sourceState
                 if sourceState == .valid, let sourceJson {
                     sourcesData.append(sourceJson)
-                }
-            }
-            enabledsourcesList.removeAll()
-            for index in enabledsourcesList.indices {
-                enabledsourcesList[index].status = .checking
-                let (sourceJson, sourceState) = await getSourceData(sourceLink: enabledsourcesList[index].source)
-                guard sourcesCount == enabledsourcesList.count else { return }
-                enabledsourcesList[index].status = sourceState
-                if sourceState == .valid, let sourceJson {
-                    sourcesEnabledData.append(sourceJson)
                 }
             }
         }

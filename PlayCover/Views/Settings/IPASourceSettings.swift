@@ -102,7 +102,7 @@ struct IPASourceSettings: View {
 
 struct SourceView: View {
     var source: SourceData
-    @State var isEnabled:Bool
+    @State var isEnabled: Bool
     @State var showingPopover = false
     var body: some View {
         HStack {
@@ -137,12 +137,8 @@ struct SourceView: View {
                                 popoverText: "preferences.popover.valid",
                                 showingPopover: $showingPopover)
             }
-            if #available(macOS 14.0, *) {
-                Toggle(source.source, isOn: $isEnabled).onChange(of: isEnabled){ value in
-                    StoreVM.shared.enableSourceToggle(source, value)
-                }
-            } else {
-                // Fallback on earlier versions
+            Toggle(source.source, isOn: $isEnabled).onChange(of: isEnabled) { value in
+                StoreVM.shared.enableSourceToggle(source, value)
             }
         }
     }
