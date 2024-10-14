@@ -113,7 +113,7 @@ struct IPALibraryView: View {
             }
             ToolbarItem(placement: .primaryAction) {
                 Button {
-                    storeVM.resolveSources()
+                    storeVM.updateEnabled()
                 } label: {
                     Image(systemName: "arrow.clockwise.circle")
                         .help("playapp.refreshSources")

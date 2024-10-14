@@ -10,15 +10,19 @@ import Foundation
 class StoreVM: ObservableObject, @unchecked Sendable {
     public static let shared = StoreVM()
     private let plistSource: URL
-
+    private let plistEnabledSource: URL
     private init() {
         plistSource = PlayTools.playCoverContainer
             .appendingPathComponent("Sources")
             .appendingPathExtension("plist")
+        plistEnabledSource = PlayTools.playCoverContainer
+            .appendingPathComponent("SourcesEnabled")
+            .appendingPathExtension("plist")
         sourcesList = []
         enabledsourcesList = []
         if !decode() { encode() }
-        resolveSources()
+        if !decodeEnabled() { encodeEnabled() }
+        updateEnabled()
     }
 
     @Published var sourcesList: [SourceData] {
@@ -29,7 +33,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
 
     @Published var enabledsourcesList: [SourceData] {
         didSet {
-            encode()
+            encodeEnabled()
         }
     }
 
@@ -62,6 +66,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
         } else {
             enabledsourcesList = enabledsourcesList.filter { $0 != source }
         }
+        print(enabledsourcesList)
         updateEnabled()
     }
     //
@@ -160,6 +165,34 @@ class StoreVM: ObservableObject, @unchecked Sendable {
                     sourcesData.append(sourceJson)
                 }
             }
+        }
+    }
+
+    //
+    @discardableResult private func encodeEnabled() -> Bool {
+        let encoder = PropertyListEncoder()
+        encoder.outputFormat = .xml
+
+        do {
+            let data = try encoder.encode(enabledsourcesList)
+            try data.write(to: plistEnabledSource)
+            return true
+        } catch {
+            print("StoreVM: Failed to encode SourcesEnabled.plist! ", error)
+            return false
+        }
+    }
+
+    //
+    @discardableResult private func decodeEnabled() -> Bool {
+        do {
+            let data = try Data(contentsOf: plistEnabledSource)
+            enabledsourcesList = try PropertyListDecoder().decode([SourceData].self, from: data)
+            print(enabledsourcesList)
+            return true
+        } catch {
+            print("StoreVM: Failed to decode SourcesEnabled.plist! ", error)
+            return false
         }
     }
 

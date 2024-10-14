@@ -42,7 +42,7 @@ struct IPASourceSettings: View {
         Form {
             HStack {
                 List(storeVM.sourcesList, id: \.id, selection: $selected) { source in
-                    SourceView(source: source, isEnabled: StoreVM.shared.enabledsourcesList.contains(source))
+                    SourceView(source: source, isEnabled: storeVM.enabledsourcesList.contains(where: { $0.source == source.source }))
                 }
                 .listStyle(.bordered(alternatesRowBackgrounds: true))
                 Spacer()
@@ -282,7 +282,7 @@ struct AddSourceView: View {
                     do {
                         let _: SourceJSON = try JSONDecoder().decode(SourceJSON.self, from: jsonData)
                         Task { @MainActor in
-                            sourceValidationState = storeVM.enabledsourcesList.filter {
+                            sourceValidationState = storeVM.sourcesList.filter {
                                 $0.source == source
                             }.isEmpty ? .valid : .duplicate
                         }
@@ -291,7 +291,7 @@ struct AddSourceView: View {
                             let data: [SourceAppsData] = try JSONDecoder().decode([SourceAppsData].self, from: jsonData)
                             if data.count > 0 {
                                 Task { @MainActor in
-                                    sourceValidationState = storeVM.enabledsourcesList.filter {
+                                    sourceValidationState = storeVM.sourcesList.filter {
                                         $0.source == source
                                     }.isEmpty ? .valid : .duplicate
                                 }
