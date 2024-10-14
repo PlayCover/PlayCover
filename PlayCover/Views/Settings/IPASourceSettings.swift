@@ -137,7 +137,7 @@ struct SourceView: View {
                                 popoverText: "preferences.popover.valid",
                                 showingPopover: $showingPopover)
             }
-            Toggle(source.source, isOn: $isEnabled).onChange(of: isEnabled) { value in
+            Toggle("state.enabled", isOn: $isEnabled).onChange(of: isEnabled) { value in
                 StoreVM.shared.enableSourceToggle(source, value)
             }
         }
