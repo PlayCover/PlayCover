@@ -35,7 +35,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
 
     @Published var sourcesEnabledData: [SourceJSON] = [] {
         didSet {
-            sourcesApps.removeAll()
+            sourcesEnabeldApps.removeAll()
             for source in sourcesEnabledData {
                 appendSourceEnabledData(source)
             }
@@ -52,6 +52,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     }
 
     @Published var sourcesApps: [SourceAppsData] = []
+    @Published var sourcesEnabeldApps: [SourceAppsData] = []
 
     private var resolveTask: Task<Void, Never>?
     //
@@ -223,8 +224,8 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     }
     //
     private func appendSourceEnabledData(_ source: SourceJSON) {
-        for app in source.data where !sourcesApps.contains(app) {
-            sourcesApps.append(app)
+        for app in source.data where !sourcesEnabeldApps.contains(app) {
+            sourcesEnabeldApps.append(app)
         }
     }
 
