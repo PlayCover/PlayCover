@@ -42,7 +42,7 @@ struct IPASourceSettings: View {
         Form {
             HStack {
                 List(storeVM.sourcesList, id: \.id, selection: $selected) { source in
-                    SourceView(source: source)
+                    SourceView(source: source, isEnabled: StoreVM.shared.enabledsourcesList.contains(source))
                 }
                 .listStyle(.bordered(alternatesRowBackgrounds: true))
                 Spacer()
@@ -102,7 +102,7 @@ struct IPASourceSettings: View {
 
 struct SourceView: View {
     var source: SourceData
-    @AppStorage("isSourceEnabled") var isSourceEnabled = true
+    @State var isEnabled:Bool
     @State var showingPopover = false
     var body: some View {
         HStack {
@@ -138,7 +138,7 @@ struct SourceView: View {
                                 showingPopover: $showingPopover)
             }
             if #available(macOS 14.0, *) {
-                Toggle(source.source, isOn: $isSourceEnabled).onChange(of: isSourceEnabled) {
+                Toggle(source.source, isOn: $isEnabled).onChange(of: isEnabled){ value in
                     StoreVM.shared.enableSourceToggle(source)
                 }
             } else {
