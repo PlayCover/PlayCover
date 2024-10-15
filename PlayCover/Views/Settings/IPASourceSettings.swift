@@ -107,7 +107,7 @@ struct SourceView: View {
     @State var showingPopover = false
     var body: some View {
         HStack {
-            Text(source.source)
+            Text(source.source).foregroundStyle(isEnabled ? .primary : .secondary)
             Spacer()
             switch source.status {
             case .badjson:
@@ -133,14 +133,21 @@ struct SourceView: View {
             case .empty:
                 EmptyView()
             case .valid:
-                StatusBadgeView(imageName: "checkmark.circle.fill",
-                                imageColor: .green,
-                                popoverText: "preferences.popover.valid",
-                                showingPopover: $showingPopover)
+                if isEnabled {
+                    StatusBadgeView(imageName: "checkmark.circle.fill",
+                                    imageColor: .green,
+                                    popoverText: "preferences.popover.valid",
+                                    showingPopover: $showingPopover)
+                } else {
+                    StatusBadgeView(imageName: "checkmark.circle.badge.xmark.fill",
+                                    imageColor: .gray,
+                                    popoverText: "preferences.popover.disabled",
+                                    showingPopover: $showingPopover)
+                }
             }
             Toggle("state.enabled", isOn: $isEnabled).onChange(of: isEnabled) { value in
                 StoreVM.shared.enableSourceToggle(source, value)
-            }
+            }.foregroundStyle(isEnabled ? .primary : .secondary)
         }
     }
 }

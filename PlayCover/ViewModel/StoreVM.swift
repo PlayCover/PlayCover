@@ -21,8 +21,11 @@ class StoreVM: ObservableObject, @unchecked Sendable {
         sourcesList = []
         enabledsourcesList = []
         if !decode() { encode() }
-        if !decodeEnabled() { encodeEnabled() }
-        updateEnabled()
+        if !decodeEnabled() {
+            enabledsourcesList = sourcesList
+            encodeEnabled()
+        }
+        resolveSources()
     }
 
     @Published var sourcesList: [SourceData] {
@@ -61,12 +64,11 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     private var resolveTask: Task<Void, Never>?
     //
     func enableSourceToggle(_ source: SourceData, _ value: Bool) {
-        if value {
+        if value && !enabledsourcesList.contains(where: { $0.source == source.source }) {
             enabledsourcesList.append(source)
         } else {
             enabledsourcesList = enabledsourcesList.filter { $0 != source }
         }
-        print(enabledsourcesList)
         updateEnabled()
     }
     //
@@ -130,18 +132,17 @@ class StoreVM: ObservableObject, @unchecked Sendable {
 
     func updateEnabled() {
         resolveTask?.cancel()
-
         resolveTask = Task { @MainActor in
-            guard NetworkVM.isConnectedToNetwork() && !enabledsourcesList.isEmpty else { return }
             let sourcesEnabldeCount = enabledsourcesList.count
             sourcesEnabledData.removeAll()
             for index in enabledsourcesList.indices {
                 enabledsourcesList[index].status = .checking
-                let (sourceJson, sourceState) = await getSourceData(sourceLink: enabledsourcesList[index].source)
+                let (sourceJsonEnabled, sourceStateEndabled) = await getSourceData(sourceLink:
+                                                                                    enabledsourcesList[index].source)
                 guard sourcesEnabldeCount == enabledsourcesList.count else { return }
-                enabledsourcesList[index].status = sourceState
-                if sourceState == .valid, let sourceJson {
-                    sourcesEnabledData.append(sourceJson)
+                enabledsourcesList[index].status = sourceStateEndabled
+                if sourceStateEndabled == .valid, let sourceJsonEnabled {
+                    sourcesEnabledData.append(sourceJsonEnabled)
                 }
             }
         }
@@ -151,9 +152,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     func resolveSources() {
         resolveTask?.cancel()
         resolveTask = Task { @MainActor in
-
             guard NetworkVM.isConnectedToNetwork() && !sourcesList.isEmpty else { return }
-
             let sourcesCount = sourcesList.count
             sourcesData.removeAll()
             for index in sourcesList.indices {
@@ -165,7 +164,20 @@ class StoreVM: ObservableObject, @unchecked Sendable {
                     sourcesData.append(sourceJson)
                 }
             }
-        }
+            //
+            let sourcesEnabldeCount = enabledsourcesList.count
+            sourcesEnabledData.removeAll()
+            for index in enabledsourcesList.indices {
+                enabledsourcesList[index].status = .checking
+                let (sourceJsonEnabled, sourceStateEndabled) = await getSourceData(sourceLink:
+                                                                                    enabledsourcesList[index].source)
+                    guard sourcesEnabldeCount == enabledsourcesList.count else { return }
+                    enabledsourcesList[index].status = sourceStateEndabled
+                    if sourceStateEndabled == .valid, let sourceJsonEnabled {
+                        sourcesEnabledData.append(sourceJsonEnabled)
+                    }
+                }
+            }
     }
 
     //
@@ -188,7 +200,6 @@ class StoreVM: ObservableObject, @unchecked Sendable {
         do {
             let data = try Data(contentsOf: plistEnabledSource)
             enabledsourcesList = try PropertyListDecoder().decode([SourceData].self, from: data)
-            print(enabledsourcesList)
             return true
         } catch {
             print("StoreVM: Failed to decode SourcesEnabled.plist! ", error)
