@@ -141,7 +141,7 @@ struct SourceView: View {
                 } else {
                     StatusBadgeView(imageName: "checkmark.circle.badge.xmark.fill",
                                     imageColor: .gray,
-                                    popoverText: "preferences.popover.disabled",
+                                    popoverText: "state.disabled",
                                     showingPopover: $showingPopover)
                 }
             }
