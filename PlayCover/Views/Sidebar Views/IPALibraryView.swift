@@ -34,7 +34,7 @@ struct IPALibraryView: View {
         let sortedApps = storeVM.sourcesApps.sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
         Group {
             if NetworkVM.isConnectedToNetwork() {
-                if storeVM.sourcesList.isEmpty {
+                if storeVM.enabledList.isEmpty {
                     VStack {
                         Spacer()
                         Text("ipaLibrary.noSources.title")
