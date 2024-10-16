@@ -43,7 +43,7 @@ struct IPASourceSettings: View {
             HStack {
                 List(storeVM.sourcesList, id: \.id, selection: $selected) { source in
                     SourceView(source: source,
-                               isEnabled: storeVM.enableList.contains(where: { $0 == source.source }))
+                               isEnabled: storeVM.enabledList.contains(where: { $0 == source.source }))
                 }
                 .listStyle(.bordered(alternatesRowBackgrounds: true))
                 Spacer()
@@ -110,7 +110,6 @@ struct SourceView: View {
         HStack {
             Toggle("", isOn: $isEnabled).onChange(of: isEnabled) { value in
                 StoreVM.shared.enableSourceToggle(source: source, value: value)
-                StoreVM.shared.resolveSources()
             }
             .help("state.enabled")
             Text(source.source).foregroundStyle(isEnabled ? .primary : .secondary)

@@ -20,6 +20,9 @@ class StoreVM: ObservableObject, @unchecked Sendable {
         resolveSources()
     }
 
+    @Published var enabledList: [String] = (UserDefaults.standard.stringArray(forKey: "enableSourceList") ??
+                                             StoreVM.shared.sourcesList.map { $0.source })
+
     @Published var sourcesList: [SourceData] {
         didSet {
             encode()
@@ -28,9 +31,10 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     @Published var sourcesData: [SourceJSON] = [] {
         didSet {
             sourcesApps.removeAll()
-            for source in sourcesData {
-                appendSourceData(source)
-            }
+            let enabledSources: [SourceJSON] = sourcesData.filter { enabledList.contains($0.sourceURL) }
+              for source in enabledSources {
+                    appendSourceData(source)
+                }
         }
     }
     @Published var sourcesApps: [SourceAppsData] = []
@@ -39,12 +43,12 @@ class StoreVM: ObservableObject, @unchecked Sendable {
 
     //
     func enableSourceToggle(source: SourceData, value: Bool) {
-        if enableList.contains(source.source) && !value {
-            enableList.removeFirstObject(object: source.source)
+        if enabledList.contains(source.source) && !value {
+            enabledList.removeFirstObject(object: source.source)
         } else {
-            enableList.append(source.source)
+            enabledList.append(source.source)
         }
-        UserDefaults.standard.set(enableList, forKey: "enableSourceList")
+        UserDefaults.standard.set(enabledList, forKey: "enableSourceList")
     }
     //
     func addSource(_ source: SourceData) {
@@ -101,6 +105,23 @@ class StoreVM: ObservableObject, @unchecked Sendable {
         }
     }
 
+    /*
+    //
+    @MainActor func asyncresolveSources() async {
+        guard NetworkVM.isConnectedToNetwork() && !sourcesList.isEmpty else { return }
+        let sourcesCount = sourcesList.count
+        sourcesData.removeAll()
+        for index in sourcesList.indices where enabledList.contains(sourcesList[index].source) {
+            sourcesList[index].status = .checking
+            let (sourceJson, sourceState) = await getSourceData(sourceLink: sourcesList[index].source)
+            guard sourcesCount == sourcesList.count else { return }
+            sourcesList[index].status = sourceState
+            if sourceState == .valid, let sourceJson {
+                sourcesData.append(sourceJson)
+            }
+        }
+    }
+*/
     //
     func resolveSources() {
         resolveTask?.cancel()
@@ -111,7 +132,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
             let sourcesCount = sourcesList.count
             sourcesData.removeAll()
 
-            for index in sourcesList.indices where enableList.contains(sourcesList[index].source) {
+            for index in sourcesList.indices {
                 sourcesList[index].status = .checking
                 let (sourceJson, sourceState) = await getSourceData(sourceLink: sourcesList[index].source)
                 guard sourcesCount == sourcesList.count else { return }
@@ -178,7 +199,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
                 ? (url.absoluteString as NSString).lastPathComponent.replacingOccurrences(of: ".json", with: "")
                 : url.host ?? url.absoluteString
                 let oldTypeJson: [SourceAppsData] = try JSONDecoder().decode([SourceAppsData].self, from: unwrappedData)
-                decodedData = SourceJSON(name: sourceName, data: oldTypeJson)
+                decodedData = SourceJSON(name: sourceName, data: oldTypeJson, sourceURL: sourceLink)
                 return (decodedData, .valid)
             } catch {
                 debugPrint("Error decoding data from URL: \(url): \(error)")
@@ -200,6 +221,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
 struct SourceJSON: Codable, Equatable, Hashable {
     let name: String
     let data: [SourceAppsData]
+    let sourceURL: String
 }
 
 struct SourceAppsData: Codable, Equatable, Hashable {

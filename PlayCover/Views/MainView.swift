@@ -59,7 +59,8 @@ struct MainView: View {
                             }
                         }
                         if showSourceFolders {
-                            ForEach(store.sourcesData, id: \.hashValue) { source in
+                            ForEach(store.sourcesData.filter {
+                                StoreVM.shared.enabledList.contains($0.sourceURL) }, id: \.hashValue) { source in
                               NavigationLink(tag: source.hashValue, selection: $selectedView) {
                                     IPASourceView(storeVM: store,
                                                   selectedBackgroundColor: $selectedBackgroundColor,
