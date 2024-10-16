@@ -10,7 +10,6 @@ import Foundation
 class StoreVM: ObservableObject, @unchecked Sendable {
     public static let shared = StoreVM()
     private let plistSource: URL
-    var enableList: [String] = UserDefaults.standard.stringArray(forKey: "enableSourceList") ?? []
     private init() {
         plistSource = PlayTools.playCoverContainer
             .appendingPathComponent("Sources")
@@ -105,23 +104,6 @@ class StoreVM: ObservableObject, @unchecked Sendable {
         }
     }
 
-    /*
-    //
-    @MainActor func asyncresolveSources() async {
-        guard NetworkVM.isConnectedToNetwork() && !sourcesList.isEmpty else { return }
-        let sourcesCount = sourcesList.count
-        sourcesData.removeAll()
-        for index in sourcesList.indices where enabledList.contains(sourcesList[index].source) {
-            sourcesList[index].status = .checking
-            let (sourceJson, sourceState) = await getSourceData(sourceLink: sourcesList[index].source)
-            guard sourcesCount == sourcesList.count else { return }
-            sourcesList[index].status = sourceState
-            if sourceState == .valid, let sourceJson {
-                sourcesData.append(sourceJson)
-            }
-        }
-    }
-*/
     //
     func resolveSources() {
         resolveTask?.cancel()
