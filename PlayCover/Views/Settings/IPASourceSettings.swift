@@ -43,7 +43,7 @@ struct IPASourceSettings: View {
             HStack {
                 List(storeVM.sourcesList, id: \.id, selection: $selected) { source in
                     SourceView(source: source,
-                               isEnabled: storeVM.enabledsourcesList.contains(where: { $0.source == source.source }))
+                               isEnabled: storeVM.enableList.contains(where: { $0 == source.source }))
                 }
                 .listStyle(.bordered(alternatesRowBackgrounds: true))
                 Spacer()
@@ -107,6 +107,11 @@ struct SourceView: View {
     @State var showingPopover = false
     var body: some View {
         HStack {
+            Toggle("", isOn: $isEnabled).onChange(of: isEnabled) { value in
+                StoreVM.shared.enableSourceToggle(source: source, value: value)
+                StoreVM.shared.resolveSources()
+            }
+            .help("state.enabled")
             Text(source.source).foregroundStyle(isEnabled ? .primary : .secondary)
             Spacer()
             switch source.status {
@@ -145,9 +150,6 @@ struct SourceView: View {
                                     showingPopover: $showingPopover)
                 }
             }
-            Toggle("state.enabled", isOn: $isEnabled).onChange(of: isEnabled) { value in
-                StoreVM.shared.enableSourceToggle(source, value)
-            }.foregroundStyle(isEnabled ? .primary : .secondary)
         }
     }
 }

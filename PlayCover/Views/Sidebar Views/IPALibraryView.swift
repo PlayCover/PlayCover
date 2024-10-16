@@ -34,7 +34,7 @@ struct IPALibraryView: View {
         let sortedApps = storeVM.sourcesApps.sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
         Group {
             if NetworkVM.isConnectedToNetwork() {
-                if storeVM.enabledsourcesList.isEmpty {
+                if storeVM.sourcesList.isEmpty {
                     VStack {
                         Spacer()
                         Text("ipaLibrary.noSources.title")
@@ -113,12 +113,12 @@ struct IPALibraryView: View {
             }
             ToolbarItem(placement: .primaryAction) {
                 Button {
-                    storeVM.updateEnabled()
+                    storeVM.resolveSources()
                 } label: {
                     Image(systemName: "arrow.clockwise.circle")
                         .help("playapp.refreshSources")
                 }
-                .disabled(storeVM.enabledsourcesList.isEmpty)
+                .disabled(storeVM.sourcesList.isEmpty)
             }
             ToolbarItem(placement: .primaryAction) {
                 Spacer()

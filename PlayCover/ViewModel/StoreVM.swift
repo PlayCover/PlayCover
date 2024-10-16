@@ -10,42 +10,19 @@ import Foundation
 class StoreVM: ObservableObject, @unchecked Sendable {
     public static let shared = StoreVM()
     private let plistSource: URL
-    private let plistEnabledSource: URL
+    var enableList: [String] = UserDefaults.standard.stringArray(forKey: "enableSourceList") ?? []
     private init() {
         plistSource = PlayTools.playCoverContainer
             .appendingPathComponent("Sources")
             .appendingPathExtension("plist")
-        plistEnabledSource = PlayTools.playCoverContainer
-            .appendingPathComponent("SourcesEnabled")
-            .appendingPathExtension("plist")
         sourcesList = []
-        enabledsourcesList = []
         if !decode() { encode() }
-        if !decodeEnabled() {
-            enabledsourcesList = sourcesList
-            encodeEnabled()
-        }
         resolveSources()
     }
 
     @Published var sourcesList: [SourceData] {
         didSet {
             encode()
-        }
-    }
-
-    @Published var enabledsourcesList: [SourceData] {
-        didSet {
-            encodeEnabled()
-        }
-    }
-
-    @Published var sourcesEnabledData: [SourceJSON] = [] {
-        didSet {
-            sourcesEnabeldApps.removeAll()
-            for source in sourcesEnabledData {
-                appendSourceEnabledData(source)
-            }
         }
     }
 
@@ -59,31 +36,26 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     }
 
     @Published var sourcesApps: [SourceAppsData] = []
-    @Published var sourcesEnabeldApps: [SourceAppsData] = []
 
     private var resolveTask: Task<Void, Never>?
     //
-    func enableSourceToggle(_ source: SourceData, _ value: Bool) {
-        if value && !enabledsourcesList.contains(where: { $0.source == source.source }) {
-            enabledsourcesList.append(source)
+    func enableSourceToggle(source: SourceData, value: Bool) {
+        if enableList.contains(source.source) && !value {
+            enableList.removeFirstObject(object: source.source)
         } else {
-            enabledsourcesList = enabledsourcesList.filter { $0 != source }
+            enableList.append(source.source)
         }
-        updateEnabled()
+        UserDefaults.standard.set(enableList, forKey: "enableSourceList")
     }
     //
     func addSource(_ source: SourceData) {
         sourcesList.append(source)
-        enabledsourcesList.append(source)
         resolveSources()
     }
 
     //
     func deleteSource(_ selectedSource: inout Set<UUID>) {
         sourcesList.removeAll {
-            selectedSource.contains($0.id)
-        }
-        enabledsourcesList.removeAll {
             selectedSource.contains($0.id)
         }
         resolveSources()
@@ -130,24 +102,6 @@ class StoreVM: ObservableObject, @unchecked Sendable {
         }
     }
 
-    func updateEnabled() {
-        resolveTask?.cancel()
-        resolveTask = Task { @MainActor in
-            let sourcesEnabldeCount = enabledsourcesList.count
-            sourcesEnabledData.removeAll()
-            for index in enabledsourcesList.indices {
-                enabledsourcesList[index].status = .checking
-                let (sourceJsonEnabled, sourceStateEndabled) = await getSourceData(sourceLink:
-                                                                                    enabledsourcesList[index].source)
-                guard sourcesEnabldeCount == enabledsourcesList.count else { return }
-                enabledsourcesList[index].status = sourceStateEndabled
-                if sourceStateEndabled == .valid, let sourceJsonEnabled {
-                    sourcesEnabledData.append(sourceJsonEnabled)
-                }
-            }
-        }
-    }
-
     //
     func resolveSources() {
         resolveTask?.cancel()
@@ -155,7 +109,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
             guard NetworkVM.isConnectedToNetwork() && !sourcesList.isEmpty else { return }
             let sourcesCount = sourcesList.count
             sourcesData.removeAll()
-            for index in sourcesList.indices {
+            for index in sourcesList.indices where enableList.contains(sourcesList[index].source) {
                 sourcesList[index].status = .checking
                 let (sourceJson, sourceState) = await getSourceData(sourceLink: sourcesList[index].source)
                 guard sourcesCount == sourcesList.count else { return }
@@ -164,46 +118,6 @@ class StoreVM: ObservableObject, @unchecked Sendable {
                     sourcesData.append(sourceJson)
                 }
             }
-            //
-            let sourcesEnabldeCount = enabledsourcesList.count
-            sourcesEnabledData.removeAll()
-            for index in enabledsourcesList.indices {
-                enabledsourcesList[index].status = .checking
-                let (sourceJsonEnabled, sourceStateEndabled) = await getSourceData(sourceLink:
-                                                                                    enabledsourcesList[index].source)
-                    guard sourcesEnabldeCount == enabledsourcesList.count else { return }
-                    enabledsourcesList[index].status = sourceStateEndabled
-                    if sourceStateEndabled == .valid, let sourceJsonEnabled {
-                        sourcesEnabledData.append(sourceJsonEnabled)
-                    }
-                }
-            }
-    }
-
-    //
-    @discardableResult private func encodeEnabled() -> Bool {
-        let encoder = PropertyListEncoder()
-        encoder.outputFormat = .xml
-
-        do {
-            let data = try encoder.encode(enabledsourcesList)
-            try data.write(to: plistEnabledSource)
-            return true
-        } catch {
-            print("StoreVM: Failed to encode SourcesEnabled.plist! ", error)
-            return false
-        }
-    }
-
-    //
-    @discardableResult private func decodeEnabled() -> Bool {
-        do {
-            let data = try Data(contentsOf: plistEnabledSource)
-            enabledsourcesList = try PropertyListDecoder().decode([SourceData].self, from: data)
-            return true
-        } catch {
-            print("StoreVM: Failed to decode SourcesEnabled.plist! ", error)
-            return false
         }
     }
 
@@ -276,13 +190,6 @@ class StoreVM: ObservableObject, @unchecked Sendable {
             sourcesApps.append(app)
         }
     }
-    //
-    private func appendSourceEnabledData(_ source: SourceJSON) {
-        for app in source.data where !sourcesEnabeldApps.contains(app) {
-            sourcesEnabeldApps.append(app)
-        }
-    }
-
 }
 
 // Source Data Structure
@@ -298,4 +205,11 @@ struct SourceAppsData: Codable, Equatable, Hashable {
     let itunesLookup: String
     let link: String
     let checksum: String?
+}
+
+extension Array where Element == String {
+    mutating func removeFirstObject(object: String) {
+        guard let index = firstIndex(where: {$0 == object}) else { return }
+        remove(at: index)
+    }
 }

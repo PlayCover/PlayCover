@@ -78,7 +78,7 @@ struct IPASourceView: View {
             }
             ToolbarItem(placement: .primaryAction) {
                 Button {
-                    storeVM.updateEnabled()
+                    storeVM.resolveSources()
                 } label: {
                     Image(systemName: "arrow.clockwise.circle")
                         .help("playapp.refreshSources")
