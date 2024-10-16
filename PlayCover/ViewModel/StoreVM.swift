@@ -25,7 +25,6 @@ class StoreVM: ObservableObject, @unchecked Sendable {
             encode()
         }
     }
-
     @Published var sourcesData: [SourceJSON] = [] {
         didSet {
             sourcesApps.removeAll()
@@ -34,10 +33,10 @@ class StoreVM: ObservableObject, @unchecked Sendable {
             }
         }
     }
-
     @Published var sourcesApps: [SourceAppsData] = []
 
     private var resolveTask: Task<Void, Never>?
+
     //
     func enableSourceToggle(source: SourceData, value: Bool) {
         if enableList.contains(source.source) && !value {
@@ -106,9 +105,12 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     func resolveSources() {
         resolveTask?.cancel()
         resolveTask = Task { @MainActor in
+
             guard NetworkVM.isConnectedToNetwork() && !sourcesList.isEmpty else { return }
+
             let sourcesCount = sourcesList.count
             sourcesData.removeAll()
+
             for index in sourcesList.indices where enableList.contains(sourcesList[index].source) {
                 sourcesList[index].status = .checking
                 let (sourceJson, sourceState) = await getSourceData(sourceLink: sourcesList[index].source)
@@ -118,6 +120,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
                     sourcesData.append(sourceJson)
                 }
             }
+
         }
     }
 
@@ -190,6 +193,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
             sourcesApps.append(app)
         }
     }
+
 }
 
 // Source Data Structure

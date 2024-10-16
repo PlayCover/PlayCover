@@ -105,6 +105,7 @@ struct SourceView: View {
     var source: SourceData
     @State var isEnabled: Bool
     @State var showingPopover = false
+
     var body: some View {
         HStack {
             Toggle("", isOn: $isEnabled).onChange(of: isEnabled) { value in
