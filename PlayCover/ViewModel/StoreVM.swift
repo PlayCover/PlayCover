@@ -29,16 +29,21 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     }
     @Published var sourcesData: [SourceJSON] = [] {
         didSet {
-            sourcesApps.removeAll()
-            let enabledSources: [SourceJSON] = sourcesData.filter { enabledList.contains($0.sourceURL) }
-              for source in enabledSources {
-                    appendSourceData(source)
-                }
+            updateSourcesApps()
         }
     }
     @Published var sourcesApps: [SourceAppsData] = []
 
     private var resolveTask: Task<Void, Never>?
+
+    //
+    func updateSourcesApps() {
+        sourcesApps.removeAll()
+        let enabledSources: [SourceJSON] = sourcesData.filter { enabledList.contains($0.sourceURL) }
+          for source in enabledSources {
+                appendSourceData(source)
+            }
+    }
 
     //
     func enableSourceToggle(source: SourceData, value: Bool) {
@@ -47,8 +52,10 @@ class StoreVM: ObservableObject, @unchecked Sendable {
         } else {
             enabledList.append(source.source)
         }
+        updateSourcesApps()
         UserDefaults.standard.set(enabledList, forKey: "enableSourceList")
     }
+
     //
     func addSource(_ source: SourceData) {
         sourcesList.append(source)
