@@ -27,15 +27,31 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     }
     @Published var sourcesData: [SourceJSON] = [] {
         didSet {
-            sourcesApps.removeAll()
-            for source in sourcesData {
-                appendSourceData(source)
-            }
+            updateSourcesApps()
         }
     }
     @Published var sourcesApps: [SourceAppsData] = []
 
     private var resolveTask: Task<Void, Never>?
+
+    func enableSourceToggle(source: SourceData, value: Bool) {
+        if let index = sourcesList.firstIndex(of: source) {
+            sourcesList[index].isEnabled = value
+        }
+        updateSourcesApps()
+    }
+
+    func updateSourcesApps() {
+        sourcesApps.removeAll()
+        let enabledSources: [SourceJSON] = sourcesData.filter { sourceJSON in
+            return sourcesList.contains { sourceData in
+                sourceData.source == sourceJSON.sourceURL && sourceData.isEnabled
+            }
+        }
+        for source in enabledSources {
+            appendSourceData(source)
+        }
+}
 
     //
     func addSource(_ source: SourceData) {
@@ -169,7 +185,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
                 ? (url.absoluteString as NSString).lastPathComponent.replacingOccurrences(of: ".json", with: "")
                 : url.host ?? url.absoluteString
                 let oldTypeJson: [SourceAppsData] = try JSONDecoder().decode([SourceAppsData].self, from: unwrappedData)
-                decodedData = SourceJSON(name: sourceName, data: oldTypeJson)
+                decodedData = SourceJSON(name: sourceName, data: oldTypeJson, sourceURL: sourceLink)
                 return (decodedData, .valid)
             } catch {
                 debugPrint("Error decoding data from URL: \(url): \(error)")
@@ -191,6 +207,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
 struct SourceJSON: Codable, Equatable, Hashable {
     let name: String
     let data: [SourceAppsData]
+    let sourceURL: String
 }
 
 struct SourceAppsData: Codable, Equatable, Hashable {

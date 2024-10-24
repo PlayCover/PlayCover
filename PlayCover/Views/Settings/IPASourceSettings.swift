@@ -11,9 +11,11 @@ struct SourceData: Identifiable, Hashable {
     var id = UUID()
     var source: String
     var status: SourceValidation = .valid
+    var isEnabled: Bool
 
     enum SourceDataKeys: String, CodingKey {
         case source
+        case isEnabled
     }
 }
 
@@ -21,6 +23,7 @@ extension SourceData: Encodable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: SourceDataKeys.self)
         try container.encode(source, forKey: .source)
+        try container.encode(isEnabled.description, forKey: .isEnabled)
     }
 }
 
@@ -28,6 +31,7 @@ extension SourceData: Decodable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: SourceDataKeys.self)
         source = try values.decode(String.self, forKey: .source)
+        isEnabled = (try? values.decode(String.self, forKey: .isEnabled) == "true") ?? true
     }
 }
 
@@ -42,7 +46,8 @@ struct IPASourceSettings: View {
         Form {
             HStack {
                 List(storeVM.sourcesList, id: \.id, selection: $selected) { source in
-                    SourceView(source: source)
+                    SourceView(source: source,
+                               isEnabled: source.isEnabled)
                 }
                 .listStyle(.bordered(alternatesRowBackgrounds: true))
                 Spacer()
@@ -102,11 +107,14 @@ struct IPASourceSettings: View {
 
 struct SourceView: View {
     var source: SourceData
+    @State var isEnabled: Bool
     @State var showingPopover = false
 
     var body: some View {
         HStack {
-            Text(source.source)
+            Toggle(source.source, isOn: $isEnabled)
+            .foregroundStyle(isEnabled ? .primary : .secondary)
+            .help("state.enabled")
             Spacer()
             switch source.status {
             case .badjson:
@@ -132,11 +140,22 @@ struct SourceView: View {
             case .empty:
                 EmptyView()
             case .valid:
-                StatusBadgeView(imageName: "checkmark.circle.fill",
-                                imageColor: .green,
-                                popoverText: "preferences.popover.valid",
-                                showingPopover: $showingPopover)
+                if isEnabled {
+                    StatusBadgeView(imageName: "checkmark.circle.fill",
+                                    imageColor: .green,
+                                    popoverText: "preferences.popover.valid",
+                                    showingPopover: $showingPopover)
+                } else {
+                    StatusBadgeView(imageName: "checkmark.circle.badge.xmark.fill",
+                                    imageColor: .gray,
+                                    popoverText: "state.disabled",
+                                    showingPopover: $showingPopover)
+                }
             }
+        }
+        .onChange(of: isEnabled) { value in
+            StoreVM.shared.enableSourceToggle(source: source, value: value)
+            StoreVM.shared.updateSourcesApps()
         }
     }
 }
@@ -219,7 +238,7 @@ struct AddSourceView: View {
                 }
                 Button {
                     if let sourceURL = newSourceURL?.absoluteString {
-                        storeVM.addSource(SourceData(source: sourceURL))
+                        storeVM.addSource(SourceData(source: sourceURL, isEnabled: true))
                         addSourceSheet.toggle()
                     }
                 } label: {
