@@ -10,6 +10,7 @@ import Foundation
 class StoreVM: ObservableObject, @unchecked Sendable {
     public static let shared = StoreVM()
     private let plistSource: URL
+
     private init() {
         plistSource = PlayTools.playCoverContainer
             .appendingPathComponent("Sources")
@@ -18,9 +19,6 @@ class StoreVM: ObservableObject, @unchecked Sendable {
         if !decode() { encode() }
         resolveSources()
     }
-
-    @Published var enabledList: [String] = (UserDefaults.standard.stringArray(forKey: "enableSourceList") ??
-                                             StoreVM.shared.sourcesList.map { $0.source })
 
     @Published var sourcesList: [SourceData] {
         didSet {
@@ -36,25 +34,24 @@ class StoreVM: ObservableObject, @unchecked Sendable {
 
     private var resolveTask: Task<Void, Never>?
 
-    //
-    func updateSourcesApps() {
-        sourcesApps.removeAll()
-        let enabledSources: [SourceJSON] = sourcesData.filter { enabledList.contains($0.sourceURL) }
-          for source in enabledSources {
-                appendSourceData(source)
-            }
-    }
-
-    //
     func enableSourceToggle(source: SourceData, value: Bool) {
-        if enabledList.contains(source.source) && !value {
-            enabledList.removeFirstObject(object: source.source)
-        } else {
-            enabledList.append(source.source)
+        if let index = sourcesList.firstIndex(of: source) {
+            sourcesList[index].isEnabled = value
         }
         updateSourcesApps()
-        UserDefaults.standard.set(enabledList, forKey: "enableSourceList")
     }
+
+    func updateSourcesApps() {
+        sourcesApps.removeAll()
+        let enabledSources: [SourceJSON] = sourcesData.filter { sourceJSON in
+            return sourcesList.contains { sourceData in
+                sourceData.source == sourceJSON.sourceURL && sourceData.isEnabled
+            }
+        }
+        for source in enabledSources {
+            appendSourceData(source)
+        }
+}
 
     //
     func addSource(_ source: SourceData) {
@@ -220,11 +217,4 @@ struct SourceAppsData: Codable, Equatable, Hashable {
     let itunesLookup: String
     let link: String
     let checksum: String?
-}
-
-extension Array where Element == String {
-    mutating func removeFirstObject(object: String) {
-        guard let index = firstIndex(where: {$0 == object}) else { return }
-        remove(at: index)
-    }
 }
