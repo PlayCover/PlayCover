@@ -8,30 +8,29 @@
 import SwiftUI
 
 struct SourceData: Identifiable, Hashable {
-    var id = UUID()
+    var id: UUID
     var source: String
-    var status: SourceValidation = .valid
+    var status: SourceValidation
     var isEnabled: Bool
 
-    enum SourceDataKeys: String, CodingKey {
-        case source
-        case isEnabled
-    }
 }
 
-extension SourceData: Encodable {
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: SourceDataKeys.self)
-        try container.encode(source, forKey: .source)
-        try container.encode(isEnabled.description, forKey: .isEnabled)
+extension SourceData: Codable {
+    init(source: String, isEnabled: Bool) {
+        self.id = UUID()
+        self.source = source
+        self.status = .checking
+        self.isEnabled = isEnabled
     }
-}
 
-extension SourceData: Decodable {
     init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: SourceDataKeys.self)
-        source = try values.decode(String.self, forKey: .source)
-        isEnabled = (try? values.decode(String.self, forKey: .isEnabled) == "true") ?? true
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.init(
+            id: try container.decode(UUID.self, forKey: .id),
+            source: try container.decode(String.self, forKey: .source),
+            status: try container.decode(SourceValidation.self, forKey: .status),
+            isEnabled: try container.decodeIfPresent(Bool.self, forKey: .isEnabled) ?? true
+        )
     }
 }
 
@@ -181,7 +180,7 @@ struct StatusBadgeView: View {
     }
 }
 
-enum SourceValidation {
+enum SourceValidation: Codable {
     case badjson, badurl, checking, duplicate, valid, empty
 }
 
