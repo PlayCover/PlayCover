@@ -26,9 +26,9 @@ extension SourceData: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.init(
-            id: try container.decode(UUID.self, forKey: .id),
+            id: try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID(),
             source: try container.decode(String.self, forKey: .source),
-            status: try container.decode(SourceValidation.self, forKey: .status),
+            status: .checking,
             isEnabled: try container.decodeIfPresent(Bool.self, forKey: .isEnabled) ?? true
         )
     }

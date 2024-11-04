@@ -31,11 +31,7 @@ struct IPALibraryView: View {
     @State private var gridLayout = [GridItem(.adaptive(minimum: 130, maximum: .infinity))]
 
     var body: some View {
-        let enabledSources: [SourceJSON] = StoreVM.shared.sourcesData.filter { sourceJSON in
-            return StoreVM.shared.sourcesList.contains { sourceData in
-                sourceData.source == sourceJSON.sourceURL && sourceData.isEnabled
-            }
-        }
+        let enabledSources: [SourceJSON] = StoreVM.shared.getEnabledSources()
         let sortedApps = storeVM.sourcesApps.sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
         Group {
             if NetworkVM.isConnectedToNetwork() {
