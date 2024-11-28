@@ -289,4 +289,4 @@
 "macos.version" = "This app can be installed from Mac App Store";
 "alert.install.anyway" = "Install Anyway";
 "alert.open.appstore" = "Open Mac App Store";
-
+"alert.quota.limit" = "Google Drive quota limit reached. It may take up 24 hours to download this file again or try to login-in to Google Drive and download it manually";
