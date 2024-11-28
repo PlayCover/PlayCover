@@ -36,7 +36,8 @@ class Installer {
     }
 
     // swiftlint:disable:next function_body_length
-    static func install(ipaUrl: URL, export: Bool, returnCompletion: @escaping (URL?) -> Void) {
+    static func install(ipaUrl: URL, export: Bool, googleDrive: Bool = false,
+                        returnCompletion: @escaping (URL?) -> Void) {
         // If (the option key is held or the install playtools popup settings is true) and its not an export,
         //    then show the installer dialog
         let installPlayTools: Bool
@@ -119,7 +120,7 @@ class Installer {
                 returnCompletion(finalURL)
             } catch {
                 ipa.releaseTempDir()
-                if error.localizedDescription.contains("End-of-central-directory signature not found") {
+                if error.localizedDescription.contains("End-of-central-directory signature not found") && googleDrive {
                     Log.shared.error(NSLocalizedString("alert.quota.limit", comment: ""))
                 } else {
                     Log.shared.error(error)
