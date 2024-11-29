@@ -35,6 +35,19 @@ class Installer {
         return response == .alertFirstButtonReturn
     }
 
+    static private func returnError(error: Error, googleDrive: Bool) {
+        switch error.localizedDescription {
+        case let str where str.contains("End-of-central-directory") && googleDrive:
+            Log.shared.error(NSLocalizedString("alert.quota.limit", comment: ""))
+        case let str where str.contains("End-of-central-directory") && !googleDrive:
+            Log.shared.error(NSLocalizedString("alert.notZipFile", comment: ""))
+        case let str where str.contains("(disk full?)"):
+            Log.shared.error(NSLocalizedString("alert.notSpace", comment: ""))
+        default:
+            Log.shared.error(error)
+        }
+    }
+
     // swiftlint:disable:next function_body_length
     static func install(ipaUrl: URL, export: Bool, googleDrive: Bool = false,
                         returnCompletion: @escaping (URL?) -> Void) {
@@ -120,11 +133,7 @@ class Installer {
                 returnCompletion(finalURL)
             } catch {
                 ipa.releaseTempDir()
-                if error.localizedDescription.contains("End-of-central-directory signature not found") && googleDrive {
-                    Log.shared.error(NSLocalizedString("alert.quota.limit", comment: ""))
-                } else {
-                    Log.shared.error(error)
-                }
+                returnError(error: error, googleDrive: googleDrive)
                 InstallVM.shared.next(.failed, 0.95, 1.0)
                 returnCompletion(nil)
             }
