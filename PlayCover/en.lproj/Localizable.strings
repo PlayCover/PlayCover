@@ -291,4 +291,4 @@
 "alert.open.appstore" = "Open Mac App Store";
 "alert.quota.limit" = "Google Drive quota limit reached. It may take up 24 hours to download this file again";
 "alert.notSpace" = "Not enough space on disk!";
-"alert.notZipFile" = "Either this file is not a zipfile, or it constitutes one disk of a multi-part archive";
+"alert.notZipFile" = "Either this file is not a zipfile, or it constitutes one disk of a multi-part archive or the file is corrupted. Try to download it again";
