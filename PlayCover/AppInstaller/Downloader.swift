@@ -126,8 +126,7 @@ class DownloadApp {
                         self.downloadVM.next(completing ? .finish : .failed, 0.95, 1.0)
                         if completing {
                             Task { @MainActor in
-                                let isGoogleDrive = finalURL.absoluteString.contains("drive.usercontent.google")
-                                self.proceedInstall(fileURL, googleDrive: isGoogleDrive)
+                                self.proceedInstall(fileURL)
                             }
                         }
                     }
@@ -172,9 +171,9 @@ class DownloadApp {
         }
     }
 
-    private func proceedInstall(_ url: URL?, deleteIPA: Bool = true, googleDrive: Bool = false) {
+    private func proceedInstall(_ url: URL?, deleteIPA: Bool = true) {
         if let url = url {
-            Installer.install(ipaUrl: url, export: false, googleDrive: googleDrive, returnCompletion: { _ in
+            Installer.install(ipaUrl: url, export: false, returnCompletion: { _ in
                 Task { @MainActor in
                     if deleteIPA {
                         FileManager.default.delete(at: url)

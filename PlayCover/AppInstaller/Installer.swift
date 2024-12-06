@@ -35,22 +35,21 @@ class Installer {
         return response == .alertFirstButtonReturn
     }
 
-    static private func returnError(error: Error, googleDrive: Bool) {
+    static private func returnError(error: Error) {
         switch error.localizedDescription {
-        case let str where str.contains("End-of-central-directory") && googleDrive:
-            Log.shared.error(NSLocalizedString("alert.quota.limit", comment: ""))
-        case let str where str.contains("End-of-central-directory") && !googleDrive:
-            Log.shared.error(NSLocalizedString("alert.notZipFile", comment: ""))
         case let str where str.contains("(disk full?)"):
             Log.shared.error(NSLocalizedString("alert.notSpace", comment: ""))
+        case let str where str.contains(".html"):
+            Log.shared.error(NSLocalizedString("alert.quota.limit", comment: ""))
+        case let str where str.contains(".ipa"):
+            Log.shared.error(NSLocalizedString("alert.corrupted", comment: ""))
         default:
             Log.shared.error(error)
         }
     }
 
     // swiftlint:disable:next function_body_length
-    static func install(ipaUrl: URL, export: Bool, googleDrive: Bool = false,
-                        returnCompletion: @escaping (URL?) -> Void) {
+    static func install(ipaUrl: URL, export: Bool, returnCompletion: @escaping (URL?) -> Void) {
         // If (the option key is held or the install playtools popup settings is true) and its not an export,
         //    then show the installer dialog
         let installPlayTools: Bool
@@ -132,8 +131,10 @@ class Installer {
                 InstallVM.shared.next(.finish, 0.95, 1.0)
                 returnCompletion(finalURL)
             } catch {
+                returnError(error: error)
+
                 ipa.releaseTempDir()
-                returnError(error: error, googleDrive: googleDrive)
+
                 InstallVM.shared.next(.failed, 0.95, 1.0)
                 returnCompletion(nil)
             }
