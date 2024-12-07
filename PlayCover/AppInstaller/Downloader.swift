@@ -35,6 +35,7 @@ class DownloadApp {
     let installVM = InstallVM.shared
     let downloader = DownloadManager.shared
 
+    @MainActor
     func start() {
         if installVM.inProgress {
             Log.shared.error(PlayCoverError.waitInstallation)
