@@ -35,16 +35,16 @@ class Installer {
         return response == .alertFirstButtonReturn
     }
 
-    static private func returnError(error: Error) {
+    static private func returnErrorString(error: Error) -> String {
         switch error.localizedDescription {
         case let str where str.contains("(disk full?)"):
-            Log.shared.error(NSLocalizedString("alert.notSpace", comment: ""))
+            return NSLocalizedString("alert.notSpace", comment: "")
         case let str where str.contains(".html"):
-            Log.shared.error(NSLocalizedString("alert.quota.limit", comment: ""))
+            return NSLocalizedString("alert.quota.limit", comment: "")
         case let str where str.contains(".ipa"):
-            Log.shared.error(NSLocalizedString("alert.corrupted", comment: ""))
+            return NSLocalizedString("alert.corrupted", comment: "")
         default:
-            Log.shared.error(error)
+            return NSLocalizedString(error.localizedDescription, comment: "")
         }
     }
 
@@ -131,8 +131,7 @@ class Installer {
                 InstallVM.shared.next(.finish, 0.95, 1.0)
                 returnCompletion(finalURL)
             } catch {
-                returnError(error: error)
-
+                Log.shared.error(returnErrorString(error: error))
                 ipa.releaseTempDir()
 
                 InstallVM.shared.next(.failed, 0.95, 1.0)
