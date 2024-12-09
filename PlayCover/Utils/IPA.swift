@@ -122,11 +122,10 @@ public class IPA {
         let noMacAlert = UserDefaults.standard.bool(forKey: "\(bundleID).noMacAlert")
         if supportMacOS && !noMacAlert {
             let alert = NSAlert()
-            alert.messageText = NSLocalizedString("alert.error", comment: "")
             alert.informativeText = String(
                 format: NSLocalizedString("macos.version", comment: "")
             )
-            alert.alertStyle = .warning
+            alert.alertStyle = .informational
             alert.addButton(withTitle: NSLocalizedString("alert.install.anyway", comment: ""))
             alert.addButton(withTitle: NSLocalizedString("alert.open.appstore", comment: ""))
             alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
