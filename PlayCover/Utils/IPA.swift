@@ -120,11 +120,15 @@ public class IPA {
         }
         let supportMacOS: Bool = await checkMacOS(appID: appID)
         let noMacAlert = UserDefaults.standard.bool(forKey: "\(bundleID).noMacAlert")
-        if supportMacOS && !noMacAlert {
+        let showAlert = InstallPreferences.shared.showAppStorePopup
+        if showAlert && supportMacOS && !noMacAlert {
             let alert = NSAlert()
             alert.informativeText = String(
                 format: NSLocalizedString("macos.version", comment: "")
             )
+            alert.icon = nil
+            alert.showsSuppressionButton = true
+            alert.suppressionButton?.toolTip = NSLocalizedString("alert.supression", comment: "String")
             alert.alertStyle = .informational
             alert.addButton(withTitle: NSLocalizedString("alert.install.anyway", comment: ""))
             alert.addButton(withTitle: NSLocalizedString("alert.open.appstore", comment: ""))
@@ -132,7 +136,11 @@ public class IPA {
             let result = alert.runModal()
             switch result {
             case .alertFirstButtonReturn:
-                UserDefaults.standard.set(true, forKey: "\(bundleID).noMacAlert")
+                if let suppressionButton = alert.suppressionButton,
+                   suppressionButton.state == .on {
+                    InstallPreferences.shared.showAppStorePopup = false
+                }
+                return false
             case .alertSecondButtonReturn:
                 if appID != 0 {
                     guard let urlApp = URL(string:

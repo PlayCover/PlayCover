@@ -15,6 +15,8 @@ class InstallPreferences: NSObject, ObservableObject {
     @AppStorage("DefaultAppType") var defaultAppType: LSApplicationCategoryType = .none
 
     @AppStorage("ShowInstallPopup") var showInstallPopup = false
+
+    @AppStorage("ShowAppStorePopup") var showAppStorePopup = true
 }
 
 struct InstallSettings: View {
@@ -35,6 +37,9 @@ struct InstallSettings: View {
                 }
                 .frame(width: 225)
             }
+            Spacer()
+                .frame(height: 20)
+            Toggle("preferences.toggle.showAppStorePopup", isOn: $installPreferences.showAppStorePopup)
             Spacer()
                 .frame(height: 20)
             Toggle("preferences.toggle.showInstallPopup", isOn: $installPreferences.showInstallPopup)
