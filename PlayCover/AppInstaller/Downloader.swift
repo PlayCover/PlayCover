@@ -73,7 +73,7 @@ class DownloadApp {
             if let url = url, let app = app {
                 let ipa = IPA(url: url)
                 Task {
-                    if await ipa.hasMacVersion(app: IPA.Application.store(app)) {
+                    if await ipa.checkOfficialMacOS(app: IPA.Application.store(app)) {
                         cancel()
                     } else {
                         if url.isFileURL {

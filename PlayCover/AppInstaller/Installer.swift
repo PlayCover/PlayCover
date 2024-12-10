@@ -59,7 +59,7 @@ class Installer {
                 try ipa.allocateTempDir()
 
                 let app = try ipa.unzip()
-                if await ipa.hasMacVersion(app: IPA.Application.base(app)) {
+                if await ipa.checkOfficialMacOS(app: IPA.Application.base(app)) {
                     ipa.releaseTempDir()
                     InstallVM.shared.next(.failed, 0.95, 1.0)
                     returnCompletion(nil)

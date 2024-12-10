@@ -72,7 +72,7 @@ public class IPA {
         case store(SourceAppsData)
     }
 
-    func checkMacOS(appID: Int) async -> Bool {
+    private func checkMacOSCompatibility(appID: Int) async -> Bool {
         let urlString = "https://apps.apple.com/us/app/id\(appID)"
         guard let url = URL(string: urlString) else {
             return false
@@ -103,7 +103,7 @@ public class IPA {
     }
 
     @MainActor
-    func hasMacVersion(app: Application) async -> Bool {
+    func checkOfficialMacOS(app: Application) async -> Bool {
         let bundleID: String
         let appID: Int
         switch app {
@@ -118,7 +118,7 @@ public class IPA {
             let stringArray = appLookup.components(separatedBy: CharacterSet.decimalDigits.inverted)
             appID = Int(stringArray.last ?? "0") ?? 0
         }
-        let supportMacOS: Bool = await checkMacOS(appID: appID)
+        let supportMacOS: Bool = await checkMacOSCompatibility(appID: appID)
         let noMacAlert = UserDefaults.standard.bool(forKey: "\(bundleID).noMacAlert")
         let showAlert = InstallPreferences.shared.showAppStorePopup
         if showAlert && supportMacOS && !noMacAlert {
