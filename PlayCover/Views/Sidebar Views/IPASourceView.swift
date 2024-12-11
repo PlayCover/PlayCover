@@ -30,7 +30,7 @@ struct IPASourceView: View {
 
     var body: some View {
         let sortedApps = sourceApps.sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
-        ScrollView {
+        List {
             if !isList {
                 LazyVGrid(columns: gridLayout, alignment: .center) {
                     ForEach(searchString == ""
