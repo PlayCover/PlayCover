@@ -53,6 +53,6 @@ struct InstallSettings: View {
             }.disabled(installPreferences.showInstallPopup)
         }
         .padding(20)
-        .frame(width: 400, height: 200)
+        .frame(width: 600, height: 200)
     }
 }
