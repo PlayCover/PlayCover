@@ -24,7 +24,7 @@ struct AppLibraryView: View {
     var body: some View {
         Group {
             if !appsVM.apps.isEmpty || appsVM.updatingApps {
-                ScrollView {
+                List {
                     AppDisplayView(apps: appsVM.filteredApps,
                                       selectedBackgroundColor: $selectedBackgroundColor,
                                       selectedTextColor: $selectedTextColor,

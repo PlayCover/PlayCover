@@ -51,7 +51,7 @@ struct IPALibraryView: View {
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
-                    ScrollView {
+                    List {
                         if !isList {
                             LazyVGrid(columns: gridLayout, alignment: .center) {
                                 ForEach(searchString.isEmpty
