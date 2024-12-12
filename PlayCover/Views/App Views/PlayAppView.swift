@@ -210,7 +210,7 @@ struct PlayAppConditionalView: View {
                         .brightness(-0.2)
                     )
             } else {
-                VStack {
+                LazyVStack {
                     Group {
                         if let image = appIcon {
                             Image(nsImage: image)

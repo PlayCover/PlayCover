@@ -164,7 +164,7 @@ struct StoreAppConditionalView: View {
                               selectedBackgroundColor : Color.clear)
                         .brightness(-0.2))
             } else {
-                VStack {
+                LazyVStack {
                     ZStack {
                         Group {
                             CachedAsyncImage(url: onlineIcon, urlCache: .iconCache) { image in

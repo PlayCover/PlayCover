@@ -30,7 +30,7 @@ struct IPASourceView: View {
 
     var body: some View {
         let sortedApps = sourceApps.sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
-        List {
+        ScrollView {
             if !isList {
                 LazyVGrid(columns: gridLayout, alignment: .center) {
                     ForEach(searchString == ""
@@ -46,7 +46,7 @@ struct IPASourceView: View {
                 .padding()
                 Spacer()
             } else {
-                VStack {
+                LazyVStack {
                     ForEach(searchString.isEmpty
                             ? sortAlphabetical ? sortedApps : sourceApps
                             : filteredApps, id: \.bundleID) { app in
