@@ -37,14 +37,10 @@ class Installer {
 
     static private func returnErrorString(error: Error) -> String {
         switch error.localizedDescription {
-        case let str where str.contains("(disk full?)"):
-            return NSLocalizedString("alert.notSpace", comment: "")
-        case let str where str.contains(".html"):
-            return NSLocalizedString("alert.quota.limit", comment: "")
-        case let str where str.contains(".ipa"):
-            return NSLocalizedString("alert.corrupted", comment: "")
-        default:
-            return NSLocalizedString(error.localizedDescription, comment: "")
+        case let str where str.contains("(disk full?)"): NSLocalizedString("alert.notSpace", comment: "")
+        case let str where str.contains(".html"): NSLocalizedString("alert.quota.limit", comment: "")
+        case let str where str.contains(".ipa"): NSLocalizedString("alert.corrupted", comment: "")
+        default: NSLocalizedString(error.localizedDescription, comment: "")
         }
     }
 
