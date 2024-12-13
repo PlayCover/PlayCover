@@ -123,6 +123,7 @@ public class IPA {
         let showAlert = InstallPreferences.shared.showAppStorePopup
         if showAlert && supportMacOS && !noMacAlert {
             let alert = NSAlert()
+            alert.messageText = NSLocalizedString("alert.appstore", comment: "")
             alert.informativeText = String(
                 format: NSLocalizedString("macos.version", comment: "")
             )

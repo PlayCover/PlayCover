@@ -289,4 +289,5 @@
 "macos.version" = "This app can be installed from Mac App Store";
 "alert.install.anyway" = "Install Anyway";
 "alert.open.appstore" = "Open Mac App Store";
+"alert.appstore" = "MacOS version is available";
 "preferences.toggle.showAppStorePopup" = "Show an alert if the application has an official AppStore version";
