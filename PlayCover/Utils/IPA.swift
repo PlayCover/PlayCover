@@ -119,9 +119,8 @@ public class IPA {
             appID = Int(stringArray.last ?? "0") ?? 0
         }
         let supportMacOS: Bool = await checkMacOSCompatibility(appID: appID)
-        let noMacAlert = UserDefaults.standard.bool(forKey: "\(bundleID).noMacAlert")
         let showAlert = InstallPreferences.shared.showAppStorePopup
-        if showAlert && supportMacOS && !noMacAlert {
+        if showAlert && supportMacOS {
             let alert = NSAlert()
             alert.messageText = NSLocalizedString("alert.appstore", comment: "")
             alert.informativeText = String(
