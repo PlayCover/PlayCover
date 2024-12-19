@@ -35,6 +35,7 @@ class DownloadApp {
     let installVM = InstallVM.shared
     let downloader = DownloadManager.shared
 
+    @MainActor
     func start() {
         if installVM.inProgress {
             Log.shared.error(PlayCoverError.waitInstallation)
@@ -72,7 +73,7 @@ class DownloadApp {
             if let url = url, let app = app {
                 let ipa = IPA(url: url)
                 Task {
-                    if await ipa.hasMacVersion(app: IPA.Application.store(app)) {
+                    if await ipa.checkOfficialMacOS(app: IPA.Application.store(app)) {
                         cancel()
                     } else {
                         if url.isFileURL {

@@ -65,6 +65,7 @@
 "preferences.tab.install" = "Install";
 "preferences.toggle.showInstallPopup" = "Show install PlayTools popup";
 "preferences.toggle.alwaysInstallPlayTools" = "Always install PlayTools";
+"preferences.toggle.showAppStorePopup" = "Show an alert if the application has an official AppStore version";
 
 "sidebar.appLibrary" = "App Library";
 "sidebar.ipaLibrary" = "IPA Library";
@@ -289,6 +290,8 @@
 "macos.version" = "This app can be installed from Mac App Store";
 "alert.install.anyway" = "Install Anyway";
 "alert.open.appstore" = "Open Mac App Store";
+"alert.appstore" = "MacOS version is available";
+
 "alert.quota.limit" = "Quota limit reached. It may take up 24 hours to download this file again";
 "alert.notSpace" = "Not enough space on disk";
 "alert.corrupted" = "File might be corrupted. Try to download it again";

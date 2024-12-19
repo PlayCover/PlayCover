@@ -249,7 +249,7 @@ struct AddSourceView: View {
             }
         }
         .padding()
-        .frame(width: 400, height: 100)
+        .frame(width: 600, height: 100)
         .onChange(of: newSource) { source in
             if let task = checkTask, !task.isCancelled {
                 if let session = urlSessionTask {
