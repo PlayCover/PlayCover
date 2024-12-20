@@ -152,7 +152,7 @@ struct StoreAppConditionalView: View {
                                                 .opacity(0.5)
                                         }
                                         .task {
-                                            _ = retry
+                                            retry()
                                         }
                                 }
                             )
@@ -220,7 +220,7 @@ struct StoreAppConditionalView: View {
                                                 .opacity(0.5)
                                         }
                                         .task {
-                                            _ = retry
+                                            retry()
                                         }
                                 }
                             )

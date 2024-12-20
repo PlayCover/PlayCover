@@ -20,6 +20,14 @@ class Cacher {
     /// `cache.maxCachePeriodInSecond = 7*86400`      // 1 week
     /// More details: https://github.com/huynguyencong/DataCache/blob/master/README.md
 
+    init() {
+        // Set image cache limit.
+        ImageCache().wrappedValue.setCacheLimit(
+            countLimit: 400,
+            totalCostLimit: 4*1024*1024
+        )
+    }
+
     func removeImageCache() {
         imageCache.removeCache()
     }
