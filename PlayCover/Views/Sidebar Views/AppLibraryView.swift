@@ -164,14 +164,20 @@ struct AppLibraryView: View {
     }
 
     private func installApp(_ url: URL) {
-        Installer.install(ipaUrl: url, export: false, returnCompletion: { _ in
+        let completion: (URL?) -> Void = { _ in
             Task { @MainActor in
                 appsVM.fetchApps()
                 NotifyService.shared.notify(
                     NSLocalizedString("notification.appInstalled", comment: ""),
                     NSLocalizedString("notification.appInstalled.message", comment: ""))
             }
-        })
+        }
+
+        if url.pathExtension == "playpkg" {
+            Installer.installFromPackage(packageURL: url, returnCompletion: completion)
+        } else {
+            Installer.install(ipaUrl: url, export: false, returnCompletion: completion)
+        }
     }
 
     private func selectFile() {

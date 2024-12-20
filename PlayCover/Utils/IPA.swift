@@ -56,7 +56,7 @@ public class IPA {
             .appendingEscapedPathComponent(name)
             .appendingPathExtension("ipa")
 
-        try Shell.run("usr/bin/zip", "-r", newIpa.path, payload.path)
+        try Shell.run("/usr/bin/zip", "-r", newIpa.path, payload.path)
 
         return newIpa
     }

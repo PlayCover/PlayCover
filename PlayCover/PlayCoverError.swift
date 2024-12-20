@@ -11,6 +11,8 @@ enum PlayCoverError: Error {
     case appProhibited
     case appMaliciousProhibited
     case failedToStripBinary
+    case noTmpDir
+    case failPlayPackageInstall
 }
 
 extension PlayCoverError: LocalizedError {
@@ -32,6 +34,10 @@ extension PlayCoverError: LocalizedError {
             return NSLocalizedString("error.appMaliciousProhibited", comment: "")
         case .failedToStripBinary:
             return NSLocalizedString("error.failedToStripBinary", comment: "")
+        case .noTmpDir:
+            return NSLocalizedString("error.noTmpDir", comment: "")
+        case .failPlayPackageInstall:
+            return NSLocalizedString("error.failPlayPackageInstall", comment: "")
         }
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 
 struct AppContainer {
 
-    private static let containersURL = FileManager.default.homeDirectoryForCurrentUser
+    public static let containersURL = FileManager.default.homeDirectoryForCurrentUser
         .appendingPathComponent("Library")
         .appendingPathComponent("Containers")
 

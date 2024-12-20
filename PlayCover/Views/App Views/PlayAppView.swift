@@ -89,12 +89,19 @@ struct PlayAppView: View {
                     })
                 }
                 Divider()
-                Button(action: {
-                    selected = nil
-                    Task { await Uninstaller.uninstallPopup(viewModel.app) }
-                }, label: {
-                    Text("playapp.delete")
-                })
+                Group {
+                    Button(action: {
+                        viewModel.app.playPackage.zipAndExport()
+                    }, label: {
+                        Text("playapp.exportApp")
+                    })
+                    Button(action: {
+                        selected = nil
+                        Task { await Uninstaller.uninstallPopup(viewModel.app) }
+                    }, label: {
+                        Text("playapp.delete")
+                    })
+                }
             }
             .alert("alert.app.preferences", isPresented: $viewModel.showClearPreferencesAlert) {
                 Button("button.Proceed", role: .destructive) {

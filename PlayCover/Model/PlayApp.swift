@@ -204,6 +204,8 @@ class PlayApp: BaseApp {
 
     lazy var container = AppContainer(bundleId: info.bundleIdentifier)
 
+    lazy var playPackage = PlayPackage(app: self)
+
     func hasPlayTools() -> Bool {
         do {
             return try PlayTools.installedInExec(atURL: url.appendingEscapedPathComponent(info.executableName))
