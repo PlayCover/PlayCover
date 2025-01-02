@@ -11,7 +11,7 @@ import DataCache
 import CachedAsyncImage
 
 class Cacher {
-
+    static let shared = Cacher()
     @ImageCache private var imageCache
     let cache = DataCache.instance
     /// We can create a custom cache like this (default values are as the same as below):

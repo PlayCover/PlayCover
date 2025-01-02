@@ -116,7 +116,7 @@ struct StoreAppConditionalView: View {
                         Group {
                             CachedAsyncImage(
                                 url: onlineIcon ?? "",
-                                placeholder: {_ in
+                                placeholder: { _ in
                                     if let image = localIcon {
                                         Image(nsImage: image)
                                             .resizable()
@@ -143,7 +143,7 @@ struct StoreAppConditionalView: View {
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                 },
-                                error: {_, retry in
+                                error: { _, retry in
                                     Rectangle()
                                         .fill(.regularMaterial)
                                         .overlay {
@@ -186,7 +186,7 @@ struct StoreAppConditionalView: View {
                         Group {
                             CachedAsyncImage(
                                 url: onlineIcon ?? "",
-                                placeholder: {_ in
+                                placeholder: { _ in
                                     if let image = localIcon {
                                         Image(nsImage: image)
                                             .resizable()
@@ -212,7 +212,7 @@ struct StoreAppConditionalView: View {
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                 },
-                                error: {_, retry in
+                                error: { _, retry in
                                     Rectangle()
                                         .fill(.regularMaterial)
                                         .overlay {

@@ -123,7 +123,7 @@ These open source libraries were used to create this project.
 * [PTFakeTouch](https://github.com/Ret70/PTFakeTouch)
 * [DownloadManager](https://github.com/shapedbyiris/download-manager)
 * [DataCache](https://github.com/huynguyencong/DataCache)
-* [SwiftUI CachedAsyncImage](https://github.com/lorenzofiamingo/swiftui-cached-async-image)
+* [SwiftUI CachedAsyncImage](https://github.com/bullinnyc/CachedAsyncImage)
 
 * Thanks to @iVoider for creating such a great project!
 

@@ -33,7 +33,7 @@ struct StoreInfoAppView: View {
                     Group {
                         CachedAsyncImage(
                             url: onlineIcon ?? "",
-                            placeholder: {_ in
+                            placeholder: { _ in
                                 if let image = localIcon {
                                     Image(nsImage: image)
                                         .resizable()
