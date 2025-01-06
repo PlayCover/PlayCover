@@ -71,7 +71,7 @@ struct AppSettingsView: View {
                 }
             }
             .task(priority: .userInitiated) {
-                appIcon = cache.readImage(forKey: viewModel.app.info.bundleIdentifier)
+                appIcon = Cacher.shared.getLocalIcon(bundleId: viewModel.app.info.bundleIdentifier)
             }
 
             TabView {
