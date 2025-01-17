@@ -168,7 +168,7 @@ struct StoreAppConditionalView: View {
                         }
                     }
                     Text(app.name)
-                        .foregroundColor(selected?.link == app.link ?
+                        .foregroundColor(selected?.bundleID == app.bundleID ?
                                          selectedTextColor : Color.primary)
                     Spacer()
                     Text(app.version)
@@ -177,7 +177,7 @@ struct StoreAppConditionalView: View {
                 }
                 .contentShape(Rectangle())
                 .background(RoundedRectangle(cornerRadius: 4)
-                    .fill(selected?.link == app.link ?
+                        .fill(selected?.bundleID == app.bundleID ?
                               selectedBackgroundColor : Color.clear)
                         .brightness(-0.2))
             } else {
@@ -242,11 +242,11 @@ struct StoreAppConditionalView: View {
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 4)
                         .padding(.vertical, 2)
-                        .foregroundColor(selected?.link == app.link ?
+                        .foregroundColor(selected?.bundleID == app.bundleID ?
                                          selectedTextColor : Color.primary)
                         .background(
                             RoundedRectangle(cornerRadius: 4)
-                                .fill(selected?.link == app.link ?
+                                .fill(selected?.bundleID == app.bundleID ?
                                       selectedBackgroundColor : Color.clear)
                                 .brightness(-0.2)
                         )

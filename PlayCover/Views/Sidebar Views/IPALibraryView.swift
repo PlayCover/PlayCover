@@ -56,7 +56,7 @@ struct IPALibraryView: View {
                             LazyVGrid(columns: gridLayout, alignment: .center) {
                                 ForEach(searchString.isEmpty
                                         ? sortAlphabetical ? sortedApps : storeVM.sourcesApps
-                                        : filteredApps, id: \.link) { app in
+                                        : filteredApps, id: \.bundleID) { app in
                                     StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                                  selectedTextColor: $selectedTextColor,
                                                  selected: $selected,
@@ -70,7 +70,7 @@ struct IPALibraryView: View {
                             LazyVStack {
                                 ForEach(searchString.isEmpty
                                         ? sortAlphabetical ? sortedApps : storeVM.sourcesApps
-                                        : filteredApps, id: \.link) { app in
+                                        : filteredApps, id: \.bundleID) { app in
                                     StoreAppView(selectedBackgroundColor: $selectedBackgroundColor,
                                                  selectedTextColor: $selectedTextColor,
                                                  selected: $selected,
