@@ -261,9 +261,9 @@ struct PlayAppConditionalView: View {
         }
         .task(priority: .userInitiated) {
             let compareStr = app.info.bundleIdentifier + app.info.bundleVersion
-            if Cacher.shared.getLocalIcon(bundleId: app.info.bundleIdentifier) != nil
+            if cache.readImage(forKey: app.info.bundleIdentifier) != nil
                 && cache.readString(forKey: compareStr) != nil {
-                appIcon = Cacher.shared.getLocalIcon(bundleId: app.info.bundleIdentifier)
+                appIcon = cache.readImage(forKey: app.info.bundleIdentifier)
             } else {
                 appIcon = Cacher.shared.resolveLocalIcon(app)
             }
