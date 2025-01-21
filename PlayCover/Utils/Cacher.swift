@@ -32,7 +32,6 @@ class Cacher {
         imageCache.removeCache()
     }
 
-
     func resolveITunesData(_ link: String) async {
         if let refreshedITunesData = await getITunesData(link) {
             try? cache.write(codable: refreshedITunesData, forKey: link)
