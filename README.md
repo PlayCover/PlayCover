@@ -71,6 +71,9 @@ At the moment, PlayCover can only run on Apple Silicon Macs. Devices with the fo
 * M3
 * M3 Pro
 * M3 Max
+* M4
+* M4 Pro
+* M4 Max
 
 If you have an Intel Mac, you can explore alternatives like Bootcamp or emulators.
 
