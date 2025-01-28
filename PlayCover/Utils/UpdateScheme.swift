@@ -8,7 +8,7 @@
 class UpdateScheme {
     public static let versionsFile = PlayTools.playCoverContainer.appendingPathComponent("VERSION")
     public static var currentVersion: String {
-        (try? String(contentsOf: UpdateScheme.versionsFile)) ?? "3"
+        (try? String(contentsOf: UpdateScheme.versionsFile)) ?? "3.1"
     }
 
     public static func checkForUpdate() {
