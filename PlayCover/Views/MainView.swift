@@ -53,15 +53,16 @@ struct MainView: View {
                                 .contextMenu(menuItems: {
                                 Button("Add New App Folder", action: {
                                     addFolderPresented.toggle()
-                                    print(addFolderPresented)
                                 })
                                 .keyboardShortcut(.escape, modifiers: .command)
 
                             })
                         }
-                        if showSourceFolders {
+                        if showAppFolders {
                             ForEach(folders, id: \.hashValue) { folder in
                                     NavigationLink(tag: folder.hashValue, selection: $selectedView) {
+                                        AppFolderView(selectedBackgroundColor: $selectedBackgroundColor,
+                                                      selectedTextColor: $selectedTextColor)
                                 } label: {
                                     Label(folder, systemImage: "folder")
                                         .font(.caption)
