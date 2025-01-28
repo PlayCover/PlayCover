@@ -53,7 +53,7 @@ struct PlayAppView: View {
                 Divider()
                 Group {
                     Button(action: {
-                        showKeymapSheet.toggle()
+                        viewModel.showKeymapSheet.toggle()
                     }, label: {
                         Text("playapp.keymap")
                     })
@@ -99,11 +99,13 @@ struct PlayAppView: View {
                 }
                 Button("button.Cancel", role: .cancel) { }
             }
-            .sheet(isPresented: $showSettings) {
-                AppSettingsView(viewModel: AppSettingsVM(app: app), showKeymapSheet: $showKeymapSheet)
+            .sheet(isPresented: $viewModel.showSettings) {
+                AppSettingsView(viewModel: AppSettingsVM(app: viewModel.app),
+                                showKeymapSheet: $viewModel.showKeymapSheet)
             }
-            .sheet(isPresented: $showKeymapSheet) {
-                KeymapView(app: app, showKeymapSheet: $showKeymapSheet)
+            .sheet(isPresented: $viewModel.showKeymapSheet) {
+                KeymapView(app: viewModel.app,
+                           showKeymapSheet: $viewModel.showKeymapSheet)
             }
     }
 
