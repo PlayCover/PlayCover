@@ -23,6 +23,7 @@ struct MainView: View {
     @State private var viewWidth: CGFloat = 0
     @State private var collapsed: Bool = false
     @State private var showSourceFolders = true
+    @State private var showAppFolders = true
     @State private var selectedBackgroundColor: Color = Color.accentColor
     @State private var selectedTextColor: Color = Color.black
     @State private var addFolderPresented = false
@@ -40,6 +41,15 @@ struct MainView: View {
                                                                        selectedTextColor: $selectedTextColor)
                         } label: {
                             Label("sidebar.appLibrary", systemImage: "square.grid.2x2")
+                            Button {
+                                withAnimation {
+                                    showAppFolders.toggle()
+                                }
+                            } label: {
+                                Image(systemName: showAppFolders ? "chevron.up" : "chevron.down")
+                                    .font(.caption)
+                            }
+                            .buttonStyle(.plain)
                                 .contextMenu(menuItems: {
                                 Button("Add New App Folder", action: {
                                     addFolderPresented.toggle()
@@ -56,6 +66,12 @@ struct MainView: View {
                                     Label(folder, systemImage: "folder")
                                         .font(.caption)
                                         .padding(.leading)
+                                        .contextMenu(menuItems: {
+                                            Button("Remove", action: {
+                                                folders = folders.filter { $0.hashValue != folder.hashValue }
+                                            })
+                                        })
+
                                 }
                             }
                         }
