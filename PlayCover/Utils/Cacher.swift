@@ -32,18 +32,6 @@ class Cacher {
         imageCache.removeCache()
     }
 
-    func getCachedImage(for url: URL) -> NSImage? {
-        imageCache[url]
-    }
-
-    func saveCachedImage(for url: URL, image: NSImage) {
-        imageCache[url] = image
-    }
-
-    func removeCachedImage(for url: URL) {
-        imageCache[url] = nil
-    }
-
     func resolveITunesData(_ link: String) async {
         if let refreshedITunesData = await getITunesData(link) {
             try? cache.write(codable: refreshedITunesData, forKey: link)
@@ -68,14 +56,14 @@ class Cacher {
         }
         cache.write(string: compareStr, forKey: compareStr)
         if let image = bestResImage {
-            saveCachedImage(for: app.info.url, image: image)
+            cache.write(image: image, forKey: app.info.bundleIdentifier)
         }
-        return getCachedImage(for: app.info.url)
+        return cache.readImage(forKey: app.info.bundleIdentifier)
     }
 
     func getLocalIcon(bundleId: String) -> NSImage? {
         if let app = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == bundleId }) {
-            return getCachedImage(for: app.info.url)
+            return cache.readImage(forKey: app.info.bundleIdentifier)
         } else {
             return nil
         }
