@@ -72,7 +72,7 @@ struct AppSettingsView: View {
                 }
             }
             .task(priority: .userInitiated) {
-                appIcon = cache.readImage(forKey: viewModel.app.info.bundleIdentifier)
+                appIcon = Cacher.shared.getLocalIcon(bundleId: viewModel.app.info.bundleIdentifier)
             }
 
             TabView {
@@ -222,6 +222,7 @@ struct GraphicsView: View {
                         Text("iPhone 13 Pro Max | A15 | 6GB").tag("iPhone14,3")
                         Text("iPhone 14 Pro Max | A16 | 6GB").tag("iPhone15,3")
                         Text("iPhone 15 Pro Max | A17 Pro | 8GB").tag("iPhone16,2")
+                        Text("iPhone 16 Pro Max | A18 Pro | 8GB").tag("iPhone17,2")
                     }
                     .frame(width: 250)
                 }
@@ -566,8 +567,11 @@ struct MiscView: View {
                         app.info.applicationCategoryType = applicationCategoryType
                         Task.detached {
                             do {
-                                try Shell.signApp(app.executable)
-                                task = .none
+                                try await Shell.signApp(app.executable)
+
+                                Task { @MainActor in
+                                    task = .none
+                                }
                             } catch {
                                 Log.shared.error(error)
                             }
@@ -674,8 +678,6 @@ struct MiscView: View {
                 }
                 Spacer()
                     .frame(height: 20)
-                // swiftlint:disable:next todo
-                // TODO: Test and remove before 3.0 release
                 HStack {
                     Toggle("settings.toggle.rootWorkDir", isOn: $settings.settings.rootWorkDir)
                         .disabled(!(hasPlayTools ?? true))

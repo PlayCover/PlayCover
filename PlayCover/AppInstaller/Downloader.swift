@@ -22,10 +22,10 @@ import DownloadManager
 
 class DownloadApp {
     let url: URL?
-    let app: StoreAppData?
+    let app: SourceAppsData?
     let warning: String?
 
-    init(url: URL?, app: StoreAppData?, warning: String?) {
+    init(url: URL?, app: SourceAppsData?, warning: String?) {
         self.url = url
         self.app = app
         self.warning = warning
@@ -35,15 +35,31 @@ class DownloadApp {
     let installVM = InstallVM.shared
     let downloader = DownloadManager.shared
 
+    @MainActor
     func start() {
         if installVM.inProgress {
             Log.shared.error(PlayCoverError.waitInstallation)
         } else {
+            if let app = app, PlayApp.PROHIBITED_APPS.contains(app.bundleID) {
+                let alert = NSAlert()
+                alert.messageText = NSLocalizedString("alert.error", comment: "")
+                alert.informativeText = String(
+                    format: NSLocalizedString("error.appProhibited", comment: ""),
+                    arguments: [app.name]
+                )
+                alert.alertStyle = .warning
+                alert.addButton(withTitle: NSLocalizedString("Ok", comment: ""))
+                alert.addButton(withTitle: NSLocalizedString("alert.download.downloadAnyway", comment: ""))
+                if alert.runModal() == .alertFirstButtonReturn {
+                    return
+                }
+            }
+
             if let warningMessage = warning, let app = app {
                 let alert = NSAlert()
                 alert.messageText = NSLocalizedString(warningMessage, comment: "")
                 alert.informativeText = String(
-                    format: NSLocalizedString("ipaLibrary.alert.download", comment: ""),
+                    format: NSLocalizedString("alert.install.anyway", comment: ""),
                     arguments: [app.name]
                 )
                 alert.alertStyle = .warning
@@ -54,14 +70,20 @@ class DownloadApp {
                     return
                 }
             }
-
-            if let wrapedURL = url {
-                if wrapedURL.isFileURL {
-                    proceedInstall(url, deleteIPA: false)
-                } else {
-                    let (finalURL, urlIsValid) = NetworkVM.urlAccessible(url: wrapedURL, popup: true)
-                    if urlIsValid, let newWrappedURL = finalURL {
-                        proceedDownload(newWrappedURL)
+            if let url = url, let app = app {
+                let ipa = IPA(url: url)
+                Task {
+                    if await ipa.checkOfficialMacOS(app: IPA.Application.store(app)) {
+                        cancel()
+                    } else {
+                        if url.isFileURL {
+                            proceedInstall(url, deleteIPA: false)
+                        } else {
+                            let (finalURL, urlIsValid) = NetworkVM.urlAccessible(url: url, popup: true)
+                            if urlIsValid, let newWrappedURL = finalURL {
+                                proceedDownload(newWrappedURL)
+                            }
+                        }
                     }
                 }
             }
@@ -121,7 +143,7 @@ class DownloadApp {
         }
     }
 
-    private func verifyChecksum(checksum: String?, file: URL?, completion: @escaping(Bool) -> Void) {
+    private func verifyChecksum(checksum: String?, file: URL?, completion: @escaping (Bool) -> Void) {
         Task {
             if let originalSum = checksum, !originalSum.isEmpty, let fileURL = file {
                 if let sha256 = fileURL.sha256, originalSum != sha256 {
@@ -134,7 +156,7 @@ class DownloadApp {
         }
     }
 
-    private func checksumAlert(originalSum: String, givenSum: String, completion: @escaping(Bool) -> Void) {
+    private func checksumAlert(originalSum: String, givenSum: String, completion: @escaping (Bool) -> Void) {
         Task { @MainActor in
             let alert = NSAlert()
             alert.messageText = NSLocalizedString("playapp.download.differentChecksum", comment: "")

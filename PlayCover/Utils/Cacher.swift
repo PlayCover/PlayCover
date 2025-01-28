@@ -8,15 +8,41 @@
 import Foundation
 import AppKit
 import DataCache
+import CachedAsyncImage
 
 class Cacher {
-
+    static let shared = Cacher()
+    @ImageCache private var imageCache
     let cache = DataCache.instance
     /// We can create a custom cache like this (default values are as the same as below):
     /// `let cache = DataCache(name: "PlayCoverCache")`
     /// `cache.maxDiskCacheSize = 100*1024*1024`      // 100 MB
     /// `cache.maxCachePeriodInSecond = 7*86400`      // 1 week
     /// More details: https://github.com/huynguyencong/DataCache/blob/master/README.md
+
+    init() {
+        // Set image cache limit.
+        ImageCache().wrappedValue.setCacheLimit(
+            countLimit: 400,
+            totalCostLimit: 4*1024*1024
+        )
+    }
+
+    func removeImageCache() {
+        imageCache.removeCache()
+    }
+
+    func getCachedImage(for url: URL) -> NSImage? {
+        imageCache[url]
+    }
+
+    func saveCachedImage(for url: URL, image: NSImage) {
+        imageCache[url] = image
+    }
+
+    func removeCachedImage(for url: URL) {
+        imageCache[url] = nil
+    }
 
     func resolveITunesData(_ link: String) async {
         if let refreshedITunesData = await getITunesData(link) {
@@ -42,14 +68,14 @@ class Cacher {
         }
         cache.write(string: compareStr, forKey: compareStr)
         if let image = bestResImage {
-            cache.write(image: image, forKey: app.info.bundleIdentifier)
+            saveCachedImage(for: app.info.url, image: image)
         }
-        return cache.readImage(forKey: app.info.bundleIdentifier)
+        return getCachedImage(for: app.info.url)
     }
 
     func getLocalIcon(bundleId: String) -> NSImage? {
         if let app = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == bundleId }) {
-            return cache.readImage(forKey: app.info.bundleIdentifier)
+            return getCachedImage(for: app.info.url)
         } else {
             return nil
         }

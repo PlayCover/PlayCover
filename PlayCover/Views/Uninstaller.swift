@@ -132,9 +132,7 @@ class Uninstaller {
         }
 
         if UninstallPreferences.shared.removePlayChain {
-            let url = PlayTools.playCoverContainer
-                .appendingPathComponent("PlayChain")
-                .appendingPathComponent(app.info.bundleIdentifier)
+            let url = KeyCover.playChainPath.appendingPathComponent(app.info.bundleIdentifier)
             FileManager.default.delete(at: url)
 
             // KeyCover encrypted chain

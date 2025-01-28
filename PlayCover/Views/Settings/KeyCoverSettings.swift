@@ -92,7 +92,7 @@ struct KeyCoverSettings: View {
             }
             .padding()
         }
-        .frame(width: 500, height: 300)
+        .frame(width: 600, height: 300)
         .sheet(isPresented: $keyCoverInitialSetupShown) {
             KeyCoverInitialSetupView(isPresented: $keyCoverInitialSetupShown)
         }

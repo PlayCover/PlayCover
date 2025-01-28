@@ -12,9 +12,6 @@
 "playapp.delete" = "Disinstalla App";
 "playapp.deleteConfirm" = "Disinstalla";
 "playapp.deleteMessage" = "Sei sicuro di voler disinstallare %@?";
-"playapp.storeCurrentAccount" = "Archivia Account";
-"playapp.activateAccount" = "Cambia Account";
-"playapp.deleteAccount" = "Elimina Account";
 "playapp.clearPreferences" = "Elimina Preferenze App";
 "playapp.refreshSources" = "Aggiorna Sorgenti";
 "playapp.noSources.title" = "Nessun IPA installato";
@@ -59,22 +56,6 @@
 "preferences.toggle.alwaysInstallPlayTools" = "Installa sempre PlayTools";
 "sidebar.appLibrary" = "Libreria App";
 "sidebar.ipaLibrary" = "Libreria IPA";
-"storeAccount.selectAccRegion" = "Seleziona la regione dell'account";
-"storeAccount.selectAccRegion.usa" = "America";
-"storeAccount.selectAccRegion.euro" = "Europa";
-"storeAccount.selectAccRegion.asia" = "Asia";
-"storeAccount.selectAccRegion.cht" = "TW, HK, MO";
-"storeAccount.nameOfAcc" = "Nome dell'account";
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "Nome dell'account...";
-"storeAccount.store" = "Archivia Account";
-"storeAccount.selectAcc" = "Seleziona un account";
-"storeAccount.storeAcc" = "Archivia un account";
-"storeAccount.deleteAcc" = "Elimina un account";
-"storeAccount.alert.restoreAccount" = "Ripristinare davvero l'Account?";
-"storeAccount.alert.restoreAccount.button" = "Ripristina Account";
-"storeAccount.alert.restoreAccount.msg" = "Questo sovrascriverà l'attuale account.";
-"storeAccount.alert.deleteAccount" = "Eliminare davvero l'Account?";
-"storeAccount.alert.deleteAccount.button" = "Elimina Account";
 "playapp.download.downloading" = "Scaricando";
 "playapp.download.integrityCheck" = "Verificando l'integrità del file:";
 "playapp.download.differentChecksum" = "checksum diversi! Vuoi continuare l'installazione?";
@@ -100,7 +81,6 @@
 "alert.moveAppToApplications.title" = "Spostare nella cartella Applicazioni?";
 "alert.moveAppToApplications.subtitle" = "PlayCover deve trovarsi nella cartella Applicazioni per funzionare correttamente. Premi il pulsante sottostante per spostare automaticamente PlayCover.";
 "alert.moveAppToApplications.move" = "Sposta nella cartella Applicazioni";
-"alert.storeAccount.regionIsNotValid" = "L'account attuale è impostato su una regione diversa. Avvia il gioco, cambia la regione e passa attraverso i cancelli per salvare. Quindi riprova";
 "alert.legacyImport.title" = "Impostazioni dell'app legacy rilevate!";
 "alert.legacyImport.subtitle" = "Sono state rilevate impostazioni e file di mappatura legacy. Vuoi convertire questi file nel nuovo formato?";
 "alert.wrongFileType.title" = "Tipo di file errato!";
@@ -132,8 +112,8 @@
 "button.Unlock" = "Sblocca";
 
 
-"state.enabled" = "Abilita";
-"state.disabled" = "Disabilita";
+"state.enabled" = "Abilitato";
+"state.disabled" = "Disabilitato";
 "state.pendingReboot" = "Riavvio in sospeso";
 "error.corruptedIPA" = "Questo file .ipa è corrotto. Non contiene il file \"Info.plist\".";
 "error.waitInstallation" = "Attendere il completamento dell'installazione corrente!";
@@ -142,7 +122,6 @@
 "error.appCorrupted" = "Qualcosa è andato storto con questo IPA. Si prega di provare a utilizzare un altro file IPA.";
 "error.appProhibited" = "L'utilizzo di questa app tramite PlayCover probabilmente comporterà un ban!";
 "error.appMaliciousProhibited" = "Questa app si comporta in modo dannoso sui Mac e usarla può rendere il dispositivo non avviabile, quindi è bloccata da PlayCover. (Disinstallazione...)";
-"error.noGenshinAccount" = "Non è stato possibile trovare un account Genshin! Hai effettuato l'accesso a un account nell'app?";
 "error.failedToStripBinary" = "Impossibile trovare l'architettura ARM64 nel binario multiplo!";
 
 
@@ -239,11 +218,11 @@
 "settings.toggle.rootWorkDir" = "Avvia app nella directory radice";
 "settings.toggle.rootWorkDir.help" = "Cambia la directory di lavoro dell'app in / come su iOS. Disabilita questa opzione se l'app si comporta male";
 "configSigning.header" = "Configura la Firma del Pacchetto";
-"configSigning.subtext" = "La Firma del Pacchetto aiuta a risolvere problemi con le app che dipendono da ID Team corretti per operazioni come l'autorizzazione. Potrebbero esserci rischi per la sicurezza associati all'abilitazione di questa funzione. Pertanto, raccomandiamo di disabilitarla quando non è necessaria.";
+"configSigning.subtext" = "La Firma del Pacchetto aiuta a risolvere problemi con le app\nche dipendono da ID Team corretti per operazioni come l'autorizzazione.\nPotrebbero esserci rischi per la sicurezza associati all'abilitazione di questa funzione.\n\nPertanto, raccomandiamo di disabilitarla quando non è necessaria";
 "configSigning.info.SIP" = "SIP deve essere disabilitato totalmente o parzialmente affinché AMFI possa essere disabilitato.";
 "configSigning.info.SIPHeader" = "Protezione dell'Integrità del Sistema";
 "configSigning.info.AMFI" = "AMFI deve essere disabilitato per consentire la falsa firma delle app, permettendo loro di eseguire con il corretto ID Team";
-"configSigning.info.AMFIHeader" = "Integrità dei File Mobili Apple";
+"configSigning.info.AMFIHeader" = "Apple Mobile File Integrity";
 "configSigning.action.shutdown" = "Spegni il mio Mac";
 "configSigning.action.copyCommand" = "Copia il Comando negli Appunti";
 "configSigning.action.restart" = "Riavvia il mio Mac";
@@ -279,10 +258,14 @@
 "keycover.unlockPrompt.title" = "Inserisci la tua password principale per sbloccare KeyCover";
 "keycover.alert.title" = "Il portachiavi non è stato sbloccato";
 "keycover.alert.content" = "L'accesso al portachiavi è stato disabilitato per la sessione corrente";
-"ipaLibrary.info.notAvailable" = "Link not valid for this app";
-"ipaLibrary.info" = "App Info";
-"ipaLibrary.info.checksum.none" = "None provided";
-"ipaLibrary.unavailable" = "The link is unavailable";
+"ipaLibrary.info.notAvailable" = "Link non valido per questa app";
+"ipaLibrary.info" = "Informazioni sull'app";
+"ipaLibrary.info.checksum.none" = "Nessuno Fornito";
+"ipaLibrary.unavailable" = "Questo link non è disponibile";
 "ipaLibrary.info.title" = "%@ Info";
 "ipaLibrary.info.itunes" = "ITunes Lookup:";
 "ipaLibrary.info.checksum" = "Checksum:";
+"ipaLibrary.AlphabeticalSort" = "Ordina le sorgenti alfabeticamente";
+"alert.open.appstore" = "Apri Mac App Store";
+"macos.version" = "Questa app può essere installata dal Mac App Store";
+"alert.install.anyway" = "Installa Comunque";

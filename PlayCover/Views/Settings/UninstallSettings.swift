@@ -66,6 +66,6 @@ struct UninstallSettings: View {
             })
         }
         .padding(30)
-        .frame(width: 400, height: 240, alignment: .center)
+        .frame(width: 600, height: 240, alignment: .center)
     }
 }
