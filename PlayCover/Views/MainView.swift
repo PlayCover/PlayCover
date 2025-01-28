@@ -27,6 +27,7 @@ struct MainView: View {
     @State private var selectedTextColor: Color = Color.black
     @State private var addFolderPresented = false
     @State var newFolder = ""
+    @State var folders = [String]()
     @ObservedObject private var URLObserved = URLObservable.shared
 
     var body: some View {
@@ -47,6 +48,16 @@ struct MainView: View {
                                 .keyboardShortcut(.escape, modifiers: .command)
 
                             })
+                        }
+                        if showSourceFolders {
+                            ForEach(folders, id: \.hashValue) { folder in
+                                    NavigationLink(tag: folder.hashValue, selection: $selectedView) {
+                                } label: {
+                                    Label(folder, systemImage: "folder")
+                                        .font(.caption)
+                                        .padding(.leading)
+                                }
+                            }
                         }
                         NavigationLink(tag: 2, selection: $selectedView) {
                             IPALibraryView(storeVM: store,
@@ -143,7 +154,11 @@ struct MainView: View {
                         .frame(height: 40)
                     HStack {
                         Spacer()
-                        Button("Ok", action: { addFolderPresented.toggle() })
+                        Button("Ok", action: {
+                            addFolder(folder: newFolder)
+                            addFolderPresented.toggle()
+                        }
+                        ).disabled(newFolder.isEmpty)
                         Button("Cancel", action: { addFolderPresented.toggle() })
                         .tint(.accentColor)
                         .keyboardShortcut(.defaultAction)
@@ -194,6 +209,10 @@ struct MainView: View {
             }
         }
         .frame(minWidth: 675, minHeight: 330)
+    }
+
+    func addFolder(folder: String) {
+        folders.append(folder)
     }
 
     private func toggleSidebar() {
