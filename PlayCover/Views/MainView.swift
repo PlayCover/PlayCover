@@ -25,7 +25,8 @@ struct MainView: View {
     @State private var showSourceFolders = true
     @State private var selectedBackgroundColor: Color = Color.accentColor
     @State private var selectedTextColor: Color = Color.black
-
+    @State private var addFolderPresented = false
+    @State var newFolder = ""
     @ObservedObject private var URLObserved = URLObservable.shared
 
     var body: some View {
@@ -38,6 +39,14 @@ struct MainView: View {
                                                                        selectedTextColor: $selectedTextColor)
                         } label: {
                             Label("sidebar.appLibrary", systemImage: "square.grid.2x2")
+                                .contextMenu(menuItems: {
+                                Button("Add New App Folder", action: {
+                                    addFolderPresented.toggle()
+                                    print(addFolderPresented)
+                                })
+                                .keyboardShortcut(.escape, modifiers: .command)
+
+                            })
                         }
                         NavigationLink(tag: 2, selection: $selectedView) {
                             IPALibraryView(storeVM: store,
@@ -127,6 +136,23 @@ struct MainView: View {
                 }
                 .background(SplitViewAccessor(sideCollapsed: $collapsed))
             }
+            .sheet(isPresented: $addFolderPresented) {
+                VStack {
+                    TextField(text: $newFolder, label: {Text("preferences.textfield.url")})
+                    Spacer()
+                        .frame(height: 40)
+                    HStack {
+                        Spacer()
+                        Button("Ok", action: { addFolderPresented.toggle() })
+                        Button("Cancel", action: { addFolderPresented.toggle() })
+                        .tint(.accentColor)
+                        .keyboardShortcut(.defaultAction)
+                    }
+                }
+                .padding()
+                .frame(width: 600, height: 100)
+                }
+
             .onAppear {
                 self.selectedView = URLObserved.type == .source ? 2 : 1
             }
@@ -224,5 +250,36 @@ struct MainView_Previews: PreviewProvider {
             .environmentObject(AppsVM.shared)
             .environmentObject(StoreVM.shared)
             .environmentObject(AppIntegrity())
+    }
+}
+
+struct AddFolderView: View {
+    @State var newFolder = ""
+    @Binding var addFolderSheet: Bool
+    var body: some View {
+        VStack {
+            TextField(text: $newFolder, label: {Text("preferences.textfield.url")})
+            Spacer()
+                .frame(height: 20)
+            HStack {
+                Spacer()
+                Button {
+                    print("NONE")
+                    addFolderSheet.toggle()
+                } label: {
+                    Text("button.Cancel")
+                }
+                Button {
+                    print("ADD")
+                    addFolderSheet.toggle()
+                } label: {
+                    Text("button.OK")
+                }
+                .tint(.accentColor)
+                .keyboardShortcut(.defaultAction)
+            }
+        }
+        .padding()
+        .frame(width: 600, height: 100)
     }
 }
