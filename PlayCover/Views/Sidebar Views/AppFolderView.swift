@@ -13,7 +13,7 @@ struct AppFolderView: View {
 
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
-
+    @Binding var apps: Folder
     @State private var gridLayout = [GridItem(.adaptive(minimum: 130, maximum: .infinity))]
     @State private var searchString = ""
     @State private var isList = UserDefaults.standard.bool(forKey: "AppLibraryView")
@@ -22,14 +22,13 @@ struct AppFolderView: View {
     @State private var showLegacyConvertAlert = false
     @State private var showWrongfileTypeAlert = false
     @State private var addSheetApps = false
-    @State var folderApps: [String] = []
 
     var body: some View {
         Group {
             if !appsVM.apps.isEmpty || appsVM.updatingApps {
                 ScrollView {
                     AppDisplayView(apps: appsVM.filteredApps.filter {
-                        folderApps.contains($0.info.bundleIdentifier)
+                        apps.apps.contains($0.info.bundleIdentifier)
                     },
                                       selectedBackgroundColor: $selectedBackgroundColor,
                                       selectedTextColor: $selectedTextColor,
@@ -69,9 +68,9 @@ struct AppFolderView: View {
             VStack {
                 List(AppsVM.shared.apps, id: \.url) { app in
                     AddAppSheet(addSheetApps: addSheetApps,
-                                isAppEnabled: folderApps.contains(app.info.bundleIdentifier),
+                                isAppEnabled: apps.apps.contains(app.info.bundleIdentifier),
                                 app: app,
-                                appList: $folderApps
+                                appList: $apps
                     )
                 }
                 Spacer()
@@ -80,8 +79,7 @@ struct AppFolderView: View {
                     Spacer()
                     Button("Ok", action: {
                         addSheetApps.toggle()
-                    }
-                    )
+                    })
                     Button("Cancel", action: {
                         addSheetApps.toggle()
                     })
@@ -218,19 +216,19 @@ struct AppFolderView: View {
     }
 }
 
-struct AddAppSheet:View {
+struct AddAppSheet: View {
     @State var addSheetApps = false
-    @State var isAppEnabled :Bool
-    @State var app :PlayApp
-    @Binding var appList: [String]
+    @State var isAppEnabled: Bool
+    @State var app: PlayApp
+    @Binding var appList: Folder
     var body: some View {
         HStack {
             Toggle(app.info.displayName, isOn: $isAppEnabled)
                 .onChange(of: isAppEnabled) { _ in
                     if isAppEnabled {
-                        appList.append(app.info.bundleIdentifier)
+                        appList.apps.append(app.info.bundleIdentifier)
                     } else {
-                        appList = appList.filter { $0 != app.info.bundleIdentifier }
+                        appList.apps = appList.apps.filter { $0 != app.info.bundleIdentifier }
                     }
             }
         }

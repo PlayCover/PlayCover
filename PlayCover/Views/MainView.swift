@@ -28,9 +28,9 @@ struct MainView: View {
     @State private var selectedTextColor: Color = Color.black
     @State private var addFolderPresented = false
     @State var newFolder = ""
-    @State var folders = [String]()
+   // @State var folders = [String]()
+    @State var folders = [Folder]()
     @ObservedObject private var URLObserved = URLObservable.shared
-
     var body: some View {
         GeometryReader { viewGeom in
             NavigationView {
@@ -59,17 +59,19 @@ struct MainView: View {
                             })
                         }
                         if showAppFolders {
-                            ForEach(folders, id: \.hashValue) { folder in
-                                    NavigationLink(tag: folder.hashValue, selection: $selectedView) {
-                                        AppFolderView(selectedBackgroundColor: $selectedBackgroundColor,
-                                                      selectedTextColor: $selectedTextColor)
+                            ForEach(folders.indices, id: \.hashValue) { index in
+                                NavigationLink(tag: folders[index].id.hashValue, selection: $selectedView) {
+                                    AppFolderView(selectedBackgroundColor: $selectedBackgroundColor,
+                                                  selectedTextColor: $selectedTextColor,
+                                                  apps: $folders[index]
+                                    )
                                 } label: {
-                                    Label(folder, systemImage: "folder")
+                                    Label(folders[index].name, systemImage: "folder")
                                         .font(.caption)
                                         .padding(.leading)
                                         .contextMenu(menuItems: {
                                             Button("Remove", action: {
-                                                folders = folders.filter { $0.hashValue != folder.hashValue }
+                                                folders.remove(at: index)
                                             })
                                         })
 
@@ -229,7 +231,7 @@ struct MainView: View {
     }
 
     func addFolder(folder: String) {
-        folders.append(folder)
+        folders.append(Folder(name: folder))
     }
 
     private func toggleSidebar() {
@@ -317,5 +319,16 @@ struct AddFolderView: View {
         }
         .padding()
         .frame(width: 600, height: 100)
+    }
+}
+
+struct Folder: Identifiable {
+    let id: UUID
+    var name: String
+    var apps: [String]
+    init(name: String) {
+        self.id = UUID()
+        self.name = name
+        self.apps = []
     }
 }
