@@ -103,7 +103,6 @@ struct Keymap: Codable {
 
 struct KeymapConfig: Codable {
     var defaultKm: String
-    var aspectRatio: String
 }
 
 class Keymapping {
@@ -279,7 +278,7 @@ class Keymapping {
             return resetConfig()
         }
 
-        keymapConfig = KeymapConfig(defaultKm: defaultKm, aspectRatio: "auto")
+        keymapConfig = KeymapConfig(defaultKm: defaultKm)
 
         return keymapConfig
     }

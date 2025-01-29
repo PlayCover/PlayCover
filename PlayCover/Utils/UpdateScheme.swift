@@ -58,6 +58,9 @@ class UpdateScheme {
     }
 
     private static func updateFromV3ToV3p1() throws {
+        let encoder = PropertyListEncoder()
+        encoder.outputFormat = .xml
+
         let directoryContents = try FileManager.default
             .contentsOfDirectory(at: Keymapping.keymappingDir, includingPropertiesForKeys: nil, options: [])
 
@@ -72,6 +75,14 @@ class UpdateScheme {
                                              to: appKeymapDir.appendingPathComponent("default")
                                                              .appendingPathExtension("plist")
             )
+
+            do {
+                let data = try encoder.encode(KeymapConfig(defaultKm: "default"))
+                try data.write(to: appKeymapDir.appendingPathComponent(".config")
+                                               .appendingPathExtension("plist"))
+            } catch {
+                print(error)
+            }
         }
 
         try "3.1".write(to: UpdateScheme.versionsFile, atomically: false, encoding: .utf8)

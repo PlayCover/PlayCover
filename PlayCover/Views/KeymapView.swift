@@ -290,6 +290,8 @@ struct KeymapNamerView: View {
                 .keyboardShortcut(.defaultAction)
                 .disabled(![.valid].contains(nameValidationState))
             }
+
+            Spacer()
         }
         .padding()
         .frame(width: 400, height: 100)
