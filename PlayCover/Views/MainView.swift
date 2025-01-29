@@ -28,8 +28,51 @@ struct MainView: View {
     @State private var selectedTextColor: Color = Color.black
     @State private var addFolderPresented = false
     @State var newFolder = ""
-   // @State var folders = [String]()
-    @State var folders = [Folder]()
+    var plistFolderApps = PlayTools.playCoverContainer
+        .appendingPathComponent("appFolders")
+        .appendingPathExtension("plist")
+
+    @State var folders: [Folder] = [] {
+        didSet {
+            encode()
+        }
+    }
+
+    init(isSigningSetupShown: Binding<Bool>) {
+        self._isSigningSetupShown = isSigningSetupShown
+        if !decode() {
+            encode()
+        }
+    }
+
+    public func encode() {
+        let encoder = PropertyListEncoder()
+        encoder.outputFormat = .xml // .xml is usually preferred for .plist
+
+        do {
+            let data = try encoder.encode(folders)
+            try data.write(to: plistFolderApps)
+            print("Folders saved to: \(plistFolderApps)")
+        } catch {
+            print("Error saving folders to .plist: \(error)")
+        }
+    }
+
+    @discardableResult
+    mutating func decode() -> Bool {
+        let decoder = PropertyListDecoder()
+        do {
+            let data = try Data(contentsOf: plistFolderApps)
+            let decodedFolder = try decoder.decode([Folder].self, from: data)
+            self._folders = State(initialValue: decodedFolder)
+            return true
+        } catch {
+            print("Error loading folders from .plist: \(error)")
+            self._folders = State(initialValue: [])
+            return false
+        }
+    }
+
     @ObservedObject private var URLObserved = URLObservable.shared
     var body: some View {
         GeometryReader { viewGeom in
@@ -177,10 +220,11 @@ struct MainView: View {
                             addFolder(folder: newFolder)
                             addFolderPresented.toggle()
                         }
-                        ).disabled(newFolder.isEmpty)
-                        Button("Cancel", action: { addFolderPresented.toggle() })
+                        )
+                        .disabled(newFolder.isEmpty)
                         .tint(.accentColor)
                         .keyboardShortcut(.defaultAction)
+                        Button("Cancel", action: { addFolderPresented.toggle() })
                     }
                 }
                 .padding()
@@ -232,6 +276,7 @@ struct MainView: View {
 
     func addFolder(folder: String) {
         folders.append(Folder(name: folder))
+        encode()
     }
 
     private func toggleSidebar() {
@@ -322,7 +367,7 @@ struct AddFolderView: View {
     }
 }
 
-struct Folder: Identifiable {
+struct Folder: Identifiable, Codable {
     let id: UUID
     var name: String
     var apps: [String]
