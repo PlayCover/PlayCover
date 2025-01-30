@@ -14,6 +14,7 @@ struct AppFolderView: View {
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
     @Binding var apps: Folder
+
     @State private var gridLayout = [GridItem(.adaptive(minimum: 130, maximum: .infinity))]
     @State private var searchString = ""
     @State private var isList = UserDefaults.standard.bool(forKey: "AppLibraryView")
@@ -79,9 +80,11 @@ struct AppFolderView: View {
                     Spacer()
                     Button("Ok", action: {
                         addSheetApps.toggle()
+                        AppFolder.shared.encode()
                     })
                     Button("Cancel", action: {
                         addSheetApps.toggle()
+                        AppFolder.shared.decode()
                     })
                     .tint(.accentColor)
                 }

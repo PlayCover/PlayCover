@@ -28,50 +28,7 @@ struct MainView: View {
     @State private var selectedTextColor: Color = Color.black
     @State private var addFolderPresented = false
     @State var newFolder = ""
-    var plistFolderApps = PlayTools.playCoverContainer
-        .appendingPathComponent("appFolders")
-        .appendingPathExtension("plist")
-
-    @State var folders: [Folder] = [] {
-        didSet {
-            encode()
-        }
-    }
-
-    init(isSigningSetupShown: Binding<Bool>) {
-        self._isSigningSetupShown = isSigningSetupShown
-        if !decode() {
-            encode()
-        }
-    }
-
-    public func encode() {
-        let encoder = PropertyListEncoder()
-        encoder.outputFormat = .xml // .xml is usually preferred for .plist
-
-        do {
-            let data = try encoder.encode(folders)
-            try data.write(to: plistFolderApps)
-            print("Folders saved to: \(plistFolderApps)")
-        } catch {
-            print("Error saving folders to .plist: \(error)")
-        }
-    }
-
-    @discardableResult
-    mutating func decode() -> Bool {
-        let decoder = PropertyListDecoder()
-        do {
-            let data = try Data(contentsOf: plistFolderApps)
-            let decodedFolder = try decoder.decode([Folder].self, from: data)
-            self._folders = State(initialValue: decodedFolder)
-            return true
-        } catch {
-            print("Error loading folders from .plist: \(error)")
-            self._folders = State(initialValue: [])
-            return false
-        }
-    }
+    @StateObject var foldersObject = AppFolder()
 
     @ObservedObject private var URLObserved = URLObservable.shared
     var body: some View {
@@ -102,19 +59,20 @@ struct MainView: View {
                             })
                         }
                         if showAppFolders {
-                            ForEach(folders.indices, id: \.hashValue) { index in
-                                NavigationLink(tag: folders[index].id.hashValue, selection: $selectedView) {
+                            ForEach(foldersObject.folders.indices, id: \.hashValue) { index in
+                                NavigationLink(tag: foldersObject.folders[index].id.hashValue,
+                                               selection: $selectedView) {
                                     AppFolderView(selectedBackgroundColor: $selectedBackgroundColor,
                                                   selectedTextColor: $selectedTextColor,
-                                                  apps: $folders[index]
+                                                  apps: $foldersObject.folders[index]
                                     )
                                 } label: {
-                                    Label(folders[index].name, systemImage: "folder")
+                                    Label(foldersObject.folders[index].name, systemImage: "folder")
                                         .font(.caption)
                                         .padding(.leading)
                                         .contextMenu(menuItems: {
                                             Button("Remove", action: {
-                                                folders.remove(at: index)
+                                                foldersObject.folders.remove(at: index)
                                             })
                                         })
 
@@ -217,7 +175,7 @@ struct MainView: View {
                     HStack {
                         Spacer()
                         Button("Ok", action: {
-                            addFolder(folder: newFolder)
+                            AppFolder.shared.addFolder(folder: newFolder)
                             addFolderPresented.toggle()
                         }
                         )
@@ -272,11 +230,6 @@ struct MainView: View {
             }
         }
         .frame(minWidth: 675, minHeight: 330)
-    }
-
-    func addFolder(folder: String) {
-        folders.append(Folder(name: folder))
-        encode()
     }
 
     private func toggleSidebar() {
@@ -375,5 +328,58 @@ struct Folder: Identifiable, Codable {
         self.id = UUID()
         self.name = name
         self.apps = []
+    }
+}
+
+class AppFolder: ObservableObject {
+    static let shared = AppFolder()
+
+    @Published var folders: [Folder] {
+        didSet {
+            encode()
+        }
+    }
+
+    var plistFolderApps = PlayTools.playCoverContainer
+        .appendingPathComponent("appFolders")
+        .appendingPathExtension("plist")
+
+    func addFolder(folder: String) {
+        self.folders.append(Folder(name: folder))
+        }
+
+    func encode() {
+        let encoder = PropertyListEncoder()
+        encoder.outputFormat = .xml // .xml is usually preferred for .plist
+
+        do {
+            let data = try encoder.encode(self.folders)
+            try data.write(to: plistFolderApps)
+            print("Folders saved to: \(plistFolderApps)")
+        } catch {
+            print("Error saving folders to .plist: \(error)")
+        }
+    }
+
+    init() {
+        self._folders = Published(initialValue: [])
+        if !decode() {
+            encode()
+        }
+    }
+
+    @discardableResult
+    func decode() -> Bool {
+        let decoder = PropertyListDecoder()
+        do {
+            let data = try Data(contentsOf: plistFolderApps)
+            let decodedFolder = try decoder.decode([Folder].self, from: data)
+            self._folders = Published(initialValue: decodedFolder)
+            return true
+        } catch {
+            print("Error loading folders from .plist: \(error)")
+            self._folders = Published(initialValue: [])
+            return false
+        }
     }
 }
