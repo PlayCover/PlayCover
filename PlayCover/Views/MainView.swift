@@ -175,7 +175,7 @@ struct MainView: View {
                     HStack {
                         Spacer()
                         Button("Ok", action: {
-                            AppFolder.shared.addFolder(folder: newFolder)
+                            foldersObject.addFolder(folder: newFolder)
                             addFolderPresented.toggle()
                         }
                         )
