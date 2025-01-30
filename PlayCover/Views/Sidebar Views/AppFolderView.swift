@@ -66,6 +66,10 @@ struct AppFolderView: View {
             .padding()
         }
         .sheet(isPresented: $addSheetApps) {
+            var dynamicHeight: CGFloat {
+                let count = CGFloat(appsVM.apps.count) * 85
+                return min(count, 600)
+            }
             VStack {
                 List(AppsVM.shared.apps, id: \.url) { app in
                     AddAppSheet(addSheetApps: addSheetApps,
@@ -90,7 +94,7 @@ struct AppFolderView: View {
                 }
             }
             .padding()
-            .frame(width: 600, height: 200)
+            .frame(width: 600, height: dynamicHeight)
         }
         .navigationTitle("sidebar.appLibrary")
         .toolbar {
@@ -226,6 +230,14 @@ struct AddAppSheet: View {
     @Binding var appList: Folder
     var body: some View {
         HStack {
+           // let image:NSImage = DataCache.instance.readImage(forKey: app.info.bundleIdentifier)
+            if let image = DataCache.instance.readImage(forKey: app.info.bundleIdentifier) {
+                Image(nsImage: image)
+                    .resizable()
+                    .cornerRadius(10)
+                    .shadow(radius: 1)
+                    .frame(width: 28, height: 28)
+            }
             Toggle(app.info.displayName, isOn: $isAppEnabled)
                 .onChange(of: isAppEnabled) { _ in
                     if isAppEnabled {
