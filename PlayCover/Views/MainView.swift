@@ -51,7 +51,7 @@ struct MainView: View {
                             }
                             .buttonStyle(.plain)
                                 .contextMenu(menuItems: {
-                                Button("Add New App Folder", action: {
+                                Button(NSLocalizedString("button.add.folder", comment: ""), action: {
                                     addFolderPresented.toggle()
                                 })
                                 .keyboardShortcut(.escape, modifiers: .command)
@@ -71,7 +71,7 @@ struct MainView: View {
                                         .font(.caption)
                                         .padding(.leading)
                                         .contextMenu(menuItems: {
-                                            Button("Remove", action: {
+                                            Button(NSLocalizedString("button.remove.folder", comment: ""), action: {
                                                 foldersObject.folders.remove(at: index)
                                             })
                                         })
@@ -169,20 +169,24 @@ struct MainView: View {
             }
             .sheet(isPresented: $addFolderPresented) {
                 VStack {
-                    TextField(text: $newFolder, label: {Text("preferences.textfield.url")})
+                    TextField(text: $newFolder, label: {Text("folder.textfield.name")})
                     Spacer()
                         .frame(height: 40)
                     HStack {
                         Spacer()
-                        Button("Ok", action: {
+                        Button(NSLocalizedString("button.Ok", comment: ""), action: {
                             foldersObject.addFolder(folder: newFolder)
+                            newFolder = ""
                             addFolderPresented.toggle()
                         }
                         )
                         .disabled(newFolder.isEmpty)
                         .tint(.accentColor)
                         .keyboardShortcut(.defaultAction)
-                        Button("Cancel", action: { addFolderPresented.toggle() })
+                        Button(NSLocalizedString("button.Cancel", comment: ""), action: {
+                            newFolder = ""
+                            addFolderPresented.toggle()
+                        })
                     }
                 }
                 .padding()
@@ -300,13 +304,11 @@ struct AddFolderView: View {
             HStack {
                 Spacer()
                 Button {
-                    print("NONE")
                     addFolderSheet.toggle()
                 } label: {
                     Text("button.Cancel")
                 }
                 Button {
-                    print("ADD")
                     addFolderSheet.toggle()
                 } label: {
                     Text("button.OK")

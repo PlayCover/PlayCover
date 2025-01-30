@@ -295,3 +295,6 @@
 "alert.quota.limit" = "Quota limit reached. It may take up 24 hours to download this file again";
 "alert.notSpace" = "Not enough space on disk";
 "alert.corrupted" = "File might be corrupted. Try to download it again";
+"folder.textfield.name" = "Folder Name...";
+"button.remove.folder" = "Remove Folder";
+"button.add.folder" = "Add new Folder";
