@@ -396,13 +396,3 @@ class AppFolder: ObservableObject {
         }
     }
 }
-
-let icons = [
-    "folder",
-    "keyboard",
-    "graduationcap",
-    "play.tv",
-    "gamecontroller",
-    "music.note",
-    "desktopcomputer"
-]

@@ -248,3 +248,13 @@ struct AddAppSheet: View {
         }
     }
 }
+
+let icons = [
+    "folder",
+    "keyboard",
+    "graduationcap",
+    "play.tv",
+    "gamecontroller",
+    "music.note",
+    "desktopcomputer"
+]
