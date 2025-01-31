@@ -23,7 +23,6 @@ struct AppFolderView: View {
     @State private var showLegacyConvertAlert = false
     @State private var showWrongfileTypeAlert = false
     @State private var addSheetApps = false
-
     var body: some View {
         Group {
             if !appsVM.apps.isEmpty || appsVM.updatingApps {

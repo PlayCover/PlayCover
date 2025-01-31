@@ -29,6 +29,7 @@ struct MainView: View {
     @State private var addFolderPresented = false
     @State var newFolder = ""
     @StateObject var foldersObject = AppFolder()
+    @State private var selectedSymbol: String = "folder"
 
     @ObservedObject private var URLObserved = URLObservable.shared
     var body: some View {
@@ -67,7 +68,8 @@ struct MainView: View {
                                                   apps: $foldersObject.folders[index]
                                     )
                                 } label: {
-                                    Label(foldersObject.folders[index].name, systemImage: "folder")
+                                    Label(foldersObject.folders[index].name,
+                                          systemImage: foldersObject.folders[index].icon)
                                         .font(.caption)
                                         .padding(.leading)
                                         .contextMenu(menuItems: {
@@ -169,14 +171,20 @@ struct MainView: View {
             }
             .sheet(isPresented: $addFolderPresented) {
                 VStack {
-                    TextField(text: $newFolder, label: {Text("folder.textfield.name")})
-                    Spacer()
-                        .frame(height: 40)
+                    HStack {
+                        TextField(text: $newFolder, label: {Text("folder.textfield.name")})
+                            .frame(height: 40)
+                        Picker(selection: $selectedSymbol, label: Text("Icon")) {
+                            ForEach(icons, id: \.self) { icon in
+                                Image(systemName: icon)
+                            }
+                        }.fixedSize()
+                    }
                     HStack {
                         Spacer()
                         Button(NSLocalizedString("button.Ok", comment: ""), action: {
-                            foldersObject.addFolder(folder: newFolder)
-                            newFolder = ""
+                            foldersObject.addFolder(folder: newFolder, icon: selectedSymbol)
+                            selectedSymbol = "folder"
                             addFolderPresented.toggle()
                         }
                         )
@@ -185,6 +193,7 @@ struct MainView: View {
                         .keyboardShortcut(.defaultAction)
                         Button(NSLocalizedString("button.Cancel", comment: ""), action: {
                             newFolder = ""
+                            selectedSymbol = "folder"
                             addFolderPresented.toggle()
                         })
                     }
@@ -326,10 +335,12 @@ struct Folder: Identifiable, Codable {
     let id: UUID
     var name: String
     var apps: [String]
-    init(name: String) {
+    var icon: String = "folder"
+    init(name: String, icon: String) {
         self.id = UUID()
         self.name = name
         self.apps = []
+        self.icon = icon
     }
 }
 
@@ -346,8 +357,8 @@ class AppFolder: ObservableObject {
         .appendingPathComponent("appFolders")
         .appendingPathExtension("plist")
 
-    func addFolder(folder: String) {
-        self.folders.append(Folder(name: folder))
+    func addFolder(folder: String, icon: String) {
+        self.folders.append(Folder(name: folder, icon: icon))
         }
 
     func encode() {
@@ -385,3 +396,13 @@ class AppFolder: ObservableObject {
         }
     }
 }
+
+let icons = [
+    "folder",
+    "keyboard",
+    "graduationcap",
+    "play.tv",
+    "gamecontroller",
+    "music.note",
+    "desktopcomputer"
+]
