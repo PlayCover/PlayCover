@@ -183,7 +183,7 @@ struct MainView: View {
                     }
                     HStack {
                         Spacer()
-                        Button(NSLocalizedString("button.Ok", comment: ""), action: {
+                        Button(NSLocalizedString("button.OK", comment: ""), action: {
                             foldersObject.addFolder(folder: newFolder, icon: selectedSymbol)
                             selectedSymbol = "folder"
                             addFolderPresented.toggle()
