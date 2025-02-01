@@ -14,6 +14,7 @@ struct AppFolderView: View {
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
     @Binding var apps: Folder
+    @State var appsEdited: Folder
 
     @State private var gridLayout = [GridItem(.adaptive(minimum: 130, maximum: .infinity))]
     @State private var searchString = ""
@@ -23,6 +24,7 @@ struct AppFolderView: View {
     @State private var showLegacyConvertAlert = false
     @State private var showWrongfileTypeAlert = false
     @State private var addSheetApps = false
+
     var body: some View {
         Group {
             if !appsVM.apps.isEmpty || appsVM.updatingApps {
@@ -59,7 +61,7 @@ struct AppFolderView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            Button("Add New App", action: {
+            Button(NSLocalizedString("button.edit.folder", comment: ""), action: {
                 addSheetApps.toggle()
             })
             .padding()
@@ -70,24 +72,34 @@ struct AppFolderView: View {
                 return min(count, 600)
             }
             VStack {
+                HStack {
+                    TextField(text: $appsEdited.name, label: {Text("folder.textfield.name")})
+                        .frame(height: 40)
+                    Picker(selection: $appsEdited.icon, label: Text("Icon")) {
+                        ForEach(icons, id: \.self) { icon in
+                            Image(systemName: icon)
+                        }
+                    }.fixedSize()
+                }
                 List(AppsVM.shared.apps, id: \.url) { app in
                     AddAppSheet(addSheetApps: addSheetApps,
                                 isAppEnabled: apps.apps.contains(app.info.bundleIdentifier),
                                 app: app,
-                                appList: $apps
+                                appList: $appsEdited
                     )
                 }
                 Spacer()
                     .frame(height: 40)
                 HStack {
                     Spacer()
-                    Button("Ok", action: {
+                    Button(NSLocalizedString("button.OK", comment: ""), action: {
                         addSheetApps.toggle()
-                        AppFolder.shared.encode()
+                        apps.apps = appsEdited.apps
+                        apps.name = appsEdited.name
+                        apps.icon = appsEdited.icon
                     })
-                    Button("Cancel", action: {
+                    Button(NSLocalizedString("button.Cancel", comment: ""), action: {
                         addSheetApps.toggle()
-                        AppFolder.shared.decode()
                     })
                     .tint(.accentColor)
                 }

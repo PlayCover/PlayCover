@@ -65,7 +65,8 @@ struct MainView: View {
                                                selection: $selectedView) {
                                     AppFolderView(selectedBackgroundColor: $selectedBackgroundColor,
                                                   selectedTextColor: $selectedTextColor,
-                                                  apps: $foldersObject.folders[index]
+                                                  apps: $foldersObject.folders[index],
+                                                  appsEdited: foldersObject.folders[index]
                                     )
                                 } label: {
                                     Label(foldersObject.folders[index].name,

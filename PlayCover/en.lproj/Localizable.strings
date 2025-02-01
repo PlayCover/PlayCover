@@ -298,3 +298,4 @@
 "folder.textfield.name" = "Folder Name...";
 "button.remove.folder" = "Remove Folder";
 "button.add.folder" = "Add new Folder";
+"button.edit.folder" = "Edit Folder";
