@@ -296,6 +296,6 @@
 "alert.notSpace" = "Not enough space on disk";
 "alert.corrupted" = "File might be corrupted. Try to download it again";
 "folder.textfield.name" = "Folder Name...";
-"button.remove.folder" = "Remove Folder";
-"button.add.folder" = "Add new Folder";
-"button.edit.folder" = "Edit Folder";
+"folder.button.remove" = "Remove Folder";
+"folder.button.add" = "Add new Folder";
+"folder.button.edit" = "Edit Folder";

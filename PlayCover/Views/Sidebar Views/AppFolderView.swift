@@ -24,6 +24,10 @@ struct AppFolderView: View {
     @State private var showLegacyConvertAlert = false
     @State private var showWrongfileTypeAlert = false
     @State private var addSheetApps = false
+    var dynamicHeight: CGFloat {
+        let count = CGFloat(appsVM.apps.count) * 85
+        return min(count, 600)
+    }
 
     var body: some View {
         Group {
@@ -61,22 +65,19 @@ struct AppFolderView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            Button(NSLocalizedString("button.edit.folder", comment: ""), action: {
+            Button(NSLocalizedString("folder.button.edit", comment: ""), action: {
                 addSheetApps.toggle()
             })
             .padding()
         }
         .sheet(isPresented: $addSheetApps) {
-            var dynamicHeight: CGFloat {
-                let count = CGFloat(appsVM.apps.count) * 85
-                return min(count, 600)
-            }
             VStack {
                 HStack {
-                    TextField(text: $appsEdited.name, label: {Text("folder.textfield.name")})
+                    TextField(text: $appsEdited.name,
+                              label: {Text("folder.textfield.name")})
                         .frame(height: 40)
                     Picker(selection: $appsEdited.icon, label: Text("Icon")) {
-                        ForEach(icons, id: \.self) { icon in
+                        ForEach(AppFolder.shared.icons, id: \.self) { icon in
                             Image(systemName: icon)
                         }
                     }.fixedSize()
@@ -93,10 +94,10 @@ struct AppFolderView: View {
                 HStack {
                     Spacer()
                     Button(NSLocalizedString("button.OK", comment: ""), action: {
-                        addSheetApps.toggle()
                         apps.apps = appsEdited.apps
                         apps.name = appsEdited.name
                         apps.icon = appsEdited.icon
+                        addSheetApps.toggle()
                     })
                     Button(NSLocalizedString("button.Cancel", comment: ""), action: {
                         addSheetApps.toggle()
@@ -251,7 +252,7 @@ struct AddAppSheet: View {
             }
             Toggle(app.info.displayName, isOn: $isAppEnabled)
                 .onChange(of: isAppEnabled) { _ in
-                    if isAppEnabled {
+                    if isAppEnabled && !appList.apps.contains(app.info.bundleIdentifier) {
                         appList.apps.append(app.info.bundleIdentifier)
                     } else {
                         appList.apps = appList.apps.filter { $0 != app.info.bundleIdentifier }
@@ -261,12 +262,65 @@ struct AddAppSheet: View {
     }
 }
 
-let icons = [
-    "folder",
-    "keyboard",
-    "graduationcap",
-    "play.tv",
-    "gamecontroller",
-    "music.note",
-    "desktopcomputer"
-]
+class AppFolder: ObservableObject {
+    static let shared = AppFolder()
+
+    @Published var folders: [Folder] {
+        didSet {
+            encode()
+        }
+    }
+
+    static let plistFolderApps = PlayTools.playCoverContainer
+        .appendingPathComponent("appFolders")
+        .appendingPathExtension("plist")
+
+    init() {
+        self._folders = Published(initialValue: [])
+        if !decode() {
+            encode()
+        }
+    }
+
+    func addFolder(folder: String, icon: String) {
+        self.folders.append(Folder(name: folder, icon: icon))
+    }
+
+    func encode() {
+        let encoder = PropertyListEncoder()
+        encoder.outputFormat = .xml // .xml is usually preferred for .plist
+
+        do {
+            let data = try encoder.encode(self.folders)
+            try data.write(to: AppFolder.plistFolderApps)
+            print("Folders saved to: \(AppFolder.plistFolderApps)")
+        } catch {
+            print("Error saving folders to .plist: \(error)")
+        }
+    }
+
+    @discardableResult
+    func decode() -> Bool {
+        let decoder = PropertyListDecoder()
+        do {
+            let data = try Data(contentsOf: AppFolder.plistFolderApps)
+            let decodedFolder = try decoder.decode([Folder].self, from: data)
+            self._folders = Published(initialValue: decodedFolder)
+            return true
+        } catch {
+            print("Error loading folders from .plist: \(error)")
+            self._folders = Published(initialValue: [])
+            return false
+        }
+    }
+
+    let icons = [
+        "folder",
+        "keyboard",
+        "graduationcap",
+        "play.tv",
+        "gamecontroller",
+        "music.note",
+        "desktopcomputer"
+    ]
+}

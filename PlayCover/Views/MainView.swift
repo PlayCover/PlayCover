@@ -28,10 +28,11 @@ struct MainView: View {
     @State private var selectedTextColor: Color = Color.black
     @State private var addFolderPresented = false
     @State var newFolder = ""
-    @StateObject var foldersObject = AppFolder()
+    @ObservedObject var foldersObject = AppFolder()
     @State private var selectedSymbol: String = "folder"
 
     @ObservedObject private var URLObserved = URLObservable.shared
+
     var body: some View {
         GeometryReader { viewGeom in
             NavigationView {
@@ -51,12 +52,11 @@ struct MainView: View {
                                     .font(.caption)
                             }
                             .buttonStyle(.plain)
-                                .contextMenu(menuItems: {
-                                Button(NSLocalizedString("button.add.folder", comment: ""), action: {
+                            .contextMenu(menuItems: {
+                                Button(NSLocalizedString("folder.button.add", comment: ""), action: {
                                     addFolderPresented.toggle()
                                 })
                                 .keyboardShortcut(.escape, modifiers: .command)
-
                             })
                         }
                         if showAppFolders {
@@ -74,7 +74,7 @@ struct MainView: View {
                                         .font(.caption)
                                         .padding(.leading)
                                         .contextMenu(menuItems: {
-                                            Button(NSLocalizedString("button.remove.folder", comment: ""), action: {
+                                            Button(NSLocalizedString("folder.button.remove", comment: ""), action: {
                                                 foldersObject.folders.remove(at: index)
                                             })
                                         })
@@ -176,7 +176,7 @@ struct MainView: View {
                         TextField(text: $newFolder, label: {Text("folder.textfield.name")})
                             .frame(height: 40)
                         Picker(selection: $selectedSymbol, label: Text("Icon")) {
-                            ForEach(icons, id: \.self) { icon in
+                            ForEach(AppFolder.shared.icons, id: \.self) { icon in
                                 Image(systemName: icon)
                             }
                         }.fixedSize()
@@ -306,6 +306,7 @@ struct MainView_Previews: PreviewProvider {
 struct AddFolderView: View {
     @State var newFolder = ""
     @Binding var addFolderSheet: Bool
+
     var body: some View {
         VStack {
             TextField(text: $newFolder, label: {Text("preferences.textfield.url")})
@@ -333,67 +334,13 @@ struct AddFolderView: View {
 }
 
 struct Folder: Identifiable, Codable {
-    let id: UUID
+    var id: UUID  = UUID()
     var name: String
-    var apps: [String]
+    var apps: [String]  = []
     var icon: String = "folder"
+
     init(name: String, icon: String) {
-        self.id = UUID()
         self.name = name
-        self.apps = []
         self.icon = icon
-    }
-}
-
-class AppFolder: ObservableObject {
-    static let shared = AppFolder()
-
-    @Published var folders: [Folder] {
-        didSet {
-            encode()
-        }
-    }
-
-    var plistFolderApps = PlayTools.playCoverContainer
-        .appendingPathComponent("appFolders")
-        .appendingPathExtension("plist")
-
-    func addFolder(folder: String, icon: String) {
-        self.folders.append(Folder(name: folder, icon: icon))
-        }
-
-    func encode() {
-        let encoder = PropertyListEncoder()
-        encoder.outputFormat = .xml // .xml is usually preferred for .plist
-
-        do {
-            let data = try encoder.encode(self.folders)
-            try data.write(to: plistFolderApps)
-            print("Folders saved to: \(plistFolderApps)")
-        } catch {
-            print("Error saving folders to .plist: \(error)")
-        }
-    }
-
-    init() {
-        self._folders = Published(initialValue: [])
-        if !decode() {
-            encode()
-        }
-    }
-
-    @discardableResult
-    func decode() -> Bool {
-        let decoder = PropertyListDecoder()
-        do {
-            let data = try Data(contentsOf: plistFolderApps)
-            let decodedFolder = try decoder.decode([Folder].self, from: data)
-            self._folders = Published(initialValue: decodedFolder)
-            return true
-        } catch {
-            print("Error loading folders from .plist: \(error)")
-            self._folders = Published(initialValue: [])
-            return false
-        }
     }
 }
