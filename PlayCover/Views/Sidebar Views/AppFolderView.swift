@@ -1,5 +1,5 @@
 //
-//  AppLibraryView.swift
+//  AppFolderView.swift
 //  PlayCover
 //
 
@@ -65,10 +65,68 @@ struct AppFolderView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            Button(NSLocalizedString("folder.button.edit", comment: ""), action: {
-                addSheetApps.toggle()
-            })
-            .padding()
+        }
+        .navigationTitle("sidebar.appLibrary")
+        .navigationSubtitle(apps.name)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    if installVM.inProgress {
+                        Log.shared.error(PlayCoverError.waitInstallation)
+                    } else if downloadVM.inProgress {
+                        Log.shared.error(PlayCoverError.waitDownload)
+                    } else {
+                        selectFile()
+                    }
+                } label: {
+                    Image(systemName: "plus.circle")
+                        .help("playapp.add")
+                }
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Spacer()
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    showSettings.toggle()
+                } label: {
+                    Image(systemName: "gear")
+                }
+                .disabled(selected == nil)
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Picker("Grid View Layout", selection: $isList) {
+                    Image(systemName: "square.grid.2x2")
+                        .tag(false)
+                    Image(systemName: "list.bullet")
+                        .tag(true)
+                }.pickerStyle(.segmented)
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    addSheetApps.toggle()
+                } label: {
+                    Image(systemName: "pencil")
+                        .help("folder.button.edit")
+                }
+            }
+        }
+        .searchable(text: $searchString, placement: .toolbar)
+        .onChange(of: searchString, perform: { value in
+            appsVM.searchText = value
+            appsVM.fetchApps()
+        })
+        .onAppear {
+            appsVM.searchText = ""
+            appsVM.fetchApps()
+        }
+        .onChange(of: isList, perform: { value in
+            UserDefaults.standard.set(value, forKey: "AppLibraryView")
+        })
+        .sheet(isPresented: $showSettings) {
+            if let selected = selected {
+                AppSettingsView(viewModel: AppSettingsVM(app: selected))
+            }
         }
         .sheet(isPresented: $addSheetApps) {
             VStack {
@@ -107,59 +165,6 @@ struct AppFolderView: View {
             }
             .padding()
             .frame(width: 600, height: dynamicHeight)
-        }
-        .navigationTitle("sidebar.appLibrary")
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    if installVM.inProgress {
-                        Log.shared.error(PlayCoverError.waitInstallation)
-                    } else if downloadVM.inProgress {
-                        Log.shared.error(PlayCoverError.waitDownload)
-                    } else {
-                        selectFile()
-                    }
-                } label: {
-                    Image(systemName: "plus.circle")
-                        .help("playapp.add")
-                }
-            }
-            ToolbarItem(placement: .primaryAction) {
-                Spacer()
-            }
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    showSettings.toggle()
-                } label: {
-                    Image(systemName: "gear")
-                }
-                .disabled(selected == nil)
-            }
-            ToolbarItem(placement: .primaryAction) {
-                Picker("Grid View Layout", selection: $isList) {
-                    Image(systemName: "square.grid.2x2")
-                        .tag(false)
-                    Image(systemName: "list.bullet")
-                        .tag(true)
-                }.pickerStyle(.segmented)
-            }
-        }
-        .searchable(text: $searchString, placement: .toolbar)
-        .onChange(of: searchString, perform: { value in
-            appsVM.searchText = value
-            appsVM.fetchApps()
-        })
-        .onAppear {
-            appsVM.searchText = ""
-            appsVM.fetchApps()
-        }
-        .onChange(of: isList, perform: { value in
-            UserDefaults.standard.set(value, forKey: "AppLibraryView")
-        })
-        .sheet(isPresented: $showSettings) {
-            if let selected = selected {
-                AppSettingsView(viewModel: AppSettingsVM(app: selected))
-            }
         }
         .onAppear {
             showLegacyConvertAlert = LegacySettings.doesMonolithExist
