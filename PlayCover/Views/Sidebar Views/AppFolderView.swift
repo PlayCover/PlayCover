@@ -221,9 +221,13 @@ struct AppFolderView: View {
     }
 
     private func installApp(_ url: URL) {
-        Installer.install(ipaUrl: url, export: false, returnCompletion: { _ in
+        Installer.install(ipaUrl: url, export: false, returnCompletion: { appUrl in
             Task { @MainActor in
                 appsVM.fetchApps()
+                // Add installed app to the folder
+                if let lastApp = appUrl {
+                    apps.apps.append(PlayApp(appUrl: lastApp).info.bundleIdentifier)
+                }
                 NotifyService.shared.notify(
                     NSLocalizedString("notification.appInstalled", comment: ""),
                     NSLocalizedString("notification.appInstalled.message", comment: ""))
@@ -270,7 +274,7 @@ struct AddAppSheet: View {
 class AppFolder: ObservableObject {
     static let shared = AppFolder()
 
-    @Published var folders: [Folder] {
+    @Published var folders: [Folder] = [] {
         didSet {
             encode()
         }
@@ -281,7 +285,6 @@ class AppFolder: ObservableObject {
         .appendingPathExtension("plist")
 
     init() {
-        self._folders = Published(initialValue: [])
         if !decode() {
             encode()
         }
