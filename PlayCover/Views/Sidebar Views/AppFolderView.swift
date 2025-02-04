@@ -157,10 +157,12 @@ struct AppFolderView: View {
                         apps.icon = appsEdited.icon
                         addSheetApps.toggle()
                     })
+                    .disabled(appsEdited.name.isEmpty)
+                    .keyboardShortcut(.defaultAction)
                     Button(NSLocalizedString("button.Cancel", comment: ""), action: {
                         addSheetApps.toggle()
                     })
-                    .tint(.accentColor)
+                    .keyboardShortcut(.cancelAction)
                 }
             }
             .padding()

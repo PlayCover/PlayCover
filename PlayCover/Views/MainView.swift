@@ -187,16 +187,15 @@ struct MainView: View {
                             foldersObject.addFolder(folder: newFolder, icon: selectedSymbol)
                             selectedSymbol = "folder"
                             addFolderPresented.toggle()
-                        }
-                        )
+                        })
                         .disabled(newFolder.isEmpty)
-                        .tint(.accentColor)
                         .keyboardShortcut(.defaultAction)
                         Button(NSLocalizedString("button.Cancel", comment: ""), action: {
                             newFolder = ""
                             selectedSymbol = "folder"
                             addFolderPresented.toggle()
                         })
+                        .keyboardShortcut(.cancelAction)
                     }
                 }
                 .padding()
