@@ -107,6 +107,7 @@
 "alert.differentBundleIdKeymap.text" = "Are you sure you want to import this keymap?";
 "alert.power.title" = "Low Power Mode Enabled!";
 "alert.power.subtitle" = "Some apps will not work with Low Power Mode enabled. It is recommended to disable it.";
+"alert.cursor.clear" = "Cusror image will be deleted. Do you wish to continue?";
 
 "button.OK" = "OK";
 "button.Proceed" = "Proceed";
@@ -150,6 +151,9 @@
 "settings.toggle.autoKM.help" = "Automatically disable keymapping when text input is sensed";
 "settings.toggle.enableScrollWheel" = "Enable Scroll Wheel";
 "settings.toggle.enableScrollWheel.help" = "Enable scroll wheel in keymapping";
+"settings.toggle.customCursor" = "Custom Cursor";
+"settings.text.cursorSize" = "Size";
+"settings.text.cursorHotSpot" = "Hot Spot";
 
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";

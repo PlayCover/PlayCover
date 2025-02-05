@@ -375,6 +375,9 @@
 "settings.toggle.enableScrollWheel.help" = "在按键映射启用滚轮";
 "settings.toggle.iosFrameworks.help" = "将系统 ios 库添加到应用程序中。已知可修复某些应用程序找不到 ios 框架的问题";
 "settings.toggle.enableScrollWheel" = "启用滚轮";
+"settings.toggle.customCursor" = "自定义鼠标光标";
+"settings.text.cursorSize" = "光标尺寸";
+"settings.text.cursorHotSpot" = "光标热点";
 "ipaLibrary.info.notAvailable" = "此应用链接不可用";
 "ipaLibrary.info" = "应用信息";
 "ipaLibrary.info.checksum.none" = "未提供";
@@ -386,3 +389,4 @@
 "ipaLibrary.AlphabeticalSort" = "按字母顺序排列应用来源";
 "alert.install.anyway" = "仍然安装";
 "alert.open.appstore" = "打开 Mac App Store";
+"alert.cursor.clear" = "鼠标光标图片将被清除。您确定要继续吗？";

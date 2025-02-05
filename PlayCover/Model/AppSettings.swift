@@ -41,6 +41,7 @@ struct AppSettingsData: Codable {
     var rootWorkDir = true
     var noKMOnInput = true
     var enableScrollWheel = true
+    var cursorSetting = CursorSetting()
 
     init() {}
 
@@ -71,6 +72,7 @@ struct AppSettingsData: Codable {
         rootWorkDir = try container.decodeIfPresent(Bool.self, forKey: .rootWorkDir) ?? true
         noKMOnInput = try container.decodeIfPresent(Bool.self, forKey: .noKMOnInput) ?? true
         enableScrollWheel = try container.decodeIfPresent(Bool.self, forKey: .enableScrollWheel) ?? true
+        cursorSetting = try container.decodeIfPresent(CursorSetting.self, forKey: .cursorSetting) ?? CursorSetting()
     }
 }
 
