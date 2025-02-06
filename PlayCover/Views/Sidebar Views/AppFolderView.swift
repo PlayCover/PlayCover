@@ -296,6 +296,30 @@ class AppFolder: ObservableObject {
         self.folders.append(Folder(name: folder, icon: icon))
     }
 
+    @discardableResult
+    func removeFolder(index: Int) -> Bool {
+        let name = self.folders[index].name
+        Task { @MainActor in
+            let alert = NSAlert()
+            alert.informativeText = String(format:
+                                            NSLocalizedString("folder.remove.alert", comment: ""), name)
+            alert.alertStyle = .warning
+            alert.addButton(withTitle: NSLocalizedString("button.OK", comment: "")).hasDestructiveAction = true
+            alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
+            let result = alert.runModal()
+            switch result {
+            case .alertFirstButtonReturn:
+                self.folders.remove(at: index)
+                return true
+            case .alertSecondButtonReturn:
+                return false
+            default:
+                return false
+            }
+        }
+        return false
+    }
+
     func encode() {
         let encoder = PropertyListEncoder()
         encoder.outputFormat = .xml // .xml is usually preferred for .plist

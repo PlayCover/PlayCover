@@ -75,7 +75,7 @@ struct MainView: View {
                                         .padding(.leading)
                                         .contextMenu(menuItems: {
                                             Button(NSLocalizedString("folder.button.remove", comment: ""), action: {
-                                                foldersObject.folders.remove(at: index)
+                                                foldersObject.removeFolder(index: index)
                                             })
                                         })
 

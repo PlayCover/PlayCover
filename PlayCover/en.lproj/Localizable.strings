@@ -299,3 +299,4 @@
 "folder.button.remove" = "Remove Folder";
 "folder.button.add" = "Add new Folder";
 "folder.button.edit" = "Edit Folder";
+"folder.remove.alert" = "Are you sure to remove app folder \"%@\" folder? This action will not uninstall the apps.";
