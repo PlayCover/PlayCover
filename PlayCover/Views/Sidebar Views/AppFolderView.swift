@@ -226,10 +226,6 @@ struct AppFolderView: View {
         Installer.install(ipaUrl: url, export: false, returnCompletion: { appUrl in
             Task { @MainActor in
                 appsVM.fetchApps()
-                // Add installed app to the folder
-                if let lastApp = appUrl {
-                    apps.apps.append(PlayApp(appUrl: lastApp).info.bundleIdentifier)
-                }
                 NotifyService.shared.notify(
                     NSLocalizedString("notification.appInstalled", comment: ""),
                     NSLocalizedString("notification.appInstalled.message", comment: ""))
