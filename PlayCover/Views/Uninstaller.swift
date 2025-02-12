@@ -19,7 +19,8 @@ class Uninstaller {
         PlayTools.playCoverContainer.appendingPathComponent("App Settings"),
         PlayTools.playCoverContainer.appendingPathComponent("Entitlements"),
         PlayTools.playCoverContainer.appendingPathComponent("Keymapping"),
-        PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
+        PlayTools.playCoverContainer.appendingPathComponent("PlayChain"),
+        PlayTools.playCoverContainer.appendingPathComponent("Cursors")
     ]
     private static let cacheURLs: [URL] = [
         Uninstaller.libraryUrl.appendingPathComponent("Containers"),
@@ -49,6 +50,7 @@ class Uninstaller {
     static func uninstallPopup(_ app: PlayApp) async {
         if UninstallPreferences.shared.showUninstallPopup {
             let boxmakers: [(String, String)] = [
+                ("removeCursorImage", NSLocalizedString("preferences.toggle.removeCursorImage", comment: "")),
                 ("removePlayChain", NSLocalizedString("preferences.toggle.removePlayChain", comment: "")),
                 ("removeAppEntitlements", NSLocalizedString("preferences.toggle.removeEntitlements", comment: "")),
                 ("removeAppSettings", NSLocalizedString("preferences.toggle.removeSetting", comment: "")),
@@ -141,10 +143,15 @@ class Uninstaller {
             uninstallNum += 1
         }
 
+        if UninstallPreferences.shared.removeCursorImage {
+            CursorImages.shared.clear(bundleId: app.info.bundleIdentifier)
+            uninstallNum += 1
+        }
+
         app.removeAlias()
         app.deleteApp()
 
-        if uninstallNum >= 5 {
+        if uninstallNum >= 6 {
             do {
                 let apps = (try PlayApp.bundleIDCache).filter({ $0 != app.info.bundleIdentifier })
                     .joined(separator: "\n") + "\n"

@@ -15,6 +15,7 @@ class UninstallPreferences: NSObject, ObservableObject {
     @objc @AppStorage("RemoveAppSettingUninstall") var removeAppSettings = false
     @objc @AppStorage("RemoveAppEntitlementsUninstall") var removeAppEntitlements = false
     @objc @AppStorage("RemovePlayChainUninstall") var removePlayChain = false
+    @objc @AppStorage("RemoveCursorImageUninstall") var removeCursorImage = false
 
     @AppStorage("ShowUninstallPopup") var showUninstallPopup = true
 }
@@ -44,6 +45,8 @@ struct UninstallSettings: View {
                                isOn: $uninstallPreferences.removeAppEntitlements)
                         Toggle("preferences.toggle.removePlayChain",
                                isOn: $uninstallPreferences.removePlayChain)
+                        Toggle("preferences.toggle.removeCursorImage",
+                               isOn: $uninstallPreferences.removeCursorImage)
                     }
                     Spacer()
                 }

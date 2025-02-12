@@ -262,6 +262,7 @@
 "preferences.toggle.removeKeymap" = "移除键盘映射";
 "preferences.toggle.removeSetting" = "清除设置";
 "preferences.toggle.removeEntitlements" = "移除授权";
+"preferences.toggle.removeCursorImage" = "清除鼠标光标图片";
 "preferences.prune.alert" = "您确定要删除所有未使用的文件吗？";
 "preferences.prune.message" = "这将删除所有未使用的文件，包括设置、按键映射、授权和应用程序数据";
 "preferences.tab.install" = "安装";
