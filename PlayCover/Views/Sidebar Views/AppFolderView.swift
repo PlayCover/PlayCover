@@ -223,7 +223,7 @@ struct AppFolderView: View {
     }
 
     private func installApp(_ url: URL) {
-        Installer.install(ipaUrl: url, export: false, returnCompletion: { appUrl in
+        Installer.install(ipaUrl: url, export: false, returnCompletion: { _ in
             Task { @MainActor in
                 appsVM.fetchApps()
                 NotifyService.shared.notify(
@@ -249,7 +249,6 @@ struct AddAppSheet: View {
     @Binding var appList: Folder
     var body: some View {
         HStack {
-           // let image:NSImage = DataCache.instance.readImage(forKey: app.info.bundleIdentifier)
             if let image = DataCache.instance.readImage(forKey: app.info.bundleIdentifier) {
                 Image(nsImage: image)
                     .resizable()
