@@ -81,6 +81,9 @@ struct MainView: View {
 
                                 }
                             }
+                            .onMove { index, newIndex in
+                                foldersObject.folders.move(fromOffsets: index, toOffset: newIndex)
+                            }
                         }
                         NavigationLink(tag: 2, selection: $selectedView) {
                             IPALibraryView(storeVM: store,
