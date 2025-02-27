@@ -141,8 +141,7 @@ struct AppFolderView: View {
                     }.fixedSize()
                 }
                 List(AppsVM.shared.apps, id: \.url) { app in
-                    AddAppSheet(addSheetApps: addSheetApps,
-                                isAppEnabled: apps.apps.contains(app.info.bundleIdentifier),
+                    AddAppSheet(isAppEnabled: apps.apps.contains(app.info.bundleIdentifier),
                                 app: app,
                                 appList: $appsEdited
                     )
@@ -243,7 +242,6 @@ struct AppFolderView: View {
 }
 
 struct AddAppSheet: View {
-    @State var addSheetApps = false
     @State var isAppEnabled: Bool
     @State var app: PlayApp
     @Binding var appList: Folder

@@ -305,36 +305,6 @@ struct MainView_Previews: PreviewProvider {
     }
 }
 
-struct AddFolderView: View {
-    @State var newFolder = ""
-    @Binding var addFolderSheet: Bool
-
-    var body: some View {
-        VStack {
-            TextField(text: $newFolder, label: {Text("preferences.textfield.url")})
-            Spacer()
-                .frame(height: 20)
-            HStack {
-                Spacer()
-                Button {
-                    addFolderSheet.toggle()
-                } label: {
-                    Text("button.Cancel")
-                }
-                Button {
-                    addFolderSheet.toggle()
-                } label: {
-                    Text("button.OK")
-                }
-                .tint(.accentColor)
-                .keyboardShortcut(.defaultAction)
-            }
-        }
-        .padding()
-        .frame(width: 600, height: 100)
-    }
-}
-
 struct Folder: Identifiable, Codable {
     var id: UUID  = UUID()
     var name: String
