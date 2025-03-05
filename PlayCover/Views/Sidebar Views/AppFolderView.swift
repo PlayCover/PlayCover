@@ -10,11 +10,11 @@ struct AppFolderView: View {
     @EnvironmentObject var appsVM: AppsVM
     @EnvironmentObject var installVM: InstallVM
     @EnvironmentObject var downloadVM: DownloadVM
+    @EnvironmentObject var appFolderVM: AppFolderVM
 
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
-    @Binding var apps: Folder
-    @State var appsEdited: Folder
+    @Binding var folder: Folder
 
     @State private var gridLayout = [GridItem(.adaptive(minimum: 130, maximum: .infinity))]
     @State private var searchString = ""
@@ -34,7 +34,7 @@ struct AppFolderView: View {
             if !appsVM.apps.isEmpty || appsVM.updatingApps {
                 ScrollView {
                     AppDisplayView(apps: appsVM.filteredApps.filter {
-                        apps.apps.contains($0.info.bundleIdentifier)
+                        folder.apps.contains($0.info.bundleIdentifier)
                     },
                                       selectedBackgroundColor: $selectedBackgroundColor,
                                       selectedTextColor: $selectedTextColor,
@@ -67,7 +67,7 @@ struct AppFolderView: View {
             }
         }
         .navigationTitle("sidebar.appLibrary")
-        .navigationSubtitle(apps.name)
+        .navigationSubtitle(folder.name)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button {
@@ -131,19 +131,19 @@ struct AppFolderView: View {
         .sheet(isPresented: $addSheetApps) {
             VStack {
                 HStack {
-                    TextField(text: $appsEdited.name,
+                    TextField(text: $folder.name,
                               label: {Text("folder.textfield.name")})
                         .frame(height: 40)
-                    Picker(selection: $appsEdited.icon, label: Text("Icon")) {
-                        ForEach(AppFolder.shared.icons, id: \.self) { icon in
+                    Picker(selection: $folder.icon, label: Text("Icon")) {
+                        ForEach(appFolderVM.icons, id: \.self) { icon in
                             Image(systemName: icon)
                         }
                     }.fixedSize()
                 }
                 List(AppsVM.shared.apps, id: \.url) { app in
-                    AddAppSheet(isAppEnabled: apps.apps.contains(app.info.bundleIdentifier),
+                    AddAppSheet(isAppEnabled: folder.apps.contains(app.info.bundleIdentifier),
                                 app: app,
-                                appList: $appsEdited
+                                folder: $folder
                     )
                 }
                 Spacer()
@@ -151,14 +151,14 @@ struct AppFolderView: View {
                 HStack {
                     Spacer()
                     Button(NSLocalizedString("button.OK", comment: ""), action: {
-                        apps.apps = appsEdited.apps
-                        apps.name = appsEdited.name
-                        apps.icon = appsEdited.icon
                         addSheetApps.toggle()
                     })
-                    .disabled(appsEdited.name.isEmpty)
+                    .disabled(folder.name.isEmpty)
                     .keyboardShortcut(.defaultAction)
                     Button(NSLocalizedString("button.Cancel", comment: ""), action: {
+                        folder.name = appFolderVM.folderWrap.name
+                        folder.icon = appFolderVM.folderWrap.icon
+                        folder.apps = appFolderVM.folderWrap.apps
                         addSheetApps.toggle()
                     })
                     .keyboardShortcut(.cancelAction)
@@ -169,6 +169,9 @@ struct AppFolderView: View {
         }
         .onAppear {
             showLegacyConvertAlert = LegacySettings.doesMonolithExist
+            appFolderVM.folderWrap.name = folder.name
+            appFolderVM.folderWrap.icon = folder.icon
+            appFolderVM.folderWrap.apps = folder.apps
         }
         .onDrop(of: ["public.url", "public.file-url"], isTargeted: nil) { (items) -> Bool in
             if installVM.inProgress {
@@ -244,7 +247,7 @@ struct AppFolderView: View {
 struct AddAppSheet: View {
     @State var isAppEnabled: Bool
     @State var app: PlayApp
-    @Binding var appList: Folder
+    @Binding var folder: Folder
     var body: some View {
         HStack {
             if let image = DataCache.instance.readImage(forKey: app.info.bundleIdentifier) {
@@ -256,98 +259,12 @@ struct AddAppSheet: View {
             }
             Toggle(app.info.displayName, isOn: $isAppEnabled)
                 .onChange(of: isAppEnabled) { _ in
-                    if isAppEnabled && !appList.apps.contains(app.info.bundleIdentifier) {
-                        appList.apps.append(app.info.bundleIdentifier)
+                    if isAppEnabled && !folder.apps.contains(app.info.bundleIdentifier) {
+                        folder.apps.append(app.info.bundleIdentifier)
                     } else {
-                        appList.apps = appList.apps.filter { $0 != app.info.bundleIdentifier }
+                        folder.apps = folder.apps.filter { $0 != app.info.bundleIdentifier }
                     }
             }
         }
     }
-}
-
-class AppFolder: ObservableObject {
-    static let shared = AppFolder()
-
-    @Published var folders: [Folder] = [] {
-        didSet {
-            encode()
-        }
-    }
-
-    static let plistFolderApps = PlayTools.playCoverContainer
-        .appendingPathComponent("appFolders")
-        .appendingPathExtension("plist")
-
-    init() {
-        if !decode() {
-            encode()
-        }
-    }
-
-    func addFolder(folder: String, icon: String) {
-        self.folders.append(Folder(name: folder, icon: icon))
-    }
-
-    @discardableResult
-    func removeFolder(index: Int) -> Bool {
-        let name = self.folders[index].name
-        Task { @MainActor in
-            let alert = NSAlert()
-            alert.informativeText = String(format:
-                                            NSLocalizedString("folder.remove.alert", comment: ""), name)
-            alert.alertStyle = .warning
-            alert.addButton(withTitle: NSLocalizedString("button.OK", comment: "")).hasDestructiveAction = true
-            alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
-            let result = alert.runModal()
-            switch result {
-            case .alertFirstButtonReturn:
-                self.folders.remove(at: index)
-                return true
-            case .alertSecondButtonReturn:
-                return false
-            default:
-                return false
-            }
-        }
-        return false
-    }
-
-    func encode() {
-        let encoder = PropertyListEncoder()
-        encoder.outputFormat = .xml // .xml is usually preferred for .plist
-
-        do {
-            let data = try encoder.encode(self.folders)
-            try data.write(to: AppFolder.plistFolderApps)
-            print("Folders saved to: \(AppFolder.plistFolderApps)")
-        } catch {
-            print("Error saving folders to .plist: \(error)")
-        }
-    }
-
-    @discardableResult
-    func decode() -> Bool {
-        let decoder = PropertyListDecoder()
-        do {
-            let data = try Data(contentsOf: AppFolder.plistFolderApps)
-            let decodedFolder = try decoder.decode([Folder].self, from: data)
-            self._folders = Published(initialValue: decodedFolder)
-            return true
-        } catch {
-            print("Error loading folders from .plist: \(error)")
-            self._folders = Published(initialValue: [])
-            return false
-        }
-    }
-
-    let icons = [
-        "folder",
-        "keyboard",
-        "graduationcap",
-        "play.tv",
-        "gamecontroller",
-        "music.note",
-        "desktopcomputer"
-    ]
 }

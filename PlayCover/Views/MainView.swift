@@ -28,7 +28,7 @@ struct MainView: View {
     @State private var selectedTextColor: Color = Color.black
     @State private var addFolderPresented = false
     @State var newFolder = ""
-    @ObservedObject var foldersObject = AppFolder()
+    @ObservedObject var foldersObject = AppFolderVM()
     @State private var selectedSymbol: String = "folder"
 
     @ObservedObject private var URLObserved = URLObservable.shared
@@ -65,9 +65,9 @@ struct MainView: View {
                                                selection: $selectedView) {
                                     AppFolderView(selectedBackgroundColor: $selectedBackgroundColor,
                                                   selectedTextColor: $selectedTextColor,
-                                                  apps: $foldersObject.folders[index],
-                                                  appsEdited: foldersObject.folders[index]
+                                                  folder: $foldersObject.folders[index]
                                     )
+                                    .environmentObject(foldersObject)
                                 } label: {
                                     Label(foldersObject.folders[index].name,
                                           systemImage: foldersObject.folders[index].icon)
@@ -179,7 +179,7 @@ struct MainView: View {
                         TextField(text: $newFolder, label: {Text("folder.textfield.name")})
                             .frame(height: 40)
                         Picker(selection: $selectedSymbol, label: Text("Icon")) {
-                            ForEach(AppFolder.shared.icons, id: \.self) { icon in
+                            ForEach(foldersObject.icons, id: \.self) { icon in
                                 Image(systemName: icon)
                             }
                         }.fixedSize()
