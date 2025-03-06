@@ -156,9 +156,7 @@ struct AppFolderView: View {
                     .disabled(folder.name.isEmpty)
                     .keyboardShortcut(.defaultAction)
                     Button(NSLocalizedString("button.Cancel", comment: ""), action: {
-                        folder.name = appFolderVM.folderWrap.name
-                        folder.icon = appFolderVM.folderWrap.icon
-                        folder.apps = appFolderVM.folderWrap.apps
+                        folder = appFolderVM.folderWrap
                         addSheetApps.toggle()
                     })
                     .keyboardShortcut(.cancelAction)
@@ -166,12 +164,12 @@ struct AppFolderView: View {
             }
             .padding()
             .frame(width: 600, height: dynamicHeight)
+            .onAppear {
+                appFolderVM.folderWrap = folder
+            }
         }
         .onAppear {
             showLegacyConvertAlert = LegacySettings.doesMonolithExist
-            appFolderVM.folderWrap.name = folder.name
-            appFolderVM.folderWrap.icon = folder.icon
-            appFolderVM.folderWrap.apps = folder.apps
         }
         .onDrop(of: ["public.url", "public.file-url"], isTargeted: nil) { (items) -> Bool in
             if installVM.inProgress {

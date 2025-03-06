@@ -15,6 +15,7 @@ struct MainView: View {
     @EnvironmentObject var integrity: AppIntegrity
 
     @ObservedObject var keyCoverObserved = KeyCoverObservable.shared
+    @ObservedObject var foldersObject = AppFolderVM.shared
 
     @Binding public var isSigningSetupShown: Bool
 
@@ -28,7 +29,6 @@ struct MainView: View {
     @State private var selectedTextColor: Color = Color.black
     @State private var addFolderPresented = false
     @State var newFolder = ""
-    @ObservedObject var foldersObject = AppFolderVM()
     @State private var selectedSymbol: String = "folder"
 
     @ObservedObject private var URLObserved = URLObservable.shared
@@ -203,7 +203,11 @@ struct MainView: View {
                 }
                 .padding()
                 .frame(width: 600, height: 100)
+                .onAppear {
+                    newFolder = ""
+                    selectedSymbol = "folder"
                 }
+            }
 
             .onAppear {
                 self.selectedView = URLObserved.type == .source ? 2 : 1

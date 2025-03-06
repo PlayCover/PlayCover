@@ -6,6 +6,7 @@
 //
 
 class AppFolderVM: ObservableObject {
+    static let shared = AppFolderVM()
     @Published var folderWrap = Folder(name: "", icon: "")
     @Published var folders: [Folder] = [] {
         didSet {
