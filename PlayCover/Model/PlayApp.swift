@@ -32,6 +32,31 @@ class PlayApp: BaseApp {
     }
     var sessionDisableKeychain: Bool = false
 
+    @MainActor
+    func checkUpdate() async -> Int {
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("alert.appstore", comment: "")
+        alert.informativeText = String(
+            format: NSLocalizedString("ipaLibrary.version.newer", comment: "")
+        )
+        alert.icon = nil
+        alert.alertStyle = .informational
+        alert.addButton(withTitle: NSLocalizedString("alert.start.anyway", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("alert.download", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
+        let result = alert.runModal()
+        switch result {
+        case .alertFirstButtonReturn:
+            print("First")
+            return 1
+        case .alertSecondButtonReturn:
+            print("second")
+            return 2
+        default:
+            return 3
+        }
+    }
+    
     func launch() async {
         do {
             isStarting = true
@@ -45,6 +70,28 @@ class PlayApp: BaseApp {
             }
 
             AppsVM.shared.fetchApps()
+            let storeApp = StoreVM.shared.sourcesApps
+            let app = storeApp.first(where: {$0.bundleID == self.info.bundleIdentifier})
+            if let bundleID = app?.bundleID {
+                switch self.info.bundleVersion.compare(bundleID, options: .numeric) {
+                case .orderedDescending:
+                    let choose = await checkUpdate()
+                    if choose == 2 {
+                        if let url = URL(string: app?.link ?? "") {
+                            if DownloadVM.shared.inProgress {
+                                Log.shared.error(PlayCoverError.waitDownload)
+                            } else {
+                                let redirectHandler = RedirectHandler(url: url) // checking page redirect
+                                await DownloadApp(url: redirectHandler.getFinal(), app: app,
+                                            warning: "warningMessage").start()
+                            }
+                        }
+                    }
+                    if choose>1 {return}
+                default: break
+                }
+            }
+
             settings.sync()
 
             if try !Entitlements.areEntitlementsValid(app: self) {
