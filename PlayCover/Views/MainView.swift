@@ -30,7 +30,6 @@ struct MainView: View {
     @State private var addFolderPresented = false
     @State var newFolder = ""
     @State private var selectedSymbol: String = "folder"
-
     @ObservedObject private var URLObserved = URLObservable.shared
 
     var body: some View {
@@ -75,7 +74,18 @@ struct MainView: View {
                                         .padding(.leading)
                                         .contextMenu(menuItems: {
                                             Button(NSLocalizedString("folder.button.remove", comment: ""), action: {
-                                                foldersObject.removeFolder(index: index)
+                                                Task {
+                                                    if await foldersObject.removeFolder(index: index) {
+                                                        if !foldersObject.folders.contains(
+                                                            where: { $0.id.hashValue == self.selectedView })
+                                                            && self.selectedView != 1 && self.selectedView != 2 {
+                                                            self.selectedView = foldersObject.folders
+                                                                .count > 0 ? foldersObject
+                                                                .folders[index>0 ? index-1 : 0]
+                                                                .id.hashValue : 1
+                                                        }
+                                                    }
+                                                }
                                             })
                                         })
 
@@ -190,6 +200,7 @@ struct MainView: View {
                             foldersObject.addFolder(folder: newFolder, icon: selectedSymbol)
                             selectedSymbol = "folder"
                             addFolderPresented.toggle()
+                            self.selectedView = foldersObject.folders.last?.id.hashValue
                         })
                         .disabled(newFolder.isEmpty)
                         .keyboardShortcut(.defaultAction)

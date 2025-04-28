@@ -28,13 +28,11 @@ class AppFolderVM: ObservableObject {
         self.folders.append(Folder(name: folder, icon: icon))
     }
 
-    @discardableResult
-    func removeFolder(index: Int) -> Bool {
+    func removeFolder(index: Int) async -> Bool {
         let name = self.folders[index].name
-        Task { @MainActor in
+        return await MainActor.run {
             let alert = NSAlert()
-            alert.informativeText = String(format:
-                                            NSLocalizedString("folder.remove.alert", comment: ""), name)
+            alert.informativeText = String(format: NSLocalizedString("folder.remove.alert", comment: ""), name)
             alert.alertStyle = .warning
             alert.addButton(withTitle: NSLocalizedString("button.OK", comment: "")).hasDestructiveAction = true
             alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
@@ -43,13 +41,10 @@ class AppFolderVM: ObservableObject {
             case .alertFirstButtonReturn:
                 self.folders.remove(at: index)
                 return true
-            case .alertSecondButtonReturn:
-                return false
             default:
                 return false
             }
         }
-        return false
     }
 
     func encode() {
