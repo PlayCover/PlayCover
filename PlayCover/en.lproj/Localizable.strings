@@ -295,3 +295,6 @@
 "alert.quota.limit" = "Quota limit reached. It may take up 24 hours to download this file again";
 "alert.notSpace" = "Not enough space on disk";
 "alert.corrupted" = "File might be corrupted. Try to download it again";
+"alert.start.anyway" = "Start Anyway";
+"alert.version.title" = "New Version Available";
+"alert.version.text" = "A new version for %@ is available. Do you want to download it?";
