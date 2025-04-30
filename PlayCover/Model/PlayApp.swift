@@ -45,7 +45,7 @@ class PlayApp: BaseApp {
             }
 
             AppsVM.shared.fetchApps()
-            if await VersionCheck.shared.versionCheck(myApp: self) {return}
+            if await VersionCheck.shared.checkNewVersion(myApp: self) {return}
 
             settings.sync()
 

@@ -15,7 +15,7 @@ class VersionCheck {
             format: NSLocalizedString("alert.version.text", comment: ""), "\(app.name)"
         )
         alert.icon = NSImage(
-            systemSymbolName: "arrow.trianglehead.2.clockwise.rotate.90",
+            systemSymbolName: "square.and.arrow.down.fill",
             accessibilityDescription: nil
         )
         alert.alertStyle = .informational
@@ -41,7 +41,8 @@ class VersionCheck {
         }
     }
 
-    func versionCheck(myApp: PlayApp) async -> Bool {
+    func checkNewVersion(myApp: PlayApp) async -> Bool {
+        StoreVM.shared.resolveSources()
         let storeApp = StoreVM.shared.sourcesApps
         if let app = storeApp.first(where: {$0.bundleID == myApp.info.bundleIdentifier}) {
             switch myApp.info.bundleVersion.compare(app.bundleID, options: .numeric) {

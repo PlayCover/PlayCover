@@ -319,9 +319,9 @@
 		53F5E74126C1D369005AED1D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				B429B2632DC204F1001FF7D9 /* VersionCheck.swift */,
 				6E25096D297F4E95004D754C /* Extensions */,
 				B44B40362C1E315600CE2A3E /* GoogleDrive.swift */,
+				B429B2632DC204F1001FF7D9 /* VersionCheck.swift */,
 				92ECD8A4274E763700DB7AC6 /* IPA.swift */,
 				92EE06DD274EC09F002C907B /* Entitlements.swift */,
 				5314D1ED26C402EC00A0A727 /* Shell.swift */,
