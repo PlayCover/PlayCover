@@ -58,19 +58,7 @@ Follow the instructions below to get Genshin Impact, and many other games, up an
 
 ### Prerequisites
 
-At the moment, PlayCover can only run on Apple Silicon Macs. Devices with the following chips are supported:
-
-* M1
-* M1 Pro
-* M1 Max
-* M1 Ultra
-* M2
-* M2 Pro
-* M2 Max
-* M2 Ultra
-* M3
-* M3 Pro
-* M3 Max
+At the moment, PlayCover can only run on Apple Silicon Macs. This means that only devices with M-series SoCs (eg. M1) are supported.
 
 If you have an Intel Mac, you can explore alternatives like Bootcamp or emulators.
 
