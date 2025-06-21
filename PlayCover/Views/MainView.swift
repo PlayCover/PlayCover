@@ -59,41 +59,11 @@ struct MainView: View {
                             })
                         }
                         if showAppFolders {
-                            ForEach(foldersObject.folders.indices, id: \.hashValue) { index in
-                                NavigationLink(tag: foldersObject.folders[index].id.hashValue,
-                                               selection: $selectedView) {
-                                    AppFolderView(selectedBackgroundColor: $selectedBackgroundColor,
-                                                  selectedTextColor: $selectedTextColor,
-                                                  folder: $foldersObject.folders[index]
-                                    )
-                                    .environmentObject(foldersObject)
-                                } label: {
-                                    Label(foldersObject.folders[index].name,
-                                          systemImage: foldersObject.folders[index].icon)
-                                        .font(.caption)
-                                        .padding(.leading)
-                                        .contextMenu(menuItems: {
-                                            Button(NSLocalizedString("folder.button.remove", comment: ""), action: {
-                                                Task {
-                                                    if await foldersObject.removeFolder(index: index) {
-                                                        if !foldersObject.folders.contains(
-                                                            where: { $0.id.hashValue == self.selectedView })
-                                                            && self.selectedView != 1 && self.selectedView != 2 {
-                                                            self.selectedView = foldersObject.folders
-                                                                .count > 0 ? foldersObject
-                                                                .folders[index>0 ? index-1 : 0]
-                                                                .id.hashValue : 1
-                                                        }
-                                                    }
-                                                }
-                                            })
-                                        })
-
-                                }
-                            }
-                            .onMove { index, newIndex in
-                                foldersObject.folders.move(fromOffsets: index, toOffset: newIndex)
-                            }
+                            AppFoldersSectionView(
+                                selectedBackgroundColor: $selectedBackgroundColor,
+                                selectedTextColor: $selectedTextColor,
+                                foldersObject: foldersObject
+                            )
                         }
                         NavigationLink(tag: 2, selection: $selectedView) {
                             IPALibraryView(storeVM: store,
@@ -265,6 +235,50 @@ struct MainView: View {
 
     private func toggleSidebar() {
         NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
+    }
+}
+
+struct AppFoldersSectionView: View {
+    @State private var selectedView: Int? = -1
+    @Binding var selectedBackgroundColor: Color
+    @Binding var selectedTextColor: Color
+    @ObservedObject var foldersObject: AppFolderVM
+
+    var body: some View {
+        ForEach(foldersObject.folders.indices, id: \.hashValue) { index in
+            NavigationLink(
+                tag: foldersObject.folders[index].id.hashValue,
+                selection: $selectedView
+            ) {
+                AppFolderView(
+                    selectedBackgroundColor: $selectedBackgroundColor,
+                    selectedTextColor: $selectedTextColor,
+                    folder: $foldersObject.folders[index]
+                )
+                .environmentObject(foldersObject)
+            } label: {
+                Label(foldersObject.folders[index].name,
+                      systemImage: foldersObject.folders[index].icon)
+                    .font(.caption)
+                    .padding(.leading)
+                    .contextMenu {
+                        Button(NSLocalizedString("folder.button.remove", comment: ""), action: {
+                            Task {
+                                if await foldersObject.removeFolder(index: index) {
+                                    if !foldersObject.folders.contains(where: { $0.id.hashValue == selectedView }) &&
+                                        selectedView != 1 && selectedView != 2 {
+                                        selectedView = foldersObject.folders.count > 0 ?
+                                            foldersObject.folders[index > 0 ? index - 1 : 0].id.hashValue : 1
+                                    }
+                                }
+                            }
+                        })
+                    }
+            }
+        }
+        .onMove { index, newIndex in
+            foldersObject.folders.move(fromOffsets: index, toOffset: newIndex)
+        }
     }
 }
 
