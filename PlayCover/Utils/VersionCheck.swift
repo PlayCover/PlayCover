@@ -45,10 +45,8 @@ class VersionCheck {
         StoreVM.shared.resolveSources()
         let storeApp = StoreVM.shared.sourcesApps
         if let app = storeApp.first(where: {$0.bundleID == myApp.info.bundleIdentifier}) {
+            if myApp.info.bundleVersion.compare(app.version, options: .numeric) == .orderedAscending {
                 return await checkUpdateAlert(app: app)
-            switch myApp.info.bundleVersion.compare(app.version, options: .numeric) {
-            case .orderedAscending:
-            default: return false
             }
         }
         return false
