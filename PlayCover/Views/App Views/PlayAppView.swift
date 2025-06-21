@@ -104,8 +104,7 @@ struct PlayAppView: View {
                                 showKeymapSheet: $viewModel.showKeymapSheet)
             }
             .sheet(isPresented: $viewModel.showKeymapSheet) {
-                KeymapView(app: viewModel.app,
-                           showKeymapSheet: $viewModel.showKeymapSheet)
+                KeymapView(showKeymapSheet: $viewModel.showKeymapSheet, viewModel: KeymapViewVM(app: viewModel.app))
             }
     }
 

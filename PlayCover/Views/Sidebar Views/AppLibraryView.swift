@@ -112,7 +112,7 @@ struct AppLibraryView: View {
         }
         .sheet(isPresented: $showKeymapSheet) {
             if let selected = selected {
-                KeymapView(app: selected, showKeymapSheet: $showKeymapSheet)
+                KeymapView(showKeymapSheet: $showKeymapSheet, viewModel: KeymapViewVM(app: selected))
             }
         }
         .onAppear {

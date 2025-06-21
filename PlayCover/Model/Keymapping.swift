@@ -199,7 +199,13 @@ class Keymapping {
         }
     }
 
-    public func setKeymap(name: String, map: Keymap) {
+    public func createEmptyKeymap(name: String, bundleId: String) -> Bool {
+        setKeymap(name: name, map: Keymap(bundleIdentifier: bundleId))
+
+        return keymapURLs.keys.contains(name)
+    }
+
+    private func setKeymap(name: String, map: Keymap) {
         let encoder = PropertyListEncoder()
         encoder.outputFormat = .xml
 

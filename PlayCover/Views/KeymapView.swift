@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import DataCache
 
 enum KeymapNameValidation {
     case malformed, duplicate, empty, valid
@@ -14,34 +13,15 @@ enum KeymapNameValidation {
 
 struct KeymapView: View {
 
-    let app: PlayApp
-
     @Binding var showKeymapSheet: Bool
 
-    @State var selectedName: String?
-    @State var kmName = ""
-
-    @State var defaultKm = "default"
-
-    @State var showKeymapImport = false
-    @State var showKeymapRename = false
-
-    @State var showImportSuccess = false
-    @State var showImportFail = false
-    @State var showRenameSuccess = false
-    @State var showRenameFail = false
-    @State var resetKmCompletedAlert = false
-    @State var deleteKmCompletedMap = ""
-    @State var deleteKmFailedMap = ""
-
-    @State var appIcon: NSImage?
-    @State private var cache = DataCache.instance
+    @StateObject var viewModel: KeymapViewVM
 
     var body: some View {
         VStack {
             HStack {
                 Group {
-                    if let image = appIcon {
+                    if let image = viewModel.appIcon {
                         Image(nsImage: image)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -55,22 +35,26 @@ struct KeymapView: View {
                 .shadow(radius: 1)
                 .frame(width: 33, height: 33)
 
-                Text(String(format: NSLocalizedString("keymap.title", comment: ""), app.name))
+                Text(String(format: NSLocalizedString("keymap.title", comment: ""), viewModel.app.name))
                     .font(.title2).bold()
                     .multilineTextAlignment(.leading)
                 Spacer()
             }
             .task(priority: .userInitiated) {
-                appIcon = cache.readImage(forKey: app.info.bundleIdentifier)
+                viewModel.appIcon = viewModel.cache.readImage(forKey: viewModel.app.info.bundleIdentifier)
             }
 
-            List(Array(app.keymapping.keymapURLs.keys).sorted(by: <), id: \.self, selection: $selectedName) { keymap in
+            List(
+                Array(viewModel.app.keymapping.keymapURLs.keys).sorted(by: <),
+                id: \.self,
+                selection: $viewModel.selectedName
+            ) { keymap in
                 HStack {
                     Text(keymap)
 
                     Spacer()
 
-                    if keymap == defaultKm {
+                    if keymap == viewModel.defaultKm {
                         Text("keymap.default")
                             .font(.footnote)
                             .padding(5)
@@ -79,40 +63,38 @@ struct KeymapView: View {
                 }
                 .contextMenu {
                     Group {
-                        if keymap != defaultKm {
+                        if keymap != viewModel.defaultKm {
                             Button(action: {
-                                app.keymapping.keymapConfig.defaultKm = keymap
-                                defaultKm = keymap
+                                viewModel.app.keymapping.keymapConfig.defaultKm = keymap
+                                viewModel.defaultKm = keymap
                             }, label: {
                                 Text("settings.defaultKm")
                             })
                             Divider()
                         }
                         Button(action: {
-                            showKeymapRename.toggle()
+                            viewModel.showKeymapRename.toggle()
                         }, label: {
                             Text("settings.renameKm")
                         })
                         Button(role: .destructive, action: {
-                            if app.keymapping.deleteKeymap(name: kmName) {
-                                deleteKmCompletedMap = kmName
-                            } else {
-                                deleteKmFailedMap = kmName
+                            if !viewModel.app.keymapping.deleteKeymap(name: viewModel.kmName) {
+                                Log.shared.error("Failed to delete keymap: \(viewModel.kmName)")
                             }
                             showKeymapSheet.toggle()
                         }, label: {
                             Text("settings.deleteKm")
                         })
                         Button(role: .destructive, action: {
-                            app.keymapping.reset(name: kmName)
+                            viewModel.app.keymapping.reset(name: viewModel.kmName)
                             showKeymapSheet.toggle()
-                            resetKmCompletedAlert.toggle()
+                            viewModel.resetKmCompletedAlert.toggle()
                         }, label: {
                             Text("settings.resetKm")
                         })
                     }
                     .onAppear {
-                        selectedName = keymap
+                        viewModel.selectedName = keymap
                     }
                 }
             }
@@ -122,19 +104,23 @@ struct KeymapView: View {
                 .frame(height: 20)
 
             HStack {
-                Spacer()
-                .disabled(selectedName == nil)
                 Button(action: {
-                    showKeymapImport.toggle()
+                    viewModel.showCreateKeymap.toggle()
+                }, label: {
+                    Text("playapp.emptyKm")
+                })
+                Spacer()
+                Button(action: {
+                    viewModel.showKeymapImport.toggle()
                 }, label: {
                     Text("playapp.importKm")
                 })
                 Button(action: {
-                    app.keymapping.exportKeymap(name: kmName)
+                    viewModel.app.keymapping.exportKeymap(name: viewModel.kmName)
                 }, label: {
                     Text("playapp.exportKm")
                 })
-                .disabled(selectedName == nil)
+                .disabled(viewModel.selectedName == nil)
                 Button(action: {
                     showKeymapSheet.toggle()
                 }, label: {
@@ -147,81 +133,108 @@ struct KeymapView: View {
         .padding()
         .frame(width: 500, height: 350)
         .onAppear {
-            defaultKm = app.keymapping.keymapConfig.defaultKm
+            viewModel.defaultKm = viewModel.app.keymapping.keymapConfig.defaultKm
         }
-        .onChange(of: selectedName) { _ in
-            if let selectedName = selectedName {
-                kmName = selectedName
+        .onChange(of: viewModel.selectedName) { _ in
+            if let selectedName = viewModel.selectedName {
+                viewModel.kmName = selectedName
             } else {
-                kmName = ""
+                viewModel.kmName = ""
             }
         }
-        .onChange(of: showImportSuccess) { _ in
+        .onChange(of: viewModel.showImportSuccess) { _ in
             ToastVM.shared.showToast(
                 toastType: .notice,
                 toastDetails: NSLocalizedString("alert.kmImported", comment: ""))
         }
-        .onChange(of: showImportFail) { _ in
+        .onChange(of: viewModel.showImportFail) { _ in
             ToastVM.shared.showToast(
                 toastType: .error,
                 toastDetails: NSLocalizedString("alert.errorImportKm", comment: ""))
         }
-        .onChange(of: showRenameSuccess) { _ in
+        .onChange(of: viewModel.showRenameSuccess) { _ in
             ToastVM.shared.showToast(
                 toastType: .notice,
                 toastDetails: NSLocalizedString("alert.kmRenamed", comment: ""))
         }
-        .onChange(of: showRenameFail) { _ in
+        .onChange(of: viewModel.showRenameFail) { _ in
             ToastVM.shared.showToast(
                 toastType: .error,
                 toastDetails: NSLocalizedString("alert.errorRenameKm", comment: ""))
         }
-        .onChange(of: resetKmCompletedAlert) { _ in
+        .onChange(of: viewModel.showCreateKeymapSuccess) { _ in
+            ToastVM.shared.showToast(
+                toastType: .notice,
+                toastDetails: NSLocalizedString("alert.kmCreated", comment: ""))
+        }
+        .onChange(of: viewModel.showCreateKeymapFail) { _ in
+            ToastVM.shared.showToast(
+                toastType: .error,
+                toastDetails: NSLocalizedString("alert.errorKmCreated", comment: ""))
+        }
+        .onChange(of: viewModel.resetKmCompletedAlert) { _ in
             ToastVM.shared.showToast(
                 toastType: .notice,
                 toastDetails: NSLocalizedString("settings.resetKmCompleted", comment: ""))
         }
-        .onChange(of: deleteKmCompletedMap) { _ in
+        .onChange(of: viewModel.deleteKmCompletedMap) { _ in
             ToastVM.shared.showToast(
                 toastType: .notice,
                 toastDetails: String(format: NSLocalizedString("settings.deleteKmCompleted", comment: ""),
-                                     deleteKmCompletedMap)
+                                     viewModel.deleteKmCompletedMap)
             )
         }
-        .onChange(of: deleteKmFailedMap) { _ in
+        .onChange(of: viewModel.deleteKmFailedMap) { _ in
             ToastVM.shared.showToast(
                 toastType: .error,
                 toastDetails: String(format: NSLocalizedString("settings.deleteKmFailed", comment: ""),
-                                     deleteKmFailedMap)
+                                     viewModel.deleteKmFailedMap)
             )
         }
-        .sheet(isPresented: $showKeymapImport) {
-            KeymapNamerView(app: app,
+        .sheet(isPresented: $viewModel.showKeymapImport) {
+            KeymapNamerView(app: viewModel.app,
                             title: NSLocalizedString("keymap.title.import", comment: ""),
                             callback: { name in
-                                app.keymapping.importKeymap(name: name) { success in
+                                viewModel.app.keymapping.importKeymap(name: name) { success in
                                     showKeymapSheet.toggle()
                                     if success {
-                                        showImportSuccess.toggle()
+                                        viewModel.showImportSuccess.toggle()
                                     } else {
-                                        showImportFail.toggle()
+                                        viewModel.showImportFail.toggle()
                                     }
                                 }
                             },
-                            keymapNamerSheet: $showKeymapImport)
+                            keymapNamerSheet: $viewModel.showKeymapImport)
         }
-        .sheet(isPresented: $showKeymapRename) {
-            KeymapNamerView(app: app,
+        .sheet(isPresented: $viewModel.showKeymapRename) {
+            KeymapNamerView(app: viewModel.app,
                             title: NSLocalizedString("keymap.title.rename", comment: ""),
                             callback: { name in
                                 showKeymapSheet.toggle()
-                                if app.keymapping.renameKeymap(prevName: kmName, newName: name) {
-                                    showRenameSuccess.toggle()
+                                if viewModel.app.keymapping.renameKeymap(prevName: viewModel.kmName,
+                                                                         newName: name) {
+                                    viewModel.showRenameSuccess.toggle()
                                 } else {
-                                    showRenameFail.toggle()
+                                    viewModel.showRenameFail.toggle()
                                 }
                             },
-                            keymapNamerSheet: $showKeymapRename)
+                            keymapNamerSheet: $viewModel.showKeymapRename)
+        }
+        .sheet(isPresented: $viewModel.showCreateKeymap) {
+            KeymapNamerView(app: viewModel.app,
+                            title: NSLocalizedString("keymap.title.emptyKeymap", comment: ""),
+                            callback: { name in
+                                showKeymapSheet.toggle()
+                                if viewModel.app.keymapping.createEmptyKeymap(
+                                    name: name,
+                                    bundleId: viewModel.app.info.bundleIdentifier
+                                ) {
+                                    viewModel.showCreateKeymapSuccess.toggle()
+                                } else {
+                                    viewModel.showCreateKeymapFail.toggle()
+                                }
+                            },
+                            keymapNamerSheet: $viewModel.showCreateKeymap)
         }
     }
 
@@ -240,6 +253,8 @@ struct KeymapNamerView: View {
 
     var body: some View {
         VStack {
+            Spacer()
+
             HStack {
                 Text(title)
                     .font(.title2).bold()
@@ -251,8 +266,10 @@ struct KeymapNamerView: View {
             TextField(text: $name) {
                 Text("keymap.sheet.name")
             }
+
             Spacer()
                 .frame(height: 20)
+
             HStack {
                 switch nameValidationState {
                 case .malformed:
@@ -273,15 +290,16 @@ struct KeymapNamerView: View {
                     Text("preferences.popover.valid.keymap")
                         .font(.system(.subheadline))
                 }
+
                 Spacer()
+
                 Button(action: {
                     keymapNamerSheet.toggle()
                 }, label: {
                     Text("button.Cancel")
                 })
-                Button(action: {
-                    keymapNamerSheet.toggle()
 
+                Button(action: {
                     callback(name)
                 }, label: {
                     Text("button.Proceed")
@@ -295,6 +313,7 @@ struct KeymapNamerView: View {
         }
         .padding()
         .frame(width: 400, height: 100)
+        .padding()
         .onChange(of: name) { newName in
             if newName.esc != newName {
                 nameValidationState = .malformed
