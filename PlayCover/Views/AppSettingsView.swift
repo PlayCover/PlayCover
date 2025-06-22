@@ -227,6 +227,7 @@ struct GraphicsView: View {
                         Text("iPhone 13 Pro Max | A15 | 6GB").tag("iPhone14,3")
                         Text("iPhone 14 Pro Max | A16 | 6GB").tag("iPhone15,3")
                         Text("iPhone 15 Pro Max | A17 Pro | 8GB").tag("iPhone16,2")
+                        Text("iPhone 16 Pro Max | A18 Pro | 8GB").tag("iPhone17,2")
                     }
                     .frame(width: 250)
                 }

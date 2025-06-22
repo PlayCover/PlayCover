@@ -87,7 +87,7 @@ struct StoreAppConditionalView: View {
 
     @State var app: SourceAppsData
     @State var itunesResponse: ITunesResponse?
-    @State var onlineIcon: URL?
+    @State var onlineIcon: String?
     @State var localIcon: NSImage?
     @State var loadingLocalIcon: Bool = true
     @State var isList: Bool
@@ -114,31 +114,46 @@ struct StoreAppConditionalView: View {
                         .padding(.leading, 15)
                     ZStack {
                         Group {
-                            CachedAsyncImage(url: onlineIcon, urlCache: .iconCache) { image in
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                            } placeholder: {
-                                if let image = localIcon {
-                                    Image(nsImage: image)
+                            CachedAsyncImage(
+                                url: onlineIcon ?? "",
+                                placeholder: { _ in
+                                    if let image = localIcon {
+                                        Image(nsImage: image)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                    } else {
+                                        Rectangle()
+                                             .fill(.regularMaterial)
+                                             .overlay {
+                                                 if loadingLocalIcon {
+                                                     ProgressView()
+                                                         .progressViewStyle(.circular)
+                                                         .controlSize(.small)
+                                                 } else {
+                                                     Image(systemName: "exclamationmark.triangle")
+                                                         .opacity(0.5)
+                                                 }
+                                             }
+                                             .task(self.waitForIconLoad)
+                                    }
+                                },
+                                image: {
+                                    Image(nsImage: $0)
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                } else {
+                                },
+                                error: { _, retry in
                                     Rectangle()
-                                         .fill(.regularMaterial)
-                                         .overlay {
-                                             if loadingLocalIcon {
-                                                 ProgressView()
-                                                     .progressViewStyle(.circular)
-                                                     .controlSize(.small)
-                                             } else {
-                                                 Image(systemName: "exclamationmark.triangle")
-                                                     .opacity(0.5)
-                                             }
-                                         }
-                                         .task(self.waitForIconLoad)
+                                        .fill(.regularMaterial)
+                                        .overlay {
+                                            Image(systemName: "exclamationmark.triangle")
+                                                .opacity(0.5)
+                                        }
+                                        .task {
+                                            retry()
+                                        }
                                 }
-                            }
+                            )
                         }
                         .frame(width: 30, height: 30)
                         .cornerRadius(7.5)
@@ -164,34 +179,51 @@ struct StoreAppConditionalView: View {
                               selectedBackgroundColor : Color.clear)
                         .brightness(-0.2))
             } else {
-                VStack {
+                LazyVStack {
                     ZStack {
                         Group {
-                            CachedAsyncImage(url: onlineIcon, urlCache: .iconCache) { image in
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                            } placeholder: {
-                                if let image = localIcon {
-                                    Image(nsImage: image)
+                            CachedAsyncImage(
+                                url: onlineIcon ?? "",
+                                placeholder: { _ in
+                                    if let image = localIcon {
+                                        Image(nsImage: image)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                    } else {
+                                        Rectangle()
+                                             .fill(.regularMaterial)
+                                             .overlay {
+                                                 if loadingLocalIcon {
+                                                     ProgressView()
+                                                         .progressViewStyle(.circular)
+                                                         .controlSize(.small)
+                                                 } else {
+                                                     Image(systemName: "exclamationmark.triangle")
+                                                         .font(.system(size: 24))
+                                                         .opacity(0.5)
+                                                 }
+                                             }
+                                             .task(self.waitForIconLoad)
+                                    }
+                                },
+                                image: {
+                                    Image(nsImage: $0)
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                } else {
+                                },
+                                error: { _, retry in
                                     Rectangle()
-                                         .fill(.regularMaterial)
-                                         .overlay {
-                                             if loadingLocalIcon {
-                                                 ProgressView()
-                                                     .progressViewStyle(.circular)
-                                             } else {
-                                                 Image(systemName: "exclamationmark.triangle")
-                                                     .font(.system(size: 24))
-                                                     .opacity(0.5)
-                                             }
-                                         }
-                                         .task(self.waitForIconLoad)
+                                        .fill(.regularMaterial)
+                                        .overlay {
+                                            Image(systemName: "exclamationmark.triangle")
+                                                .font(.system(size: 24))
+                                                .opacity(0.5)
+                                        }
+                                        .task {
+                                            retry()
+                                        }
                                 }
-                            }
+                            )
                         }
                         .frame(width: 60, height: 60)
                         .cornerRadius(15)
@@ -226,13 +258,13 @@ struct StoreAppConditionalView: View {
         }
         .task(priority: .background) {
             if !cache.hasData(forKey: app.itunesLookup) {
-                await Cacher().resolveITunesData(app.itunesLookup)
+                await Cacher.shared.resolveITunesData(app.itunesLookup)
             }
             itunesResponse = try? cache.readCodable(forKey: app.itunesLookup)
             if let response = itunesResponse {
-                onlineIcon = URL(string: response.results[0].artworkUrl512)
+                onlineIcon = response.results[0].artworkUrl512
             } else {
-                localIcon = Cacher().getLocalIcon(bundleId: app.bundleID)
+                localIcon = Cacher.shared.getLocalIcon(bundleId: app.bundleID)
             }
         }
     }

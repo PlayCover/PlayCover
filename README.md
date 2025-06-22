@@ -58,19 +58,7 @@ Follow the instructions below to get Genshin Impact, and many other games, up an
 
 ### Prerequisites
 
-At the moment, PlayCover can only run on Apple Silicon Macs. Devices with the following chips are supported:
-
-* M1
-* M1 Pro
-* M1 Max
-* M1 Ultra
-* M2
-* M2 Pro
-* M2 Max
-* M2 Ultra
-* M3
-* M3 Pro
-* M3 Max
+At the moment, PlayCover can only run on Apple Silicon Macs. This means that only devices with M-series SoCs (eg. M1) are supported.
 
 If you have an Intel Mac, you can explore alternatives like Bootcamp or emulators.
 
@@ -123,7 +111,7 @@ These open source libraries were used to create this project.
 * [PTFakeTouch](https://github.com/Ret70/PTFakeTouch)
 * [DownloadManager](https://github.com/shapedbyiris/download-manager)
 * [DataCache](https://github.com/huynguyencong/DataCache)
-* [SwiftUI CachedAsyncImage](https://github.com/lorenzofiamingo/swiftui-cached-async-image)
+* [SwiftUI CachedAsyncImage](https://github.com/bullinnyc/CachedAsyncImage)
 
 * Thanks to @iVoider for creating such a great project!
 

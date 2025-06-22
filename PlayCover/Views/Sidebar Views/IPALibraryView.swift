@@ -67,7 +67,7 @@ struct IPALibraryView: View {
                             .padding()
                             Spacer()
                         } else {
-                            VStack {
+                            LazyVStack {
                                 ForEach(searchString.isEmpty
                                         ? sortAlphabetical ? sortedApps : storeVM.sourcesApps
                                         : filteredApps, id: \.bundleID) { app in

@@ -201,7 +201,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
 
     //
     private func appendSourceData(_ source: SourceJSON) {
-        for app in source.data where !sourcesApps.contains(app) {
+        for app in source.data where !sourcesApps.contains(where: { $0.bundleID == app.bundleID }) {
             sourcesApps.append(app)
         }
     }

@@ -19,7 +19,7 @@ struct StoreInfoAppView: View {
     @State var closeView = false
 
     @State var isAvailable: Bool?
-    @State var onlineIcon: URL?
+    @State var onlineIcon: String?
     @State var localIcon: NSImage?
 
     @State var itunesResponse: ITunesResponse?
@@ -31,25 +31,29 @@ struct StoreInfoAppView: View {
             HStack {
                 ZStack {
                     Group {
-                        CachedAsyncImage(url: onlineIcon, urlCache: .iconCache) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                        } placeholder: {
-                            if let image = localIcon {
-                                Image(nsImage: image)
+                        CachedAsyncImage(
+                            url: onlineIcon ?? "",
+                            placeholder: { _ in
+                                if let image = localIcon {
+                                    Image(nsImage: image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                } else {
+                                    Rectangle()
+                                        .fill(.regularMaterial)
+                                        .overlay {
+                                            ProgressView()
+                                                .progressViewStyle(.circular)
+                                                .controlSize(.small)
+                                        }
+                                }
+                            },
+                            image: {
+                                Image(nsImage: $0)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                            } else {
-                                Rectangle()
-                                    .fill(.regularMaterial)
-                                    .overlay {
-                                        ProgressView()
-                                            .progressViewStyle(.circular)
-                                            .controlSize(.small)
-                                    }
                             }
-                        }
+                        )
                     }
                     .cornerRadius(10)
                     .shadow(radius: 1)
@@ -114,13 +118,13 @@ struct StoreInfoAppView: View {
             }
 
             if !cache.hasData(forKey: viewModel.data.itunesLookup) {
-                await Cacher().resolveITunesData(viewModel.data.itunesLookup)
+                await Cacher.shared.resolveITunesData(viewModel.data.itunesLookup)
             }
             itunesResponse = try? cache.readCodable(forKey: viewModel.data.itunesLookup)
             if let response = itunesResponse {
-                onlineIcon = URL(string: response.results[0].artworkUrl512)
+                onlineIcon = response.results[0].artworkUrl512
             } else {
-                localIcon = Cacher().getLocalIcon(bundleId: viewModel.data.bundleID)
+                localIcon = Cacher.shared.getLocalIcon(bundleId: viewModel.data.bundleID)
             }
         }
         .padding()

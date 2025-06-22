@@ -46,7 +46,7 @@ struct IPASourceView: View {
                 .padding()
                 Spacer()
             } else {
-                VStack {
+                LazyVStack {
                     ForEach(searchString.isEmpty
                             ? sortAlphabetical ? sortedApps : sourceApps
                             : filteredApps, id: \.bundleID) { app in
