@@ -222,7 +222,7 @@ struct KeymapView: View {
         }
         .sheet(isPresented: $viewModel.showCreateKeymap) {
             KeymapNamerView(app: viewModel.app,
-                            title: NSLocalizedString("keymap.title.emptyKeymap", comment: ""),
+                            title: NSLocalizedString("keymap.title.empty", comment: ""),
                             callback: { name in
                                 showKeymapSheet.toggle()
                                 if viewModel.app.keymapping.createEmptyKeymap(

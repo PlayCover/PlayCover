@@ -9,6 +9,7 @@
 "playapp.importIPA" = "Import IPA";
 "playapp.importKm" = "Import";
 "playapp.exportKm" = "Export";
+"playapp.emptyKm" = "Create New";
 "playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
 "playapp.delete" = "Uninstall App";
 "playapp.deleteConfirm" = "Uninstall";
@@ -89,9 +90,11 @@
 
 "alert.appCacheCleared" = "App data has been cleared!";
 "alert.kmImported" = "Keymapping imported!";
-"alert.errorImportKm" = "Error occured when importing!";
+"alert.errorImportKm" = "Error occured when importing keymap!";
 "alert.kmRenamed" = "Keymap renamed!";
-"alert.errorRenameKm" = "Error occured when renaming keymap";
+"alert.errorRenameKm" = "Error occured when renaming keymap!";
+"alert.kmCreated" = "Created new keymap!";
+"alert.errorKmCreated" = "Error occured when creating keymap!";
 "alert.app.delete" = "All app data will be erased. You may need to download app files again. Do you wish to continue?";
 "alert.app.preferences" = "All in-app preferences will be deleted. Do you wish to continue?";
 "alert.app.clearPlayChain" = "All PlayChain data will be erased. You may need to login to the app again. Do you wish to continue?";
@@ -206,7 +209,7 @@
 "settings.resetKm" = "Reset Keymapping";
 "settings.deleteKm" = "Delete Keymapping";
 "settings.renameKm" = "Rename Keymapping";
-"settings.defaultKm" = "Set default";
+"settings.defaultKm" = "Set Default";
 
 "settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
 "settings.resetKmCompleted" = "Keymapping has been reset!";
@@ -301,6 +304,7 @@
 "keymap.title" = "%@ Keymaps";
 "keymap.title.import" = "Import Keymap Name";
 "keymap.title.rename" = "Rename Keymap Name";
+"keymap.title.empty" = "Create New Keymap";
 "keymap.sheet.name" = "Keymap Name";
 "keymap.default" = "Default";
 
