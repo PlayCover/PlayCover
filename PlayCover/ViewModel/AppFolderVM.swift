@@ -15,7 +15,7 @@ class AppFolderVM: ObservableObject {
     }
 
     static let plistFolderApps = PlayTools.playCoverContainer
-        .appendingPathComponent("appFolders")
+        .appendingPathComponent("AppFolders")
         .appendingPathExtension("plist")
 
     init() {
@@ -34,11 +34,11 @@ class AppFolderVM: ObservableObject {
             let alert = NSAlert()
             alert.informativeText = String(format: NSLocalizedString("folder.remove.alert", comment: ""), name)
             alert.alertStyle = .warning
-            alert.addButton(withTitle: NSLocalizedString("button.OK", comment: "")).hasDestructiveAction = true
             alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
+            alert.addButton(withTitle: NSLocalizedString("button.OK", comment: "")).hasDestructiveAction = true
             let result = alert.runModal()
             switch result {
-            case .alertFirstButtonReturn:
+            case .alertSecondButtonReturn:
                 self.folders.remove(at: index)
                 return true
             default:

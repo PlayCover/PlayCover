@@ -60,6 +60,7 @@ struct MainView: View {
                         }
                         if showAppFolders {
                             AppFoldersSectionView(
+                                selectedView: $selectedView,
                                 selectedBackgroundColor: $selectedBackgroundColor,
                                 selectedTextColor: $selectedTextColor,
                                 foldersObject: foldersObject
@@ -166,6 +167,12 @@ struct MainView: View {
                     }
                     HStack {
                         Spacer()
+                        Button(NSLocalizedString("button.Cancel", comment: ""), action: {
+                            newFolder = ""
+                            selectedSymbol = "folder"
+                            addFolderPresented.toggle()
+                        })
+                        .keyboardShortcut(.cancelAction)
                         Button(NSLocalizedString("button.OK", comment: ""), action: {
                             foldersObject.addFolder(folder: newFolder, icon: selectedSymbol)
                             selectedSymbol = "folder"
@@ -174,16 +181,10 @@ struct MainView: View {
                         })
                         .disabled(newFolder.isEmpty)
                         .keyboardShortcut(.defaultAction)
-                        Button(NSLocalizedString("button.Cancel", comment: ""), action: {
-                            newFolder = ""
-                            selectedSymbol = "folder"
-                            addFolderPresented.toggle()
-                        })
-                        .keyboardShortcut(.cancelAction)
                     }
                 }
-                .padding()
                 .frame(width: 600, height: 100)
+                .padding()
                 .onAppear {
                     newFolder = ""
                     selectedSymbol = "folder"
@@ -239,7 +240,7 @@ struct MainView: View {
 }
 
 struct AppFoldersSectionView: View {
-    @State private var selectedView: Int? = -1
+    @Binding var selectedView: Int?
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
     @ObservedObject var foldersObject: AppFolderVM

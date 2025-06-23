@@ -25,7 +25,7 @@ struct AppFolderView: View {
     @State private var showWrongfileTypeAlert = false
     @State private var addSheetApps = false
     var dynamicHeight: CGFloat {
-        let count = CGFloat(appsVM.apps.count) * 85
+        let count = CGFloat(appsVM.apps.count) * 100
         return min(count, 600)
     }
 
@@ -150,20 +150,21 @@ struct AppFolderView: View {
                     .frame(height: 40)
                 HStack {
                     Spacer()
-                    Button(NSLocalizedString("button.OK", comment: ""), action: {
-                        addSheetApps.toggle()
-                    })
-                    .disabled(folder.name.isEmpty)
-                    .keyboardShortcut(.defaultAction)
                     Button(NSLocalizedString("button.Cancel", comment: ""), action: {
                         folder = appFolderVM.folderWrap
                         addSheetApps.toggle()
                     })
                     .keyboardShortcut(.cancelAction)
+                    Button(NSLocalizedString("button.OK", comment: ""), action: {
+                        addSheetApps.toggle()
+                    })
+                    .disabled(folder.name.isEmpty)
+                    .keyboardShortcut(.defaultAction)
                 }
             }
-            .padding()
             .frame(width: 600, height: dynamicHeight)
+            .padding()
+
             .onAppear {
                 appFolderVM.folderWrap = folder
             }
@@ -253,7 +254,7 @@ struct AddAppSheet: View {
                     .resizable()
                     .cornerRadius(10)
                     .shadow(radius: 1)
-                    .frame(width: 28, height: 28)
+                    .frame(width: 36, height: 36)
             }
             Toggle(app.info.displayName, isOn: $isAppEnabled)
                 .onChange(of: isAppEnabled) { _ in
