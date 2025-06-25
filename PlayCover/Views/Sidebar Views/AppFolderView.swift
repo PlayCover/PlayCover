@@ -24,6 +24,7 @@ struct AppFolderView: View {
     @State private var showLegacyConvertAlert = false
     @State private var showWrongfileTypeAlert = false
     @State private var addSheetApps = false
+    @State private var showPicker = false
     var dynamicHeight: CGFloat {
         let count = CGFloat(appsVM.apps.count) * 100
         return min(count, 600)
@@ -134,11 +135,20 @@ struct AppFolderView: View {
                     TextField(text: $folder.name,
                               label: {Text("folder.textfield.name")})
                         .frame(height: 40)
-                    Picker(selection: $folder.icon, label: Text("Icon")) {
-                        ForEach(appFolderVM.icons, id: \.self) { icon in
-                            Image(systemName: icon)
-                        }
-                    }.fixedSize()
+                    VStack {
+                        Button(action: {
+                            showPicker = true
+                        }, label: {
+                            Label("folder.textfield.icon", systemImage: folder.icon)
+                        })
+                    }
+                    .sheet(isPresented: $showPicker) {
+                        IconPickerView(
+                            selectedSymbol: $folder.icon,
+                            showSelector: $showPicker,
+                            icons: appFolderVM.icons
+                        )
+                    }
                 }
                 List(AppsVM.shared.apps, id: \.url) { app in
                     AddAppSheet(isAppEnabled: folder.apps.contains(app.info.bundleIdentifier),
@@ -252,9 +262,9 @@ struct AddAppSheet: View {
             if let image = DataCache.instance.readImage(forKey: app.info.bundleIdentifier) {
                 Image(nsImage: image)
                     .resizable()
-                    .cornerRadius(10)
+                    .cornerRadius(15)
                     .shadow(radius: 1)
-                    .frame(width: 36, height: 36)
+                    .frame(width: 45, height: 45)
             }
             Toggle(app.info.displayName, isOn: $isAppEnabled)
                 .onChange(of: isAppEnabled) { _ in

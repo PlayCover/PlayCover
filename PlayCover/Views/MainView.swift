@@ -30,7 +30,9 @@ struct MainView: View {
     @State private var addFolderPresented = false
     @State var newFolder = ""
     @State private var selectedSymbol: String = "folder"
+    @State private var showPicker = false
     @ObservedObject private var URLObserved = URLObservable.shared
+    let columns = [GridItem(.adaptive(minimum: 50, maximum: .infinity))]
 
     var body: some View {
         GeometryReader { viewGeom in
@@ -159,11 +161,30 @@ struct MainView: View {
                     HStack {
                         TextField(text: $newFolder, label: {Text("folder.textfield.name")})
                             .frame(height: 40)
-                        Picker(selection: $selectedSymbol, label: Text("Icon")) {
+                    }
+                    LazyVStack {
+                        Spacer()
+                        LazyVGrid(columns: columns, spacing: 8) {
                             ForEach(foldersObject.icons, id: \.self) { icon in
                                 Image(systemName: icon)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 32, height: 32)
+                                    .padding(10)
+                                    .background(selectedSymbol == icon ? Color.blue.opacity(0.3) : Color.clear)
+                                    .cornerRadius(15)
+                                    .shadow(radius: 1)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 15)
+                                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                                    )
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        selectedSymbol = icon
+                                    }
                             }
-                        }.fixedSize()
+                        }
+                        .padding(.horizontal, 10)
                     }
                     HStack {
                         Spacer()
@@ -176,14 +197,15 @@ struct MainView: View {
                         Button(NSLocalizedString("button.OK", comment: ""), action: {
                             foldersObject.addFolder(folder: newFolder, icon: selectedSymbol)
                             selectedSymbol = "folder"
+                            newFolder = ""
                             addFolderPresented.toggle()
                             self.selectedView = foldersObject.folders.last?.id.hashValue
                         })
-                        .disabled(newFolder.isEmpty)
+                        .disabled(newFolder.isEmpty || selectedSymbol.isEmpty)
                         .keyboardShortcut(.defaultAction)
                     }
                 }
-                .frame(width: 600, height: 100)
+                .frame(width: 600, height: 140)
                 .padding()
                 .onAppear {
                     newFolder = ""
