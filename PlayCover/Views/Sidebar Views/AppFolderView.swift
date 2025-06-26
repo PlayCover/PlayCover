@@ -26,7 +26,7 @@ struct AppFolderView: View {
     @State private var addSheetApps = false
     @State private var showPicker = false
     var dynamicHeight: CGFloat {
-        let count = CGFloat(appsVM.apps.count) * 100
+        let count = CGFloat(appsVM.apps.count) * 120
         return min(count, 600)
     }
 
