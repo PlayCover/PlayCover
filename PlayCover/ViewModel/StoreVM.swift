@@ -143,7 +143,7 @@ class StoreVM: ObservableObject, @unchecked Sendable {
         }
         _ = await task.result
     }
-    
+
     //
     @discardableResult private func encode() -> Bool {
         let encoder = PropertyListEncoder()
