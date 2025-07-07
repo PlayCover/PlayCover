@@ -188,13 +188,12 @@ struct KeymappingView: View {
 
 struct GraphicsView: View {
     @Binding var settings: AppSettings
-
     @State var customWidth = 1920
     @State var customHeight = 1080
-
     @State var showResolutionWarning = false
     @AppStorage("settings.settings.inverseScreenValues") private var inverseScreenValues = false
     @AppStorage("settings.settings.disableTimeout") private var disableTimeout = false
+    @AppStorage("settings.toggle.hideTitleBar") private var hideTitleBar = false
     static var number: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .none
@@ -360,6 +359,8 @@ struct GraphicsView: View {
                     }
                     Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.settings.disableTimeout)
                         .help("settings.toggle.disableDisplaySleep.help")
+                    Spacer()
+                    Toggle("settings.toggle.hideTitleBar", isOn: $settings.settings.hideTitleBar)
                     Spacer()
                 }
                 Spacer()
