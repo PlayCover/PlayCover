@@ -271,11 +271,8 @@ struct GraphicsView: View {
                                 })
                                 .frame(width: 125)
                         }
-                        onIncrement: {
-                            customWidth += 1
-                        } onDecrement: {
-                            customWidth -= 1
-                        }
+                        onIncrement: { customWidth += 1 }
+                        onDecrement: { customWidth -= 1 }
                         Spacer()
                         Text(NSLocalizedString("settings.text.customHeight", comment: "") + ":")
                         Stepper {
@@ -323,17 +320,13 @@ struct GraphicsView: View {
                             value: $customScaler,
                             formatter: GraphicsView.fractionFormatter,
                             onCommit: {
-                                Task { @MainActor in
-                                    NSApp.keyWindow?.makeFirstResponder(nil)
-                                }
+                                Task { @MainActor in NSApp.keyWindow?.makeFirstResponder(nil) }
                             })
                             .frame(width: 125)
                     } onIncrement: {
                         customScaler += 0.1
                     } onDecrement: {
-                        if customScaler > 0.5 {
-                            customScaler -= 0.1
-                        }
+                        if customScaler > 0.5 { customScaler -= 0.1 }
                     }
                 }
                 VStack(alignment: .leading) {
