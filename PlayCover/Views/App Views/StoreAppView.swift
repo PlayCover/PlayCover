@@ -114,8 +114,8 @@ struct StoreAppConditionalView: View {
                         .padding(.leading, 15)
                     ZStack {
                         Group {
-                            CachedAsyncImage(
-                                url: onlineIcon ?? "",
+                            CachedAsyncImageWrapper(
+                                url: onlineIcon,
                                 placeholder: { _ in
                                     if let image = localIcon {
                                         Image(nsImage: image)
@@ -182,8 +182,8 @@ struct StoreAppConditionalView: View {
                 LazyVStack {
                     ZStack {
                         Group {
-                            CachedAsyncImage(
-                                url: onlineIcon ?? "",
+                            CachedAsyncImageWrapper(
+                                url: onlineIcon,
                                 placeholder: { _ in
                                     if let image = localIcon {
                                         Image(nsImage: image)
