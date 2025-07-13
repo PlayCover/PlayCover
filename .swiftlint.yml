@@ -12,11 +12,6 @@ identifier_name:
 type_name:
   allowed_symbols: ['_']
 
-file_length:
-    ignore_comment_only_lines: true
-    warning: 1000
-    error: 1500
-  
 disabled_rules:
   # see https://github.com/realm/SwiftLint/issues/5263
   - non_optional_string_data_conversion
