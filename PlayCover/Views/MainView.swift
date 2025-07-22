@@ -166,22 +166,7 @@ struct MainView: View {
                         Spacer()
                         LazyVGrid(columns: columns, spacing: 8) {
                             ForEach(foldersObject.icons, id: \.self) { icon in
-                                Image(systemName: icon)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 32, height: 32)
-                                    .padding(10)
-                                    .background(selectedSymbol == icon ? Color.blue.opacity(0.3) : Color.clear)
-                                    .cornerRadius(15)
-                                    .shadow(radius: 1)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 15)
-                                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                                    )
-                                    .contentShape(Rectangle())
-                                    .onTapGesture {
-                                        selectedSymbol = icon
-                                    }
+                                IconPickerView.shared.iconVStack(icon: icon, tempSelection: $selectedSymbol)
                             }
                         }
                         .padding(.horizontal, 10)
@@ -205,7 +190,7 @@ struct MainView: View {
                         .keyboardShortcut(.defaultAction)
                     }
                 }
-                .frame(width: 600, height: 140)
+                .frame(width: 600, height: 160)
                 .padding()
                 .onAppear {
                     newFolder = ""

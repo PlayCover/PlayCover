@@ -143,7 +143,7 @@ struct AppFolderView: View {
                         })
                     }
                     .sheet(isPresented: $showPicker) {
-                        IconPickerView(
+                        IconPickerView.IconPickerViewStruct(
                             selectedSymbol: $folder.icon,
                             showSelector: $showPicker,
                             icons: appFolderVM.icons
