@@ -505,6 +505,12 @@ struct BypassesView: View {
                         .toggleStyle(.async($task, role: .iosFrameworks))
                     Spacer()
                 }
+                Spacer()
+                HStack {
+                    Toggle("settings.toggle.checkMicPermissionSync", isOn: $settings.settings.checkMicPermissionSync)
+                        .help("settings.toggle.checkMicPermissionSync.help")
+                    Spacer()
+                }
             }
             .padding()
         }
