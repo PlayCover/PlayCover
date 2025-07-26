@@ -58,7 +58,7 @@ struct KeymapView: View {
                         Text("keymap.default")
                             .font(.footnote)
                             .padding(5)
-                            .background(.regularMaterial.blendMode(.exclusion), in: RoundedRectangle(cornerRadius: 10))
+                            .background(Color.secondary.opacity(0.2), in: RoundedRectangle(cornerRadius: 10))
                     }
                 }
                 .contextMenu {
