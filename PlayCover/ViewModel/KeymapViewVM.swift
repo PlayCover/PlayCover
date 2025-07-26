@@ -5,7 +5,7 @@
 //  Created by TheMoonThatRises on 6/20/25.
 //
 
-import Foundation
+import SwiftUI
 import DataCache
 
 class KeymapViewVM: ObservableObject {
@@ -22,23 +22,20 @@ class KeymapViewVM: ObservableObject {
     @Published var showKeymapRename = false
     @Published var showCreateKeymap = false
 
-    @Published var showImportSuccess = false
-    @Published var showImportFail = false
-
-    @Published var showRenameSuccess = false
-    @Published var showRenameFail = false
-
-    @Published var showCreateKeymapSuccess = false
-    @Published var showCreateKeymapFail = false
-
-    @Published var resetKmCompletedAlert = false
-    @Published var deleteKmCompletedMap = false
-    @Published var deleteKmFailedMap = false
-
     @Published var appIcon: NSImage?
+
+    @Published var keymapURLS: [String] = []
 
     init(app: PlayApp) {
         self.app = app
+
+        self.reloadKeymapCache()
+    }
+
+    func reloadKeymapCache() {
+        app.keymapping.reloadKeymapCache()
+
+        keymapURLS = Array(app.keymapping.keymapURLs.keys).sorted(by: <)
     }
 
 }

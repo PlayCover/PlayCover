@@ -45,7 +45,7 @@ struct KeymapView: View {
             }
 
             List(
-                Array(viewModel.app.keymapping.keymapURLs.keys).sorted(by: <),
+                viewModel.keymapURLS,
                 id: \.self,
                 selection: $viewModel.selectedName
             ) { keymap in
@@ -79,16 +79,15 @@ struct KeymapView: View {
                         })
                         Button(role: .destructive, action: {
                             if !viewModel.app.keymapping.deleteKeymap(name: viewModel.kmName) {
-                                Log.shared.error("Failed to delete keymap: \(viewModel.kmName)")
+                                Log.shared.error(localized: "settings.deleteKmFailed", args: [viewModel.kmName])
                             }
-                            showKeymapSheet.toggle()
+
+                            viewModel.reloadKeymapCache()
                         }, label: {
                             Text("settings.deleteKm")
                         })
                         Button(role: .destructive, action: {
                             viewModel.app.keymapping.reset(name: viewModel.kmName)
-                            showKeymapSheet.toggle()
-                            viewModel.resetKmCompletedAlert.toggle()
                         }, label: {
                             Text("settings.resetKm")
                         })
@@ -142,65 +141,15 @@ struct KeymapView: View {
                 viewModel.kmName = ""
             }
         }
-        .onChange(of: viewModel.showImportSuccess) { _ in
-            ToastVM.shared.showToast(
-                toastType: .notice,
-                toastDetails: NSLocalizedString("alert.kmImported", comment: ""))
-        }
-        .onChange(of: viewModel.showImportFail) { _ in
-            ToastVM.shared.showToast(
-                toastType: .error,
-                toastDetails: NSLocalizedString("alert.errorImportKm", comment: ""))
-        }
-        .onChange(of: viewModel.showRenameSuccess) { _ in
-            ToastVM.shared.showToast(
-                toastType: .notice,
-                toastDetails: NSLocalizedString("alert.kmRenamed", comment: ""))
-        }
-        .onChange(of: viewModel.showRenameFail) { _ in
-            ToastVM.shared.showToast(
-                toastType: .error,
-                toastDetails: NSLocalizedString("alert.errorRenameKm", comment: ""))
-        }
-        .onChange(of: viewModel.showCreateKeymapSuccess) { _ in
-            ToastVM.shared.showToast(
-                toastType: .notice,
-                toastDetails: NSLocalizedString("alert.kmCreated", comment: ""))
-        }
-        .onChange(of: viewModel.showCreateKeymapFail) { _ in
-            ToastVM.shared.showToast(
-                toastType: .error,
-                toastDetails: NSLocalizedString("alert.errorKmCreated", comment: ""))
-        }
-        .onChange(of: viewModel.resetKmCompletedAlert) { _ in
-            ToastVM.shared.showToast(
-                toastType: .notice,
-                toastDetails: NSLocalizedString("settings.resetKmCompleted", comment: ""))
-        }
-        .onChange(of: viewModel.deleteKmCompletedMap) { _ in
-            ToastVM.shared.showToast(
-                toastType: .notice,
-                toastDetails: String(format: NSLocalizedString("settings.deleteKmCompleted", comment: ""),
-                                     viewModel.deleteKmCompletedMap)
-            )
-        }
-        .onChange(of: viewModel.deleteKmFailedMap) { _ in
-            ToastVM.shared.showToast(
-                toastType: .error,
-                toastDetails: String(format: NSLocalizedString("settings.deleteKmFailed", comment: ""),
-                                     viewModel.deleteKmFailedMap)
-            )
-        }
         .sheet(isPresented: $viewModel.showKeymapImport) {
             KeymapNamerView(app: viewModel.app,
                             title: NSLocalizedString("keymap.title.import", comment: ""),
                             callback: { name in
                                 viewModel.app.keymapping.importKeymap(name: name) { success in
-                                    showKeymapSheet.toggle()
-                                    if success {
-                                        viewModel.showImportSuccess.toggle()
-                                    } else {
-                                        viewModel.showImportFail.toggle()
+                                    viewModel.reloadKeymapCache()
+
+                                    if !success {
+                                        Log.shared.error(localized: "alert.errorImportKm")
                                     }
                                 }
                             },
@@ -210,12 +159,11 @@ struct KeymapView: View {
             KeymapNamerView(app: viewModel.app,
                             title: NSLocalizedString("keymap.title.rename", comment: ""),
                             callback: { name in
-                                showKeymapSheet.toggle()
                                 if viewModel.app.keymapping.renameKeymap(prevName: viewModel.kmName,
                                                                          newName: name) {
-                                    viewModel.showRenameSuccess.toggle()
+                                    viewModel.reloadKeymapCache()
                                 } else {
-                                    viewModel.showRenameFail.toggle()
+                                    Log.shared.error(localized: "alert.errorRenameKm")
                                 }
                             },
                             keymapNamerSheet: $viewModel.showKeymapRename)
@@ -224,14 +172,13 @@ struct KeymapView: View {
             KeymapNamerView(app: viewModel.app,
                             title: NSLocalizedString("keymap.title.empty", comment: ""),
                             callback: { name in
-                                showKeymapSheet.toggle()
                                 if viewModel.app.keymapping.createEmptyKeymap(
                                     name: name,
                                     bundleId: viewModel.app.info.bundleIdentifier
                                 ) {
-                                    viewModel.showCreateKeymapSuccess.toggle()
+                                    viewModel.reloadKeymapCache()
                                 } else {
-                                    viewModel.showCreateKeymapFail.toggle()
+                                    Log.shared.error(localized: "alert.errorKmCreated")
                                 }
                             },
                             keymapNamerSheet: $viewModel.showCreateKeymap)
@@ -301,6 +248,8 @@ struct KeymapNamerView: View {
 
                 Button(action: {
                     callback(name)
+
+                    keymapNamerSheet.toggle()
                 }, label: {
                     Text("button.Proceed")
                 })
