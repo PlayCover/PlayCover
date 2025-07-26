@@ -18,8 +18,9 @@ struct AppSettingsView: View {
 
     @ObservedObject var viewModel: AppSettingsVM
 
+    @Binding var showKeymapSheet: Bool
+
     @State var resetSettingsCompletedAlert = false
-    @State var resetKmCompletedAlert = false
     @State var closeView = false
     @State var appIcon: NSImage?
     @State var hasPlayTools: Bool?
@@ -116,10 +117,9 @@ struct AppSettingsView: View {
                     viewModel.app.settings.reset()
                     closeView.toggle()
                 }
-                Button("settings.resetKm") {
-                    resetKmCompletedAlert.toggle()
-                    viewModel.app.keymapping.reset()
+                Button("playapp.keymap") {
                     closeView.toggle()
+                    showKeymapSheet.toggle()
                 }
                 Button("button.OK") {
                     closeView.toggle()
@@ -133,11 +133,6 @@ struct AppSettingsView: View {
             ToastVM.shared.showToast(
                 toastType: .notice,
                 toastDetails: NSLocalizedString("settings.resetSettingsCompleted", comment: ""))
-        }
-        .onChange(of: resetKmCompletedAlert) { _ in
-            ToastVM.shared.showToast(
-                toastType: .notice,
-                toastDetails: NSLocalizedString("settings.resetKmCompleted", comment: ""))
         }
         .onChange(of: closeView) { _ in
             dismiss()

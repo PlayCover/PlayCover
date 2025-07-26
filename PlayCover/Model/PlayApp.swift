@@ -45,6 +45,8 @@ class PlayApp: BaseApp {
             }
 
             AppsVM.shared.fetchApps()
+            if await VersionCheck.shared.checkNewVersion(myApp: self) {return}
+
             settings.sync()
 
             if try !Entitlements.areEntitlementsValid(app: self) {
@@ -82,6 +84,12 @@ class PlayApp: BaseApp {
 
     func runAppExec() {
         let config = NSWorkspace.OpenConfiguration()
+        // This is to prevent Xcode from attaching debugging-related variables
+        // so that they are no longer inherited by the child process.
+        // which fail to load inside iOS apps (missing symbols like _OBJC_CLASS_$_AVPlayerView).
+        for (key, _) in ProcessInfo.processInfo.environment where key.hasPrefix("DYLD_") {
+            unsetenv(key)
+        }
 
         NSWorkspace.shared.openApplication(
             at: aliasURL,

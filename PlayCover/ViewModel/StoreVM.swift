@@ -137,6 +137,14 @@ class StoreVM: ObservableObject, @unchecked Sendable {
     }
 
     //
+    func awaitResolveSources() async {
+        guard let task = resolveTask else {
+            return
+        }
+        _ = await task.result
+    }
+
+    //
     @discardableResult private func encode() -> Bool {
         let encoder = PropertyListEncoder()
         encoder.outputFormat = .xml

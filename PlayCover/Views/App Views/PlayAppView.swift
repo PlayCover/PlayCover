@@ -53,20 +53,9 @@ struct PlayAppView: View {
                 Divider()
                 Group {
                     Button(action: {
-                        viewModel.app.keymapping.importKeymap { result in
-                            if result {
-                                viewModel.showImportSuccess.toggle()
-                            } else {
-                                viewModel.showImportFail.toggle()
-                            }
-                        }
+                        viewModel.showKeymapSheet.toggle()
                     }, label: {
-                        Text("playapp.importKm")
-                    })
-                    Button(action: {
-                        viewModel.app.keymapping.exportKeymap()
-                    }, label: {
-                        Text("playapp.exportKm")
+                        Text("playapp.keymap")
                     })
                 }
                 Divider()
@@ -110,18 +99,12 @@ struct PlayAppView: View {
                 }
                 Button("button.Cancel", role: .cancel) { }
             }
-            .onChange(of: viewModel.showImportSuccess) { _ in
-                ToastVM.shared.showToast(
-                    toastType: .notice,
-                    toastDetails: NSLocalizedString("alert.kmImported", comment: ""))
-            }
-            .onChange(of: viewModel.showImportFail) { _ in
-                ToastVM.shared.showToast(
-                    toastType: .error,
-                    toastDetails: NSLocalizedString("alert.errorImportKm", comment: ""))
-            }
             .sheet(isPresented: $viewModel.showSettings) {
-                AppSettingsView(viewModel: AppSettingsVM(app: viewModel.app))
+                AppSettingsView(viewModel: AppSettingsVM(app: viewModel.app),
+                                showKeymapSheet: $viewModel.showKeymapSheet)
+            }
+            .sheet(isPresented: $viewModel.showKeymapSheet) {
+                KeymapView(showKeymapSheet: $viewModel.showKeymapSheet, viewModel: KeymapViewVM(app: viewModel.app))
             }
     }
 

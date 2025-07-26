@@ -15,6 +15,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        UpdateScheme.checkForUpdate()
+
         UserDefaults.standard.register(
             defaults: ["NSApplicationCrashOnExceptions": true]
         )
