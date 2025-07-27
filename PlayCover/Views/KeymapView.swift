@@ -77,15 +77,17 @@ struct KeymapView: View {
                         }, label: {
                             Text("settings.renameKm")
                         })
-                        Button(role: .destructive, action: {
-                            if !viewModel.app.keymapping.deleteKeymap(name: viewModel.kmName) {
-                                Log.shared.error(localized: "settings.deleteKmFailed", args: [viewModel.kmName])
-                            }
+                        if keymap != viewModel.defaultKm {
+                            Button(role: .destructive, action: {
+                                if !viewModel.app.keymapping.deleteKeymap(name: viewModel.kmName) {
+                                    Log.shared.error(localized: "settings.deleteKmFailed", args: [viewModel.kmName])
+                                }
 
-                            viewModel.reloadKeymapCache()
-                        }, label: {
-                            Text("settings.deleteKm")
-                        })
+                                viewModel.reloadKeymapCache()
+                            }, label: {
+                                Text("settings.deleteKm")
+                            })
+                        }
                         Button(role: .destructive, action: {
                             viewModel.app.keymapping.reset(name: viewModel.kmName)
                         }, label: {
