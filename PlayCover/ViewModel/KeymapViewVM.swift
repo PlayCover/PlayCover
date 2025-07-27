@@ -13,10 +13,10 @@ class KeymapViewVM: ObservableObject {
     public let app: PlayApp
     public let cache = DataCache.instance
 
-    @Published var selectedName: String?
+    @Published var selectedKeymap: URL?
     @Published var kmName = ""
 
-    @Published var defaultKm = "default"
+    @Published var defaultKm: URL
 
     @Published var showKeymapImport = false
     @Published var showKeymapRename = false
@@ -24,10 +24,16 @@ class KeymapViewVM: ObservableObject {
 
     @Published var appIcon: NSImage?
 
-    @Published var keymapURLS: [String] = []
+    @Published var keymapURLS: [URL] = [] {
+        didSet {
+            app.keymapping.keymapConfig.keymapOrder = keymapURLS
+        }
+    }
 
     init(app: PlayApp) {
         self.app = app
+
+        self.defaultKm = app.keymapping.keymapConfig.defaultKm
 
         self.reloadKeymapCache()
     }
@@ -35,7 +41,12 @@ class KeymapViewVM: ObservableObject {
     func reloadKeymapCache() {
         app.keymapping.reloadKeymapCache()
 
-        keymapURLS = Array(app.keymapping.keymapURLs.keys).sorted(by: <)
+        keymapURLS = app.keymapping.keymapConfig.keymapOrder
+    }
+
+    func setDefaultKeymap(keymap: URL) {
+        app.keymapping.keymapConfig.defaultKm = keymap
+        defaultKm = keymap
     }
 
 }

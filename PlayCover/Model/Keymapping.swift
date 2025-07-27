@@ -102,7 +102,19 @@ struct Keymap: Codable {
 }
 
 struct KeymapConfig: Codable {
-    var defaultKm: String
+    var defaultKm: URL
+    var keymapOrder: [URL]
+
+    init(defaultKm: URL, keymapOrder: [URL]) {
+        self.defaultKm = defaultKm
+        self.keymapOrder = keymapOrder
+    }
+
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.init(defaultKm: try container.decode(URL.self, forKey: .defaultKm),
+                  keymapOrder: try container.decodeIfPresent([URL].self, forKey: .keymapOrder) ?? [])
+    }
 }
 
 class Keymapping {
@@ -124,6 +136,8 @@ class Keymapping {
     let baseKeymapURL: URL
     let configURL: URL
 
+    let encoder: PropertyListEncoder
+
     var keymapConfig: KeymapConfig {
         get {
             do {
@@ -136,9 +150,6 @@ class Keymapping {
             }
         }
         set {
-            let encoder = PropertyListEncoder()
-            encoder.outputFormat = .xml
-
             do {
                 let data = try encoder.encode(newValue)
                 try data.write(to: configURL)
@@ -148,28 +159,41 @@ class Keymapping {
         }
     }
 
-    public private(set) var keymapURLs: [String: URL]
-
     init(_ info: AppInfo) {
         self.info = info
 
-        baseKeymapURL = Keymapping.keymappingDir.appendingPathComponent(info.bundleIdentifier)
+        self.baseKeymapURL = Keymapping.keymappingDir.appendingPathComponent(info.bundleIdentifier)
         self.configURL = baseKeymapURL.appendingPathComponent(".config").appendingPathExtension("plist")
-        keymapURLs = [:]
 
-        reloadKeymapCache()
+        self.encoder = PropertyListEncoder()
+        self.encoder.outputFormat = .xml
+
+        self.reloadKeymapCache()
+
+    }
+
+    private func constructKeymapPath(name: String) -> URL {
+        baseKeymapURL.appendingPathComponent(name).appendingPathExtension("plist")
     }
 
     public func reloadKeymapCache() {
-        keymapURLs = [:]
-
         do {
             let directoryContents = try FileManager.default
                 .contentsOfDirectory(at: baseKeymapURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
+            var keymaps: [URL] = []
 
             if directoryContents.count > 0 {
                 for keymap in directoryContents where keymap.pathExtension.contains("plist") {
-                    keymapURLs[keymap.deletingPathExtension().lastPathComponent] = keymap
+                    if !keymapConfig.keymapOrder.contains(keymap) {
+                        keymapConfig.keymapOrder.append(keymap)
+                    }
+
+                    keymaps.append(keymap)
+                }
+
+                for keymap in keymapConfig.keymapOrder where !keymaps.contains(keymap) {
+                    setKeymap(name: keymap.deletingPathExtension().lastPathComponent,
+                              map: Keymap(bundleIdentifier: info.bundleIdentifier))
                 }
 
                 return
@@ -184,61 +208,46 @@ class Keymapping {
     }
 
     public func getKeymap(name: String) -> Keymap {
-        if let keymapURL = keymapURLs[name] {
-            do {
-                let data = try Data(contentsOf: keymapURL)
-                let map = try PropertyListDecoder().decode(Keymap.self, from: data)
-                return map
-            } catch {
-                print(error)
-                return reset(name: name)
-            }
-        } else {
-            Log.shared.error("error.unknown.keymap")
+        do {
+            let data = try Data(contentsOf: constructKeymapPath(name: name))
+            let map = try PropertyListDecoder().decode(Keymap.self, from: data)
+            return map
+        } catch {
+            print(error)
             return reset(name: name)
         }
     }
 
-    public func createEmptyKeymap(name: String, bundleId: String) -> Bool {
-        setKeymap(name: name, map: Keymap(bundleIdentifier: bundleId))
+    public func createEmptyKeymap(name: String) -> Bool {
+        setKeymap(name: name, map: Keymap(bundleIdentifier: info.bundleIdentifier))
 
-        return keymapURLs.keys.contains(name)
+        return hasKeymap(name: name)
     }
 
     private func setKeymap(name: String, map: Keymap) {
-        let encoder = PropertyListEncoder()
-        encoder.outputFormat = .xml
+        let keymapPath = constructKeymapPath(name: name)
 
-        if !keymapURLs.keys.contains(name) {
-            let mapURL = baseKeymapURL.appendingPathComponent(name).appendingPathExtension("plist")
+        do {
+            let data = try encoder.encode(map)
+            try data.write(to: keymapPath)
 
-            keymapURLs[name] = mapURL
-        }
-
-        if let keymapURL = keymapURLs[name] {
-            do {
-                let data = try encoder.encode(map)
-                try data.write(to: keymapURL)
-            } catch {
-                print(error)
+            if !keymapConfig.keymapOrder.contains(keymapPath) {
+                keymapConfig.keymapOrder.append(keymapPath)
             }
-        } else {
-            Log.shared.error("error.unknown.unknownError")
+        } catch {
+            print(error)
         }
     }
 
     public func renameKeymap(prevName: String, newName: String) -> Bool {
-        if let keymapURL = keymapURLs[prevName] {
+        let oldPath = constructKeymapPath(name: prevName)
+        let newPath = constructKeymapPath(name: newName)
+
+        if let oldKeymapIndex = keymapConfig.keymapOrder.firstIndex(of: oldPath) {
             do {
-                let newKeymapURL = baseKeymapURL.appendingPathComponent(newName).appendingPathExtension("plist")
+                try FileManager.default.moveItem(at: oldPath, to: newPath)
 
-                try FileManager.default.moveItem(
-                    at: keymapURL,
-                    to: newKeymapURL
-                )
-
-                keymapURLs[newName] = newKeymapURL
-                keymapURLs.removeValue(forKey: prevName)
+                keymapConfig.keymapOrder[oldKeymapIndex] = newPath
 
                 return true
             } catch {
@@ -252,11 +261,13 @@ class Keymapping {
     }
 
     public func deleteKeymap(name: String) -> Bool {
-        if let keymapURL = keymapURLs[name] {
+        let keymapURL = constructKeymapPath(name: name)
+
+        if let keymapIndex = keymapConfig.keymapOrder.firstIndex(of: keymapURL) {
             do {
                 try FileManager.default.trashItem(at: keymapURL, resultingItemURL: nil)
 
-                keymapURLs.removeValue(forKey: name)
+                keymapConfig.keymapOrder.remove(at: keymapIndex)
 
                 return true
             } catch {
@@ -269,6 +280,10 @@ class Keymapping {
         }
     }
 
+    public func hasKeymap(name: String) -> Bool {
+        keymapConfig.keymapOrder.contains(constructKeymapPath(name: name))
+    }
+
     @discardableResult
     public func reset(name: String) -> Keymap {
         setKeymap(name: name, map: Keymap(bundleIdentifier: info.bundleIdentifier))
@@ -277,14 +292,10 @@ class Keymapping {
 
     @discardableResult
     private func resetConfig() -> KeymapConfig {
-        let defaultKm = keymapURLs.keys.contains("default") ? "default" : keymapURLs.keys.first
+        let defaultURL = constructKeymapPath(name: "default")
 
-        guard let defaultKm = defaultKm else {
-            reloadKeymapCache()
-            return resetConfig()
-        }
-
-        keymapConfig = KeymapConfig(defaultKm: defaultKm)
+        keymapConfig = KeymapConfig(defaultKm: defaultURL,
+                                    keymapOrder: [defaultURL])
 
         return keymapConfig
     }
@@ -353,9 +364,7 @@ class Keymapping {
             if result == .OK {
                 do {
                     if let selectedPath = savePanel.url {
-                        let encoder = PropertyListEncoder()
-                        encoder.outputFormat = .xml
-                        let data = try encoder.encode(self.getKeymap(name: name))
+                        let data = try self.encoder.encode(self.getKeymap(name: name))
                         try data.write(to: selectedPath)
                         selectedPath.openInFinder()
                     }

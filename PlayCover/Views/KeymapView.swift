@@ -44,59 +44,62 @@ struct KeymapView: View {
                 viewModel.appIcon = viewModel.cache.readImage(forKey: viewModel.app.info.bundleIdentifier)
             }
 
-            List(
-                viewModel.keymapURLS,
-                id: \.self,
-                selection: $viewModel.selectedName
-            ) { keymap in
-                HStack {
-                    Text(keymap)
+            List(selection: $viewModel.selectedKeymap) {
+                ForEach(
+                    viewModel.keymapURLS,
+                    id: \.self
+                ) { keymap in
+                    HStack {
+                        Text(keymap.deletingPathExtension().lastPathComponent)
 
-                    Spacer()
+                        Spacer()
 
-                    if keymap == viewModel.defaultKm {
-                        Text("keymap.default")
-                            .font(.footnote)
-                            .padding(5)
-                            .background(Color.secondary.opacity(0.2), in: RoundedRectangle(cornerRadius: 10))
+                        if keymap == viewModel.defaultKm {
+                            Text("keymap.default")
+                                .font(.footnote)
+                                .padding(5)
+                                .background(Color.secondary.opacity(0.2), in: RoundedRectangle(cornerRadius: 10))
+                        }
+                    }
+                    .contextMenu {
+                        Group {
+                            if keymap != viewModel.defaultKm {
+                                Button(action: {
+                                    viewModel.setDefaultKeymap(keymap: keymap)
+                                }, label: {
+                                    Text("settings.defaultKm")
+                                })
+                                Divider()
+                            }
+                            Button(action: {
+                                viewModel.showKeymapRename.toggle()
+                            }, label: {
+                                Text("settings.renameKm")
+                            })
+                            if keymap != viewModel.defaultKm {
+                                Button(role: .destructive, action: {
+                                    if !viewModel.app.keymapping.deleteKeymap(name: viewModel.kmName) {
+                                        Log.shared.error(localized: "settings.deleteKmFailed", args: [viewModel.kmName])
+                                    }
+
+                                    viewModel.reloadKeymapCache()
+                                }, label: {
+                                    Text("settings.deleteKm")
+                                })
+                            }
+                            Button(role: .destructive, action: {
+                                viewModel.app.keymapping.reset(name: viewModel.kmName)
+                            }, label: {
+                                Text("settings.resetKm")
+                            })
+                        }
+                        .onAppear {
+                            viewModel.selectedKeymap = keymap
+                        }
                     }
                 }
-                .contextMenu {
-                    Group {
-                        if keymap != viewModel.defaultKm {
-                            Button(action: {
-                                viewModel.app.keymapping.keymapConfig.defaultKm = keymap
-                                viewModel.defaultKm = keymap
-                            }, label: {
-                                Text("settings.defaultKm")
-                            })
-                            Divider()
-                        }
-                        Button(action: {
-                            viewModel.showKeymapRename.toggle()
-                        }, label: {
-                            Text("settings.renameKm")
-                        })
-                        if keymap != viewModel.defaultKm {
-                            Button(role: .destructive, action: {
-                                if !viewModel.app.keymapping.deleteKeymap(name: viewModel.kmName) {
-                                    Log.shared.error(localized: "settings.deleteKmFailed", args: [viewModel.kmName])
-                                }
-
-                                viewModel.reloadKeymapCache()
-                            }, label: {
-                                Text("settings.deleteKm")
-                            })
-                        }
-                        Button(role: .destructive, action: {
-                            viewModel.app.keymapping.reset(name: viewModel.kmName)
-                        }, label: {
-                            Text("settings.resetKm")
-                        })
-                    }
-                    .onAppear {
-                        viewModel.selectedName = keymap
-                    }
+                .onMove { src, dst in
+                    viewModel.keymapURLS.move(fromOffsets: src, toOffset: dst)
                 }
             }
             .listStyle(.bordered(alternatesRowBackgrounds: true))
@@ -121,7 +124,7 @@ struct KeymapView: View {
                 }, label: {
                     Text("playapp.exportKm")
                 })
-                .disabled(viewModel.selectedName == nil)
+                .disabled(viewModel.selectedKeymap == nil)
                 Button(action: {
                     showKeymapSheet.toggle()
                 }, label: {
@@ -133,12 +136,9 @@ struct KeymapView: View {
         }
         .padding()
         .frame(width: 500, height: 350)
-        .onAppear {
-            viewModel.defaultKm = viewModel.app.keymapping.keymapConfig.defaultKm
-        }
-        .onChange(of: viewModel.selectedName) { _ in
-            if let selectedName = viewModel.selectedName {
-                viewModel.kmName = selectedName
+        .onChange(of: viewModel.selectedKeymap) { _ in
+            if let selectedKeymap = viewModel.selectedKeymap {
+                viewModel.kmName = selectedKeymap.deletingPathExtension().lastPathComponent
             } else {
                 viewModel.kmName = ""
             }
@@ -174,10 +174,7 @@ struct KeymapView: View {
             KeymapNamerView(app: viewModel.app,
                             title: NSLocalizedString("keymap.title.empty", comment: ""),
                             callback: { name in
-                                if viewModel.app.keymapping.createEmptyKeymap(
-                                    name: name,
-                                    bundleId: viewModel.app.info.bundleIdentifier
-                                ) {
+                                if viewModel.app.keymapping.createEmptyKeymap(name: name) {
                                     viewModel.reloadKeymapCache()
                                 } else {
                                     Log.shared.error(localized: "alert.errorKmCreated")
@@ -268,7 +265,7 @@ struct KeymapNamerView: View {
         .onChange(of: name) { newName in
             if newName.esc != newName {
                 nameValidationState = .malformed
-            } else if app.keymapping.keymapURLs.keys.contains(newName) {
+            } else if app.keymapping.hasKeymap(name: newName) {
                 nameValidationState = .duplicate
             } else if newName.isEmpty {
                 nameValidationState = .empty

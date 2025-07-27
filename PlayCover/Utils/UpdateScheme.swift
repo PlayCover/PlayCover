@@ -67,17 +67,17 @@ class UpdateScheme {
         for file in directoryContents where file.pathExtension.contains("plist") {
             let bundleId = file.deletingPathExtension().lastPathComponent
             let appKeymapDir = Keymapping.keymappingDir.appendingPathComponent(bundleId)
+            let keymapFileURL = appKeymapDir.appendingPathComponent("default")
+                                            .appendingPathExtension("plist")
 
             try FileManager.default.createDirectory(at: appKeymapDir,
                                                     withIntermediateDirectories: true)
 
-            try FileManager.default.moveItem(at: file,
-                                             to: appKeymapDir.appendingPathComponent("default")
-                                                             .appendingPathExtension("plist")
+            try FileManager.default.moveItem(at: file, to: keymapFileURL
             )
 
             do {
-                let data = try encoder.encode(KeymapConfig(defaultKm: "default"))
+                let data = try encoder.encode(KeymapConfig(defaultKm: keymapFileURL, keymapOrder: [keymapFileURL]))
                 try data.write(to: appKeymapDir.appendingPathComponent(".config")
                                                .appendingPathExtension("plist"))
             } catch {
