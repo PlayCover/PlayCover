@@ -81,9 +81,9 @@
 	<key>NSSystemAdministrationUsageDescription</key>
 	<string>PlayCover needs to read files to save apps</string>
 	<key>SUFeedURL</key>
-	<string>https://raw.githubusercontent.com/PlayCover/PlayCover/update/appcast.xml</string>
+	<string>https://raw.githubusercontent.com/hguandl/PlayCover/update/appcast.xml</string>
 	<key>SUPublicEDKey</key>
-	<string>YzgQIwegeMGJxhosWRn/1IyEeEe385xcKE3cXeewlK0=</string>
+	<string>M7+pTisnfp6xtF7c6MK5ggzCD/5m0Xxvh0IGRVa/0TM=</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>

@@ -44,6 +44,9 @@ struct AppSettingsData: Codable {
     var hideTitleBar = false
     var checkMicPermissionSync = false
 
+    var maaTools = false
+    var maaToolsPort = 1717
+
     init() {}
 
     // handle old 2.x settings where PlayChain did not exist yet
@@ -75,6 +78,9 @@ struct AppSettingsData: Codable {
         enableScrollWheel = try container.decodeIfPresent(Bool.self, forKey: .enableScrollWheel) ?? true
         hideTitleBar = try container.decodeIfPresent(Bool.self, forKey: .hideTitleBar) ?? false
         checkMicPermissionSync = try container.decodeIfPresent(Bool.self, forKey: .checkMicPermissionSync) ?? false
+
+        maaTools = try container.decodeIfPresent(Bool.self, forKey: .maaTools) ?? false
+        maaToolsPort = try container.decodeIfPresent(Int.self, forKey: .maaToolsPort) ?? 1717
     }
 }
 
