@@ -2,12 +2,7 @@
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
-# /Carthage
 .DS_store
-/vendor
-/output
-/apikey.json
-Package.resolved
 
 ## User settings
 xcuserdata/
@@ -17,7 +12,6 @@ xcuserdata/
 *.xccheckout
 
 ## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
-update/
 build/
 DerivedData/
 *.moved-aside
@@ -72,7 +66,7 @@ playground.xcworkspace
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
 # Carthage/Checkouts
 
-# Carthage/Build/
+Carthage/Build/
 
 # Accio dependency management
 Dependencies/
