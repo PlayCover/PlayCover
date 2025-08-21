@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import DataCache
 
 struct AppLibraryView: View {
     @EnvironmentObject var appsVM: AppsVM
@@ -12,6 +13,7 @@ struct AppLibraryView: View {
 
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
+    @Binding var folder: Folder
 
     @State private var gridLayout = [GridItem(.adaptive(minimum: 130, maximum: .infinity))]
     @State private var searchString = ""
@@ -21,20 +23,25 @@ struct AppLibraryView: View {
     @State private var showLegacyConvertAlert = false
     @State private var showWrongfileTypeAlert = false
     @State var showKeymapSheet = false
+    @State var isFolder: Bool = false
+    @State private var showPicker = false
+    @State private var addSheetApps: Bool = false
 
     var body: some View {
         Group {
             if !appsVM.apps.isEmpty || appsVM.updatingApps {
+                let displayedApps = isFolder
+                ? appsVM.filteredApps.filter { folder.apps.contains($0.info.bundleIdentifier) }
+                : appsVM.filteredApps
                 ScrollView {
-                    AppDisplayView(apps: appsVM.filteredApps,
-                                      selectedBackgroundColor: $selectedBackgroundColor,
-                                      selectedTextColor: $selectedTextColor,
-                                      selected: $selected,
-                                      isList: $isList,
-                                      gridLayout: gridLayout)
-                }
-                .onTapGesture {
-                    selected = nil
+                    AppDisplayView(
+                        apps: displayedApps,
+                        selectedBackgroundColor: $selectedBackgroundColor,
+                        selectedTextColor: $selectedTextColor,
+                        selected: $selected,
+                        isList: $isList,
+                        gridLayout: gridLayout
+                    )
                 }
             } else {
                 VStack {
@@ -58,6 +65,7 @@ struct AppLibraryView: View {
             }
         }
         .navigationTitle("sidebar.appLibrary")
+        .navigationSubtitle(folder.name)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button {
@@ -92,6 +100,15 @@ struct AppLibraryView: View {
                         .tag(true)
                 }.pickerStyle(.segmented)
             }
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    addSheetApps.toggle()
+                } label: {
+                    Image(systemName: "pencil")
+                        .help("folder.button.edit")
+                }
+                .disabled(!isFolder)
+            }
         }
         .searchable(text: $searchString, placement: .toolbar)
         .onChange(of: searchString, perform: { value in
@@ -114,6 +131,13 @@ struct AppLibraryView: View {
             if let selected = selected {
                 KeymapView(showKeymapSheet: $showKeymapSheet, viewModel: KeymapViewVM(app: selected))
             }
+        }
+        .sheet(isPresented: $addSheetApps) {
+            AddAppSheetFrame(
+                folder: $folder,
+                showPicker: $showPicker,
+                addSheetApps: $addSheetApps
+            )
         }
         .onAppear {
             showLegacyConvertAlert = LegacySettings.doesMonolithExist
@@ -227,6 +251,93 @@ struct AppDisplayView: View {
                 playAppViews
             }
             .padding()
+        }
+    }
+}
+
+struct AddAppSheetFrame: View {
+    @EnvironmentObject var appFolderVM: AppFolderVM
+    @EnvironmentObject var appsVM: AppsVM
+    @Binding var folder: Folder
+    @Binding var showPicker: Bool
+    @Binding var addSheetApps: Bool
+    var dynamicHeight: CGFloat {
+        let count = CGFloat(appsVM.apps.count) * 120
+        return min(count, 600)
+    }
+    var body: some View {
+        VStack {
+            HStack {
+                TextField(text: $folder.name,
+                          label: {Text("folder.textfield.name")})
+                    .frame(height: 40)
+                VStack {
+                    Button(action: {
+                        showPicker = true
+                    }, label: {
+                        Label("folder.textfield.icon", systemImage: folder.icon)
+                    })
+                }
+                .sheet(isPresented: $showPicker) {
+                    IconPickerView.IconPickerViewStruct(
+                        selectedSymbol: $folder.icon,
+                        showSelector: $showPicker,
+                        icons: appFolderVM.icons
+                    )
+                }
+            }
+            List(appsVM.apps, id: \.url) { app in
+                AddAppSheetRow(isAppEnabled: folder.apps.contains(app.info.bundleIdentifier),
+                            app: app,
+                            folder: $folder
+                )
+            }
+            Spacer()
+                .frame(height: 40)
+            HStack {
+                Spacer()
+                Button(NSLocalizedString("button.Cancel", comment: ""), action: {
+                    folder = appFolderVM.folderWrap
+                    addSheetApps.toggle()
+                })
+                .keyboardShortcut(.cancelAction)
+                Button(NSLocalizedString("button.OK", comment: ""), action: {
+                    addSheetApps.toggle()
+                })
+                .disabled(folder.name.isEmpty)
+                .keyboardShortcut(.defaultAction)
+            }
+        }
+        .frame(width: 600, height: dynamicHeight)
+        .padding()
+
+        .onAppear {
+            appFolderVM.folderWrap = folder
+        }
+    }
+}
+
+struct AddAppSheetRow: View {
+    @State var isAppEnabled: Bool
+    @State var app: PlayApp
+    @Binding var folder: Folder
+    var body: some View {
+        HStack {
+            if let image = DataCache.instance.readImage(forKey: app.info.bundleIdentifier) {
+                Image(nsImage: image)
+                    .resizable()
+                    .cornerRadius(15)
+                    .shadow(radius: 1)
+                    .frame(width: 45, height: 45)
+            }
+            Toggle(app.info.displayName, isOn: $isAppEnabled)
+                .onChange(of: isAppEnabled) { _ in
+                    if isAppEnabled && !folder.apps.contains(app.info.bundleIdentifier) {
+                        folder.apps.append(app.info.bundleIdentifier)
+                    } else {
+                        folder.apps = folder.apps.filter { $0 != app.info.bundleIdentifier }
+                    }
+            }
         }
     }
 }

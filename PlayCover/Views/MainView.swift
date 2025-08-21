@@ -40,8 +40,11 @@ struct MainView: View {
                 GeometryReader { sidebarGeom in
                     List {
                         NavigationLink(tag: 1, selection: $selectedView) {
-                            AppLibraryView(selectedBackgroundColor: $selectedBackgroundColor,
-                                                                       selectedTextColor: $selectedTextColor)
+                            AppLibraryView(
+                                selectedBackgroundColor: $selectedBackgroundColor,
+                                selectedTextColor: $selectedTextColor,
+                                folder: .constant(Folder(name: "", icon: ""))
+                            )
                         } label: {
                             Label("sidebar.appLibrary", systemImage: "square.grid.2x2")
                             Button {
@@ -258,10 +261,11 @@ struct AppFoldersSectionView: View {
                 tag: foldersObject.folders[index].id.hashValue,
                 selection: $selectedView
             ) {
-                AppFolderView(
+                AppLibraryView(
                     selectedBackgroundColor: $selectedBackgroundColor,
                     selectedTextColor: $selectedTextColor,
-                    folder: $foldersObject.folders[index]
+                    folder: $foldersObject.folders[index],
+                    isFolder: true
                 )
                 .environmentObject(foldersObject)
             } label: {
