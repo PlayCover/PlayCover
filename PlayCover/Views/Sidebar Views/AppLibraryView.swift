@@ -262,7 +262,7 @@ struct AddAppSheetFrame: View {
     @Binding var showPicker: Bool
     @Binding var addSheetApps: Bool
     var dynamicHeight: CGFloat {
-        let count = CGFloat(appsVM.apps.count) * 120
+        let count = CGFloat(appsVM.apps.count) * 180
         return min(count, 600)
     }
     var body: some View {
