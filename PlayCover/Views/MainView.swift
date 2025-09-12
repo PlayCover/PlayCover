@@ -32,7 +32,7 @@ struct MainView: View {
     @State private var selectedSymbol: String = "folder"
     @State private var showPicker = false
     @ObservedObject private var URLObserved = URLObservable.shared
-    let columns = [GridItem(.adaptive(minimum: 50, maximum: .infinity))]
+    let rows = [GridItem(.adaptive(minimum: 50, maximum: .infinity))]
 
     var body: some View {
         GeometryReader { viewGeom in
@@ -167,7 +167,7 @@ struct MainView: View {
                     }
                     LazyVStack {
                         Spacer()
-                        LazyVGrid(columns: columns, spacing: 8) {
+                        LazyHGrid(rows: rows, spacing: 18) {
                             ForEach(foldersObject.icons, id: \.self) { icon in
                                 IconPickerView.shared.iconVStack(icon: icon, tempSelection: $selectedSymbol)
                             }

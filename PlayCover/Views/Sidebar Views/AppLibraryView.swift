@@ -261,10 +261,6 @@ struct AddAppSheetFrame: View {
     @Binding var folder: Folder
     @Binding var showPicker: Bool
     @Binding var addSheetApps: Bool
-    var dynamicHeight: CGFloat {
-        let count = CGFloat(appsVM.apps.count) * 180
-        return min(count, 600)
-    }
     var body: some View {
         VStack {
             HStack {
@@ -286,14 +282,34 @@ struct AddAppSheetFrame: View {
                     )
                 }
             }
+            Spacer()
             List(appsVM.apps, id: \.url) { app in
+                AddAppSheetRow(isAppEnabled: folder.apps.contains(app.info.bundleIdentifier),
+                            app: app,
+                            folder: $folder
+                )
+                AddAppSheetRow(isAppEnabled: folder.apps.contains(app.info.bundleIdentifier),
+                            app: app,
+                            folder: $folder
+                )
+                AddAppSheetRow(isAppEnabled: folder.apps.contains(app.info.bundleIdentifier),
+                            app: app,
+                            folder: $folder
+                )
+                AddAppSheetRow(isAppEnabled: folder.apps.contains(app.info.bundleIdentifier),
+                            app: app,
+                            folder: $folder
+                )
+                AddAppSheetRow(isAppEnabled: folder.apps.contains(app.info.bundleIdentifier),
+                            app: app,
+                            folder: $folder
+                )
                 AddAppSheetRow(isAppEnabled: folder.apps.contains(app.info.bundleIdentifier),
                             app: app,
                             folder: $folder
                 )
             }
             Spacer()
-                .frame(height: 40)
             HStack {
                 Spacer()
                 Button(NSLocalizedString("button.Cancel", comment: ""), action: {
@@ -308,7 +324,7 @@ struct AddAppSheetFrame: View {
                 .keyboardShortcut(.defaultAction)
             }
         }
-        .frame(width: 600, height: dynamicHeight)
+        .frame(width: 550, height: 300)
         .padding()
 
         .onAppear {

@@ -14,11 +14,11 @@ class IconPickerView {
         @Binding var showSelector: Bool
         let icons: [String]
         @State private var tempSelection: String = ""
-        let columns = [GridItem(.adaptive(minimum: 50, maximum: .infinity))]
+        let rows = [GridItem(.adaptive(minimum: 50, maximum: .infinity))]
         var body: some View {
             LazyVStack {
                 Text(NSLocalizedString("folder.textfield.icon", comment: ""))
-                LazyVGrid(columns: columns, spacing: 8) {
+                LazyHGrid(rows: rows, spacing: 18) {
                     ForEach(icons, id: \.self) { icon in
                         IconPickerView.shared.iconVStack(icon: icon, tempSelection: $tempSelection)
                     }
