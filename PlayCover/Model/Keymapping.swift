@@ -177,6 +177,10 @@ class Keymapping {
     }
 
     public func reloadKeymapCache() {
+        guard FileManager.default.fileExists(atPath: baseKeymapURL.path) else {
+            return
+        }
+
         do {
             let directoryContents = try FileManager.default
                 .contentsOfDirectory(at: baseKeymapURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
@@ -385,14 +389,6 @@ class Keymapping {
         alert.addButton(withTitle: NSLocalizedString("button.Proceed", comment: ""))
         alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
 
-        let result = alert.runModal()
-        switch result {
-        case .alertFirstButtonReturn:
-            return true
-        case .alertSecondButtonReturn:
-            return false
-        default:
-            return false
-        }
+        return alert.runModal() == .alertFirstButtonReturn
     }
 }
