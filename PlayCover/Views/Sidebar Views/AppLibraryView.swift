@@ -29,10 +29,9 @@ struct AppLibraryView: View {
 
     var body: some View {
         Group {
-            if !appsVM.apps.isEmpty || appsVM.updatingApps {
-                let displayedApps = isFolder
-                ? appsVM.filteredApps.filter { folder.apps.contains($0.info.bundleIdentifier) }
-                : appsVM.filteredApps
+            let displayedApps = isFolder ? appsVM.filteredApps
+                .filter { folder.apps.contains($0.info.bundleIdentifier) } : appsVM.filteredApps
+            if (!appsVM.apps.isEmpty || appsVM.updatingApps ) && !(isFolder && displayedApps.isEmpty) {
                 ScrollView {
                     AppDisplayView(
                         apps: displayedApps,
@@ -44,24 +43,39 @@ struct AppLibraryView: View {
                     )
                 }
             } else {
-                VStack {
-                    Text("playapp.noSources.title")
-                        .font(.title)
-                        .padding(.bottom, 2)
-                    Text("playapp.noSources.subtitle")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                    Button("playapp.importIPA") {
-                        if installVM.inProgress {
-                            Log.shared.error(PlayCoverError.waitInstallation)
-                        } else if downloadVM.inProgress {
-                            Log.shared.error(PlayCoverError.waitDownload)
-                        } else {
-                            selectFile()
+                if isFolder {
+                    VStack {
+                        Text("playapp.emptyFolder.title")
+                            .font(.title)
+                            .padding(.bottom, 2)
+                        Text("playapp.emptyFolder.subtitle")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        Button("folder.button.edit") {
+                            addSheetApps.toggle()
                         }
                     }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    VStack {
+                        Text("playapp.noSources.title")
+                            .font(.title)
+                            .padding(.bottom, 2)
+                        Text("playapp.noSources.subtitle")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        Button("playapp.importIPA") {
+                            if installVM.inProgress {
+                                Log.shared.error(PlayCoverError.waitInstallation)
+                            } else if downloadVM.inProgress {
+                                Log.shared.error(PlayCoverError.waitDownload)
+                            } else {
+                                selectFile()
+                            }
+                        }
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
         .navigationTitle("sidebar.appLibrary")

@@ -325,3 +325,5 @@
 "alert.start.anyway" = "Start Anyway";
 "alert.version.title" = "New Version Available";
 "alert.version.text" = "A new version for %@ is available. Do you want to download it?";
+"playapp.emptyFolder.title" = "No Apps in the Folder";
+"playapp.emptyFolder.subtitle" = "You currently have no apps in the folder. Click the button below to add some.";
