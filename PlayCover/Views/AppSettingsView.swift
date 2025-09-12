@@ -183,13 +183,12 @@ struct KeymappingView: View {
 
 struct GraphicsView: View {
     @Binding var settings: AppSettings
-
     @State var customWidth = 1920
     @State var customHeight = 1080
-
     @State var showResolutionWarning = false
     @AppStorage("settings.settings.inverseScreenValues") private var inverseScreenValues = false
     @AppStorage("settings.settings.disableTimeout") private var disableTimeout = false
+    @AppStorage("settings.toggle.hideTitleBar") private var hideTitleBar = false
     static var number: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .none
@@ -267,11 +266,8 @@ struct GraphicsView: View {
                                 })
                                 .frame(width: 125)
                         }
-                        onIncrement: {
-                            customWidth += 1
-                        } onDecrement: {
-                            customWidth -= 1
-                        }
+                        onIncrement: { customWidth += 1 }
+                        onDecrement: { customWidth -= 1 }
                         Spacer()
                         Text(NSLocalizedString("settings.text.customHeight", comment: "") + ":")
                         Stepper {
@@ -319,17 +315,13 @@ struct GraphicsView: View {
                             value: $customScaler,
                             formatter: GraphicsView.fractionFormatter,
                             onCommit: {
-                                Task { @MainActor in
-                                    NSApp.keyWindow?.makeFirstResponder(nil)
-                                }
+                                Task { @MainActor in NSApp.keyWindow?.makeFirstResponder(nil) }
                             })
                             .frame(width: 125)
                     } onIncrement: {
                         customScaler += 0.1
                     } onDecrement: {
-                        if customScaler > 0.5 {
-                            customScaler -= 0.1
-                        }
+                        if customScaler > 0.5 { customScaler -= 0.1 }
                     }
                 }
                 VStack(alignment: .leading) {
@@ -355,6 +347,8 @@ struct GraphicsView: View {
                     }
                     Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.settings.disableTimeout)
                         .help("settings.toggle.disableDisplaySleep.help")
+                    Spacer()
+                    Toggle("settings.toggle.hideTitleBar", isOn: $settings.settings.hideTitleBar)
                     Spacer()
                 }
                 Spacer()
@@ -509,6 +503,12 @@ struct BypassesView: View {
                     Toggle("settings.toggle.iosFrameworks", isOn: $hasIosFrameworks)
                         .help("settings.toggle.iosFrameworks.help")
                         .toggleStyle(.async($task, role: .iosFrameworks))
+                    Spacer()
+                }
+                Spacer()
+                HStack {
+                    Toggle("settings.toggle.checkMicPermissionSync", isOn: $settings.settings.checkMicPermissionSync)
+                        .help("settings.toggle.checkMicPermissionSync.help")
                     Spacer()
                 }
             }
