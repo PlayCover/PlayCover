@@ -288,26 +288,6 @@ struct AddAppSheetFrame: View {
                             app: app,
                             folder: $folder
                 )
-                AddAppSheetRow(isAppEnabled: folder.apps.contains(app.info.bundleIdentifier),
-                            app: app,
-                            folder: $folder
-                )
-                AddAppSheetRow(isAppEnabled: folder.apps.contains(app.info.bundleIdentifier),
-                            app: app,
-                            folder: $folder
-                )
-                AddAppSheetRow(isAppEnabled: folder.apps.contains(app.info.bundleIdentifier),
-                            app: app,
-                            folder: $folder
-                )
-                AddAppSheetRow(isAppEnabled: folder.apps.contains(app.info.bundleIdentifier),
-                            app: app,
-                            folder: $folder
-                )
-                AddAppSheetRow(isAppEnabled: folder.apps.contains(app.info.bundleIdentifier),
-                            app: app,
-                            folder: $folder
-                )
             }
             Spacer()
             HStack {
