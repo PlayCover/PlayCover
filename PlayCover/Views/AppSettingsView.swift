@@ -684,6 +684,15 @@ struct MiscView: View {
                         .help("settings.toggle.rootWorkDir.help")
                     Spacer()
                 }
+                Spacer()
+                    .frame(height: 20)
+                HStack {
+                    Toggle("settings.toggle.limitMotionUpdateFrequency",
+                           isOn: $settings.settings.limitMotionUpdateFrequency)
+                        .disabled(!(hasPlayTools ?? true))
+                        .help("settings.toggle.limitMotionUpdateFrequency.help")
+                    Spacer()
+                }
             }
             .padding()
         }

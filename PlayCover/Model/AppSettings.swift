@@ -43,6 +43,7 @@ struct AppSettingsData: Codable {
     var enableScrollWheel = true
     var hideTitleBar = false
     var checkMicPermissionSync = false
+    var limitMotionUpdateFrequency = false
 
     init() {}
 
@@ -75,6 +76,8 @@ struct AppSettingsData: Codable {
         enableScrollWheel = try container.decodeIfPresent(Bool.self, forKey: .enableScrollWheel) ?? true
         hideTitleBar = try container.decodeIfPresent(Bool.self, forKey: .hideTitleBar) ?? false
         checkMicPermissionSync = try container.decodeIfPresent(Bool.self, forKey: .checkMicPermissionSync) ?? false
+        limitMotionUpdateFrequency = try container.decodeIfPresent(Bool.self,
+                                                                   forKey: .limitMotionUpdateFrequency) ?? false
     }
 }
 
