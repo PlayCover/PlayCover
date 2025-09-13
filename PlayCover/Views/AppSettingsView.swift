@@ -189,6 +189,7 @@ struct GraphicsView: View {
     @AppStorage("settings.settings.inverseScreenValues") private var inverseScreenValues = false
     @AppStorage("settings.settings.disableTimeout") private var disableTimeout = false
     @AppStorage("settings.toggle.hideTitleBar") private var hideTitleBar = false
+    @AppStorage("settings.toggle.floatingWindow") private var floatingWindow = false
     static var number: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .none
@@ -349,6 +350,8 @@ struct GraphicsView: View {
                         .help("settings.toggle.disableDisplaySleep.help")
                     Spacer()
                     Toggle("settings.toggle.hideTitleBar", isOn: $settings.settings.hideTitleBar)
+                    Spacer()
+                    Toggle("settings.toggle.floatingWindow", isOn: $settings.settings.floatingWindow)
                     Spacer()
                 }
                 Spacer()
