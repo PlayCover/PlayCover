@@ -21,6 +21,8 @@ class PlayApp: BaseApp {
     override init(appUrl: URL) {
         super.init(appUrl: appUrl)
 
+        keymapping.reloadKeymapCache()
+
         removeAlias()
         createAlias()
 
