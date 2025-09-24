@@ -35,54 +35,38 @@ struct PlayAppView: View {
                 selected = viewModel.app
             })
             .contextMenu {
-                Button(action: {
+                Button("playapp.settings", systemImage: "gear", action: {
                     viewModel.showSettings.toggle()
-                }, label: {
-                    Text("playapp.settings")
                 })
-                Button(action: {
+                Button("playapp.openCache", systemImage: "folder", action: {
                     viewModel.app.openAppCache()
-                }, label: {
-                    Text("playapp.openCache")
                 })
-                Button(action: {
+                Button("playapp.showInFinder", systemImage: "finder", action: {
                     viewModel.app.showInFinder()
-                }, label: {
-                    Text("playapp.showInFinder")
                 })
                 Divider()
                 Group {
-                    Button(action: {
+                    Button("playapp.keymap", systemImage: "keyboard", action: {
                         viewModel.showKeymapSheet.toggle()
-                    }, label: {
-                        Text("playapp.keymap")
                     })
                 }
                 Divider()
                 Group {
-                    Button(action: {
+                    Button("playapp.clearCache", systemImage: "clear", action: {
                         selected = nil
                         Task { await Uninstaller.clearCachePopup(viewModel.app) }
-                    }, label: {
-                        Text("playapp.clearCache")
                     })
-                    Button(action: {
+                    Button("playapp.clearPreferences", systemImage: "clear", action: {
                         viewModel.showClearPreferencesAlert.toggle()
-                    }, label: {
-                        Text("playapp.clearPreferences")
                     })
-                    Button(action: {
+                    Button("playapp.clearPlayChain", systemImage: "clear", action: {
                         viewModel.showClearPlayChainAlert.toggle()
-                    }, label: {
-                        Text("playapp.clearPlayChain")
                     })
                 }
                 Divider()
-                Button(action: {
+                Button("playapp.delete", systemImage: "trash", action: {
                     selected = nil
                     Task { await Uninstaller.uninstallPopup(viewModel.app) }
-                }, label: {
-                    Text("playapp.delete")
                 })
             }
             .alert("alert.app.preferences", isPresented: $viewModel.showClearPreferencesAlert) {

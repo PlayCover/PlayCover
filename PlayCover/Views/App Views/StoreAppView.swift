@@ -45,10 +45,8 @@ struct StoreAppView: View {
             }
         })
         .contextMenu {
-            Button(action: {
+            Button("ipaLibrary.info", systemImage: "info", action: {
                 showInfo.toggle()
-            }, label: {
-                Text("ipaLibrary.info")
             })
         }
         .simultaneousGesture(TapGesture().onEnded {
