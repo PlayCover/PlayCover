@@ -44,6 +44,7 @@ struct AppSettingsData: Codable {
     var hideTitleBar = false
     var checkMicPermissionSync = false
     var limitMotionUpdateFrequency = false
+    var disableBuiltinMouse = false
 
     init() {}
 
@@ -78,6 +79,7 @@ struct AppSettingsData: Codable {
         checkMicPermissionSync = try container.decodeIfPresent(Bool.self, forKey: .checkMicPermissionSync) ?? false
         limitMotionUpdateFrequency = try container.decodeIfPresent(Bool.self,
                                                                    forKey: .limitMotionUpdateFrequency) ?? false
+        disableBuiltinMouse = try container.decodeIfPresent(Bool.self, forKey: .disableBuiltinMouse) ?? false
     }
 }
 

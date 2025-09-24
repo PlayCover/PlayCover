@@ -159,6 +159,8 @@
 "settings.toggle.autoKM.help" = "Automatically disable keymapping when text input is sensed";
 "settings.toggle.enableScrollWheel" = "Enable Scroll Wheel";
 "settings.toggle.enableScrollWheel.help" = "Enable scroll wheel in keymapping";
+"settings.toggle.disableBuiltinMouse" = "Disable Built-in Mouse Support";
+"settings.toggle.disableBuiltinMouse.help" = "Disable the app’s built-in mouse support to avoid click conflicts.";
 
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";
