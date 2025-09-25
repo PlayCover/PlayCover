@@ -3,11 +3,16 @@
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 /Carthage
-.DS_store
+.DS_Store
 /vendor
 /output
 /apikey.json
 Package.resolved
+
+# macOS metadata
+.AppleDouble
+._*
+.LSOverride
 
 ## User settings
 xcuserdata/
@@ -51,7 +56,7 @@ playground.xcworkspace
 #
 # Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
 # hence it is not needed unless you have added a package configuration file to your project
-# .swiftpm
+.swiftpm/
 
 .build/
 
@@ -69,7 +74,7 @@ playground.xcworkspace
 # Carthage
 #
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
+Carthage/Checkouts/
 
 Carthage/Build/
 
@@ -96,3 +101,19 @@ fastlane/test_output
 
 iOSInjectionProject/
 xcuserdata/*
+
+# Xcode archives & coverage artifacts
+*.xcarchive
+*.xcuserstate
+*.xccovreport
+*.xccovarchive
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ruby/Bundler
+.bundle/
+vendor/bundle/
