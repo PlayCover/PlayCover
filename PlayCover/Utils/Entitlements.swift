@@ -89,6 +89,7 @@ class Entitlements {
          }
 
         sandboxProfile.append(contentsOf: PlayRules.buildRules(rules: rules.allow ?? [], bundleID: bundleID))
+        sandboxProfile.append("(deny process-fork)")
 
         if app.settings.settings.bypass {
             for file in PlayRules.buildRules(rules: rules.blocklist ?? [], bundleID: bundleID) {
