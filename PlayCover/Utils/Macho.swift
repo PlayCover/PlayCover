@@ -278,7 +278,14 @@ class Macho {
                 let versionCommand = binary.extract(build_version_command.self,
                                                     offset: offset,
                                                     swap: shouldSwap ? swap_build_version_command:nil)
-                result = versionCommand.platform == PLATFORM_MACCATALYST
+                let platform = versionCommand.platform
+                let validPlatforms: Set<UInt32> = [
+                    UInt32(PLATFORM_MACCATALYST),
+                    UInt32(PLATFORM_MACOS),
+                    UInt32(PLATFORM_IOS),
+                    UInt32(PLATFORM_IOSSIMULATOR)
+                ]
+                result = validPlatforms.contains(platform)
                 return true
             }
             return false
