@@ -39,8 +39,8 @@ body:
     attributes:
       label: What version of PlayCover are you using?
       options:
+        - "4.0.0"
         - "3.1.0"
-        - "2.0.5"
         - "Nightly/beta (please specify build number)"
         - "Other (please specify)"
     validations:
@@ -50,9 +50,9 @@ body:
     attributes:
       label: What version of macOS are you using?
       options:
+        - "Tahoe (macOS 26)"
+        - "Sequoia (macOS 15)"
         - "Sonoma (macOS 14)"
-        - "Ventura (macOS 13)"
-        - "Monterey (macOS 12)"
         - "macOS beta (please state the specific version)"
         - "Other (please specify)"
     validations:
