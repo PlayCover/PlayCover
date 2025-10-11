@@ -166,10 +166,13 @@
 "settings.picker.adaptiveRes.0" = "App Default";
 "settings.picker.adaptiveRes.1" = "Auto (Based on Display)";
 "settings.picker.adaptiveRes.5" = "Custom";
+"settings.picker.adaptiveRes.6" = "Resizable";
 "settings.text.customHeight" = "Height";
 "settings.text.customWidth" = "Width";
 "settings.text.detectedResolution" = "Detected Resolution:";
 "settings.picker.aspectRatio" = "Aspect ratio:";
+"settings.picker.aspectRatio.free" = "Free";
+"settings.picker.aspectRatio.custom" = "Custom";
 "settings.picker.windowFix" = "Fix window display issues";
 "settings.picker.windowFix.help" = "Apply window fixes that may helps your apps display normally";
 "settings.picker.windowFixMethod.0" = "Normal";

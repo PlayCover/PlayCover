@@ -186,6 +186,7 @@ struct KeymappingView: View {
     }
 }
 
+// swiftlint:disable:next type_body_length
 struct GraphicsView: View {
     @Binding var settings: AppSettings
     @State var customWidth = 1920
@@ -253,6 +254,7 @@ struct GraphicsView: View {
                         Text("1440p").tag(3)
                         Text("4K").tag(4)
                         Text("settings.picker.adaptiveRes.5").tag(5)
+                        Text("settings.picker.adaptiveRes.6").tag(6)
                     }
                     .frame(width: 250, alignment: .leading)
                     .help("settings.picker.adaptiveRes.help")
@@ -302,6 +304,31 @@ struct GraphicsView: View {
                         }
                         .pickerStyle(.radioGroup)
                         .horizontalRadioGroupLayout()
+                    } else if settings.settings.resolution == 6 {
+                        Text("settings.picker.aspectRatio")
+                        VStack(alignment: .trailing) {
+                            Picker("", selection: $settings.settings.resizableAspectRatioType) {
+                                Text("settings.picker.aspectRatio.free").tag(0)
+                                Text("settings.picker.aspectRatio.custom").tag(1)
+                                Text("4:3").tag(2)
+                                Text("16:9").tag(3)
+                                Text("16:10").tag(4)
+                            }
+                            .pickerStyle(.radioGroup)
+                            .horizontalRadioGroupLayout()
+                            if settings.settings.resizableAspectRatioType == 1 {
+                                HStack {
+                                    TextField("", value: $settings.settings.resizableAspectRatioWidth,
+                                              formatter: GraphicsView.number)
+                                    .frame(width: 110)
+                                    Text(":")
+                                    TextField("", value: $settings.settings.resizableAspectRatioHeight,
+                                              formatter: GraphicsView.number)
+                                    .frame(width: 110)
+                                }
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .trailing)
                     } else if settings.settings.resolution == 1 {
                         let width = Int(NSScreen.main?.frame.width ?? 1920)
                         let height = getHeightForNotch(width, Int(NSScreen.main?.frame.height ?? 1080))
@@ -382,6 +409,9 @@ struct GraphicsView: View {
             .onChange(of: customScaler) { _ in
                 setResolution()
             }
+            .onChange(of: settings.settings.resizableAspectRatioType) { _ in
+                setAspectRatioForResizableWindow()
+            }
         }
     }
 
@@ -452,6 +482,40 @@ struct GraphicsView: View {
         } else {
             return Int(height)
         }
+    }
+
+    func setAspectRatioForResizableWindow() {
+        var widthRatio = 0
+        var heightRatio = 0
+
+        switch settings.settings.resizableAspectRatioType {
+        // Aspect ratio = Free
+        case 0:
+            widthRatio = 0
+            heightRatio = 0
+        // Aspect ratio = Custom
+        case 1:
+            widthRatio = settings.settings.resizableAspectRatioWidth
+            heightRatio = settings.settings.resizableAspectRatioHeight
+        // Aspect ratio = 4:3
+        case 2:
+            widthRatio = 4
+            heightRatio = 3
+        // Aspect ratio = 16:9
+        case 3:
+            widthRatio = 16
+            heightRatio = 9
+        // Aspect ratio = 16:10
+        case 4:
+            widthRatio = 16
+            heightRatio = 10
+        default:
+            widthRatio = 16
+            heightRatio = 9
+        }
+
+        settings.settings.resizableAspectRatioWidth = widthRatio
+        settings.settings.resizableAspectRatioHeight = heightRatio
     }
 }
 
