@@ -18,11 +18,15 @@ class IconPickerView {
         var body: some View {
             LazyVStack {
                 Text(NSLocalizedString("folder.textfield.icon", comment: ""))
-                LazyHGrid(rows: rows, spacing: 18) {
+                Spacer()
+                    .frame(height: 20)
+                LazyHGrid(rows: rows) {
                     ForEach(icons, id: \.self) { icon in
                         IconPickerView.shared.iconVStack(icon: icon, tempSelection: $tempSelection)
                     }
                 }
+                Spacer()
+                    .frame(height: 20)
                 .padding(.horizontal, 10)
                 HStack {
                     Spacer()
