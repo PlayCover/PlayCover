@@ -72,6 +72,9 @@ class PlayApp: BaseApp {
             } else if try !Macho.isMachoValidArch(executable) {
                 Log.shared.error("The app threw an error during conversion.")
             } else {
+                // Clear any debug-related env vars that could affect the launched app
+                self.clearDebugAffectingEnvironment()
+
                 if settings.openWithLLDB {
                     try Shell.lldb(executable, withTerminalWindow: settings.openLLDBWithTerminal)
                 } else {
@@ -84,12 +87,59 @@ class PlayApp: BaseApp {
         }
     }
 
+    // clear environment variables that can force debug wrappers or validation layers
+    private func clearDebugAffectingEnvironment() {
+        // Clear DYLD_* variables inherited from Xcode or other debuggers
+        for (key, _) in ProcessInfo.processInfo.environment where key.hasPrefix("DYLD_") {
+            unsetenv(key)
+        }
+
+        // Clear common Metal debug and capture related variables
+        let metalKeys: [String] = [
+            "METAL_DEVICE_WRAPPER_TYPE",
+            "METAL_DEBUG_LAYER",
+            "MTL_DEBUG_LAYER",
+            "METAL_API_VALIDATION",
+            "METAL_SHADER_VALIDATION",
+            "METAL_SHADER_VALIDATION_OPTIONS",
+            "METAL_CAPTURE_ENABLED",
+            "METAL_CAPTURE_OUTPUT_FILE",
+            "METAL_CAPTURE_TYPE",
+            "METAL_FORCE_LAZY_COMPILATION",
+            "METAL_FRAME_CAPTURE_ENABLED",
+            "METAL_ERROR_MODE",
+            "MTLCaptureEnabled"
+        ]
+        for key in metalKeys {
+            unsetenv(key)
+        }
+    }
+
     func runAppExec() {
         let config = NSWorkspace.OpenConfiguration()
         // This is to prevent Xcode from attaching debugging-related variables
         // so that they are no longer inherited by the child process.
         // which fail to load inside iOS apps (missing symbols like _OBJC_CLASS_$_AVPlayerView).
         for (key, _) in ProcessInfo.processInfo.environment where key.hasPrefix("DYLD_") {
+            unsetenv(key)
+        }
+        // clear Metal debug/capture environment variables
+        let metalKeys: [String] = [
+            "METAL_DEVICE_WRAPPER_TYPE",
+            "METAL_DEBUG_LAYER",
+            "MTL_DEBUG_LAYER",
+            "METAL_API_VALIDATION",
+            "METAL_SHADER_VALIDATION",
+            "METAL_SHADER_VALIDATION_OPTIONS",
+            "METAL_CAPTURE_ENABLED",
+            "METAL_CAPTURE_OUTPUT_FILE",
+            "METAL_CAPTURE_TYPE",
+            "METAL_FORCE_LAZY_COMPILATION",
+            "METAL_FRAME_CAPTURE_ENABLED",
+            "METAL_ERROR_MODE",
+            "MTLCaptureEnabled"
+        ]
+        for key in metalKeys {
             unsetenv(key)
         }
 
