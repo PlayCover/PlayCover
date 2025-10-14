@@ -8,16 +8,23 @@ import Foundation
 import IOKit.pwr_mgt
 
 class PlayApp: BaseApp {
+    // MARK: - Static
     public static let bundleIDCacheURL = PlayTools.playCoverContainer.appendingPathComponent("CACHE")
-    var displaySleepAssertionID: IOPMAssertionID?
-    public var isStarting = false
 
     public static var bundleIDCache: [String] {
         get throws {
-            (try String(contentsOf: bundleIDCacheURL)).split(whereSeparator: \.isNewline).map({ String($0) })
+            (try String(contentsOf: bundleIDCacheURL))
+                .split(whereSeparator: \.isNewline)
+                .map { String($0) }
         }
     }
 
+    // MARK: - Instance State
+    var displaySleepAssertionID: IOPMAssertionID?
+    public var isStarting = false
+    var sessionDisableKeychain: Bool = false
+
+    // MARK: - Init
     override init(appUrl: URL) {
         super.init(appUrl: appUrl)
 
@@ -29,14 +36,35 @@ class PlayApp: BaseApp {
         loadDiscordIPC()
     }
 
+    // MARK: - Computed
     var searchText: String {
-        info.displayName.lowercased().appending(" ").appending(info.bundleName).lowercased()
+        info.displayName.lowercased()
+            .appending(" ")
+            .appending(info.bundleName)
+            .lowercased()
     }
-    var sessionDisableKeychain: Bool = false
 
+    var name: String {
+        info.displayName.isEmpty ? info.bundleName : info.displayName
+    }
+
+    // MARK: - Paths / Singletons
+    static let aliasDirectory = FileManager.default.homeDirectoryForCurrentUser
+        .appendingPathComponent("Applications")
+        .appendingPathComponent("PlayCover")
+
+    lazy var aliasURL = PlayApp.aliasDirectory.appendingPathComponent(name).appendingPathExtension("app")
+    lazy var playChainURL = KeyCover.playChainPath.appendingPathComponent(info.bundleIdentifier)
+
+    lazy var settings = AppSettings(info)
+    lazy var keymapping = Keymapping(info)
+    lazy var container = AppContainer(bundleId: info.bundleIdentifier)
+
+    // MARK: - Launch
     func launch() async {
         do {
             isStarting = true
+
             if prohibitedToPlay {
                 await clearAllCache()
                 throw PlayCoverError.appProhibited
@@ -47,7 +75,7 @@ class PlayApp: BaseApp {
             }
 
             AppsVM.shared.fetchApps()
-            if await VersionCheck.shared.checkNewVersion(myApp: self) {return}
+            if await VersionCheck.shared.checkNewVersion(myApp: self) { return }
 
             settings.sync()
 
@@ -59,7 +87,7 @@ class PlayApp: BaseApp {
                 try Shell.signApp(executable)
             }
 
-            // call unlockKeyCover() and WAIT for it to finish
+            // Wait for keychain unlock to finish before continuing
             await unlockKeyCover()
 
             // If the app does not have PlayTools, do not install PlugIns
@@ -86,60 +114,51 @@ class PlayApp: BaseApp {
             Log.shared.error(error)
         }
     }
+}
+
+// MARK: - Environment Management
+extension PlayApp {
+    static let introspection: String = "/usr/lib/system/introspection"
+    static let iosFrameworks: String = "/System/iOSSupport/System/Library/Frameworks"
+
+    /// Common Metal and capture related environment keys used in multiple places
+    private static let metalEnvKeys: [String] = [
+        "METAL_DEVICE_WRAPPER_TYPE",
+        "METAL_DEBUG_LAYER",
+        "MTL_DEBUG_LAYER",
+        "METAL_API_VALIDATION",
+        "METAL_SHADER_VALIDATION",
+        "METAL_SHADER_VALIDATION_OPTIONS",
+        "METAL_CAPTURE_ENABLED",
+        "METAL_CAPTURE_OUTPUT_FILE",
+        "METAL_CAPTURE_TYPE",
+        "METAL_FORCE_LAZY_COMPILATION",
+        "METAL_FRAME_CAPTURE_ENABLED",
+        "METAL_ERROR_MODE",
+        "MTLCaptureEnabled"
+    ]
 
     // clear environment variables that can force debug wrappers or validation layers
-    private func clearDebugAffectingEnvironment() {
+    func clearDebugAffectingEnvironment() {
         // Clear DYLD_* variables inherited from Xcode or other debuggers
         for (key, _) in ProcessInfo.processInfo.environment where key.hasPrefix("DYLD_") {
             unsetenv(key)
         }
 
         // Clear common Metal debug and capture related variables
-        let metalKeys: [String] = [
-            "METAL_DEVICE_WRAPPER_TYPE",
-            "METAL_DEBUG_LAYER",
-            "MTL_DEBUG_LAYER",
-            "METAL_API_VALIDATION",
-            "METAL_SHADER_VALIDATION",
-            "METAL_SHADER_VALIDATION_OPTIONS",
-            "METAL_CAPTURE_ENABLED",
-            "METAL_CAPTURE_OUTPUT_FILE",
-            "METAL_CAPTURE_TYPE",
-            "METAL_FORCE_LAZY_COMPILATION",
-            "METAL_FRAME_CAPTURE_ENABLED",
-            "METAL_ERROR_MODE",
-            "MTLCaptureEnabled"
-        ]
-        for key in metalKeys {
+        for key in PlayApp.metalEnvKeys {
             unsetenv(key)
         }
     }
 
     func runAppExec() {
         let config = NSWorkspace.OpenConfiguration()
-        // This is to prevent Xcode from attaching debugging-related variables
-        // so that they are no longer inherited by the child process.
-        // which fail to load inside iOS apps (missing symbols like _OBJC_CLASS_$_AVPlayerView).
+
+        // Prevent propagating debugging-related variables to child process
         for (key, _) in ProcessInfo.processInfo.environment where key.hasPrefix("DYLD_") {
             unsetenv(key)
         }
-        // clear Metal debug/capture environment variables
-        let metalKeys: [String] = [
-            "METAL_DEVICE_WRAPPER_TYPE",
-            "METAL_DEBUG_LAYER",
-            "MTL_DEBUG_LAYER",
-            "METAL_API_VALIDATION",
-            "METAL_SHADER_VALIDATION",
-            "METAL_SHADER_VALIDATION_OPTIONS",
-            "METAL_CAPTURE_ENABLED",
-            "METAL_CAPTURE_OUTPUT_FILE",
-            "METAL_CAPTURE_TYPE",
-            "METAL_FORCE_LAZY_COMPILATION",
-            "METAL_FRAME_CAPTURE_ENABLED",
-            "METAL_ERROR_MODE",
-            "MTLCaptureEnabled"
-        ]
-        for key in metalKeys {
+        for key in PlayApp.metalEnvKeys {
             unsetenv(key)
         }
 
@@ -152,57 +171,57 @@ class PlayApp: BaseApp {
                 Task(priority: .background) {
                     if let runningApp = runningApp {
                         while !(runningApp.isTerminated) {
-                            // Check if the app is in the foreground
                             if runningApp.isActive {
-                                // If the app is in the foreground, disable the display sleep
                                 self.disableTimeOut()
                             } else {
-                                // If the app is not in the foreground, enable the display sleep
                                 self.enableTimeOut()
                             }
                             sleep(1)
                         }
                         sleep(1)
                     }
-                    // Things that are ran after the app is closed
+                    // Things that are run after the app is closed
                     self.lockKeyCover()
                 }
-            })
+            }
+        )
     }
+}
 
+// MARK: - Management
+extension PlayApp {
     func disableTimeOut() {
-        if displaySleepAssertionID != nil {
-            return
-        }
-        // Disable display sleep
+        if displaySleepAssertionID != nil { return }
+
         let reason = "PlayCover: \(info.bundleIdentifier) is disabling sleep" as CFString
         var assertionID: IOPMAssertionID = 0
         let result = IOPMAssertionCreateWithName(
             kIOPMAssertionTypeNoDisplaySleep as CFString,
             IOPMAssertionLevel(kIOPMAssertionLevelOn),
             reason,
-            &assertionID)
+            &assertionID
+        )
         if result == kIOReturnSuccess {
             displaySleepAssertionID = assertionID
         }
     }
 
     func enableTimeOut() {
-        // Enable display sleep
         if let assertionID = displaySleepAssertionID {
             IOPMAssertionRelease(assertionID)
             displaySleepAssertionID = nil
         }
     }
+}
 
+// MARK: - KeyCover
+extension PlayApp {
     func unlockKeyCover() async {
         if KeyCover.shared.isKeyCoverEnabled() {
-            // Check if the app have any keychains
             let keychain = KeyCover.shared.listKeychains()
                 .first(where: { $0.appBundleID == self.info.bundleIdentifier })
-            // Check the status of that keychain
+
             if let keychain = keychain, keychain.chainEncryptionStatus {
-                // If the keychain is encrypted, unlock it
                 try? await KeyCover.shared.unlockChain(keychain)
 
                 if KeyCover.shared.keyCoverPlainTextKey == nil {
@@ -219,7 +238,6 @@ class PlayApp: BaseApp {
                     settings.settings.playChain = false
                     sessionDisableKeychain = true
                 }
-
             }
         }
     }
@@ -231,39 +249,19 @@ class PlayApp: BaseApp {
                 sessionDisableKeychain = false
                 return
             }
-            // Check if the app have any keychains
+
             let keychain = KeyCover.shared.listKeychains()
                 .first(where: { $0.appBundleID == self.info.bundleIdentifier })
-            // Check the status of that keychain
+
             if let keychain = keychain, !keychain.chainEncryptionStatus {
-                // If the keychain is encrypted, lock it
                 try? KeyCover.shared.lockChain(keychain)
             }
         }
     }
+}
 
-    var name: String {
-        if info.displayName.isEmpty {
-            return info.bundleName
-        } else {
-            return info.displayName
-        }
-    }
-
-    static let aliasDirectory = FileManager.default.homeDirectoryForCurrentUser
-            .appendingPathComponent("Applications")
-            .appendingPathComponent("PlayCover")
-
-    lazy var aliasURL = PlayApp.aliasDirectory.appendingPathComponent(name).appendingPathExtension("app")
-
-    lazy var playChainURL = KeyCover.playChainPath.appendingPathComponent(info.bundleIdentifier)
-
-    lazy var settings = AppSettings(info)
-
-    lazy var keymapping = Keymapping(info)
-
-    lazy var container = AppContainer(bundleId: info.bundleIdentifier)
-
+// MARK: - Tools
+extension PlayApp {
     func hasPlayTools() -> Bool {
         do {
             return try PlayTools.installedInExec(atURL: url.appendingEscapedPathComponent(info.executableName))
@@ -272,9 +270,6 @@ class PlayApp: BaseApp {
             return true
         }
     }
-
-    static let introspection: String = "/usr/lib/system/introspection"
-    static let iosFrameworks: String = "/System/iOSSupport/System/Library/Frameworks"
 
     func changeDyldLibraryPath(set: Bool? = nil, path: String) async -> Bool {
         info.lsEnvironment["DYLD_LIBRARY_PATH"] = info.lsEnvironment["DYLD_LIBRARY_PATH"] ?? ""
@@ -297,12 +292,14 @@ class PlayApp: BaseApp {
         guard let result = info.lsEnvironment["DYLD_LIBRARY_PATH"] else {
             return false
         }
-
         return result.contains(path)
     }
+}
 
+// MARK: - FS / Codesign
+extension PlayApp {
     func hasAlias() -> Bool {
-        return FileManager.default.fileExists(atPath: aliasURL.path)
+        FileManager.default.fileExists(atPath: aliasURL.path)
     }
 
     func isInfoPlistSigned() throws -> Bool {
@@ -347,7 +344,10 @@ class PlayApp: BaseApp {
             Log.shared.error(error)
         }
     }
+}
 
+// MARK: - Policies
+extension PlayApp {
     var prohibitedToPlay: Bool {
         PlayApp.PROHIBITED_APPS.contains(info.bundleIdentifier)
     }
