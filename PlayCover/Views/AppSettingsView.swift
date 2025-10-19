@@ -193,6 +193,7 @@ struct GraphicsView: View {
     @State var showResolutionWarning = false
     @AppStorage("settings.settings.inverseScreenValues") private var inverseScreenValues = false
     @AppStorage("settings.settings.disableTimeout") private var disableTimeout = false
+    @AppStorage("settings.settings.keepDisplayRotation") private var keepDisplayRotation = true
     @AppStorage("settings.toggle.hideTitleBar") private var hideTitleBar = false
     @AppStorage("settings.toggle.floatingWindow") private var floatingWindow = false
     static var number: NumberFormatter {
@@ -351,6 +352,8 @@ struct GraphicsView: View {
                         }
                         Spacer()
                     }
+                    Toggle("settings.toggle.keepDisplayRotation", isOn: $settings.settings.keepDisplayRotation)
+                    Spacer()
                     Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.settings.disableTimeout)
                         .help("settings.toggle.disableDisplaySleep.help")
                     Spacer()

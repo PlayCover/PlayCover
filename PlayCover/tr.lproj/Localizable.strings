@@ -103,6 +103,7 @@
 "settings.text.detectedResolution" = "Saptanılmış Çözünürlük:";
 "settings.picker.aspectRatio" = "En boy oranı:";
 "settings.toggle.disableDisplaySleep" = "Ekran uyku modunu kapat";
+"settings.toggle.keepDisplayRotation" = "Ekran döndürme durumunu koru";
 "settings.toggle.disableDisplaySleep.help" = "Bu uygulama açıkken ekranın kararmasını önle";
 "settings.noPlayTools" = "PlayTools bu uygulamada injekte edilmemiş";
 "settings.toggle.jbBypass" = "Jailbreak Korumasını Geç (Deneysel)";

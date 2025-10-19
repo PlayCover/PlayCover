@@ -175,6 +175,7 @@
 "settings.picker.windowFixMethod.0" = "Normal";
 "settings.picker.windowFixMethod.1" = "Alternate";
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
+"settings.toggle.keepDisplayRotation" = "Keep Display Rotation State";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
 "settings.toggle.hideTitleBar" = "Hide titlebar";
 "settings.toggle.floatingWindow" = "Floating window";

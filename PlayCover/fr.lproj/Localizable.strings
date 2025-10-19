@@ -170,6 +170,9 @@
 "settings.toggle.disableDisplaySleep" = "Désactiver la mise en veille";
 
 /* (No Comment) */
+"settings.toggle.keepDisplayRotation" = "Conserver l’état de rotation de l’écran";
+
+/* (No Comment) */
 "settings.toggle.discord" = "Activer l'activité Discord";
 
 /* (No Comment) */

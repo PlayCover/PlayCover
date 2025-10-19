@@ -143,6 +143,9 @@
 "settings.toggle.disableDisplaySleep" = "停用螢幕休眠";
 
 /* (No Comment) */
+"settings.toggle.keepDisplayRotation" = "保持顯示旋轉狀態";
+
+/* (No Comment) */
 "settings.toggle.jbBypass" = "啟用繞過越獄檢測（預覽）";
 
 /* (No Comment) */

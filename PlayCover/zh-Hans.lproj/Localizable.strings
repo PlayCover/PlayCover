@@ -170,6 +170,9 @@
 "settings.toggle.disableDisplaySleep" = "禁用显示器息屏";
 
 /* (No Comment) */
+"settings.toggle.keepDisplayRotation" = "保持显示旋转状态";
+
+/* (No Comment) */
 "settings.toggle.discord" = "启用 Discord 动态";
 
 /* (No Comment) */

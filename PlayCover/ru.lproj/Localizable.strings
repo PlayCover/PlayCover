@@ -170,6 +170,9 @@
 "settings.toggle.disableDisplaySleep" = "Отключить спящий режим дисплея";
 
 /* (No Comment) */
+"settings.toggle.keepDisplayRotation" = "Сохранять состояние поворота дисплея";
+
+/* (No Comment) */
 "settings.toggle.discord" = "Включить активность Discord";
 
 /* (No Comment) */

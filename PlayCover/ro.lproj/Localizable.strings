@@ -103,6 +103,7 @@
 "settings.text.detectedResolution" = "Detectata Resoluție:";
 "settings.picker.aspectRatio" = "Raport de Aspect:";
 "settings.toggle.disableDisplaySleep" = "Dezactivează închisul display-ului";
+"settings.toggle.keepDisplayRotation" = "Păstrează starea de rotație a ecranului";
 "settings.toggle.disableDisplaySleep.help" = "Împiedicați închisul de display în timp ce aplicația executează";
 "settings.noPlayTools" = "PlayTools nu este instalat in aplicația asta";
 "settings.toggle.jbBypass" = "Activează Jailbreak Bypass (Alpha)";
