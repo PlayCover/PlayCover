@@ -120,7 +120,7 @@
 "settings.text.detectedResolution" = "पता लगाया संकल्प:";
 "settings.picker.aspectRatio" = "आस्पेक्ट अनुपात:";
 "settings.toggle.disableDisplaySleep" = "प्रदर्शन नींद अक्षम करें";
-"settings.toggle.keepDisplayRotation" = "डिस्प्ले रोटेशन की स्थिति बनाए रखें";
+"settings.settings.displayRotation" = "डिवाइस अभिविन्यास";
 "settings.toggle.disableDisplaySleep.help" = "जब यह ऐप चल रहा हो तो प्रदर्शन को बंद होने से रोकें";
 "settings.noPlayTools" = "इस ऐप में PlayTools इंस्टॉल नहीं है";
 "settings.toggle.jbBypass" = "जेलब्रेक बाईपास (अल्फा) सक्षम करें";

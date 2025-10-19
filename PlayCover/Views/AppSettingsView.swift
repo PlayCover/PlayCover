@@ -196,6 +196,7 @@ struct GraphicsView: View {
     @AppStorage("settings.settings.keepDisplayRotation") private var keepDisplayRotation = true
     @AppStorage("settings.toggle.hideTitleBar") private var hideTitleBar = false
     @AppStorage("settings.toggle.floatingWindow") private var floatingWindow = false
+    @AppStorage("settings.settings.displayRotation") private var displayRotation = 0
     static var number: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .none
@@ -352,7 +353,18 @@ struct GraphicsView: View {
                         }
                         Spacer()
                     }
-                    Toggle("settings.toggle.keepDisplayRotation", isOn: $settings.settings.keepDisplayRotation)
+                    HStack {
+                        Text("settings.settings.displayRotation")
+                        Spacer()
+                        Picker("", selection: $settings.settings.displayRotation) {
+                            Text("Default").tag(0)
+                            Text("Portrait").tag(1)
+                            Text("Landscape Right").tag(2)
+                            Text("Portrait Upside Down").tag(3)
+                            Text("Flip Fix").tag(4)
+                        }
+                        .frame(alignment: .leading)
+                    }
                     Spacer()
                     Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.settings.disableTimeout)
                         .help("settings.toggle.disableDisplaySleep.help")

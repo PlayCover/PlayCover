@@ -170,7 +170,7 @@
 "settings.toggle.disableDisplaySleep" = "Ruhezustand des Displays deaktivieren";
 
 /* (No Comment) */
-"settings.toggle.keepDisplayRotation" = "Anzeige-Drehzustand beibehalten";
+"settings.settings.displayRotation" = "Geräteausrichtung";
 
 /* (No Comment) */
 "settings.toggle.discord" = "Discord-Aktivität aktivieren";

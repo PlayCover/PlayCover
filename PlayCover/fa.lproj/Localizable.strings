@@ -33,7 +33,7 @@
 "settings.toggle.km" = "فعال‌سازی";
 "settings.toggle.jbBypass" = "فعال‌سازی (نسخه آزمایشی)";
 "settings.toggle.disableDisplaySleep" = "جلوگیری از خاموش شدن نمایش‌گر";
-"settings.toggle.keepDisplayRotation" = "حفظ وضعیت چرخش نمایشگر";
+"settings.settings.displayRotation" = "جهت‌گیری دستگاه";
 "settings.picker.iosDevice" = "شبیه‌ساز:";
 "settings.slider.mouseSensitivity" = "میزان حساسیت ماوس: %.f";
 "notification.appInstalled" = "برنامه نصب شد!";

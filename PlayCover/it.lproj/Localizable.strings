@@ -152,7 +152,7 @@
 "settings.picker.windowFixMethod.0" = "Normale";
 "settings.picker.windowFixMethod.1" = "Alternativa";
 "settings.toggle.disableDisplaySleep" = "Disabilita lo spegnimento del display";
-"settings.toggle.keepDisplayRotation" = "Mantieni lo stato di rotazione dello schermo";
+"settings.settings.displayRotation" = "Orientamento del dispositivo";
 "settings.toggle.disableDisplaySleep.help" = "Impedisce al display di spegnersi mentre questa app è in esecuzione";
 "settings.noPlayTools" = "PlayTools non è installato in questa app";
 "settings.highResolution" = "L'alta risoluzione potrebbe causare crash";

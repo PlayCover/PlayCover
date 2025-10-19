@@ -170,7 +170,7 @@
 "settings.toggle.disableDisplaySleep" = "Nonaktifkan tampilan tidur";
 
 /* (No Comment) */
-"settings.toggle.keepDisplayRotation" = "Pertahankan status rotasi tampilan";
+"settings.settings.displayRotation" = "Orientasi Perangkat";
 
 /* (No Comment) */
 "settings.toggle.discord" = "Aktifkan aktivitas Discord";

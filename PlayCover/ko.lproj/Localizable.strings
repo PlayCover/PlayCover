@@ -170,7 +170,7 @@
 "settings.toggle.disableDisplaySleep" = "화면 잠자기 사용 안 함";
 
 /* (No Comment) */
-"settings.toggle.keepDisplayRotation" = "디스플레이 회전 상태 유지";
+"settings.settings.displayRotation" = "장치 방향";
 
 /* (No Comment) */
 "settings.toggle.discord" = "Discord 활동 상태 사용";

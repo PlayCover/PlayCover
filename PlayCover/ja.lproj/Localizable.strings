@@ -170,7 +170,7 @@
 "settings.toggle.disableDisplaySleep" = "ディスプレイのスリープを無効にする";
 
 /* (No Comment) */
-"settings.toggle.keepDisplayRotation" = "ディスプレイの回転状態を保持";
+"settings.settings.displayRotation" = "デバイスの向き";
 
 /* (No Comment) */
 "settings.toggle.discord" = "Discordアクティビティの有効化";
