@@ -19,7 +19,7 @@ class UpdateScheme {
             case "2":
                 print("attempting to update from v2 to v3")
                 try updateFromV2ToV3()
-            case "3.0":
+            case "3":
                 print("attempting to update from v3 to v3.1")
                 try updateFromV3ToV3p1()
             default:
