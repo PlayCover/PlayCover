@@ -65,7 +65,6 @@
 "settings.text.detectedResolution" = "Resolução detectada:";
 "settings.picker.aspectRatio" = "Proporção da tela:";
 "settings.toggle.disableDisplaySleep" = "Desativar suspensão da tela";
-"settings.settings.displayRotation" = "Orientação do dispositivo";
 "settings.toggle.disableDisplaySleep.help" = "Impede que a tela desligue enquanto este aplicativo estiver em execução";
 "settings.toggle.jbBypass" = "Habilitar Bypass do Jailbreak (Experimental)";
 "settings.toggle.jbBypass.help" = "Tenta evitar a detecção de Jailbreak em alguns jogos (Não é garantido que sempre irá funcionar)";

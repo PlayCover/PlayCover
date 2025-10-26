@@ -134,7 +134,6 @@
 "settings.text.detectedResolution" = "Registreret opløsning:";
 "settings.picker.aspectRatio" = "Størrelsesforhold:";
 "settings.toggle.disableDisplaySleep" = "Deaktivere vågeblus på skærmen";
-"settings.settings.displayRotation" = "Enhedens orientering";
 "settings.toggle.disableDisplaySleep.help" = "Forhindrer, at skærmen slukkes, mens denne app kører";
 "settings.noPlayTools" = "PlayTools er ikke installeret i denne app";
 "settings.highResolution" = "Høje opløsninger kan forårsage crash";

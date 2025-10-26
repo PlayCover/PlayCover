@@ -33,7 +33,6 @@
 "settings.toggle.km" = "Keymapping";
 "settings.toggle.jbBypass" = "Bật Jailbreak Bypass (thử nghiệm)";
 "settings.toggle.disableDisplaySleep" = "Không tắt màn hình";
-"settings.settings.displayRotation" = "Hướng của thiết bị";
 "settings.picker.iosDevice" = "Thiết bị iOS mô phỏng:";
 "settings.slider.mouseSensitivity" = "Tốc độ chuột: %.f";
 "settings.text.customHeight" = "Chiều cao";
