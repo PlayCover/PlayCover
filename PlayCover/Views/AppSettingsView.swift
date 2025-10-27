@@ -193,7 +193,6 @@ struct GraphicsView: View {
     @State var showResolutionWarning = false
     @AppStorage("settings.settings.inverseScreenValues") private var inverseScreenValues = false
     @AppStorage("settings.settings.disableTimeout") private var disableTimeout = false
-    @AppStorage("settings.settings.keepDisplayRotation") private var keepDisplayRotation = true
     @AppStorage("settings.toggle.hideTitleBar") private var hideTitleBar = false
     @AppStorage("settings.toggle.floatingWindow") private var floatingWindow = false
     @AppStorage("settings.settings.displayRotation") private var displayRotation = 0
