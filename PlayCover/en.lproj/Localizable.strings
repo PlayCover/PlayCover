@@ -176,6 +176,11 @@
 "settings.picker.windowFixMethod.1" = "Alternate";
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
 "settings.settings.displayRotation" = "Device Orientation";
+"settings.settings.default" = "Default";
+"settings.settings.portrait" = "Portrait";
+"settings.settings.landscapeRight" = "Landscape Right";
+"settings.settings.portraitUpsideDown" = "Portrait Upside Down";
+"settings.settings.flipFix" = "Flip Fix";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
 "settings.toggle.hideTitleBar" = "Hide titlebar";
 "settings.toggle.floatingWindow" = "Floating window";
