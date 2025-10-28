@@ -356,11 +356,11 @@ struct GraphicsView: View {
                         Text("settings.settings.displayRotation")
                         Spacer()
                         Picker("", selection: $settings.settings.displayRotation) {
-                            Text("settings.settings.default").tag(0)
-                            Text("settings.settings.portrait").tag(1)
-                            Text("settings.settings.landscapeRight").tag(2)
-                            Text("settings.settings.portraitUpsideDown").tag(3)
-                            Text("settings.settings.flipFix").tag(4)
+                            Text("settings.settings.displayRotation.default").tag(0)
+                            Text("settings.settings.displayRotation.portrait").tag(1)
+                            Text("settings.settings.displayRotation.landscapeRight").tag(2)
+                            Text("settings.settings.displayRotation.portraitUpsideDown").tag(3)
+                            Text("settings.settings.displayRotation.flipFix").tag(4)
                         }
                         .frame(alignment: .leading)
                     }
