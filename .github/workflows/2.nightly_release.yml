@@ -7,7 +7,7 @@ env:
   CI: true
 jobs:
   build:
-    runs-on: macos-14
+    runs-on: macos-26
     env:
       GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -36,7 +36,7 @@ jobs:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 120 # x86 is slooooooow
 
-      - name: Exract API_KEY
+      - name: Extract API_KEY
         shell: bash
         run: 'echo "$API_KEY" > apikey.json'
         env:
