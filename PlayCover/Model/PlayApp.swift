@@ -368,7 +368,8 @@ extension PlayApp {
         "com.dts.freefiremax",
         "vn.vng.codmvn",
         "com.ngame.allstar.eu",
-        "com.axlebolt.standoff2"
+        "com.axlebolt.standoff2",
+        "com.tencent.lolm"
     ]
 
     static let MALICIOUS_APPS = [
