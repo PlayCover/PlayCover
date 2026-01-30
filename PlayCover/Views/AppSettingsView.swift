@@ -583,6 +583,12 @@ struct BypassesView: View {
                         .help("settings.toggle.checkMicPermissionSync.help")
                     Spacer()
                 }
+                Spacer()
+                HStack {
+                    Toggle("settings.toggle.blockSleepSpamming", isOn: $settings.settings.blockSleepSpamming)
+                        .help("settings.toggle.blockSleepSpamming.help")
+                    Spacer()
+                }
             }
             .padding()
         }

@@ -49,6 +49,7 @@ struct AppSettingsData: Codable {
     var resizableAspectRatioType = 0
     var resizableAspectRatioWidth = 0
     var resizableAspectRatioHeight = 0
+    var blockSleepSpamming = false
 
     init() {}
 
@@ -88,6 +89,7 @@ struct AppSettingsData: Codable {
         resizableAspectRatioType = try container.decodeIfPresent(Int.self, forKey: .resizableAspectRatioType) ?? 0
         resizableAspectRatioWidth = try container.decodeIfPresent(Int.self, forKey: .resizableAspectRatioWidth) ?? 0
         resizableAspectRatioHeight = try container.decodeIfPresent(Int.self, forKey: .resizableAspectRatioHeight) ?? 0
+        blockSleepSpamming = try container.decodeIfPresent(Bool.self, forKey: .blockSleepSpamming) ?? false
     }
 }
 
