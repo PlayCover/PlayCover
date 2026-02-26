@@ -29,7 +29,6 @@ class UpdateScheme {
             Log.shared.error(error)
         }
 
-        checkForUpdate()
     }
 
     private static func updateFromV2ToV3() throws {
