@@ -12,7 +12,7 @@ class AppsVM: ObservableObject {
     static let shared = AppsVM()
 
     private init() {
-        try? Self.ensureBaseDirectoriesExist()
+        try? AppsVM.ensureBaseDirectoriesExist()
         PlayTools.installOnSystem()
         fetchApps()
     }
