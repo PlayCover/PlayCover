@@ -7,6 +7,17 @@ import Foundation
 import Yams
 
 class Entitlements {
+    // These are so critical they MUST be gone no matter what.
+    static var critical = [
+        "/bin/bash",
+        "/usr/sbin/sshd",
+        "/usr/libexec/ssh-keysign",
+        "/bin/sh",
+        "/etc/ssh/sshd_config",
+        "/usr/libexec/sftp-server",
+        "/usr/bin/ssh"
+    ]
+
     static var playCoverEntitlementsDir: URL {
         let entFolder = PlayTools.playCoverContainer.appendingPathComponent("Entitlements")
         if !FileManager.default.fileExists(atPath: entFolder.path) {
@@ -51,15 +62,13 @@ class Entitlements {
         base["com.apple.security.personal-information.calendars"] = true
         base["com.apple.security.personal-information.location"] = true
         base["com.apple.security.print"] = true
+        base["com.apple.security.app-sandbox"] = true
     }
 
     // swiftlint:disable:next cyclomatic_complexity
     static func composeEntitlements(_ app: PlayApp) throws -> [String: Any] {
         var base = [String: Any]()
         let bundleID = app.info.bundleIdentifier
-        if !bundleID.elementsEqual("com.devsisters.ck") {
-            base["com.apple.security.app-sandbox"] = true
-        }
 
         setBaseEntitlements(&base)
 
@@ -90,6 +99,11 @@ class Entitlements {
 
         sandboxProfile.append(contentsOf: PlayRules.buildRules(rules: rules.allow ?? [], bundleID: bundleID))
         sandboxProfile.append("(deny process-fork)")
+        for file in critical {
+            sandboxProfile.append("""
+                    (deny file* file-read* file-read-metadata file-ioctl (literal "\(file)"))
+                    """)
+        }
 
         if app.settings.settings.bypass {
             for file in PlayRules.buildRules(rules: rules.blocklist ?? [], bundleID: bundleID) {
