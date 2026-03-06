@@ -89,11 +89,8 @@
 "playapp.progress.canceled" = "Canceled";
 
 "alert.appCacheCleared" = "App data has been cleared!";
-"alert.kmImported" = "Keymapping imported!";
 "alert.errorImportKm" = "Error occured when importing keymap!";
-"alert.kmRenamed" = "Keymap renamed!";
 "alert.errorRenameKm" = "Error occured when renaming keymap!";
-"alert.kmCreated" = "Created new keymap!";
 "alert.errorKmCreated" = "Error occured when creating keymap!";
 "alert.app.delete" = "All app data will be erased. You may need to download app files again. Do you wish to continue?";
 "alert.app.preferences" = "All in-app preferences will be deleted. Do you wish to continue?";
@@ -159,6 +156,8 @@
 "settings.toggle.autoKM.help" = "Automatically disable keymapping when text input is sensed";
 "settings.toggle.enableScrollWheel" = "Enable Scroll Wheel";
 "settings.toggle.enableScrollWheel.help" = "Enable scroll wheel in keymapping";
+"settings.toggle.disableBuiltinMouse" = "Disable Built-in Mouse Support";
+"settings.toggle.disableBuiltinMouse.help" = "Disable the app’s built-in mouse support to avoid click conflicts.";
 
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";
@@ -167,16 +166,21 @@
 "settings.picker.adaptiveRes.0" = "App Default";
 "settings.picker.adaptiveRes.1" = "Auto (Based on Display)";
 "settings.picker.adaptiveRes.5" = "Custom";
+"settings.picker.adaptiveRes.6" = "Resizable";
 "settings.text.customHeight" = "Height";
 "settings.text.customWidth" = "Width";
 "settings.text.detectedResolution" = "Detected Resolution:";
 "settings.picker.aspectRatio" = "Aspect ratio:";
+"settings.picker.aspectRatio.free" = "Free";
+"settings.picker.aspectRatio.custom" = "Custom";
 "settings.picker.windowFix" = "Fix window display issues";
 "settings.picker.windowFix.help" = "Apply window fixes that may helps your apps display normally";
 "settings.picker.windowFixMethod.0" = "Normal";
 "settings.picker.windowFixMethod.1" = "Alternate";
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
+"settings.toggle.hideTitleBar" = "Hide titlebar";
+"settings.toggle.floatingWindow" = "Floating window";
 "settings.noPlayTools" = "PlayTools is not installed in this app";
 "settings.highResolution" = "High resolution may cause crashing";
 "settings.picker.scaler" = "Resolution Scaler";
@@ -191,6 +195,8 @@
 "settings.toggle.introspection.help" = "Add the system introspection libraries to the app. Known to fix issues with some apps not starting correctly";
 "settings.toggle.iosFrameworks" = "Force Insert iOS Frameworks";
 "settings.toggle.iosFrameworks.help" = "Add the system ios libraries to the app. Known to fix issues with some apps cannot find ios framework";
+"settings.toggle.checkMicPermissionSync" = "Check Microphone Permission Synchronously";
+"settings.toggle.checkMicPermissionSync.help" = "Force microphone permission check to be synchronous. Known to fix issues with some apps complaining about microphone permission not being granted";
 
 "settings.applicationCategoryType" = "Application Type";
 "settings.removePlayTools" = "Remove PlayTools";
@@ -212,8 +218,6 @@
 "settings.defaultKm" = "Set Default";
 
 "settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
-"settings.resetKmCompleted" = "Keymapping has been reset!";
-"settings.deleteKmCompleted" = "Keymap %@ has been deleted";
 "settings.deleteKmFailed" = "Keymap %@ failed to delete";
 
 "notification.appInstalled" = "App installed!";
@@ -251,6 +255,11 @@
 "settings.toggle.lldbWithTerminal" = "Open in terminal";
 "settings.toggle.rootWorkDir" = "Start app at root directory";
 "settings.toggle.rootWorkDir.help" = "Change the working directory of the app to / just like on iOS. Turn this off if the app misbehave";
+"settings.toggle.limitMotionUpdateFrequency" = "Limit motion sensor update frequency";
+"settings.toggle.limitMotionUpdateFrequency.help" = "Limit the frequency of motion sensor updates to avoid excessive CPU usage (often occurs in Unity games).";
+"settings.toggle.blockSleepSpamming" = "Prevent usleep call spamming";
+"settings.toggle.blockSleepSpamming.help" = "Prevent the app from spamming the usleep() syscall which may cause resource exhaustion";
+
 
 "configSigning.header" = "Configure Package Signing";
 "configSigning.subtext" = "Package Signing helps fixing issues with apps that rely on \ncorrect Team IDs for operations like authorization. \nThere may be security risks associated with enabling this feature.\n\n As such, we recommend disabling it when it's not necessary";

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		342787552E787EBB003A3C2F /* Keymapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342787542E787EB9003A3C2F /* Keymapping.swift */; };
 		3447B5E52E28B46800FAA22F /* KeymapViewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3447B5E42E28B46800FAA22F /* KeymapViewVM.swift */; };
 		34775E752D493B59001586C2 /* CachedAsyncImageWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34775E742D493B54001586C2 /* CachedAsyncImageWrapper.swift */; };
 		365AFB0628847B2E008B3542 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 365AFB0528847B2E008B3542 /* Sparkle */; };
@@ -37,7 +38,7 @@
 		6E66B0D528A0039D0099B907 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E66B0D428A0039D0099B907 /* ToastView.swift */; };
 		6E66B0D928A135360099B907 /* ToastVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E66B0D828A135360099B907 /* ToastVM.swift */; };
 		6E7CA16528B4D02900216CD8 /* ITunesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CA16428B4D02900216CD8 /* ITunesResponse.swift */; };
-		6E7CA16728B4EEAE00216CD8 /* Keymapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CA16628B4EEAE00216CD8 /* Keymapping.swift */; };
+		6E7CA16728B4EEAE00216CD8 /* KeymapData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CA16628B4EEAE00216CD8 /* KeymapData.swift */; };
 		6EB4B57428C93E0600630890 /* LegacySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB4B57328C93E0600630890 /* LegacySettings.swift */; };
 		6ECB1D0E29798DFA00CD92AA /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ECB1D0D29798DFA00CD92AA /* DataExtensions.swift */; };
 		6ED6379D28DAAAC100B506FA /* IPASourceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6379C28DAAAC100B506FA /* IPASourceSettings.swift */; };
@@ -98,6 +99,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		342787542E787EB9003A3C2F /* Keymapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keymapping.swift; sourceTree = "<group>"; };
 		3447B5E42E28B46800FAA22F /* KeymapViewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeymapViewVM.swift; sourceTree = "<group>"; };
 		34775E742D493B54001586C2 /* CachedAsyncImageWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedAsyncImageWrapper.swift; sourceTree = "<group>"; };
 		365AFB0728847B75008B3542 /* Sparkle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sparkle.swift; sourceTree = "<group>"; };
@@ -138,7 +140,7 @@
 		6E692F1C290B34890090D9EC /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6E692F1D290B349F0090D9EC /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6E7CA16428B4D02900216CD8 /* ITunesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesResponse.swift; sourceTree = "<group>"; };
-		6E7CA16628B4EEAE00216CD8 /* Keymapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keymapping.swift; sourceTree = "<group>"; };
+		6E7CA16628B4EEAE00216CD8 /* KeymapData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeymapData.swift; sourceTree = "<group>"; };
 		6EA4A34B29B61CE9005F4679 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6EB4B57328C93E0600630890 /* LegacySettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacySettings.swift; sourceTree = "<group>"; };
 		6EC228A028B14A0600D7D73A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -298,7 +300,7 @@
 				B1419FB528BA82EE000CB69F /* DiscordActivity.swift */,
 				AA71964A287A0EA800623C15 /* PlayRules.swift */,
 				6E7CA16428B4D02900216CD8 /* ITunesResponse.swift */,
-				6E7CA16628B4EEAE00216CD8 /* Keymapping.swift */,
+				6E7CA16628B4EEAE00216CD8 /* KeymapData.swift */,
 				B6AB53C829232B4F00039B2E /* KeyCodeNames.swift */,
 			);
 			path = Model;
@@ -338,6 +340,7 @@
 			children = (
 				6E25096D297F4E95004D754C /* Extensions */,
 				B44B40362C1E315600CE2A3E /* GoogleDrive.swift */,
+				342787542E787EB9003A3C2F /* Keymapping.swift */,
 				B429B2632DC204F1001FF7D9 /* VersionCheck.swift */,
 				92ECD8A4274E763700DB7AC6 /* IPA.swift */,
 				92EE06DD274EC09F002C907B /* Entitlements.swift */,
@@ -594,7 +597,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "set -euo pipefail\n\nif [ -x /usr/local/bin/carthage ]; then\n    carthage=/usr/local/bin/carthage\nelif [ -x /opt/homebrew/bin/carthage ]; then\n    carthage=/opt/homebrew/bin/carthage\nelif [ -x /opt/local/bin/carthage ]; then\n    carthage=/opt/local/bin/carthage\nelse\n    echo \"Cannot find carthage\"\n    exit 1\nfi\n\necho \"Codesigning PlayTools\"\n\n$carthage copy-frameworks\n\necho cp -rf ${SCRIPT_INPUT_FILE_0}/PlugIns/AKInterface.bundle ${SCRIPT_OUTPUT_FILE_0}/PlugIns/AKInterface.bundle\n\nrm -rf ${SCRIPT_OUTPUT_FILE_0}/PlugIns/AKInterface.bundle\ncp -rf ${SCRIPT_INPUT_FILE_0}/PlugIns/AKInterface.bundle ${SCRIPT_OUTPUT_FILE_0}/PlugIns/AKInterface.bundle\n\necho \"Converting to maccatalyst\"\nvtool \\\n    -set-build-version maccatalyst 11.0 14.0 \\\n    -replace -output \\\n    \"${SCRIPT_OUTPUT_FILE_0}/PlayTools\" \\\n    \"${SCRIPT_OUTPUT_FILE_0}/PlayTools\"\n";
+			shellScript = "set -euo pipefail\n\nif [ -x /usr/local/bin/carthage ]; then\n    carthage=/usr/local/bin/carthage\nelif [ -x /opt/homebrew/bin/carthage ]; then\n    carthage=/opt/homebrew/bin/carthage\nelif [ -x /opt/local/bin/carthage ]; then\n    carthage=/opt/local/bin/carthage\nelse\n    echo \"Cannot find carthage\"\n    exit 1\nfi\n\necho \"Copying PlayTools\"\n$carthage copy-frameworks\n\necho \"Handling AKInterface files\"\nmkdir -p \"${SCRIPT_OUTPUT_FILE_0}/PlugIns\"\nrm -rf   \"${SCRIPT_OUTPUT_FILE_0}/PlugIns/AKInterface.bundle\"\ncp -R    \"${SCRIPT_INPUT_FILE_0}/PlugIns/AKInterface.bundle\" \"${SCRIPT_OUTPUT_FILE_0}/PlugIns/AKInterface.bundle\"\n\necho \"Converting to maccatalyst\"\nvtool \\\n  -set-build-version maccatalyst 11.0 14.0 \\\n  -replace -output \\\n  \"${SCRIPT_OUTPUT_FILE_0}/PlayTools\" \\\n  \"${SCRIPT_OUTPUT_FILE_0}/PlayTools\" || true\n\necho \"Rebundling shadow framework to deep framework structure\"\nFRAME=\"${SCRIPT_OUTPUT_FILE_0}\"\nNAME=\"PlayTools\"\n\nif [ -d \"$FRAME\" ] && [ ! -d \"$FRAME/Versions\" ]; then\n  echo \"Rebundling $NAME as macOS deep framework…\"\n\n  PARENT=\"$(dirname \"$FRAME\")\"\n  BASENAME=\"$(basename \"$FRAME\")\"\n  TMP=\"$PARENT/.${BASENAME}.rebundle\"\n\n  rm -rf \"$TMP\"\n  mkdir -p \"$TMP/Versions/A/Resources\" \"$TMP/Versions/A/Modules\" \"$TMP/Versions/A/PlugIns\"\n\n  echo \"moving shallow content to tmp A\"\n  [ -f \"$FRAME/$NAME\" ]      && cp -p \"$FRAME/$NAME\"      \"$TMP/Versions/A/$NAME\"\n  [ -d \"$FRAME/Headers\" ]    && cp -Rp \"$FRAME/Headers\"   \"$TMP/Versions/A/Headers\"\n  [ -d \"$FRAME/Modules\" ]    && cp -Rp \"$FRAME/Modules\"   \"$TMP/Versions/A/Modules\"\n  [ -f \"$FRAME/Info.plist\" ] && cp -p \"$FRAME/Info.plist\" \"$TMP/Versions/A/Resources/Info.plist\"\n\n  if [ -d \"$FRAME/Resources\" ]; then\n    ditto \"$FRAME/Resources\" \"$TMP/Versions/A/Resources\"\n  fi\n\n  if [ -d \"$FRAME/PlugIns\" ]; then\n    ditto \"$FRAME/PlugIns\" \"$TMP/Versions/A/PlugIns\"\n  fi\n\n  echo \"symlinking playtools\"\n  ln -s A \"$TMP/Versions/Current\"\n  ln -s Versions/Current/Resources \"$TMP/Resources\"\n  [ -d \"$TMP/Versions/A/Headers\" ] && ln -s Versions/Current/Headers \"$TMP/Headers\"\n  [ -d \"$TMP/Versions/A/Modules\" ] && ln -s Versions/Current/Modules \"$TMP/Modules\"\n  ln -s Versions/Current/$NAME \"$TMP/$NAME\"\n  [ -d \"$TMP/Versions/A/PlugIns\" ] && ln -s Versions/Current/PlugIns \"$TMP/PlugIns\"\n\n  rm -rf \"$FRAME\"\n  mv \"$TMP\" \"$FRAME\"\n\n  echo \"Rebundle done.\"\nfi\n";
 		};
 		AAC28F222899A05B005057FB /* Codesign sparkle */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -613,7 +616,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nset -euo pipefail\n\nIDENTITY=${EXPANDED_CODE_SIGN_IDENTITY_NAME};\n# Apple Development: XIN LI (33X85HBRP6)\necho Signing identity $IDENTITY;\n\ncodesign --verbose --force --deep --sign \"$IDENTITY\" ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework/PlugIns/AKInterface.bundle;\ncodesign --verbose --force --deep --sign \"$IDENTITY\" ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework;\n\n# sign sparkle\nLOCATION=\"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework\";\necho Sparkle Signing location $LOCATION;\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/Autoupdate\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/Updater.app\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/XPCServices/Downloader.xpc\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/XPCServices/Installer.xpc\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION\";\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nset -euo pipefail\n\nIDENTITY=${EXPANDED_CODE_SIGN_IDENTITY_NAME};\n# Apple Development: XIN LI (33X85HBRP6)\necho Signing identity $IDENTITY;\n\ncodesign --verbose --force --deep --sign \"$IDENTITY\" ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework/PlugIns/AKInterface.bundle;\ncodesign --verbose --force --deep --sign \"$IDENTITY\" ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework;\n\n# sign sparkle\n# I still dont know if we need sparkle\nLOCATION=\"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework\";\necho Sparkle Signing location $LOCATION;\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/Autoupdate\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/Updater.app\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/XPCServices/Downloader.xpc\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/XPCServices/Installer.xpc\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION\";\n";
 		};
 		AAE8809C287ACA4900FBB23C /* Carthage Bootstrap */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -632,7 +635,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ -z \"$FASTLANE\" ]]; then\n    set -euo pipefail\n    echo \"Bootstraping carthage\"\n\n    if [ -x /usr/local/bin/carthage ]; then\n        carthage=/usr/local/bin/carthage\n    elif [ -x /opt/homebrew/bin/carthage ]; then\n        carthage=/opt/homebrew/bin/carthage\n    elif [ -x /opt/local/bin/carthage ]; then\n        carthage=/opt/local/bin/carthage\n    else\n        echo \"Cannot find carthage\"\n        exit 1\n    fi\n\n    $carthage update --cache-builds --use-xcframeworks\nfi\n";
+			shellScript = "if [[ -z \"$FASTLANE\" ]]; then\n    set -euo pipefail\n    echo \"Bootstraping carthage\"\n\n    if [ -x /usr/local/bin/carthage ]; then\n        carthage=/usr/local/bin/carthage\n    elif [ -x /opt/homebrew/bin/carthage ]; then\n        carthage=/opt/homebrew/bin/carthage\n    elif [ -x /opt/local/bin/carthage ]; then\n        carthage=/opt/local/bin/carthage\n    else\n        echo \"Cannot find carthage\"\n        exit 1\n    fi\n\n    env -i PATH=/usr/bin:/bin:/usr/sbin:/sbin $carthage update --cache-builds --use-xcframeworks\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -665,7 +668,7 @@
 				92A8AAC9275EFEA800D89B50 /* SystemConfig.swift in Sources */,
 				6E66B0C9289F52800099B907 /* IPALibraryView.swift in Sources */,
 				B1084E1F28AA80F400E399FA /* AppSettingsVM.swift in Sources */,
-				6E7CA16728B4EEAE00216CD8 /* Keymapping.swift in Sources */,
+				6E7CA16728B4EEAE00216CD8 /* KeymapData.swift in Sources */,
 				6ED6ACA428A949A30040D234 /* AppSettingsView.swift in Sources */,
 				92EE06DA274EB009002C907B /* PlayApp.swift in Sources */,
 				B429B2642DC204FA001FF7D9 /* VersionCheck.swift in Sources */,
@@ -685,6 +688,7 @@
 				B67BC7122C39354C00315011 /* UpdateScheme.swift in Sources */,
 				ABBC85B92B7C5CBA00DCF223 /* ModifierKeyObserver.swift in Sources */,
 				92F8500A27675124005CE6BE /* AppIntegrity.swift in Sources */,
+				342787552E787EBB003A3C2F /* Keymapping.swift in Sources */,
 				B44B40372C1E315600CE2A3E /* GoogleDrive.swift in Sources */,
 				B41CBD952D774DCF00E26C1E /* AppFolderVM.swift in Sources */,
 				68E48B97295704A600C39879 /* Downloader.swift in Sources */,

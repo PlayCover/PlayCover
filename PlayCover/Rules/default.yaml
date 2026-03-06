@@ -74,7 +74,6 @@ allow:
     
 
 bypass:
-    - (deny process-fork)
     - (deny file* file-read* file-read-metadata file-ioctl)
     - (allow file* file-read* file-read-metadata file-ioctl (literal "/usr/lib/libobjc-trampolines.dylib"))
     - (allow file-read-metadata (subpath "/private/var/db/timezone/"))

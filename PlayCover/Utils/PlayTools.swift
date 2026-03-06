@@ -230,6 +230,9 @@ class PlayTools {
             if error.localizedDescription.contains("Document is empty") {
                 // Empty entitlements
                 return ""
+            } else if error.localizedDescription.contains("code object is not signed at all") {
+                // IPA not signed
+                return ""
             } else {
                 throw error
             }
