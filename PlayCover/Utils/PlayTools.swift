@@ -100,13 +100,28 @@ class PlayTools {
                               component: "Playtools", pathExtension: "strings")
         }
 
+        let bundledPlayToolsResources = bundledPlayToolsFramework
+            .appendingPathComponent("Versions")
+            .appendingPathComponent("A")
+            .appendingPathComponent("Resources")
+        if FileManager.default.fileExists(atPath: bundledPlayToolsResources.path) {
+            let allFiles = try FileManager.default.contentsOfDirectory(
+                at: bundledPlayToolsResources, includingPropertiesForKeys: [])
+            for localizationDirectory in allFiles where localizationDirectory.pathExtension == "lproj" {
+                _ = try copyAsset(source: bundledPlayToolsResources,
+                                  target: payload,
+                                  directoryName: localizationDirectory.lastPathComponent,
+                                  component: "Playtools", pathExtension: "strings")
+            }
+        }
+
         let bundleTarget = try copyAsset(target: payload, directoryName: "PlugIns",
                                          component: "AKInterface", pathExtension: "bundle")
         try bundleTarget.fixExecutable()
         try Shell.signMacho(bundleTarget)
     }
 
-    static func copyAsset(target: URL, directoryName: String,
+    static func copyAsset(source: URL = bundledPlayToolsFramework, target: URL, directoryName: String,
                           component: String, pathExtension: String) throws -> URL {
         let directory = target.appendingPathComponent(directoryName)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
@@ -115,7 +130,7 @@ class PlayTools {
                     .appendingPathComponent(component)
                     .appendingPathExtension(pathExtension)
 
-        let source = bundledPlayToolsFramework
+        let source = source
                     .appendingPathComponent(directoryName)
                     .appendingPathComponent(component)
                     .appendingPathExtension(pathExtension)
