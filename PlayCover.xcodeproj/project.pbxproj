@@ -65,10 +65,8 @@
 		92EE06DE274EC09F002C907B /* Entitlements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06DD274EC09F002C907B /* Entitlements.swift */; };
 		92F8500A27675124005CE6BE /* AppIntegrity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8500927675124005CE6BE /* AppIntegrity.swift */; };
 		A25930F42C49E2BC0006C91C /* PlayAppVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25930F32C49E2BC0006C91C /* PlayAppVM.swift */; };
-		AA719648287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA719646287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml */; };
 		AA719649287A0E2500623C15 /* default.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA719647287A0E2500623C15 /* default.yaml */; };
 		AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA71964A287A0EA800623C15 /* PlayRules.swift */; };
-		AA71964D287A35F400623C15 /* com.nexon.bluearchive.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA71964C287A35F400623C15 /* com.nexon.bluearchive.yaml */; };
 		AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = AA818CB4287ABEC3000BEE9D /* Yams */; };
 		AB00EB5229A7BF17006F3225 /* KeyCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB00EB5129A7BF17006F3225 /* KeyCover.swift */; };
 		AB6F21EB299B7FA20078ADEC /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6F21EA299B7FA20078ADEC /* URLHandler.swift */; };
@@ -174,10 +172,8 @@
 		92EE06DD274EC09F002C907B /* Entitlements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entitlements.swift; sourceTree = "<group>"; };
 		92F8500927675124005CE6BE /* AppIntegrity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntegrity.swift; sourceTree = "<group>"; };
 		A25930F32C49E2BC0006C91C /* PlayAppVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAppVM.swift; sourceTree = "<group>"; };
-		AA719646287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = com.YostarJP.BlueArchive.yaml; sourceTree = "<group>"; };
 		AA719647287A0E2500623C15 /* default.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = default.yaml; sourceTree = "<group>"; };
 		AA71964A287A0EA800623C15 /* PlayRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayRules.swift; sourceTree = "<group>"; };
-		AA71964C287A35F400623C15 /* com.nexon.bluearchive.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = com.nexon.bluearchive.yaml; sourceTree = "<group>"; };
 		AA970FD228793A310099A5D0 /* PlayCoverRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayCoverRelease.entitlements; sourceTree = "<group>"; };
 		AB00EB5129A7BF17006F3225 /* KeyCover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCover.swift; sourceTree = "<group>"; };
 		AB6F21EA299B7FA20078ADEC /* URLHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHandler.swift; sourceTree = "<group>"; };
@@ -436,8 +432,6 @@
 		AA719640287A085200623C15 /* Rules */ = {
 			isa = PBXGroup;
 			children = (
-				AA719646287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml */,
-				AA71964C287A35F400623C15 /* com.nexon.bluearchive.yaml */,
 				AA719647287A0E2500623C15 /* default.yaml */,
 			);
 			path = Rules;
@@ -545,9 +539,7 @@
 				AA719649287A0E2500623C15 /* default.yaml in Resources */,
 				8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */,
 				532644DE26E79E56002EA34D /* Localizable.strings in Resources */,
-				AA719648287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml in Resources */,
 				8783CFFF26B8C52E00171041 /* Assets.xcassets in Resources */,
-				AA71964D287A35F400623C15 /* com.nexon.bluearchive.yaml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
