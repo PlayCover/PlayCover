@@ -64,34 +64,30 @@ struct KeymapView: View {
                     .contextMenu {
                         Group {
                             if keymap != viewModel.defaultKm {
-                                Button(action: {
-                                    viewModel.setDefaultKeymap(keymap: keymap)
-                                }, label: {
-                                    Text("settings.defaultKm")
-                                })
+                                Button(NSLocalizedString("settings.defaultKm", comment: ""),
+                                       systemImage: "star",
+                                       action: {viewModel.setDefaultKeymap(keymap: keymap)}
+                                )
                                 Divider()
                             }
-                            Button(action: {
-                                viewModel.showKeymapRename.toggle()
-                            }, label: {
-                                Text("settings.renameKm")
-                            })
+                            Button(NSLocalizedString("settings.renameKm", comment: ""),
+                                   systemImage: "pencil",
+                                   action: {viewModel.showKeymapRename.toggle()}
+                            )
                             if keymap != viewModel.defaultKm {
-                                Button(role: .destructive, action: {
+                                Button(NSLocalizedString("settings.deleteKm", comment: ""),
+                                       systemImage: "trash",
+                                       action: {
                                     if !viewModel.app.keymapping.deleteKeymap(name: viewModel.kmName) {
                                         Log.shared.error(localized: "settings.deleteKmFailed", args: [viewModel.kmName])
                                     }
-
                                     viewModel.reloadKeymapCache()
-                                }, label: {
-                                    Text("settings.deleteKm")
                                 })
                             }
-                            Button(role: .destructive, action: {
-                                viewModel.app.keymapping.reset(name: viewModel.kmName)
-                            }, label: {
-                                Text("settings.resetKm")
-                            })
+                            Button(NSLocalizedString("settings.resetKm", comment: ""),
+                                   systemImage: "arrow.counterclockwise",
+                                   action: {viewModel.app.keymapping.reset(name: viewModel.kmName)}
+                            )
                         }
                         .onAppear {
                             viewModel.selectedKeymap = keymap
