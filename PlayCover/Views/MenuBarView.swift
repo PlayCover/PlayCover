@@ -42,12 +42,12 @@ struct PlayCoverHelpMenuView: Commands {
                     NSWorkspace.shared.open(url)
                 }
             }
-            Button("menubar.github") {
+            Button("menubar.github", systemImage: "arrow.up.right") {
                 if let url = URL(string: "https://github.com/PlayCover/PlayCover/") {
                     NSWorkspace.shared.open(url)
                 }
             }
-            Button("menubar.discord") {
+            Button("menubar.discord", systemImage: "arrow.up.right") {
                 if let url = URL(string: "https://discord.gg/RNCHsQHr3S") {
                     NSWorkspace.shared.open(url)
                 }
