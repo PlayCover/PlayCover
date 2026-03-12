@@ -181,9 +181,11 @@ struct AppLibraryView: View {
     }
 
     private func selectFile() {
-        NSOpenPanel.selectIPA { result in
-            if case .success(let url) = result {
-                installApp(url)
+        Task {
+            await NSOpenPanel.selectIPA { result in
+                if case .success(let url) = result {
+                    installApp(url)
+                }
             }
         }
     }
