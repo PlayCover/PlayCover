@@ -839,7 +839,7 @@ struct InfoView: View {
             HStack {
                 Text("settings.info.playTools")
                 Spacer()
-                Text(String(hasPlayTools))
+                Text(hasPlayTools ? "button.Yes" : "button.No")
             }
             HStack {
                 Text("settings.info.url")
