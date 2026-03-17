@@ -130,11 +130,11 @@ struct MainView: View {
             .onAppear {
                 self.selectedView = URLObserved.type == .source ? 2 : 1
             }
-            .overlay {
+            .toastOverlay {
                 HStack {
                     if !collapsed {
                         Spacer()
-                            .frame(width: navWidth)
+                            .frame(width: navWidth + 8)
                     }
                     ToastView()
                         .environmentObject(ToastVM.shared)
@@ -172,6 +172,23 @@ struct MainView: View {
 
     private func toggleSidebar() {
         NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
+    }
+}
+
+extension View {
+    @ViewBuilder
+    func toastOverlay<Content: View>(
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+        if #available(macOS 26.0, *) {
+            self.safeAreaBar(edge: .bottom) {
+                content()
+            }
+        } else {
+            self.overlay {
+                content()
+            }
+        }
     }
 }
 

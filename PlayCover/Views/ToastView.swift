@@ -15,7 +15,9 @@ struct ToastView: View {
     var body: some View {
         if toastVM.isShown {
             VStack(spacing: -20) {
-                Spacer()
+                if #unavailable(macOS 26.0) {
+                    Spacer()
+                }
                 ForEach(toastVM.toasts, id: \.self) { toast in
                     HStack {
                         switch toast.toastType {
@@ -30,8 +32,8 @@ struct ToastView: View {
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
-                    .padding()
+                    .toastBackground()
+                    .padding(8)
                     .onAppear {
                         Task { @MainActor in
                             try await Task.sleep(nanoseconds: toast.timeRemaining * 1000000000)
@@ -47,8 +49,8 @@ struct ToastView: View {
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
-                    .padding()
+                    .toastBackground()
+                    .padding(8)
                 }
                 if downloadVM.inProgress {
                     VStack {
@@ -69,14 +71,26 @@ struct ToastView: View {
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(.regularMaterial, in:
-                                    RoundedRectangle(cornerRadius: 10))
-                    .padding()
+                    .toastBackground()
+                    .padding(8)
                 }
             }
             .animation(.easeInOut(duration: 0.25), value: toastVM.toasts.count)
             .animation(.easeInOut(duration: 0.25), value: installVM.inProgress)
             .animation(.easeInOut(duration: 0.25), value: downloadVM.inProgress)
+        }
+    }
+}
+
+extension View {
+    @ViewBuilder
+    func toastBackground() -> some View {
+        if #available(macOS 26.0, *) {
+            self.glassEffect(.regular, in:
+                                ContainerRelativeShape())
+        } else {
+            self.background(.regularMaterial, in:
+                                ContainerRelativeShape())
         }
     }
 }
