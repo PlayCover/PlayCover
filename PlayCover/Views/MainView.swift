@@ -133,8 +133,14 @@ struct MainView: View {
             .toastOverlay {
                 HStack {
                     if !collapsed {
+                        var spacerWidth: CGFloat {
+                            if #available(macOS 26.0, *) {
+                                return navWidth + 8
+                            }
+                            return navWidth
+                        }
                         Spacer()
-                            .frame(width: navWidth + 8)
+                            .frame(width: spacerWidth)
                     }
                     ToastView()
                         .environmentObject(ToastVM.shared)
