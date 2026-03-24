@@ -68,6 +68,7 @@
 		AA719649287A0E2500623C15 /* default.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA719647287A0E2500623C15 /* default.yaml */; };
 		AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA71964A287A0EA800623C15 /* PlayRules.swift */; };
 		AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = AA818CB4287ABEC3000BEE9D /* Yams */; };
+		AAE2F78F2F725632001336C9 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE2F78E2F72562E001336C9 /* ViewExtensions.swift */; };
 		AB00EB5229A7BF17006F3225 /* KeyCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB00EB5129A7BF17006F3225 /* KeyCover.swift */; };
 		AB6F21EB299B7FA20078ADEC /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6F21EA299B7FA20078ADEC /* URLHandler.swift */; };
 		ABBC85B92B7C5CBA00DCF223 /* ModifierKeyObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBC85B82B7C5CBA00DCF223 /* ModifierKeyObserver.swift */; };
@@ -175,6 +176,7 @@
 		AA719647287A0E2500623C15 /* default.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = default.yaml; sourceTree = "<group>"; };
 		AA71964A287A0EA800623C15 /* PlayRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayRules.swift; sourceTree = "<group>"; };
 		AA970FD228793A310099A5D0 /* PlayCoverRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayCoverRelease.entitlements; sourceTree = "<group>"; };
+		AAE2F78E2F72562E001336C9 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		AB00EB5129A7BF17006F3225 /* KeyCover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCover.swift; sourceTree = "<group>"; };
 		AB6F21EA299B7FA20078ADEC /* URLHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHandler.swift; sourceTree = "<group>"; };
 		ABBC85B82B7C5CBA00DCF223 /* ModifierKeyObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierKeyObserver.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 		6E25096D297F4E95004D754C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				AAE2F78E2F72562E001336C9 /* ViewExtensions.swift */,
 				8783D00A26B8C9E600171041 /* URLExtensions.swift */,
 				6ECB1D0D29798DFA00CD92AA /* DataExtensions.swift */,
 				6E25096E297F5032004D754C /* FileExtensions.swift */,
@@ -674,6 +677,7 @@
 				B67BC7122C39354C00315011 /* UpdateScheme.swift in Sources */,
 				ABBC85B92B7C5CBA00DCF223 /* ModifierKeyObserver.swift in Sources */,
 				92F8500A27675124005CE6BE /* AppIntegrity.swift in Sources */,
+				AAE2F78F2F725632001336C9 /* ViewExtensions.swift in Sources */,
 				342787552E787EBB003A3C2F /* Keymapping.swift in Sources */,
 				B44B40372C1E315600CE2A3E /* GoogleDrive.swift in Sources */,
 				68E48B97295704A600C39879 /* Downloader.swift in Sources */,

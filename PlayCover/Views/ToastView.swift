@@ -82,19 +82,6 @@ struct ToastView: View {
     }
 }
 
-extension View {
-    @ViewBuilder
-    func toastBackground() -> some View {
-        if #available(macOS 26.0, *) {
-            self.glassEffect(.regular, in:
-                                ContainerRelativeShape())
-        } else {
-            self.background(.regularMaterial, in:
-                                ContainerRelativeShape())
-        }
-    }
-}
-
 struct ToastView_Preview: PreviewProvider {
     static var previews: some View {
         ToastView()
