@@ -1,5 +1,5 @@
 //
-//  URLExtensions.swift
+//  ViewExtensions.swift
 //  PlayCover
 //
 
