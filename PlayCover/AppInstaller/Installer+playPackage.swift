@@ -9,7 +9,6 @@ extension Installer {
 
     static func installFromPackage(packageURL: URL, returnCompletion: @escaping (URL?) -> Void) {
         let installPlayTools: Bool
-        let applicationType = InstallPreferences.shared.defaultAppType
 
         if ModifierKeyObserver.shared.isOptionKeyPressed || InstallPreferences.shared.showInstallPopup {
             installPlayTools = installPlayToolsPopup()
@@ -28,45 +27,15 @@ extension Installer {
                 }
 
                 var appId: String?
-                var didFail = false
+                var wasSuccess = true
 
                 InstallVM.shared.next(.unzip, 0.2, 0.2)
 
                 tmpDir.enumerateContents { url, type in
-                    let startTime = InstallVM.shared.progress
-                    let endTime = (10 * ceil(startTime) + 1) / 10
-
-                    do {
-                        if url.lastPathComponent == PlayPackage.settingsFile {
-                            try FileManager.default.moveItem(at: url,
-                                                             to: AppSettings.appSettingsDir)
-                        } else if url.lastPathComponent == PlayPackage.entitlementFile {
-                            try FileManager.default.moveItem(at: url,
-                                                             to: Entitlements.playCoverEntitlementsDir)
-                        } else if url.lastPathComponent == PlayPackage.keymappingFile {
-                            try FileManager.default.moveItem(at: url,
-                                                             to: Keymapping.keymappingDir)
-                        } else if url.pathExtension == "app" {
-                            appId = url.deletingPathExtension().lastPathComponent
-
-                            try FileManager.default.moveItem(at: url,
-                                                             to: AppsVM.appDirectory)
-                        } else if (type.isDirectory ?? false) && FileManager.default.fileExists(
-                            atPath: url.appendingPathComponent("Data").absoluteString
-                        ) {
-                            try FileManager.default.moveItem(at: url,
-                                                             to: AppContainer.containersURL)
-                        }
-                    } catch {
-                        print(error)
-
-                        didFail = true
-                    }
-
-                    InstallVM.shared.next(.unzip, startTime, endTime)
+                    wasSuccess = copyPackageToTmp(url: url, type: type, appId: &appId)
                 }
 
-                guard let appId = appId, !didFail else {
+                guard let appId = appId, wasSuccess else {
                     throw PlayCoverError.failPlayPackageInstall
                 }
 
@@ -98,5 +67,40 @@ extension Installer {
         }
     }
 
-}
+    private static func copyPackageToTmp(url: URL, type: URLResourceValues, appId: inout String?) -> Bool {
+        let startTime = InstallVM.shared.progress
+        let endTime = (10 * ceil(startTime) + 1) / 10
 
+        do {
+            if url.lastPathComponent == PlayPackage.settingsFile {
+                try FileManager.default.moveItem(at: url,
+                                                 to: AppSettings.appSettingsDir)
+            } else if url.lastPathComponent == PlayPackage.entitlementFile {
+                try FileManager.default.moveItem(at: url,
+                                                 to: Entitlements.playCoverEntitlementsDir)
+            } else if url.lastPathComponent == PlayPackage.keymappingFile {
+                try FileManager.default.moveItem(at: url,
+                                                 to: Keymapping.keymappingDir)
+            } else if url.pathExtension == "app" {
+                appId = url.deletingPathExtension().lastPathComponent
+
+                try FileManager.default.moveItem(at: url,
+                                                 to: AppsVM.appDirectory)
+            } else if (type.isDirectory ?? false) && FileManager.default.fileExists(
+                atPath: url.appendingPathComponent("Data").absoluteString
+            ) {
+                try FileManager.default.moveItem(at: url,
+                                                 to: AppContainer.containersURL)
+            }
+        } catch {
+            print(error)
+
+            return false
+        }
+
+        InstallVM.shared.next(.unzip, startTime, endTime)
+
+        return true
+    }
+
+}

@@ -35,13 +35,21 @@ class PlayPackage {
     }
 
     private func aggregateData(tmpDirectory: URL) async throws {
+
         let outputAppURL = tmpDirectory.appendingEscapedPathComponent(app.url.lastPathComponent)
+        let outputContainerURL = tmpDirectory.appendingPathComponent(app.container.containerUrl.lastPathComponent)
+
+        ExportAppVM.shared.next(.copy, 0.1, 0.2)
 
         try FileManager.default.copyItem(at: app.container.containerUrl,
-                                         to: tmpDirectory)
+                                         to: outputContainerURL)
+
+        ExportAppVM.shared.next(.copy, 0.2, 0.3)
 
         try FileManager.default.copyItem(at: app.url,
                                          to: outputAppURL)
+
+        ExportAppVM.shared.next(.copy, 0.3, 0.4)
 
         try FileManager.default.copyItem(at: app.settings.settingsUrl,
                                          to: tmpDirectory.appendingPathComponent(PlayPackage.settingsFile))
@@ -49,7 +57,9 @@ class PlayPackage {
         try FileManager.default.copyItem(at: app.entitlements,
                                          to: tmpDirectory.appendingPathComponent(PlayPackage.entitlementFile))
 
-        try FileManager.default.copyItem(at: app.keymapping.keymapURL,
+        // keymap files are not always created
+        // specifically if playtools is not installed for the app
+        try? FileManager.default.copyItem(at: app.keymapping.keymapURL,
                                          to: tmpDirectory.appendingPathComponent(PlayPackage.keymappingFile))
 
         await PlayTools.removeFromApp(outputAppURL.appendingEscapedPathComponent(app.info.executableName))
@@ -78,6 +88,8 @@ class PlayPackage {
     public func zipAndExport() {
         selectOutputDir { [self] outputZipFile in
             Task(priority: .userInitiated) {
+                var didFail = false
+
                 guard let tmpDirectory = PlayPackage.allocateTmpDir() else {
                     Log.shared.error(PlayCoverError.noTmpDir)
 
@@ -85,26 +97,32 @@ class PlayPackage {
                 }
 
                 defer {
+                    ExportAppVM.shared.next(.deleteTmp, 0.85, 0.95)
+
                     FileManager.default.delete(at: tmpDirectory)
 
-                    ExportAppVM.shared.next(.finish, 0.9, 1.0)
+                    ExportAppVM.shared.next(didFail ? .failed : .finish, 0.95, 1.0)
                 }
 
                 do {
-                    ExportAppVM.shared.next(.copy, 0.0, 0.25)
+                    ExportAppVM.shared.next(.copy, 0.0, 0.1)
 
                     try await aggregateData(tmpDirectory: tmpDirectory)
 
-                    ExportAppVM.shared.next(.zip, 0.25, 75)
+                    ExportAppVM.shared.next(.zip, 0.4, 0.85)
 
-                    try Shell.run("/usr/bin/zip",
-                                  "-r",
-                                  tmpDirectory.absoluteString,
-                                  outputZipFile.absoluteString)
-
-                    ExportAppVM.shared.next(.deleteTmp, 75, 0.9)
+                    try Shell.run("/usr/bin/tar",
+                                  "-C",
+                                  tmpDirectory.deletingLastPathComponent().path,
+                                  "-zcf",
+                                  outputZipFile.path,
+                                  tmpDirectory.lastPathComponent)
                 } catch {
                     Log.shared.error(error)
+
+                    didFail = true
+
+                    FileManager.default.delete(at: outputZipFile)
                 }
             }
         }
@@ -118,8 +136,10 @@ class PlayPackage {
         }
 
         do {
-            try Shell.run("/usr/bin/unzip",
+            try Shell.run("/usr/bin/tar",
+                          "-xzf",
                           playPackage.absoluteString,
+                          "-C",
                           tmpDir.absoluteString)
         } catch {
             return nil
