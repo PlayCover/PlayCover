@@ -172,6 +172,7 @@ class Installer {
         }
 
         var resolved: [URL] = []
+        let serialQueue = DispatchQueue(label: "baseAppUrlResolver")
 
         baseApp.url.enumerateContents { url, attributes in
             guard attributes.isRegularFile == true, let fileSize = attributes.fileSize, fileSize > 4 else {
@@ -195,10 +196,13 @@ class Installer {
             guard let data = try handle.read(upToCount: 4) else {
                 return
             }
-            switch Array(data) {
-            case [202, 254, 186, 190]: resolved.append(url)
-            case [207, 250, 237, 254]: resolved.append(url)
-            default: return
+
+            serialQueue.sync {
+                switch Array(data) {
+                case [202, 254, 186, 190]: resolved.append(url)
+                case [207, 250, 237, 254]: resolved.append(url)
+                default: return
+                }
             }
         }
 

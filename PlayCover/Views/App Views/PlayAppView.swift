@@ -35,71 +35,42 @@ struct PlayAppView: View {
                 selected = viewModel.app
             })
             .contextMenu {
-                Button(action: {
+                Button("playapp.settings", systemImage: "gear", action: {
                     viewModel.showSettings.toggle()
-                }, label: {
-                    Text("playapp.settings")
                 })
-                Button(action: {
+                Button("playapp.openCache", systemImage: "folder", action: {
                     viewModel.app.openAppCache()
-                }, label: {
-                    Text("playapp.openCache")
                 })
-                Button(action: {
+                Button("playapp.showInFinder", systemImage: "finder", action: {
                     viewModel.app.showInFinder()
-                }, label: {
-                    Text("playapp.showInFinder")
                 })
                 Divider()
                 Group {
-                    Button(action: {
-                        viewModel.app.keymapping.importKeymap { result in
-                            if result {
-                                viewModel.showImportSuccess.toggle()
-                            } else {
-                                viewModel.showImportFail.toggle()
-                            }
-                        }
-                    }, label: {
-                        Text("playapp.importKm")
-                    })
-                    Button(action: {
-                        viewModel.app.keymapping.exportKeymap()
-                    }, label: {
-                        Text("playapp.exportKm")
+                    Button("playapp.keymap", systemImage: "keyboard", action: {
+                        viewModel.showKeymapSheet.toggle()
                     })
                 }
                 Divider()
                 Group {
-                    Button(action: {
+                    Button("playapp.clearCache", systemImage: "clear", action: {
                         selected = nil
                         Task { await Uninstaller.clearCachePopup(viewModel.app) }
-                    }, label: {
-                        Text("playapp.clearCache")
                     })
-                    Button(action: {
+                    Button("playapp.clearPreferences", systemImage: "clear", action: {
                         viewModel.showClearPreferencesAlert.toggle()
-                    }, label: {
-                        Text("playapp.clearPreferences")
                     })
-                    Button(action: {
+                    Button("playapp.clearPlayChain", systemImage: "clear", action: {
                         viewModel.showClearPlayChainAlert.toggle()
-                    }, label: {
-                        Text("playapp.clearPlayChain")
                     })
                 }
                 Divider()
                 Group {
-                    Button(action: {
+                    Button("playapp.exportApp", systemImage: "square.and.arrow.up.fill", action: {
                         viewModel.app.playPackage.zipAndExport()
-                    }, label: {
-                        Text("playapp.exportApp")
                     })
-                    Button(action: {
+                    Button("playapp.delete", systemImage: "trash", action: {
                         selected = nil
                         Task { await Uninstaller.uninstallPopup(viewModel.app) }
-                    }, label: {
-                        Text("playapp.delete")
                     })
                 }
             }
@@ -117,18 +88,12 @@ struct PlayAppView: View {
                 }
                 Button("button.Cancel", role: .cancel) { }
             }
-            .onChange(of: viewModel.showImportSuccess) { _ in
-                ToastVM.shared.showToast(
-                    toastType: .notice,
-                    toastDetails: NSLocalizedString("alert.kmImported", comment: ""))
-            }
-            .onChange(of: viewModel.showImportFail) { _ in
-                ToastVM.shared.showToast(
-                    toastType: .error,
-                    toastDetails: NSLocalizedString("alert.errorImportKm", comment: ""))
-            }
             .sheet(isPresented: $viewModel.showSettings) {
-                AppSettingsView(viewModel: AppSettingsVM(app: viewModel.app))
+                AppSettingsView(viewModel: AppSettingsVM(app: viewModel.app),
+                                showKeymapSheet: $viewModel.showKeymapSheet)
+            }
+            .sheet(isPresented: $viewModel.showKeymapSheet) {
+                KeymapView(showKeymapSheet: $viewModel.showKeymapSheet, viewModel: KeymapViewVM(app: viewModel.app))
             }
     }
 

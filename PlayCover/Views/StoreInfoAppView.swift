@@ -31,8 +31,8 @@ struct StoreInfoAppView: View {
             HStack {
                 ZStack {
                     Group {
-                        CachedAsyncImage(
-                            url: onlineIcon ?? "",
+                        CachedAsyncImageWrapper(
+                            url: onlineIcon,
                             placeholder: { _ in
                                 if let image = localIcon {
                                     Image(nsImage: image)
@@ -52,7 +52,8 @@ struct StoreInfoAppView: View {
                                 Image(nsImage: $0)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                            }
+                            },
+                            error: nil
                         )
                     }
                     .cornerRadius(10)

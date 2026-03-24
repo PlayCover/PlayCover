@@ -45,10 +45,8 @@ struct StoreAppView: View {
             }
         })
         .contextMenu {
-            Button(action: {
+            Button("ipaLibrary.info", systemImage: "info", action: {
                 showInfo.toggle()
-            }, label: {
-                Text("ipaLibrary.info")
             })
         }
         .simultaneousGesture(TapGesture().onEnded {
@@ -114,8 +112,8 @@ struct StoreAppConditionalView: View {
                         .padding(.leading, 15)
                     ZStack {
                         Group {
-                            CachedAsyncImage(
-                                url: onlineIcon ?? "",
+                            CachedAsyncImageWrapper(
+                                url: onlineIcon,
                                 placeholder: { _ in
                                     if let image = localIcon {
                                         Image(nsImage: image)
@@ -182,8 +180,8 @@ struct StoreAppConditionalView: View {
                 LazyVStack {
                     ZStack {
                         Group {
-                            CachedAsyncImage(
-                                url: onlineIcon ?? "",
+                            CachedAsyncImageWrapper(
+                                url: onlineIcon,
                                 placeholder: { _ in
                                     if let image = localIcon {
                                         Image(nsImage: image)

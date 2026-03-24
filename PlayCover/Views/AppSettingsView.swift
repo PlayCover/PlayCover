@@ -18,8 +18,9 @@ struct AppSettingsView: View {
 
     @ObservedObject var viewModel: AppSettingsVM
 
+    @Binding var showKeymapSheet: Bool
+
     @State var resetSettingsCompletedAlert = false
-    @State var resetKmCompletedAlert = false
     @State var closeView = false
     @State var appIcon: NSImage?
     @State var hasPlayTools: Bool?
@@ -116,10 +117,9 @@ struct AppSettingsView: View {
                     viewModel.app.settings.reset()
                     closeView.toggle()
                 }
-                Button("settings.resetKm") {
-                    resetKmCompletedAlert.toggle()
-                    viewModel.app.keymapping.reset()
+                Button("playapp.keymap") {
                     closeView.toggle()
+                    showKeymapSheet.toggle()
                 }
                 Button("button.OK") {
                     closeView.toggle()
@@ -133,11 +133,6 @@ struct AppSettingsView: View {
             ToastVM.shared.showToast(
                 toastType: .notice,
                 toastDetails: NSLocalizedString("settings.resetSettingsCompleted", comment: ""))
-        }
-        .onChange(of: resetKmCompletedAlert) { _ in
-            ToastVM.shared.showToast(
-                toastType: .notice,
-                toastDetails: NSLocalizedString("settings.resetKmCompleted", comment: ""))
         }
         .onChange(of: closeView) { _ in
             dismiss()
@@ -171,6 +166,11 @@ struct KeymappingView: View {
                     Spacer()
                 }
                 HStack {
+                    Toggle("settings.toggle.disableBuiltinMouse", isOn: $settings.settings.disableBuiltinMouse)
+                        .help("settings.toggle.disableBuiltinMouse.help")
+                    Spacer()
+                }
+                HStack {
                     Text(String(
                         format: NSLocalizedString("settings.slider.mouseSensitivity", comment: ""),
                         settings.settings.sensitivity))
@@ -186,15 +186,16 @@ struct KeymappingView: View {
     }
 }
 
+// swiftlint:disable:next type_body_length
 struct GraphicsView: View {
     @Binding var settings: AppSettings
-
     @State var customWidth = 1920
     @State var customHeight = 1080
-
     @State var showResolutionWarning = false
     @AppStorage("settings.settings.inverseScreenValues") private var inverseScreenValues = false
     @AppStorage("settings.settings.disableTimeout") private var disableTimeout = false
+    @AppStorage("settings.toggle.hideTitleBar") private var hideTitleBar = false
+    @AppStorage("settings.toggle.floatingWindow") private var floatingWindow = false
     static var number: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .none
@@ -253,6 +254,7 @@ struct GraphicsView: View {
                         Text("1440p").tag(3)
                         Text("4K").tag(4)
                         Text("settings.picker.adaptiveRes.5").tag(5)
+                        Text("settings.picker.adaptiveRes.6").tag(6)
                     }
                     .frame(width: 250, alignment: .leading)
                     .help("settings.picker.adaptiveRes.help")
@@ -272,11 +274,8 @@ struct GraphicsView: View {
                                 })
                                 .frame(width: 125)
                         }
-                        onIncrement: {
-                            customWidth += 1
-                        } onDecrement: {
-                            customWidth -= 1
-                        }
+                        onIncrement: { customWidth += 1 }
+                        onDecrement: { customWidth -= 1 }
                         Spacer()
                         Text(NSLocalizedString("settings.text.customHeight", comment: "") + ":")
                         Stepper {
@@ -305,6 +304,31 @@ struct GraphicsView: View {
                         }
                         .pickerStyle(.radioGroup)
                         .horizontalRadioGroupLayout()
+                    } else if settings.settings.resolution == 6 {
+                        Text("settings.picker.aspectRatio")
+                        VStack(alignment: .trailing) {
+                            Picker("", selection: $settings.settings.resizableAspectRatioType) {
+                                Text("settings.picker.aspectRatio.free").tag(0)
+                                Text("settings.picker.aspectRatio.custom").tag(1)
+                                Text("4:3").tag(2)
+                                Text("16:9").tag(3)
+                                Text("16:10").tag(4)
+                            }
+                            .pickerStyle(.radioGroup)
+                            .horizontalRadioGroupLayout()
+                            if settings.settings.resizableAspectRatioType == 1 {
+                                HStack {
+                                    TextField("", value: $settings.settings.resizableAspectRatioWidth,
+                                              formatter: GraphicsView.number)
+                                    .frame(width: 110)
+                                    Text(":")
+                                    TextField("", value: $settings.settings.resizableAspectRatioHeight,
+                                              formatter: GraphicsView.number)
+                                    .frame(width: 110)
+                                }
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .trailing)
                     } else if settings.settings.resolution == 1 {
                         let width = Int(NSScreen.main?.frame.width ?? 1920)
                         let height = getHeightForNotch(width, Int(NSScreen.main?.frame.height ?? 1080))
@@ -324,17 +348,13 @@ struct GraphicsView: View {
                             value: $customScaler,
                             formatter: GraphicsView.fractionFormatter,
                             onCommit: {
-                                Task { @MainActor in
-                                    NSApp.keyWindow?.makeFirstResponder(nil)
-                                }
+                                Task { @MainActor in NSApp.keyWindow?.makeFirstResponder(nil) }
                             })
                             .frame(width: 125)
                     } onIncrement: {
                         customScaler += 0.1
                     } onDecrement: {
-                        if customScaler > 0.5 {
-                            customScaler -= 0.1
-                        }
+                        if customScaler > 0.5 { customScaler -= 0.1 }
                     }
                 }
                 VStack(alignment: .leading) {
@@ -361,6 +381,10 @@ struct GraphicsView: View {
                     Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.settings.disableTimeout)
                         .help("settings.toggle.disableDisplaySleep.help")
                     Spacer()
+                    Toggle("settings.toggle.hideTitleBar", isOn: $settings.settings.hideTitleBar)
+                    Spacer()
+                    Toggle("settings.toggle.floatingWindow", isOn: $settings.settings.floatingWindow)
+                    Spacer()
                 }
                 Spacer()
             }
@@ -384,6 +408,9 @@ struct GraphicsView: View {
             }
             .onChange(of: customScaler) { _ in
                 setResolution()
+            }
+            .onChange(of: settings.settings.resizableAspectRatioType) { _ in
+                setAspectRatioForResizableWindow()
             }
         }
     }
@@ -456,6 +483,40 @@ struct GraphicsView: View {
             return Int(height)
         }
     }
+
+    func setAspectRatioForResizableWindow() {
+        var widthRatio = 0
+        var heightRatio = 0
+
+        switch settings.settings.resizableAspectRatioType {
+        // Aspect ratio = Free
+        case 0:
+            widthRatio = 0
+            heightRatio = 0
+        // Aspect ratio = Custom
+        case 1:
+            widthRatio = settings.settings.resizableAspectRatioWidth
+            heightRatio = settings.settings.resizableAspectRatioHeight
+        // Aspect ratio = 4:3
+        case 2:
+            widthRatio = 4
+            heightRatio = 3
+        // Aspect ratio = 16:9
+        case 3:
+            widthRatio = 16
+            heightRatio = 9
+        // Aspect ratio = 16:10
+        case 4:
+            widthRatio = 16
+            heightRatio = 10
+        default:
+            widthRatio = 16
+            heightRatio = 9
+        }
+
+        settings.settings.resizableAspectRatioWidth = widthRatio
+        settings.settings.resizableAspectRatioHeight = heightRatio
+    }
 }
 
 struct BypassesView: View {
@@ -514,6 +575,18 @@ struct BypassesView: View {
                     Toggle("settings.toggle.iosFrameworks", isOn: $hasIosFrameworks)
                         .help("settings.toggle.iosFrameworks.help")
                         .toggleStyle(.async($task, role: .iosFrameworks))
+                    Spacer()
+                }
+                Spacer()
+                HStack {
+                    Toggle("settings.toggle.checkMicPermissionSync", isOn: $settings.settings.checkMicPermissionSync)
+                        .help("settings.toggle.checkMicPermissionSync.help")
+                    Spacer()
+                }
+                Spacer()
+                HStack {
+                    Toggle("settings.toggle.blockSleepSpamming", isOn: $settings.settings.blockSleepSpamming)
+                        .help("settings.toggle.blockSleepSpamming.help")
                     Spacer()
                 }
             }
@@ -687,6 +760,15 @@ struct MiscView: View {
                     Toggle("settings.toggle.rootWorkDir", isOn: $settings.settings.rootWorkDir)
                         .disabled(!(hasPlayTools ?? true))
                         .help("settings.toggle.rootWorkDir.help")
+                    Spacer()
+                }
+                Spacer()
+                    .frame(height: 20)
+                HStack {
+                    Toggle("settings.toggle.limitMotionUpdateFrequency",
+                           isOn: $settings.settings.limitMotionUpdateFrequency)
+                        .disabled(!(hasPlayTools ?? true))
+                        .help("settings.toggle.limitMotionUpdateFrequency.help")
                     Spacer()
                 }
             }

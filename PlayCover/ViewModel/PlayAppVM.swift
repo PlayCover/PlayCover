@@ -15,6 +15,7 @@ class PlayAppVM: ObservableObject {
     @Published var showStartingProgress = false
     @Published var showImportSuccess = false
     @Published var showImportFail = false
+    @Published var showKeymapSheet = false
 
     init(app: PlayApp) {
         self.app = app
