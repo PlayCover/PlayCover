@@ -6,29 +6,21 @@
 import SwiftUI
 
 extension View {
-    @ViewBuilder
-    func toastOverlay<Content: View>(
-        @ViewBuilder content: () -> Content
-    ) -> some View {
+    func toastOverlay<Content: View>(@ViewBuilder content: () -> Content) -> some View {
+        #if compiler(>=6.2)
         if #available(macOS 26.0, *) {
-            self.safeAreaBar(edge: .bottom) {
-                content()
-            }
-        } else {
-            self.overlay {
-                content()
-            }
+            return self.safeAreaBar(edge: .bottom, content: content)
         }
+        #endif
+        return self.overlay(content: content)
     }
 
-    @ViewBuilder
     func toastBackground() -> some View {
+        #if compiler(>=6.2)
         if #available(macOS 26.0, *) {
-            self.glassEffect(.regular, in:
-                                ContainerRelativeShape())
-        } else {
-            self.background(.regularMaterial, in:
-                                ContainerRelativeShape())
+            return self.glassEffect(.regular, in: .containerRelative)
         }
+        #endif
+        return self.background(.regularMaterial, in: .containerRelative)
     }
 }
