@@ -134,9 +134,11 @@ struct MainView: View {
                 HStack {
                     if !collapsed {
                         var spacerWidth: CGFloat {
+                            #if compiler(>=6.2)
                             if #available(macOS 26.0, *) {
                                 return navWidth + 8
                             }
+                            #endif
                             return navWidth
                         }
                         Spacer()

@@ -15,9 +15,13 @@ struct ToastView: View {
     var body: some View {
         if toastVM.isShown {
             VStack(spacing: -20) {
+                #if compiler(>=6.2)
                 if #unavailable(macOS 26.0) {
                     Spacer()
                 }
+                #else
+                Spacer()
+                #endif
                 ForEach(toastVM.toasts, id: \.self) { toast in
                     HStack {
                         switch toast.toastType {
