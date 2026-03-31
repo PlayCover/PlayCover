@@ -20,6 +20,8 @@ class KeyCodeNames {
         -1: "LMB",
         -2: "RMB",
         -3: "MMB",
+        -100: "ScrU",
+        -101: "ScrD",
         41: "Esc",
         44: "Spc",
         225: "Lshft",
