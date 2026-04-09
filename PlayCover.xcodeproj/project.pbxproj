@@ -10,6 +10,8 @@
 		342787552E787EBB003A3C2F /* Keymapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342787542E787EB9003A3C2F /* Keymapping.swift */; };
 		3447B5E52E28B46800FAA22F /* KeymapViewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3447B5E42E28B46800FAA22F /* KeymapViewVM.swift */; };
 		34775E752D493B59001586C2 /* CachedAsyncImageWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34775E742D493B54001586C2 /* CachedAsyncImageWrapper.swift */; };
+		349915332F8866A3005565D1 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 349915322F8866A3005565D1 /* AppIcon.icon */; };
+		349915352F8866A8005565D1 /* AppIcon.dev.icon in Resources */ = {isa = PBXBuildFile; fileRef = 349915342F8866A8005565D1 /* AppIcon.dev.icon */; };
 		365AFB0628847B2E008B3542 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 365AFB0528847B2E008B3542 /* Sparkle */; };
 		365AFB0828847B75008B3542 /* Sparkle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365AFB0728847B75008B3542 /* Sparkle.swift */; };
 		3665EF8928832400007CF915 /* PlayCoverSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */; };
@@ -98,6 +100,8 @@
 		342787542E787EB9003A3C2F /* Keymapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keymapping.swift; sourceTree = "<group>"; };
 		3447B5E42E28B46800FAA22F /* KeymapViewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeymapViewVM.swift; sourceTree = "<group>"; };
 		34775E742D493B54001586C2 /* CachedAsyncImageWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedAsyncImageWrapper.swift; sourceTree = "<group>"; };
+		349915322F8866A3005565D1 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
+		349915342F8866A8005565D1 /* AppIcon.dev.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.dev.icon; sourceTree = "<group>"; };
 		365AFB0728847B75008B3542 /* Sparkle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sparkle.swift; sourceTree = "<group>"; };
 		3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverSettingsView.swift; sourceTree = "<group>"; usesTabs = 0; };
 		36B26B96288C724600859EFD /* UpdateSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSettings.swift; sourceTree = "<group>"; };
@@ -412,6 +416,8 @@
 				53F5E73B26C1C566005AED1D /* AppInstaller */,
 				533F664B26C06A500051CB3E /* Views */,
 				8783CFFE26B8C52E00171041 /* Assets.xcassets */,
+				349915322F8866A3005565D1 /* AppIcon.icon */,
+				349915342F8866A8005565D1 /* AppIcon.dev.icon */,
 				8783D00326B8C52E00171041 /* Info.plist */,
 				8783D00426B8C52E00171041 /* PlayCover.entitlements */,
 				8783D00026B8C52E00171041 /* Preview Content */,
@@ -536,10 +542,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				349915352F8866A8005565D1 /* AppIcon.dev.icon in Resources */,
 				AA719649287A0E2500623C15 /* default.yaml in Resources */,
 				8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */,
 				532644DE26E79E56002EA34D /* Localizable.strings in Resources */,
 				8783CFFF26B8C52E00171041 /* Assets.xcassets in Resources */,
+				349915332F8866A3005565D1 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
