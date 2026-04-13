@@ -12,16 +12,16 @@ jobs:
       GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Install dependencies
         shell: bash
         run: |
-          brew install graphicsmagick imagemagick swiftlint
+          brew install swiftlint
           gem install fastlane
           bundle install
           pip install setuptools
-          npm install --global https://github.com/PlayCover/create-dmg
+          npm install https://github.com/PlayCover/create-dmg
 
       - name: Set build number
         shell: bash
@@ -45,7 +45,7 @@ jobs:
       - name: Create DMG
         shell: bash
         run: |
-          create-dmg ./output/PlayCover.app ./output
+          npx create-dmg ./output/PlayCover.app ./output
           mv ./output/*.dmg ./output/PlayCover_nightly_${{ github.run_number }}.dmg
 
       - name: Notarize DMG

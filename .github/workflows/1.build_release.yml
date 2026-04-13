@@ -10,12 +10,12 @@ env:
   CI: true
 jobs:
   build:
-    runs-on: macos-14
+    runs-on: macos-26
     env:
       GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Get the version
         id: tag_version
@@ -24,11 +24,11 @@ jobs:
       - name: Install dependencies
         shell: bash
         run: |
-          brew install graphicsmagick imagemagick swiftlint
+          brew install swiftlint
           gem install fastlane
           bundle install
           pip install setuptools
-          npm install --global https://github.com/PlayCover/create-dmg
+          npm install https://github.com/PlayCover/create-dmg
 
       - name: Fastlane Release
         shell: bash
@@ -47,7 +47,7 @@ jobs:
       - name: Create DMG
         shell: bash
         run: |
-          create-dmg ./output/PlayCover.app ./output
+          npx create-dmg ./output/PlayCover.app ./output
           mv ./output/*.dmg ./output/PlayCover_${{ env.TAG_NAME }}.dmg
 
       - name: Notarize DMG
