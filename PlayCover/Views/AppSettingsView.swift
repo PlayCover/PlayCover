@@ -142,7 +142,7 @@ struct AppSettingsView: View {
             hasAlias = viewModel.app.hasAlias()
         }
         .padding()
-        .frame(width: 600, height: 500)
+        .frame(width: 600, height: 400)
     }
 }
 
