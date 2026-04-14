@@ -16,11 +16,20 @@ extension View {
     }
 
     func toastBackground() -> some View {
+        let view = self
+            .padding()
+            .frame(maxWidth: .infinity)
+
+        // provide default padding for older systems, but for those with liquid glass available, add proper padding to
+        // left, right, and bottom to ensure that the distance from the edges of the app are consistent and equal
         #if compiler(>=6.2)
         if #available(macOS 26.0, *) {
-            return self.glassEffect(.regular, in: .containerRelative)
+            return view.glassEffect(.regular, in: .containerRelative)
+                .padding(ToastView.toastGlassPadding)
+                .padding(.top)
         }
         #endif
-        return self.background(.regularMaterial, in: .containerRelative)
+        return view.background(.regularMaterial, in: .containerRelative)
+            .padding()
     }
 }
