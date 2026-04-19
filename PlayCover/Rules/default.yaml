@@ -52,7 +52,7 @@ blacklist:
     - /usr/libexec/sftp-server
 
 whitelist:
-    - /Users/${NSUserName}/Library/Containers/
+    - ${HomeDirectory}/Library/Containers/
     - /Users
     - /cores
     - /usr
@@ -67,10 +67,10 @@ whitelist:
 allow:
     - (allow user-preference-write (preference-domain ".GlobalPreferences"))
     - (allow user-preference-read (preference-domain ".GlobalPreferences"))
-    - (allow file* file-read* file-write* file-write-data file-read-metadata file-ioctl (subpath "/Users/${NSUserName}/Library/Containers/io.playcover.PlayCover"))
-    - (allow file* file-read* file-read-metadata file-ioctl (subpath "/Users/${NSUserName}/Library/Frameworks/PlayTools.framework"))
+    - (allow file* file-read* file-write* file-write-data file-read-metadata file-ioctl (subpath "${HomeDirectory}/Library/Containers/io.playcover.PlayCover"))
+    - (allow file* file-read* file-read-metadata file-ioctl (subpath "${HomeDirectory}/Library/Frameworks/PlayTools.framework"))
     
-    - (allow file* file-read* (subpath "/Users/${NSUserName}/Library/Group Containers/"))
+    - (allow file* file-read* (subpath "${HomeDirectory}/Library/Group Containers/"))
     
 
 bypass:
@@ -78,9 +78,9 @@ bypass:
     - (allow file* file-read* file-read-metadata file-ioctl (literal "/usr/lib/libobjc-trampolines.dylib"))
     - (allow file-read-metadata (subpath "/private/var/db/timezone/"))
     - (allow file* file-read* file-read-data file-read-metadata file-ioctl file-write* file-write-data (literal "/var/folders/kd/"))
-    - (allow file* file-read* file-read-metadata file-ioctl (subpath "/Users/${NSUserName}/Library/Containers/"))
-    - (allow file* file-read* file-read-metadata file-ioctl (subpath "/Users/${NSUserName}/Library/Group Containers/"))
-    - (allow file* file-read* file-read-metadata file-ioctl (subpath "/Users/${NSUserName}/Library/Spelling/"))
+    - (allow file* file-read* file-read-metadata file-ioctl (subpath "${HomeDirectory}/Library/Containers/"))
+    - (allow file* file-read* file-read-metadata file-ioctl (subpath "${HomeDirectory}/Library/Group Containers/"))
+    - (allow file* file-read* file-read-metadata file-ioctl (subpath "${HomeDirectory}/Library/Spelling/"))
     - (allow file* file-read* file-read-metadata file-ioctl (subpath "/usr/share/icu/"))
     - (allow file* file-read* file-read-metadata file-ioctl (literal "/System/Library/CoreServices/SystemVersion.bundle"))
     - (allow file* file-read* file-read-metadata file-ioctl (subpath "/System/"))
@@ -98,7 +98,7 @@ bypass:
     - (allow file-ioctl file* file-read* file-read-data file-read-metadata (subpath "/private/var/db/mds/system/"))
     - '(allow file-read-metadata file-read* file-write* (regex #"^/private/var/db/mds/[0-9]+(/|$)"))'
     - (allow file* file-read* file-read-data file-read-metadata file-ioctl file-write* file-write-data (subpath "/private/tmp"))
-    - '(allow file-read-data (regex #"^/Users/[^/]+/Library/Preferences/com.apple.CloudKit.plist"))'
+    - (allow file-read-data (literal "${HomeDirectory}/Library/Preferences/com.apple.CloudKit.plist"))
     - (allow file-read-metadata file-read* file-read-data (literal "/usr/share/langid/langid.inv"))
     - |
         (allow file-map-executable
