@@ -795,6 +795,15 @@ struct MiscView: View {
                         .help("settings.toggle.limitMotionUpdateFrequency.help")
                     Spacer()
                 }
+                Spacer()
+                    .frame(height: 20)
+                HStack {
+                    Toggle("settings.toggle.ignoreUnityKeyboardInitializationError",
+                           isOn: $settings.settings.ignoreUnityKeyboardInitializationError)
+                        .disabled(!(hasPlayTools ?? true))
+                        .help("settings.toggle.ignoreUnityKeyboardInitializationError.help")
+                    Spacer()
+                }
             }
             .padding()
         }

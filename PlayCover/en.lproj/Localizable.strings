@@ -265,6 +265,8 @@
 "settings.toggle.limitMotionUpdateFrequency.help" = "Limit the frequency of motion sensor updates to avoid excessive CPU usage (often occurs in Unity games).";
 "settings.toggle.blockSleepSpamming" = "Prevent usleep call spamming";
 "settings.toggle.blockSleepSpamming.help" = "Prevent the app from spamming the usleep() syscall which may cause resource exhaustion";
+"settings.toggle.ignoreUnityKeyboardInitializationError" = "Ignore Unity keyboard initialization error";
+"settings.toggle.ignoreUnityKeyboardInitializationError.help" = "Prevent a crash caused by the assertion failure \"[KeyboardDelegate Initialize] called after creating keyboard\"";
 
 
 "configSigning.header" = "Configure Package Signing";
