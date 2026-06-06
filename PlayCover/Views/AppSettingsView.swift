@@ -150,7 +150,9 @@ struct KeymappingView: View {
     @Binding var settings: AppSettings
     @AppStorage("settings.settings.keymapping") private var keymapping = false
     @AppStorage("settings.settings.noKMOnInput") private var noKMOnInput = false
-    @AppStorage("settings.settings.enableScrollWheel") private var enableScrollWheel = false
+    @AppStorage("settings.settings.enableScrollWheelZoom") private var enableScrollWheelZoom = true
+    @AppStorage("settings.settings.enableScrollWheelMapping") private var enableScrollWheelMapping = false
+    @State private var toggleTrigger = false
     var body: some View {
         ScrollView {
             VStack {
@@ -162,19 +164,37 @@ struct KeymappingView: View {
                         .help("settings.toggle.autoKM.help")
                 }
                 HStack {
-                    Toggle("settings.toggle.enableScrollWheel", isOn: $settings.settings.enableScrollWheel)
-                        .help("settings.toggle.enableScrollWheel.help")
+                    Toggle("settings.toggle.enableScrollWheelZoom",
+                           isOn: $settings.settings.enableScrollWheelZoom)
+                        .help("settings.toggle.enableScrollWheelZoom.help")
+                        .onChange(of: settings.settings.enableScrollWheelZoom) { value in
+                            if value {
+                                settings.settings.enableScrollWheelMapping = false
+                                toggleTrigger.toggle()
+                            }
+                        }
                     Spacer()
+                    Toggle("settings.toggle.enableScrollWheelMapping",
+                           isOn: $settings.settings.enableScrollWheelMapping)
+                        .help("settings.toggle.enableScrollWheelMapping.help")
+                        .onChange(of: settings.settings.enableScrollWheelMapping) { value in
+                            if value {
+                                settings.settings.enableScrollWheelZoom = false
+                                toggleTrigger.toggle()
+                            }
+                        }
                 }
                 HStack {
-                    Toggle("settings.toggle.disableBuiltinMouse", isOn: $settings.settings.disableBuiltinMouse)
+                    Toggle("settings.toggle.disableBuiltinMouse",
+                           isOn: $settings.settings.disableBuiltinMouse)
                         .help("settings.toggle.disableBuiltinMouse.help")
                     Spacer()
                 }
                 HStack {
                     Text(String(
-                        format: NSLocalizedString("settings.slider.mouseSensitivity", comment: ""),
-                        settings.settings.sensitivity))
+                        format: NSLocalizedString("settings.slider.mouseSensitivity",
+                                                  comment: ""),
+                        Int(settings.settings.sensitivity)))
                     Spacer()
                     Slider(value: $settings.settings.sensitivity, in: 0...100, label: { EmptyView() })
                         .frame(width: 250)
@@ -182,6 +202,7 @@ struct KeymappingView: View {
                 }
                 Spacer()
             }
+            .id(toggleTrigger)
             .padding()
         }
     }

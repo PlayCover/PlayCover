@@ -154,11 +154,12 @@
 "settings.slider.mouseSensitivity" = "Mouse sensitivity: %.f";
 "settings.toggle.autoKM" = "Smart Keymap";
 "settings.toggle.autoKM.help" = "Automatically disable keymapping when text input is sensed";
-"settings.toggle.enableScrollWheel" = "Enable Scroll Wheel";
-"settings.toggle.enableScrollWheel.help" = "Enable scroll wheel in keymapping";
+"settings.toggle.enableScrollWheelZoom" = "Enable Scroll Wheel Zoom";
+"settings.toggle.enableScrollWheelZoom.help" = "Use the mouse scroll wheel for in-app zooming.";
+"settings.toggle.enableScrollWheelMapping" = "Enable Scroll Wheel Key Mapping";
+"settings.toggle.enableScrollWheelMapping.help" = "Map mouse scroll wheel up/down to ScrU/ScrD keys. Disables zoom when enabled.";
 "settings.toggle.disableBuiltinMouse" = "Disable Built-in Mouse Support";
-"settings.toggle.disableBuiltinMouse.help" = "Disable the app’s built-in mouse support to avoid click conflicts.";
-
+"settings.toggle.disableBuiltinMouse.help" = "Disable the app's built-in mouse support to avoid click conflicts.";
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";
 "settings.picker.adaptiveRes" = "Resolution:";

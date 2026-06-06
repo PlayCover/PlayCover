@@ -371,10 +371,14 @@
 "settings.toggle.autoKM.help" = "当检测到文本输入时自动禁用按键映射";
 "settings.applicationCategoryType" = "应用程序类型";
 "settings.toggle.iosFrameworks" = "强制插入iOS框架";
-"settings.info.alias" = "别名:";
-"settings.toggle.enableScrollWheel.help" = "在按键映射启用滚轮";
 "settings.toggle.iosFrameworks.help" = "将系统 ios 库添加到应用程序中。已知可修复某些应用程序找不到 ios 框架的问题";
-"settings.toggle.enableScrollWheel" = "启用滚轮";
+"settings.info.alias" = "别名:";
+"settings.toggle.enableScrollWheelZoom" = "启用滚轮缩放";
+"settings.toggle.enableScrollWheelZoom.help" = "使用鼠标滚轮进行应用内缩放。";
+"settings.toggle.enableScrollWheelMapping" = "启用滚轮按键模拟";
+"settings.toggle.enableScrollWheelMapping.help" = "将鼠标滚轮向上/向下滚动映射为 ScrU/ScrD 按键。开启后将禁用滚轮缩放。";
+"settings.toggle.disableBuiltinMouse" = "禁用内置鼠标支持";
+"settings.toggle.disableBuiltinMouse.help" = "禁用应用程序内置的鼠标支持，以避免点击冲突。";
 "ipaLibrary.info.notAvailable" = "此应用链接不可用";
 "ipaLibrary.info" = "应用信息";
 "ipaLibrary.info.checksum.none" = "未提供";
