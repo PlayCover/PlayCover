@@ -204,6 +204,23 @@
 "settings.toggle.checkMicPermissionSync" = "Check Microphone Permission Synchronously";
 "settings.toggle.checkMicPermissionSync.help" = "Force microphone permission check to be synchronous. Known to fix issues with some apps complaining about microphone permission not being granted";
 
+"settings.tab.network" = "Network";
+"settings.netCapture.enable" = "Capture network traffic through a proxy";
+"settings.netCapture.enable.help" = "Route this app's traffic through a debugging proxy while it runs, the same way a phone is pointed at one, so its requests can be inspected";
+"settings.netCapture.address" = "Proxy address";
+"settings.netCapture.address.help" = "Host and port the proxy is listening on. Use 127.0.0.1 for a proxy on this Mac, or the LAN / remote address of the machine running it (for remote debugging). Works with Reqable, Proxyman, Charles, mitmproxy and others";
+"settings.netCapture.systemProxy" = "Set the macOS network proxy while the app runs";
+"settings.netCapture.systemProxy.help" = "iOS apps read their proxy from the macOS network settings, so this is what actually routes their traffic. The previous settings are put back when the app quits. Other apps on this Mac are proxied too while it is running";
+"settings.netCapture.environment" = "Pass proxy environment variables to the app";
+"settings.netCapture.environment.help" = "Sets http_proxy and friends for the app. Ignored by CFNetwork, but read by engines that bring their own networking stack, such as Unity, cURL and gRPC";
+"settings.netCapture.bypass" = "Do not capture";
+"settings.netCapture.bypass.placeholder" = "*.apple.com, localhost";
+"settings.netCapture.bypass.help" = "Comma separated hosts that stay off the proxy";
+"settings.netCapture.trustCert" = "Trust proxy certificate…";
+"settings.netCapture.trustCert.help" = "Choose your proxy tool's root certificate (Reqable, Proxyman, Charles, mitmproxy, …) to trust it on this Mac, so HTTPS can be decrypted. Requires an administrator password";
+"settings.netCapture.certTrusted" = "Certificate added to the System keychain and trusted";
+"settings.netCapture.note" = "To decrypt HTTPS, trust your proxy tool's root certificate on this Mac. Apps that pin their certificates, and connections that do not go through CFNetwork, are not captured.";
+
 "settings.applicationCategoryType" = "Application Type";
 "settings.removePlayTools" = "Remove PlayTools";
 

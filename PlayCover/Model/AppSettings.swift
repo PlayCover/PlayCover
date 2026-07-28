@@ -52,6 +52,7 @@ struct AppSettingsData: Codable {
     var resizableAspectRatioHeight = 0
     var blockSleepSpamming = false
     var ignoreUnityKeyboardInitializationError = false
+    var networkCapture = NetworkCaptureSettings()
 
     init() {}
 
@@ -95,7 +96,24 @@ struct AppSettingsData: Codable {
         blockSleepSpamming = try container.decodeIfPresent(Bool.self, forKey: .blockSleepSpamming) ?? false
         ignoreUnityKeyboardInitializationError = try container.decodeIfPresent(
             Bool.self, forKey: .ignoreUnityKeyboardInitializationError) ?? false
+        if let capture = try container.decodeIfPresent(NetworkCaptureSettings.self, forKey: .networkCapture) {
+            networkCapture = capture
+        } else {
+            // Carry over settings written under the previous "reqable" key
+            let raw = try decoder.container(keyedBy: RawCodingKey.self)
+            networkCapture = (try? raw.decodeIfPresent(NetworkCaptureSettings.self,
+                                                       forKey: RawCodingKey("reqable"))) ?? NetworkCaptureSettings()
+        }
     }
+}
+
+/// A coding key built from an arbitrary string, for reading legacy keys by name.
+private struct RawCodingKey: CodingKey {
+    let stringValue: String
+    var intValue: Int? { nil }
+    init(_ stringValue: String) { self.stringValue = stringValue }
+    init?(stringValue: String) { self.stringValue = stringValue }
+    init?(intValue: Int) { nil }
 }
 
 class AppSettings {

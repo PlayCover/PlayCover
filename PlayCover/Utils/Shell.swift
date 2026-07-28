@@ -8,11 +8,16 @@ import Foundation
 class Shell: ObservableObject {
     @discardableResult
     static func run(print: Bool = true, _ binary: String, _ args: String...) throws -> String {
+        try run(print: print, binary, arguments: args)
+    }
+
+    @discardableResult
+    static func run(print: Bool = true, _ binary: String, arguments: [String]) throws -> String {
         let process = Process()
         let pipe = Pipe()
 
         process.executableURL = URL(fileURLWithPath: binary)
-        process.arguments = args
+        process.arguments = arguments
         process.standardOutput = pipe
         process.standardError = pipe
 
@@ -70,6 +75,22 @@ class Shell: ObservableObject {
         // Make sure we don't disappear while output is still being produced.
         sudo.waitUntilExit()
         return result
+    }
+
+    /// Runs a command as root, letting macOS ask the user for an administrator password.
+    /// Must be called from the main thread, as it puts up a window.
+    static func runAsAdmin(_ command: String) throws {
+        let escaped = command
+            .replacingOccurrences(of: "\\", with: "\\\\")
+            .replacingOccurrences(of: "\"", with: "\\\"")
+
+        var possibleError: NSDictionary?
+        NSAppleScript(source: "do shell script \"\(escaped)\" with administrator privileges")?
+            .executeAndReturnError(&possibleError)
+
+        if let error = possibleError {
+            throw error[NSAppleScript.errorMessage] as? String ?? "Shell error occured"
+        }
     }
 
     static func signMacho(_ binary: URL) throws {

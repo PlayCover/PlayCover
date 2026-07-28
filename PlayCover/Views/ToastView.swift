@@ -42,8 +42,13 @@ struct ToastView: View {
                     .onAppear {
                         Task { @MainActor in
                             try await Task.sleep(nanoseconds: toast.timeRemaining * 1000000000)
-                            // Next toast to be removed will always be the first in the list
-                            toastVM.toasts.removeFirst()
+                            // Next toast to be removed will always be the first in the list.
+                            // Guard against an empty list: overlapping toasts, or a
+                            // re-run of onAppear, can fire more removals than there are
+                            // toasts, and removeFirst() traps on an empty array.
+                            if !toastVM.toasts.isEmpty {
+                                toastVM.toasts.removeFirst()
+                            }
                         }
                     }
                 }

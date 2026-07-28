@@ -162,11 +162,24 @@ extension PlayApp {
             unsetenv(key)
         }
 
+        // Route the app's traffic through the capture proxy, for as long as it is running
+        let isCaptured = NetworkCaptureService.shared.beginCapture(for: self)
+        if isCaptured && settings.settings.networkCapture.setEnvironmentVariables {
+            config.environment = ProcessInfo.processInfo.environment
+                .merging(NetworkCaptureService.shared
+                    .proxyEnvironment(settings.settings.networkCapture)) { _, proxy in proxy }
+        }
+
         NSWorkspace.shared.openApplication(
             at: aliasURL,
             configuration: config,
             completionHandler: { runningApp, error in
-                guard error == nil else { return }
+                guard error == nil else {
+                    if isCaptured {
+                        NetworkCaptureService.shared.endCapture(for: self)
+                    }
+                    return
+                }
                 // Run a thread loop in the background to handle background tasks
                 Task(priority: .background) {
                     if let runningApp = runningApp {
@@ -181,6 +194,9 @@ extension PlayApp {
                         sleep(1)
                     }
                     // Things that are run after the app is closed
+                    if isCaptured {
+                        NetworkCaptureService.shared.endCapture(for: self)
+                    }
                     self.lockKeyCover()
                 }
             }

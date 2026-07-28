@@ -7,6 +7,7 @@
 
 import SwiftUI
 import DataCache
+import UniformTypeIdentifiers
 
 enum BlockingTask {
     case none, playTools, introspection, iosFrameworks, applicationCategoryType
@@ -94,6 +95,10 @@ struct AppSettingsView: View {
                         Text("settings.tab.bypasses")
                     }
                     .disabled(!(hasPlayTools ?? true))
+                NetworkView(settings: $viewModel.settings)
+                    .tabItem {
+                        Text("settings.tab.network")
+                    }
                 MiscView(settings: $viewModel.settings,
                          closeView: $closeView,
                          hasPlayTools: $hasPlayTools,
@@ -620,6 +625,108 @@ struct BypassesView: View {
                 _ = await app.changeDyldLibraryPath(set: hasIosFrameworks, path: PlayApp.iosFrameworks)
                 task = .none
             }
+        }
+    }
+}
+
+/// Network capture settings: route the app's traffic through a debugging proxy, on this
+/// Mac or a remote machine. Works with any proxy tool (Reqable, Proxyman, Charles,
+/// mitmproxy, …); trusting its certificate is done in that tool, not here.
+struct NetworkView: View {
+    @Binding var settings: AppSettings
+
+    @State private var isTrustingCertificate = false
+
+    static var portFormatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .none
+        formatter.usesGroupingSeparator = false
+        formatter.minimum = 1
+        formatter.maximum = 65535
+        return formatter
+    }
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 12) {
+                Toggle("settings.netCapture.enable", isOn: $settings.settings.networkCapture.enable)
+                    .help("settings.netCapture.enable.help")
+
+                HStack {
+                    Text("settings.netCapture.address")
+                    TextField("", text: $settings.settings.networkCapture.host)
+                        .frame(width: 160)
+                    Text(":")
+                    TextField("", value: $settings.settings.networkCapture.port,
+                              formatter: NetworkView.portFormatter)
+                        .frame(width: 70)
+                    Spacer()
+                }
+                .help("settings.netCapture.address.help")
+
+                Toggle("settings.netCapture.systemProxy", isOn: $settings.settings.networkCapture.setSystemProxy)
+                    .help("settings.netCapture.systemProxy.help")
+
+                Toggle("settings.netCapture.environment",
+                       isOn: $settings.settings.networkCapture.setEnvironmentVariables)
+                    .help("settings.netCapture.environment.help")
+
+                HStack {
+                    Text("settings.netCapture.bypass")
+                    TextField("settings.netCapture.bypass.placeholder",
+                              text: $settings.settings.networkCapture.bypassDomains)
+                }
+                .help("settings.netCapture.bypass.help")
+
+                Divider()
+
+                HStack {
+                    Button("settings.netCapture.trustCert") {
+                        chooseAndTrustCertificate()
+                    }
+                    .disabled(isTrustingCertificate)
+                    .overlay {
+                        if isTrustingCertificate {
+                            ProgressView().scaleEffect(0.5)
+                        }
+                    }
+                    Spacer()
+                }
+                .help("settings.netCapture.trustCert.help")
+
+                Text("settings.netCapture.note")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                Spacer()
+            }
+            .padding()
+        }
+    }
+
+    /// Lets the user pick their proxy tool's root certificate and trust it on this Mac.
+    private func chooseAndTrustCertificate() {
+        let panel = NSOpenPanel()
+        panel.title = NSLocalizedString("settings.netCapture.trustCert", comment: "")
+        panel.allowsMultipleSelection = false
+        panel.canChooseDirectories = false
+        panel.allowedContentTypes = [.x509Certificate, .data]
+        panel.allowsOtherFileTypes = true
+
+        guard panel.runModal() == .OK, let certificate = panel.url else { return }
+
+        isTrustingCertificate = true
+        Task { @MainActor in
+            do {
+                try NetworkCaptureService.shared.trustCertificate(at: certificate)
+                ToastVM.shared.showToast(
+                    toastType: .notice,
+                    toastDetails: NSLocalizedString("settings.netCapture.certTrusted", comment: ""))
+            } catch {
+                Log.shared.error(error)
+            }
+            isTrustingCertificate = false
         }
     }
 }

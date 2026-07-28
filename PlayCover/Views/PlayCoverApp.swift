@@ -17,6 +17,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         UpdateScheme.checkForUpdate()
 
+        // A previous session may have been killed while an app was being captured,
+        // leaving the network proxy pointed at the capture proxy
+        NetworkCaptureService.shared.restoreStaleSystemProxy()
+
         UserDefaults.standard.register(
             defaults: ["NSApplicationCrashOnExceptions": true]
         )
@@ -44,6 +48,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return true
+    }
+
+    func applicationWillTerminate(_ notification: Notification) {
+        // Never leave the network proxy pointed at the capture proxy after PlayCover is gone
+        NetworkCaptureService.shared.endAllCaptures()
     }
 
     @objc func powerStateChanged(_ notification: Notification) {
