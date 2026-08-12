@@ -10,12 +10,12 @@ env:
   CI: true
 jobs:
   build:
-    runs-on: macos-26
+    runs-on: macos-latest
     env:
       GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Get the version
         id: tag_version
