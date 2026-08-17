@@ -118,9 +118,10 @@ class AppSettings {
     let settingsUrl: URL
     var openWithLLDB: Bool = false
     var openLLDBWithTerminal: Bool = true
+    private var suppressPersistence = false
     var settings: AppSettingsData {
         didSet {
-            encode()
+            if !suppressPersistence { encode() }
         }
     }
 
@@ -128,12 +129,17 @@ class AppSettings {
         self.info = info
         settingsUrl = AppSettings.appSettingsDir.appendingPathComponent(info.bundleIdentifier)
                                                 .appendingPathExtension("plist")
-        settings = AppSettingsData()
+        var defaults = AppSettingsData()
+        defaults.bundleIdentifier = info.bundleIdentifier
+        settings = defaults
         if !decode() {
+            preserveUnreadableSettingsIfPresent()
             encode()
         }
 
-        settings.bundleIdentifier = info.bundleIdentifier
+        if settings.bundleIdentifier != info.bundleIdentifier {
+            settings.bundleIdentifier = info.bundleIdentifier
+        }
     }
 
     public func sync() {
@@ -141,17 +147,28 @@ class AppSettings {
     }
 
     public func reset() {
-        settings = AppSettingsData()
+        var defaults = AppSettingsData()
+        defaults.bundleIdentifier = info.bundleIdentifier
+        settings = defaults
     }
 
     @discardableResult
     public func decode() -> Bool {
         do {
             let data = try Data(contentsOf: settingsUrl)
-            settings = try PropertyListDecoder().decode(AppSettingsData.self, from: data)
+            let decoded = try PropertyListDecoder().decode(AppSettingsData.self, from: data)
+            suppressPersistence = true
+            settings = decoded
+            suppressPersistence = false
             return true
         } catch {
-            print(error)
+            suppressPersistence = false
+            if FileManager.default.fileExists(atPath: settingsUrl.path) {
+                Log.shared.log(
+                    "App settings decode failed for \(info.bundleIdentifier): \(error.localizedDescription)",
+                    isError: true
+                )
+            }
             return false
         }
     }
@@ -163,11 +180,31 @@ class AppSettings {
 
         do {
             let data = try encoder.encode(settings)
-            try data.write(to: settingsUrl)
+            try data.write(to: settingsUrl, options: .atomic)
             return true
         } catch {
-            print(error)
+            Log.shared.log(
+                "App settings write failed for \(info.bundleIdentifier): \(error.localizedDescription)",
+                isError: true
+            )
             return false
+        }
+    }
+
+    private func preserveUnreadableSettingsIfPresent() {
+        let fileManager = FileManager.default
+        guard fileManager.fileExists(atPath: settingsUrl.path) else { return }
+        let backupURL = settingsUrl.deletingPathExtension().appendingPathExtension("invalid.plist")
+        do {
+            try? fileManager.removeItem(at: backupURL)
+            try fileManager.copyItem(at: settingsUrl, to: backupURL)
+            Log.shared.log("Preserved unreadable app settings at \(backupURL.path)", isError: true)
+        } catch {
+            Log.shared.log(
+                "Failed to preserve unreadable app settings for \(info.bundleIdentifier): " +
+                    error.localizedDescription,
+                isError: true
+            )
         }
     }
 }
