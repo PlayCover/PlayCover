@@ -117,6 +117,10 @@ class PlayTools {
 
         let bundleTarget = try copyAsset(target: payload, directoryName: "PlugIns",
                                          component: "AKInterface", pathExtension: "bundle")
+        // FinderInfo/resource-fork xattrs copied from a downloaded/build artifact make codesign fail
+        // with "resource fork, Finder information, or similar detritus not allowed". The plugin is
+        // about to be ad-hoc signed, so clear copied extended attributes before touching the binary.
+        _ = try Shell.run("/usr/bin/xattr", "-cr", bundleTarget.path)
         try bundleTarget.fixExecutable()
         try Shell.signMacho(bundleTarget)
     }
