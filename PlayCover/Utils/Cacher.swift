@@ -33,9 +33,7 @@ class Cacher {
     }
 
     func resolveITunesData(_ link: String) async {
-        if let refreshedITunesData = await getITunesData(link) {
-            try? cache.write(codable: refreshedITunesData, forKey: link)
-        }
+        _ = await getITunesData(link)
     }
 
     func resolveLocalIcon(_ app: PlayApp) -> NSImage? {
