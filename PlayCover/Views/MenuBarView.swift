@@ -73,7 +73,6 @@ struct PlayCoverViewMenuView: Commands {
                     } else if DownloadVM.shared.inProgress {
                         Log.shared.error(PlayCoverError.waitDownload)
                     } else {
-                        // remove await for Swift 6 (no async operation occurs)
                         await NSOpenPanel.selectIPA { result in
                             if case .success(let url) = result {
                                 Task {

@@ -19,10 +19,9 @@ extension FileManager {
 }
 
 extension NSOpenPanel {
-    static func selectIPA(completion: @escaping (_ result: Result<URL, Error>) -> Void) {
+    static func selectIPA(completion: @escaping (_ result: Result<URL, Error>) -> Void) async {
         let panel = NSOpenPanel()
         panel.allowsMultipleSelection = false
-        panel.canChooseFiles = true
         panel.canChooseDirectories = false
         panel.allowedContentTypes = [UTType(importedAs: "com.apple.itunes.ipa")]
         panel.canChooseFiles = true
