@@ -809,44 +809,69 @@ struct MiscView: View {
                 }
                 Spacer()
                     .frame(height: 20)
-                VStack(alignment: .leading, spacing: 8) {
-                    HStack {
-                        Text("settings.customPlugins.title")
-                            .font(.headline)
-                        Spacer()
-                        Button {
-                            if hasShownCustomPluginWarning {
-                                selectAndAddDylib()
-                            } else {
-                                showCustomPluginWarning = true
-                            }
-                        } label: {
-                            Label("settings.customPlugins.add", systemImage: "plus")
-                        }
-                    }
-                    if userDylibs.isEmpty {
-                        Text("settings.customPlugins.empty")
-                            .foregroundColor(.secondary)
-                            .font(.caption)
-                    } else {
-                        ForEach(userDylibs, id: \.self) { dylib in
-                            HStack {
-                                Text(dylib.lastPathComponent)
-                                Spacer()
-                                Button {
-                                    removeDylib(dylib)
-                                } label: {
-                                    Image(systemName: "minus.circle")
-                                }
-                                .buttonStyle(.plain)
-                            }
-                        }
-                    }
-                }
-                .disabled(!(hasPlayTools ?? true))
+                CustomDylibView(app: app,
+                                showCustomPluginWarning: $showCustomPluginWarning,
+                                hasShownCustomPluginWarning: $hasShownCustomPluginWarning,
+                                hasPlayTools: $hasPlayTools,
+                                userDylibs: $userDylibs)
             }
             .padding()
         }
+    }
+
+    func isVenturaGreater() -> Bool {
+        if #available(macOS 13.0, *) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+}
+
+struct CustomDylibView: View {
+    var app: PlayApp
+    @Binding var showCustomPluginWarning: Bool
+    @Binding var hasShownCustomPluginWarning: Bool
+    @Binding var hasPlayTools: Bool?
+    @Binding var userDylibs: [URL]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text("settings.customPlugins.title")
+                    .font(.headline)
+                Spacer()
+                Button {
+                    if hasShownCustomPluginWarning {
+                        selectAndAddDylib()
+                    } else {
+                        showCustomPluginWarning = true
+                    }
+                } label: {
+                    Label("settings.customPlugins.add", systemImage: "plus")
+                }
+            }
+            if userDylibs.isEmpty {
+                Text("settings.customPlugins.empty")
+                    .foregroundColor(.secondary)
+                    .font(.caption)
+            } else {
+                ForEach(userDylibs, id: \.self) { dylib in
+                    HStack {
+                        Text(dylib.lastPathComponent)
+                        Spacer()
+                        Button {
+                            removeDylib(dylib)
+                        } label: {
+                            Image(systemName: "minus.circle")
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+            }
+        }
+        .disabled(!(hasPlayTools ?? true))
         .onAppear {
             reloadUserDylibs()
         }
@@ -860,15 +885,6 @@ struct MiscView: View {
             Text("settings.customPlugins.warningMessage")
         }
     }
-
-    func isVenturaGreater() -> Bool {
-        if #available(macOS 13.0, *) {
-            return true
-        } else {
-            return false
-        }
-    }
-
     private func reloadUserDylibs() {
         userDylibs = PlayTools.userDylibs(bundleIdentifier: app.info.bundleIdentifier)
     }
@@ -905,6 +921,7 @@ struct MiscView: View {
             }
         }
     }
+
 }
 
 struct InfoView: View {

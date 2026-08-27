@@ -6,6 +6,8 @@
 import Foundation
 import injection
 
+// This has so many functionality in it that 250 lines is darn near impossible
+// swiftlint:disable:next type_body_length
 class PlayTools {
     private static let frameworksURL = FileManager.default.homeDirectoryForCurrentUser
         .appendingPathComponent("Library")
@@ -123,7 +125,7 @@ class PlayTools {
 
         try installComponentBundles(into: payload)
     }
-    
+
     static func installComponentBundles(into payload: URL) throws {
         let pluginsSource = bundledPlayToolsFramework.appendingPathComponent("PlugIns")
         let pluginsTarget = payload.appendingPathComponent("PlugIns")
