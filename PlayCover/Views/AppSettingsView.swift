@@ -674,8 +674,6 @@ struct MiscView: View {
                         }
                     }
                 }
-                Spacer()
-                    .frame(height: 20)
                 HStack {
                     Toggle("settings.toggle.discord", isOn: $settings.settings.discordActivity.enable)
                     Spacer()
@@ -719,8 +717,6 @@ struct MiscView: View {
                             }
                         }
                 }.disabled(!(hasPlayTools ?? true))
-                Spacer()
-                    .frame(height: 20)
                 HStack {
                     HStack {
                         Toggle("settings.toggle.hud", isOn: $settings.settings.metalHUD)
@@ -746,9 +742,33 @@ struct MiscView: View {
                         }
                     }
                 }
-                Spacer()
-                    .frame(height: 20)
                 HStack {
+                    Toggle("settings.toggle.rootWorkDir", isOn: $settings.settings.rootWorkDir)
+                        .disabled(!(hasPlayTools ?? true))
+                        .help("settings.toggle.rootWorkDir.help")
+                    Spacer()
+                }
+                HStack {
+                    Toggle("settings.toggle.limitMotionUpdateFrequency",
+                           isOn: $settings.settings.limitMotionUpdateFrequency)
+                        .disabled(!(hasPlayTools ?? true))
+                        .help("settings.toggle.limitMotionUpdateFrequency.help")
+                    Spacer()
+                }
+                HStack {
+                    Toggle("settings.toggle.ignoreUnityKeyboardInitializationError",
+                           isOn: $settings.settings.ignoreUnityKeyboardInitializationError)
+                        .disabled(!(hasPlayTools ?? true))
+                        .help("settings.toggle.ignoreUnityKeyboardInitializationError.help")
+                    Spacer()
+                }
+                CustomDylibView(app: app,
+                                showCustomPluginWarning: $showCustomPluginWarning,
+                                hasShownCustomPluginWarning: $hasShownCustomPluginWarning,
+                                hasPlayTools: $hasPlayTools,
+                                userDylibs: $userDylibs)
+                HStack {
+                    Spacer()
                     Button {
                         task = .playTools
                         Task(priority: .userInitiated) {
@@ -779,41 +799,8 @@ struct MiscView: View {
                                 }
                             }
                     }
-                    Spacer()
+                    .buttonStyle(.borderedProminent).tint(Color.red)
                 }
-                Spacer()
-                    .frame(height: 20)
-                HStack {
-                    Toggle("settings.toggle.rootWorkDir", isOn: $settings.settings.rootWorkDir)
-                        .disabled(!(hasPlayTools ?? true))
-                        .help("settings.toggle.rootWorkDir.help")
-                    Spacer()
-                }
-                Spacer()
-                    .frame(height: 20)
-                HStack {
-                    Toggle("settings.toggle.limitMotionUpdateFrequency",
-                           isOn: $settings.settings.limitMotionUpdateFrequency)
-                        .disabled(!(hasPlayTools ?? true))
-                        .help("settings.toggle.limitMotionUpdateFrequency.help")
-                    Spacer()
-                }
-                Spacer()
-                    .frame(height: 20)
-                HStack {
-                    Toggle("settings.toggle.ignoreUnityKeyboardInitializationError",
-                           isOn: $settings.settings.ignoreUnityKeyboardInitializationError)
-                        .disabled(!(hasPlayTools ?? true))
-                        .help("settings.toggle.ignoreUnityKeyboardInitializationError.help")
-                    Spacer()
-                }
-                Spacer()
-                    .frame(height: 20)
-                CustomDylibView(app: app,
-                                showCustomPluginWarning: $showCustomPluginWarning,
-                                hasShownCustomPluginWarning: $hasShownCustomPluginWarning,
-                                hasPlayTools: $hasPlayTools,
-                                userDylibs: $userDylibs)
             }
             .padding()
         }
