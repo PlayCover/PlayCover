@@ -105,6 +105,25 @@
 				</array>
 			</dict>
 		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.zip-archive</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>PlayCover app package</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>io.playcover.PlayCover-playpkg</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>playpkg</string>
+				</array>
+			</dict>
+		</dict>
 		<dict/>
 	</array>
 	<key>UTImportedTypeDeclarations</key>

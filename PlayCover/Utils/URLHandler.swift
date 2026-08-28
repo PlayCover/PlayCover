@@ -36,16 +36,21 @@ struct URLHandler {
         guard let urlComponenents = NSURLComponents(url: url, resolvingAgainstBaseURL: false),
               let uriHost = urlComponenents.host,
               let params = urlComponenents.queryItems else {
-                // Fall back to old url handler (for files)
-                if url.pathExtension == "ipa" {
-                    Installer.install(ipaUrl: url, export: false, returnCompletion: { _ in
+                let completion: (URL?) -> Void = { _ in
                     Task { @MainActor in
                         AppsVM.shared.fetchApps()
                         NotifyService.shared.notify(
                             NSLocalizedString("notification.appInstalled", comment: ""),
                             NSLocalizedString("notification.appInstalled.message", comment: "")
                         )
-                    }})
+                    }
+                }
+
+                // Fall back to old url handler (for files)
+                if url.pathExtension == "ipa" {
+                    Installer.install(ipaUrl: url, export: false, returnCompletion: completion)
+                } else if url.pathExtension == "playpkg" {
+                    Installer.installFromPackage(packageURL: url, returnCompletion: completion)
                 }
                 return
             }

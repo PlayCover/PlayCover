@@ -127,16 +127,14 @@ struct AppLibraryView: View {
                 return false
             } else if let item = items.first {
                 if let identifier = item.registeredTypeIdentifiers.first {
-                    if identifier == "public.url" || identifier == "public.file-url" {
-                        item.loadItem(forTypeIdentifier: identifier, options: nil) { (urlData, _) in
-                            Task { @MainActor in
-                                if let urlData = urlData as? Data {
-                                    let url = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
-                                    if url.pathExtension == "ipa" {
-                                        installApp(url)
-                                    } else {
-                                        showWrongfileTypeAlert = true
-                                    }
+                    item.loadItem(forTypeIdentifier: identifier, options: nil) { (urlData, _) in
+                        Task { @MainActor in
+                            if let urlData = urlData as? Data {
+                                let url = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
+                                if url.pathExtension == "ipa" || url.pathExtension == "playpkg" {
+                                    installApp(url)
+                                } else {
+                                    showWrongfileTypeAlert = true
                                 }
                             }
                         }
@@ -170,14 +168,20 @@ struct AppLibraryView: View {
     }
 
     private func installApp(_ url: URL) {
-        Installer.install(ipaUrl: url, export: false, returnCompletion: { _ in
+        let completion: (URL?) -> Void = { _ in
             Task { @MainActor in
                 appsVM.fetchApps()
                 NotifyService.shared.notify(
                     NSLocalizedString("notification.appInstalled", comment: ""),
                     NSLocalizedString("notification.appInstalled.message", comment: ""))
             }
-        })
+        }
+
+        if url.pathExtension == "playpkg" {
+            Installer.installFromPackage(packageURL: url, returnCompletion: completion)
+        } else {
+            Installer.install(ipaUrl: url, export: false, returnCompletion: completion)
+        }
     }
 
     private func selectFile() {

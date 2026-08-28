@@ -19,6 +19,14 @@
 "playapp.noSources.title" = "No IPAs Installed";
 "playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";
 
+"playapp.exportApp" = "Export App";
+"playapp.exportApp.fieldLabel" = "Package Name";
+"playapp.exportApp.copy" = "Copying app contents...";
+"playapp.exportApp.zip" = "Zipping app contents...";
+"playapp.exportApp.deleteTmp" = "Cleaning up temporary directory...";
+"playapp.exportApp.finished" = "Finished exporting Play Package";
+"playapp.exportApp.failed" = "Failed to export Play Package";
+
 "ipaLibrary.info" = "App Info";
 "ipaLibrary.info.title" = "%@ Info";
 "ipaLibrary.info.notAvailable" = "Link not valid for this app";
@@ -142,6 +150,8 @@
 "error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";
 "error.appMaliciousProhibited" = "This App behaves maliciously on Macs, and using it can leave your device in an unbootable state, therefore it is blocked from PlayCover. (Uninstalling...)";
 "error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
+"error.noTmpDir" = "No temporary directory created!";
+"error.failPlayPackageInstall" = "Failed to install Play Package!";
 
 "menubar.exportToSideloady" = "Export to Sideloadly";
 

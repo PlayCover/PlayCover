@@ -24,7 +24,10 @@ extension NSOpenPanel {
         panel.allowsMultipleSelection = false
         panel.canChooseFiles = true
         panel.canChooseDirectories = false
-        panel.allowedContentTypes = [UTType(importedAs: "com.apple.itunes.ipa")]
+        panel.allowedContentTypes = [
+            UTType(importedAs: "com.apple.itunes.ipa"),
+            UTType(importedAs: "io.playcover.PlayCover-playpkg")
+        ]
         panel.canChooseFiles = true
         panel.begin { result in
             if result == .OK {

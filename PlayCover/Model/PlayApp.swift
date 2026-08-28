@@ -59,6 +59,7 @@ class PlayApp: BaseApp {
     lazy var settings = AppSettings(info)
     lazy var keymapping = Keymapping(info)
     lazy var container = AppContainer(bundleId: info.bundleIdentifier)
+    lazy var playPackage = PlayPackage(app: self)
 
     // MARK: - Launch
     func launch() async {
