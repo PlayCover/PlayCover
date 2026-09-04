@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		28361D5E2892781200B35EDB /* RestoreGenshinUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28361D5D2892781200B35EDB /* RestoreGenshinUserData.swift */; };
-		28361D6028927CAC00B35EDB /* SaveGenshinUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28361D5F28927CAC00B35EDB /* SaveGenshinUserData.swift */; };
-		28361D662892800200B35EDB /* DeleteStoredGenshinUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28361D652892800200B35EDB /* DeleteStoredGenshinUserData.swift */; };
+		342787552E787EBB003A3C2F /* Keymapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342787542E787EB9003A3C2F /* Keymapping.swift */; };
+		3447B5E52E28B46800FAA22F /* KeymapViewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3447B5E42E28B46800FAA22F /* KeymapViewVM.swift */; };
+		34775E752D493B59001586C2 /* CachedAsyncImageWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34775E742D493B54001586C2 /* CachedAsyncImageWrapper.swift */; };
+		349915332F8866A3005565D1 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 349915322F8866A3005565D1 /* AppIcon.icon */; };
+		349915352F8866A8005565D1 /* AppIcon.dev.icon in Resources */ = {isa = PBXBuildFile; fileRef = 349915342F8866A8005565D1 /* AppIcon.dev.icon */; };
 		365AFB0628847B2E008B3542 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 365AFB0528847B2E008B3542 /* Sparkle */; };
 		365AFB0828847B75008B3542 /* Sparkle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365AFB0728847B75008B3542 /* Sparkle.swift */; };
 		3665EF8928832400007CF915 /* PlayCoverSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */; };
@@ -20,16 +22,13 @@
 		53F3802826EB6F6B00D6B525 /* NotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F3802726EB6F6B00D6B525 /* NotifyService.swift */; };
 		53F4D2A026C43C690020167C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F4D29F26C43C690020167C /* Log.swift */; };
 		53F50C4926E3CA42007AD2D3 /* AppLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */; };
+		6888981729F9158700105D9C /* IPASourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6888981629F9158700105D9C /* IPASourceView.swift */; };
 		68E48B952957046D00C39879 /* DownloadManager in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48B942957046D00C39879 /* DownloadManager */; };
 		68E48B97295704A600C39879 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E48B96295704A600C39879 /* Downloader.swift */; };
 		68E48B9A295708C800C39879 /* Injection in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48B99295708C800C39879 /* Injection */; };
 		68E48B9C295709C000C39879 /* Cacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E48B9B295709BF00C39879 /* Cacher.swift */; };
 		68E48B9F29570A0400C39879 /* DataCache in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48B9E29570A0400C39879 /* DataCache */; };
 		68E48BA229570A2B00C39879 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 68E48BA129570A2B00C39879 /* CachedAsyncImage */; };
-		6E06193628B3C4090012C771 /* StoreGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193528B3C4090012C771 /* StoreGenshinAccountView.swift */; };
-		6E06193828B3C4240012C771 /* ChangeGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193728B3C4240012C771 /* ChangeGenshinAccountView.swift */; };
-		6E06193A28B3C42E0012C771 /* DeleteGenshinAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06193928B3C42E0012C771 /* DeleteGenshinAccountView.swift */; };
-		6E21233128F65F7600B4D75D /* GenshinUserDataURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E21233028F65F7600B4D75D /* GenshinUserDataURLs.swift */; };
 		6E25096F297F5032004D754C /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E25096E297F5032004D754C /* FileExtensions.swift */; };
 		6E250971297F5281004D754C /* SigningSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E250970297F5281004D754C /* SigningSetupView.swift */; };
 		6E550A8B29BA507200EFC15C /* Macho.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E550A8A29BA507200EFC15C /* Macho.swift */; };
@@ -41,7 +40,7 @@
 		6E66B0D528A0039D0099B907 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E66B0D428A0039D0099B907 /* ToastView.swift */; };
 		6E66B0D928A135360099B907 /* ToastVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E66B0D828A135360099B907 /* ToastVM.swift */; };
 		6E7CA16528B4D02900216CD8 /* ITunesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CA16428B4D02900216CD8 /* ITunesResponse.swift */; };
-		6E7CA16728B4EEAE00216CD8 /* Keymapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CA16628B4EEAE00216CD8 /* Keymapping.swift */; };
+		6E7CA16728B4EEAE00216CD8 /* KeymapData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CA16628B4EEAE00216CD8 /* KeymapData.swift */; };
 		6EB4B57428C93E0600630890 /* LegacySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB4B57328C93E0600630890 /* LegacySettings.swift */; };
 		6ECB1D0E29798DFA00CD92AA /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ECB1D0D29798DFA00CD92AA /* DataExtensions.swift */; };
 		6ED6379D28DAAAC100B506FA /* IPASourceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6379C28DAAAC100B506FA /* IPASourceSettings.swift */; };
@@ -67,11 +66,11 @@
 		92EE06DA274EB009002C907B /* PlayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06D9274EB009002C907B /* PlayApp.swift */; };
 		92EE06DE274EC09F002C907B /* Entitlements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EE06DD274EC09F002C907B /* Entitlements.swift */; };
 		92F8500A27675124005CE6BE /* AppIntegrity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8500927675124005CE6BE /* AppIntegrity.swift */; };
-		AA719648287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA719646287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml */; };
+		A25930F42C49E2BC0006C91C /* PlayAppVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25930F32C49E2BC0006C91C /* PlayAppVM.swift */; };
 		AA719649287A0E2500623C15 /* default.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA719647287A0E2500623C15 /* default.yaml */; };
 		AA71964B287A0EA800623C15 /* PlayRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA71964A287A0EA800623C15 /* PlayRules.swift */; };
-		AA71964D287A35F400623C15 /* com.nexon.bluearchive.yaml in Resources */ = {isa = PBXBuildFile; fileRef = AA71964C287A35F400623C15 /* com.nexon.bluearchive.yaml */; };
 		AA818CB5287ABEC3000BEE9D /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = AA818CB4287ABEC3000BEE9D /* Yams */; };
+		AAE2F78F2F725632001336C9 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE2F78E2F72562E001336C9 /* ViewExtensions.swift */; };
 		AB00EB5229A7BF17006F3225 /* KeyCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB00EB5129A7BF17006F3225 /* KeyCover.swift */; };
 		AB6F21EB299B7FA20078ADEC /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6F21EA299B7FA20078ADEC /* URLHandler.swift */; };
 		ABBC85B92B7C5CBA00DCF223 /* ModifierKeyObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBC85B82B7C5CBA00DCF223 /* ModifierKeyObserver.swift */; };
@@ -83,10 +82,13 @@
 		B1419FB628BA82EE000CB69F /* DiscordActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1419FB528BA82EE000CB69F /* DiscordActivity.swift */; };
 		B17FD03C28C70C2100B1D4CA /* CoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B17FD03828C70BAE00B1D4CA /* CoreUI.framework */; };
 		B17FD04728C7B0D900B1D4CA /* AssetsExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17FD04628C7B0D900B1D4CA /* AssetsExtractor.swift */; };
+		B429B2642DC204FA001FF7D9 /* VersionCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B429B2632DC204F1001FF7D9 /* VersionCheck.swift */; };
 		B44B40372C1E315600CE2A3E /* GoogleDrive.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44B40362C1E315600CE2A3E /* GoogleDrive.swift */; };
 		B44E8CD32C31C50200542038 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = B44E8CD22C31C50200542038 /* SwiftSoup */; };
 		B6603E1128E206A300DEFA3F /* UninstallSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6603E1028E206A300DEFA3F /* UninstallSettings.swift */; };
 		B6603E1328E2257800DEFA3F /* Uninstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6603E1228E2257800DEFA3F /* Uninstaller.swift */; };
+		B67BC7122C39354C00315011 /* UpdateScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BC7112C39354500315011 /* UpdateScheme.swift */; };
+		B67BC7162C3951E700315011 /* KeymapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67BC7152C3951E500315011 /* KeymapView.swift */; };
 		B67C1A112AE8091F00F396CC /* StoreInfoAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67C1A102AE8091F00F396CC /* StoreInfoAppView.swift */; };
 		B67C1A132AE80A7400F396CC /* StoreAppVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67C1A122AE80A7400F396CC /* StoreAppVM.swift */; };
 		B6825C3528F3D23600E3015A /* InstallSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6825C3428F3D23600E3015A /* InstallSettings.swift */; };
@@ -96,9 +98,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		28361D5D2892781200B35EDB /* RestoreGenshinUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreGenshinUserData.swift; sourceTree = "<group>"; };
-		28361D5F28927CAC00B35EDB /* SaveGenshinUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveGenshinUserData.swift; sourceTree = "<group>"; };
-		28361D652892800200B35EDB /* DeleteStoredGenshinUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteStoredGenshinUserData.swift; sourceTree = "<group>"; };
+		342787542E787EB9003A3C2F /* Keymapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keymapping.swift; sourceTree = "<group>"; };
+		3447B5E42E28B46800FAA22F /* KeymapViewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeymapViewVM.swift; sourceTree = "<group>"; };
+		34775E742D493B54001586C2 /* CachedAsyncImageWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedAsyncImageWrapper.swift; sourceTree = "<group>"; };
+		349915322F8866A3005565D1 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
+		349915342F8866A8005565D1 /* AppIcon.dev.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.dev.icon; sourceTree = "<group>"; };
 		365AFB0728847B75008B3542 /* Sparkle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sparkle.swift; sourceTree = "<group>"; };
 		3665EF8828832400007CF915 /* PlayCoverSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCoverSettingsView.swift; sourceTree = "<group>"; usesTabs = 0; };
 		36B26B96288C724600859EFD /* UpdateSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSettings.swift; sourceTree = "<group>"; };
@@ -120,13 +124,10 @@
 		53F4D29F26C43C690020167C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLibraryView.swift; sourceTree = "<group>"; };
 		6854C5E528D53C9500CE28A0 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6888981629F9158700105D9C /* IPASourceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPASourceView.swift; sourceTree = "<group>"; };
 		68C79E67296741580041DBC9 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		68E48B96295704A600C39879 /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Downloader.swift; path = PlayCover/AppInstaller/Downloader.swift; sourceTree = SOURCE_ROOT; };
 		68E48B9B295709BF00C39879 /* Cacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cacher.swift; sourceTree = "<group>"; };
-		6E06193528B3C4090012C771 /* StoreGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreGenshinAccountView.swift; sourceTree = "<group>"; };
-		6E06193728B3C4240012C771 /* ChangeGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeGenshinAccountView.swift; sourceTree = "<group>"; };
-		6E06193928B3C42E0012C771 /* DeleteGenshinAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGenshinAccountView.swift; sourceTree = "<group>"; };
-		6E21233028F65F7600B4D75D /* GenshinUserDataURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenshinUserDataURLs.swift; sourceTree = "<group>"; };
 		6E25096E297F5032004D754C /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
 		6E250970297F5281004D754C /* SigningSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigningSetupView.swift; sourceTree = "<group>"; };
 		6E550A8A29BA507200EFC15C /* Macho.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Macho.swift; sourceTree = "<group>"; };
@@ -140,7 +141,7 @@
 		6E692F1C290B34890090D9EC /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6E692F1D290B349F0090D9EC /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6E7CA16428B4D02900216CD8 /* ITunesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesResponse.swift; sourceTree = "<group>"; };
-		6E7CA16628B4EEAE00216CD8 /* Keymapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keymapping.swift; sourceTree = "<group>"; };
+		6E7CA16628B4EEAE00216CD8 /* KeymapData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeymapData.swift; sourceTree = "<group>"; };
 		6EA4A34B29B61CE9005F4679 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6EB4B57328C93E0600630890 /* LegacySettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacySettings.swift; sourceTree = "<group>"; };
 		6EC228A028B14A0600D7D73A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -175,11 +176,11 @@
 		92EE06D9274EB009002C907B /* PlayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayApp.swift; sourceTree = "<group>"; };
 		92EE06DD274EC09F002C907B /* Entitlements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entitlements.swift; sourceTree = "<group>"; };
 		92F8500927675124005CE6BE /* AppIntegrity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntegrity.swift; sourceTree = "<group>"; };
-		AA719646287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = com.YostarJP.BlueArchive.yaml; sourceTree = "<group>"; };
+		A25930F32C49E2BC0006C91C /* PlayAppVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAppVM.swift; sourceTree = "<group>"; };
 		AA719647287A0E2500623C15 /* default.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = default.yaml; sourceTree = "<group>"; };
 		AA71964A287A0EA800623C15 /* PlayRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayRules.swift; sourceTree = "<group>"; };
-		AA71964C287A35F400623C15 /* com.nexon.bluearchive.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = com.nexon.bluearchive.yaml; sourceTree = "<group>"; };
 		AA970FD228793A310099A5D0 /* PlayCoverRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayCoverRelease.entitlements; sourceTree = "<group>"; };
+		AAE2F78E2F72562E001336C9 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		AB00EB5129A7BF17006F3225 /* KeyCover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCover.swift; sourceTree = "<group>"; };
 		AB6F21EA299B7FA20078ADEC /* URLHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHandler.swift; sourceTree = "<group>"; };
 		ABBC85B82B7C5CBA00DCF223 /* ModifierKeyObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierKeyObserver.swift; sourceTree = "<group>"; };
@@ -193,10 +194,13 @@
 		B17FD03828C70BAE00B1D4CA /* CoreUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreUI.framework; path = /System/Library/PrivateFrameworks/CoreUI.framework; sourceTree = "<group>"; };
 		B17FD03F28C70C7300B1D4CA /* CoreUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreUI.h; sourceTree = "<group>"; };
 		B17FD04628C7B0D900B1D4CA /* AssetsExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsExtractor.swift; sourceTree = "<group>"; };
+		B429B2632DC204F1001FF7D9 /* VersionCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionCheck.swift; sourceTree = "<group>"; };
 		B44B40362C1E315600CE2A3E /* GoogleDrive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoogleDrive.swift; path = PlayCover/Utils/GoogleDrive.swift; sourceTree = SOURCE_ROOT; };
 		B490E8692C0D0E8A004383FA /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B6603E1028E206A300DEFA3F /* UninstallSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UninstallSettings.swift; sourceTree = "<group>"; };
 		B6603E1228E2257800DEFA3F /* Uninstaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Uninstaller.swift; sourceTree = "<group>"; };
+		B67BC7112C39354500315011 /* UpdateScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateScheme.swift; sourceTree = "<group>"; };
+		B67BC7152C3951E500315011 /* KeymapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeymapView.swift; sourceTree = "<group>"; };
 		B67C1A102AE8091F00F396CC /* StoreInfoAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoAppView.swift; sourceTree = "<group>"; };
 		B67C1A122AE80A7400F396CC /* StoreAppVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAppVM.swift; sourceTree = "<group>"; };
 		B6825C3428F3D23600E3015A /* InstallSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallSettings.swift; sourceTree = "<group>"; };
@@ -240,6 +244,8 @@
 		533F664B26C06A500051CB3E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B67BC7152C3951E500315011 /* KeymapView.swift */,
+				34775E742D493B54001586C2 /* CachedAsyncImageWrapper.swift */,
 				8783CFFA26B8C52D00171041 /* PlayCoverApp.swift */,
 				6E5C68B9289865C8008EC11B /* MainView.swift */,
 				ABED59822887A32F004D782B /* MenuBarView.swift */,
@@ -248,7 +254,6 @@
 				6ED6ACA328A949A30040D234 /* AppSettingsView.swift */,
 				B67C1A102AE8091F00F396CC /* StoreInfoAppView.swift */,
 				6E250970297F5281004D754C /* SigningSetupView.swift */,
-				6E06193428B3C3ED0012C771 /* Genshin Account Views */,
 				6E66B0CF289F562A0099B907 /* Sidebar Views */,
 				6E66B0CA289F55180099B907 /* App Views */,
 				36B26B95288C722500859EFD /* Settings */,
@@ -292,7 +297,7 @@
 				B1419FB528BA82EE000CB69F /* DiscordActivity.swift */,
 				AA71964A287A0EA800623C15 /* PlayRules.swift */,
 				6E7CA16428B4D02900216CD8 /* ITunesResponse.swift */,
-				6E7CA16628B4EEAE00216CD8 /* Keymapping.swift */,
+				6E7CA16628B4EEAE00216CD8 /* KeymapData.swift */,
 				B6AB53C829232B4F00039B2E /* KeyCodeNames.swift */,
 			);
 			path = Model;
@@ -310,6 +315,7 @@
 		53F5E73E26C1C654005AED1D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				3447B5E42E28B46800FAA22F /* KeymapViewVM.swift */,
 				B1084E1E28AA80F400E399FA /* AppSettingsVM.swift */,
 				9272F19C273B74C800DFBEF1 /* AppsVM.swift */,
 				6EF893D428F34CD1004AB6D9 /* NetworkVM.swift */,
@@ -319,6 +325,7 @@
 				6E66B0D828A135360099B907 /* ToastVM.swift */,
 				53F4D29F26C43C690020167C /* Log.swift */,
 				B6ABDA292971EEF700A46E80 /* ProgressVM.swift */,
+				A25930F32C49E2BC0006C91C /* PlayAppVM.swift */,
 				B67C1A122AE80A7400F396CC /* StoreAppVM.swift */,
 			);
 			path = ViewModel;
@@ -328,8 +335,9 @@
 			isa = PBXGroup;
 			children = (
 				6E25096D297F4E95004D754C /* Extensions */,
-				6E21232F28F65F5800B4D75D /* GenshinUserData */,
 				B44B40362C1E315600CE2A3E /* GoogleDrive.swift */,
+				342787542E787EB9003A3C2F /* Keymapping.swift */,
+				B429B2632DC204F1001FF7D9 /* VersionCheck.swift */,
 				92ECD8A4274E763700DB7AC6 /* IPA.swift */,
 				92EE06DD274EC09F002C907B /* Entitlements.swift */,
 				5314D1ED26C402EC00A0A727 /* Shell.swift */,
@@ -344,34 +352,15 @@
 				AB00EB5129A7BF17006F3225 /* KeyCover.swift */,
 				AB6F21EA299B7FA20078ADEC /* URLHandler.swift */,
 				ABBC85B82B7C5CBA00DCF223 /* ModifierKeyObserver.swift */,
+				B67BC7112C39354500315011 /* UpdateScheme.swift */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		6E06193428B3C3ED0012C771 /* Genshin Account Views */ = {
-			isa = PBXGroup;
-			children = (
-				6E06193528B3C4090012C771 /* StoreGenshinAccountView.swift */,
-				6E06193728B3C4240012C771 /* ChangeGenshinAccountView.swift */,
-				6E06193928B3C42E0012C771 /* DeleteGenshinAccountView.swift */,
-			);
-			path = "Genshin Account Views";
-			sourceTree = "<group>";
-		};
-		6E21232F28F65F5800B4D75D /* GenshinUserData */ = {
-			isa = PBXGroup;
-			children = (
-				28361D5D2892781200B35EDB /* RestoreGenshinUserData.swift */,
-				28361D5F28927CAC00B35EDB /* SaveGenshinUserData.swift */,
-				28361D652892800200B35EDB /* DeleteStoredGenshinUserData.swift */,
-				6E21233028F65F7600B4D75D /* GenshinUserDataURLs.swift */,
-			);
-			path = GenshinUserData;
 			sourceTree = "<group>";
 		};
 		6E25096D297F4E95004D754C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				AAE2F78E2F72562E001336C9 /* ViewExtensions.swift */,
 				8783D00A26B8C9E600171041 /* URLExtensions.swift */,
 				6ECB1D0D29798DFA00CD92AA /* DataExtensions.swift */,
 				6E25096E297F5032004D754C /* FileExtensions.swift */,
@@ -394,6 +383,7 @@
 			children = (
 				53F50C4826E3CA42007AD2D3 /* AppLibraryView.swift */,
 				6E66B0C8289F52800099B907 /* IPALibraryView.swift */,
+				6888981629F9158700105D9C /* IPASourceView.swift */,
 			);
 			path = "Sidebar Views";
 			sourceTree = "<group>";
@@ -429,6 +419,8 @@
 				53F5E73B26C1C566005AED1D /* AppInstaller */,
 				533F664B26C06A500051CB3E /* Views */,
 				8783CFFE26B8C52E00171041 /* Assets.xcassets */,
+				349915322F8866A3005565D1 /* AppIcon.icon */,
+				349915342F8866A8005565D1 /* AppIcon.dev.icon */,
 				8783D00326B8C52E00171041 /* Info.plist */,
 				8783D00426B8C52E00171041 /* PlayCover.entitlements */,
 				8783D00026B8C52E00171041 /* Preview Content */,
@@ -449,8 +441,6 @@
 		AA719640287A085200623C15 /* Rules */ = {
 			isa = PBXGroup;
 			children = (
-				AA719646287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml */,
-				AA71964C287A35F400623C15 /* com.nexon.bluearchive.yaml */,
 				AA719647287A0E2500623C15 /* default.yaml */,
 			);
 			path = Rules;
@@ -537,7 +527,7 @@
 				365AFB0428847B2E008B3542 /* XCRemoteSwiftPackageReference "Sparkle" */,
 				68E48B932957046D00C39879 /* XCRemoteSwiftPackageReference "download-manager" */,
 				68E48B9D29570A0400C39879 /* XCRemoteSwiftPackageReference "DataCache" */,
-				68E48BA029570A2B00C39879 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
+				68E48BA029570A2B00C39879 /* XCRemoteSwiftPackageReference "CachedAsyncImage" */,
 				68E48B98295708C800C39879 /* XCRemoteSwiftPackageReference "inject" */,
 				B44E8CD12C31C50200542038 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 			);
@@ -555,12 +545,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				349915352F8866A8005565D1 /* AppIcon.dev.icon in Resources */,
 				AA719649287A0E2500623C15 /* default.yaml in Resources */,
 				8783D00226B8C52E00171041 /* Preview Assets.xcassets in Resources */,
 				532644DE26E79E56002EA34D /* Localizable.strings in Resources */,
-				AA719648287A0E2500623C15 /* com.YostarJP.BlueArchive.yaml in Resources */,
 				8783CFFF26B8C52E00171041 /* Assets.xcassets in Resources */,
-				AA71964D287A35F400623C15 /* com.nexon.bluearchive.yaml in Resources */,
+				349915332F8866A3005565D1 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,7 +574,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ -z \"$FASTLANE\" ]]; then\n    export PATH=\"$PATH:/opt/homebrew/bin\"\n    if which swiftlint > /dev/null; then\n        swiftlint\n    else\n        echo \"error: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n        exit -1\n    fi\nfi\n";
+			shellScript = "if [[ -z \"$FASTLANE\" ]]; then\n    export PATH=\"$PATH:/opt/homebrew/bin:/opt/local/bin\"\n    if which swiftlint > /dev/null; then\n        swiftlint\n    else\n        echo \"error: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n        exit -1\n    fi\nfi\n";
 		};
 		AA818CBC287AC1C6000BEE9D /* Copy Carthage frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -604,7 +594,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "set -euo pipefail\n\nif [ -x /usr/local/bin/carthage ]; then\n    carthage=/usr/local/bin/carthage\nelif [ -x /opt/homebrew/bin/carthage ]; then\n    carthage=/opt/homebrew/bin/carthage\nelse\n    echo \"Cannot find carthage\"\n    exit 1\nfi\n\necho \"Converting to maccatalyst\"\nvtool \\\n\t-set-build-version maccatalyst 11.0 14.0 \\\n\t-replace -output \\\n\t\"${SCRIPT_INPUT_FILE_0}/PlayTools\" \\\n\t\"${SCRIPT_INPUT_FILE_0}/PlayTools\"\n\necho \"Codesigning PlayTools\"\n\n$carthage copy-frameworks\n\necho cp -rf ${SRCROOT}/Carthage/Build/PlayTools.xcframework/ios-arm64/PlayTools.framework/PlugIns/AKInterface.bundle ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework/PlugIns/AKInterface.bundle\n\nrm -rf ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework/PlugIns/AKInterface.bundle\ncp -rf ${SRCROOT}/Carthage/Build/PlayTools.xcframework/ios-arm64/PlayTools.framework/PlugIns/AKInterface.bundle ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework/PlugIns/AKInterface.bundle\n";
+			shellScript = "set -euo pipefail\n\nif [ -x /usr/local/bin/carthage ]; then\n    carthage=/usr/local/bin/carthage\nelif [ -x /opt/homebrew/bin/carthage ]; then\n    carthage=/opt/homebrew/bin/carthage\nelif [ -x /opt/local/bin/carthage ]; then\n    carthage=/opt/local/bin/carthage\nelse\n    echo \"Cannot find carthage\"\n    exit 1\nfi\n\necho \"Copying PlayTools\"\n$carthage copy-frameworks\n\necho \"Handling AKInterface files\"\nmkdir -p \"${SCRIPT_OUTPUT_FILE_0}/PlugIns\"\nrm -rf   \"${SCRIPT_OUTPUT_FILE_0}/PlugIns/AKInterface.bundle\"\ncp -R    \"${SCRIPT_INPUT_FILE_0}/PlugIns/AKInterface.bundle\" \"${SCRIPT_OUTPUT_FILE_0}/PlugIns/AKInterface.bundle\"\n\necho \"Converting to maccatalyst\"\nvtool \\\n  -set-build-version maccatalyst 11.0 14.0 \\\n  -replace -output \\\n  \"${SCRIPT_OUTPUT_FILE_0}/PlayTools\" \\\n  \"${SCRIPT_OUTPUT_FILE_0}/PlayTools\" || true\n\necho \"Converting component bundles to maccatalyst\"\nfor bundle in \"${SCRIPT_OUTPUT_FILE_0}\"/PlugIns/*.bundle; do\n  [ -d \"$bundle\" ] || continue\n  name=\"$(basename \"$bundle\" .bundle)\"\n  if [ \"$name\" = \"AKInterface\" ]; then\n    continue\n  fi\n  exe=\"$bundle/$name\"\n  if [ -f \"$exe\" ]; then\n    vtool -set-build-version maccatalyst 11.0 14.0 -replace -output \"$exe\" \"$exe\" || true\n  fi\ndone\n\necho \"Rebundling shadow framework to deep framework structure\"\nFRAME=\"${SCRIPT_OUTPUT_FILE_0}\"\nNAME=\"PlayTools\"\n\nif [ -d \"$FRAME\" ] && [ ! -d \"$FRAME/Versions\" ]; then\n  echo \"Rebundling $NAME as macOS deep framework…\"\n\n  PARENT=\"$(dirname \"$FRAME\")\"\n  BASENAME=\"$(basename \"$FRAME\")\"\n  TMP=\"$PARENT/.${BASENAME}.rebundle\"\n\n  rm -rf \"$TMP\"\n  mkdir -p \"$TMP/Versions/A/Resources\" \"$TMP/Versions/A/Modules\" \"$TMP/Versions/A/PlugIns\"\n\n  echo \"moving shallow content to tmp A\"\n  [ -f \"$FRAME/$NAME\" ]      && cp -p \"$FRAME/$NAME\"      \"$TMP/Versions/A/$NAME\"\n  [ -d \"$FRAME/Headers\" ]    && cp -Rp \"$FRAME/Headers\"   \"$TMP/Versions/A/Headers\"\n  [ -d \"$FRAME/Modules\" ]    && cp -Rp \"$FRAME/Modules\"   \"$TMP/Versions/A/Modules\"\n  [ -f \"$FRAME/Info.plist\" ] && cp -p \"$FRAME/Info.plist\" \"$TMP/Versions/A/Resources/Info.plist\"\n\n  if [ -d \"$FRAME/Resources\" ]; then\n    ditto \"$FRAME/Resources\" \"$TMP/Versions/A/Resources\"\n  fi\n\n  for lproj in \"$FRAME\"/*.lproj; do\n    cp -Rp \"$lproj\" \"$TMP/Versions/A/Resources\"\n  done\n\n  if [ -d \"$FRAME/PlugIns\" ]; then\n    ditto \"$FRAME/PlugIns\" \"$TMP/Versions/A/PlugIns\"\n  fi\n\n  echo \"symlinking playtools\"\n  ln -s A \"$TMP/Versions/Current\"\n  ln -s Versions/Current/Resources \"$TMP/Resources\"\n  [ -d \"$TMP/Versions/A/Headers\" ] && ln -s Versions/Current/Headers \"$TMP/Headers\"\n  [ -d \"$TMP/Versions/A/Modules\" ] && ln -s Versions/Current/Modules \"$TMP/Modules\"\n  ln -s Versions/Current/$NAME \"$TMP/$NAME\"\n  [ -d \"$TMP/Versions/A/PlugIns\" ] && ln -s Versions/Current/PlugIns \"$TMP/PlugIns\"\n\n  rm -rf \"$FRAME\"\n  mv \"$TMP\" \"$FRAME\"\n\n  echo \"Rebundle done.\"\nfi\n";
 		};
 		AAC28F222899A05B005057FB /* Codesign sparkle */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -623,7 +613,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nset -euo pipefail\n\nIDENTITY=${EXPANDED_CODE_SIGN_IDENTITY_NAME};\n# Apple Development: XIN LI (33X85HBRP6)\necho Signing identity $IDENTITY;\n\ncodesign --verbose --force --deep --sign \"$IDENTITY\" ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework/PlugIns/AKInterface.bundle;\ncodesign --verbose --force --deep --sign \"$IDENTITY\" ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework;\n\n# sign sparkle\nLOCATION=\"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework\";\necho Sparkle Signing location $LOCATION;\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/Autoupdate\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/Updater.app\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/XPCServices/Downloader.xpc\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/XPCServices/Installer.xpc\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION\";\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nset -euo pipefail\n\nIDENTITY=${EXPANDED_CODE_SIGN_IDENTITY_NAME};\n# Apple Development: XIN LI (33X85HBRP6)\necho Signing identity $IDENTITY;\n\ncodesign --verbose --force --deep --sign \"$IDENTITY\" ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework/PlugIns/AKInterface.bundle;\ncodesign --verbose --force --deep --sign \"$IDENTITY\" ${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PlayTools.framework;\n\n# sign sparkle\n# I still dont know if we need sparkle\nLOCATION=\"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework\";\necho Sparkle Signing location $LOCATION;\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/Autoupdate\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/Updater.app\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/XPCServices/Downloader.xpc\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION/Versions/B/XPCServices/Installer.xpc\";\ncodesign -f -o runtime -s \"$IDENTITY\" \"$LOCATION\";\n";
 		};
 		AAE8809C287ACA4900FBB23C /* Carthage Bootstrap */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -642,7 +632,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ -z \"$FASTLANE\" ]]; then\n\tset -euo pipefail\n\techo \"Bootstraping carthage\"\n\n\tif [ -x /usr/local/bin/carthage ]; then\n\t\tcarthage=/usr/local/bin/carthage\n\telif [ -x /opt/homebrew/bin/carthage ]; then\n\t\tcarthage=/opt/homebrew/bin/carthage\n\telse\n\t\techo \"Cannot find carthage\"\n\t\texit 1\n\tfi\n\n\t$carthage update --use-xcframeworks\nfi\n";
+			shellScript = "if [[ -z \"$FASTLANE\" ]]; then\n    set -euo pipefail\n    echo \"Bootstraping carthage\"\n\n    if [ -x /usr/local/bin/carthage ]; then\n        carthage=/usr/local/bin/carthage\n    elif [ -x /opt/homebrew/bin/carthage ]; then\n        carthage=/opt/homebrew/bin/carthage\n    elif [ -x /opt/local/bin/carthage ]; then\n        carthage=/opt/local/bin/carthage\n    else\n        echo \"Cannot find carthage\"\n        exit 1\n    fi\n\n    env -i PATH=/usr/bin:/bin:/usr/sbin:/sbin $carthage update --cache-builds --use-xcframeworks\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -652,6 +642,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E66B0D3289F5A010099B907 /* StoreAppView.swift in Sources */,
+				B67BC7162C3951E700315011 /* KeymapView.swift in Sources */,
 				6E66B0D528A0039D0099B907 /* ToastView.swift in Sources */,
 				92ECD8A3274E75CD00DB7AC6 /* Installer.swift in Sources */,
 				B6825C3528F3D23600E3015A /* InstallSettings.swift in Sources */,
@@ -661,10 +652,11 @@
 				92B4D38F2737CF3D0001D7BB /* PlayTools.swift in Sources */,
 				3665EF8928832400007CF915 /* PlayCoverSettingsView.swift in Sources */,
 				9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */,
+				34775E752D493B59001586C2 /* CachedAsyncImageWrapper.swift in Sources */,
+				A25930F42C49E2BC0006C91C /* PlayAppVM.swift in Sources */,
 				92ECD8AE274E787200DB7AC6 /* AppInfo.swift in Sources */,
 				6E250971297F5281004D754C /* SigningSetupView.swift in Sources */,
 				928C01D9272E162C007EB2DF /* InstallVM.swift in Sources */,
-				6E06193628B3C4090012C771 /* StoreGenshinAccountView.swift in Sources */,
 				6E550A8B29BA507200EFC15C /* Macho.swift in Sources */,
 				6E25096F297F5032004D754C /* FileExtensions.swift in Sources */,
 				53F4D2A026C43C690020167C /* Log.swift in Sources */,
@@ -673,14 +665,15 @@
 				92A8AAC9275EFEA800D89B50 /* SystemConfig.swift in Sources */,
 				6E66B0C9289F52800099B907 /* IPALibraryView.swift in Sources */,
 				B1084E1F28AA80F400E399FA /* AppSettingsVM.swift in Sources */,
-				6E7CA16728B4EEAE00216CD8 /* Keymapping.swift in Sources */,
+				6E7CA16728B4EEAE00216CD8 /* KeymapData.swift in Sources */,
 				6ED6ACA428A949A30040D234 /* AppSettingsView.swift in Sources */,
 				92EE06DA274EB009002C907B /* PlayApp.swift in Sources */,
+				B429B2642DC204FA001FF7D9 /* VersionCheck.swift in Sources */,
 				53F50C4926E3CA42007AD2D3 /* AppLibraryView.swift in Sources */,
 				6E66B0D1289F57B00099B907 /* Documentation.docc in Sources */,
 				53F3802826EB6F6B00D6B525 /* NotifyService.swift in Sources */,
 				6E5C68BA289865C8008EC11B /* MainView.swift in Sources */,
-				28361D6028927CAC00B35EDB /* SaveGenshinUserData.swift in Sources */,
+				3447B5E52E28B46800FAA22F /* KeymapViewVM.swift in Sources */,
 				B1419FB628BA82EE000CB69F /* DiscordActivity.swift in Sources */,
 				6E66B0BF289DE6240099B907 /* StoreVM.swift in Sources */,
 				B6603E1328E2257800DEFA3F /* Uninstaller.swift in Sources */,
@@ -689,12 +682,13 @@
 				6ECB1D0E29798DFA00CD92AA /* DataExtensions.swift in Sources */,
 				6E66B0D928A135360099B907 /* ToastVM.swift in Sources */,
 				92EE06D0274EA433002C907B /* BaseApp.swift in Sources */,
+				B67BC7122C39354C00315011 /* UpdateScheme.swift in Sources */,
 				ABBC85B92B7C5CBA00DCF223 /* ModifierKeyObserver.swift in Sources */,
 				92F8500A27675124005CE6BE /* AppIntegrity.swift in Sources */,
+				AAE2F78F2F725632001336C9 /* ViewExtensions.swift in Sources */,
+				342787552E787EBB003A3C2F /* Keymapping.swift in Sources */,
 				B44B40372C1E315600CE2A3E /* GoogleDrive.swift in Sources */,
-				6E06193828B3C4240012C771 /* ChangeGenshinAccountView.swift in Sources */,
 				68E48B97295704A600C39879 /* Downloader.swift in Sources */,
-				28361D5E2892781200B35EDB /* RestoreGenshinUserData.swift in Sources */,
 				36B26B97288C724600859EFD /* UpdateSettings.swift in Sources */,
 				ABDAD80A29893EA300DC164F /* KeyCoverSettings.swift in Sources */,
 				8783CFFB26B8C52D00171041 /* PlayCoverApp.swift in Sources */,
@@ -710,14 +704,12 @@
 				B6AB53C929232B4F00039B2E /* KeyCodeNames.swift in Sources */,
 				92EE06D4274EA604002C907B /* PlayAppView.swift in Sources */,
 				B67C1A112AE8091F00F396CC /* StoreInfoAppView.swift in Sources */,
-				6E21233128F65F7600B4D75D /* GenshinUserDataURLs.swift in Sources */,
 				B17FD04728C7B0D900B1D4CA /* AssetsExtractor.swift in Sources */,
 				ABDAD80629893CF900DC164F /* KeyCoverSetupViews.swift in Sources */,
+				6888981729F9158700105D9C /* IPASourceView.swift in Sources */,
 				6EE8265028E8AB2B003935BC /* DownloadVM.swift in Sources */,
-				6E06193A28B3C42E0012C771 /* DeleteGenshinAccountView.swift in Sources */,
 				AB00EB5229A7BF17006F3225 /* KeyCover.swift in Sources */,
 				68E48B9C295709C000C39879 /* Cacher.swift in Sources */,
-				28361D662892800200B35EDB /* DeleteStoredGenshinUserData.swift in Sources */,
 				53D9DAF326C1849D0071959E /* PlayCoverError.swift in Sources */,
 				9286D296273A7E4200958DD3 /* AppSettings.swift in Sources */,
 				B68FD80D2ACB642100683778 /* PlayAppExtensions.swift in Sources */,
@@ -830,7 +822,7 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 793;
+				CURRENT_PROJECT_VERSION = 856;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "PlayCover/Preview\\ Content";
@@ -845,7 +837,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.1.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.playcover.PlayCover;
@@ -933,7 +925,7 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 793;
+				CURRENT_PROJECT_VERSION = 856;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "PlayCover/Preview\\ Content";
@@ -948,7 +940,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.1.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.playcover.PlayCover;
@@ -1019,12 +1011,12 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		68E48BA029570A2B00C39879 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
+		68E48BA029570A2B00C39879 /* XCRemoteSwiftPackageReference "CachedAsyncImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
+			repositoryURL = "https://github.com/bullinnyc/CachedAsyncImage";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
+				minimumVersion = 2.5.0;
 			};
 		};
 		AA818CB3287ABEC3000BEE9D /* XCRemoteSwiftPackageReference "Yams" */ = {
@@ -1069,7 +1061,7 @@
 		};
 		68E48BA129570A2B00C39879 /* CachedAsyncImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 68E48BA029570A2B00C39879 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
+			package = 68E48BA029570A2B00C39879 /* XCRemoteSwiftPackageReference "CachedAsyncImage" */;
 			productName = CachedAsyncImage;
 		};
 		AA818CB4287ABEC3000BEE9D /* Yams */ = {

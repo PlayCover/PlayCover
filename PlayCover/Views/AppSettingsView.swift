@@ -18,8 +18,9 @@ struct AppSettingsView: View {
 
     @ObservedObject var viewModel: AppSettingsVM
 
+    @Binding var showKeymapSheet: Bool
+
     @State var resetSettingsCompletedAlert = false
-    @State var resetKmCompletedAlert = false
     @State var closeView = false
     @State var appIcon: NSImage?
     @State var hasPlayTools: Bool?
@@ -35,7 +36,7 @@ struct AppSettingsView: View {
                     if let image = appIcon {
                         Image(nsImage: image)
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
+                            .scaledToFit()
                     } else {
                         ProgressView()
                             .progressViewStyle(.circular)
@@ -116,10 +117,9 @@ struct AppSettingsView: View {
                     viewModel.app.settings.reset()
                     closeView.toggle()
                 }
-                Button("settings.resetKm") {
-                    resetKmCompletedAlert.toggle()
-                    viewModel.app.keymapping.reset()
+                Button("playapp.keymap") {
                     closeView.toggle()
+                    showKeymapSheet.toggle()
                 }
                 Button("button.OK") {
                     closeView.toggle()
@@ -134,11 +134,6 @@ struct AppSettingsView: View {
                 toastType: .notice,
                 toastDetails: NSLocalizedString("settings.resetSettingsCompleted", comment: ""))
         }
-        .onChange(of: resetKmCompletedAlert) { _ in
-            ToastVM.shared.showToast(
-                toastType: .notice,
-                toastDetails: NSLocalizedString("settings.resetKmCompleted", comment: ""))
-        }
         .onChange(of: closeView) { _ in
             dismiss()
         }
@@ -147,12 +142,15 @@ struct AppSettingsView: View {
             hasAlias = viewModel.app.hasAlias()
         }
         .padding()
+        .frame(height: 400)
     }
 }
 
 struct KeymappingView: View {
     @Binding var settings: AppSettings
-
+    @AppStorage("settings.settings.keymapping") private var keymapping = false
+    @AppStorage("settings.settings.noKMOnInput") private var noKMOnInput = false
+    @AppStorage("settings.settings.enableScrollWheel") private var enableScrollWheel = false
     var body: some View {
         ScrollView {
             VStack {
@@ -166,6 +164,11 @@ struct KeymappingView: View {
                 HStack {
                     Toggle("settings.toggle.enableScrollWheel", isOn: $settings.settings.enableScrollWheel)
                         .help("settings.toggle.enableScrollWheel.help")
+                    Spacer()
+                }
+                HStack {
+                    Toggle("settings.toggle.disableBuiltinMouse", isOn: $settings.settings.disableBuiltinMouse)
+                        .help("settings.toggle.disableBuiltinMouse.help")
                     Spacer()
                 }
                 HStack {
@@ -184,14 +187,17 @@ struct KeymappingView: View {
     }
 }
 
+// swiftlint:disable:next type_body_length
 struct GraphicsView: View {
     @Binding var settings: AppSettings
-
     @State var customWidth = 1920
     @State var customHeight = 1080
-
     @State var showResolutionWarning = false
-
+    @AppStorage("settings.settings.inverseScreenValues") private var inverseScreenValues = false
+    @AppStorage("settings.settings.disableTimeout") private var disableTimeout = false
+    @AppStorage("settings.toggle.hideTitleBar") private var hideTitleBar = false
+    @AppStorage("settings.toggle.floatingWindow") private var floatingWindow = false
+    @AppStorage("settings.settings.displayRotation") private var displayRotation = 0
     static var number: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .none
@@ -224,6 +230,7 @@ struct GraphicsView: View {
                         Text("iPhone 13 Pro Max | A15 | 6GB").tag("iPhone14,3")
                         Text("iPhone 14 Pro Max | A16 | 6GB").tag("iPhone15,3")
                         Text("iPhone 15 Pro Max | A17 Pro | 8GB").tag("iPhone16,2")
+                        Text("iPhone 16 Pro Max | A18 Pro | 8GB").tag("iPhone17,2")
                     }
                     .frame(width: 250)
                 }
@@ -249,6 +256,7 @@ struct GraphicsView: View {
                         Text("1440p").tag(3)
                         Text("4K").tag(4)
                         Text("settings.picker.adaptiveRes.5").tag(5)
+                        Text("settings.picker.adaptiveRes.6").tag(6)
                     }
                     .frame(width: 250, alignment: .leading)
                     .help("settings.picker.adaptiveRes.help")
@@ -268,11 +276,8 @@ struct GraphicsView: View {
                                 })
                                 .frame(width: 125)
                         }
-                        onIncrement: {
-                            customWidth += 1
-                        } onDecrement: {
-                            customWidth -= 1
-                        }
+                        onIncrement: { customWidth += 1 }
+                        onDecrement: { customWidth -= 1 }
                         Spacer()
                         Text(NSLocalizedString("settings.text.customHeight", comment: "") + ":")
                         Stepper {
@@ -301,6 +306,31 @@ struct GraphicsView: View {
                         }
                         .pickerStyle(.radioGroup)
                         .horizontalRadioGroupLayout()
+                    } else if settings.settings.resolution == 6 {
+                        Text("settings.picker.aspectRatio")
+                        VStack(alignment: .trailing) {
+                            Picker("", selection: $settings.settings.resizableAspectRatioType) {
+                                Text("settings.picker.aspectRatio.free").tag(0)
+                                Text("settings.picker.aspectRatio.custom").tag(1)
+                                Text("4:3").tag(2)
+                                Text("16:9").tag(3)
+                                Text("16:10").tag(4)
+                            }
+                            .pickerStyle(.radioGroup)
+                            .horizontalRadioGroupLayout()
+                            if settings.settings.resizableAspectRatioType == 1 {
+                                HStack {
+                                    TextField("", value: $settings.settings.resizableAspectRatioWidth,
+                                              formatter: GraphicsView.number)
+                                    .frame(width: 110)
+                                    Text(":")
+                                    TextField("", value: $settings.settings.resizableAspectRatioHeight,
+                                              formatter: GraphicsView.number)
+                                    .frame(width: 110)
+                                }
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .trailing)
                     } else if settings.settings.resolution == 1 {
                         let width = Int(NSScreen.main?.frame.width ?? 1920)
                         let height = getHeightForNotch(width, Int(NSScreen.main?.frame.height ?? 1080))
@@ -320,17 +350,13 @@ struct GraphicsView: View {
                             value: $customScaler,
                             formatter: GraphicsView.fractionFormatter,
                             onCommit: {
-                                Task { @MainActor in
-                                    NSApp.keyWindow?.makeFirstResponder(nil)
-                                }
+                                Task { @MainActor in NSApp.keyWindow?.makeFirstResponder(nil) }
                             })
                             .frame(width: 125)
                     } onIncrement: {
                         customScaler += 0.1
                     } onDecrement: {
-                        if customScaler > 0.5 {
-                            customScaler -= 0.1
-                        }
+                        if customScaler > 0.5 { customScaler -= 0.1 }
                     }
                 }
                 VStack(alignment: .leading) {
@@ -354,8 +380,25 @@ struct GraphicsView: View {
                         }
                         Spacer()
                     }
+                    HStack {
+                        Text("settings.settings.displayRotation")
+                        Spacer()
+                        Picker("", selection: $settings.settings.displayRotation) {
+                            Text("settings.settings.displayRotation.default").tag(0)
+                            Text("settings.settings.displayRotation.portrait").tag(1)
+                            Text("settings.settings.displayRotation.landscapeRight").tag(2)
+                            Text("settings.settings.displayRotation.portraitUpsideDown").tag(3)
+                            Text("settings.settings.displayRotation.flipFix").tag(4)
+                        }
+                        .frame(alignment: .leading)
+                    }
+                    Spacer()
                     Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.settings.disableTimeout)
                         .help("settings.toggle.disableDisplaySleep.help")
+                    Spacer()
+                    Toggle("settings.toggle.hideTitleBar", isOn: $settings.settings.hideTitleBar)
+                    Spacer()
+                    Toggle("settings.toggle.floatingWindow", isOn: $settings.settings.floatingWindow)
                     Spacer()
                 }
                 Spacer()
@@ -380,6 +423,9 @@ struct GraphicsView: View {
             }
             .onChange(of: customScaler) { _ in
                 setResolution()
+            }
+            .onChange(of: settings.settings.resizableAspectRatioType) { _ in
+                setAspectRatioForResizableWindow()
             }
         }
     }
@@ -452,13 +498,49 @@ struct GraphicsView: View {
             return Int(height)
         }
     }
+
+    func setAspectRatioForResizableWindow() {
+        var widthRatio = 0
+        var heightRatio = 0
+
+        switch settings.settings.resizableAspectRatioType {
+        // Aspect ratio = Free
+        case 0:
+            widthRatio = 0
+            heightRatio = 0
+        // Aspect ratio = Custom
+        case 1:
+            widthRatio = settings.settings.resizableAspectRatioWidth
+            heightRatio = settings.settings.resizableAspectRatioHeight
+        // Aspect ratio = 4:3
+        case 2:
+            widthRatio = 4
+            heightRatio = 3
+        // Aspect ratio = 16:9
+        case 3:
+            widthRatio = 16
+            heightRatio = 9
+        // Aspect ratio = 16:10
+        case 4:
+            widthRatio = 16
+            heightRatio = 10
+        default:
+            widthRatio = 16
+            heightRatio = 9
+        }
+
+        settings.settings.resizableAspectRatioWidth = widthRatio
+        settings.settings.resizableAspectRatioHeight = heightRatio
+    }
 }
 
 struct BypassesView: View {
     @Binding var settings: AppSettings
     @Binding var hasPlayTools: Bool?
     @Binding var task: BlockingTask
-
+    @AppStorage("settings.settings.playChain") private var playChain = false
+    @AppStorage("settings.settings.playChainDebugging") private var playChainDebugging = false
+    @AppStorage("settings.settings.bypass") private var bypass = false
     @State private var hasIntrospection: Bool
     @State private var hasIosFrameworks: Bool
 
@@ -510,6 +592,18 @@ struct BypassesView: View {
                         .toggleStyle(.async($task, role: .iosFrameworks))
                     Spacer()
                 }
+                Spacer()
+                HStack {
+                    Toggle("settings.toggle.checkMicPermissionSync", isOn: $settings.settings.checkMicPermissionSync)
+                        .help("settings.toggle.checkMicPermissionSync.help")
+                    Spacer()
+                }
+                Spacer()
+                HStack {
+                    Toggle("settings.toggle.blockSleepSpamming", isOn: $settings.settings.blockSleepSpamming)
+                        .help("settings.toggle.blockSleepSpamming.help")
+                    Spacer()
+                }
             }
             .padding()
         }
@@ -536,13 +630,16 @@ struct MiscView: View {
     @Binding var hasPlayTools: Bool?
     @Binding var hasAlias: Bool?
     @Binding var task: BlockingTask
-
+    @AppStorage("settings.settings.discordActivity.enable") private var discordActivity = false
+    @AppStorage("settings.settings.metalHUD") private var metalHUD = false
+    @AppStorage("settings.openWithLLDB") private var openWithLLDB = false
+    @AppStorage("settings.openLLDBWithTerminal") private var openLLDBWithTerminal = false
+    @AppStorage("settings.customPluginsWarningShown") private var hasShownCustomPluginWarning = false
     @State var showPopover = false
-
+    @State private var userDylibs: [URL] = []
+    @State private var showCustomPluginWarning = false
     var app: PlayApp
-
     @State var applicationCategoryType: LSApplicationCategoryType
-
     var body: some View {
         ScrollView {
             VStack {
@@ -566,16 +663,17 @@ struct MiscView: View {
                         app.info.applicationCategoryType = applicationCategoryType
                         Task.detached {
                             do {
-                                try Shell.signApp(app.executable)
-                                task = .none
+                                try await Shell.signApp(app.executable)
+
+                                Task { @MainActor in
+                                    task = .none
+                                }
                             } catch {
                                 Log.shared.error(error)
                             }
                         }
                     }
                 }
-                Spacer()
-                    .frame(height: 20)
                 HStack {
                     Toggle("settings.toggle.discord", isOn: $settings.settings.discordActivity.enable)
                     Spacer()
@@ -619,8 +717,6 @@ struct MiscView: View {
                             }
                         }
                 }.disabled(!(hasPlayTools ?? true))
-                Spacer()
-                    .frame(height: 20)
                 HStack {
                     HStack {
                         Toggle("settings.toggle.hud", isOn: $settings.settings.metalHUD)
@@ -629,17 +725,50 @@ struct MiscView: View {
                         Spacer()
                         HStack {
                             Text("settings.text.debugger")
-                            VStack {
-                                Toggle("settings.toggle.lldb", isOn: $settings.openWithLLDB)
-                                Toggle("settings.toggle.lldbWithTerminal", isOn: $settings.openLLDBWithTerminal)
-                                    .disabled(!settings.openWithLLDB)
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Toggle("", isOn: $settings.openWithLLDB)
+                                        .labelsHidden()
+                                    Text("settings.toggle.lldb")
+                                }
+
+                                HStack {
+                                    Toggle("", isOn: $settings.openLLDBWithTerminal)
+                                        .labelsHidden()
+                                        .disabled(!settings.openWithLLDB)
+                                    Text("settings.toggle.lldbWithTerminal")
+                                }
                             }
                         }
                     }
                 }
-                Spacer()
-                    .frame(height: 20)
                 HStack {
+                    Toggle("settings.toggle.rootWorkDir", isOn: $settings.settings.rootWorkDir)
+                        .disabled(!(hasPlayTools ?? true))
+                        .help("settings.toggle.rootWorkDir.help")
+                    Spacer()
+                }
+                HStack {
+                    Toggle("settings.toggle.limitMotionUpdateFrequency",
+                           isOn: $settings.settings.limitMotionUpdateFrequency)
+                        .disabled(!(hasPlayTools ?? true))
+                        .help("settings.toggle.limitMotionUpdateFrequency.help")
+                    Spacer()
+                }
+                HStack {
+                    Toggle("settings.toggle.ignoreUnityKeyboardInitializationError",
+                           isOn: $settings.settings.ignoreUnityKeyboardInitializationError)
+                        .disabled(!(hasPlayTools ?? true))
+                        .help("settings.toggle.ignoreUnityKeyboardInitializationError.help")
+                    Spacer()
+                }
+                CustomDylibView(app: app,
+                                showCustomPluginWarning: $showCustomPluginWarning,
+                                hasShownCustomPluginWarning: $hasShownCustomPluginWarning,
+                                hasPlayTools: $hasPlayTools,
+                                userDylibs: $userDylibs)
+                HStack {
+                    Spacer()
                     Button {
                         task = .playTools
                         Task(priority: .userInitiated) {
@@ -670,17 +799,7 @@ struct MiscView: View {
                                 }
                             }
                     }
-                    Spacer()
-                }
-                Spacer()
-                    .frame(height: 20)
-                // swiftlint:disable:next todo
-                // TODO: Test and remove before 3.0 release
-                HStack {
-                    Toggle("settings.toggle.rootWorkDir", isOn: $settings.settings.rootWorkDir)
-                        .disabled(!(hasPlayTools ?? true))
-                        .help("settings.toggle.rootWorkDir.help")
-                    Spacer()
+                    .buttonStyle(.borderedProminent).tint(Color.red)
                 }
             }
             .padding()
@@ -694,6 +813,102 @@ struct MiscView: View {
             return false
         }
     }
+
+}
+
+struct CustomDylibView: View {
+    var app: PlayApp
+    @Binding var showCustomPluginWarning: Bool
+    @Binding var hasShownCustomPluginWarning: Bool
+    @Binding var hasPlayTools: Bool?
+    @Binding var userDylibs: [URL]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text("settings.customPlugins.title")
+                    .font(.headline)
+                Spacer()
+                Button {
+                    if hasShownCustomPluginWarning {
+                        selectAndAddDylib()
+                    } else {
+                        showCustomPluginWarning = true
+                    }
+                } label: {
+                    Label("settings.customPlugins.add", systemImage: "plus")
+                }
+            }
+            if userDylibs.isEmpty {
+                Text("settings.customPlugins.empty")
+                    .foregroundColor(.secondary)
+                    .font(.caption)
+            } else {
+                ForEach(userDylibs, id: \.self) { dylib in
+                    HStack {
+                        Text(dylib.lastPathComponent)
+                        Spacer()
+                        Button {
+                            removeDylib(dylib)
+                        } label: {
+                            Image(systemName: "minus.circle")
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+            }
+        }
+        .disabled(!(hasPlayTools ?? true))
+        .onAppear {
+            reloadUserDylibs()
+        }
+        .alert("settings.customPlugins.warningTitle", isPresented: $showCustomPluginWarning) {
+            Button("button.Cancel", role: .cancel) {}
+            Button("settings.customPlugins.warningConfirm", role: .destructive) {
+                hasShownCustomPluginWarning = true
+                selectAndAddDylib()
+            }
+        } message: {
+            Text("settings.customPlugins.warningMessage")
+        }
+    }
+    private func reloadUserDylibs() {
+        userDylibs = PlayTools.userDylibs(bundleIdentifier: app.info.bundleIdentifier)
+    }
+
+    private func selectAndAddDylib() {
+        NSOpenPanel.selectDylib { result in
+            guard case .success(let url) = result else { return }
+            Task(priority: .userInitiated) {
+                do {
+                    try PlayTools.addUserDylib(at: url,
+                                               bundleIdentifier: app.info.bundleIdentifier,
+                                               appExecutable: app.executable)
+                } catch {
+                    Log.shared.error(error)
+                }
+                Task { @MainActor in
+                    reloadUserDylibs()
+                }
+            }
+        }
+    }
+
+    private func removeDylib(_ url: URL) {
+        Task(priority: .userInitiated) {
+            do {
+                try PlayTools.removeUserDylib(named: url.lastPathComponent,
+                                              bundleIdentifier: app.info.bundleIdentifier,
+                                              appExecutable: app.executable)
+            } catch {
+                Log.shared.error(error)
+            }
+            Task { @MainActor in
+                reloadUserDylibs()
+            }
+        }
+    }
+
 }
 
 struct InfoView: View {
@@ -740,7 +955,7 @@ struct InfoView: View {
             HStack {
                 Text("settings.info.playTools")
                 Spacer()
-                Text(String(hasPlayTools))
+                Text(hasPlayTools ? "button.Yes" : "button.No")
             }
             HStack {
                 Text("settings.info.url")

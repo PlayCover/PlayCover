@@ -20,35 +20,18 @@ struct AppLibraryView: View {
     @State private var showSettings = false
     @State private var showLegacyConvertAlert = false
     @State private var showWrongfileTypeAlert = false
+    @State var showKeymapSheet = false
 
     var body: some View {
         Group {
             if !appsVM.apps.isEmpty || appsVM.updatingApps {
                 ScrollView {
-                    if !isList {
-                        LazyVGrid(columns: gridLayout, alignment: .center) {
-                            ForEach(appsVM.filteredApps, id: \.url) { app in
-                                PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                            selectedTextColor: $selectedTextColor,
-                                            selected: $selected,
-                                            app: app,
-                                            isList: isList)
-                            }
-                        }
-                        .padding()
-                    } else {
-                        VStack {
-                            ForEach(appsVM.filteredApps, id: \.url) { app in
-                                PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
-                                            selectedTextColor: $selectedTextColor,
-                                            selected: $selected,
-                                            app: app,
-                                            isList: isList)
-                            }
-                            Spacer()
-                        }
-                        .padding()
-                    }
+                    AppDisplayView(apps: appsVM.filteredApps,
+                                      selectedBackgroundColor: $selectedBackgroundColor,
+                                      selectedTextColor: $selectedTextColor,
+                                      selected: $selected,
+                                      isList: $isList,
+                                      gridLayout: gridLayout)
                 }
                 .onTapGesture {
                     selected = nil
@@ -77,18 +60,7 @@ struct AppLibraryView: View {
         .navigationTitle("sidebar.appLibrary")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                Button(action: {
-                    showSettings.toggle()
-                }, label: {
-                    Image(systemName: "gear")
-                })
-                .disabled(selected == nil)
-            }
-            ToolbarItem(placement: .primaryAction) {
-                Spacer()
-            }
-            ToolbarItem(placement: .primaryAction) {
-                Button(action: {
+                Button {
                     if installVM.inProgress {
                         Log.shared.error(PlayCoverError.waitInstallation)
                     } else if downloadVM.inProgress {
@@ -96,10 +68,21 @@ struct AppLibraryView: View {
                     } else {
                         selectFile()
                     }
-                }, label: {
-                    Image(systemName: "plus")
+                } label: {
+                    Image(systemName: "plus.circle")
                         .help("playapp.add")
-                })
+                }
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Spacer()
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    showSettings.toggle()
+                } label: {
+                    Image(systemName: "gear")
+                }
+                .disabled(selected == nil)
             }
             ToolbarItem(placement: .primaryAction) {
                 Picker("Grid View Layout", selection: $isList) {
@@ -124,7 +107,12 @@ struct AppLibraryView: View {
         })
         .sheet(isPresented: $showSettings) {
             if let selected = selected {
-                AppSettingsView(viewModel: AppSettingsVM(app: selected))
+                AppSettingsView(viewModel: AppSettingsVM(app: selected), showKeymapSheet: $showKeymapSheet)
+            }
+        }
+        .sheet(isPresented: $showKeymapSheet) {
+            if let selected = selected {
+                KeymapView(showKeymapSheet: $showKeymapSheet, viewModel: KeymapViewVM(app: selected))
             }
         }
         .onAppear {
@@ -197,6 +185,48 @@ struct AppLibraryView: View {
             if case .success(let url) = result {
                 installApp(url)
             }
+        }
+    }
+}
+
+struct AppDisplayView: View {
+    var apps: [PlayApp]
+    @Binding var selectedBackgroundColor: Color
+    @Binding var selectedTextColor: Color
+    @Binding var selected: PlayApp?
+    @Binding var isList: Bool
+
+    // Implementation of ViewModels to preserve
+    // UI states between list & grid view.
+    @State private var viewModels: [String: PlayAppVM] = [:]
+
+    var gridLayout: [GridItem]
+    var playAppViews: some View {
+        ForEach(apps, id: \.url) { app in
+            let viewModel = viewModels[app.url.absoluteString, default: PlayAppVM(app: app)]
+            PlayAppView(selectedBackgroundColor: $selectedBackgroundColor,
+                        selectedTextColor: $selectedTextColor,
+                        selected: $selected,
+                        isList: $isList,
+                        viewModel: viewModel)
+                .onAppear {
+                    viewModels[app.url.absoluteString] = viewModel
+                }
+        }
+    }
+
+    var body: some View {
+        if isList {
+            VStack {
+                playAppViews
+                Spacer()
+            }
+            .padding()
+        } else {
+            LazyVGrid(columns: gridLayout, alignment: .center) {
+                playAppViews
+            }
+            .padding()
         }
     }
 }

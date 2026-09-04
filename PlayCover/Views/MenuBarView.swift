@@ -11,11 +11,11 @@ struct PlayCoverMenuView: Commands {
     @Binding var isSigningSetupShown: Bool
     var body: some Commands {
         CommandGroup(after: .systemServices) {
-            Button("menubar.log.copy") {
+            Button("menubar.log.copy", systemImage: "document.on.document.fill") {
                 Log.shared.logdata.copyToClipBoard()
             }
             .keyboardShortcut("L", modifiers: [.command, .option])
-            Button("menubar.configSigning") {
+            Button("menubar.configSigning", systemImage: "signature") {
                 isSigningSetupShown = true
             }
         }
@@ -31,30 +31,30 @@ struct PlayCoverHelpMenuView: Commands {
         }
 
         CommandGroup(replacing: .help) {
-            Button("menubar.documentation") {
+            Button("menubar.documentation", systemImage: "document.fill") {
                 if let url = URL(string: "https://docs.playcover.io") {
                     NSWorkspace.shared.open(url)
                 }
             }
             Divider()
-            Button("menubar.website") {
+            Button("menubar.website", systemImage: "network") {
                 if let url = URL(string: "https://playcover.io") {
                     NSWorkspace.shared.open(url)
                 }
             }
-            Button("menubar.github") {
+            Button("menubar.github", systemImage: "arrow.up.right") {
                 if let url = URL(string: "https://github.com/PlayCover/PlayCover/") {
                     NSWorkspace.shared.open(url)
                 }
             }
-            Button("menubar.discord") {
-                if let url = URL(string: "https://discord.gg/PlayCover") {
+            Button("menubar.discord", systemImage: "arrow.up.right") {
+                if let url = URL(string: "https://discord.gg/RNCHsQHr3S") {
                     NSWorkspace.shared.open(url)
                 }
             }
             #if DEBUG
             Divider()
-            Button("[DEBUG] Crash app") {
+            Button("[DEBUG] Crash app", systemImage: "xmark.circle.fill") {
                 fatalError("Crash was triggered")
             }
             #endif
@@ -66,13 +66,14 @@ struct PlayCoverViewMenuView: Commands {
     var body: some Commands {
         CommandGroup(replacing: .newItem) {}
         CommandGroup(replacing: .importExport) {
-            Button("menubar.exportToSideloady") {
+            Button("menubar.exportToSideloady", systemImage: "square.and.arrow.up.fill") {
                 Task {
                     if InstallVM.shared.inProgress {
                         Log.shared.error(PlayCoverError.waitInstallation)
                     } else if DownloadVM.shared.inProgress {
                         Log.shared.error(PlayCoverError.waitDownload)
                     } else {
+                        // remove await for Swift 6 (no async operation occurs)
                         await NSOpenPanel.selectIPA { result in
                             if case .success(let url) = result {
                                 Task {
@@ -86,11 +87,10 @@ struct PlayCoverViewMenuView: Commands {
                                                 config.promptsUserIfNeeded = true
                                                 let url = NSWorkspace.shared
                                                     .urlForApplication(withBundleIdentifier:
-                                                                        "com.sideloadly.sideloadly")
-                                                if url != nil {
-                                                    let unwrap = url.unsafelyUnwrapped
-                                                    try await NSWorkspace.shared
-                                                        .open([ipa], withApplicationAt: unwrap, configuration: config)
+                                                                        "io.sideloadly.sideloadly")
+                                                if let url = url {
+                                                    NSWorkspace.shared
+                                                        .open([ipa], withApplicationAt: url, configuration: config)
                                                 } else {
                                                     Log.shared.error("Could not find Sideloadly!")
                                                 }
@@ -107,9 +107,9 @@ struct PlayCoverViewMenuView: Commands {
             }
         }
         CommandGroup(before: .sidebar) {
-            Button("menubar.clearCache") {
+            Button("menubar.clearCache", systemImage: "eraser.fill") {
                 DataCache.instance.cleanAll()
-                URLCache.iconCache.removeAllCachedResponses()
+                Cacher.shared.removeImageCache()
 
                 if let cacheDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first,
                    let bundleID = Bundle.main.bundleIdentifier {

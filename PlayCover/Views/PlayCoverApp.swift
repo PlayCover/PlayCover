@@ -15,6 +15,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        UpdateScheme.checkForUpdate()
+
         UserDefaults.standard.register(
             defaults: ["NSApplicationCrashOnExceptions": true]
         )
@@ -26,6 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if ProcessInfo.processInfo.isLowPowerModeEnabled {
             powerModal()
         }
+        URLCache.iconCache.removeAllCachedResponses()
         // Code that run once on first launch
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         if !launchedBefore {

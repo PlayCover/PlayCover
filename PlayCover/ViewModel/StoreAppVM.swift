@@ -8,9 +8,9 @@
 import Foundation
 
 class StoreAppVM: ObservableObject {
-    @Published var data: StoreAppData
+    @Published var data: SourceAppsData
 
-    init(data: StoreAppData) {
+    init(data: SourceAppsData) {
         self.data = data
     }
 }

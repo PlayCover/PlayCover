@@ -1,20 +1,19 @@
 "playapp.add" = "Add app";
 "playapp.addSource" = "Add source";
 "playapp.settings" = "Settings";
+"playapp.keymap" = "View Keymaps";
 "playapp.showInFinder" = "Show in Finder";
 "playapp.openCache" = "Open App Data";
 "playapp.clearCache" = "Clear App Data";
 "playapp.clearPlayChain" = "Clear PlayChain Data";
 "playapp.importIPA" = "Import IPA";
-"playapp.importKm" = "Import Keymapping";
-"playapp.exportKm" = "Export Keymapping";
+"playapp.importKm" = "Import";
+"playapp.exportKm" = "Export";
+"playapp.emptyKm" = "Create New";
 "playapp.exportKmPanel.fieldLabel" = "PlayMap Name:";
 "playapp.delete" = "Uninstall App";
 "playapp.deleteConfirm" = "Uninstall";
 "playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
-"playapp.storeCurrentAccount" = "Store Account";
-"playapp.activateAccount" = "Switch Account";
-"playapp.deleteAccount" = "Delete Account";
 "playapp.clearPreferences" = "Clear App Preferences";
 "playapp.refreshSources" = "Refresh Sources";
 "playapp.noSources.title" = "No IPAs Installed";
@@ -38,6 +37,7 @@
 "ipaLibrary.unavailable" = "The link is unavailable";
 "ipaLibrary.alert.download" = "Are you sure you want to download this version of %@?";
 "ipaLibrary.download" = "Download";
+"ipaLibrary.AlphabeticalSort" = "Sort source apps alphabetically";
 
 "preferences.button.checkForUpdates" = "Check for Updates";
 "preferences.tab.updates" = "Updates";
@@ -59,35 +59,21 @@
 "preferences.button.moveSourceUp" = "Move Source Up";
 "preferences.button.moveSourceDown" = "Move Source Down";
 "preferences.popover.valid" = "Link Valid";
+"preferences.popover.valid.keymap" = "Name Valid";
 "preferences.popover.badurl"  = "URL Invalid!";
+"preferences.popover.malformed.keymap" = "Malformed Name";
 "preferences.popover.badjson" = "JSON Invalid or Not Found!";
 "preferences.popover.duplicate" = "Duplicate Link";
+"preferences.popover.duplicate.keymap" = "Duplicate Name";
 "preferences.popover.checking" = "Checking URL";
 "preferences.textfield.url" = "Source URL...";
 "preferences.tab.install" = "Install";
 "preferences.toggle.showInstallPopup" = "Show install PlayTools popup";
 "preferences.toggle.alwaysInstallPlayTools" = "Always install PlayTools";
+"preferences.toggle.showAppStorePopup" = "Show an alert if the application has an official AppStore version";
 
 "sidebar.appLibrary" = "App Library";
 "sidebar.ipaLibrary" = "IPA Library";
-
-"storeAccount.selectAccRegion" = "Select account region";
-"storeAccount.selectAccRegion.usa" = "America";
-"storeAccount.selectAccRegion.euro" = "Europe";
-"storeAccount.selectAccRegion.asia" = "Asia";
-"storeAccount.selectAccRegion.cht" = "TW, HK, MO";
-"storeAccount.nameOfAcc" = "Name of your account";
-"storeAccount.nameOfAcc.textfieldPlaceholder" = "Name of account...";
-"storeAccount.store" = "Store account";
-"storeAccount.selectAcc" = "Select an account";
-"storeAccount.storeAcc" = "Store an account";
-"storeAccount.deleteAcc" = "Delete an account";
-"storeAccount.alert.restoreAccount" = "Really Restore Account?";
-"storeAccount.alert.restoreAccount.button" = "Restore Account";
-"storeAccount.alert.restoreAccount.msg" = "This will override your currently signed-in account.";
-"storeAccount.alert.deleteAccount" = "Really Delete Account?";
-"storeAccount.alert.deleteAccount.button" = "Delete Account";
-
 "playapp.download.downloading" = "Downloading";
 "playapp.download.integrityCheck" = "Verifying file integrity:";
 "playapp.download.differentChecksum" = "Different checksums! Do you want to continue to install?";
@@ -103,8 +89,9 @@
 "playapp.progress.canceled" = "Canceled";
 
 "alert.appCacheCleared" = "App data has been cleared!";
-"alert.kmImported" = "Keymapping imported!";
-"alert.errorImportKm" = "Error occured when importing!";
+"alert.errorImportKm" = "Error occured when importing keymap!";
+"alert.errorRenameKm" = "Error occured when renaming keymap!";
+"alert.errorKmCreated" = "Error occured when creating keymap!";
 "alert.app.delete" = "All app data will be erased. You may need to download app files again. Do you wish to continue?";
 "alert.app.preferences" = "All in-app preferences will be deleted. Do you wish to continue?";
 "alert.app.clearPlayChain" = "All PlayChain data will be erased. You may need to login to the app again. Do you wish to continue?";
@@ -114,7 +101,6 @@
 "alert.moveAppToApplications.title" = "Move to Applications folder?";
 "alert.moveAppToApplications.subtitle" = "PlayCover must be in the Applications folder to run correctly. Press the button below to move PlayCover automatically.";
 "alert.moveAppToApplications.move" = "Move to Applications folder";
-"alert.storeAccount.regionIsNotValid" = "The current account is set to a different Region. Launch the game, Change the region, and pass through the gates to save. Then try again";
 "alert.legacyImport.title" = "Legacy App Settings Detected!";
 "alert.legacyImport.subtitle" = "Legacy settings and keymapping files were detected. Would you like to convert these files to the new format?";
 "alert.wrongFileType.title" = "Wrong file type!";
@@ -127,6 +113,13 @@
 "alert.differentBundleIdKeymap.text" = "Are you sure you want to import this keymap?";
 "alert.power.title" = "Low Power Mode Enabled!";
 "alert.power.subtitle" = "Some apps will not work with Low Power Mode enabled. It is recommended to disable it.";
+
+"settings.customPlugins.title" = "Custom Plugins";
+"settings.customPlugins.add" = "Add…";
+"settings.customPlugins.empty" = "No custom plugins installed.";
+"settings.customPlugins.warningTitle" = "Add a custom plugin?";
+"settings.customPlugins.warningMessage" = "Custom plugins are arbitrary code that runs with full access to this app's process. Only add plugins from people you trust.";
+"settings.customPlugins.warningConfirm" = "Add Anyway";
 
 "button.OK" = "OK";
 "button.Proceed" = "Proceed";
@@ -155,8 +148,8 @@
 "error.appCorrupted" = "Something went wrong with this IPA. Please try to use another IPA file.";
 "error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";
 "error.appMaliciousProhibited" = "This App behaves maliciously on Macs, and using it can leave your device in an unbootable state, therefore it is blocked from PlayCover. (Uninstalling...)";
-"error.noGenshinAccount" = "We couldn't find a Genshin account! Are you signed into an account in-app?";
 "error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
+"error.invalidUserDylib" = "This file isn't a valid dylib PlayCover can convert for this app's architecture, so PlayTools can't load it.";
 
 "menubar.exportToSideloady" = "Export to Sideloadly";
 
@@ -171,6 +164,8 @@
 "settings.toggle.autoKM.help" = "Automatically disable keymapping when text input is sensed";
 "settings.toggle.enableScrollWheel" = "Enable Scroll Wheel";
 "settings.toggle.enableScrollWheel.help" = "Enable scroll wheel in keymapping";
+"settings.toggle.disableBuiltinMouse" = "Disable Built-in Mouse Support";
+"settings.toggle.disableBuiltinMouse.help" = "Disable the app’s built-in mouse support to avoid click conflicts.";
 
 "settings.tab.graphics" = "Graphics";
 "settings.picker.iosDevice" = "iOS device:";
@@ -179,16 +174,27 @@
 "settings.picker.adaptiveRes.0" = "App Default";
 "settings.picker.adaptiveRes.1" = "Auto (Based on Display)";
 "settings.picker.adaptiveRes.5" = "Custom";
+"settings.picker.adaptiveRes.6" = "Resizable";
 "settings.text.customHeight" = "Height";
 "settings.text.customWidth" = "Width";
 "settings.text.detectedResolution" = "Detected Resolution:";
 "settings.picker.aspectRatio" = "Aspect ratio:";
+"settings.picker.aspectRatio.free" = "Free";
+"settings.picker.aspectRatio.custom" = "Custom";
 "settings.picker.windowFix" = "Fix window display issues";
 "settings.picker.windowFix.help" = "Apply window fixes that may helps your apps display normally";
 "settings.picker.windowFixMethod.0" = "Normal";
 "settings.picker.windowFixMethod.1" = "Alternate";
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
+"settings.settings.displayRotation" = "Device Orientation";
+"settings.settings.displayRotation.default" = "Default";
+"settings.settings.displayRotation.portrait" = "Portrait";
+"settings.settings.displayRotation.landscapeRight" = "Landscape Right";
+"settings.settings.displayRotation.portraitUpsideDown" = "Portrait Upside Down";
+"settings.settings.displayRotation.flipFix" = "Flip Fix";
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
+"settings.toggle.hideTitleBar" = "Hide titlebar";
+"settings.toggle.floatingWindow" = "Floating window";
 "settings.noPlayTools" = "PlayTools is not installed in this app";
 "settings.highResolution" = "High resolution may cause crashing";
 "settings.picker.scaler" = "Resolution Scaler";
@@ -203,6 +209,8 @@
 "settings.toggle.introspection.help" = "Add the system introspection libraries to the app. Known to fix issues with some apps not starting correctly";
 "settings.toggle.iosFrameworks" = "Force Insert iOS Frameworks";
 "settings.toggle.iosFrameworks.help" = "Add the system ios libraries to the app. Known to fix issues with some apps cannot find ios framework";
+"settings.toggle.checkMicPermissionSync" = "Check Microphone Permission Synchronously";
+"settings.toggle.checkMicPermissionSync.help" = "Force microphone permission check to be synchronous. Known to fix issues with some apps complaining about microphone permission not being granted";
 
 "settings.applicationCategoryType" = "Application Type";
 "settings.removePlayTools" = "Remove PlayTools";
@@ -218,10 +226,13 @@
 "settings.info.alias" = "Alias:";
 
 "settings.resetSettings" = "Reset settings";
-"settings.resetKm" = "Reset keymapping";
+"settings.resetKm" = "Reset Keymapping";
+"settings.deleteKm" = "Delete Keymapping";
+"settings.renameKm" = "Rename Keymapping";
+"settings.defaultKm" = "Set Default";
 
 "settings.resetSettingsCompleted" = "Settings have been reverted back to default!";
-"settings.resetKmCompleted" = "Keymapping has been reset!";
+"settings.deleteKmFailed" = "Keymap %@ failed to delete";
 
 "notification.appInstalled" = "App installed!";
 "notification.appInstalled.message" = "Check it out in PlayCover!";
@@ -258,6 +269,13 @@
 "settings.toggle.lldbWithTerminal" = "Open in terminal";
 "settings.toggle.rootWorkDir" = "Start app at root directory";
 "settings.toggle.rootWorkDir.help" = "Change the working directory of the app to / just like on iOS. Turn this off if the app misbehave";
+"settings.toggle.limitMotionUpdateFrequency" = "Limit motion sensor update frequency";
+"settings.toggle.limitMotionUpdateFrequency.help" = "Limit the frequency of motion sensor updates to avoid excessive CPU usage (often occurs in Unity games).";
+"settings.toggle.blockSleepSpamming" = "Prevent usleep call spamming";
+"settings.toggle.blockSleepSpamming.help" = "Prevent the app from spamming the usleep() syscall which may cause resource exhaustion";
+"settings.toggle.ignoreUnityKeyboardInitializationError" = "Ignore Unity keyboard initialization error";
+"settings.toggle.ignoreUnityKeyboardInitializationError.help" = "Prevent a crash caused by the assertion failure \"[KeyboardDelegate Initialize] called after creating keyboard\"";
+
 
 "configSigning.header" = "Configure Package Signing";
 "configSigning.subtext" = "Package Signing helps fixing issues with apps that rely on \ncorrect Team IDs for operations like authorization. \nThere may be security risks associated with enabling this feature.\n\n As such, we recommend disabling it when it's not necessary";
@@ -307,3 +325,23 @@
 
 "keycover.alert.title" = "Keychain was not unlocked";
 "keycover.alert.content" = "Keychain access has been disabled for the current session";
+
+"keymap.title" = "%@ Keymaps";
+"keymap.title.import" = "Import Keymap Name";
+"keymap.title.rename" = "Rename Keymap Name";
+"keymap.title.empty" = "Create New Keymap";
+"keymap.sheet.name" = "Keymap Name";
+"keymap.default" = "Default";
+
+"macos.version" = "This app can be installed from Mac App Store";
+"alert.install.anyway" = "Install Anyway";
+"alert.open.appstore" = "Open Mac App Store";
+"alert.appstore" = "MacOS version is available";
+
+"alert.quota.limit" = "Quota limit reached. It may take up 24 hours to download this file again";
+"alert.notSpace" = "Not enough space on disk";
+"alert.corrupted" = "File might be corrupted. Try to download it again";
+"alert.start.anyway" = "Start Anyway";
+"alert.version.title" = "New Version Available";
+"alert.version.text" = "A new version for %@ is available. Do you want to download it?";
+

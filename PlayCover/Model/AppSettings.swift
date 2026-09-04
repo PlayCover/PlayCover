@@ -14,6 +14,7 @@ struct AppSettingsData: Codable {
     var sensitivity: Float = 50
 
     var disableTimeout = false
+    var displayRotation = 0
     var iosDeviceModel = "iPad13,8"
     var windowWidth = 1920
     var windowHeight = 1080
@@ -41,6 +42,16 @@ struct AppSettingsData: Codable {
     var rootWorkDir = true
     var noKMOnInput = true
     var enableScrollWheel = true
+    var hideTitleBar = false
+    var floatingWindow = false
+    var checkMicPermissionSync = false
+    var limitMotionUpdateFrequency = false
+    var disableBuiltinMouse = false
+    var resizableAspectRatioType = 0
+    var resizableAspectRatioWidth = 0
+    var resizableAspectRatioHeight = 0
+    var blockSleepSpamming = false
+    var ignoreUnityKeyboardInitializationError = false
 
     init() {}
 
@@ -51,6 +62,7 @@ struct AppSettingsData: Codable {
         keymapping = try container.decodeIfPresent(Bool.self, forKey: .keymapping) ?? true
         sensitivity = try container.decodeIfPresent(Float.self, forKey: .sensitivity) ?? 50
         disableTimeout = try container.decodeIfPresent(Bool.self, forKey: .disableTimeout) ?? false
+        displayRotation = try container.decodeIfPresent(Int.self, forKey: .displayRotation) ?? 0
         iosDeviceModel = try container.decodeIfPresent(String.self, forKey: .iosDeviceModel) ?? "iPad13,8"
         windowWidth = try container.decodeIfPresent(Int.self, forKey: .windowWidth) ?? 1920
         windowHeight = try container.decodeIfPresent(Int.self, forKey: .windowHeight) ?? 1080
@@ -71,6 +83,18 @@ struct AppSettingsData: Codable {
         rootWorkDir = try container.decodeIfPresent(Bool.self, forKey: .rootWorkDir) ?? true
         noKMOnInput = try container.decodeIfPresent(Bool.self, forKey: .noKMOnInput) ?? true
         enableScrollWheel = try container.decodeIfPresent(Bool.self, forKey: .enableScrollWheel) ?? true
+        hideTitleBar = try container.decodeIfPresent(Bool.self, forKey: .hideTitleBar) ?? false
+        floatingWindow = try container.decodeIfPresent(Bool.self, forKey: .floatingWindow) ?? false
+        checkMicPermissionSync = try container.decodeIfPresent(Bool.self, forKey: .checkMicPermissionSync) ?? false
+        limitMotionUpdateFrequency = try container.decodeIfPresent(Bool.self,
+                                                                   forKey: .limitMotionUpdateFrequency) ?? false
+        disableBuiltinMouse = try container.decodeIfPresent(Bool.self, forKey: .disableBuiltinMouse) ?? false
+        resizableAspectRatioType = try container.decodeIfPresent(Int.self, forKey: .resizableAspectRatioType) ?? 0
+        resizableAspectRatioWidth = try container.decodeIfPresent(Int.self, forKey: .resizableAspectRatioWidth) ?? 0
+        resizableAspectRatioHeight = try container.decodeIfPresent(Int.self, forKey: .resizableAspectRatioHeight) ?? 0
+        blockSleepSpamming = try container.decodeIfPresent(Bool.self, forKey: .blockSleepSpamming) ?? false
+        ignoreUnityKeyboardInitializationError = try container.decodeIfPresent(
+            Bool.self, forKey: .ignoreUnityKeyboardInitializationError) ?? false
     }
 }
 
@@ -94,9 +118,10 @@ class AppSettings {
     let settingsUrl: URL
     var openWithLLDB: Bool = false
     var openLLDBWithTerminal: Bool = true
+    private var suppressPersistence = false
     var settings: AppSettingsData {
         didSet {
-            encode()
+            if !suppressPersistence { encode() }
         }
     }
 
@@ -104,12 +129,17 @@ class AppSettings {
         self.info = info
         settingsUrl = AppSettings.appSettingsDir.appendingPathComponent(info.bundleIdentifier)
                                                 .appendingPathExtension("plist")
-        settings = AppSettingsData()
+        var defaults = AppSettingsData()
+        defaults.bundleIdentifier = info.bundleIdentifier
+        settings = defaults
         if !decode() {
+            preserveUnreadableSettingsIfPresent()
             encode()
         }
 
-        settings.bundleIdentifier = info.bundleIdentifier
+        if settings.bundleIdentifier != info.bundleIdentifier {
+            settings.bundleIdentifier = info.bundleIdentifier
+        }
     }
 
     public func sync() {
@@ -117,17 +147,28 @@ class AppSettings {
     }
 
     public func reset() {
-        settings = AppSettingsData()
+        var defaults = AppSettingsData()
+        defaults.bundleIdentifier = info.bundleIdentifier
+        settings = defaults
     }
 
     @discardableResult
     public func decode() -> Bool {
         do {
             let data = try Data(contentsOf: settingsUrl)
-            settings = try PropertyListDecoder().decode(AppSettingsData.self, from: data)
+            let decoded = try PropertyListDecoder().decode(AppSettingsData.self, from: data)
+            suppressPersistence = true
+            settings = decoded
+            suppressPersistence = false
             return true
         } catch {
-            print(error)
+            suppressPersistence = false
+            if FileManager.default.fileExists(atPath: settingsUrl.path) {
+                Log.shared.log(
+                    "App settings decode failed for \(info.bundleIdentifier): \(error.localizedDescription)",
+                    isError: true
+                )
+            }
             return false
         }
     }
@@ -139,11 +180,31 @@ class AppSettings {
 
         do {
             let data = try encoder.encode(settings)
-            try data.write(to: settingsUrl)
+            try data.write(to: settingsUrl, options: .atomic)
             return true
         } catch {
-            print(error)
+            Log.shared.log(
+                "App settings write failed for \(info.bundleIdentifier): \(error.localizedDescription)",
+                isError: true
+            )
             return false
+        }
+    }
+
+    private func preserveUnreadableSettingsIfPresent() {
+        let fileManager = FileManager.default
+        guard fileManager.fileExists(atPath: settingsUrl.path) else { return }
+        let backupURL = settingsUrl.deletingPathExtension().appendingPathExtension("invalid.plist")
+        do {
+            try? fileManager.removeItem(at: backupURL)
+            try fileManager.copyItem(at: settingsUrl, to: backupURL)
+            Log.shared.log("Preserved unreadable app settings at \(backupURL.path)", isError: true)
+        } catch {
+            Log.shared.log(
+                "Failed to preserve unreadable app settings for \(info.bundleIdentifier): " +
+                    error.localizedDescription,
+                isError: true
+            )
         }
     }
 }
