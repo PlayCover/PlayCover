@@ -36,7 +36,7 @@ struct AppSettingsView: View {
                     if let image = appIcon {
                         Image(nsImage: image)
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
+                            .scaledToFit()
                     } else {
                         ProgressView()
                             .progressViewStyle(.circular)
@@ -142,7 +142,7 @@ struct AppSettingsView: View {
             hasAlias = viewModel.app.hasAlias()
         }
         .padding()
-        .frame(width: 600, height: 400)
+        .frame(height: 400)
     }
 }
 
@@ -634,7 +634,10 @@ struct MiscView: View {
     @AppStorage("settings.settings.metalHUD") private var metalHUD = false
     @AppStorage("settings.openWithLLDB") private var openWithLLDB = false
     @AppStorage("settings.openLLDBWithTerminal") private var openLLDBWithTerminal = false
+    @AppStorage("settings.customPluginsWarningShown") private var hasShownCustomPluginWarning = false
     @State var showPopover = false
+    @State private var userDylibs: [URL] = []
+    @State private var showCustomPluginWarning = false
     var app: PlayApp
     @State var applicationCategoryType: LSApplicationCategoryType
     var body: some View {
@@ -671,8 +674,6 @@ struct MiscView: View {
                         }
                     }
                 }
-                Spacer()
-                    .frame(height: 20)
                 HStack {
                     Toggle("settings.toggle.discord", isOn: $settings.settings.discordActivity.enable)
                     Spacer()
@@ -716,8 +717,6 @@ struct MiscView: View {
                             }
                         }
                 }.disabled(!(hasPlayTools ?? true))
-                Spacer()
-                    .frame(height: 20)
                 HStack {
                     HStack {
                         Toggle("settings.toggle.hud", isOn: $settings.settings.metalHUD)
@@ -743,9 +742,33 @@ struct MiscView: View {
                         }
                     }
                 }
-                Spacer()
-                    .frame(height: 20)
                 HStack {
+                    Toggle("settings.toggle.rootWorkDir", isOn: $settings.settings.rootWorkDir)
+                        .disabled(!(hasPlayTools ?? true))
+                        .help("settings.toggle.rootWorkDir.help")
+                    Spacer()
+                }
+                HStack {
+                    Toggle("settings.toggle.limitMotionUpdateFrequency",
+                           isOn: $settings.settings.limitMotionUpdateFrequency)
+                        .disabled(!(hasPlayTools ?? true))
+                        .help("settings.toggle.limitMotionUpdateFrequency.help")
+                    Spacer()
+                }
+                HStack {
+                    Toggle("settings.toggle.ignoreUnityKeyboardInitializationError",
+                           isOn: $settings.settings.ignoreUnityKeyboardInitializationError)
+                        .disabled(!(hasPlayTools ?? true))
+                        .help("settings.toggle.ignoreUnityKeyboardInitializationError.help")
+                    Spacer()
+                }
+                CustomDylibView(app: app,
+                                showCustomPluginWarning: $showCustomPluginWarning,
+                                hasShownCustomPluginWarning: $hasShownCustomPluginWarning,
+                                hasPlayTools: $hasPlayTools,
+                                userDylibs: $userDylibs)
+                HStack {
+                    Spacer()
                     Button {
                         task = .playTools
                         Task(priority: .userInitiated) {
@@ -776,33 +799,7 @@ struct MiscView: View {
                                 }
                             }
                     }
-                    Spacer()
-                }
-                Spacer()
-                    .frame(height: 20)
-                HStack {
-                    Toggle("settings.toggle.rootWorkDir", isOn: $settings.settings.rootWorkDir)
-                        .disabled(!(hasPlayTools ?? true))
-                        .help("settings.toggle.rootWorkDir.help")
-                    Spacer()
-                }
-                Spacer()
-                    .frame(height: 20)
-                HStack {
-                    Toggle("settings.toggle.limitMotionUpdateFrequency",
-                           isOn: $settings.settings.limitMotionUpdateFrequency)
-                        .disabled(!(hasPlayTools ?? true))
-                        .help("settings.toggle.limitMotionUpdateFrequency.help")
-                    Spacer()
-                }
-                Spacer()
-                    .frame(height: 20)
-                HStack {
-                    Toggle("settings.toggle.ignoreUnityKeyboardInitializationError",
-                           isOn: $settings.settings.ignoreUnityKeyboardInitializationError)
-                        .disabled(!(hasPlayTools ?? true))
-                        .help("settings.toggle.ignoreUnityKeyboardInitializationError.help")
-                    Spacer()
+                    .buttonStyle(.borderedProminent).tint(Color.red)
                 }
             }
             .padding()
@@ -816,6 +813,102 @@ struct MiscView: View {
             return false
         }
     }
+
+}
+
+struct CustomDylibView: View {
+    var app: PlayApp
+    @Binding var showCustomPluginWarning: Bool
+    @Binding var hasShownCustomPluginWarning: Bool
+    @Binding var hasPlayTools: Bool?
+    @Binding var userDylibs: [URL]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text("settings.customPlugins.title")
+                    .font(.headline)
+                Spacer()
+                Button {
+                    if hasShownCustomPluginWarning {
+                        selectAndAddDylib()
+                    } else {
+                        showCustomPluginWarning = true
+                    }
+                } label: {
+                    Label("settings.customPlugins.add", systemImage: "plus")
+                }
+            }
+            if userDylibs.isEmpty {
+                Text("settings.customPlugins.empty")
+                    .foregroundColor(.secondary)
+                    .font(.caption)
+            } else {
+                ForEach(userDylibs, id: \.self) { dylib in
+                    HStack {
+                        Text(dylib.lastPathComponent)
+                        Spacer()
+                        Button {
+                            removeDylib(dylib)
+                        } label: {
+                            Image(systemName: "minus.circle")
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+            }
+        }
+        .disabled(!(hasPlayTools ?? true))
+        .onAppear {
+            reloadUserDylibs()
+        }
+        .alert("settings.customPlugins.warningTitle", isPresented: $showCustomPluginWarning) {
+            Button("button.Cancel", role: .cancel) {}
+            Button("settings.customPlugins.warningConfirm", role: .destructive) {
+                hasShownCustomPluginWarning = true
+                selectAndAddDylib()
+            }
+        } message: {
+            Text("settings.customPlugins.warningMessage")
+        }
+    }
+    private func reloadUserDylibs() {
+        userDylibs = PlayTools.userDylibs(bundleIdentifier: app.info.bundleIdentifier)
+    }
+
+    private func selectAndAddDylib() {
+        NSOpenPanel.selectDylib { result in
+            guard case .success(let url) = result else { return }
+            Task(priority: .userInitiated) {
+                do {
+                    try PlayTools.addUserDylib(at: url,
+                                               bundleIdentifier: app.info.bundleIdentifier,
+                                               appExecutable: app.executable)
+                } catch {
+                    Log.shared.error(error)
+                }
+                Task { @MainActor in
+                    reloadUserDylibs()
+                }
+            }
+        }
+    }
+
+    private func removeDylib(_ url: URL) {
+        Task(priority: .userInitiated) {
+            do {
+                try PlayTools.removeUserDylib(named: url.lastPathComponent,
+                                              bundleIdentifier: app.info.bundleIdentifier,
+                                              appExecutable: app.executable)
+            } catch {
+                Log.shared.error(error)
+            }
+            Task { @MainActor in
+                reloadUserDylibs()
+            }
+        }
+    }
+
 }
 
 struct InfoView: View {

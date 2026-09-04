@@ -114,6 +114,13 @@
 "alert.power.title" = "Low Power Mode Enabled!";
 "alert.power.subtitle" = "Some apps will not work with Low Power Mode enabled. It is recommended to disable it.";
 
+"settings.customPlugins.title" = "Custom Plugins";
+"settings.customPlugins.add" = "Add…";
+"settings.customPlugins.empty" = "No custom plugins installed.";
+"settings.customPlugins.warningTitle" = "Add a custom plugin?";
+"settings.customPlugins.warningMessage" = "Custom plugins are arbitrary code that runs with full access to this app's process. Only add plugins from people you trust.";
+"settings.customPlugins.warningConfirm" = "Add Anyway";
+
 "button.OK" = "OK";
 "button.Proceed" = "Proceed";
 "button.Cancel" = "Cancel";
@@ -142,6 +149,7 @@
 "error.appProhibited" = "Using this app through PlayCover will likely result in a ban!";
 "error.appMaliciousProhibited" = "This App behaves maliciously on Macs, and using it can leave your device in an unbootable state, therefore it is blocked from PlayCover. (Uninstalling...)";
 "error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
+"error.invalidUserDylib" = "This file isn't a valid dylib PlayCover can convert for this app's architecture, so PlayTools can't load it.";
 
 "menubar.exportToSideloady" = "Export to Sideloadly";
 

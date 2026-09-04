@@ -74,10 +74,16 @@ class PlayApp: BaseApp {
                 throw PlayCoverError.appMaliciousProhibited
             }
 
-            AppsVM.shared.fetchApps()
             if await VersionCheck.shared.checkNewVersion(myApp: self) { return }
 
             settings.sync()
+
+            // Install PlugIns/localizations before signing so the bundle is fully
+            // assembled before its signature is sealed over its contents.
+            // If the app does not have PlayTools, do not install PlugIns
+            if hasPlayTools() {
+                try PlayTools.installPluginInIPA(url)
+            }
 
             if try !Entitlements.areEntitlementsValid(app: self) {
                 sign()
@@ -89,11 +95,6 @@ class PlayApp: BaseApp {
 
             // Wait for keychain unlock to finish before continuing
             await unlockKeyCover()
-
-            // If the app does not have PlayTools, do not install PlugIns
-            if hasPlayTools() {
-                try PlayTools.installPluginInIPA(url)
-            }
 
             if try !PlayTools.isInstalled() {
                 Log.shared.error("PlayTools are not installed! Please move PlayCover.app into Applications!")
