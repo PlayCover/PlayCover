@@ -15,6 +15,7 @@ struct MainView: View {
     @EnvironmentObject var integrity: AppIntegrity
 
     @ObservedObject var keyCoverObserved = KeyCoverObservable.shared
+    @ObservedObject var foldersObject = AppFolderVM.shared
 
     @Binding public var isSigningSetupShown: Bool
 
@@ -23,10 +24,15 @@ struct MainView: View {
     @State private var viewWidth: CGFloat = 0
     @State private var collapsed: Bool = false
     @State private var showSourceFolders = true
+    @State private var showAppFolders = true
     @State private var selectedBackgroundColor: Color = Color.accentColor
     @State private var selectedTextColor: Color = Color.black
-
+    @State private var addFolderPresented = false
+    @State var newFolder = ""
+    @State private var selectedSymbol: String = "folder"
+    @State private var showPicker = false
     @ObservedObject private var URLObserved = URLObservable.shared
+    let rows = [GridItem(.adaptive(minimum: 50, maximum: .infinity))]
 
     var body: some View {
         GeometryReader { viewGeom in
@@ -34,10 +40,36 @@ struct MainView: View {
                 GeometryReader { sidebarGeom in
                     List {
                         NavigationLink(tag: 1, selection: $selectedView) {
-                            AppLibraryView(selectedBackgroundColor: $selectedBackgroundColor,
-                                                                       selectedTextColor: $selectedTextColor)
+                            AppLibraryView(
+                                selectedBackgroundColor: $selectedBackgroundColor,
+                                selectedTextColor: $selectedTextColor,
+                                folder: .constant(Folder(name: "", icon: ""))
+                            )
                         } label: {
                             Label("sidebar.appLibrary", systemImage: "square.grid.2x2")
+                            Button {
+                                withAnimation {
+                                    showAppFolders.toggle()
+                                }
+                            } label: {
+                                Image(systemName: showAppFolders ? "chevron.up" : "chevron.down")
+                                    .font(.caption)
+                            }
+                            .buttonStyle(.plain)
+                            .contextMenu(menuItems: {
+                                Button(NSLocalizedString("folder.button.add", comment: ""), action: {
+                                    addFolderPresented.toggle()
+                                })
+                                .keyboardShortcut(.escape, modifiers: .command)
+                            })
+                        }
+                        if showAppFolders {
+                            AppFoldersSectionView(
+                                selectedView: $selectedView,
+                                selectedBackgroundColor: $selectedBackgroundColor,
+                                selectedTextColor: $selectedTextColor,
+                                foldersObject: foldersObject
+                            )
                         }
                         NavigationLink(tag: 2, selection: $selectedView) {
                             IPALibraryView(storeVM: store,
@@ -127,6 +159,48 @@ struct MainView: View {
                 }
                 .background(SplitViewAccessor(sideCollapsed: $collapsed))
             }
+            .sheet(isPresented: $addFolderPresented) {
+                VStack {
+                    HStack {
+                        TextField(text: $newFolder, label: {Text("folder.textfield.name")})
+                            .frame(height: 40)
+                    }
+                    LazyVStack {
+                        Spacer()
+                        LazyHGrid(rows: rows, spacing: 18) {
+                            ForEach(foldersObject.icons, id: \.self) { icon in
+                                IconPickerView.shared.iconVStack(icon: icon, tempSelection: $selectedSymbol)
+                            }
+                        }
+                        .padding(.horizontal, 10)
+                    }
+                    HStack {
+                        Spacer()
+                        Button(NSLocalizedString("button.Cancel", comment: ""), action: {
+                            newFolder = ""
+                            selectedSymbol = "folder"
+                            addFolderPresented.toggle()
+                        })
+                        .keyboardShortcut(.cancelAction)
+                        Button(NSLocalizedString("button.OK", comment: ""), action: {
+                            foldersObject.addFolder(folder: newFolder, icon: selectedSymbol)
+                            selectedSymbol = "folder"
+                            newFolder = ""
+                            addFolderPresented.toggle()
+                            self.selectedView = foldersObject.folders.last?.id.hashValue
+                        })
+                        .disabled(newFolder.isEmpty || selectedSymbol.isEmpty)
+                        .keyboardShortcut(.defaultAction)
+                    }
+                }
+                .frame(width: 600, height: 160)
+                .padding()
+                .onAppear {
+                    newFolder = ""
+                    selectedSymbol = "folder"
+                }
+            }
+
             .onAppear {
                 self.selectedView = URLObserved.type == .source ? 2 : 1
             }
@@ -186,6 +260,51 @@ struct MainView: View {
     }
 }
 
+struct AppFoldersSectionView: View {
+    @Binding var selectedView: Int?
+    @Binding var selectedBackgroundColor: Color
+    @Binding var selectedTextColor: Color
+    @ObservedObject var foldersObject: AppFolderVM
+
+    var body: some View {
+        ForEach(foldersObject.folders.indices, id: \.hashValue) { index in
+            NavigationLink(
+                tag: foldersObject.folders[index].id.hashValue,
+                selection: $selectedView
+            ) {
+                AppLibraryView(
+                    selectedBackgroundColor: $selectedBackgroundColor,
+                    selectedTextColor: $selectedTextColor,
+                    folder: $foldersObject.folders[index],
+                    isFolder: true
+                )
+                .environmentObject(foldersObject)
+            } label: {
+                Label(foldersObject.folders[index].name,
+                      systemImage: foldersObject.folders[index].icon)
+                    .font(.caption)
+                    .padding(.leading)
+                    .contextMenu {
+                        Button(NSLocalizedString("folder.button.remove", comment: ""), action: {
+                            Task {
+                                if await foldersObject.removeFolder(index: index) {
+                                    if !foldersObject.folders.contains(where: { $0.id.hashValue == selectedView }) &&
+                                        selectedView != 1 && selectedView != 2 {
+                                        selectedView = foldersObject.folders.count > 0 ?
+                                            foldersObject.folders[index > 0 ? index - 1 : 0].id.hashValue : 1
+                                    }
+                                }
+                            }
+                        })
+                    }
+            }
+        }
+        .onMove { index, newIndex in
+            foldersObject.folders.move(fromOffsets: index, toOffset: newIndex)
+        }
+    }
+}
+
 struct SplitViewAccessor: NSViewRepresentable {
     @Binding var sideCollapsed: Bool
 
@@ -235,5 +354,17 @@ struct MainView_Previews: PreviewProvider {
             .environmentObject(AppsVM.shared)
             .environmentObject(StoreVM.shared)
             .environmentObject(AppIntegrity())
+    }
+}
+
+struct Folder: Identifiable, Codable {
+    var id: UUID  = UUID()
+    var name: String
+    var apps: [String]  = []
+    var icon: String = "folder"
+
+    init(name: String, icon: String) {
+        self.name = name
+        self.icon = icon
     }
 }

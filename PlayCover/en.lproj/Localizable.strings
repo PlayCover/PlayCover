@@ -341,7 +341,14 @@
 "alert.quota.limit" = "Quota limit reached. It may take up 24 hours to download this file again";
 "alert.notSpace" = "Not enough space on disk";
 "alert.corrupted" = "File might be corrupted. Try to download it again";
+"folder.textfield.name" = "Folder Name...";
+"folder.textfield.icon" = "Icon";
+"folder.button.remove" = "Remove Folder";
+"folder.button.add" = "Add new Folder";
+"folder.button.edit" = "Edit Folder";
+"folder.remove.alert" = "Are you sure to remove app folder \"%@\" folder? This action will not uninstall the apps.";
 "alert.start.anyway" = "Start Anyway";
 "alert.version.title" = "New Version Available";
 "alert.version.text" = "A new version for %@ is available. Do you want to download it?";
-
+"playapp.emptyFolder.title" = "No Apps in the Folder";
+"playapp.emptyFolder.subtitle" = "You currently have no apps in the folder. Click the button below to add some.";
