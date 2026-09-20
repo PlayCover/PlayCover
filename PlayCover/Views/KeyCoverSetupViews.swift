@@ -234,7 +234,7 @@ struct KeyCoverRemovalView: View {
 
     var body: some View {
         VStack {
-            Text("Enter your master password to remove KeyCover encryption")
+            Text("keycover.removePrompt.title")
                 .bold()
             SecureField("keycover.masterPassword", text: $keyCoverPassword)
             .disabled(keyOption == .selfGeneratedPassword)

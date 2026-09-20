@@ -74,6 +74,7 @@
 
 "sidebar.appLibrary" = "App Library";
 "sidebar.ipaLibrary" = "IPA Library";
+"sidebar.layoutPicker" = "Grid View Layout";
 "playapp.download.downloading" = "Downloading";
 "playapp.download.integrityCheck" = "Verifying file integrity:";
 "playapp.download.differentChecksum" = "Different checksums! Do you want to continue to install?";
