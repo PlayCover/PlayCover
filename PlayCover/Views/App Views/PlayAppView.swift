@@ -44,6 +44,9 @@ struct PlayAppView: View {
                 Button("playapp.showInFinder", systemImage: "finder", action: {
                     viewModel.app.showInFinder()
                 })
+                Button("playapp.duplicate", systemImage: "plus.square.on.square", action: {
+                    Task { await AppDuplicator.duplicatePopup(viewModel.app) }
+                })
                 Divider()
                 Group {
                     Button("playapp.keymap", systemImage: "keyboard", action: {

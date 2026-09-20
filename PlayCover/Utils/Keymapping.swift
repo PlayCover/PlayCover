@@ -292,3 +292,30 @@ class Keymapping {
         return alert.runModal() == .alertFirstButtonReturn
     }
 }
+
+// MARK: - Duplication
+
+extension Keymapping {
+    /// Takes on every keymap of another app, retargeted at this app's bundle identifier. Used when
+    /// an app is duplicated, so that the copy starts out with the same controls as the original.
+    public func adoptKeymaps(of other: Keymapping) {
+        let otherConfig = other.keymapConfig
+        var defaultKeymapURL: URL?
+
+        for keymapURL in otherConfig.keymapOrder {
+            let name = keymapURL.deletingPathExtension().lastPathComponent
+
+            var keymap = other.getKeymap(name: name)
+            keymap.bundleIdentifier = info.bundleIdentifier
+            setKeymap(name: name, map: keymap)
+
+            if keymapURL == otherConfig.defaultKm {
+                defaultKeymapURL = constructKeymapPath(name: name)
+            }
+        }
+
+        if let defaultKeymapURL = defaultKeymapURL {
+            keymapConfig.defaultKm = defaultKeymapURL
+        }
+    }
+}

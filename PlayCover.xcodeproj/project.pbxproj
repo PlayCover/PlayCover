@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		342787552E787EBB003A3C2F /* Keymapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342787542E787EB9003A3C2F /* Keymapping.swift */; };
+		B4C9A7E22F0D51A700E3B94C /* AppDuplicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C9A7E12F0D51A500E3B94C /* AppDuplicator.swift */; };
 		3447B5E52E28B46800FAA22F /* KeymapViewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3447B5E42E28B46800FAA22F /* KeymapViewVM.swift */; };
 		34775E752D493B59001586C2 /* CachedAsyncImageWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34775E742D493B54001586C2 /* CachedAsyncImageWrapper.swift */; };
 		349915332F8866A3005565D1 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 349915322F8866A3005565D1 /* AppIcon.icon */; };
@@ -99,6 +100,7 @@
 
 /* Begin PBXFileReference section */
 		342787542E787EB9003A3C2F /* Keymapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keymapping.swift; sourceTree = "<group>"; };
+		B4C9A7E12F0D51A500E3B94C /* AppDuplicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDuplicator.swift; sourceTree = "<group>"; };
 		3447B5E42E28B46800FAA22F /* KeymapViewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeymapViewVM.swift; sourceTree = "<group>"; };
 		34775E742D493B54001586C2 /* CachedAsyncImageWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedAsyncImageWrapper.swift; sourceTree = "<group>"; };
 		349915322F8866A3005565D1 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 				6E25096D297F4E95004D754C /* Extensions */,
 				B44B40362C1E315600CE2A3E /* GoogleDrive.swift */,
 				342787542E787EB9003A3C2F /* Keymapping.swift */,
+				B4C9A7E12F0D51A500E3B94C /* AppDuplicator.swift */,
 				B429B2632DC204F1001FF7D9 /* VersionCheck.swift */,
 				92ECD8A4274E763700DB7AC6 /* IPA.swift */,
 				92EE06DD274EC09F002C907B /* Entitlements.swift */,
@@ -687,6 +690,7 @@
 				92F8500A27675124005CE6BE /* AppIntegrity.swift in Sources */,
 				AAE2F78F2F725632001336C9 /* ViewExtensions.swift in Sources */,
 				342787552E787EBB003A3C2F /* Keymapping.swift in Sources */,
+				B4C9A7E22F0D51A700E3B94C /* AppDuplicator.swift in Sources */,
 				B44B40372C1E315600CE2A3E /* GoogleDrive.swift in Sources */,
 				68E48B97295704A600C39879 /* Downloader.swift in Sources */,
 				36B26B97288C724600859EFD /* UpdateSettings.swift in Sources */,

@@ -15,6 +15,12 @@
 "playapp.deleteConfirm" = "Uninstall";
 "playapp.deleteMessage" = "Are you sure you want to uninstall %@?";
 "playapp.clearPreferences" = "Clear App Preferences";
+"playapp.duplicate" = "Duplicate App";
+"playapp.duplicateConfirm" = "Duplicate";
+"playapp.duplicateMessage" = "Duplicate %@";
+"playapp.duplicateInformative" = "The copy is a separate app with its own app data, settings and keymaps, so it can be played at the same time as the original and signed into a different account. It starts out with no app data.";
+"playapp.duplicateProgress" = "Duplicating app...";
+"playapp.duplicateFinished" = "Duplicated as %@";
 "playapp.refreshSources" = "Refresh Sources";
 "playapp.noSources.title" = "No IPAs Installed";
 "playapp.noSources.subtitle" = "You currently have no IPAs installed. Click the button below to import one.";
@@ -150,6 +156,7 @@
 "error.appMaliciousProhibited" = "This App behaves maliciously on Macs, and using it can leave your device in an unbootable state, therefore it is blocked from PlayCover. (Uninstalling...)";
 "error.failedToStripBinary" = "Could not find ARM64 arch in fat binary!";
 "error.invalidUserDylib" = "This file isn't a valid dylib PlayCover can convert for this app's architecture, so PlayTools can't load it.";
+"error.duplicateExists" = "A copy of this app is already installed under that name.";
 
 "menubar.exportToSideloady" = "Export to Sideloadly";
 

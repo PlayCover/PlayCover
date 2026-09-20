@@ -12,6 +12,7 @@ enum InstallStepsNative: String {
          sign = "playapp.install.signing",
          library = "playapp.install.addToLib",
          begin = "playapp.install.copy",
+         duplicate = "playapp.duplicateProgress",
          finish = "playapp.progress.finished",
          failed = "playapp.progress.failed"
 }
