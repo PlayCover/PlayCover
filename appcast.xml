@@ -2,6 +2,16 @@
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
     <channel>
         <title>PlayCover</title>
+        <item>
+            <title>4.0.0-prerelease</title>
+            <pubDate>Mon, 07 Sep 2024 15:59:00 +0900</pubDate>
+            <link>https://github.com/PlayCover/PlayCover/releases/tag/4.0.0-prerelease</link>
+            <sparkle:fullReleaseNotesLink>https://github.com/PlayCover/PlayCover/releases/tag/4.0.0-prerelease</sparkle:fullReleaseNotesLink>
+            <sparkle:version>1633</sparkle:version>
+            <sparkle:shortVersionString>4.0.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/PlayCover/PlayCover/releases/download/4.0.0-prerelease/PlayCover_4.0.0-prerelease.dmg" length="7031217" type="application/octet-stream" sparkle:edSignature="ItJzn4+PLUnCMWDCrxfQ3RWIRTR6fMUOBUcFZZXW/+QIcrkwmuak9TislO8uikkGfCFtP6GjdoQDRnCwUxQOBg==" />
+        </item>
          <item>
             <title>3.1.0</title>
             <pubDate>Mon, 02 Sep 2024 14:17:00 +0900</pubDate>
