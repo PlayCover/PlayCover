@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ITunesResult: Codable {
+struct ITunesResult: Codable, Sendable {
     let isGameCenterEnabled: Bool
     let features: [String]
     let advisories: [String]
@@ -54,30 +54,43 @@ struct ITunesResult: Codable {
     let userRatingCount: Int
 }
 
-struct ITunesResponse: Codable {
+struct ITunesResponse: Codable, Sendable {
     let resultCount: Int
     let results: [ITunesResult]
 }
 
+private actor ITunesRequestDeduplicator {
+    private var inFlight: [String: Task<ITunesResponse?, Never>] = [:]
+
+    func value(for key: String, operation: @escaping @Sendable () async -> ITunesResponse?) async -> ITunesResponse? {
+        if let task = inFlight[key] { return await task.value }
+        let task = Task { await operation() }
+        inFlight[key] = task
+        let result = await task.value
+        inFlight[key] = nil
+        return result
+    }
+}
+
+private let iTunesRequests = ITunesRequestDeduplicator()
+
 func getITunesData(_ itunesLookup: String) async -> ITunesResponse? {
-    guard NetworkVM.isConnectedToNetwork(), let url = URL(string: itunesLookup) else {
-        return nil
+    if let cached: ITunesResponse = try? Cacher.shared.cache.readCodable(forKey: itunesLookup) {
+        return cached
     }
 
-    return await withCheckedContinuation { continuation in
-        URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
-            do {
-                if error == nil, let data = data {
-                    let decoder = JSONDecoder()
-                    let jsonResult: ITunesResponse = try decoder.decode(ITunesResponse.self, from: data)
-                    continuation.resume(returning: jsonResult.resultCount > 0 ? jsonResult : nil)
-                    return
-                }
-            } catch {
-                print("Error getting iTunes data from URL: \(itunesLookup): \(error)")
-            }
-
-            continuation.resume(returning: nil)
-        }.resume()
+    return await iTunesRequests.value(for: itunesLookup) {
+        guard NetworkVM.isConnectedToNetwork(), let url = URL(string: itunesLookup) else { return nil }
+        do {
+            let (data, response) = try await URLSession.shared.data(for: URLRequest(url: url))
+            guard (response as? HTTPURLResponse)?.statusCode == 200 else { return nil }
+            let value = try JSONDecoder().decode(ITunesResponse.self, from: data)
+            guard value.resultCount > 0 else { return nil }
+            try? Cacher.shared.cache.write(codable: value, forKey: itunesLookup)
+            return value
+        } catch {
+            Log.shared.error(error)
+            return nil
+        }
     }
 }
