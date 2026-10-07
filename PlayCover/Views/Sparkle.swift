@@ -51,7 +51,9 @@ struct CheckForUpdatesView: View {
     @ObservedObject var updaterViewModel: UpdaterViewModel
 
     var body: some View {
-        Button(NSLocalizedString("menubar.checkForUpdates", comment: ""), action: updaterViewModel.checkForUpdates)
+        Button(NSLocalizedString("menubar.checkForUpdates", comment: ""),
+               systemImage: "arrow.trianglehead.2.clockwise.rotate.90",
+               action: updaterViewModel.checkForUpdates)
             .disabled(!updaterViewModel.canCheckForUpdates)
     }
 }

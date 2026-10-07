@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ToastView: View {
+    public static let toastGlassPadding: CGFloat = 8
+
     @EnvironmentObject var toastVM: ToastVM
     @EnvironmentObject var installVM: InstallVM
     @EnvironmentObject var downloadVM: DownloadVM
@@ -15,7 +17,15 @@ struct ToastView: View {
     var body: some View {
         if toastVM.isShown {
             VStack(spacing: -20) {
+                // remove spacing for liquid glass toast to prevent the background blur that accompanies the toast when
+                // scrolling down in either of the library views
+                #if compiler(>=6.2)
+                if #unavailable(macOS 26.0) {
+                    Spacer()
+                }
+                #else
                 Spacer()
+                #endif
                 ForEach(toastVM.toasts, id: \.self) { toast in
                     HStack {
                         switch toast.toastType {
@@ -28,10 +38,7 @@ struct ToastView: View {
                         }
                         Text(toast.toastDetails)
                     }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
-                    .padding()
+                    .toastBackground()
                     .onAppear {
                         Task { @MainActor in
                             try await Task.sleep(nanoseconds: toast.timeRemaining * 1000000000)
@@ -45,10 +52,7 @@ struct ToastView: View {
                         Text(NSLocalizedString(installVM.status.rawValue, comment: ""))
                         ProgressView(value: installVM.progress)
                     }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
-                    .padding()
+                    .toastBackground()
                 }
                 if downloadVM.inProgress {
                     VStack {
@@ -67,11 +71,7 @@ struct ToastView: View {
                             }
                         }
                     }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(.regularMaterial, in:
-                                    RoundedRectangle(cornerRadius: 10))
-                    .padding()
+                    .toastBackground()
                 }
             }
             .animation(.easeInOut(duration: 0.25), value: toastVM.toasts.count)

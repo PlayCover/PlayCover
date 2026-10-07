@@ -34,4 +34,19 @@ extension NSOpenPanel {
             }
         }
     }
+
+    static func selectDylib(completion: @escaping (_ result: Result<URL, Error>) -> Void) {
+        let panel = NSOpenPanel()
+        panel.allowsMultipleSelection = false
+        panel.canChooseFiles = true
+        panel.canChooseDirectories = false
+        panel.allowedContentTypes = [UTType(filenameExtension: "dylib") ?? .unixExecutable]
+        panel.begin { result in
+            if result == .OK {
+                if let url = panel.urls.first {
+                    completion(.success(url))
+                }
+            }
+        }
+    }
 }

@@ -15,6 +15,8 @@ class InstallPreferences: NSObject, ObservableObject {
     @AppStorage("DefaultAppType") var defaultAppType: LSApplicationCategoryType = .none
 
     @AppStorage("ShowInstallPopup") var showInstallPopup = false
+
+    @AppStorage("ShowAppStorePopup") var showAppStorePopup = true
 }
 
 struct InstallSettings: View {
@@ -37,6 +39,9 @@ struct InstallSettings: View {
             }
             Spacer()
                 .frame(height: 20)
+            Toggle("preferences.toggle.showAppStorePopup", isOn: $installPreferences.showAppStorePopup)
+            Spacer()
+                .frame(height: 20)
             Toggle("preferences.toggle.showInstallPopup", isOn: $installPreferences.showInstallPopup)
             GroupBox {
                 VStack {
@@ -53,6 +58,6 @@ struct InstallSettings: View {
             }.disabled(installPreferences.showInstallPopup)
         }
         .padding(20)
-        .frame(width: 400, height: 200)
+        .frame(width: 600, height: 200)
     }
 }

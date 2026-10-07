@@ -22,6 +22,7 @@ struct MainView: View {
     @State private var navWidth: CGFloat = 0
     @State private var viewWidth: CGFloat = 0
     @State private var collapsed: Bool = false
+    @State private var showSourceFolders = true
     @State private var selectedBackgroundColor: Color = Color.accentColor
     @State private var selectedTextColor: Color = Color.black
 
@@ -32,24 +33,57 @@ struct MainView: View {
             NavigationView {
                 GeometryReader { sidebarGeom in
                     List {
-                        NavigationLink(destination: AppLibraryView(selectedBackgroundColor: $selectedBackgroundColor,
-                                                                   selectedTextColor: $selectedTextColor),
-                                       tag: 1, selection: self.$selectedView) {
+                        NavigationLink(tag: 1, selection: $selectedView) {
+                            AppLibraryView(selectedBackgroundColor: $selectedBackgroundColor,
+                                                                       selectedTextColor: $selectedTextColor)
+                        } label: {
                             Label("sidebar.appLibrary", systemImage: "square.grid.2x2")
                         }
-                        NavigationLink(destination: IPALibraryView(selectedBackgroundColor: $selectedBackgroundColor,
-                                                                   selectedTextColor: $selectedTextColor)
+                        NavigationLink(tag: 2, selection: $selectedView) {
+                            IPALibraryView(storeVM: store,
+                                           selectedBackgroundColor: $selectedBackgroundColor,
+                                           selectedTextColor: $selectedTextColor)
                             .environmentObject(store)
-                            .environmentObject(DownloadVM.shared),
-                                       tag: 2, selection: self.$selectedView) {
-                            Label("sidebar.ipaLibrary", systemImage: "arrow.down.circle")
+                        } label: {
+                            HStack {
+                                Label("sidebar.ipaLibrary", systemImage: "arrow.down.circle")
+                                Button {
+                                    withAnimation {
+                                        showSourceFolders.toggle()
+                                    }
+                                } label: {
+                                    Image(systemName: showSourceFolders ? "chevron.up" : "chevron.down")
+                                        .font(.caption)
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
+                        if showSourceFolders {
+                            let enabledSources: [SourceJSON] = StoreVM.shared.getEnabledSources()
+                            ForEach(enabledSources, id: \.hashValue) { source in
+                                    NavigationLink(tag: source.hashValue, selection: $selectedView) {
+                                    IPASourceView(storeVM: store,
+                                                  selectedBackgroundColor: $selectedBackgroundColor,
+                                                  selectedTextColor: $selectedTextColor,
+                                                  sourceName: source.name,
+                                                  sourceApps: source.data)
+                                    .environmentObject(store)
+                                } label: {
+                                    Label(source.name, systemImage: "folder")
+                                        .font(.caption)
+                                        .padding(.leading)
+                                }
+                            }
                         }
                     }
+                    .frame(minWidth: 150)
                     .toolbar {
                         ToolbarItem { // Sits on the left by default
-                            Button(action: toggleSidebar, label: {
+                            Button {
+                                toggleSidebar()
+                            } label: {
                                 Image(systemName: "sidebar.leading")
-                            })
+                            }
                         }
                     }
                     .onChange(of: sidebarGeom.size) { newSize in
@@ -96,17 +130,28 @@ struct MainView: View {
             .onAppear {
                 self.selectedView = URLObserved.type == .source ? 2 : 1
             }
-            .overlay {
+            .toastOverlay {
                 HStack {
+                    var spacerWidth: CGFloat {
+                        // space width changes depending on if it is liquid glass and its accompanying custom padding
+                        #if compiler(>=6.2)
+                        if #available(macOS 26.0, *) {
+                            return navWidth + ToastView.toastGlassPadding
+                        }
+                        #endif
+                        return navWidth
+                    }
+
                     if !collapsed {
                         Spacer()
-                            .frame(width: navWidth)
+                            .frame(width: spacerWidth)
                     }
                     ToastView()
                         .environmentObject(ToastVM.shared)
                         .environmentObject(InstallVM.shared)
                         .environmentObject(DownloadVM.shared)
-                        .frame(width: collapsed || viewWidth < navWidth ? viewWidth : (viewWidth - navWidth))
+                        // add a max statement here to ensure that the width will never be negative
+                        .frame(width: max(0, collapsed || viewWidth < navWidth ? viewWidth : (viewWidth - spacerWidth)))
                         .animation(.spring(), value: collapsed)
                 }
             }

@@ -14,8 +14,12 @@ struct PlayRules: Decodable {
     var bypass: [String]?
 
     public static func buildRules(rules: [String], bundleID: String) -> [String] {
+        let homeDirectory = FileManager.default.homeDirectoryForCurrentUser
         var result: [String] = []
-        let template = RuleTemplate(data: ["NSUserName": "\(NSUserName())", "BundleID": bundleID])
+        let template = RuleTemplate(data: [
+            "BundleID": bundleID,
+            "HomeDirectory": homeDirectory.path
+        ])
         for rule in rules {
             result.append(template.render(template: rule))
         }

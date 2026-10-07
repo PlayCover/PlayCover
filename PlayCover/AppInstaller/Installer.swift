@@ -35,6 +35,15 @@ class Installer {
         return response == .alertFirstButtonReturn
     }
 
+    static private func returnErrorString(error: Error) -> String {
+        switch error.localizedDescription {
+        case let str where str.contains("(disk full?)"): NSLocalizedString("alert.notSpace", comment: "")
+        case let str where str.contains(".html"): NSLocalizedString("alert.quota.limit", comment: "")
+        case let str where str.contains(".ipa"): NSLocalizedString("alert.corrupted", comment: "")
+        default: NSLocalizedString(error.localizedDescription, comment: "")
+        }
+    }
+
     // swiftlint:disable:next function_body_length
     static func install(ipaUrl: URL, export: Bool, returnCompletion: @escaping (URL?) -> Void) {
         // If (the option key is held or the install playtools popup settings is true) and its not an export,
@@ -53,12 +62,18 @@ class Installer {
 
         Task(priority: .userInitiated) {
             let ipa = IPA(url: ipaUrl)
+            defer { ipa.releaseTempDir() }
 
             do {
                 InstallVM.shared.next(.unzip, 0.0, 0.5)
                 try ipa.allocateTempDir()
 
                 let app = try ipa.unzip()
+                if await ipa.checkOfficialMacOS(app: IPA.Application.base(app)) {
+                    InstallVM.shared.next(.failed, 0.95, 1.0)
+                    returnCompletion(nil)
+                    return
+                }
                 InstallVM.shared.next(.library, 0.5, 0.55)
                 try saveEntitlements(app)
                 let machos = resolveValidMachOs(app)
@@ -107,15 +122,11 @@ class Installer {
                     installedApp.sign()
                 }
 
-                ipa.releaseTempDir()
                 try ipa.removeQuarantine(finalURL)
                 InstallVM.shared.next(.finish, 0.95, 1.0)
                 returnCompletion(finalURL)
             } catch {
-                Log.shared.error(error)
-
-                ipa.releaseTempDir()
-
+                Log.shared.error(returnErrorString(error: error))
                 InstallVM.shared.next(.failed, 0.95, 1.0)
                 returnCompletion(nil)
             }
@@ -158,6 +169,7 @@ class Installer {
         }
 
         var resolved: [URL] = []
+        let serialQueue = DispatchQueue(label: "baseAppUrlResolver")
 
         baseApp.url.enumerateContents { url, attributes in
             guard attributes.isRegularFile == true, let fileSize = attributes.fileSize, fileSize > 4 else {
@@ -181,10 +193,13 @@ class Installer {
             guard let data = try handle.read(upToCount: 4) else {
                 return
             }
-            switch Array(data) {
-            case [202, 254, 186, 190]: resolved.append(url)
-            case [207, 250, 237, 254]: resolved.append(url)
-            default: return
+
+            serialQueue.sync {
+                switch Array(data) {
+                case [202, 254, 186, 190]: resolved.append(url)
+                case [207, 250, 237, 254]: resolved.append(url)
+                default: return
+                }
             }
         }
 

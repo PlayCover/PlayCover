@@ -20,7 +20,7 @@ struct UpdateSettings: View {
             }
         }
         .padding(20)
-        .frame(width: 350, height: 100, alignment: .center)
+        .frame(width: 600, height: 100, alignment: .center)
         .onChange(of: autoUpdate) { value in
             updaterViewModel.automaticallyCheckForUpdates = value
         }

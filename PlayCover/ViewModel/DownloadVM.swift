@@ -16,7 +16,7 @@ enum DownloadStepsNative: String {
 }
 
 class DownloadVM: ProgressVM<DownloadStepsNative> {
-    @Published var storeAppData: StoreAppData?
+    @Published var storeAppData: SourceAppsData?
 
     static let shared = DownloadVM()
 

@@ -114,7 +114,8 @@ class LegacySettings {
                                                               downKeyCode: downKeyCode,
                                                               leftKeyCode: leftKeyCode,
                                                               keyName: "Keyboard",
-                                                              transform: transform))
+                                                              transform: transform,
+                                                              mode: .FIXED))
                 } else if data.count == 5 {
                     let size = data[3] as? CGFloat ?? 5
                     let xCoord = data[1] as? CGFloat ?? 0
