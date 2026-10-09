@@ -23,6 +23,8 @@ class NotifyService: NSObject, UNUserNotificationCenterDelegate {
     }
 
     func notify(_ title: String, _ message: String) {
+        if CLIContext.isCLI { return }
+
         let center = UNUserNotificationCenter.current()
 
         let content = UNMutableNotificationContent()

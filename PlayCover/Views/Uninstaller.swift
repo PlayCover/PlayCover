@@ -112,26 +112,31 @@ class Uninstaller {
         var uninstallNum = 0
 
         if UninstallPreferences.shared.clearAppData {
+            if CLIContext.isCLI { CLIOut.line("Clearing app data...") }
             await app.clearAllCache()
             uninstallNum += 1
         }
 
         if UninstallPreferences.shared.removeAppKeymap {
+            if CLIContext.isCLI { CLIOut.line("Removing keymaps...") }
             FileManager.default.delete(at: app.keymapping.baseKeymapURL)
             uninstallNum += 1
         }
 
         if UninstallPreferences.shared.removeAppSettings {
+            if CLIContext.isCLI { CLIOut.line("Removing app settings...") }
             FileManager.default.delete(at: app.settings.settingsUrl)
             uninstallNum += 1
         }
 
         if UninstallPreferences.shared.removeAppEntitlements {
+            if CLIContext.isCLI { CLIOut.line("Removing entitlements...") }
             FileManager.default.delete(at: app.entitlements)
             uninstallNum += 1
         }
 
         if UninstallPreferences.shared.removePlayChain {
+            if CLIContext.isCLI { CLIOut.line("Removing PlayChain data...") }
             let url = KeyCover.playChainPath.appendingPathComponent(app.info.bundleIdentifier)
             FileManager.default.delete(at: url)
 
@@ -141,6 +146,7 @@ class Uninstaller {
             uninstallNum += 1
         }
 
+        if CLIContext.isCLI { CLIOut.line("Removing app bundle...") }
         app.removeAlias()
         app.deleteApp()
 

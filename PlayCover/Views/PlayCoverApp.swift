@@ -70,7 +70,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 }
 
-@main
 struct PlayCoverApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject var updaterViewModel = UpdaterViewModel()

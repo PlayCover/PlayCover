@@ -228,13 +228,17 @@ extension PlayApp {
                 if KeyCover.shared.keyCoverPlainTextKey == nil {
                     // Pop an alert telling the user that keychain was not unlocked
                     // and keychain is disabled for the session
-                    Task { @MainActor in
-                        let alert = NSAlert()
-                        alert.messageText = NSLocalizedString("keycover.alert.title", comment: "")
-                        alert.informativeText = NSLocalizedString("keycover.alert.content", comment: "")
-                        alert.alertStyle = .warning
-                        alert.addButton(withTitle: NSLocalizedString("button.OK", comment: ""))
-                        alert.runModal()
+                    if CLIContext.isCLI {
+                        CLIOut.line("Warning: KeyCover keychain is locked; PlayChain disabled for this session")
+                    } else {
+                        Task { @MainActor in
+                            let alert = NSAlert()
+                            alert.messageText = NSLocalizedString("keycover.alert.title", comment: "")
+                            alert.informativeText = NSLocalizedString("keycover.alert.content", comment: "")
+                            alert.alertStyle = .warning
+                            alert.addButton(withTitle: NSLocalizedString("button.OK", comment: ""))
+                            alert.runModal()
+                        }
                     }
                     settings.settings.playChain = false
                     sessionDisableKeychain = true
