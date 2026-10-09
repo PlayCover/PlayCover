@@ -11,6 +11,10 @@ class Log: ObservableObject {
     static let shared = Log()
 
     func error(_ err: Error) {
+        if CLIContext.isCLI {
+            CLIOut.error(err.localizedDescription)
+            return
+        }
         Task { @MainActor in
             self.dialog(
                 question: NSLocalizedString("alert.error", comment: ""),
@@ -24,6 +28,10 @@ class Log: ObservableObject {
     }
 
     func msg(_ msg: String) {
+        if CLIContext.isCLI {
+            CLIOut.line(msg)
+            return
+        }
         Task { @MainActor in
             self.log(msg)
             self.dialog(
@@ -36,7 +44,11 @@ class Log: ObservableObject {
     var logdata = "\(ProcessInfo.processInfo.operatingSystemVersionString)\n"
 
     func log(_ str: String, isError: Bool = false) {
-        print(str)
+        if CLIContext.isCLI {
+            FileHandle.standardError.write(Data((str + "\n").utf8))
+        } else {
+            print(str)
+        }
         if isError {
             logdata.append("ERROR: ")
         }

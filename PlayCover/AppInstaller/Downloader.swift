@@ -41,6 +41,10 @@ class DownloadApp {
             Log.shared.error(PlayCoverError.waitInstallation)
         } else {
             if let app = app, PlayApp.PROHIBITED_APPS.contains(app.bundleID) {
+                if CLIContext.isCLI {
+                    CLIOut.error("\(app.name) is prohibited and cannot be downloaded.")
+                    return
+                }
                 let alert = NSAlert()
                 alert.messageText = NSLocalizedString("alert.error", comment: "")
                 alert.informativeText = String(
@@ -56,24 +60,32 @@ class DownloadApp {
             }
 
             if let warningMessage = warning, let app = app {
-                let alert = NSAlert()
-                alert.messageText = NSLocalizedString(warningMessage, comment: "")
-                alert.informativeText = String(
-                    format: NSLocalizedString("alert.install.anyway", comment: ""),
-                    arguments: [app.name]
-                )
-                alert.alertStyle = .warning
-                alert.addButton(withTitle: NSLocalizedString("button.Yes", comment: ""))
-                alert.addButton(withTitle: NSLocalizedString("button.No", comment: ""))
+                if CLIContext.isCLI {
+                    CLIOut.line("Warning: \(app.name) — \(warningMessage); proceeding anyway.")
+                } else {
+                    let alert = NSAlert()
+                    alert.messageText = NSLocalizedString(warningMessage, comment: "")
+                    alert.informativeText = String(
+                        format: NSLocalizedString("alert.install.anyway", comment: ""),
+                        arguments: [app.name]
+                    )
+                    alert.alertStyle = .warning
+                    alert.addButton(withTitle: NSLocalizedString("button.Yes", comment: ""))
+                    alert.addButton(withTitle: NSLocalizedString("button.No", comment: ""))
 
-                if alert.runModal() == .alertSecondButtonReturn {
-                    return
+                    if alert.runModal() == .alertSecondButtonReturn {
+                        return
+                    }
                 }
             }
-            if let url = url, let app = app {
+            if let url = url {
                 let ipa = IPA(url: url)
                 Task {
-                    if await ipa.checkOfficialMacOS(app: IPA.Application.store(app)) {
+                    var officialMacOS = false
+                    if let app = app {
+                        officialMacOS = await ipa.checkOfficialMacOS(app: IPA.Application.store(app))
+                    }
+                    if officialMacOS {
                         cancel()
                     } else {
                         if url.isFileURL {
@@ -157,6 +169,11 @@ class DownloadApp {
     }
 
     private func checksumAlert(originalSum: String, givenSum: String, completion: @escaping (Bool) -> Void) {
+        if CLIContext.isCLI {
+            CLIOut.error("Checksum mismatch. Expected \(originalSum), got \(givenSum)")
+            completion(false)
+            return
+        }
         Task { @MainActor in
             let alert = NSAlert()
             alert.messageText = NSLocalizedString("playapp.download.differentChecksum", comment: "")
