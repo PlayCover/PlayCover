@@ -332,11 +332,10 @@ struct GraphicsView: View {
                         }
                         .frame(maxWidth: .infinity, alignment: .trailing)
                     } else if settings.settings.resolution == 1 {
-                        let width = Int(NSScreen.main?.frame.width ?? 1920)
-                        let height = getHeightForNotch(width, Int(NSScreen.main?.frame.height ?? 1080))
+                        let resolution = AppSettings.autoResolution()
                         Text("settings.text.detectedResolution")
                         Spacer()
-                        Text("\(width) x \(height)")
+                        Text("\(resolution.width) x \(resolution.height)")
                     } else {
                         Spacer()
                     }
@@ -437,8 +436,9 @@ struct GraphicsView: View {
         switch settings.settings.resolution {
         // Adaptive resolution = Auto
         case 1:
-            width = Int(NSScreen.main?.frame.width ?? 1920)
-            height = getHeightForNotch(width, Int(NSScreen.main?.frame.height ?? 1080))
+            let resolution = AppSettings.autoResolution()
+            width = resolution.width
+            height = resolution.height
         // Adaptive resolution = 1080p
         case 2:
             height = 1080
@@ -489,16 +489,6 @@ struct GraphicsView: View {
         }
         return (height / heightRatio) * widthRatio
     }
-    func getHeightForNotch(_ width: Int, _ height: Int) -> Int {
-        let wFloat = Float(width)
-        let hFloat = Float(height)
-        if NSScreen.hasNotch() && (hFloat/wFloat)*16.0 > 10.3 && (hFloat/wFloat)*16.0 < 10.4 {
-            return Int((wFloat / 16) * 10)
-        } else {
-            return Int(height)
-        }
-    }
-
     func setAspectRatioForResizableWindow() {
         var widthRatio = 0
         var heightRatio = 0
