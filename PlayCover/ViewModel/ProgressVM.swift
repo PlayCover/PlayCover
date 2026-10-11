@@ -8,9 +8,17 @@
 import Foundation
 
 class ProgressVM<Steps: RawRepresentable & Equatable>: ObservableObject where Steps.RawValue == String {
-    @Published var progress = 0.0
+    @Published var progress = 0.0 {
+        didSet {
+            if CLIContext.isCLI { CLIProgressRenderer.shared.render(progress: progress) }
+        }
+    }
     @Published var inProgress = false
-    @Published var status: Steps
+    @Published var status: Steps {
+        didSet {
+            if CLIContext.isCLI { CLIProgressRenderer.shared.step(status.rawValue) }
+        }
+    }
 
     private let starting: Steps
     private let ends: [Steps]

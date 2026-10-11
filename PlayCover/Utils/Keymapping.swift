@@ -128,7 +128,7 @@ class Keymapping {
         return hasKeymap(name: name)
     }
 
-    private func setKeymap(name: String, map: Keymap) {
+    func setKeymap(name: String, map: Keymap) {
         let keymapPath = constructKeymapPath(name: name)
 
         do {

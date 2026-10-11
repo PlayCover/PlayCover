@@ -49,9 +49,11 @@ class Installer {
         // If (the option key is held or the install playtools popup settings is true) and its not an export,
         //    then show the installer dialog
         let installPlayTools: Bool
-        let applicationType = InstallPreferences.shared.defaultAppType
+        let applicationType = CLIContext.appCategoryOverride ?? InstallPreferences.shared.defaultAppType
 
-        if (ModifierKeyObserver.shared.isOptionKeyPressed
+        if CLIContext.isCLI {
+            installPlayTools = CLIContext.playToolsOverride ?? InstallPreferences.shared.alwaysInstallPlayTools
+        } else if (ModifierKeyObserver.shared.isOptionKeyPressed
                 || InstallPreferences.shared.showInstallPopup) && !export {
             installPlayTools = installPlayToolsPopup()
         } else {
