@@ -180,6 +180,16 @@ struct KeymappingView: View {
                         .frame(width: 250)
                         .disabled(!settings.settings.keymapping)
                 }
+                HStack {
+                    Text(String(
+                        format: NSLocalizedString("settings.slider.scrollWheelSpeed", comment: ""),
+                        settings.settings.scrollWheelSpeed))
+                    Spacer()
+                    Slider(value: $settings.settings.scrollWheelSpeed, in: 0.25...10, label: { EmptyView() })
+                        .frame(width: 250)
+                        .disabled(!settings.settings.keymapping || !settings.settings.enableScrollWheel)
+                        .help("settings.slider.scrollWheelSpeed.help")
+                }
                 Spacer()
             }
             .padding()
