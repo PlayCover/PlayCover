@@ -130,17 +130,28 @@ struct MainView: View {
             .onAppear {
                 self.selectedView = URLObserved.type == .source ? 2 : 1
             }
-            .overlay {
+            .toastOverlay {
                 HStack {
+                    var spacerWidth: CGFloat {
+                        // space width changes depending on if it is liquid glass and its accompanying custom padding
+                        #if compiler(>=6.2)
+                        if #available(macOS 26.0, *) {
+                            return navWidth + ToastView.toastGlassPadding
+                        }
+                        #endif
+                        return navWidth
+                    }
+
                     if !collapsed {
                         Spacer()
-                            .frame(width: navWidth)
+                            .frame(width: spacerWidth)
                     }
                     ToastView()
                         .environmentObject(ToastVM.shared)
                         .environmentObject(InstallVM.shared)
                         .environmentObject(DownloadVM.shared)
-                        .frame(width: collapsed || viewWidth < navWidth ? viewWidth : (viewWidth - navWidth))
+                        // add a max statement here to ensure that the width will never be negative
+                        .frame(width: max(0, collapsed || viewWidth < navWidth ? viewWidth : (viewWidth - spacerWidth)))
                         .animation(.spring(), value: collapsed)
                 }
             }

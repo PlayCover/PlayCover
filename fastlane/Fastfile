@@ -60,7 +60,7 @@ lane :nightly do
     skip_package_pkg: true,
     xcargs: "FASTLANE=1",
     )
-end  
+end
 
 lane :notarize_app do
   notarize(
@@ -77,7 +77,7 @@ lane :notarize_dmg do |options|
     api_key_path: "apikey.json",
     bundle_id: bundle_id,
     print_log: true,
-    verbose: true,
+    # verbose: true,
   )
 end
 

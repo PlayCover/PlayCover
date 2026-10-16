@@ -11,8 +11,9 @@ extension String {
         let loadCommandStringOffset = Int(loadCommandString.offset)
         let stringOffset = offset + loadCommandStringOffset
         let length = commandSize - loadCommandStringOffset
-        self = String(data: data[stringOffset..<(stringOffset + length)],
-                      encoding: .utf8)!.trimmingCharacters(in: .controlCharacters)
+        let rawData = data[stringOffset..<(stringOffset + length)]
+        let endIndex = rawData.firstIndex(of: 0x00) ?? rawData.endIndex
+        self = String(data: data[stringOffset..<endIndex], encoding: .utf8)!
     }
 }
 

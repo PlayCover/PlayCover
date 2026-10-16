@@ -6,6 +6,8 @@
 import Foundation
 import injection
 
+// This has so many functionality in it that 250 lines is darn near impossible
+// swiftlint:disable:next type_body_length
 class PlayTools {
     private static let frameworksURL = FileManager.default.homeDirectoryForCurrentUser
         .appendingPathComponent("Library")
@@ -82,7 +84,13 @@ class PlayTools {
                            finishHandle: { result in
             if result {
                 do {
-                    try installPluginInIPA(exec.deletingLastPathComponent())
+                    let payload = exec.deletingLastPathComponent()
+                    try installPluginInIPA(payload)
+
+                    let info = AppInfo(contentsOf: payload.appendingPathComponent("Info")
+                                                          .appendingPathExtension("plist"))
+                    try syncUserDylibs(bundleIdentifier: info.bundleIdentifier, into: exec)
+
                     try Shell.signApp(exec)
                 } catch {
                     Log.shared.error(error)
@@ -100,13 +108,46 @@ class PlayTools {
                               component: "Playtools", pathExtension: "strings")
         }
 
-        let bundleTarget = try copyAsset(target: payload, directoryName: "PlugIns",
-                                         component: "AKInterface", pathExtension: "bundle")
-        try bundleTarget.fixExecutable()
-        try Shell.signMacho(bundleTarget)
+        let bundledPlayToolsResources = bundledPlayToolsFramework
+            .appendingPathComponent("Versions")
+            .appendingPathComponent("A")
+            .appendingPathComponent("Resources")
+        if FileManager.default.fileExists(atPath: bundledPlayToolsResources.path) {
+            let allFiles = try FileManager.default.contentsOfDirectory(
+                at: bundledPlayToolsResources, includingPropertiesForKeys: [])
+            for localizationDirectory in allFiles where localizationDirectory.pathExtension == "lproj" {
+                _ = try copyAsset(source: bundledPlayToolsResources,
+                                  target: payload,
+                                  directoryName: localizationDirectory.lastPathComponent,
+                                  component: "Playtools", pathExtension: "strings")
+            }
+        }
+
+        try installComponentBundles(into: payload)
     }
 
-    static func copyAsset(target: URL, directoryName: String,
+    static func installComponentBundles(into payload: URL) throws {
+        let pluginsSource = bundledPlayToolsFramework.appendingPathComponent("PlugIns")
+        let pluginsTarget = payload.appendingPathComponent("PlugIns")
+        try FileManager.default.createDirectory(at: pluginsTarget, withIntermediateDirectories: true)
+
+        let bundleNames = try FileManager.default.contentsOfDirectory(atPath: pluginsSource.path)
+        let bundles = bundleNames
+            .map { pluginsSource.appendingPathComponent($0) }
+            .filter { $0.pathExtension == "bundle" }
+
+        for bundleSource in bundles {
+            let bundleTarget = pluginsTarget.appendingPathComponent(bundleSource.lastPathComponent)
+            if FileManager.default.fileExists(atPath: bundleTarget.path) {
+                try FileManager.default.removeItem(at: bundleTarget)
+            }
+            try FileManager.default.copyItem(at: bundleSource, to: bundleTarget)
+            try bundleTarget.fixExecutable()
+            try Shell.signMacho(bundleTarget)
+        }
+    }
+
+    static func copyAsset(source: URL = bundledPlayToolsFramework, target: URL, directoryName: String,
                           component: String, pathExtension: String) throws -> URL {
         let directory = target.appendingPathComponent(directoryName)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
@@ -115,7 +156,7 @@ class PlayTools {
                     .appendingPathComponent(component)
                     .appendingPathExtension(pathExtension)
 
-        let source = bundledPlayToolsFramework
+        let source = source
                     .appendingPathComponent(directoryName)
                     .appendingPathComponent(component)
                     .appendingPathExtension(pathExtension)
@@ -176,13 +217,11 @@ class PlayTools {
                            finishHandle: { result in
             if result {
                 do {
-                    let pluginUrl = exec.deletingLastPathComponent()
+                    let pluginsUrl = exec.deletingLastPathComponent()
                         .appendingPathComponent("PlugIns")
-                        .appendingPathComponent("AKInterface")
-                        .appendingPathExtension("bundle")
 
-                    if FileManager.default.fileExists(atPath: pluginUrl.path) {
-                        try FileManager.default.removeItem(at: pluginUrl)
+                    if FileManager.default.fileExists(atPath: pluginsUrl.path) {
+                        try FileManager.default.removeItem(at: pluginsUrl)
                     }
                     try Shell.signApp(exec)
                 } catch {
@@ -223,12 +262,88 @@ class PlayTools {
             && Macho.isMachoValidArch(playToolsPath)
     }
 
+    // User plugins loading
+    private static func userPluginsStore(bundleIdentifier: String) -> URL {
+        playCoverContainer
+            .appendingPathComponent("PlayTools")
+            .appendingPathComponent("UserPlugins")
+            .appendingPathComponent(bundleIdentifier)
+    }
+
+    static func userDylibs(bundleIdentifier: String) -> [URL] {
+        guard let files = try? FileManager.default.contentsOfDirectory(
+            at: userPluginsStore(bundleIdentifier: bundleIdentifier), includingPropertiesForKeys: nil) else {
+            return []
+        }
+        return files.filter { $0.pathExtension == "dylib" }
+            .sorted { $0.lastPathComponent < $1.lastPathComponent }
+    }
+
+    static func addUserDylib(at sourceURL: URL, bundleIdentifier: String, appExecutable: URL) throws {
+        let store = userPluginsStore(bundleIdentifier: bundleIdentifier)
+        try FileManager.default.createDirectory(at: store, withIntermediateDirectories: true)
+
+        let canonical = store.appendingPathComponent(sourceURL.lastPathComponent)
+        if FileManager.default.fileExists(atPath: canonical.path) {
+            try FileManager.default.removeItem(at: canonical)
+        }
+        try FileManager.default.copyItem(at: sourceURL, to: canonical)
+
+        do {
+            // Validate & convert the plugin
+            if try !Macho.isMachoValidArch(canonical) {
+                try Macho.convertMacho(canonical)
+            }
+        } catch {
+            try? FileManager.default.removeItem(at: canonical)
+            throw PlayCoverError.invalidUserDylib
+        }
+
+        // Downloaded files carry a quarantine flag that blocks dlopen(); best-effort clear it.
+        _ = try? Shell.run(print: false, "/usr/bin/xattr", "-d", "com.apple.quarantine", canonical.path)
+
+        try syncUserDylibs(bundleIdentifier: bundleIdentifier, into: appExecutable)
+    }
+
+    static func removeUserDylib(named name: String, bundleIdentifier: String, appExecutable: URL) throws {
+        let canonical = userPluginsStore(bundleIdentifier: bundleIdentifier).appendingPathComponent(name)
+        if FileManager.default.fileExists(atPath: canonical.path) {
+            try FileManager.default.removeItem(at: canonical)
+        }
+        try syncUserDylibs(bundleIdentifier: bundleIdentifier, into: appExecutable)
+    }
+
+    // Resync
+    static func syncUserDylibs(bundleIdentifier: String, into appExecutable: URL) throws {
+        let targetDirectory = appExecutable.deletingLastPathComponent()
+            .appendingPathComponent("Frameworks")
+            .appendingPathComponent("UserPlugins")
+
+        if FileManager.default.fileExists(atPath: targetDirectory.path) {
+            try FileManager.default.removeItem(at: targetDirectory)
+        }
+
+        let dylibs = userDylibs(bundleIdentifier: bundleIdentifier)
+        guard !dylibs.isEmpty else { return }
+
+        try FileManager.default.createDirectory(at: targetDirectory, withIntermediateDirectories: true)
+        for source in dylibs {
+            let target = targetDirectory.appendingPathComponent(source.lastPathComponent)
+            try FileManager.default.copyItem(at: source, to: target)
+            try target.fixExecutable()
+            try Shell.signMacho(target)
+        }
+    }
+
 	static func fetchEntitlements(_ exec: URL) throws -> String {
         do {
             return try Shell.run("/usr/bin/codesign", "-d", "--entitlements", "-", "--xml", exec.path)
         } catch {
             if error.localizedDescription.contains("Document is empty") {
                 // Empty entitlements
+                return ""
+            } else if error.localizedDescription.contains("code object is not signed at all") {
+                // IPA not signed
                 return ""
             } else {
                 throw error

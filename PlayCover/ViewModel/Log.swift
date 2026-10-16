@@ -19,6 +19,10 @@ class Log: ObservableObject {
         }
     }
 
+    func error(localized str: String, args: [String] = []) {
+        error(String(format: NSLocalizedString(str, comment: ""), arguments: args))
+    }
+
     func msg(_ msg: String) {
         Task { @MainActor in
             self.log(msg)

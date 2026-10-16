@@ -2,108 +2,11 @@
 //  Keymapping.swift
 //  PlayCover
 //
-//  Created by Isaac Marovitz on 23/08/2022.
+//  Created by TheMoonThatRises on 9/15/25.
 //
 
-import AppKit
 import Foundation
 import UniformTypeIdentifiers
-
-struct KeyModelTransform: Codable {
-    var size: CGFloat
-    var xCoord: CGFloat
-    var yCoord: CGFloat
-}
-
-struct ButtonModel: Codable {
-    var keyCode: Int
-    var keyName: String
-    var transform: KeyModelTransform
-
-    init(keyCode: Int, keyName: String, transform: KeyModelTransform) {
-        self.keyCode = keyCode
-        self.keyName = keyName.isEmpty ? KeyCodeNames.keyCodes[keyCode] ?? "Btn" : keyName
-        self.transform = transform
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.init(keyCode: try container.decode(Int.self, forKey: .keyCode),
-                  keyName: try container.decodeIfPresent(String.self, forKey: .keyName) ?? "",
-                  transform: try container.decode(KeyModelTransform.self, forKey: .transform))
-    }
-}
-
-enum JoystickMode: Int, Codable {
-    case FIXED
-    case FLOATING
-}
-
-struct JoystickModel: Codable {
-    var upKeyCode: Int
-    var rightKeyCode: Int
-    var downKeyCode: Int
-    var leftKeyCode: Int
-    var keyName: String
-    var transform: KeyModelTransform
-    var mode: JoystickMode
-
-    init(upKeyCode: Int,
-         rightKeyCode: Int,
-         downKeyCode: Int,
-         leftKeyCode: Int,
-         keyName: String,
-         transform: KeyModelTransform,
-         mode: JoystickMode) {
-        self.upKeyCode = upKeyCode
-        self.rightKeyCode = rightKeyCode
-        self.downKeyCode = downKeyCode
-        self.leftKeyCode = leftKeyCode
-        self.keyName = keyName
-        self.transform = transform
-        self.mode = mode
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.init(upKeyCode: try container.decode(Int.self, forKey: .upKeyCode),
-                  rightKeyCode: try container.decode(Int.self, forKey: .rightKeyCode),
-                  downKeyCode: try container.decode(Int.self, forKey: .downKeyCode),
-                  leftKeyCode: try container.decode(Int.self, forKey: .leftKeyCode),
-                  keyName: try container.decodeIfPresent(String.self, forKey: .keyName) ?? "Keyboard",
-                  transform: try container.decode(KeyModelTransform.self, forKey: .transform),
-                  mode: try container.decodeIfPresent(JoystickMode.self, forKey: .mode) ?? .FIXED)
-    }
-}
-
-struct MouseAreaModel: Codable {
-    var keyName: String
-    var transform: KeyModelTransform
-
-    init(keyName: String, transform: KeyModelTransform) {
-        self.keyName = keyName
-        self.transform = transform
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.init(keyName: try container.decodeIfPresent(String.self, forKey: .keyName) ?? "Mouse",
-                  transform: try container.decode(KeyModelTransform.self, forKey: .transform))
-    }
-}
-
-struct Keymap: Codable {
-    var buttonModels: [ButtonModel] = []
-    var draggableButtonModels: [ButtonModel] = []
-    var joystickModel: [JoystickModel] = []
-    var mouseAreaModel: [MouseAreaModel] = []
-    var bundleIdentifier: String
-    var version = "2.0.0"
-}
-
-struct KeymapConfig: Codable {
-    var defaultKm: String
-}
 
 class Keymapping {
     static var keymappingDir: URL {
@@ -124,6 +27,8 @@ class Keymapping {
     let baseKeymapURL: URL
     let configURL: URL
 
+    let encoder: PropertyListEncoder
+
     var keymapConfig: KeymapConfig {
         get {
             do {
@@ -136,9 +41,6 @@ class Keymapping {
             }
         }
         set {
-            let encoder = PropertyListEncoder()
-            encoder.outputFormat = .xml
-
             do {
                 let data = try encoder.encode(newValue)
                 try data.write(to: configURL)
@@ -148,28 +50,54 @@ class Keymapping {
         }
     }
 
-    public private(set) var keymapURLs: [String: URL]
-
     init(_ info: AppInfo) {
         self.info = info
 
-        baseKeymapURL = Keymapping.keymappingDir.appendingPathComponent(info.bundleIdentifier)
+        self.baseKeymapURL = Keymapping.keymappingDir.appendingPathComponent(info.bundleIdentifier)
         self.configURL = baseKeymapURL.appendingPathComponent(".config").appendingPathExtension("plist")
-        keymapURLs = [:]
 
-        reloadKeymapCache()
+        if !FileManager.default.fileExists(atPath: self.baseKeymapURL.path) {
+            do {
+                try FileManager.default.createDirectory(at: self.baseKeymapURL,
+                                                        withIntermediateDirectories: true)
+            } catch {
+                Log.shared.error(error)
+            }
+        }
+
+        self.encoder = PropertyListEncoder()
+        self.encoder.outputFormat = .xml
+
+        self.reloadKeymapCache()
+
+    }
+
+    private func constructKeymapPath(name: String) -> URL {
+        baseKeymapURL.appendingPathComponent(name).appendingPathExtension("plist")
     }
 
     public func reloadKeymapCache() {
-        keymapURLs = [:]
+        guard FileManager.default.fileExists(atPath: baseKeymapURL.path) else {
+            return
+        }
 
         do {
             let directoryContents = try FileManager.default
                 .contentsOfDirectory(at: baseKeymapURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
+            var keymaps: [URL] = []
 
             if directoryContents.count > 0 {
                 for keymap in directoryContents where keymap.pathExtension.contains("plist") {
-                    keymapURLs[keymap.deletingPathExtension().lastPathComponent] = keymap
+                    if !keymapConfig.keymapOrder.contains(keymap) {
+                        keymapConfig.keymapOrder.append(keymap)
+                    }
+
+                    keymaps.append(keymap)
+                }
+
+                for keymap in keymapConfig.keymapOrder where !keymaps.contains(keymap) {
+                    setKeymap(name: keymap.deletingPathExtension().lastPathComponent,
+                              map: Keymap(bundleIdentifier: info.bundleIdentifier))
                 }
 
                 return
@@ -184,61 +112,46 @@ class Keymapping {
     }
 
     public func getKeymap(name: String) -> Keymap {
-        if let keymapURL = keymapURLs[name] {
-            do {
-                let data = try Data(contentsOf: keymapURL)
-                let map = try PropertyListDecoder().decode(Keymap.self, from: data)
-                return map
-            } catch {
-                print(error)
-                return reset(name: name)
-            }
-        } else {
-            Log.shared.error("error.unknown.keymap")
+        do {
+            let data = try Data(contentsOf: constructKeymapPath(name: name))
+            let map = try PropertyListDecoder().decode(Keymap.self, from: data)
+            return map
+        } catch {
+            print(error)
             return reset(name: name)
         }
     }
 
-    public func createEmptyKeymap(name: String, bundleId: String) -> Bool {
-        setKeymap(name: name, map: Keymap(bundleIdentifier: bundleId))
+    public func createEmptyKeymap(name: String) -> Bool {
+        setKeymap(name: name, map: Keymap(bundleIdentifier: info.bundleIdentifier))
 
-        return keymapURLs.keys.contains(name)
+        return hasKeymap(name: name)
     }
 
     private func setKeymap(name: String, map: Keymap) {
-        let encoder = PropertyListEncoder()
-        encoder.outputFormat = .xml
+        let keymapPath = constructKeymapPath(name: name)
 
-        if !keymapURLs.keys.contains(name) {
-            let mapURL = baseKeymapURL.appendingPathComponent(name).appendingPathExtension("plist")
+        do {
+            let data = try encoder.encode(map)
+            try data.write(to: keymapPath)
 
-            keymapURLs[name] = mapURL
-        }
-
-        if let keymapURL = keymapURLs[name] {
-            do {
-                let data = try encoder.encode(map)
-                try data.write(to: keymapURL)
-            } catch {
-                print(error)
+            if !keymapConfig.keymapOrder.contains(keymapPath) {
+                keymapConfig.keymapOrder.append(keymapPath)
             }
-        } else {
-            Log.shared.error("error.unknown.unknownError")
+        } catch {
+            print(error)
         }
     }
 
     public func renameKeymap(prevName: String, newName: String) -> Bool {
-        if let keymapURL = keymapURLs[prevName] {
+        let oldPath = constructKeymapPath(name: prevName)
+        let newPath = constructKeymapPath(name: newName)
+
+        if let oldKeymapIndex = keymapConfig.keymapOrder.firstIndex(of: oldPath) {
             do {
-                let newKeymapURL = baseKeymapURL.appendingPathComponent(newName).appendingPathExtension("plist")
+                try FileManager.default.moveItem(at: oldPath, to: newPath)
 
-                try FileManager.default.moveItem(
-                    at: keymapURL,
-                    to: newKeymapURL
-                )
-
-                keymapURLs[newName] = newKeymapURL
-                keymapURLs.removeValue(forKey: prevName)
+                keymapConfig.keymapOrder[oldKeymapIndex] = newPath
 
                 return true
             } catch {
@@ -252,11 +165,13 @@ class Keymapping {
     }
 
     public func deleteKeymap(name: String) -> Bool {
-        if let keymapURL = keymapURLs[name] {
+        let keymapURL = constructKeymapPath(name: name)
+
+        if let keymapIndex = keymapConfig.keymapOrder.firstIndex(of: keymapURL) {
             do {
                 try FileManager.default.trashItem(at: keymapURL, resultingItemURL: nil)
 
-                keymapURLs.removeValue(forKey: name)
+                keymapConfig.keymapOrder.remove(at: keymapIndex)
 
                 return true
             } catch {
@@ -269,6 +184,10 @@ class Keymapping {
         }
     }
 
+    public func hasKeymap(name: String) -> Bool {
+        keymapConfig.keymapOrder.contains(constructKeymapPath(name: name))
+    }
+
     @discardableResult
     public func reset(name: String) -> Keymap {
         setKeymap(name: name, map: Keymap(bundleIdentifier: info.bundleIdentifier))
@@ -277,14 +196,10 @@ class Keymapping {
 
     @discardableResult
     private func resetConfig() -> KeymapConfig {
-        let defaultKm = keymapURLs.keys.contains("default") ? "default" : keymapURLs.keys.first
+        let defaultURL = constructKeymapPath(name: "default")
 
-        guard let defaultKm = defaultKm else {
-            reloadKeymapCache()
-            return resetConfig()
-        }
-
-        keymapConfig = KeymapConfig(defaultKm: defaultKm)
+        keymapConfig = KeymapConfig(defaultKm: defaultURL,
+                                    keymapOrder: [defaultURL])
 
         return keymapConfig
     }
@@ -353,9 +268,7 @@ class Keymapping {
             if result == .OK {
                 do {
                     if let selectedPath = savePanel.url {
-                        let encoder = PropertyListEncoder()
-                        encoder.outputFormat = .xml
-                        let data = try encoder.encode(self.getKeymap(name: name))
+                        let data = try self.encoder.encode(self.getKeymap(name: name))
                         try data.write(to: selectedPath)
                         selectedPath.openInFinder()
                     }
@@ -376,14 +289,6 @@ class Keymapping {
         alert.addButton(withTitle: NSLocalizedString("button.Proceed", comment: ""))
         alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
 
-        let result = alert.runModal()
-        switch result {
-        case .alertFirstButtonReturn:
-            return true
-        case .alertSecondButtonReturn:
-            return false
-        default:
-            return false
-        }
+        return alert.runModal() == .alertFirstButtonReturn
     }
 }

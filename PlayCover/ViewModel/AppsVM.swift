@@ -12,8 +12,16 @@ class AppsVM: ObservableObject {
     static let shared = AppsVM()
 
     private init() {
+        try? AppsVM.ensureBaseDirectoriesExist()
         PlayTools.installOnSystem()
         fetchApps()
+    }
+
+    static func ensureBaseDirectoriesExist() throws {
+        try FileManager.default.createDirectory(
+            at: appDirectory,
+            withIntermediateDirectories: true
+        )
     }
 
     @Published var filteredApps: [PlayApp] = []

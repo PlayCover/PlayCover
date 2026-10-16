@@ -62,6 +62,7 @@ class Installer {
 
         Task(priority: .userInitiated) {
             let ipa = IPA(url: ipaUrl)
+            defer { ipa.releaseTempDir() }
 
             do {
                 InstallVM.shared.next(.unzip, 0.0, 0.5)
@@ -69,7 +70,6 @@ class Installer {
 
                 let app = try ipa.unzip()
                 if await ipa.checkOfficialMacOS(app: IPA.Application.base(app)) {
-                    ipa.releaseTempDir()
                     InstallVM.shared.next(.failed, 0.95, 1.0)
                     returnCompletion(nil)
                     return
@@ -122,14 +122,11 @@ class Installer {
                     installedApp.sign()
                 }
 
-                ipa.releaseTempDir()
                 try ipa.removeQuarantine(finalURL)
                 InstallVM.shared.next(.finish, 0.95, 1.0)
                 returnCompletion(finalURL)
             } catch {
                 Log.shared.error(returnErrorString(error: error))
-                ipa.releaseTempDir()
-
                 InstallVM.shared.next(.failed, 0.95, 1.0)
                 returnCompletion(nil)
             }
@@ -172,6 +169,7 @@ class Installer {
         }
 
         var resolved: [URL] = []
+        let serialQueue = DispatchQueue(label: "baseAppUrlResolver")
 
         baseApp.url.enumerateContents { url, attributes in
             guard attributes.isRegularFile == true, let fileSize = attributes.fileSize, fileSize > 4 else {
@@ -195,10 +193,13 @@ class Installer {
             guard let data = try handle.read(upToCount: 4) else {
                 return
             }
-            switch Array(data) {
-            case [202, 254, 186, 190]: resolved.append(url)
-            case [207, 250, 237, 254]: resolved.append(url)
-            default: return
+
+            serialQueue.sync {
+                switch Array(data) {
+                case [202, 254, 186, 190]: resolved.append(url)
+                case [207, 250, 237, 254]: resolved.append(url)
+                default: return
+                }
             }
         }
 
