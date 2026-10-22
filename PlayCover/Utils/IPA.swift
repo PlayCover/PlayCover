@@ -104,6 +104,9 @@ public class IPA {
 
     @MainActor
     func checkOfficialMacOS(app: Application) async -> Bool {
+        // CLI mode: never block on the App Store alert.
+        if CLIContext.isCLI { return false }
+
         let bundleID: String
         let appID: Int
         switch app {
