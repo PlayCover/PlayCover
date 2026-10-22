@@ -62,7 +62,7 @@ extension PlayApp {
                 // LaunchServices on macOS 27 will not open the alias while Info.plist is a
                 // symlink: it fails with -54 (permErr) and the user sees "does not have
                 // permission to open (null)". A real copy is enough, and it stays current
-                // because the alias is rebuilt on every PlayApp init.
+                // because the alias is rebuilt on every PlayApp init and before every launch.
                 if ctxUrl.lastPathComponent == "Info.plist" {
                     try FileManager.default.copyItem(at: ctxUrl, to: aliasItem)
                 } else {

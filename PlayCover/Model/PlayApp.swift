@@ -107,6 +107,11 @@ class PlayApp: BaseApp {
                 if settings.openWithLLDB {
                     try Shell.lldb(executable, withTerminalWindow: settings.openLLDBWithTerminal)
                 } else {
+                    // The bundle may have been modified and re-signed above, so rebuild the
+                    // alias to keep its Info.plist copy in sync with the sealed bundle
+                    removeAlias()
+                    createAlias()
+
                     runAppExec() // Splitting to reduce complexity
                 }
             }
