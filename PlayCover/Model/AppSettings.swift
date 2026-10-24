@@ -42,6 +42,7 @@ struct AppSettingsData: Codable {
     var rootWorkDir = true
     var noKMOnInput = true
     var enableScrollWheel = true
+    var scrollWheelSpeed: Float = 4
     var hideTitleBar = false
     var floatingWindow = false
     var checkMicPermissionSync = false
@@ -83,6 +84,7 @@ struct AppSettingsData: Codable {
         rootWorkDir = try container.decodeIfPresent(Bool.self, forKey: .rootWorkDir) ?? true
         noKMOnInput = try container.decodeIfPresent(Bool.self, forKey: .noKMOnInput) ?? true
         enableScrollWheel = try container.decodeIfPresent(Bool.self, forKey: .enableScrollWheel) ?? true
+        scrollWheelSpeed = try container.decodeIfPresent(Float.self, forKey: .scrollWheelSpeed) ?? 4
         hideTitleBar = try container.decodeIfPresent(Bool.self, forKey: .hideTitleBar) ?? false
         floatingWindow = try container.decodeIfPresent(Bool.self, forKey: .floatingWindow) ?? false
         checkMicPermissionSync = try container.decodeIfPresent(Bool.self, forKey: .checkMicPermissionSync) ?? false

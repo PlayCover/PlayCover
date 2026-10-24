@@ -345,4 +345,6 @@
 "alert.start.anyway" = "Start Anyway";
 "alert.version.title" = "New Version Available";
 "alert.version.text" = "A new version for %@ is available. Do you want to download it?";
+"settings.slider.scrollWheelSpeed" = "Scroll wheel speed: %.2f";
+"settings.slider.scrollWheelSpeed.help" = "How far the scroll wheel drags per notch. Lower is slower.";
 
