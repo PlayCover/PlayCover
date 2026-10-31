@@ -332,6 +332,8 @@
 "settings.highResolution" = "高画质可能会导致闪退";
 "settings.picker.windowFix" = "修复窗口化显示问题";
 "settings.picker.windowFix.help" = "启用窗口化修复也许可以让你的程序正常显示";
+"settings.toggle.overrideFullScreen" = "覆盖应用的全屏声明";
+"settings.toggle.overrideFullScreen.help" = "启动前把应用改为需要全屏，并把 iPad 方向限制为横屏。关闭后恢复原来的声明。更新应用后，下次启动会再次写入。窗口可调整大小时不生效。";
 "settings.picker.windowFixMethod.0" = "正常";
 "settings.picker.windowFixMethod.1" = "备用";
 "preferences.popover.checking" = "检查 URL";
@@ -386,3 +388,5 @@
 "ipaLibrary.AlphabeticalSort" = "按字母顺序排列应用来源";
 "alert.install.anyway" = "仍然安装";
 "alert.open.appstore" = "打开 Mac App Store";
+"error.invalidSignature" = "签名检查没有通过，所以没有打开这个应用。";
+"error.launchTimedOut" = "系统没有在时限内确认应用已打开。如果游戏窗口已经出现，可以忽略；否则请再试一次。";

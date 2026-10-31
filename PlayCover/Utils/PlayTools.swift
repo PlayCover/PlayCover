@@ -21,7 +21,7 @@ class PlayTools {
         .appendingPathComponent("PlugIns")
         .appendingPathComponent("AKInterface")
         .appendingPathExtension("bundle")
-    private static let bundledPlayToolsFramework = Bundle.main.bundleURL
+    static let bundledPlayToolsFramework = Bundle.main.bundleURL
         .appendingPathComponent("Contents")
         .appendingPathComponent("Frameworks")
         .appendingPathComponent("PlayTools")

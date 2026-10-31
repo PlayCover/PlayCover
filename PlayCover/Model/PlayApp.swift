@@ -64,6 +64,7 @@ class PlayApp: BaseApp {
     func launch() async {
         do {
             isStarting = true
+            defer { isStarting = false }
 
             if prohibitedToPlay {
                 await clearAllCache()
@@ -77,21 +78,8 @@ class PlayApp: BaseApp {
             if await VersionCheck.shared.checkNewVersion(myApp: self) { return }
 
             settings.sync()
-
-            // Install PlugIns/localizations before signing so the bundle is fully
-            // assembled before its signature is sealed over its contents.
-            // If the app does not have PlayTools, do not install PlugIns
-            if hasPlayTools() {
-                try PlayTools.installPluginInIPA(url)
-            }
-
-            if try !Entitlements.areEntitlementsValid(app: self) {
-                sign()
-            }
-
-            if try !isInfoPlistSigned() {
-                try Shell.signApp(executable)
-            }
+            try applyFullScreenDeclaration()
+            try sealIfNeeded()
 
             // Wait for keychain unlock to finish before continuing
             await unlockKeyCover()
@@ -107,15 +95,14 @@ class PlayApp: BaseApp {
                 if settings.openWithLLDB {
                     try Shell.lldb(executable, withTerminalWindow: settings.openLLDBWithTerminal)
                 } else {
-                    // The bundle may have been modified and re-signed above, so rebuild the
-                    // alias to keep its Info.plist copy in sync with the sealed bundle
+                    // Keep the Finder shortcut pointed at the bundle that was just sealed.
+                    // Launch the real bundle itself; the shortcut is not a signed bundle.
                     removeAlias()
                     createAlias()
 
-                    runAppExec() // Splitting to reduce complexity
+                    try await runAppExec()
                 }
             }
-            isStarting = false
         } catch {
             Log.shared.error(error)
         }
@@ -157,7 +144,9 @@ extension PlayApp {
         }
     }
 
-    func runAppExec() {
+    static let launchConfirmationTimeout: UInt64 = 45_000_000_000
+
+    func runAppExec() async throws {
         let config = NSWorkspace.OpenConfiguration()
 
         // Prevent propagating debugging-related variables to child process
@@ -168,29 +157,44 @@ extension PlayApp {
             unsetenv(key)
         }
 
-        NSWorkspace.shared.openApplication(
-            at: aliasURL,
-            configuration: config,
-            completionHandler: { runningApp, error in
-                guard error == nil else { return }
-                // Run a thread loop in the background to handle background tasks
-                Task(priority: .background) {
-                    if let runningApp = runningApp {
-                        while !(runningApp.isTerminated) {
-                            if runningApp.isActive {
-                                self.disableTimeOut()
-                            } else {
-                                self.enableTimeOut()
-                            }
-                            sleep(1)
-                        }
-                        sleep(1)
+        let gate = OnceResume()
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            NSWorkspace.shared.openApplication(
+                at: url,
+                configuration: config,
+                completionHandler: { runningApp, error in
+                    if let error {
+                        gate.finish(continuation, with: .failure(error))
+                        return
                     }
-                    // Things that are run after the app is closed
-                    self.lockKeyCover()
+                    guard let runningApp else {
+                        gate.finish(continuation, with: .failure(PlayCoverError.launchTimedOut))
+                        return
+                    }
+                    self.watchUntilExit(runningApp)
+                    gate.finish(continuation, with: .success(()))
                 }
+            )
+            Task {
+                try? await Task.sleep(nanoseconds: PlayApp.launchConfirmationTimeout)
+                gate.finish(continuation, with: .failure(PlayCoverError.launchTimedOut))
             }
-        )
+        }
+    }
+
+    private func watchUntilExit(_ runningApp: NSRunningApplication) {
+        Task(priority: .background) {
+            while !(runningApp.isTerminated) {
+                if runningApp.isActive {
+                    self.disableTimeOut()
+                } else {
+                    self.enableTimeOut()
+                }
+                sleep(1)
+            }
+            sleep(1)
+            self.lockKeyCover()
+        }
     }
 }
 

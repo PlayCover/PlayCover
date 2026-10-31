@@ -12,6 +12,8 @@ enum PlayCoverError: Error {
     case appMaliciousProhibited
     case failedToStripBinary
     case invalidUserDylib
+    case invalidSignature
+    case launchTimedOut
 }
 
 extension PlayCoverError: LocalizedError {
@@ -35,6 +37,10 @@ extension PlayCoverError: LocalizedError {
             return NSLocalizedString("error.failedToStripBinary", comment: "")
         case .invalidUserDylib:
             return NSLocalizedString("error.invalidUserDylib", comment: "")
+        case .invalidSignature:
+            return NSLocalizedString("error.invalidSignature", comment: "")
+        case .launchTimedOut:
+            return NSLocalizedString("error.launchTimedOut", comment: "")
         }
     }
 }

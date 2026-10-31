@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "name": "PlayCover",
+      "path": "."
+    },
+    {
+      "name": "PlayTools",
+      "path": "Carthage/Checkouts/PlayTools"
+    }
+  ],
+  "settings": {
+    "git.autoRepositoryDetection": true,
+    "git.repositoryScanMaxDepth": 4,
+    "explorer.excludeGitIgnore": false
+  }
+}

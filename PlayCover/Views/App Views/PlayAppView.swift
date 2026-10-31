@@ -24,11 +24,10 @@ struct PlayAppView: View {
             .gesture(TapGesture(count: 2).onEnded {
                 // Launch the app from a separate thread (allow us to Sayori it if needed)
                 Task(priority: .userInitiated) {
-                    if !viewModel.app.isStarting {
-                        viewModel.showStartingProgress = true
-                        await viewModel.app.launch()
-                        viewModel.showStartingProgress = false
-                    }
+                    guard !viewModel.app.isStarting else { return }
+                    await MainActor.run { viewModel.showStartingProgress = true }
+                    await viewModel.app.launch()
+                    await MainActor.run { viewModel.showStartingProgress = false }
                 }
             })
             .simultaneousGesture(TapGesture().onEnded {

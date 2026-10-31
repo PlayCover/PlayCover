@@ -380,6 +380,10 @@ struct GraphicsView: View {
                         }
                         Spacer()
                     }
+                    Toggle("settings.toggle.overrideFullScreen", isOn: $settings.settings.overrideFullScreen)
+                        .help("settings.toggle.overrideFullScreen.help")
+                        .disabled(settings.settings.resolution == 6)
+                    Spacer()
                     HStack {
                         Text("settings.settings.displayRotation")
                         Spacer()

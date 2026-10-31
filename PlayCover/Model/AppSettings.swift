@@ -52,6 +52,12 @@ struct AppSettingsData: Codable {
     var resizableAspectRatioHeight = 0
     var blockSleepSpamming = false
     var ignoreUnityKeyboardInitializationError = false
+    /// When true, PlayCover writes a full-screen declaration into the app before launch.
+    var overrideFullScreen = false
+    /// Original Info.plist values saved while the full-screen override is applied.
+    var fullScreenOverrideStashed = false
+    var stashedRequiresFullScreen: Bool?
+    var stashedIpadOrientations: [String]?
 
     init() {}
 
@@ -95,6 +101,11 @@ struct AppSettingsData: Codable {
         blockSleepSpamming = try container.decodeIfPresent(Bool.self, forKey: .blockSleepSpamming) ?? false
         ignoreUnityKeyboardInitializationError = try container.decodeIfPresent(
             Bool.self, forKey: .ignoreUnityKeyboardInitializationError) ?? false
+        overrideFullScreen = try container.decodeIfPresent(Bool.self, forKey: .overrideFullScreen) ?? false
+        fullScreenOverrideStashed = try container.decodeIfPresent(Bool.self,
+                                                                  forKey: .fullScreenOverrideStashed) ?? false
+        stashedRequiresFullScreen = try container.decodeIfPresent(Bool.self, forKey: .stashedRequiresFullScreen)
+        stashedIpadOrientations = try container.decodeIfPresent([String].self, forKey: .stashedIpadOrientations)
     }
 }
 
