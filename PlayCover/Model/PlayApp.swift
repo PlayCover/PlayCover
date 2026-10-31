@@ -77,6 +77,7 @@ class PlayApp: BaseApp {
             if await VersionCheck.shared.checkNewVersion(myApp: self) { return }
 
             settings.sync()
+            try applyFullScreenDeclaration()
 
             // Install PlugIns/localizations before signing so the bundle is fully
             // assembled before its signature is sealed over its contents.

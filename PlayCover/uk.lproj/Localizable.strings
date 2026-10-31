@@ -169,6 +169,8 @@
 "keycover.error.incorrectPassword" = "Incorrect Password";
 "playapp.noSources.title" = "Немає встановлених IPA";
 "settings.picker.windowFix.help" = "Apply window fixes that may helps your apps display normally";
+"settings.toggle.overrideFullScreen" = "Override app full screen declaration";
+"settings.toggle.overrideFullScreen.help" = "At launch, PlayCover reports full screen and landscape instead of the values in the app bundle. This remains after the app is updated. It does not apply while the window is resizable.";
 "menubar.documentation" = "Documentation";
 "alert.differentBundleIdKeymap.text" = "Are you sure you want to import this keymap?";
 "alert.differentBundleIdKeymap.message" = "The keymap may have been created for another application.";
@@ -257,3 +259,5 @@
 "macos.version" = "This app can be installed from Mac App Store";
 "ipaLibrary.AlphabeticalSort" = "Sort source apps alphabetically";
 "alert.install.anyway" = "Install Anyway";
+"error.invalidSignature" = "The app's signature is still invalid after signing, so it was not opened.";
+"error.launchTimedOut" = "macOS did not confirm that the app opened. If the game window is already there, you can ignore this. Otherwise try again.";
