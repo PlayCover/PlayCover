@@ -203,6 +203,8 @@
 "configSigning.alert.info" = "Indsæt kommandoen og kør den i Terminal.app. Din Mac genstarter efter";
 "settings.picker.windowFix" = "Løser problemer med vinduesvisning";
 "settings.picker.windowFix.help" = "Anvend vinduesrettelser, der kan hjælpe dine apps til at vise normalt";
+"settings.toggle.overrideFullScreen" = "Override app full screen declaration";
+"settings.toggle.overrideFullScreen.help" = "At launch, PlayCover reports full screen and landscape instead of the values in the app bundle. This remains after the app is updated. It does not apply while the window is resizable.";
 "settings.picker.windowFixMethod.0" = "Normal";
 "settings.picker.windowFixMethod.1" = "Alternativ";
 "preferences.popover.checking" = "Kontrollere URL";
@@ -257,3 +259,5 @@
 "alert.open.appstore" = "Open Mac App Store";
 "macos.version" = "This app can be installed from Mac App Store";
 "alert.install.anyway" = "Install Anyway";
+"error.invalidSignature" = "The app's signature is still invalid after signing, so it was not opened.";
+"error.launchTimedOut" = "macOS did not confirm that the app opened. If the game window is already there, you can ignore this. Otherwise try again.";

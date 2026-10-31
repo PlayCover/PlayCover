@@ -184,6 +184,8 @@
 "settings.picker.aspectRatio.custom" = "Custom";
 "settings.picker.windowFix" = "Fix window display issues";
 "settings.picker.windowFix.help" = "Apply window fixes that may helps your apps display normally";
+"settings.toggle.overrideFullScreen" = "Override app full screen declaration";
+"settings.toggle.overrideFullScreen.help" = "Before launch, PlayCover marks the app as full screen and limits iPad orientation to landscape. Turning this off restores the app's original declaration. It is written again after an app update. It does not apply while the window is resizable.";
 "settings.picker.windowFixMethod.0" = "Normal";
 "settings.picker.windowFixMethod.1" = "Alternate";
 "settings.toggle.disableDisplaySleep" = "Disable display sleep";
@@ -346,3 +348,5 @@
 "alert.version.title" = "New Version Available";
 "alert.version.text" = "A new version for %@ is available. Do you want to download it?";
 
+"error.invalidSignature" = "The app's signature is still invalid after signing, so it was not opened.";
+"error.launchTimedOut" = "macOS did not confirm that the app opened. If the game window is already there, you can ignore this. Otherwise try again.";

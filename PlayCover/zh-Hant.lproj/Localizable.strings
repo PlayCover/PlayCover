@@ -312,6 +312,8 @@
 "settings.highResolution" = "高畫質可能會導致閃退";
 "settings.picker.windowFix" = "修復視窗模式顯示問題";
 "settings.picker.windowFix.help" = "啟用視窗修復也許可以讓你的程序正常顯示";
+"settings.toggle.overrideFullScreen" = "覆蓋應用的全螢幕宣告";
+"settings.toggle.overrideFullScreen.help" = "啟動前把應用改為需要全螢幕，並把 iPad 方向限制為橫向。關閉後恢復原來的宣告。更新應用後，下次啟動會再次寫入。視窗可調整大小時不會生效。";
 "settings.picker.windowFixMethod.0" = "正常";
 "settings.picker.windowFixMethod.1" = "備用";
 "preferences.popover.checking" = "檢查 URL";
@@ -366,3 +368,5 @@
 "macos.version" = "This app can be installed from Mac App Store";
 "ipaLibrary.AlphabeticalSort" = "Sort source apps alphabetically";
 "alert.install.anyway" = "Install Anyway";
+"error.invalidSignature" = "簽章檢查沒有通過，所以沒有打開這個應用程式。";
+"error.launchTimedOut" = "系統沒有在時限內確認應用程式已打開。如果遊戲視窗已經出現，可以忽略；否則請再試一次。";
