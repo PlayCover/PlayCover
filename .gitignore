@@ -2,10 +2,6 @@
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
-/Carthage/*
-!/Carthage/Checkouts/
-/Carthage/Checkouts/*
-!/Carthage/Checkouts/PlayTools/
 .DS_store
 /vendor
 /output
@@ -39,6 +35,7 @@ DerivedData/
 *.ipa
 *.dSYM.zip
 *.dSYM
+!/ThirdParty/**/*.dSYM
 
 ## Playgrounds
 timeline.xctimeline
@@ -68,13 +65,6 @@ playground.xcworkspace
 #
 # Add this line if you want to avoid checking in source code from the Xcode workspace
 # *.xcworkspace
-
-# Carthage
-#
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
-
-Carthage/Build/
 
 # Accio dependency management
 Dependencies/

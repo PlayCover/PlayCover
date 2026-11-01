@@ -6,7 +6,7 @@
     },
     {
       "name": "PlayTools",
-      "path": "Carthage/Checkouts/PlayTools"
+      "path": "../PlayTools"
     }
   ],
   "settings": {

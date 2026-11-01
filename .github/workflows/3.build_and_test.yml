@@ -1,0 +1,67 @@
+name: Build & Test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: build-test-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: xcode-27
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Select Xcode
+        shell: bash
+        run: |
+          set -euo pipefail
+          candidates=(
+            /Applications/Xcode_27.2.app
+            /Applications/Xcode_27.2_beta_2.app
+            /Applications/Xcode_27.1.app
+            /Applications/Xcode_27.1_Release_Candidate.app
+            /Applications/Xcode_27.app
+            /Applications/Xcode.app
+          )
+          selected=""
+          for app in "${candidates[@]}"; do
+            if [ -d "$app" ]; then
+              selected="$app"
+              break
+            fi
+          done
+          if [ -z "$selected" ]; then
+            echo "error: no Xcode 27 installation found" >&2
+            ls /Applications/Xcode*.app 2>/dev/null || true
+            exit 1
+          fi
+          echo "Using $selected"
+          sudo xcode-select -s "$selected/Contents/Developer"
+          xcodebuild -version
+
+      - name: Install SwiftLint
+        shell: bash
+        run: brew install swiftlint
+
+      - name: SwiftLint
+        shell: bash
+        run: swiftlint lint --strict --reporter github-actions-logging
+
+      - name: Build & Test
+        shell: bash
+        run: |
+          set -euo pipefail
+          xcodebuild test \
+            -project PlayCover.xcodeproj \
+            -scheme PlayCover \
+            -configuration Debug \
+            -destination 'platform=macOS,arch=arm64' \
+            -derivedDataPath DerivedData \
+            CODE_SIGN_IDENTITY=- \
+            CODE_SIGNING_ALLOWED=YES

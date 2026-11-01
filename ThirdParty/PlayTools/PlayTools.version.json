@@ -1,0 +1,8 @@
+{
+  "source": "https://github.com/PlayCover/PlayTools.git",
+  "commit": "66107f25b1c872941ce810aef1111cd330d59cd6",
+  "branch": "main",
+  "dirty": false,
+  "xcode": "Xcode 27.2",
+  "swift": "Apple Swift version 6.4.2 (swiftlang-6.4.2.1.9 clang-2100.4.1.1)"
+}

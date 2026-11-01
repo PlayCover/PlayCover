@@ -1,0 +1,3 @@
+framework module PlayTools {
+  header "PlayTools-Swift.h"
+}

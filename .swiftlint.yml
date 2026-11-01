@@ -2,7 +2,7 @@ opt_in_rules:
   - force_unwrapping
   
 excluded:
-  - Carthage
+  - ThirdParty
   - Pods
   - .build
 

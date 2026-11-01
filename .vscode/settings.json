@@ -2,7 +2,7 @@
   "git.autoRepositoryDetection": true,
   "git.repositoryScanMaxDepth": 4,
   "git.scanRepositories": [
-    "Carthage/Checkouts/PlayTools"
+    "../PlayTools"
   ],
   "explorer.excludeGitIgnore": false
 }
