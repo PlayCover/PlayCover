@@ -12,7 +12,7 @@ struct PlayAppView: View {
     @Binding var selected: PlayApp?
     @Binding var isList: Bool
 
-    @StateObject var viewModel: PlayAppVM
+    @State var viewModel: PlayAppVM
 
     var body: some View {
         PlayAppConditionalView(selectedBackgroundColor: $selectedBackgroundColor,
@@ -224,19 +224,7 @@ struct PlayAppConditionalView: View {
             }
         }
         .task(priority: .userInitiated) {
-            let appURL = app.url
-            let bundleIdentifier = app.info.bundleIdentifier
-            let bundleVersion = app.info.bundleVersion
-            let primaryIconName = app.info.primaryIconName
-            let iconData = await Task.detached(priority: .utility) {
-                Cacher.shared.resolveLocalIconData(
-                    at: appURL,
-                    bundleIdentifier: bundleIdentifier,
-                    bundleVersion: bundleVersion,
-                    primaryIconName: primaryIconName
-                )
-            }.value
-            appIcon = iconData.flatMap(NSImage.init(data:))
+            appIcon = await Cacher.shared.resolveLocalIcon(app)
         }
         .task(priority: .background) {
             hasPlayTools = app.hasPlayTools()
