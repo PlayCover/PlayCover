@@ -24,7 +24,7 @@ struct KeymapView: View {
                     if let image = viewModel.appIcon {
                         Image(nsImage: image)
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
+                            .scaledToFit()
                     } else {
                         ProgressView()
                             .progressViewStyle(.circular)

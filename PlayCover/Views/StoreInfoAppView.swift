@@ -37,7 +37,7 @@ struct StoreInfoAppView: View {
                                 if let image = localIcon {
                                     Image(nsImage: image)
                                         .resizable()
-                                        .aspectRatio(contentMode: .fit)
+                                        .scaledToFit()
                                 } else {
                                     Rectangle()
                                         .fill(.regularMaterial)
@@ -51,7 +51,7 @@ struct StoreInfoAppView: View {
                             image: {
                                 Image(nsImage: $0)
                                     .resizable()
-                                    .aspectRatio(contentMode: .fit)
+                                    .scaledToFit()
                             },
                             error: nil
                         )

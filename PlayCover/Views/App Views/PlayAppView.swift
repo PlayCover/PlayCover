@@ -131,7 +131,7 @@ struct PlayAppConditionalView: View {
                         if let image = appIcon {
                             Image(nsImage: image)
                                 .resizable()
-                                .aspectRatio(contentMode: .fit)
+                                .scaledToFit()
                         } else {
                             Rectangle()
                                  .fill(.regularMaterial)
@@ -179,7 +179,7 @@ struct PlayAppConditionalView: View {
                         if let image = appIcon {
                             Image(nsImage: image)
                                 .resizable()
-                                .aspectRatio(contentMode: .fit)
+                                .scaledToFit()
                         } else {
                             Rectangle()
                                  .fill(.regularMaterial)

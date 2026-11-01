@@ -117,7 +117,7 @@ struct StoreAppConditionalView: View {
                                     if let image = localIcon {
                                         Image(nsImage: image)
                                             .resizable()
-                                            .aspectRatio(contentMode: .fit)
+                                            .scaledToFit()
                                     } else {
                                         Rectangle()
                                              .fill(.regularMaterial)
@@ -137,7 +137,7 @@ struct StoreAppConditionalView: View {
                                 image: {
                                     Image(nsImage: $0)
                                         .resizable()
-                                        .aspectRatio(contentMode: .fit)
+                                        .scaledToFit()
                                 },
                                 error: { _, retry in
                                     Rectangle()
@@ -185,7 +185,7 @@ struct StoreAppConditionalView: View {
                                     if let image = localIcon {
                                         Image(nsImage: image)
                                             .resizable()
-                                            .aspectRatio(contentMode: .fit)
+                                            .scaledToFit()
                                     } else {
                                         Rectangle()
                                              .fill(.regularMaterial)
@@ -206,7 +206,7 @@ struct StoreAppConditionalView: View {
                                 image: {
                                     Image(nsImage: $0)
                                         .resizable()
-                                        .aspectRatio(contentMode: .fit)
+                                        .scaledToFit()
                                 },
                                 error: { _, retry in
                                     Rectangle()
