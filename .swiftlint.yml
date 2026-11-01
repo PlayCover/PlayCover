@@ -5,6 +5,9 @@ excluded:
   - ThirdParty
   - Pods
   - .build
+  # Build products, including Swift package checkouts when DerivedData lives in the repo.
+  - build
+  - DerivedData
 
 identifier_name:
   allowed_symbols: ['_']

@@ -73,6 +73,6 @@ jobs:
             -scheme PlayCover \
             -configuration Debug \
             -destination 'platform=macOS,arch=arm64' \
-            -derivedDataPath DerivedData \
+            -derivedDataPath "$RUNNER_TEMP/DerivedData" \
             CODE_SIGN_IDENTITY=- \
             CODE_SIGNING_ALLOWED=YES
