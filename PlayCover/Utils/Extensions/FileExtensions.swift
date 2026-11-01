@@ -7,12 +7,15 @@ import Foundation
 import UniformTypeIdentifiers
 
 extension FileManager {
-    func delete(at url: URL) {
+    nonisolated func delete(at url: URL) {
         if FileManager.default.fileExists(atPath: url.path) {
             do {
                 try FileManager.default.removeItem(atPath: url.path)
             } catch {
-                Log.shared.error(error)
+                let caught = error
+                Task { @MainActor in
+                    Log.shared.error(caught)
+                }
             }
         }
     }

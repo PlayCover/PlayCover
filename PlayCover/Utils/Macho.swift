@@ -5,7 +5,7 @@
 
 import Foundation
 
-class Macho {
+nonisolated enum Macho {
     static func stripBinary(_ binary: inout Data) throws {
         var header = binary.extract(fat_header.self)
         var offset = MemoryLayout.size(ofValue: header)
@@ -14,14 +14,11 @@ class Macho {
         if header.magic == FAT_MAGIC || header.magic == FAT_CIGAM {
             // Make sure the endianness is correct
             if shouldSwap {
-                swap_fat_header(&header, NXHostByteOrder())
+                header = header.byteSwapped
             }
 
             for _ in 0..<header.nfat_arch {
-                var arch = binary.extract(fat_arch.self, offset: offset)
-                if shouldSwap {
-                    swap_fat_arch(&arch, 1, NXHostByteOrder())
-                }
+                let arch = binary.extract(fat_arch.self, offset: offset, swapped: shouldSwap)
 
                 if arch.cputype == CPU_TYPE_ARM64 {
                     print("Found ARM64 arch in fat binary")
@@ -79,13 +76,13 @@ class Macho {
             // Perform steps 1-2
             let loadCommand = commandData.extract(load_command.self,
                                                   offset: commandData.startIndex,
-                                                  swap: shouldSwap ? swap_load_command:nil)
+                                                  swapped: shouldSwap)
             if ![LC_LOAD_WEAK_DYLIB, UInt32(LC_LOAD_DYLIB)].contains(loadCommand.cmd) {
                 return false
             }
             let dylibCommand = commandData.extract(dylib_command.self,
                                                    offset: commandData.startIndex,
-                                                   swap: shouldSwap ? swap_dylib_command:nil)
+                                                   swapped: shouldSwap)
             if String(data: commandData,
                       offset: commandData.startIndex,
                       commandSize: Int(dylibCommand.cmdsize),
@@ -120,7 +117,7 @@ class Macho {
                 return nil
             }
             if shouldSwap {
-                swap_dylib_command(&command, NX_BigEndian)
+                command = command.byteSwapped
             }
             var commandData = Data(bytes: &command, count: dylibCommandFixedSize)
             commandData.append(stringData)
@@ -141,7 +138,7 @@ class Macho {
         try replaceLastCommand(&binary, satisfy: {data, shouldSwap in
             let loadCommand = data.extract(load_command.self,
                                            offset: data.startIndex,
-                                           swap: shouldSwap ? swap_load_command:nil)
+                                           swapped: shouldSwap)
             return [UInt32(LC_VERSION_MIN_IPHONEOS),
                     UInt32(LC_VERSION_MIN_MACOSX),
                     UInt32(LC_BUILD_VERSION)]
@@ -149,7 +146,7 @@ class Macho {
 
         }, with: {shouldSwap in
             if shouldSwap {
-                swap_build_version_command(&macCatalystCommand, NX_BigEndian)
+                macCatalystCommand = macCatalystCommand.byteSwapped
             }
             return Data(bytes: &macCatalystCommand, count: MemoryLayout<build_version_command>.size)
         }, atEnd: true)
@@ -169,7 +166,7 @@ class Macho {
         let movedCommandsEnd = try iterateLoadCommands(binary: binary) { offset, needSwap in
             let loadCommand = binary.extract(load_command.self,
                                              offset: offset,
-                                             swap: needSwap ? swap_load_command:nil)
+                                             swapped: needSwap)
             if isTargetCommand(binary[offset ..< offset+Int(loadCommand.cmdsize)], needSwap) {
                 oldCommandStart = offset
                 oldCommandSize = loadCommand.cmdsize
@@ -219,7 +216,7 @@ class Macho {
         var offset = headerSize
         let shouldSwap = header.magic == MH_CIGAM_64
         if  shouldSwap {
-            swap_mach_header_64(&header, NXHostByteOrder())
+            header = header.byteSwapped
             print("Slim Mach-O has reversed byte order")
         }
 
@@ -231,7 +228,7 @@ class Macho {
         for index in 0..<header.ncmds {
             let loadCommand = binary.extract(load_command.self,
                                              offset: offset,
-                                             swap: shouldSwap ? swap_load_command:nil)
+                                             swapped: shouldSwap)
             let commandEnd = offset + Int(loadCommand.cmdsize)
             if commandEnd > allCommandsEnd || commandEnd <= offset {
                 print("Cannot iterate load commands: Mach-O file is corrupted(\(index))")
@@ -253,11 +250,11 @@ class Macho {
         _ = try iterateLoadCommands(binary: binary) { offset, shouldSwap in
             let loadCommand = binary.extract(load_command.self,
                                              offset: offset,
-                                             swap: shouldSwap ? swap_load_command:nil)
+                                             swapped: shouldSwap)
             if loadCommand.cmd == UInt32(LC_ENCRYPTION_INFO_64) {
                 let infoCommand = binary.extract(encryption_info_command_64.self,
                                                  offset: offset,
-                                                 swap: shouldSwap ? swap_encryption_command_64:nil)
+                                                 swapped: shouldSwap)
                 result = infoCommand.cryptid != 0
                 return true
             }
@@ -273,16 +270,75 @@ class Macho {
         _ = try iterateLoadCommands(binary: binary) { offset, shouldSwap in
             let loadCommand = binary.extract(load_command.self,
                                              offset: offset,
-                                             swap: shouldSwap ? swap_load_command:nil)
+                                             swapped: shouldSwap)
             if loadCommand.cmd == UInt32(LC_BUILD_VERSION) {
                 let versionCommand = binary.extract(build_version_command.self,
                                                     offset: offset,
-                                                    swap: shouldSwap ? swap_build_version_command:nil)
+                                                    swapped: shouldSwap)
                 result = versionCommand.platform == PLATFORM_MACCATALYST
                 return true
             }
             return false
         }
         return result
+    }
+}
+
+/// Mach-O structures whose fields can be converted between big- and little-endian layouts.
+nonisolated protocol MachOByteSwappable {
+    var byteSwapped: Self { get }
+}
+
+extension fat_header: MachOByteSwappable {
+    nonisolated var byteSwapped: fat_header {
+        fat_header(magic: magic.byteSwapped, nfat_arch: nfat_arch.byteSwapped)
+    }
+}
+
+extension fat_arch: MachOByteSwappable {
+    nonisolated var byteSwapped: fat_arch {
+        fat_arch(cputype: cputype.byteSwapped, cpusubtype: cpusubtype.byteSwapped,
+                 offset: offset.byteSwapped, size: size.byteSwapped, align: align.byteSwapped)
+    }
+}
+
+extension mach_header_64: MachOByteSwappable {
+    nonisolated var byteSwapped: mach_header_64 {
+        mach_header_64(magic: magic.byteSwapped, cputype: cputype.byteSwapped,
+                       cpusubtype: cpusubtype.byteSwapped, filetype: filetype.byteSwapped,
+                       ncmds: ncmds.byteSwapped, sizeofcmds: sizeofcmds.byteSwapped,
+                       flags: flags.byteSwapped, reserved: reserved.byteSwapped)
+    }
+}
+
+extension load_command: MachOByteSwappable {
+    nonisolated var byteSwapped: load_command {
+        load_command(cmd: cmd.byteSwapped, cmdsize: cmdsize.byteSwapped)
+    }
+}
+
+extension dylib_command: MachOByteSwappable {
+    nonisolated var byteSwapped: dylib_command {
+        dylib_command(cmd: cmd.byteSwapped, cmdsize: cmdsize.byteSwapped,
+                      dylib: MachO.dylib(name: lc_str(offset: dylib.name.offset.byteSwapped),
+                                         timestamp: dylib.timestamp.byteSwapped,
+                                         current_version: dylib.current_version.byteSwapped,
+                                         compatibility_version: dylib.compatibility_version.byteSwapped))
+    }
+}
+
+extension build_version_command: MachOByteSwappable {
+    nonisolated var byteSwapped: build_version_command {
+        build_version_command(cmd: cmd.byteSwapped, cmdsize: cmdsize.byteSwapped,
+                              platform: platform.byteSwapped, minos: minos.byteSwapped,
+                              sdk: sdk.byteSwapped, ntools: ntools.byteSwapped)
+    }
+}
+
+extension encryption_info_command_64: MachOByteSwappable {
+    nonisolated var byteSwapped: encryption_info_command_64 {
+        encryption_info_command_64(cmd: cmd.byteSwapped, cmdsize: cmdsize.byteSwapped,
+                                   cryptoff: cryptoff.byteSwapped, cryptsize: cryptsize.byteSwapped,
+                                   cryptid: cryptid.byteSwapped, pad: pad.byteSwapped)
     }
 }

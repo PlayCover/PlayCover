@@ -2,7 +2,7 @@ import AudioToolbox
 import Foundation
 import SwiftUI
 
-enum PlayCoverError: Error {
+nonisolated enum PlayCoverError: Error, Sendable {
     case infoPlistNotFound
     case waitInstallation
     case waitDownload
@@ -17,7 +17,7 @@ enum PlayCoverError: Error {
 }
 
 extension PlayCoverError: LocalizedError {
-    public var errorDescription: String? {
+    nonisolated public var errorDescription: String? {
         switch self {
         case .infoPlistNotFound:
             return NSLocalizedString("error.corruptedIPA", comment: "")

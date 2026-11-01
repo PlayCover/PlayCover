@@ -5,7 +5,7 @@
 
 import Foundation
 
-enum LSApplicationCategoryType: String, CaseIterable {
+nonisolated enum LSApplicationCategoryType: String, CaseIterable, Sendable {
     case business = "public.app-category.business"
     case developerTools = "public.app-category.developer-tools"
     case education = "public.app-category.education"
@@ -29,12 +29,12 @@ enum LSApplicationCategoryType: String, CaseIterable {
     case weather = "public.app-category.weather"
     case none = "public.app-category.none" // Note: This is not in an official category type
 
-    var localizedName: String {
+    nonisolated var localizedName: String {
         NSLocalizedString(rawValue, comment: "")
     }
 }
 
-public class AppInfo {
+public nonisolated final class AppInfo: @unchecked Sendable {
     public let url: URL
     fileprivate var rawStorage: NSMutableDictionary
 
@@ -43,7 +43,10 @@ public class AppInfo {
             rawStorage = try NSMutableDictionary(contentsOf: url, error: ())
             self.url = url
         } catch {
-            Log.shared.error(error)
+            let caught = error
+            Task { @MainActor in
+                Log.shared.error(caught)
+            }
             rawStorage = NSMutableDictionary()
             self.url = URL(fileURLWithPath: "")
         }
@@ -166,7 +169,10 @@ public class AppInfo {
             do {
                 try write()
             } catch {
-                Log.shared.error(error)
+                let caught = error
+                Task { @MainActor in
+                    Log.shared.error(caught)
+                }
             }
         }
     }
@@ -254,7 +260,10 @@ public class AppInfo {
                 do {
                     try write()
                 } catch {
-                    Log.shared.error(error)
+                    let caught = error
+                    Task { @MainActor in
+                        Log.shared.error(caught)
+                    }
                 }
             }
         }

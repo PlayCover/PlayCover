@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PlayRules: Decodable {
+nonisolated struct PlayRules: Decodable {
     var blocklist: [String]?
     var greenlist: [String]?
     var allow: [String]?
@@ -28,7 +28,7 @@ struct PlayRules: Decodable {
 }
 
 @dynamicMemberLookup
-struct RuleTemplate {
+nonisolated struct RuleTemplate {
     private var data: [String: String]
 
     init(data: [String: String] = [:]) {
@@ -49,11 +49,11 @@ struct RuleTemplate {
         set { data[member] = dateFormatter.string(from: newValue) }
     }
 
-    let dateFormatter: DateFormatter = {
+    private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
         formatter.calendar = Calendar(identifier: .gregorian)
         return formatter
-    }()
+    }
 }

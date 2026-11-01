@@ -7,17 +7,19 @@
 
 import Foundation
 import SwiftSoup
+import Synchronization
 
-class RedirectHandler: NSObject, URLSessionTaskDelegate {
-    private var finalURL: URL
-    private let dispatchGroup = DispatchGroup() // DispatchGroup
-    private var completion: (() -> Void)? // completion handler
-    lazy var session: URLSession = {
+final class RedirectHandler: NSObject, URLSessionTaskDelegate, @unchecked Sendable {
+    private let finalURL: Mutex<URL>
+    private let dispatchGroup = DispatchGroup()
+    private var completion: (@Sendable () -> Void)?
+    private lazy var session: URLSession = {
         let configuration = URLSessionConfiguration.default
         return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
     }()
+
     init(url: URL) {
-        self.finalURL = url
+        self.finalURL = Mutex(url)
         super.init()
         if url.absoluteString.contains("drive.google.com") {
             if let myurl = self.convertGoogleDriveLink(url.absoluteString) {
@@ -30,20 +32,23 @@ class RedirectHandler: NSObject, URLSessionTaskDelegate {
         }
         self.waitForAllTasksToComplete()
     }
+
     func getFinal() -> URL {
-        return finalURL
+        finalURL.withLock { $0 }
     }
+
     private func setFinal(url: URL) {
-        self.finalURL = url
+        finalURL.withLock { $0 = url }
     }
-    private func fetchGoogleDrivePageContent(url: String, completion: @escaping (String?) -> Void) {
+
+    private func fetchGoogleDrivePageContent(url: String, completion: @escaping @Sendable (String?) -> Void) {
         guard let url = URL(string: url) else {
             completion(nil)
             return
         }
-        dispatchGroup.enter() // Enter Group
+        dispatchGroup.enter()
         let task = session.dataTask(with: url) { data, _, error in
-            defer { self.dispatchGroup.leave() } // Leave group
+            defer { self.dispatchGroup.leave() }
             guard let data = data, error == nil else {
                 completion(nil)
                 return
@@ -53,6 +58,7 @@ class RedirectHandler: NSObject, URLSessionTaskDelegate {
         }
         task.resume()
     }
+
     private func extractDownloadLink(from htmlContent: String) {
         do {
             let doc = try SwiftSoup.parse(htmlContent)
@@ -64,14 +70,14 @@ class RedirectHandler: NSObject, URLSessionTaskDelegate {
             let confirm = try form.select("input[name=confirm]").attr("value")
             let uuid = try form.select("input[name=uuid]").attr("value")
             let directDownloadLink = "\(action)?id=\(id)&confirm=\(confirm)&uuid=\(uuid)"
-            let url = URL(string: directDownloadLink)
-            if let url = url {
+            if let url = URL(string: directDownloadLink) {
                 setFinal(url: url)
             }
         } catch {
             return
         }
     }
+
     private func convertGoogleDriveLink(_ originalLink: String) -> URL? {
         guard let fileIdRange = originalLink.range(of: "/file/d/") else {
             return nil
@@ -84,29 +90,32 @@ class RedirectHandler: NSObject, URLSessionTaskDelegate {
         let newLink = "https://drive.usercontent.google.com/download?id=\(fileId)&export=download&authuser=0"
         return URL(string: newLink)
     }
-    private func getDirectDownloadLink(for googleDriveLink: String, completion: @escaping () -> Void) {
+
+    private func getDirectDownloadLink(for googleDriveLink: String, completion: @escaping @Sendable () -> Void) {
         self.completion = completion
         fetchGoogleDrivePageContent(url: googleDriveLink) { htmlContent in
             guard htmlContent != nil else {
-                        return
-                    }
-                    completion()
-                }
+                return
+            }
+            completion()
+        }
     }
+
     private func redirectCatch(from url: URL) {
-        dispatchGroup.enter() // Enter group
+        dispatchGroup.enter()
         let task = session.dataTask(with: url) { _, _, error in
-            defer { self.dispatchGroup.leave() } // Exit from the group at end of task
+            defer { self.dispatchGroup.leave() }
             if error != nil {
                 return
             }
         }
         task.resume()
     }
+
     private func scrapeWebsite(from request: URLRequest) {
-        dispatchGroup.enter() // Enter group
+        dispatchGroup.enter()
         let task = session.dataTask(with: request) { data, _, error in
-            defer { self.dispatchGroup.leave() } // Exit from the group at end of task
+            defer { self.dispatchGroup.leave() }
             if error != nil {
                 return
             }
@@ -116,7 +125,7 @@ class RedirectHandler: NSObject, URLSessionTaskDelegate {
         }
         task.resume()
     }
-    // Handle redirects manually
+
     func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse,
                     newRequest request: URLRequest, completionHandler: @escaping (URLRequest?) -> Void) {
         if let redirectURL = request.url {
@@ -136,7 +145,7 @@ class RedirectHandler: NSObject, URLSessionTaskDelegate {
             completionHandler(nil)
         }
     }
-    // Wait URL Session
+
     private func waitForAllTasksToComplete() {
         let timeout = DispatchTime.now() + DispatchTimeInterval.seconds(5)
         _ = dispatchGroup.wait(timeout: timeout)

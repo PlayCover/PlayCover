@@ -81,13 +81,13 @@ extension PlayTools {
         let rootPath = root.path
         for case let fileURL as URL in enumerator {
             if fileURL.lastPathComponent == "_CodeSignature" {
-                (enumerator as? FileManager.DirectoryEnumerator)?.skipDescendants()
+                enumerator.skipDescendants()
                 continue
             }
             let values = try fileURL.resourceValues(
                 forKeys: [.isRegularFileKey, .isSymbolicLinkKey, .isDirectoryKey])
             if values.isSymbolicLink == true {
-                (enumerator as? FileManager.DirectoryEnumerator)?.skipDescendants()
+                enumerator.skipDescendants()
             } else if values.isDirectory == true {
                 continue
             } else if values.isRegularFile != true {
@@ -128,8 +128,7 @@ extension PlayTools {
         var dataoff: UInt32?
         do {
             _ = try Macho.iterateLoadCommands(binary: data) { offset, shouldSwap in
-                let command = data.extract(load_command.self, offset: offset,
-                                            swap: shouldSwap ? swap_load_command : nil)
+                let command = data.extract(load_command.self, offset: offset, swapped: shouldSwap)
                 guard command.cmd == UInt32(LC_CODE_SIGNATURE) else { return false }
                 let raw = data.extract(UInt32.self, offset: offset + 8)
                 dataoff = shouldSwap ? raw.byteSwapped : raw

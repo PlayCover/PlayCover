@@ -9,7 +9,7 @@ import CryptoKit
 import SwiftUI
 
 extension String {
-    var esc: String {
+    nonisolated var esc: String {
         let esc = ["\\", "\"", "'", " ", "(", ")", "[", "]", "{", "}", "&", "|",
                    ";", "<", ">", "`", "$", "!", "*", "?", "#", "~", "="]
         var str = self
@@ -27,7 +27,7 @@ extension String {
 }
 
 extension URL {
-    var esc: String {
+    nonisolated var esc: String {
         path.esc
     }
 
@@ -67,17 +67,19 @@ extension URL {
         NSWorkspace.shared.activateFileViewerSelecting([self])
     }
 
-    func fixExecutable() throws {
+    nonisolated func fixExecutable() throws {
         var attributes = [FileAttributeKey: Any]()
         attributes[.posixPermissions] = 0o777
         try FileManager.default.setAttributes(attributes, ofItemAtPath: path)
     }
 
     // Wraps NSFileEnumerator since the geniuses at corelibs-foundation decided it should be completely untyped
-    func enumerateContents(blocking: Bool = true,
-                           includingPropertiesForKeys keys: [URLResourceKey]? = nil,
-                           options: FileManager.DirectoryEnumerationOptions? = nil,
-                           _ callback: @escaping (URL, URLResourceValues) throws -> Void) {
+    nonisolated func enumerateContents(
+        blocking: Bool = true,
+        includingPropertiesForKeys keys: [URLResourceKey]? = nil,
+        options: FileManager.DirectoryEnumerationOptions? = nil,
+        _ callback: @escaping @Sendable (URL, URLResourceValues) throws -> Void
+    ) {
         guard let enumerator = FileManager.default.enumerator(
             at: self,
             includingPropertiesForKeys: keys ?? [.isRegularFileKey],
@@ -107,7 +109,7 @@ extension URL {
         }
     }
 
-    func appendingEscapedPathComponent(_ pathComponent: String) -> URL {
+    nonisolated func appendingEscapedPathComponent(_ pathComponent: String) -> URL {
         let esc = [("/", ":")]
 
         var newPathComponent = pathComponent
@@ -119,7 +121,7 @@ extension URL {
         return self.appendingPathComponent(newPathComponent)
     }
 
-    func setBinaryPosixPermissions(_ permissions: Int) throws {
+    nonisolated func setBinaryPosixPermissions(_ permissions: Int) throws {
         try FileManager.default.setAttributes([.posixPermissions: permissions], ofItemAtPath: path)
     }
 }

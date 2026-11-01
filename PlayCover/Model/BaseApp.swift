@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class BaseApp {
+public nonisolated class BaseApp: @unchecked Sendable {
     /// All mach-o binaries within the app, including the executable itself.
     /// Call resolveValidMachOs to ensure a non-nil value.
     public var validMachOs: [URL]?

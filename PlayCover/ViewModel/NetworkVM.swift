@@ -5,15 +5,15 @@
 //  Created by Isaac Marovitz on 09/10/2022.
 //
 
-import SystemConfiguration
 import Foundation
+import Network
+import Synchronization
 
 class NetworkVM {
+    private static let pathMonitor = NetworkPathMonitor()
+
     static func isConnectedToNetwork() -> Bool {
-        guard let flags = getFlags() else { return false }
-        let isReachable = flags.contains(.reachable)
-        let needsConnection = flags.contains(.connectionRequired)
-        let result = (isReachable && !needsConnection)
+        let result = pathMonitor.isSatisfied()
 
         if !result && !ToastVM.shared.toasts.contains(where: { $0.toastType == .network }) {
             ToastVM.shared.showToast(
@@ -25,42 +25,9 @@ class NetworkVM {
         return result
     }
 
-    static func getFlags() -> SCNetworkReachabilityFlags? {
-        guard let reachability = ipv4Reachability() ?? ipv6Reachability() else { return nil }
-        var flags = SCNetworkReachabilityFlags()
-        if !SCNetworkReachabilityGetFlags(reachability, &flags) {
-            return nil
-        }
-        return flags
-    }
-
-    static func ipv4Reachability() -> SCNetworkReachability? {
-        var zeroAddress = sockaddr_in()
-        zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
-        zeroAddress.sin_family = sa_family_t(AF_INET)
-
-        return withUnsafePointer(to: &zeroAddress, {
-            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
-                SCNetworkReachabilityCreateWithAddress(nil, $0)
-            }
-        })
-    }
-
-    static func ipv6Reachability() -> SCNetworkReachability? {
-        var zeroAddress = sockaddr_in6()
-        zeroAddress.sin6_len = UInt8(MemoryLayout<sockaddr_in>.size)
-        zeroAddress.sin6_family = sa_family_t(AF_INET6)
-
-        return withUnsafePointer(to: &zeroAddress, {
-            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
-                SCNetworkReachabilityCreateWithAddress(nil, $0)
-            }
-        })
-    }
-
     static func urlAccessible(url: URL,
                               popup: Bool = false,
-                              completion: ((URL?, Bool) -> Void)? = nil) -> (URL?, Bool) {
+                              completion: (@Sendable (URL?, Bool) -> Void)? = nil) -> (URL?, Bool) {
         guard isConnectedToNetwork() else {
             completion?(nil, false)
             return (nil, false)
@@ -69,8 +36,8 @@ class NetworkVM {
         let semaphore = DispatchSemaphore(value: 0)
         let validStatusCodes = [200, 301, 302, 303, 307, 308]
 
-        var available = false
-        var finalURL: URL?
+        let available = Mutex(false)
+        let finalURL = Mutex<URL?>(nil)
 
         var request = URLRequest(url: url)
         request.httpMethod = "HEAD"
@@ -78,30 +45,71 @@ class NetworkVM {
         URLSession.shared.dataTask(with: request) { _, response, error in
             defer { semaphore.signal() }
             if let error = error {
-                if popup {
-                    Log.shared.error(error)
-                } else {
-                    Log.shared.log(error.localizedDescription, isError: true)
+                let message = error.localizedDescription
+                Task { @MainActor in
+                    if popup {
+                        Log.shared.error(error)
+                    } else {
+                        Log.shared.log(message, isError: true)
+                    }
                 }
-            } else {
-                if let httpResponse = response as? HTTPURLResponse {
-                    if validStatusCodes.contains(httpResponse.statusCode) {
-                        finalURL = httpResponse.url
-                        available = true
-                    } else if popup {
-                        Log.shared.error("Unable to download: \(httpResponse.statusCode) " +
-                                         "\(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))")
+            } else if let httpResponse = response as? HTTPURLResponse {
+                if validStatusCodes.contains(httpResponse.statusCode) {
+                    finalURL.withLock { $0 = httpResponse.url }
+                    available.withLock { $0 = true }
+                } else if popup {
+                    let status = httpResponse.statusCode
+                    Task { @MainActor in
+                        Log.shared.error("Unable to download: \(status) " +
+                                         "\(HTTPURLResponse.localizedString(forStatusCode: status))")
                     }
                 }
             }
 
-            completion?(finalURL, available)
+            let resultURL = finalURL.withLock { $0 }
+            let resultAvailable = available.withLock { $0 }
+            if let completion {
+                Task { @MainActor in
+                    completion(resultURL, resultAvailable)
+                }
+            }
         }.resume()
 
         if completion == nil {
             semaphore.wait()
         }
 
-        return (finalURL, available)
+        return (finalURL.withLock { $0 }, available.withLock { $0 })
+    }
+}
+
+/// Keeps the latest network path from a long-lived `NWPathMonitor` so callers can query it synchronously.
+private final class NetworkPathMonitor: Sendable {
+    private static let firstUpdateTimeout: DispatchTimeInterval = .seconds(2)
+
+    private let monitor = NWPathMonitor()
+    private let status = Mutex<NWPath.Status?>(nil)
+    private let firstUpdate = DispatchSemaphore(value: 0)
+
+    init() {
+        monitor.pathUpdateHandler = { [self] path in
+            let isFirstUpdate = status.withLock { current in
+                defer { current = path.status }
+                return current == nil
+            }
+            if isFirstUpdate {
+                firstUpdate.signal()
+            }
+        }
+        monitor.start(queue: DispatchQueue(label: "io.playcover.PlayCover.NetworkPathMonitor"))
+    }
+
+    func isSatisfied() -> Bool {
+        if status.withLock({ $0 }) == nil,
+           firstUpdate.wait(timeout: .now() + NetworkPathMonitor.firstUpdateTimeout) == .success {
+            // Let any other caller blocked on the first update continue as well.
+            firstUpdate.signal()
+        }
+        return status.withLock { $0 } == .satisfied
     }
 }
