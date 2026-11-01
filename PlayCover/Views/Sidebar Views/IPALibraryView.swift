@@ -9,9 +9,9 @@ import SwiftUI
 
 struct IPALibraryView: View {
 
-    @ObservedObject var storeVM: StoreVM
-    @ObservedObject private var URLObserved = URLObservable.shared
-    @EnvironmentObject var downloadVM: DownloadVM
+    @Bindable var storeVM: StoreVM
+    @Environment(URLObservable.self) private var URLObserved
+    @Environment(DownloadVM.self) var downloadVM
 
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
@@ -30,7 +30,7 @@ struct IPALibraryView: View {
     @State private var gridLayout = [GridItem(.adaptive(minimum: 130, maximum: .infinity))]
 
     var body: some View {
-        let enabledSources: [SourceJSON] = StoreVM.shared.getEnabledSources()
+        let enabledSources: [SourceJSON] = storeVM.getEnabledSources()
         let sortedApps = storeVM.sourcesApps.sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
         Group {
             if NetworkVM.isConnectedToNetwork() {
@@ -75,8 +75,6 @@ struct IPALibraryView: View {
                                                  selected: $selected,
                                                  app: app,
                                                  isList: isList)
-                                    .environmentObject(DownloadVM.shared)
-                                    .environmentObject(InstallVM.shared)
                                 }
                                 Spacer()
                             }
@@ -151,21 +149,19 @@ struct IPALibraryView: View {
         .searchable(text: $searchString, placement: .toolbar)
         .sheet(isPresented: $addSourcePresented) {
             AddSourceView(addSourceSheet: $addSourcePresented)
-                .environmentObject(storeVM)
         }
         .sheet(isPresented: $showAppInfo) {
             if let selected = selected {
                 StoreInfoAppView(viewModel: StoreAppVM(data: selected))
-                    .environmentObject(downloadVM)
             }
         }
-        .onChange(of: isList) { value in
+        .onChange(of: isList) { _, value in
             UserDefaults.standard.set(value, forKey: "IPALibraryView")
         }
-        .onChange(of: sortAlphabetical) { value in
+        .onChange(of: sortAlphabetical) { _, value in
             UserDefaults.standard.set(value, forKey: "IPASourceAlphabetically")
         }
-        .onChange(of: searchString) { value in
+        .onChange(of: searchString) { _, value in
             if sortAlphabetical {
                 filteredApps = sortedApps.filter {
                     $0.name.lowercased().contains(value.lowercased())
@@ -176,7 +172,7 @@ struct IPALibraryView: View {
                 }
             }
         }
-        .onChange(of: URLObserved.type) {_ in
+        .onChange(of: URLObserved.type) {
             addSourcePresented = URLObserved.type == .source
         }
         .onAppear {

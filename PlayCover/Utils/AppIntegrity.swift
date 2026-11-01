@@ -4,10 +4,12 @@
 //
 
 import Foundation
+import Observation
 
-class AppIntegrity: ObservableObject {
+@Observable
+final class AppIntegrity {
 
-    @Published var integrityOff: Bool = !AppIntegrity.insideAppsFolder
+    var integrityOff: Bool = !AppIntegrity.insideAppsFolder
 
     func verifyAppIntegrity() {
         integrityOff = !AppIntegrity.insideAppsFolder

@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import Observation
 
-class AppSettingsVM: ObservableObject {
+@Observable
+final class AppSettingsVM {
     let app: PlayApp
-    @Published var settings: AppSettings
+    var settings: AppSettings
 
     init(app: PlayApp) {
         self.app = app

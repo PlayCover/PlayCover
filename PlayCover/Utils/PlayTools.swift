@@ -4,11 +4,11 @@
 //
 
 import Foundation
-import injection
+@preconcurrency import injection
 
 // This has so many functionality in it that 250 lines is darn near impossible
 // swiftlint:disable:next type_body_length
-class PlayTools {
+nonisolated enum PlayTools {
     private static let frameworksURL = FileManager.default.homeDirectoryForCurrentUser
         .appendingPathComponent("Library")
         .appendingPathComponent("Frameworks")
@@ -38,7 +38,7 @@ class PlayTools {
                                                         withIntermediateDirectories: true,
                                                         attributes: [:])
             } catch {
-                Log.shared.error(error)
+                reportError(error)
             }
         }
 
@@ -48,7 +48,7 @@ class PlayTools {
     static func installOnSystem() {
         Task(priority: .background) {
             do {
-                Log.shared.log("Installing PlayTools")
+                await reportLog("Installing PlayTools")
 
                 // Check if Frameworks folder exists, if not, create it
                 if !FileManager.default.fileExists(atPath: frameworksURL.path) {
@@ -62,17 +62,18 @@ class PlayTools {
                 FileManager.default.delete(at: URL(fileURLWithPath: playToolsFramework.path))
 
                 // Install version of PlayTools bundled with PlayCover
-                Log.shared.log("Copying PlayTools to Frameworks")
+                await reportLog("Copying PlayTools to Frameworks")
                 if FileManager.default.fileExists(atPath: playToolsFramework.path) {
                     try FileManager.default.removeItem(at: playToolsFramework)
                 }
                 try FileManager.default.copyItem(at: bundledPlayToolsFramework, to: playToolsFramework)
             } catch {
-                Log.shared.error(error)
+                reportError(error)
             }
         }
     }
 
+    @concurrent
     static func installInIPA(_ exec: URL) async throws {
         var binary = try Data(contentsOf: exec)
         try Macho.stripBinary(&binary)
@@ -93,7 +94,7 @@ class PlayTools {
 
                     try Shell.signApp(exec)
                 } catch {
-                    Log.shared.error(error)
+                    reportError(error)
                 }
             }
         })
@@ -202,13 +203,14 @@ class PlayTools {
                         try libraryTarget.fixExecutable()
                         try installPluginInIPA(payload)
                     } catch {
-                        Log.shared.error(error)
+                        reportError(error)
                     }
                 }
             }
         })
     }
 
+    @concurrent
     static func removeFromApp(_ exec: URL) async {
         Inject.removeMachO(machoPath: exec.path,
                            cmdType: .loadDylib,
@@ -225,7 +227,7 @@ class PlayTools {
                     }
                     try Shell.signApp(exec)
                 } catch {
-                    Log.shared.error(error)
+                    reportError(error)
                 }
             }
         })
@@ -236,11 +238,9 @@ class PlayTools {
         try Macho.stripBinary(&binary)
         var result = false
         try _ = Macho.iterateLoadCommands(binary: binary) { offset, shouldSwap in
-            let loadCommand = binary.extract(load_command.self, offset: offset,
-                                             swap: shouldSwap ? swap_load_command:nil)
+            let loadCommand = binary.extract(load_command.self, offset: offset, swapped: shouldSwap)
             if loadCommand.cmd == UInt32(LC_LOAD_DYLIB) {
-                let dylibCommand = binary.extract(dylib_command.self, offset: offset,
-                                                  swap: shouldSwap ? swap_dylib_command:nil)
+                let dylibCommand = binary.extract(dylib_command.self, offset: offset, swapped: shouldSwap)
 
                 let dylibName = String(data: binary,
                                        offset: offset,
@@ -335,9 +335,9 @@ class PlayTools {
         }
     }
 
-	static func fetchEntitlements(_ exec: URL) throws -> String {
+    static func fetchEntitlements(_ exec: URL) async throws -> String {
         do {
-            return try Shell.run("/usr/bin/codesign", "-d", "--entitlements", "-", "--xml", exec.path)
+            return try await Shell.run("/usr/bin/codesign", "-d", "--entitlements", "-", "--xml", exec.path)
         } catch {
             if error.localizedDescription.contains("Document is empty") {
                 // Empty entitlements
@@ -349,5 +349,17 @@ class PlayTools {
                 throw error
             }
         }
-	}
+    }
+
+    private static func reportLog(_ message: String) async {
+        await MainActor.run {
+            Log.shared.log(message)
+        }
+    }
+
+    private static func reportError(_ error: Error) {
+        Task { @MainActor in
+            Log.shared.error(error)
+        }
+    }
 }

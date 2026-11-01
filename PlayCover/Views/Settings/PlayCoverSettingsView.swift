@@ -9,8 +9,7 @@ import Sparkle
 import SwiftUI
 
 struct PlayCoverSettingsView: View {
-    @ObservedObject var updaterViewModel: UpdaterViewModel
-    @EnvironmentObject var storeVM: StoreVM
+    var updaterViewModel: UpdaterViewModel
 
     private enum Tabs: Hashable {
         case updates, ipasource, keyCover, install, uninstall
@@ -28,18 +27,17 @@ struct PlayCoverSettingsView: View {
                     Label("preferences.tab.ipasource", systemImage: "list.bullet")
                 }
                 .tag(Tabs.ipasource)
-                .environmentObject(storeVM)
-            KeyCoverSettings.shared
+            KeyCoverSettings()
                 .tabItem {
                     Label("KeyCover", systemImage: "key.fill")
                 }
                 .tag(Tabs.keyCover)
-            InstallSettings.shared
+            InstallSettings()
                 .tabItem {
                     Label("preferences.tab.install", systemImage: "arrow.down.app")
                 }
                 .tag(Tabs.install)
-            UninstallSettings.shared
+            UninstallSettings()
                 .tabItem {
                   Label("preferences.tab.uninstall", systemImage: "trash.square")
                 }

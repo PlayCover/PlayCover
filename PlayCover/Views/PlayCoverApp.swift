@@ -35,9 +35,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             UserDefaults.standard.set(true, forKey: "launchedBefore")
 
             // Initialize KeyCover with an automatically generated key
-            let keyCoverPassword = KeyCoverPassword.shared.generateVerySecurePassword()
-            KeyCoverPassword.shared.setKeyCoverPassword(keyCoverPassword)
-            KeyCoverPreferences.shared.keyCoverEnabled = .selfGeneratedPassword
+            let keyCover = KeyCoverService.shared
+            Task {
+                await keyCover.setPassword(keyCover.generateVerySecurePassword(), status: .selfGeneratedPassword)
+            }
         }
 
     }
@@ -56,36 +57,53 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func powerModal() {
         if showLowPowerModeAlert {
-            let alert = NSAlert()
-            alert.messageText = NSLocalizedString("alert.power.title", comment: "")
-            alert.informativeText = NSLocalizedString("alert.power.subtitle", comment: "")
-            alert.addButton(withTitle: NSLocalizedString("button.OK", comment: ""))
-            alert.showsSuppressionButton = true
-            alert.alertStyle = .critical
-
-            if alert.runModal() == .alertFirstButtonReturn {
-                showLowPowerModeAlert = alert.suppressionButton?.state == .off
+            let response = AlertPresenter.shared.presentModal(AlertRequest(
+                title: NSLocalizedString("alert.power.title", comment: ""),
+                message: NSLocalizedString("alert.power.subtitle", comment: ""),
+                style: .critical,
+                suppressionTooltip: NSLocalizedString("alert.supression", comment: "")
+            ))
+            if response.isFirstButton {
+                showLowPowerModeAlert = !response.isSuppressed
             }
         }
     }
 }
 
 @main
+enum PlayCoverMain {
+    static func main() {
+        if isHostingTests {
+            // Tests are injected into this process; skip the UI and its launch side effects
+            // (PlayTools install, library scan, migrations) so they never touch real user data.
+            NSApplication.shared.setActivationPolicy(.prohibited)
+            NSApplication.shared.run()
+        } else {
+            PlayCoverApp.main()
+        }
+    }
+
+    private static var isHostingTests: Bool {
+        let environment = ProcessInfo.processInfo.environment
+        return environment["XCTestConfigurationFilePath"] != nil || environment["XCTestSessionIdentifier"] != nil
+    }
+}
+
 struct PlayCoverApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @StateObject var updaterViewModel = UpdaterViewModel()
-    var storeVM = StoreVM.shared
+    @State private var updaterViewModel = UpdaterViewModel()
+    private let environment = AppEnvironment.shared
 
     @State var isSigningSetupShown = false
+
+    init() {
+        environment.bootstrap()
+    }
 
     var body: some Scene {
         WindowGroup {
             MainView(isSigningSetupShown: $isSigningSetupShown)
-                .environmentObject(InstallVM.shared)
-                .environmentObject(DownloadVM.shared)
-                .environmentObject(AppsVM.shared)
-                .environmentObject(storeVM)
-                .environmentObject(AppIntegrity())
+                .appEnvironment(environment)
                 .onAppear {
                     NSWindow.allowsAutomaticWindowTabbing = false
                     SoundDeviceService.shared.prepareSoundDevice()
@@ -102,7 +120,7 @@ struct PlayCoverApp: App {
 
         Settings {
             PlayCoverSettingsView(updaterViewModel: updaterViewModel)
-                .environmentObject(storeVM)
+                .appEnvironment(environment)
         }
     }
 }

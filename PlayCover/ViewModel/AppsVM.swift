@@ -4,30 +4,38 @@
 //
 
 import Foundation
+import Observation
 
-class AppsVM: ObservableObject {
+@Observable
+final class AppsVM {
 
-    public static let appDirectory = PlayTools.playCoverContainer.appendingPathComponent("Applications")
+    nonisolated public static var appDirectory: URL {
+        PlayTools.playCoverContainer.appendingPathComponent("Applications")
+    }
 
-    static let shared = AppsVM()
+    static var shared: AppsVM { AppEnvironment.shared.apps }
 
-    private init() {
+    init() {}
+
+    /// Creates the library folders, installs PlayTools system-wide and scans the library.
+    /// Called once at launch by `AppEnvironment`.
+    func bootstrap() {
         try? AppsVM.ensureBaseDirectoriesExist()
         PlayTools.installOnSystem()
         fetchApps()
     }
 
-    static func ensureBaseDirectoriesExist() throws {
+    nonisolated static func ensureBaseDirectoriesExist() throws {
         try FileManager.default.createDirectory(
             at: appDirectory,
             withIntermediateDirectories: true
         )
     }
 
-    @Published var filteredApps: [PlayApp] = []
-    @Published var apps: [PlayApp] = []
-    @Published var searchText: String = ""
-    @Published var updatingApps = true
+    var filteredApps: [PlayApp] = []
+    var apps: [PlayApp] = []
+    var searchText: String = ""
+    var updatingApps = true
 
     func fetchApps() {
         Task { @MainActor in

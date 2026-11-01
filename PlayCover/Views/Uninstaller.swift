@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import Synchronization
 
 struct CheckBoxHelper {
     var view: NSView
     var button: NSButton
-    var buttonvar: String
+    var keyPath: ReferenceWritableKeyPath<UninstallPreferences, Bool>
 }
 
 class Uninstaller {
@@ -29,10 +30,12 @@ class Uninstaller {
         Uninstaller.libraryUrl.appendingPathComponent("Saved Application State")
     ]
 
-    private static func createButtonView(_ yaxis: CGFloat, _ text: String, _ varname: String) -> CheckBoxHelper {
+    private static func createButtonView(_ yaxis: CGFloat, _ text: String,
+                                         _ keyPath: ReferenceWritableKeyPath<UninstallPreferences, Bool>)
+        -> CheckBoxHelper {
         let button = NSButton(checkboxWithTitle: text, target: self, action: nil)
 
-        if UninstallPreferences.shared.value(forKey: varname) as? Bool ?? true {
+        if UninstallPreferences.shared[keyPath: keyPath] {
             button.animator().setNextState()
         }
 
@@ -42,26 +45,20 @@ class Uninstaller {
 
         view.addSubview(button)
 
-        return CheckBoxHelper(view: view, button: button, buttonvar: varname)
+        return CheckBoxHelper(view: view, button: button, keyPath: keyPath)
     }
 
     @MainActor
     static func uninstallPopup(_ app: PlayApp) async {
         if UninstallPreferences.shared.showUninstallPopup {
-            let boxmakers: [(String, String)] = [
-                ("removePlayChain", NSLocalizedString("preferences.toggle.removePlayChain", comment: "")),
-                ("removeAppEntitlements", NSLocalizedString("preferences.toggle.removeEntitlements", comment: "")),
-                ("removeAppSettings", NSLocalizedString("preferences.toggle.removeSetting", comment: "")),
-                ("removeAppKeymap", NSLocalizedString("preferences.toggle.removeKeymap", comment: "")),
-                ("clearAppData", NSLocalizedString("preferences.toggle.clearAppData", comment: ""))
-            ]
-
             var checkboxes: [CheckBoxHelper] = []
 
             var viewY = 0.0
 
-            for (buttonvar, buttontitle) in boxmakers {
-                checkboxes.append(createButtonView(viewY, buttontitle, buttonvar))
+            // AppKit's y axis grows upward, so the bottom row is laid out first.
+            for option in UninstallPreferences.cleanupOptions.reversed() {
+                checkboxes.append(createButtonView(viewY, NSLocalizedString(option.title, comment: ""),
+                                                   option.keyPath))
                 viewY += checkboxes[checkboxes.count - 1].view.frame.height
             }
 
@@ -73,32 +70,23 @@ class Uninstaller {
                 settingsView.addSubview(checkboxhelper.view)
             }
 
-            let alert = NSAlert()
-            alert.messageText = NSLocalizedString("playapp.delete", comment: "")
-            alert.informativeText = String(format: NSLocalizedString("playapp.deleteMessage",
-                                                                     comment: ""),
-                                           arguments: [app.name])
-
-            alert.alertStyle = .warning
-            alert.accessoryView = settingsView
-
-            let delete = alert.addButton(withTitle: NSLocalizedString("playapp.deleteConfirm", comment: ""))
-            alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
-
-            alert.showsSuppressionButton = true
-            alert.suppressionButton?.toolTip = NSLocalizedString("alert.supression", comment: "")
-
-            delete.hasDestructiveAction = true
-
-            NSApplication.shared.requestUserAttention(.criticalRequest)
-            guard let window = NSApplication.shared.windows.first,
-                  await alert.beginSheetModal(for: window) == .alertFirstButtonReturn else { return }
+            let response = await AlertPresenter.shared.present(AlertRequest(
+                title: NSLocalizedString("playapp.delete", comment: ""),
+                message: String(format: NSLocalizedString("playapp.deleteMessage", comment: ""),
+                                arguments: [app.name]),
+                style: .warning,
+                buttons: [.localized("playapp.deleteConfirm", isDestructive: true), .localized("button.Cancel")],
+                suppressionTooltip: NSLocalizedString("alert.supression", comment: ""),
+                accessoryView: settingsView,
+                asSheet: true,
+                requestsAttention: true
+            ))
+            guard response.isFirstButton else { return }
             for checkboxhelper in checkboxes {
-                UninstallPreferences.shared.setValue(checkboxhelper.button.state == .on,
-                                                     forKey: checkboxhelper.buttonvar)
+                UninstallPreferences.shared[keyPath: checkboxhelper.keyPath] = checkboxhelper.button.state == .on
             }
 
-            if alert.suppressionButton?.state == .on {
+            if response.isSuppressed {
                 UninstallPreferences.shared.showUninstallPopup = false
             }
 
@@ -157,17 +145,14 @@ class Uninstaller {
 
     @MainActor
     static func clearCachePopup(_ app: PlayApp) async {
-        let alert = NSAlert()
-        alert.messageText = NSLocalizedString("alert.app.delete", comment: "")
-        alert.alertStyle = .warning
-
-        let proceed = alert.addButton(withTitle: NSLocalizedString("button.Proceed", comment: ""))
-        proceed.hasDestructiveAction = true
-        alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
-
-        NSApplication.shared.requestUserAttention(.criticalRequest)
-        guard let window = NSApplication.shared.windows.first,
-              await alert.beginSheetModal(for: window) == .alertFirstButtonReturn else { return }
+        let response = await AlertPresenter.shared.present(AlertRequest(
+            title: NSLocalizedString("alert.app.delete", comment: ""),
+            style: .warning,
+            buttons: [.localized("button.Proceed", isDestructive: true), .localized("button.Cancel")],
+            asSheet: true,
+            requestsAttention: true
+        ))
+        guard response.isFirstButton else { return }
 
         await clearCache(of: app)
     }
@@ -196,19 +181,20 @@ class Uninstaller {
             var fullPruneURLs = pruneURLs
             fullPruneURLs.append(contentsOf: cacheURLs)
 
-            var prunedIds: [String] = []
+            let prunedIds = Mutex<[String]>([])
 
             for url in fullPruneURLs {
                 url.enumerateContents(options: [.skipsSubdirectoryDescendants]) { file, _ in
                     let bundleId = file.deletingPathExtension().lastPathComponent
                     if danglingItems.contains(bundleId) {
                         try FileManager.default.trashItem(at: file, resultingItemURL: nil)
-                        prunedIds.append(bundleId)
+                        prunedIds.withLock { $0.append(bundleId) }
                     }
                 }
             }
 
-            try "\(PlayApp.bundleIDCache.filter({ !Set(prunedIds).contains($0) }).joined(separator: "\n"))\n"
+            let pruned = prunedIds.withLock { $0 }
+            try "\(PlayApp.bundleIDCache.filter({ !Set(pruned).contains($0) }).joined(separator: "\n"))\n"
                 .write(to: PlayApp.bundleIDCacheURL, atomically: false, encoding: .utf8)
         } catch {
             Log.shared.error(error)

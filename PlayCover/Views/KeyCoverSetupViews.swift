@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct KeyCoverInitialSetupView: View {
+    @Environment(KeyCoverService.self) private var keyCover
     @Binding var isPresented: Bool
 
     @State private var keyCoverPassword = ""
@@ -29,10 +30,10 @@ struct KeyCoverInitialSetupView: View {
         }
         .pickerStyle(RadioGroupPickerStyle())
         .padding()
-        .onChange(of: keyOption) { _ in
+        .onChange(of: keyOption) {
             switch keyOption {
             case .selfGeneratedPassword:
-                keyCoverPassword = KeyCoverPassword.shared.generateVerySecurePassword()
+                keyCoverPassword = keyCover.generateVerySecurePassword()
                 keyCoverPasswordConfirmed = keyCoverPassword
             case .userProvidedPassword:
                 keyCoverPassword = ""
@@ -81,20 +82,10 @@ struct KeyCoverInitialSetupView: View {
                             keyCoverConfirmError = true
                             return
                         }
-                        Task(priority: .userInitiated) {
-                            isEncrypting = true
-                            switch keyOption {
-                            case .userProvidedPassword:
-                                KeyCoverPreferences.shared.keyCoverEnabled = .userProvidedPassword
-                            case .selfGeneratedPassword:
-                                KeyCoverPreferences.shared.keyCoverEnabled = .selfGeneratedPassword
-                            case .disabled:
-                                break
-                            }
-                            KeyCoverPassword.shared.setKeyCoverPassword(keyCoverPassword)
-                            isEncrypting = false
-                            isPresented = false
-                        }
+                        isEncrypting = true
+                        await keyCover.setPassword(keyCoverPassword, status: keyOption)
+                        isEncrypting = false
+                        isPresented = false
                     }
                 }
                 .keyboardShortcut(.defaultAction)
@@ -107,10 +98,11 @@ struct KeyCoverInitialSetupView: View {
 }
 
 struct KeyCoverUpdatePasswordView: View {
+    @Environment(KeyCoverService.self) private var keyCover
+    @Environment(KeyCoverPreferences.self) private var preferences
     @Binding var isPresented: Bool
 
-    @State private var oldKeyCoverPassword = KeyCoverPreferences.shared.keyCoverEnabled == .selfGeneratedPassword ?
-                                        KeyCover.shared.keyCoverPlainTextKey ?? "" : ""
+    @State private var oldKeyCoverPassword = ""
     @State private var keyCoverPassword = ""
     @State private var keyCoverPasswordConfirm = ""
     @State private var isWorking = false
@@ -126,7 +118,7 @@ struct KeyCoverUpdatePasswordView: View {
             Text("keycover.changePasswordPrompt.title")
                 .bold()
             SecureField("keycover.oldMasterPassword", text: $oldKeyCoverPassword)
-            .disabled(KeyCoverPreferences.shared.keyCoverEnabled == .selfGeneratedPassword)
+            .disabled(preferences.keyCoverEnabled == .selfGeneratedPassword)
 
             Picker("keycover.setup.encryptionKey", selection: $keyOption) {
                 Text("keycover.setup.useGeneratedKey")
@@ -136,10 +128,10 @@ struct KeyCoverUpdatePasswordView: View {
             }
             .pickerStyle(RadioGroupPickerStyle())
             .padding()
-            .onChange(of: keyOption) { _ in
+            .onChange(of: keyOption) {
                 switch keyOption {
                 case .selfGeneratedPassword:
-                    keyCoverPassword = KeyCoverPassword.shared.generateVerySecurePassword()
+                    keyCoverPassword = keyCover.generateVerySecurePassword()
                     keyCoverPasswordConfirm = keyCoverPassword
                 case .userProvidedPassword:
                     keyCoverPassword = ""
@@ -183,7 +175,7 @@ struct KeyCoverUpdatePasswordView: View {
                 .keyboardShortcut(.cancelAction)
                 Button("button.OK") {
                     Task {
-                        if !KeyCoverPassword.shared.validatePassword(oldKeyCoverPassword) {
+                        if !keyCover.validatePassword(oldKeyCoverPassword) {
                             oldKeyCoverPasswordError = true
                             return
                         }
@@ -195,22 +187,10 @@ struct KeyCoverUpdatePasswordView: View {
                             keyCoverPasswordConfirmError = true
                             return
                         }
-                        Task(priority: .userInitiated) {
-                            switch keyOption {
-                            case .userProvidedPassword:
-                                KeyCoverPreferences.shared.keyCoverEnabled = .userProvidedPassword
-                            case .selfGeneratedPassword:
-                                KeyCoverPreferences.shared.keyCoverEnabled = .selfGeneratedPassword
-                            case .disabled:
-                                break
-                            }
-                            isWorking = true
-                            Task(priority: .userInitiated) {
-                                KeyCoverPassword.shared.setKeyCoverPassword(keyCoverPassword)
-                            }
-                            isWorking = false
-                            isPresented = false
-                        }
+                        isWorking = true
+                        await keyCover.setPassword(keyCoverPassword, status: keyOption)
+                        isWorking = false
+                        isPresented = false
                     }
                 }
                 .keyboardShortcut(.defaultAction)
@@ -218,19 +198,25 @@ struct KeyCoverUpdatePasswordView: View {
         }
         .disabled(isWorking)
         .padding()
+        .onAppear {
+            if preferences.keyCoverEnabled == .selfGeneratedPassword {
+                oldKeyCoverPassword = keyCover.plainTextKey ?? ""
+            }
+        }
     }
 }
 
 struct KeyCoverRemovalView: View {
+    @Environment(KeyCoverService.self) private var keyCover
+    @Environment(KeyCoverPreferences.self) private var preferences
     @Binding var isPresented: Bool
 
-    @State private var keyCoverPassword = KeyCoverPreferences.shared.keyCoverEnabled == .selfGeneratedPassword ?
-                                    KeyCover.shared.keyCoverPlainTextKey ?? "" : ""
+    @State private var keyCoverPassword = ""
     @State private var isWorking = false
 
     @State private var keyCoverPasswordError = false
 
-    @State private var keyOption = KeyCoverPreferences.shared.keyCoverEnabled
+    @State private var keyOption = KeyCoverStatus.disabled
 
     var body: some View {
         VStack {
@@ -257,16 +243,14 @@ struct KeyCoverRemovalView: View {
                 .keyboardShortcut(.cancelAction)
                 Button("button.OK") {
                     Task {
-                        if !KeyCoverPassword.shared.validatePassword(keyCoverPassword) {
+                        if !keyCover.validatePassword(keyCoverPassword) {
                             keyCoverPasswordError = true
                             return
                         }
-                        Task(priority: .userInitiated) {
-                            isWorking = true
-                            KeyCoverPassword.shared.removeKeyCoverPassword()
-                            isWorking = false
-                            isPresented = false
-                        }
+                        isWorking = true
+                        await keyCover.removePassword()
+                        isWorking = false
+                        isPresented = false
                     }
                 }
                 .keyboardShortcut(.defaultAction)
@@ -274,5 +258,11 @@ struct KeyCoverRemovalView: View {
         }
         .disabled(isWorking)
         .padding()
+        .onAppear {
+            keyOption = preferences.keyCoverEnabled
+            if keyOption == .selfGeneratedPassword {
+                keyCoverPassword = keyCover.plainTextKey ?? ""
+            }
+        }
     }
 }

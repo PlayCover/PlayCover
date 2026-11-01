@@ -10,9 +10,9 @@ import SwiftUI
 struct ToastView: View {
     public static let toastGlassPadding: CGFloat = 8
 
-    @EnvironmentObject var toastVM: ToastVM
-    @EnvironmentObject var installVM: InstallVM
-    @EnvironmentObject var downloadVM: DownloadVM
+    @Environment(ToastVM.self) var toastVM
+    @Environment(InstallVM.self) var installVM
+    @Environment(DownloadVM.self) var downloadVM
 
     var body: some View {
         if toastVM.isShown {
@@ -41,7 +41,8 @@ struct ToastView: View {
                     .toastBackground()
                     .onAppear {
                         Task { @MainActor in
-                            try await Task.sleep(nanoseconds: toast.timeRemaining * 1000000000)
+                            guard (try? await Task.sleep(nanoseconds: toast.timeRemaining * 1000000000)) != nil
+                            else { return }
                             // Next toast to be removed will always be the first in the list
                             toastVM.toasts.removeFirst()
                         }
@@ -84,8 +85,6 @@ struct ToastView: View {
 struct ToastView_Preview: PreviewProvider {
     static var previews: some View {
         ToastView()
-            .environmentObject(ToastVM.shared)
-            .environmentObject(InstallVM.shared)
-            .environmentObject(DownloadVM.shared)
+            .appEnvironment()
     }
 }

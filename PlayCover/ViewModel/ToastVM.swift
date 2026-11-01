@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import Observation
 
-class ToastVM: ObservableObject {
-    static let shared = ToastVM()
+@Observable
+final class ToastVM {
+    static var shared: ToastVM { AppEnvironment.shared.toasts }
 
-    @Published var toasts: [ToastInfo] = []
-    @Published var isShown: Bool = true
+    var toasts: [ToastInfo] = []
+    var isShown: Bool = true
 
     func showToast(toastType: ToastType, toastDetails: String) {
         toasts.append(ToastInfo(toastType: toastType, toastDetails: toastDetails, timeRemaining: 2))

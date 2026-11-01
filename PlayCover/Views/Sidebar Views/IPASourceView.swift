@@ -9,8 +9,8 @@ import SwiftUI
 
 struct IPASourceView: View {
 
-    @ObservedObject var storeVM: StoreVM
-    @EnvironmentObject var downloadVM: DownloadVM
+    @Bindable var storeVM: StoreVM
+    @Environment(DownloadVM.self) var downloadVM
 
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
@@ -55,8 +55,6 @@ struct IPASourceView: View {
                                      selected: $selected,
                                      app: app,
                                      isList: isList)
-                        .environmentObject(DownloadVM.shared)
-                        .environmentObject(InstallVM.shared)
                     }
                     Spacer()
                 }
@@ -116,21 +114,19 @@ struct IPASourceView: View {
         .searchable(text: $searchString, placement: .toolbar)
         .sheet(isPresented: $addSourcePresented) {
             AddSourceView(addSourceSheet: $addSourcePresented)
-                .environmentObject(storeVM)
         }
         .sheet(isPresented: $showAppInfo) {
             if let selected = selected {
                 StoreInfoAppView(viewModel: StoreAppVM(data: selected))
-                    .environmentObject(downloadVM)
             }
         }
-        .onChange(of: isList) { value in
+        .onChange(of: isList) { _, value in
             UserDefaults.standard.set(value, forKey: "IPALibraryView")
         }
-        .onChange(of: sortAlphabetical) { value in
+        .onChange(of: sortAlphabetical) { _, value in
             UserDefaults.standard.set(value, forKey: "IPASourceAlphabetically")
         }
-        .onChange(of: searchString) { value in
+        .onChange(of: searchString) { _, value in
             if sortAlphabetical {
                 filteredApps = sortedApps.filter {
                     $0.name.lowercased().contains(value.lowercased())

@@ -13,42 +13,59 @@ enum KeyCoverStatus: String, Codable, Hashable {
     case userProvidedPassword
 }
 
-class KeyCoverPreferences: NSObject, ObservableObject {
-    static var shared = KeyCoverPreferences()
+@Observable
+final class KeyCoverPreferences {
+    static var shared: KeyCoverPreferences { AppEnvironment.shared.keyCoverPreferences }
 
-    @AppStorage("keyCoverEnabled") var keyCoverEnabled: KeyCoverStatus = KeyCoverStatus.disabled
-    @AppStorage("promptForKeyCoverPasswordAtLaunch") var promptForKeyCoverPasswordAtLaunch = true
+    private enum Keys {
+        static let keyCoverEnabled = "keyCoverEnabled"
+        static let promptAtLaunch = "promptForKeyCoverPasswordAtLaunch"
+    }
+
+    @ObservationIgnored private let defaults: UserDefaults
+
+    var keyCoverEnabled: KeyCoverStatus {
+        didSet { defaults.set(keyCoverEnabled.rawValue, forKey: Keys.keyCoverEnabled) }
+    }
+    var promptForKeyCoverPasswordAtLaunch: Bool {
+        didSet { defaults.set(promptForKeyCoverPasswordAtLaunch, forKey: Keys.promptAtLaunch) }
+    }
+
+    init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
+        defaults.register(defaults: [Keys.promptAtLaunch: true])
+        keyCoverEnabled = defaults.string(forKey: Keys.keyCoverEnabled).flatMap(KeyCoverStatus.init) ?? .disabled
+        promptForKeyCoverPasswordAtLaunch = defaults.bool(forKey: Keys.promptAtLaunch)
+    }
 }
 
 struct KeyCoverSettings: View {
-    static let shared = KeyCoverSettings()
-
     @State private var keyCoverInitialSetupShown = false
     @State private var keyCoverUpdatePasswordShown = false
     @State private var keyCoverRemovalViewShown = false
 
-    @ObservedObject var keyCoverPreferences = KeyCoverPreferences.shared
-    @ObservedObject var keyCoverObserved = KeyCoverObservable.shared
-
-    @ObservedObject var modifierKeyObserver = ModifierKeyObserver.shared
+    @Environment(KeyCoverPreferences.self) private var keyCoverPreferences
+    @Environment(KeyCoverService.self) private var keyCover
+    @Environment(ModifierKeyObserver.self) private var modifierKeyObserver
 
     var body: some View {
+        @Bindable var keyCoverPreferences = keyCoverPreferences
         VStack {
             HStack {
                 HStack {
                     Text("keycover.status.title")
-                    Text(keyCoverObserved.keyCoverEnabled ?
-                             KeyCoverPreferences.shared.keyCoverEnabled == .selfGeneratedPassword ?
+                    Text(keyCover.isEnabled ?
+                             keyCoverPreferences.keyCoverEnabled == .selfGeneratedPassword ?
                              "keycover.status.managedPassword" : "keycover.status.userPassword"
                          : "state.disabled")
-                        .foregroundColor(keyCoverObserved.keyCoverEnabled ? .green : .none)
+                        .foregroundColor(keyCover.isEnabled ? .green : .none)
                     Spacer()
                 }
                 Spacer()
-                Button(keyCoverObserved.keyCoverEnabled ? "button.Reset" : "button.Enable") {
-                    if keyCoverObserved.keyCoverEnabled {
+                Button(keyCover.isEnabled ? "button.Reset" : "button.Enable") {
+                    if keyCover.isEnabled {
                         if modifierKeyObserver.isOptionKeyPressed {
-                            KeyCoverPassword.shared.forceResetKeyCoverPassword()
+                            keyCover.forceResetPassword()
                         } else {
                             keyCoverRemovalViewShown = true
                         }
@@ -56,9 +73,7 @@ struct KeyCoverSettings: View {
                         keyCoverInitialSetupShown = true
                     }
                 }
-                .foregroundColor((keyCoverObserved.keyCoverEnabled
-                                 && modifierKeyObserver.isOptionKeyPressed)
-                                    ? .red : .none)
+                .foregroundColor((keyCover.isEnabled && modifierKeyObserver.isOptionKeyPressed) ? .red : .none)
             }
             .padding()
             Spacer()
@@ -66,14 +81,14 @@ struct KeyCoverSettings: View {
                 VStack(alignment: .leading) {
                     Text("keycover.status.chainCount")
                     Text(String(format: NSLocalizedString("keycover.status.unlockedCount %@ %@", comment: ""),
-                                "\(keyCoverObserved.unlockedCount)",
-                                "\(keyCoverObserved.keychains.count)"))
+                                "\(keyCover.unlockedCount)",
+                                "\(keyCover.keychains.count)"))
                 }
                 Spacer()
                 Button("keycover.button.lockAll") {
-                    KeyCover.shared.lockAllChainsAsync()
+                    Task { await keyCover.lockAllChains() }
                 }
-                .disabled(!keyCoverObserved.keyCoverEnabled)
+                .disabled(!keyCover.isEnabled)
             }
             .padding()
             HStack {
@@ -81,7 +96,7 @@ struct KeyCoverSettings: View {
                 Button("keycover.button.changePassword") {
                     keyCoverUpdatePasswordShown = true
                 }
-                .disabled(!keyCoverObserved.keyCoverEnabled)
+                .disabled(!keyCover.isEnabled)
                 Spacer()
             }
             .padding()
@@ -93,6 +108,7 @@ struct KeyCoverSettings: View {
             .padding()
         }
         .frame(width: 600, height: 300)
+        .onAppear { keyCover.refresh() }
         .sheet(isPresented: $keyCoverInitialSetupShown) {
             KeyCoverInitialSetupView(isPresented: $keyCoverInitialSetupShown)
         }
@@ -102,11 +118,5 @@ struct KeyCoverSettings: View {
         .sheet(isPresented: $keyCoverRemovalViewShown) {
             KeyCoverRemovalView(isPresented: $keyCoverRemovalViewShown)
         }
-    }
-}
-
-struct KeyCoverSettings_Previews: PreviewProvider {
-    static var previews: some View {
-        KeyCoverSettings()
     }
 }

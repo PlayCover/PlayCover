@@ -4,19 +4,21 @@
 //
 
 import Foundation
-import SwiftUI
 
-class Log: ObservableObject {
+/// Session log (copied from the menu bar) plus the user-facing error / success dialogs.
+final class Log {
 
-    static let shared = Log()
+    static var shared: Log { AppEnvironment.shared.log }
+
+    private let alerts: AlertPresenter
+
+    init(alerts: AlertPresenter) {
+        self.alerts = alerts
+    }
 
     func error(_ err: Error) {
-        Task { @MainActor in
-            self.dialog(
-                question: NSLocalizedString("alert.error", comment: ""),
-                text: err.localizedDescription,
-                style: NSAlert.Style.critical)
-        }
+        log(err.localizedDescription, isError: true)
+        alerts.showError(err)
     }
 
     func error(localized str: String, args: [String] = []) {
@@ -24,16 +26,11 @@ class Log: ObservableObject {
     }
 
     func msg(_ msg: String) {
-        Task { @MainActor in
-            self.log(msg)
-            self.dialog(
-                question: NSLocalizedString("alert.success", comment: ""),
-                text: msg,
-                style: NSAlert.Style.informational)
-        }
+        log(msg)
+        alerts.showSuccess(msg)
     }
 
-    var logdata = "\(ProcessInfo.processInfo.operatingSystemVersionString)\n"
+    private(set) var logdata = "\(ProcessInfo.processInfo.operatingSystemVersionString)\n"
 
     func log(_ str: String, isError: Bool = false) {
         print(str)
@@ -43,15 +40,4 @@ class Log: ObservableObject {
         logdata.append(str)
         logdata.append("\n")
     }
-
-    private func dialog(question: String, text: String, style: NSAlert.Style) {
-        let alert = NSAlert()
-        alert.messageText = question
-        alert.informativeText = text
-        alert.alertStyle = style
-        alert.addButton(withTitle: NSLocalizedString("button.OK", comment: ""))
-        alert.runModal()
-    }
-
-    required init() { }
 }

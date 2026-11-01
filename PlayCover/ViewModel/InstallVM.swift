@@ -5,7 +5,7 @@
 
 import Foundation
 
-enum InstallStepsNative: String {
+nonisolated enum InstallStepsNative: String, Sendable {
     case unzip = "playapp.install.unzip",
          wrapper = "playapp.install.createWrapper",
          playtools = "playapp.install.installPlayTools",
@@ -16,9 +16,9 @@ enum InstallStepsNative: String {
          failed = "playapp.progress.failed"
 }
 
-class InstallVM: ProgressVM<InstallStepsNative> {
+final class InstallVM: ProgressVM<InstallStepsNative> {
 
-    static let shared = InstallVM()
+    static var shared: InstallVM { AppEnvironment.shared.install }
 
     init() {
         super.init(start: .begin, ends: [.finish, .failed])

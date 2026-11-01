@@ -30,10 +30,14 @@ struct AppSettingsData: Codable {
     var inverseScreenValues = false
     var metalHUD = false {
         didSet {
-            do {
-                try Shell.setMetalHUD(bundleIdentifier, enabled: metalHUD)
-            } catch {
-                Log.shared.error(error)
+            let bundleIdentifier = bundleIdentifier
+            let enabled = metalHUD
+            Task {
+                do {
+                    try await Shell.setMetalHUD(bundleIdentifier, enabled: enabled)
+                } catch {
+                    Log.shared.error(error)
+                }
             }
         }
     }
@@ -252,9 +256,8 @@ extension NSScreen {
 
         if let modelData = IORegistryEntryCreateCFProperty(service, "model" as CFString, kCFAllocatorDefault, 0)
             .takeRetainedValue() as? Data {
-            if let modelIdentifierCString = String(data: modelData, encoding: .utf8)?.cString(using: .utf8) {
-                modelIdentifier = String(cString: modelIdentifierCString)
-            }
+            let truncated = Data(modelData.prefix { $0 != 0 })
+            modelIdentifier = String(bytes: truncated, encoding: .utf8)
         }
         IOObjectRelease(service)
         return modelIdentifier

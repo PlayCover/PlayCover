@@ -6,9 +6,9 @@
 import Foundation
 import Yams
 
-class Entitlements {
+nonisolated enum Entitlements {
     // These are so critical they MUST be gone no matter what.
-    static var critical = [
+    static let critical = [
         "/bin/bash",
         "/usr/sbin/sshd",
         "/usr/libexec/ssh-keysign",
@@ -26,20 +26,26 @@ class Entitlements {
                                                         withIntermediateDirectories: true,
                                                         attributes: [:])
             } catch {
-                Log.shared.error(error)
+                let caught = error
+                Task { @MainActor in
+                    Log.shared.error(caught)
+                }
             }
         }
         return entFolder
     }
 
-    static func dumpEntitlements(exec: URL) throws -> [String: Any] {
-        let result = try [String: Any].read(try copyEntitlements(exec: exec))
+    static func dumpEntitlements(exec: URL) async throws -> [String: Any] {
+        let result = try [String: Any].read(try await copyEntitlements(exec: exec))
         return result ?? [:]
     }
 
-    static func areEntitlementsValid(app: PlayApp) throws -> Bool {
-        guard let old = try dumpEntitlements(exec: app.executable) as? [String: AnyHashable] else { return false }
-        guard let new = try composeEntitlements(app) as? [String: AnyHashable] else { return false }
+    @MainActor
+    static func areEntitlementsValid(app: PlayApp) async throws -> Bool {
+        guard let old = try await dumpEntitlements(exec: app.executable) as? [String: AnyHashable] else {
+            return false
+        }
+        guard let new = try await composeEntitlements(app) as? [String: AnyHashable] else { return false }
         return new.hashValue == old.hashValue
     }
 
@@ -66,13 +72,13 @@ class Entitlements {
     }
 
     // swiftlint:disable:next cyclomatic_complexity
-    static func composeEntitlements(_ app: PlayApp) throws -> [String: Any] {
+    @MainActor static func composeEntitlements(_ app: PlayApp) async throws -> [String: Any] {
         var base = [String: Any]()
         let bundleID = app.info.bundleIdentifier
 
         setBaseEntitlements(&base)
 
-        if SystemConfig.isPlaySignActive {
+        if await SystemConfig.isPlaySignActive {
             base["com.apple.private.tcc.allow"] = TCC.split(whereSeparator: \.isNewline)
             if let specific = try [String: Any].read(app.entitlements) {
                 for key in specific.keys {
@@ -128,16 +134,16 @@ class Entitlements {
         return base
     }
 
-    private static func copyEntitlements(exec: URL) throws -> String {
-        var entitlements = try excludeEntitlements(exec: exec)
+    private static func copyEntitlements(exec: URL) async throws -> String {
+        var entitlements = try await excludeEntitlements(exec: exec)
         if !entitlements.contains("DOCTYPE plist PUBLIC") {
             entitlements = Entitlements.entitlements_template
         }
         return entitlements
     }
 
-    private static func excludeEntitlements(exec: URL) throws -> String {
-        let from = try PlayTools.fetchEntitlements(exec)
+    private static func excludeEntitlements(exec: URL) async throws -> String {
+        let from = try await PlayTools.fetchEntitlements(exec)
         if let range: Range<String.Index> = from.range(of: "<?xml") {
             return String(from[range.lowerBound...])
         } else {
@@ -244,12 +250,12 @@ public func == <K, L: Hashable, R: Hashable>(lhs: [K: L], rhs: [K: R]) -> Bool {
 }
 
 extension Dictionary {
-    func store(_ toUrl: URL) throws {
+    nonisolated func store(_ toUrl: URL) throws {
         let data = try PropertyListSerialization.data(fromPropertyList: self, format: .xml, options: 0)
         try data.write(to: toUrl, options: .atomic)
     }
 
-    static func read(_ from: URL) throws -> Dictionary? {
+    nonisolated static func read(_ from: URL) throws -> Dictionary? {
         var format = PropertyListSerialization.PropertyListFormat.xml
         if let data = FileManager.default.contents(atPath: from.path) {
             return try PropertyListSerialization.propertyList(
@@ -260,7 +266,7 @@ extension Dictionary {
         return nil
     }
 
-    static func read(_ from: String) throws -> Dictionary? {
+    nonisolated static func read(_ from: String) throws -> Dictionary? {
         var format = PropertyListSerialization.PropertyListFormat.xml
         if let data = from.data(using: .utf8) {
             return try PropertyListSerialization.propertyList(

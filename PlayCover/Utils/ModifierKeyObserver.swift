@@ -5,32 +5,33 @@
 //  Created by Venti on 14/02/2024.
 //
 
-import Foundation
+import AppKit
+import Observation
 
-class ModifierKeyObserver: ObservableObject {
-    static let shared = ModifierKeyObserver()
+@Observable
+final class ModifierKeyObserver {
+    static var shared: ModifierKeyObserver { AppEnvironment.shared.modifierKeys }
 
-    @Published var isOptionKeyPressed = false
-    @Published var isCommandKeyPressed = false
-    @Published var isControlKeyPressed = false
-    @Published var isShiftKeyPressed = false
+    private(set) var isOptionKeyPressed = false
+    private(set) var isCommandKeyPressed = false
+    private(set) var isControlKeyPressed = false
+    private(set) var isShiftKeyPressed = false
 
-    private var eventMonitor: Any?
+    // Touched from deinit, which is nonisolated under default MainActor isolation.
+    @ObservationIgnored nonisolated(unsafe) private var eventMonitor: Any?
 
     init() {
-        let mask: NSEvent.EventTypeMask = [.flagsChanged]
-        eventMonitor = NSEvent.addLocalMonitorForEvents(matching: mask) { [weak self] event in
-            guard let self = self else { return event }
-            if event.type == .flagsChanged {
-//                debugPrint("Event received: \(event)")
-                self.isOptionKeyPressed = event.modifierFlags.contains(.option)
-                self.isCommandKeyPressed = event.modifierFlags.contains(.command)
-                self.isControlKeyPressed = event.modifierFlags.contains(.control)
-                self.isShiftKeyPressed = event.modifierFlags.contains(.shift)
-                self.objectWillChange.send()
-            }
+        eventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged]) { [weak self] event in
+            self?.update(event.modifierFlags)
             return event
         }
+    }
+
+    private func update(_ flags: NSEvent.ModifierFlags) {
+        isOptionKeyPressed = flags.contains(.option)
+        isCommandKeyPressed = flags.contains(.command)
+        isControlKeyPressed = flags.contains(.control)
+        isShiftKeyPressed = flags.contains(.shift)
     }
 
     deinit {

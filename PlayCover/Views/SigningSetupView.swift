@@ -12,11 +12,21 @@ struct SignSetupView: View {
 
     @Binding var isSigningSetupShown: Bool
 
-    var SIPEnabled = !SystemConfig.isSIPDisabled()
-    var AMFIEnabledInNVRAM = SystemConfig.isPRAMValid()
-    var AMFIEnabledInRunningOS = SystemConfig.isRunningAMFIEnabled()
+    @State private var status: SystemConfig.PlaySignStatus?
+
+    private var SIPEnabled: Bool { !(status?.sipDisabled ?? false) }
+    private var AMFIEnabledInNVRAM: Bool { status?.amfiInNVRAM ?? false }
+    private var AMFIEnabledInRunningOS: Bool { status?.amfiInRunningOS ?? false }
 
     var body: some View {
+        content
+            .redacted(reason: status == nil ? .placeholder : [])
+            .task {
+                status = await SystemConfig.playSignStatus()
+            }
+    }
+
+    private var content: some View {
         Group {
             Text("configSigning.header")
                 .font(.largeTitle)

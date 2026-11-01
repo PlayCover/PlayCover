@@ -39,7 +39,8 @@ struct IPASourceSettings: View {
     @State var selectedNotEmpty = false
     @State var addSourceSheet = false
     @State var triggerUpdate = false
-    @EnvironmentObject var storeVM: StoreVM
+    @Environment(StoreVM.self) var storeVM
+    @Environment(URLObservable.self) private var urlObservable
 
     var body: some View {
         Form {
@@ -92,19 +93,19 @@ struct IPASourceSettings: View {
                 }
             }
         }
-        .onChange(of: selected) { data in
+        .onChange(of: selected) { _, data in
             selectedNotEmpty = data.count > 0
         }
         .padding(20)
         .frame(width: 600, height: 300, alignment: .center)
         .sheet(isPresented: $addSourceSheet) {
             AddSourceView(addSourceSheet: $addSourceSheet)
-                .environmentObject(storeVM)
         }
     }
 }
 
 struct SourceView: View {
+    @Environment(StoreVM.self) private var storeVM
     var source: SourceData
     @State var isEnabled: Bool
     @State var showingPopover = false
@@ -152,9 +153,9 @@ struct SourceView: View {
                 }
             }
         }
-        .onChange(of: isEnabled) { value in
-            StoreVM.shared.enableSourceToggle(source: source, value: value)
-            StoreVM.shared.updateSourcesApps()
+        .onChange(of: isEnabled) { _, value in
+            storeVM.enableSourceToggle(source: source, value: value)
+            storeVM.updateSourcesApps()
         }
     }
 }
@@ -189,7 +190,8 @@ struct AddSourceView: View {
     @State var newSourceURL: URL?
     @State var sourceValidationState = SourceValidation.empty
     @Binding var addSourceSheet: Bool
-    @EnvironmentObject var storeVM: StoreVM
+    @Environment(StoreVM.self) var storeVM
+    @Environment(URLObservable.self) private var urlObservable
 
     @State var checkTask: Task<Void, Error>?
     @State var urlSessionTask: URLSessionTask?
@@ -250,7 +252,7 @@ struct AddSourceView: View {
         }
         .padding()
         .frame(width: 600, height: 100)
-        .onChange(of: newSource) { source in
+        .onChange(of: newSource) { _, source in
             if let task = checkTask, !task.isCancelled {
                 if let session = urlSessionTask {
                     session.cancel()
@@ -261,14 +263,14 @@ struct AddSourceView: View {
             validateSource(source)
         }
         .onAppear {
-            if URLObservable.shared.type == .source {
-                newSource = URLObservable.shared.url ?? ""
+            if urlObservable.type == .source {
+                newSource = urlObservable.url ?? ""
             }
         }
         .onDisappear {
-            URLObservable.shared.url = nil
-            URLObservable.shared.type = nil
-            URLObservable.shared.action = nil
+            urlObservable.url = nil
+            urlObservable.type = nil
+            urlObservable.action = nil
         }
     }
 
@@ -333,5 +335,6 @@ struct AddSourceView: View {
 struct IPASourceSettings_Previews: PreviewProvider {
     static var previews: some View {
         IPASourceSettings()
+            .appEnvironment()
     }
 }

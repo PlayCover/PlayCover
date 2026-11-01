@@ -6,9 +6,9 @@
 import SwiftUI
 
 struct AppLibraryView: View {
-    @EnvironmentObject var appsVM: AppsVM
-    @EnvironmentObject var installVM: InstallVM
-    @EnvironmentObject var downloadVM: DownloadVM
+    @Environment(AppsVM.self) var appsVM
+    @Environment(InstallVM.self) var installVM
+    @Environment(DownloadVM.self) var downloadVM
 
     @Binding var selectedBackgroundColor: Color
     @Binding var selectedTextColor: Color
@@ -94,17 +94,17 @@ struct AppLibraryView: View {
             }
         }
         .searchable(text: $searchString, placement: .toolbar)
-        .onChange(of: searchString, perform: { value in
+        .onChange(of: searchString) { _, value in
             appsVM.searchText = value
             appsVM.fetchApps()
-        })
+        }
         .onAppear {
             appsVM.searchText = ""
             appsVM.fetchApps()
         }
-        .onChange(of: isList, perform: { value in
+        .onChange(of: isList) { _, value in
             UserDefaults.standard.set(value, forKey: "AppLibraryView")
-        })
+        }
         .sheet(isPresented: $showSettings) {
             if let selected = selected {
                 AppSettingsView(viewModel: AppSettingsVM(app: selected), showKeymapSheet: $showKeymapSheet)
@@ -129,9 +129,10 @@ struct AppLibraryView: View {
                 if let identifier = item.registeredTypeIdentifiers.first {
                     if identifier == "public.url" || identifier == "public.file-url" {
                         item.loadItem(forTypeIdentifier: identifier, options: nil) { (urlData, _) in
+                            let data = urlData as? Data
                             Task { @MainActor in
-                                if let urlData = urlData as? Data {
-                                    let url = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
+                                if let data {
+                                    let url = NSURL(absoluteURLWithDataRepresentation: data, relativeTo: nil) as URL
                                     if url.pathExtension == "ipa" {
                                         installApp(url)
                                     } else {

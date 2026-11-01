@@ -22,8 +22,9 @@ struct StoreAppView: View {
     @State var warningSymbol: String?
     @State var warningMessage: String?
 
-    @EnvironmentObject var downloadVM: DownloadVM
-    @EnvironmentObject var installVM: InstallVM
+    @Environment(DownloadVM.self) var downloadVM
+    @Environment(InstallVM.self) var installVM
+    @Environment(AppsVM.self) private var apps
 
     var body: some View {
         StoreAppConditionalView(selectedBackgroundColor: $selectedBackgroundColor,
@@ -54,11 +55,9 @@ struct StoreAppView: View {
         })
         .sheet(isPresented: $showInfo) {
             StoreInfoAppView(viewModel: StoreAppVM(data: app))
-                .environmentObject(downloadVM)
         }
-        .environmentObject(downloadVM)
         .task(priority: .background) {
-            if let sourceApp = AppsVM.shared.apps.first(where: { $0.info.bundleIdentifier == app.bundleID }) {
+            if let sourceApp = apps.apps.first(where: { $0.info.bundleIdentifier == app.bundleID }) {
                 switch app.version.compare(sourceApp.info.bundleVersion, options: .numeric) {
                 case .orderedAscending:
                     warningSymbol = "checkmark.circle.badge.xmark"
@@ -93,7 +92,7 @@ struct StoreAppConditionalView: View {
     @Binding var warningSymbol: String?
     @Binding var warningMessage: String?
 
-    @EnvironmentObject var downloadVM: DownloadVM
+    @Environment(DownloadVM.self) var downloadVM
 
     @State private var cache = DataCache.instance
 

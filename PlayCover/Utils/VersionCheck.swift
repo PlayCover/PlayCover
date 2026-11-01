@@ -9,24 +9,17 @@ class VersionCheck {
     static let shared = VersionCheck()
     @MainActor
     func checkUpdateAlert(app: SourceAppsData) async -> Bool {
-        let alert = NSAlert()
-        alert.messageText = NSLocalizedString("alert.version.title", comment: "")
-        alert.informativeText = String(
-            format: NSLocalizedString("alert.version.text", comment: ""), "\(app.name)"
-        )
-        alert.icon = NSImage(
-            systemSymbolName: "square.and.arrow.down.fill",
-            accessibilityDescription: nil
-        )
-        alert.alertStyle = .informational
-        alert.addButton(withTitle: NSLocalizedString("alert.start.anyway", comment: ""))
-        alert.addButton(withTitle: NSLocalizedString("ipaLibrary.download", comment: ""))
-        alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
-        let result = alert.runModal()
-        switch result {
-        case .alertFirstButtonReturn:
+        let response = await AlertPresenter.shared.present(AlertRequest(
+            title: NSLocalizedString("alert.version.title", comment: ""),
+            message: String(format: NSLocalizedString("alert.version.text", comment: ""), "\(app.name)"),
+            buttons: [.localized("alert.start.anyway"), .localized("ipaLibrary.download"),
+                      .localized("button.Cancel")],
+            icon: NSImage(systemSymbolName: "square.and.arrow.down.fill", accessibilityDescription: nil)
+        ))
+        switch response.buttonIndex {
+        case 0:
             return false
-        case .alertSecondButtonReturn:
+        case 1:
             if let url = URL(string: app.link) {
                 if DownloadVM.shared.inProgress {
                     Log.shared.error(PlayCoverError.waitDownload)

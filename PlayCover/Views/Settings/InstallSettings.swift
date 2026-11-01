@@ -7,29 +7,57 @@
 
 import SwiftUI
 
-class InstallPreferences: NSObject, ObservableObject {
-    static var shared = InstallPreferences()
+@Observable
+final class InstallPreferences {
+    static var shared: InstallPreferences { AppEnvironment.shared.installPreferences }
 
-    @objc @AppStorage("AlwaysInstallPlayTools") var alwaysInstallPlayTools = true
+    private enum Keys {
+        static let alwaysInstallPlayTools = "AlwaysInstallPlayTools"
+        static let defaultAppType = "DefaultAppType"
+        static let showInstallPopup = "ShowInstallPopup"
+        static let showAppStorePopup = "ShowAppStorePopup"
+    }
 
-    @AppStorage("DefaultAppType") var defaultAppType: LSApplicationCategoryType = .none
+    @ObservationIgnored private let defaults: UserDefaults
 
-    @AppStorage("ShowInstallPopup") var showInstallPopup = false
+    var alwaysInstallPlayTools: Bool {
+        didSet { defaults.set(alwaysInstallPlayTools, forKey: Keys.alwaysInstallPlayTools) }
+    }
+    var defaultAppType: LSApplicationCategoryType {
+        didSet { defaults.set(defaultAppType.rawValue, forKey: Keys.defaultAppType) }
+    }
+    var showInstallPopup: Bool {
+        didSet { defaults.set(showInstallPopup, forKey: Keys.showInstallPopup) }
+    }
+    var showAppStorePopup: Bool {
+        didSet { defaults.set(showAppStorePopup, forKey: Keys.showAppStorePopup) }
+    }
 
-    @AppStorage("ShowAppStorePopup") var showAppStorePopup = true
+    init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
+        defaults.register(defaults: [
+            Keys.alwaysInstallPlayTools: true,
+            Keys.showInstallPopup: false,
+            Keys.showAppStorePopup: true
+        ])
+        alwaysInstallPlayTools = defaults.bool(forKey: Keys.alwaysInstallPlayTools)
+        defaultAppType = defaults.string(forKey: Keys.defaultAppType)
+            .flatMap(LSApplicationCategoryType.init) ?? .none
+        showInstallPopup = defaults.bool(forKey: Keys.showInstallPopup)
+        showAppStorePopup = defaults.bool(forKey: Keys.showAppStorePopup)
+    }
 }
 
 struct InstallSettings: View {
-    public static var shared = InstallSettings()
-
-    @ObservedObject var installPreferences = InstallPreferences.shared
+    @Environment(InstallPreferences.self) private var installPreferences
 
     var body: some View {
+        @Bindable var installPreferences = installPreferences
         VStack(alignment: .leading) {
             HStack {
                 Text("settings.applicationCategoryType")
                 Spacer()
-                Picker("", selection: installPreferences.$defaultAppType) {
+                Picker("", selection: $installPreferences.defaultAppType) {
                     ForEach(LSApplicationCategoryType.allCases, id: \.rawValue) { value in
                         Text(value.localizedName)
                             .tag(value)

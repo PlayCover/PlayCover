@@ -9,7 +9,7 @@ import Sparkle
 import SwiftUI
 
 struct UpdateSettings: View {
-    @ObservedObject var updaterViewModel: UpdaterViewModel
+    @Bindable var updaterViewModel: UpdaterViewModel
     @AppStorage("SUEnableAutomaticChecks") var autoUpdate = false
 
     var body: some View {
@@ -21,7 +21,7 @@ struct UpdateSettings: View {
         }
         .padding(20)
         .frame(width: 600, height: 100, alignment: .center)
-        .onChange(of: autoUpdate) { value in
+        .onChange(of: autoUpdate) { _, value in
             updaterViewModel.automaticallyCheckForUpdates = value
         }
     }

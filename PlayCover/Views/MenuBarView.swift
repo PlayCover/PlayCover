@@ -23,7 +23,7 @@ struct PlayCoverMenuView: Commands {
 }
 
 struct PlayCoverHelpMenuView: Commands {
-    @ObservedObject var updaterViewModel: UpdaterViewModel
+    @Bindable var updaterViewModel: UpdaterViewModel
 
     var body: some Commands {
         CommandGroup(after: .appInfo) {
@@ -73,8 +73,7 @@ struct PlayCoverViewMenuView: Commands {
                     } else if DownloadVM.shared.inProgress {
                         Log.shared.error(PlayCoverError.waitDownload)
                     } else {
-                        // remove await for Swift 6 (no async operation occurs)
-                        await NSOpenPanel.selectIPA { result in
+                        NSOpenPanel.selectIPA { result in
                             if case .success(let url) = result {
                                 Task {
                                     Installer.install(ipaUrl: url,

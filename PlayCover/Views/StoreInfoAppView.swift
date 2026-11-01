@@ -12,9 +12,9 @@ import CachedAsyncImage
 struct StoreInfoAppView: View {
     @Environment(\.dismiss) var dismiss
 
-    @EnvironmentObject var downloadVM: DownloadVM
+    @Environment(DownloadVM.self) var downloadVM
 
-    @ObservedObject var viewModel: StoreAppVM
+    @Bindable var viewModel: StoreAppVM
 
     @State var closeView = false
 
@@ -106,14 +106,13 @@ struct StoreInfoAppView: View {
                 .keyboardShortcut(.defaultAction)
             }
         }
-        .onChange(of: closeView) { _ in
+        .onChange(of: closeView) {
             dismiss()
         }
         .task(priority: .background) {
             if let link = URL(string: viewModel.data.link) {
-                _ = NetworkVM.urlAccessible(url: link, popup: false) { _, available in
-                    isAvailable = available
-                }
+                let (_, available) = NetworkVM.urlAccessible(url: link, popup: false)
+                isAvailable = available
             } else {
                 isAvailable = false
             }

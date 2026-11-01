@@ -8,23 +8,24 @@
 import SwiftUI
 import DataCache
 
-class KeymapViewVM: ObservableObject {
+@Observable
+final class KeymapViewVM {
 
     public let app: PlayApp
-    public let cache = DataCache.instance
+    @ObservationIgnored public let cache = DataCache.instance
 
-    @Published var selectedKeymap: URL?
-    @Published var kmName = ""
+    var selectedKeymap: URL?
+    var kmName = ""
 
-    @Published var defaultKm: URL
+    var defaultKm: URL
 
-    @Published var showKeymapImport = false
-    @Published var showKeymapRename = false
-    @Published var showCreateKeymap = false
+    var showKeymapImport = false
+    var showKeymapRename = false
+    var showCreateKeymap = false
 
-    @Published var appIcon: NSImage?
+    var appIcon: NSImage?
 
-    @Published var keymapURLS: [URL] = [] {
+    var keymapURLS: [URL] = [] {
         didSet {
             app.keymapping.keymapConfig.keymapOrder = keymapURLS
         }

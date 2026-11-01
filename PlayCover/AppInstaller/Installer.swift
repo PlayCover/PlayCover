@@ -6,33 +6,25 @@
 //
 
 import Foundation
+import Synchronization
 
-class Installer {
+nonisolated enum Installer {
 
+    @MainActor
     static func installPlayToolsPopup() -> Bool {
-        let alert = NSAlert()
-        alert.messageText = NSLocalizedString("alert.install.injectPlayToolsQuestion", comment: "")
-        alert.informativeText = NSLocalizedString("alert.install.playToolsInformative", comment: "")
+        let response = AlertPresenter.shared.presentModal(AlertRequest(
+            title: NSLocalizedString("alert.install.injectPlayToolsQuestion", comment: ""),
+            message: NSLocalizedString("alert.install.playToolsInformative", comment: ""),
+            buttons: [.localized("button.Yes", isDefault: true), .localized("button.No")],
+            suppressionTooltip: NSLocalizedString("alert.supression", comment: "String")
+        ))
 
-        alert.alertStyle = .informational
-
-        alert.showsSuppressionButton = true
-        alert.suppressionButton?.toolTip = NSLocalizedString("alert.supression", comment: "String")
-
-        let yes = alert.addButton(withTitle: NSLocalizedString("button.Yes", comment: ""))
-        alert.addButton(withTitle: NSLocalizedString("button.No", comment: ""))
-
-        // Set default button to install playtools
-        yes.keyEquivalent = "\r"
-
-        let response = alert.runModal()
-
-        if alert.suppressionButton?.state == .on {
+        if response.isSuppressed {
             InstallPreferences.shared.showInstallPopup = false
-            InstallPreferences.shared.alwaysInstallPlayTools = response == .alertFirstButtonReturn
+            InstallPreferences.shared.alwaysInstallPlayTools = response.isFirstButton
         }
 
-        return response == .alertFirstButtonReturn
+        return response.isFirstButton
     }
 
     static private func returnErrorString(error: Error) -> String {
@@ -44,8 +36,8 @@ class Installer {
         }
     }
 
-    // swiftlint:disable:next function_body_length
-    static func install(ipaUrl: URL, export: Bool, returnCompletion: @escaping (URL?) -> Void) {
+    @MainActor static func install(ipaUrl: URL, export: Bool,
+                                   returnCompletion: @escaping @Sendable (URL?) -> Void) {
         // If (the option key is held or the install playtools popup settings is true) and its not an export,
         //    then show the installer dialog
         let installPlayTools: Bool
@@ -58,79 +50,93 @@ class Installer {
             installPlayTools = InstallPreferences.shared.alwaysInstallPlayTools
         }
 
-        InstallVM.shared.next(.begin, 0.0, 0.0)
+        let (updates, progress) = AsyncStream.makeStream(of: InstallVM.Update.self)
+        InstallVM.shared.track(updates)
+        progress.yield(.init(.begin, 0.0, 0.0))
 
-        Task(priority: .userInitiated) {
-            let ipa = IPA(url: ipaUrl)
-            defer { ipa.releaseTempDir() }
-
+        // Detached so unzip / codesign stay off the main actor after the UI prompt returns.
+        Task.detached(priority: .userInitiated) {
+            defer { progress.finish() }
             do {
-                InstallVM.shared.next(.unzip, 0.0, 0.5)
-                try ipa.allocateTempDir()
-
-                let app = try ipa.unzip()
-                if await ipa.checkOfficialMacOS(app: IPA.Application.base(app)) {
-                    InstallVM.shared.next(.failed, 0.95, 1.0)
-                    returnCompletion(nil)
-                    return
-                }
-                InstallVM.shared.next(.library, 0.5, 0.55)
-                try saveEntitlements(app)
-                let machos = resolveValidMachOs(app)
-                app.validMachOs = machos
-
-                InstallVM.shared.next(.playtools, 0.55, 0.85)
-
-                for macho in machos {
-                    if try Macho.isMachoEncrypted(atURL: macho) {
-                        throw PlayCoverError.appEncrypted
-                    }
-
-                    if !export {
-                        try Macho.convertMacho(macho)
-                        try Shell.signMacho(macho)
-                    }
-                }
-
-                if export {
-                    try PlayTools.injectInIPA(app.executable, payload: app.url)
-                } else if installPlayTools {
-                    try await PlayTools.installInIPA(app.executable)
-                }
-
-                app.info.applicationCategoryType = applicationType
-
-                if !export {
-                    // -rwxr-xr-x
-                    try app.executable.setBinaryPosixPermissions(0o755)
-                    try removeMobileProvision(app)
-                }
-
-                let info = app.info
-                info.assert(minimumVersion: 11.0)
-                try info.write()
-                InstallVM.shared.next(.wrapper, 0.85, 0.95)
-
-                var finalURL: URL
-
-                if export {
-                    finalURL = try ipa.packIPABack(app: app.url)
-                } else {
-                    finalURL = try wrap(app)
-                    let installedApp = PlayApp(appUrl: finalURL)
-
-                    installedApp.sign()
-                }
-
-                try ipa.removeQuarantine(finalURL)
-                InstallVM.shared.next(.finish, 0.95, 1.0)
-                returnCompletion(finalURL)
+                let finalURL = try await runPipeline(ipaUrl: ipaUrl, export: export,
+                                                     installPlayTools: installPlayTools,
+                                                     applicationType: applicationType,
+                                                     progress: progress)
+                progress.yield(.init(finalURL == nil ? .failed : .finish, 0.95, 1.0))
+                await MainActor.run { returnCompletion(finalURL) }
             } catch {
-                Log.shared.error(returnErrorString(error: error))
-                InstallVM.shared.next(.failed, 0.95, 1.0)
-                returnCompletion(nil)
+                let message = returnErrorString(error: error)
+                progress.yield(.init(.failed, 0.95, 1.0))
+                await MainActor.run {
+                    Log.shared.error(message)
+                    returnCompletion(nil)
+                }
             }
         }
+    }
+
+    /// Unzip, convert, inject and wrap. Returns `nil` when the user chose the App Store version instead.
+    private static func runPipeline(ipaUrl: URL, export: Bool, installPlayTools: Bool,
+                                    applicationType: LSApplicationCategoryType,
+                                    progress: AsyncStream<InstallVM.Update>.Continuation) async throws -> URL? {
+        let ipa = IPA(url: ipaUrl)
+        defer { ipa.releaseTempDir() }
+
+        progress.yield(.init(.unzip, 0.0, 0.5))
+        try ipa.allocateTempDir()
+
+        let app = try ipa.unzip()
+        if await ipa.checkOfficialMacOS(app: IPA.Application.base(app)) {
+            return nil
+        }
+        progress.yield(.init(.library, 0.5, 0.55))
+        try await saveEntitlements(app)
+        let machos = resolveValidMachOs(app)
+        app.validMachOs = machos
+
+        progress.yield(.init(.playtools, 0.55, 0.85))
+
+        for macho in machos {
+            if try Macho.isMachoEncrypted(atURL: macho) {
+                throw PlayCoverError.appEncrypted
+            }
+
+            if !export {
+                try Macho.convertMacho(macho)
+                try await Shell.signMacho(macho)
+            }
+        }
+
+        if export {
+            try PlayTools.injectInIPA(app.executable, payload: app.url)
+        } else if installPlayTools {
+            try await PlayTools.installInIPA(app.executable)
+        }
+
+        app.info.applicationCategoryType = applicationType
+
+        if !export {
+            // -rwxr-xr-x
+            try app.executable.setBinaryPosixPermissions(0o755)
+            try removeMobileProvision(app)
+        }
+
+        let info = app.info
+        info.assert(minimumVersion: 11.0)
+        try info.write()
+        progress.yield(.init(.wrapper, 0.85, 0.95))
+
+        let finalURL: URL
+        if export {
+            finalURL = try ipa.packIPABack(app: app.url)
+        } else {
+            finalURL = try wrap(app)
+            let installed = await MainActor.run { PlayApp(appUrl: finalURL) }
+            await AppSigner.sign(installed)
+        }
+
+        try ipa.removeQuarantine(finalURL)
+        return finalURL
     }
 
     static func fromIPA(detectingAppNameInFolder folderURL: URL) throws -> BaseApp {
@@ -168,8 +174,7 @@ class Installer {
             return validMachOs
         }
 
-        var resolved: [URL] = []
-        let serialQueue = DispatchQueue(label: "baseAppUrlResolver")
+        let resolved = Mutex<[URL]>([])
 
         baseApp.url.enumerateContents { url, attributes in
             guard attributes.isRegularFile == true, let fileSize = attributes.fileSize, fileSize > 4 else {
@@ -194,21 +199,20 @@ class Installer {
                 return
             }
 
-            serialQueue.sync {
-                switch Array(data) {
-                case [202, 254, 186, 190]: resolved.append(url)
-                case [207, 250, 237, 254]: resolved.append(url)
-                default: return
-                }
+            switch Array(data) {
+            case [202, 254, 186, 190], [207, 250, 237, 254]:
+                resolved.withLock { $0.append(url) }
+            default:
+                return
             }
         }
 
-        return resolved
+        return resolved.withLock { $0 }
     }
 
     /// Wrapper for codesign, applies the given entitlements to the application and all of its contents
-    static func saveEntitlements(_ baseApp: BaseApp) throws {
-        let toSave = try Entitlements.dumpEntitlements(exec: baseApp.executable)
+    static func saveEntitlements(_ baseApp: BaseApp) async throws {
+        let toSave = try await Entitlements.dumpEntitlements(exec: baseApp.executable)
         try toSave.store(baseApp.entitlements)
     }
 

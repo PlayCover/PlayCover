@@ -7,15 +7,16 @@
 
 import SwiftUI
 
-class PlayAppVM: ObservableObject {
-    @Published var app: PlayApp
-    @Published var showSettings = false
-    @Published var showClearPreferencesAlert = false
-    @Published var showClearPlayChainAlert = false
-    @Published var showStartingProgress = false
-    @Published var showImportSuccess = false
-    @Published var showImportFail = false
-    @Published var showKeymapSheet = false
+@Observable
+final class PlayAppVM {
+    var app: PlayApp
+    var showSettings = false
+    var showClearPreferencesAlert = false
+    var showClearPlayChainAlert = false
+    var showStartingProgress = false
+    var showImportSuccess = false
+    var showImportFail = false
+    var showKeymapSheet = false
 
     init(app: PlayApp) {
         self.app = app

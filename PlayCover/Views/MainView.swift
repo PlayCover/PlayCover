@@ -10,11 +10,11 @@ struct MainView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.controlActiveState) var controlActiveState
 
-    @EnvironmentObject var apps: AppsVM
-    @EnvironmentObject var store: StoreVM
-    @EnvironmentObject var integrity: AppIntegrity
+    @Environment(AppsVM.self) var apps
+    @Environment(StoreVM.self) var store
+    @Environment(AppIntegrity.self) var integrity
 
-    @ObservedObject var keyCoverObserved = KeyCoverObservable.shared
+    @Environment(KeyCoverService.self) private var keyCover
 
     @Binding public var isSigningSetupShown: Bool
 
@@ -26,25 +26,17 @@ struct MainView: View {
     @State private var selectedBackgroundColor: Color = Color.accentColor
     @State private var selectedTextColor: Color = Color.black
 
-    @ObservedObject private var URLObserved = URLObservable.shared
+    @Environment(URLObservable.self) private var URLObserved
 
     var body: some View {
         GeometryReader { viewGeom in
-            NavigationView {
+            NavigationSplitView {
                 GeometryReader { sidebarGeom in
-                    List {
-                        NavigationLink(tag: 1, selection: $selectedView) {
-                            AppLibraryView(selectedBackgroundColor: $selectedBackgroundColor,
-                                                                       selectedTextColor: $selectedTextColor)
-                        } label: {
+                    List(selection: $selectedView) {
+                        NavigationLink(value: 1) {
                             Label("sidebar.appLibrary", systemImage: "square.grid.2x2")
                         }
-                        NavigationLink(tag: 2, selection: $selectedView) {
-                            IPALibraryView(storeVM: store,
-                                           selectedBackgroundColor: $selectedBackgroundColor,
-                                           selectedTextColor: $selectedTextColor)
-                            .environmentObject(store)
-                        } label: {
+                        NavigationLink(value: 2) {
                             HStack {
                                 Label("sidebar.ipaLibrary", systemImage: "arrow.down.circle")
                                 Button {
@@ -59,16 +51,9 @@ struct MainView: View {
                             }
                         }
                         if showSourceFolders {
-                            let enabledSources: [SourceJSON] = StoreVM.shared.getEnabledSources()
+                            let enabledSources: [SourceJSON] = store.getEnabledSources()
                             ForEach(enabledSources, id: \.hashValue) { source in
-                                    NavigationLink(tag: source.hashValue, selection: $selectedView) {
-                                    IPASourceView(storeVM: store,
-                                                  selectedBackgroundColor: $selectedBackgroundColor,
-                                                  selectedTextColor: $selectedTextColor,
-                                                  sourceName: source.name,
-                                                  sourceApps: source.data)
-                                    .environmentObject(store)
-                                } label: {
+                                NavigationLink(value: source.hashValue) {
                                     Label(source.name, systemImage: "folder")
                                         .font(.caption)
                                         .padding(.leading)
@@ -77,6 +62,7 @@ struct MainView: View {
                         }
                     }
                     .frame(minWidth: 150)
+                    .toolbar(removing: .sidebarToggle)
                     .toolbar {
                         ToolbarItem { // Sits on the left by default
                             Button {
@@ -86,10 +72,10 @@ struct MainView: View {
                             }
                         }
                     }
-                    .onChange(of: sidebarGeom.size) { newSize in
+                    .onChange(of: sidebarGeom.size) { _, newSize in
                         navWidth = newSize.width
                     }
-                    .onChange(of: colorScheme) { scheme in
+                    .onChange(of: colorScheme) { _, scheme in
                         if scheme == .dark {
                             selectedTextColor = .white
                         } else {
@@ -100,7 +86,7 @@ struct MainView: View {
                             }
                         }
                     }
-                    .onChange(of: controlActiveState) { state in
+                    .onChange(of: controlActiveState) { _, state in
                         if state == .inactive {
                             if colorScheme == .light {
                                 selectedTextColor = .black
@@ -126,6 +112,8 @@ struct MainView: View {
                     }
                 }
                 .background(SplitViewAccessor(sideCollapsed: $collapsed))
+            } detail: {
+                detailView
             }
             .onAppear {
                 self.selectedView = URLObserved.type == .source ? 2 : 1
@@ -147,19 +135,16 @@ struct MainView: View {
                             .frame(width: spacerWidth)
                     }
                     ToastView()
-                        .environmentObject(ToastVM.shared)
-                        .environmentObject(InstallVM.shared)
-                        .environmentObject(DownloadVM.shared)
                         // add a max statement here to ensure that the width will never be negative
                         .frame(width: max(0, collapsed || viewWidth < navWidth ? viewWidth : (viewWidth - spacerWidth)))
                         .animation(.spring(), value: collapsed)
                 }
             }
-            .onChange(of: viewGeom.size) { newSize in
+            .onChange(of: viewGeom.size) { _, newSize in
                 viewWidth = newSize.width
             }
             .alert("alert.moveAppToApplications.title",
-                   isPresented: $integrity.integrityOff) {
+                   isPresented: Bindable(integrity).integrityOff) {
                 Button("alert.moveAppToApplications.move", role: .cancel) {
                     integrity.moveToApps()
                 }
@@ -171,14 +156,36 @@ struct MainView: View {
             .sheet(isPresented: $isSigningSetupShown) {
                 SignSetupView(isSigningSetupShown: $isSigningSetupShown)
             }
-            .onChange(of: URLObserved.action) { _ in
+            .onChange(of: URLObserved.action) {
                 self.selectedView = URLObserved.type == .source ? 2 : self.selectedView
             }
-            .sheet(isPresented: $keyCoverObserved.isKeyCoverUnlockingPromptShown) {
+            .sheet(isPresented: Binding(get: { keyCover.isUnlockPromptShown },
+                                        set: { if !$0 { keyCover.dismissUnlockPrompt() } })) {
                 KeyCoverUnlockingPrompt()
             }
         }
         .frame(minWidth: 675, minHeight: 330)
+    }
+
+    @ViewBuilder
+    private var detailView: some View {
+        switch selectedView {
+        case 1:
+            AppLibraryView(selectedBackgroundColor: $selectedBackgroundColor,
+                           selectedTextColor: $selectedTextColor)
+        case 2:
+            IPALibraryView(storeVM: store,
+                           selectedBackgroundColor: $selectedBackgroundColor,
+                           selectedTextColor: $selectedTextColor)
+        default:
+            if let source = store.getEnabledSources().first(where: { $0.hashValue == selectedView }) {
+                IPASourceView(storeVM: store,
+                              selectedBackgroundColor: $selectedBackgroundColor,
+                              selectedTextColor: $selectedTextColor,
+                              sourceName: source.name,
+                              sourceApps: source.data)
+            }
+        }
     }
 
     private func toggleSidebar() {
@@ -217,7 +224,8 @@ struct SplitViewAccessor: NSViewRepresentable {
 
             if let sideBar = controller?.splitViewItems.first {
                 observer = sideBar.observe(\.isCollapsed, options: [.new]) { [weak self] _, change in
-                    if let value = change.newValue {
+                    guard let value = change.newValue else { return }
+                    Task { @MainActor [weak self] in
                         self?.sideCollapsed?.wrappedValue = value
                     }
                 }
@@ -231,9 +239,6 @@ struct MainView_Previews: PreviewProvider {
 
     static var previews: some View {
         MainView(isSigningSetupShown: $isSigningSetupShown)
-            .environmentObject(InstallVM.shared)
-            .environmentObject(AppsVM.shared)
-            .environmentObject(StoreVM.shared)
-            .environmentObject(AppIntegrity())
+            .appEnvironment()
     }
 }

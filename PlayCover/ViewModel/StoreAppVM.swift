@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import Observation
 
-class StoreAppVM: ObservableObject {
-    @Published var data: SourceAppsData
+@Observable
+final class StoreAppVM {
+    var data: SourceAppsData
 
     init(data: SourceAppsData) {
         self.data = data

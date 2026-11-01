@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DownloadStepsNative: String {
+nonisolated enum DownloadStepsNative: String, Sendable {
     case downloading = "playapp.download.downloading",
          integrity = "playapp.download.integrityCheck",
          finish = "playapp.progress.finished",
@@ -15,10 +15,11 @@ enum DownloadStepsNative: String {
          canceled = "playapp.progress.canceled"
 }
 
-class DownloadVM: ProgressVM<DownloadStepsNative> {
-    @Published var storeAppData: SourceAppsData?
+@Observable
+final class DownloadVM: ProgressVM<DownloadStepsNative> {
+    var storeAppData: SourceAppsData?
 
-    static let shared = DownloadVM()
+    static var shared: DownloadVM { AppEnvironment.shared.download }
 
     init() {
         super.init(start: .downloading, ends: [.finish, .failed, .canceled])

@@ -6,7 +6,7 @@
 import Foundation
 import SwiftSoup
 
-public class IPA {
+public nonisolated final class IPA: @unchecked Sendable {
     public let url: URL
     public private(set) var tmpDir: URL?
 
@@ -121,27 +121,20 @@ public class IPA {
         let supportMacOS: Bool = await checkMacOSCompatibility(appID: appID)
         let showAlert = InstallPreferences.shared.showAppStorePopup
         if showAlert && supportMacOS {
-            let alert = NSAlert()
-            alert.messageText = NSLocalizedString("alert.appstore", comment: "")
-            alert.informativeText = String(
-                format: NSLocalizedString("macos.version", comment: "")
-            )
-            alert.icon = nil
-            alert.showsSuppressionButton = true
-            alert.suppressionButton?.toolTip = NSLocalizedString("alert.supression", comment: "String")
-            alert.alertStyle = .informational
-            alert.addButton(withTitle: NSLocalizedString("alert.install.anyway", comment: ""))
-            alert.addButton(withTitle: NSLocalizedString("alert.open.appstore", comment: ""))
-            alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
-            let result = alert.runModal()
-            switch result {
-            case .alertFirstButtonReturn:
-                if let suppressionButton = alert.suppressionButton,
-                   suppressionButton.state == .on {
+            let response = await AlertPresenter.shared.present(AlertRequest(
+                title: NSLocalizedString("alert.appstore", comment: ""),
+                message: NSLocalizedString("macos.version", comment: ""),
+                buttons: [.localized("alert.install.anyway"), .localized("alert.open.appstore"),
+                          .localized("button.Cancel")],
+                suppressionTooltip: NSLocalizedString("alert.supression", comment: "String")
+            ))
+            switch response.buttonIndex {
+            case 0:
+                if response.isSuppressed {
                     InstallPreferences.shared.showAppStorePopup = false
                 }
                 return false
-            case .alertSecondButtonReturn:
+            case 1:
                 if appID != 0 {
                     guard let urlApp = URL(string:
                                             "itms-apps://apps.apple.com/app/id\(appID)")
