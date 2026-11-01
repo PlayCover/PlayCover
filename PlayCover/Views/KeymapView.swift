@@ -15,7 +15,7 @@ struct KeymapView: View {
 
     @Binding var showKeymapSheet: Bool
 
-    @StateObject var viewModel: KeymapViewVM
+    @State var viewModel: KeymapViewVM
 
     var body: some View {
         VStack {
@@ -41,7 +41,7 @@ struct KeymapView: View {
                 Spacer()
             }
             .task(priority: .userInitiated) {
-                viewModel.appIcon = viewModel.cache.readImage(forKey: viewModel.app.info.bundleIdentifier)
+                viewModel.appIcon = Cacher.shared.cachedIcon(bundleIdentifier: viewModel.app.info.bundleIdentifier)
             }
 
             List(selection: $viewModel.selectedKeymap) {
@@ -132,7 +132,7 @@ struct KeymapView: View {
         }
         .padding()
         .frame(width: 500, height: 350)
-        .onChange(of: viewModel.selectedKeymap) { _ in
+        .onChange(of: viewModel.selectedKeymap) {
             if let selectedKeymap = viewModel.selectedKeymap {
                 viewModel.kmName = selectedKeymap.deletingPathExtension().lastPathComponent
             } else {
@@ -258,7 +258,7 @@ struct KeymapNamerView: View {
         .padding()
         .frame(width: 400, height: 100)
         .padding()
-        .onChange(of: name) { newName in
+        .onChange(of: name) { _, newName in
             if newName.esc != newName {
                 nameValidationState = .malformed
             } else if app.keymapping.hasKeymap(name: newName) {

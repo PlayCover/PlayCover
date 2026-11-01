@@ -7,8 +7,10 @@
 
 import Foundation
 import AppKit
-import DataCache
+@preconcurrency import DataCache
 import CachedAsyncImage
+import Synchronization
+import UniformTypeIdentifiers
 
 class Cacher {
     static let shared = Cacher()
@@ -38,59 +40,59 @@ class Cacher {
         }
     }
 
-    func resolveLocalIcon(_ app: PlayApp) -> NSImage? {
-        resolveLocalIcon(
-            at: app.url,
-            bundleIdentifier: app.info.bundleIdentifier,
-            bundleVersion: app.info.bundleVersion,
-            primaryIconName: app.info.primaryIconName
-        )
+    /// Shown for apps whose bundle carries no icon, so a missing icon never looks like one still loading.
+    static let placeholderIcon = NSWorkspace.shared.icon(for: .applicationBundle)
+
+    /// The cached icon for `bundleIdentifier`, or the placeholder.
+    func cachedIcon(bundleIdentifier: String) -> NSImage {
+        cache.readImage(forKey: bundleIdentifier) ?? Cacher.placeholderIcon
     }
 
-    func resolveLocalIcon(
-        at url: URL,
-        bundleIdentifier: String,
-        bundleVersion: String,
-        primaryIconName: String
-    ) -> NSImage? {
-        let compareStr = bundleIdentifier + bundleVersion
-        if cache.readString(forKey: compareStr) != nil,
-           let cachedImage = cache.readImage(forKey: bundleIdentifier) {
-            return cachedImage
-        }
-
-        let lock = NSLock()
-        var candidates: [NSImage] = []
-        url.enumerateContents(blocking: true) { file, _ in
-            guard file.lastPathComponent.contains(primaryIconName), let icon = NSImage(contentsOf: file) else {
-                return
-            }
-            lock.lock()
-            candidates.append(icon)
-            lock.unlock()
-        }
-
-        if let assetsExtractor = try? AssetsExtractor(appUrl: url) {
-            candidates.append(contentsOf: assetsExtractor.extractIcons())
-        }
-        let bestResImage = candidates.max { $0.size.height < $1.size.height }
-        cache.write(string: compareStr, forKey: compareStr)
-        if let image = bestResImage { cache.write(image: image, forKey: bundleIdentifier) }
-        return cache.readImage(forKey: bundleIdentifier)
+    /// Resolves the app's best icon off the main actor; it walks the bundle and parses the asset catalog.
+    /// Falls back to the placeholder when the bundle has no icon.
+    func resolveLocalIcon(_ app: PlayApp) async -> NSImage {
+        let url = app.url
+        let bundleIdentifier = app.info.bundleIdentifier
+        let bundleVersion = app.info.bundleVersion
+        let primaryIconName = app.info.primaryIconName
+        let data = await Task.detached(priority: .utility) {
+            Cacher.resolveLocalIconData(at: url, bundleIdentifier: bundleIdentifier,
+                                        bundleVersion: bundleVersion, primaryIconName: primaryIconName)
+        }.value
+        return data.flatMap(NSImage.init(data:)) ?? Cacher.placeholderIcon
     }
 
-    func resolveLocalIconData(
+    /// Cached icon for `bundleIdentifier`, or the largest icon found in the bundle (which is then cached).
+    nonisolated static func resolveLocalIconData(
         at url: URL,
         bundleIdentifier: String,
         bundleVersion: String,
         primaryIconName: String
     ) -> Data? {
-        resolveLocalIcon(
-            at: url,
-            bundleIdentifier: bundleIdentifier,
-            bundleVersion: bundleVersion,
-            primaryIconName: primaryIconName
-        )?.tiffRepresentation
+        let cache = DataCache.instance
+        let compareStr = bundleIdentifier + bundleVersion
+        if cache.readString(forKey: compareStr) != nil,
+           let cachedImage = cache.readImage(forKey: bundleIdentifier) {
+            return cachedImage.tiffRepresentation
+        }
+
+        let candidates = Mutex<[Data]>([])
+        url.enumerateContents(blocking: true) { file, _ in
+            guard file.lastPathComponent.contains(primaryIconName), let icon = NSImage(contentsOf: file),
+                  let data = icon.tiffRepresentation else {
+                return
+            }
+            candidates.withLock { $0.append(data) }
+        }
+
+        var images = candidates.withLock { $0 }.compactMap(NSImage.init(data:))
+        if let assetsExtractor = try? AssetsExtractor(appUrl: url) {
+            images.append(contentsOf: assetsExtractor.extractIcons())
+        }
+        let bestResImage = images.max { $0.size.height < $1.size.height }
+        cache.write(string: compareStr, forKey: compareStr)
+        if let image = bestResImage { cache.write(image: image, forKey: bundleIdentifier) }
+        return cache.readImage(forKey: bundleIdentifier)?.tiffRepresentation
     }
 
     func getLocalIcon(bundleId: String) -> NSImage? {

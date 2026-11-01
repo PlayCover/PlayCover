@@ -350,3 +350,32 @@
 
 "error.invalidSignature" = "The app's signature is still invalid after signing, so it was not opened.";
 "error.launchTimedOut" = "macOS did not confirm that the app opened. If the game window is already there, you can ignore this. Otherwise try again.";
+
+/* Settings and download strings */
+"alert.download.downloadAnyway" = "Download Anyway";
+"settings.picker.windowFixMethod.help" = "How the windowed display fix is applied. Try Alternate if Normal still shows a stretched or misplaced picture.";
+"settings.text.scaler" = "Scale";
+
+/* App categories (LSApplicationCategoryType) */
+"public.app-category.business" = "Business";
+"public.app-category.developer-tools" = "Developer Tools";
+"public.app-category.education" = "Education";
+"public.app-category.entertainment" = "Entertainment";
+"public.app-category.finance" = "Finance";
+"public.app-category.games" = "Games";
+"public.app-category.graphics-design" = "Graphics & Design";
+"public.app-category.healthcare-fitness" = "Health & Fitness";
+"public.app-category.lifestyle" = "Lifestyle";
+"public.app-category.medical" = "Medical";
+"public.app-category.music" = "Music";
+"public.app-category.news" = "News";
+"public.app-category.photography" = "Photography";
+"public.app-category.productivity" = "Productivity";
+"public.app-category.reference" = "Reference";
+"public.app-category.social-networking" = "Social Networking";
+"public.app-category.sports" = "Sports";
+"public.app-category.travel" = "Travel";
+"public.app-category.utilities" = "Utilities";
+"public.app-category.video" = "Video";
+"public.app-category.weather" = "Weather";
+"public.app-category.none" = "None";

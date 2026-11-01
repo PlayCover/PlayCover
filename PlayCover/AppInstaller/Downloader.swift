@@ -41,32 +41,27 @@ class DownloadApp {
             Log.shared.error(PlayCoverError.waitInstallation)
         } else {
             if let app = app, PlayApp.PROHIBITED_APPS.contains(app.bundleID) {
-                let alert = NSAlert()
-                alert.messageText = NSLocalizedString("alert.error", comment: "")
-                alert.informativeText = String(
-                    format: NSLocalizedString("error.appProhibited", comment: ""),
-                    arguments: [app.name]
-                )
-                alert.alertStyle = .warning
-                alert.addButton(withTitle: NSLocalizedString("Ok", comment: ""))
-                alert.addButton(withTitle: NSLocalizedString("alert.download.downloadAnyway", comment: ""))
-                if alert.runModal() == .alertFirstButtonReturn {
+                let response = AlertPresenter.shared.presentModal(AlertRequest(
+                    title: NSLocalizedString("alert.error", comment: ""),
+                    message: String(format: NSLocalizedString("error.appProhibited", comment: ""),
+                                    arguments: [app.name]),
+                    style: .warning,
+                    buttons: [.localized("button.OK"), .localized("alert.download.downloadAnyway")]
+                ))
+                if response.isFirstButton {
                     return
                 }
             }
 
             if let warningMessage = warning, let app = app {
-                let alert = NSAlert()
-                alert.messageText = NSLocalizedString(warningMessage, comment: "")
-                alert.informativeText = String(
-                    format: NSLocalizedString("alert.install.anyway", comment: ""),
-                    arguments: [app.name]
-                )
-                alert.alertStyle = .warning
-                alert.addButton(withTitle: NSLocalizedString("button.Yes", comment: ""))
-                alert.addButton(withTitle: NSLocalizedString("button.No", comment: ""))
-
-                if alert.runModal() == .alertSecondButtonReturn {
+                let response = AlertPresenter.shared.presentModal(AlertRequest(
+                    title: NSLocalizedString(warningMessage, comment: ""),
+                    message: String(format: NSLocalizedString("alert.install.anyway", comment: ""),
+                                    arguments: [app.name]),
+                    style: .warning,
+                    buttons: [.localized("button.Yes"), .localized("button.No")]
+                ))
+                if !response.isFirstButton {
                     return
                 }
             }
@@ -113,7 +108,7 @@ class DownloadApp {
                                        destinationURL: tmpDir,
                                        onProgress: { progress in
                     // progress is a Float
-                    self.downloadVM.progress = Double(progress)
+                    self.downloadVM.report(Double(progress))
                 }, onCompletion: { error, fileURL in
                     self.downloadVM.next(.integrity, 0.7, 0.95)
 
@@ -158,17 +153,14 @@ class DownloadApp {
 
     private func checksumAlert(originalSum: String, givenSum: String, completion: @escaping (Bool) -> Void) {
         Task { @MainActor in
-            let alert = NSAlert()
-            alert.messageText = NSLocalizedString("playapp.download.differentChecksum", comment: "")
-            alert.informativeText = String(
-                format: NSLocalizedString("playapp.download.differentChecksumDesc", comment: ""),
-                arguments: [originalSum, givenSum]
-            )
-            alert.alertStyle = .warning
-            alert.addButton(withTitle: NSLocalizedString("button.Proceed", comment: ""))
-            alert.addButton(withTitle: NSLocalizedString("button.Cancel", comment: ""))
-
-            completion(alert.runModal() == .alertFirstButtonReturn)
+            let response = await AlertPresenter.shared.present(AlertRequest(
+                title: NSLocalizedString("playapp.download.differentChecksum", comment: ""),
+                message: String(format: NSLocalizedString("playapp.download.differentChecksumDesc", comment: ""),
+                                arguments: [originalSum, givenSum]),
+                style: .warning,
+                buttons: [.localized("button.Proceed"), .localized("button.Cancel")]
+            ))
+            completion(response.isFirstButton)
         }
     }
 

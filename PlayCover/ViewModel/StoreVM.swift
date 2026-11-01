@@ -6,37 +6,43 @@
 //
 
 import Foundation
+import Observation
 
-class StoreVM: ObservableObject, @unchecked Sendable {
-    public static let shared = StoreVM()
-    private let plistSource: URL
+@Observable
+final class StoreVM {
+    public static var shared: StoreVM { AppEnvironment.shared.store }
+    @ObservationIgnored private let plistSource: URL
 
-    private init() {
-        plistSource = PlayTools.playCoverContainer
+    init(plistSource: URL = PlayTools.playCoverContainer
             .appendingPathComponent("Sources")
-            .appendingPathExtension("plist")
+            .appendingPathExtension("plist")) {
+        self.plistSource = plistSource
         sourcesList = []
         if !decode() { encode() }
+    }
+
+    /// Starts fetching every source. Called once at launch by `AppEnvironment`.
+    func bootstrap() {
         resolveSources()
     }
 
-    @Published var sourcesList: [SourceData] {
+    var sourcesList: [SourceData] {
         didSet {
             encode()
         }
     }
-    @Published var sourcesData: [SourceJSON] = [] {
+    var sourcesData: [SourceJSON] = [] {
         didSet {
             updateSourcesApps()
         }
     }
-    @Published var sourcesApps: [SourceAppsData] = []
+    var sourcesApps: [SourceAppsData] = []
 
-    private var resolveTask: Task<Void, Never>?
+    @ObservationIgnored private var resolveTask: Task<Void, Never>?
 
     public func getEnabledSources() -> [SourceJSON] {
-        return StoreVM.shared.sourcesData.filter { sourceJSON in
-            return StoreVM.shared.sourcesList.contains { sourceData in
+        return sourcesData.filter { sourceJSON in
+            return sourcesList.contains { sourceData in
                 sourceData.id == sourceJSON.id && sourceData.isEnabled
             }
         }
@@ -188,22 +194,11 @@ class StoreVM: ObservableObject, @unchecked Sendable {
             return (nil, .badjson)
         }
         guard let unwrappedData = dataToDecode else { return (nil, .badurl) }
-        var decodedData: SourceJSON?
         do {
-            decodedData = try JSONDecoder().decode(SourceJSON.self, from: unwrappedData)
-            return (decodedData, .valid)
+            return (try SourceJSON.decode(unwrappedData, from: url, id: sourceId), .valid)
         } catch {
-            do {
-                let sourceName = url.isFileURL
-                ? (url.absoluteString as NSString).lastPathComponent.replacingOccurrences(of: ".json", with: "")
-                : url.host ?? url.absoluteString
-                let oldTypeJson: [SourceAppsData] = try JSONDecoder().decode([SourceAppsData].self, from: unwrappedData)
-                decodedData = SourceJSON(name: sourceName, data: oldTypeJson, id: sourceId)
-                return (decodedData, .valid)
-            } catch {
-                debugPrint("Error decoding data from URL: \(url): \(error)")
-                return (nil, .badjson)
-            }
+            debugPrint("Error decoding data from URL: \(url): \(error)")
+            return (nil, .badjson)
         }
     }
 
@@ -217,13 +212,37 @@ class StoreVM: ObservableObject, @unchecked Sendable {
 }
 
 // Source Data Structure
-struct SourceJSON: Codable, Equatable, Hashable {
+nonisolated struct SourceJSON: Codable, Equatable, Hashable, Sendable {
     let name: String
     let data: [SourceAppsData]
     let id: UUID
+
+    /// The current source format. Its own `id` is ignored, and may be missing.
+    private struct Document: Decodable {
+        let name: String
+        let data: [SourceAppsData]
+    }
+
+    /// Decodes a source document, falling back to the legacy format that is a bare list of apps.
+    /// Legacy sources are named after the file (local sources) or the host (remote sources).
+    ///
+    /// The result always carries `id`, the identifier of the user's source entry it was fetched for:
+    /// that is how enabled sources are matched, and a publisher's `id` can never equal it.
+    static func decode(_ data: Data, from url: URL, id: UUID) throws -> SourceJSON {
+        do {
+            let document = try JSONDecoder().decode(Document.self, from: data)
+            return SourceJSON(name: document.name, data: document.data, id: id)
+        } catch {
+            let apps = try JSONDecoder().decode([SourceAppsData].self, from: data)
+            let name = url.isFileURL
+                ? (url.absoluteString as NSString).lastPathComponent.replacingOccurrences(of: ".json", with: "")
+                : url.host ?? url.absoluteString
+            return SourceJSON(name: name, data: apps, id: id)
+        }
+    }
 }
 
-struct SourceAppsData: Codable, Equatable, Hashable {
+nonisolated struct SourceAppsData: Codable, Equatable, Hashable, Sendable {
     let bundleID: String
     let name: String
     let version: String
