@@ -249,6 +249,10 @@ class Macho {
     static func isMachoEncrypted(atURL url: URL) throws -> Bool {
         var binary = try Data(contentsOf: url)
         try stripBinary(&binary)
+        let magic = binary.extract(UInt32.self)
+        if magic == MH_MAGIC || magic == MH_CIGAM {
+            return try encryptionCryptid32(binary) != 0
+        }
         var result = false
         _ = try iterateLoadCommands(binary: binary) { offset, shouldSwap in
             let loadCommand = binary.extract(load_command.self,
@@ -264,6 +268,68 @@ class Macho {
             return false
         }
         return result
+    }
+
+    /// 32-bit Mach-O uses a 28-byte header and `LC_ENCRYPTION_INFO`. Parsing it as 64-bit
+    /// makes the load commands look corrupt and the install is rejected.
+    private static func encryptionCryptid32(_ binary: Data) throws -> UInt32 {
+        let headerSize = MemoryLayout<mach_header>.size
+        var header = binary.extract(mach_header.self)
+        let shouldSwap = header.magic == MH_CIGAM
+        if shouldSwap {
+            swap_mach_header(&header, NXHostByteOrder())
+        }
+        var offset = headerSize
+        let commandsEnd = headerSize + Int(header.sizeofcmds)
+        if commandsEnd > binary.count || commandsEnd < headerSize {
+            throw PlayCoverError.appCorrupted
+        }
+        for index in 0..<header.ncmds {
+            let loadCommand = binary.extract(load_command.self, offset: offset,
+                                             swap: shouldSwap ? swap_load_command : nil)
+            let commandEnd = offset + Int(loadCommand.cmdsize)
+            if commandEnd > commandsEnd || commandEnd <= offset {
+                print("Cannot iterate 32-bit load commands: Mach-O file is corrupted(\(index))")
+                throw PlayCoverError.appCorrupted
+            }
+            if loadCommand.cmd == UInt32(LC_ENCRYPTION_INFO) {
+                let info = binary.extract(encryption_info_command.self, offset: offset,
+                                          swap: shouldSwap ? swap_encryption_command : nil)
+                return info.cryptid
+            }
+            offset = commandEnd
+        }
+        return 0
+    }
+}
+
+extension Macho {
+    enum InstallRoute: Equatable {
+        case arm64
+        case legacy32
+    }
+
+    /// Fat binaries without an arm64 slice, and any non-arm64 thin binary, stay off the 64-bit converter.
+    static func installRoute(at url: URL) throws -> InstallRoute {
+        let data = try Data(contentsOf: url)
+        let magic = data.extract(UInt32.self)
+        if magic == FAT_MAGIC || magic == FAT_CIGAM {
+            var copy = data
+            do {
+                try stripBinary(&copy)
+            } catch PlayCoverError.failedToStripBinary {
+                return .legacy32
+            }
+            return .arm64
+        }
+        if magic == MH_MAGIC_64 || magic == MH_CIGAM_64 {
+            var header = data.extract(mach_header_64.self)
+            if magic == MH_CIGAM_64 {
+                swap_mach_header_64(&header, NXHostByteOrder())
+            }
+            return header.cputype == CPU_TYPE_ARM64 ? .arm64 : .legacy32
+        }
+        return .legacy32
     }
 
     static func isMachoValidArch(_ url: URL) throws -> Bool {

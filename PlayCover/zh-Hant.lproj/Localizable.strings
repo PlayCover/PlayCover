@@ -366,3 +366,7 @@
 "macos.version" = "This app can be installed from Mac App Store";
 "ipaLibrary.AlphabeticalSort" = "Sort source apps alphabetically";
 "alert.install.anyway" = "Install Anyway";
+
+"preferences.source.missing" = "來源列表裡沒有這個網址。";
+"error.sideloadlyMissing" = "沒有安裝 Sideloadly。匯出的檔案已在 Finder 中顯示。";
+"error.legacy32Unavailable" = "這是 32 位元安裝包。PlayCover 不再執行這類舊安裝包。";

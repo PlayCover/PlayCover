@@ -386,3 +386,7 @@
 "ipaLibrary.AlphabeticalSort" = "按字母顺序排列应用来源";
 "alert.install.anyway" = "仍然安装";
 "alert.open.appstore" = "打开 Mac App Store";
+
+"preferences.source.missing" = "来源列表里没有这个地址。";
+"error.sideloadlyMissing" = "没有安装 Sideloadly。导出的文件已在访达中显示。";
+"error.legacy32Unavailable" = "这是 32 位安装包。PlayCover 不再运行这类老安装包。";

@@ -78,6 +78,14 @@ class PlayApp: BaseApp {
 
             settings.sync()
 
+            if (try? Macho.installRoute(at: executable)) == .legacy32 {
+                throw PlayCoverError.legacy32Unavailable
+            }
+
+            if try PlayTools.ensureGuestUIKit(in: executable) {
+                try Shell.signApp(executable)
+            }
+
             // Install PlugIns/localizations before signing so the bundle is fully
             // assembled before its signature is sealed over its contents.
             // If the app does not have PlayTools, do not install PlugIns
@@ -268,9 +276,18 @@ extension PlayApp {
 
 // MARK: - Tools
 extension PlayApp {
+    /// PlayTools is an arm64 injection. A 32-bit executable does not carry it.
+    var usesPlayTools: Bool {
+        (try? Macho.installRoute(at: executable)) != .legacy32
+    }
+
     func hasPlayTools() -> Bool {
+        let executable = url.appendingEscapedPathComponent(info.executableName)
+        if !usesPlayTools {
+            return false
+        }
         do {
-            return try PlayTools.installedInExec(atURL: url.appendingEscapedPathComponent(info.executableName))
+            return try PlayTools.installedInExec(atURL: executable)
         } catch {
             Log.shared.error(error)
             return true

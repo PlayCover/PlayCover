@@ -176,11 +176,52 @@ struct IPALibraryView: View {
                 }
             }
         }
-        .onChange(of: URLObserved.type) {_ in
-            addSourcePresented = URLObserved.type == .source
+        .onChange(of: URLObserved.action) { _ in
+            applySourceLink()
+        }
+        .onChange(of: URLObserved.type) { _ in
+            if URLObserved.action == nil || URLObserved.action == .add {
+                addSourcePresented = URLObserved.type == .source && URLObserved.action != .remove
+                    && URLObserved.action != .update
+            }
         }
         .onAppear {
-            addSourcePresented = URLObserved.type == .source
+            applySourceLink()
         }
+    }
+
+    private func applySourceLink() {
+        guard URLObserved.type == .source else { return }
+        let effect = SourceLinkPlanner.plan(
+            action: URLObserved.action,
+            url: URLObserved.url,
+            knownSources: storeVM.sourcesList.map(\.source))
+        switch effect.kind {
+        case .add(let url):
+            storeVM.addSourceIfMissing(url)
+            addSourcePresented = false
+        case .remove(let url):
+            if effect.missingSource {
+                Log.shared.error(localized: "preferences.source.missing")
+            } else {
+                _ = storeVM.removeSource(url: url)
+            }
+            addSourcePresented = false
+        case .refresh(let url):
+            if effect.missingSource {
+                Log.shared.error(localized: "preferences.source.missing")
+            } else {
+                storeVM.refreshSource(url: url)
+            }
+            addSourcePresented = false
+        case .ignore:
+            addSourcePresented = true
+        }
+        if case .ignore = effect.kind {
+            return
+        }
+        URLObserved.url = nil
+        URLObserved.type = nil
+        URLObserved.action = nil
     }
 }

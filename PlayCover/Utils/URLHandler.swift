@@ -21,6 +21,38 @@ enum URLAction: Int, Equatable {
     case open
 }
 
+struct SourceLinkEffect: Equatable {
+    enum Kind: Equatable {
+        case add(String)
+        case remove(String)
+        case refresh(String)
+        case ignore
+    }
+
+    var kind: Kind
+    var opensAddSheet: Bool
+    var missingSource: Bool
+}
+
+enum SourceLinkPlanner {
+    static func plan(action: URLAction?, url: String?, knownSources: [String]) -> SourceLinkEffect {
+        guard let action, let url, !url.isEmpty else {
+            return SourceLinkEffect(kind: .ignore, opensAddSheet: false, missingSource: false)
+        }
+        let known = knownSources.contains(url)
+        switch action {
+        case .add:
+            return SourceLinkEffect(kind: .add(url), opensAddSheet: false, missingSource: false)
+        case .remove:
+            return SourceLinkEffect(kind: .remove(url), opensAddSheet: false, missingSource: !known)
+        case .update:
+            return SourceLinkEffect(kind: .refresh(url), opensAddSheet: false, missingSource: !known)
+        case .install, .open:
+            return SourceLinkEffect(kind: .ignore, opensAddSheet: false, missingSource: false)
+        }
+    }
+}
+
 class URLObservable: ObservableObject {
     @Published var url: String?
     @Published var type: URLTypes?

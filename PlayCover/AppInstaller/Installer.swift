@@ -75,6 +75,9 @@ class Installer {
                     return
                 }
                 InstallVM.shared.next(.library, 0.5, 0.55)
+                if (try? Macho.installRoute(at: app.executable)) == .legacy32 {
+                    throw PlayCoverError.legacy32Unavailable
+                }
                 try saveEntitlements(app)
                 let machos = resolveValidMachOs(app)
                 app.validMachOs = machos

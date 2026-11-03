@@ -458,6 +458,7 @@
 				8783CFF426B8C52D00171041 /* Frameworks */,
 				8783CFF526B8C52D00171041 /* Resources */,
 				AA818CBC287AC1C6000BEE9D /* Copy Carthage frameworks */,
+				C3A1B2D42F11000100A1C0E1 /* Build GuestUIKit */,
 				AAC28F222899A05B005057FB /* Codesign sparkle */,
 				36E7AB27288A0B64004C0C3A /* SwiftLint */,
 			);
@@ -557,6 +558,27 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		C3A1B2D42F11000100A1C0E1 /* Build GuestUIKit */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/PlayCover/GuestUIKit/GuestUIKit.m",
+				"$(SRCROOT)/scripts/build-guest-uikit.sh",
+			);
+			name = "Build GuestUIKit";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(CONTENTS_FOLDER_PATH)/Resources/GuestUIKit.dylib",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/scripts/build-guest-uikit.sh\"\n";
+		};
 		36E7AB27288A0B64004C0C3A /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;

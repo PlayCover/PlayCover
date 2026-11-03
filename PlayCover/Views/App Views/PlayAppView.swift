@@ -44,8 +44,8 @@ struct PlayAppView: View {
                 Button("playapp.showInFinder", systemImage: "finder", action: {
                     viewModel.app.showInFinder()
                 })
-                Divider()
-                Group {
+                if viewModel.app.usesPlayTools {
+                    Divider()
                     Button("playapp.keymap", systemImage: "keyboard", action: {
                         viewModel.showKeymapSheet.toggle()
                     })
@@ -59,9 +59,11 @@ struct PlayAppView: View {
                     Button("playapp.clearPreferences", systemImage: "clear", action: {
                         viewModel.showClearPreferencesAlert.toggle()
                     })
-                    Button("playapp.clearPlayChain", systemImage: "clear", action: {
-                        viewModel.showClearPlayChainAlert.toggle()
-                    })
+                    if viewModel.app.usesPlayTools {
+                        Button("playapp.clearPlayChain", systemImage: "clear", action: {
+                            viewModel.showClearPlayChainAlert.toggle()
+                        })
+                    }
                 }
                 Divider()
                 Button("playapp.delete", systemImage: "trash", action: {
@@ -152,7 +154,7 @@ struct PlayAppConditionalView: View {
                     Text(app.name)
                         .foregroundColor(selected?.url == app.url ?
                                          selectedTextColor : Color.primary)
-                    if !(hasPlayTools ?? true) {
+                    if showsMissingPlayToolsMark {
                         Image(systemName: "exclamationmark.triangle")
                             .padding(.leading, 15)
                             .help("settings.noPlayTools")
@@ -195,7 +197,7 @@ struct PlayAppConditionalView: View {
                     .frame(width: 60, height: 60)
 
                     let noPlayToolsWarning = Text(
-                        (hasPlayTools ?? true) ? "" : "\(Image(systemName: "exclamationmark.triangle"))  "
+                        showsMissingPlayToolsMark ? "\(Image(systemName: "exclamationmark.triangle"))  " : ""
                     )
                     HStack {
                         Text("\(noPlayToolsWarning)\(app.name)")
@@ -211,7 +213,7 @@ struct PlayAppConditionalView: View {
                                           selectedBackgroundColor : Color.clear)
                                     .brightness(-0.2)
                             )
-                            .help(!(hasPlayTools ?? true) ? "settings.noPlayTools" : "")
+                            .help(showsMissingPlayToolsMark ? "settings.noPlayTools" : "")
                             .frame(height: 20)
                         if showStartingProgress {
                             ProgressView()
@@ -243,5 +245,12 @@ struct PlayAppConditionalView: View {
             hasPlayTools = app.hasPlayTools()
             showStartingProgress = app.isStarting
         }
+    }
+
+    /// A 32-bit executable never contains PlayTools. That missing dylib is not
+    /// a broken 64-bit install, so the library does not mark it as an error.
+    private var showsMissingPlayToolsMark: Bool {
+        guard hasPlayTools == false else { return false }
+        return (try? Macho.installRoute(at: app.executable)) != .legacy32
     }
 }

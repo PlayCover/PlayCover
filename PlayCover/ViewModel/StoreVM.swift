@@ -63,6 +63,37 @@ class StoreVM: ObservableObject, @unchecked Sendable {
         resolveSources()
     }
 
+    @discardableResult
+    func addSourceIfMissing(_ url: String) -> Bool {
+        guard !sourcesList.contains(where: { $0.source == url }) else { return false }
+        addSource(SourceData(source: url, isEnabled: true))
+        return true
+    }
+
+    @discardableResult
+    func removeSource(url: String) -> Bool {
+        guard sourcesList.contains(where: { $0.source == url }) else { return false }
+        sourcesList.removeAll { $0.source == url }
+        resolveSources()
+        return true
+    }
+
+    func refreshSource(url: String) {
+        guard let index = sourcesList.firstIndex(where: { $0.source == url }) else { return }
+        sourcesList[index].status = .checking
+        let link = sourcesList[index].source
+        let id = sourcesList[index].id
+        Task { @MainActor in
+            let (sourceJson, sourceState) = await getSourceData(sourceLink: link, sourceId: id)
+            guard let current = sourcesList.firstIndex(where: { $0.id == id }) else { return }
+            sourcesList[current].status = sourceState
+            if sourceState == .valid, let sourceJson {
+                sourcesData.removeAll { $0.id == id }
+                sourcesData.append(sourceJson)
+            }
+        }
+    }
+
     //
     func deleteSource(_ selectedSource: inout Set<UUID>) {
         sourcesList.removeAll {

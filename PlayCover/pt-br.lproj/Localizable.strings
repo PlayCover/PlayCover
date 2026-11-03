@@ -257,3 +257,7 @@
 "alert.open.appstore" = "Open Mac App Store";
 "alert.install.anyway" = "Install Anyway";
 "macos.version" = "This app can be installed from Mac App Store";
+
+"preferences.source.missing" = "That source is not in the list.";
+"error.sideloadlyMissing" = "Sideloadly is not installed. The exported file is shown in Finder.";
+"error.legacy32Unavailable" = "This is a 32-bit package. PlayCover does not run these older packages.";

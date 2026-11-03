@@ -92,7 +92,7 @@ struct PlayCoverViewMenuView: Commands {
                                                     NSWorkspace.shared
                                                         .open([ipa], withApplicationAt: url, configuration: config)
                                                 } else {
-                                                    Log.shared.error("Could not find Sideloadly!")
+                                                    Log.shared.error(localized: "error.sideloadlyMissing")
                                                 }
                                             } else {
                                                 Log.shared.error("Could not find file!")

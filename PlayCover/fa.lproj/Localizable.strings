@@ -263,3 +263,7 @@
 "alert.open.appstore" = "باز کردن فروشگاه برنامه مک";
 "macos.version" = "این برنامه می‌تواند از طریق فروشگاه برنامه مک نصب شود";
 "alert.install.anyway" = "به هر حال نصب کن";
+
+"preferences.source.missing" = "That source is not in the list.";
+"error.sideloadlyMissing" = "Sideloadly is not installed. The exported file is shown in Finder.";
+"error.legacy32Unavailable" = "This is a 32-bit package. PlayCover does not run these older packages.";
