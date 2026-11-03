@@ -58,6 +58,8 @@
 		928C01D9272E162C007EB2DF /* InstallVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928C01D8272E162C007EB2DF /* InstallVM.swift */; };
 		92A8AAC9275EFEA800D89B50 /* SystemConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A8AAC8275EFEA800D89B50 /* SystemConfig.swift */; };
 		92B4D38F2737CF3D0001D7BB /* PlayTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B4D38E2737CF3D0001D7BB /* PlayTools.swift */; };
+		C3A1B2D42F11000200A1C0E1 /* PlayTools+GuestUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A1B2D42F11000300A1C0E1 /* PlayTools+GuestUIKit.swift */; };
+		C3A1B2D42F11000400A1C0E1 /* PlayApp+GuestRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A1B2D42F11000500A1C0E1 /* PlayApp+GuestRuntime.swift */; };
 		92ECD8A3274E75CD00DB7AC6 /* Installer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ECD8A2274E75CD00DB7AC6 /* Installer.swift */; };
 		92ECD8A5274E763700DB7AC6 /* IPA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ECD8A4274E763700DB7AC6 /* IPA.swift */; };
 		92ECD8AE274E787200DB7AC6 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ECD8AD274E787200DB7AC6 /* AppInfo.swift */; };
@@ -167,6 +169,8 @@
 		928C01D8272E162C007EB2DF /* InstallVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallVM.swift; sourceTree = "<group>"; };
 		92A8AAC8275EFEA800D89B50 /* SystemConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemConfig.swift; sourceTree = "<group>"; };
 		92B4D38E2737CF3D0001D7BB /* PlayTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayTools.swift; sourceTree = "<group>"; };
+		C3A1B2D42F11000300A1C0E1 /* PlayTools+GuestUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayTools+GuestUIKit.swift"; sourceTree = "<group>"; };
+		C3A1B2D42F11000500A1C0E1 /* PlayApp+GuestRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayApp+GuestRuntime.swift"; sourceTree = "<group>"; };
 		92D79316273C065A001CC964 /* libsandbox.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsandbox.1.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/libsandbox.1.tbd; sourceTree = DEVELOPER_DIR; };
 		92ECD8A2274E75CD00DB7AC6 /* Installer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Installer.swift; sourceTree = "<group>"; };
 		92ECD8A4274E763700DB7AC6 /* IPA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPA.swift; sourceTree = "<group>"; };
@@ -291,6 +295,7 @@
 			children = (
 				92EE06CF274EA433002C907B /* BaseApp.swift */,
 				92EE06D9274EB009002C907B /* PlayApp.swift */,
+				C3A1B2D42F11000500A1C0E1 /* PlayApp+GuestRuntime.swift */,
 				923421F6275F40300030CD7D /* AppContainer.swift */,
 				92ECD8AD274E787200DB7AC6 /* AppInfo.swift */,
 				9286D295273A7E4200958DD3 /* AppSettings.swift */,
@@ -342,6 +347,7 @@
 				92EE06DD274EC09F002C907B /* Entitlements.swift */,
 				5314D1ED26C402EC00A0A727 /* Shell.swift */,
 				92B4D38E2737CF3D0001D7BB /* PlayTools.swift */,
+				C3A1B2D42F11000300A1C0E1 /* PlayTools+GuestUIKit.swift */,
 				6E550A8A29BA507200EFC15C /* Macho.swift */,
 				68E48B9B295709BF00C39879 /* Cacher.swift */,
 				92A8AAC8275EFEA800D89B50 /* SystemConfig.swift */,
@@ -672,6 +678,8 @@
 				92ECD8A5274E763700DB7AC6 /* IPA.swift in Sources */,
 				365AFB0828847B75008B3542 /* Sparkle.swift in Sources */,
 				92B4D38F2737CF3D0001D7BB /* PlayTools.swift in Sources */,
+				C3A1B2D42F11000200A1C0E1 /* PlayTools+GuestUIKit.swift in Sources */,
+				C3A1B2D42F11000400A1C0E1 /* PlayApp+GuestRuntime.swift in Sources */,
 				3665EF8928832400007CF915 /* PlayCoverSettingsView.swift in Sources */,
 				9280871B2824A8D20034C510 /* SoundDeviceService.swift in Sources */,
 				34775E752D493B59001586C2 /* CachedAsyncImageWrapper.swift in Sources */,

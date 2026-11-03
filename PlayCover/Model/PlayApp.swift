@@ -77,14 +77,7 @@ class PlayApp: BaseApp {
             if await VersionCheck.shared.checkNewVersion(myApp: self) { return }
 
             settings.sync()
-
-            if (try? Macho.installRoute(at: executable)) == .legacy32 {
-                throw PlayCoverError.legacy32Unavailable
-            }
-
-            if try PlayTools.ensureGuestUIKit(in: executable) {
-                try Shell.signApp(executable)
-            }
+            try prepareGuestRuntime()
 
             // Install PlugIns/localizations before signing so the bundle is fully
             // assembled before its signature is sealed over its contents.

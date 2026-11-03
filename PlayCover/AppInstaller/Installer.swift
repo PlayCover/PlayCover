@@ -75,9 +75,7 @@ class Installer {
                     return
                 }
                 InstallVM.shared.next(.library, 0.5, 0.55)
-                if (try? Macho.installRoute(at: app.executable)) == .legacy32 {
-                    throw PlayCoverError.legacy32Unavailable
-                }
+                try refuseLegacy32IfNeeded(at: app.executable)
                 try saveEntitlements(app)
                 let machos = resolveValidMachOs(app)
                 app.validMachOs = machos
@@ -207,6 +205,13 @@ class Installer {
         }
 
         return resolved
+    }
+
+    /// A 32-bit package is refused before entitlements or PlayTools work begins.
+    static func refuseLegacy32IfNeeded(at executable: URL) throws {
+        if (try? Macho.installRoute(at: executable)) == .legacy32 {
+            throw PlayCoverError.legacy32Unavailable
+        }
     }
 
     /// Wrapper for codesign, applies the given entitlements to the application and all of its contents
