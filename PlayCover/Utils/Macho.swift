@@ -2,6 +2,7 @@
 //  Macho.swift
 //  PlayCover
 //
+// swiftlint:disable type_body_length
 
 import Foundation
 
@@ -46,6 +47,18 @@ class Macho {
 
         print("Stripping MachO...")
         try stripBinary(&binary)
+
+        let dir = macho.deletingLastPathComponent()
+       let ue4Flag = dir.appendingPathComponent("ue4commandline.txt")
+       let ueFlag = dir.appendingPathComponent("uecommandline.txt")
+       let hasUEFlag = FileManager.default.fileExists(atPath: ue4Flag.path)
+                 || FileManager.default.fileExists(atPath: ueFlag.path)
+
+       if hasUEFlag {
+           print("Patching /OnDemandResources/ → /Users/ ...")
+           replaceUTF16LEString(&binary, from: "/OnDemandResources/", to: "/Users/")
+       }
+
         print("Replacing version command...")
         try replaceVersionCommand(&binary)
         print("Replacing instances of @rpath dylibs...")
@@ -285,4 +298,46 @@ class Macho {
         }
         return result
     }
+
+    private static func utf16le(_ text: String) -> Data {
+       var bytes = [UInt8]()
+       for scalar in text.utf16 {
+           bytes.append(UInt8(scalar & 0xFF))
+           bytes.append(UInt8((scalar >> 8) & 0xFF))
+       }
+       return Data(bytes)
+   }
+
+   static func replaceUTF16LEString(_ binary: inout Data, from oldText: String, to newText: String) {
+       // Encode old → UTF-16LE bytes
+       let oldBytes = utf16le(oldText)
+       let newBytes = utf16le(newText)
+
+       // Find old bytes in binary
+       guard let offset = binary.range(of: oldBytes)?.lowerBound else {
+           print("Pattern not found: \(oldText)")
+           return
+       }
+
+       let oldLen = oldBytes.count
+
+       // Build replacement with zero-padding
+       var repl = Array(newBytes)
+       if repl.count < oldLen {
+           repl.append(contentsOf: repeatElement(UInt8(0), count: oldLen - repl.count))
+       } else if repl.count > oldLen {
+           print("Warning: replacement too long for \(oldLen)-byte slot, truncating.")
+           repl = Array(repl[..<oldLen])
+       }
+
+       // Patch in-place
+       for index in 0..<oldLen {
+           binary[offset + index] = repl[index]
+       }
+
+       print("Patched \(oldLen) bytes at 0x\(String(offset, radix: 16))")
+       print("  \(oldText) → \(newText)")
+       print("  Padding: \(oldLen - newBytes.count) null bytes")
+   }
+// swiftlint:enable type_body_length
 }
