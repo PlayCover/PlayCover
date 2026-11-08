@@ -2,6 +2,7 @@
 //  Macho.swift
 //  PlayCover
 //
+// swiftlint:disable type_body_length
 
 import Foundation
 
@@ -338,4 +339,5 @@ class Macho {
        print("  \(oldText) → \(newText)")
        print("  Padding: \(oldLen - newBytes.count) null bytes")
    }
+// swiftlint:enable type_body_length
 }
