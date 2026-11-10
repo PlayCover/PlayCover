@@ -20,15 +20,15 @@ class Shell: ObservableObject {
 
         let output = try pipe.fileHandleForReading.readToEnd() ?? Data()
         if print {
-            Log.shared.log(String(data: output, encoding: .utf8) ?? "Shell error occured")
+            Log.shared.log(String(data: output, encoding: .utf8) ?? "Shell error occurred")
         }
 
         process.waitUntilExit()
         let status = process.terminationStatus
         if status != 0 {
-            throw String(data: output, encoding: .utf8) ?? "Shell error occured"
+            throw String(data: output, encoding: .utf8) ?? "Shell error occurred"
         }
-        return String(data: output, encoding: .utf8) ?? "Shell error occured"
+        return String(data: output, encoding: .utf8) ?? "Shell error occurred"
     }
 
     static func runSu(_ args: [String], _ argc: String) -> Bool {
