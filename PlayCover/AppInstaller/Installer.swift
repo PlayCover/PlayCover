@@ -35,15 +35,6 @@ class Installer {
         return response == .alertFirstButtonReturn
     }
 
-    static private func returnErrorString(error: Error) -> String {
-        switch error.localizedDescription {
-        case let str where str.contains("(disk full?)"): NSLocalizedString("alert.notSpace", comment: "")
-        case let str where str.contains(".html"): NSLocalizedString("alert.quota.limit", comment: "")
-        case let str where str.contains(".ipa"): NSLocalizedString("alert.corrupted", comment: "")
-        default: NSLocalizedString(error.localizedDescription, comment: "")
-        }
-    }
-
     // swiftlint:disable:next function_body_length
     static func install(ipaUrl: URL, export: Bool, returnCompletion: @escaping (URL?) -> Void) {
         // If (the option key is held or the install playtools popup settings is true) and its not an export,
@@ -126,7 +117,7 @@ class Installer {
                 InstallVM.shared.next(.finish, 0.95, 1.0)
                 returnCompletion(finalURL)
             } catch {
-                Log.shared.error(returnErrorString(error: error))
+                Log.shared.error(error)
                 InstallVM.shared.next(.failed, 0.95, 1.0)
                 returnCompletion(nil)
             }
