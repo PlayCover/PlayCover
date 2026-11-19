@@ -71,6 +71,70 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 }
 
 @main
+enum PlayCoverLauncher {
+    @MainActor
+    static func main() {
+        if let ipaPath = parseInstallIPAPath(from: CommandLine.arguments) {
+            runHeadlessInstall(ipaPath: ipaPath)
+            return
+        }
+        PlayCoverApp.main()
+    }
+
+    private static func parseInstallIPAPath(from arguments: [String]) -> String? {
+        if let equalsArg = arguments.first(where: { $0.hasPrefix("--install-ipa=") }) {
+            return String(equalsArg.dropFirst("--install-ipa=".count))
+        }
+        guard let flagIndex = arguments.firstIndex(of: "--install-ipa") else {
+            return nil
+        }
+        let pathIndex = arguments.index(after: flagIndex)
+        guard pathIndex < arguments.endIndex else {
+            return ""
+        }
+        return arguments[pathIndex]
+    }
+
+    @MainActor
+    private static func runHeadlessInstall(ipaPath: String) {
+        let expandedPath = (ipaPath as NSString).expandingTildeInPath
+        let ipaURL = URL(fileURLWithPath: expandedPath).standardizedFileURL
+        guard !ipaPath.isEmpty, FileManager.default.fileExists(atPath: ipaURL.path) else {
+            writeStderr("ERROR: IPA file not found: \(ipaPath)\n")
+            Foundation.exit(1)
+        }
+
+        let app = NSApplication.shared
+        app.setActivationPolicy(.prohibited)
+
+        Task.detached(priority: .userInitiated) {
+            do {
+                try PlayTools.installOnSystemSync()
+                let installedApp = try await Installer.installCLI(ipaUrl: ipaURL)
+                let bundleId = installedApp.info.bundleIdentifier
+                let appPath = installedApp.url.path
+                print("INSTALLED|\(bundleId)|\(appPath)")
+                fflush(stdout)
+                Foundation.exit(0)
+            } catch {
+                writeStderr("ERROR: \(error.localizedDescription)\n")
+                fflush(stderr)
+                Foundation.exit(1)
+            }
+        }
+
+        while true {
+            RunLoop.main.run(mode: .default, before: Date(timeIntervalSinceNow: 0.05))
+        }
+    }
+
+    private static func writeStderr(_ message: String) {
+        if let data = message.data(using: .utf8) {
+            FileHandle.standardError.write(data)
+        }
+    }
+}
+
 struct PlayCoverApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject var updaterViewModel = UpdaterViewModel()

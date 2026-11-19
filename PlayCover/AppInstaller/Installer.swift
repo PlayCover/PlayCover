@@ -235,3 +235,49 @@ class Installer {
         return location
     }
 }
+
+extension Installer {
+    static func installCLI(ipaUrl: URL) async throws -> PlayApp {
+        let applicationType = InstallPreferences.shared.defaultAppType
+        let ipa = IPA(url: ipaUrl)
+        defer { ipa.releaseTempDir() }
+
+        try ipa.allocateTempDir()
+        let app = try ipa.unzip()
+
+        // Skip interactive Mac App Store alert (checkOfficialMacOS) in headless CLI mode.
+        try saveEntitlements(app)
+        let machos = resolveValidMachOs(app)
+        app.validMachOs = machos
+
+        for macho in machos {
+            if try Macho.isMachoEncrypted(atURL: macho) {
+                throw PlayCoverError.appEncrypted
+            }
+            try Macho.convertMacho(macho)
+            try Shell.signMacho(macho)
+        }
+
+        try await PlayTools.installInIPA(app.executable)
+        app.info.applicationCategoryType = applicationType
+
+        try app.executable.setBinaryPosixPermissions(0o755)
+        try removeMobileProvision(app)
+
+        let info = app.info
+        info.assert(minimumVersion: 11.0)
+        try info.write()
+
+        try AppsVM.ensureBaseDirectoriesExist()
+        let playChainDir = PlayTools.playCoverContainer.appendingPathComponent("PlayChain")
+        try FileManager.default.createDirectory(at: playChainDir, withIntermediateDirectories: true)
+        let finalURL = try wrap(app)
+        let installedApp = PlayApp(appUrl: finalURL)
+        installedApp.settings.sync()
+        installedApp.sign()
+        installedApp.removeAlias()
+        installedApp.createAlias()
+        try ipa.removeQuarantine(finalURL)
+        return installedApp
+    }
+}
