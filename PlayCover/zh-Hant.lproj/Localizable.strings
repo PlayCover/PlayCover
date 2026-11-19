@@ -366,3 +366,5 @@
 "macos.version" = "This app can be installed from Mac App Store";
 "ipaLibrary.AlphabeticalSort" = "Sort source apps alphabetically";
 "alert.install.anyway" = "Install Anyway";
+"settings.toggle.sdkShift" = "SDK Shift（強制解鎖自由自適應縮放）";
+"settings.toggle.sdkShift.help" = "參考 SDKShift for Duo 思路：執行時向應用程式提供高版本 Duo SDK（iOS 27.2）標記並解除全螢幕/固定比例鎖定，使原本固定比例的視窗可自由調整大小（重啟應用程式生效）。";

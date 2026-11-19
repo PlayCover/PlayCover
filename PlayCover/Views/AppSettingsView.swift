@@ -257,6 +257,7 @@ struct GraphicsView: View {
                         Text("4K").tag(4)
                         Text("settings.picker.adaptiveRes.5").tag(5)
                         Text("settings.picker.adaptiveRes.6").tag(6)
+                        Text("settings.picker.adaptiveRes.7").tag(7)
                     }
                     .frame(width: 250, alignment: .leading)
                     .help("settings.picker.adaptiveRes.help")
@@ -336,6 +337,17 @@ struct GraphicsView: View {
                         Text("settings.text.detectedResolution")
                         Spacer()
                         Text("\(resolution.width) x \(resolution.height)")
+                    } else if settings.settings.resolution == 7 {
+                        Text("settings.text.smartAdaptDetected")
+                        Spacer()
+                        if settings.info.supportsAdaptiveWindowLayout(forceSDKShift: settings.settings.sdkShift) {
+                            Text("settings.text.smartAdapt.adaptive")
+                        } else {
+                            let ratio = settings.info.recommendedAspectRatio
+                            Text(String(
+                                format: NSLocalizedString("settings.text.smartAdapt.aspect", comment: ""),
+                                "\(ratio.width):\(ratio.height)"))
+                        }
                     } else {
                         Spacer()
                     }
@@ -399,6 +411,9 @@ struct GraphicsView: View {
                     Spacer()
                     Toggle("settings.toggle.floatingWindow", isOn: $settings.settings.floatingWindow)
                     Spacer()
+                    Toggle("settings.toggle.sdkShift", isOn: $settings.settings.sdkShift)
+                        .help("settings.toggle.sdkShift.help")
+                    Spacer()
                 }
                 Spacer()
             }
@@ -410,6 +425,11 @@ struct GraphicsView: View {
             }
             .onChange(of: settings.settings.resolution) { _ in
                 setResolution()
+            }
+            .onChange(of: settings.settings.sdkShift) { _ in
+                if settings.settings.resolution == 7 {
+                    setResolution()
+                }
             }
             .onChange(of: settings.settings.aspectRatio) { _ in
                 setResolution()
@@ -430,43 +450,37 @@ struct GraphicsView: View {
     }
 
     func setResolution() {
-        var width: Int
-        var height: Int
+        var updatedSettings = settings.settings
+        var width = 1920
+        var height = 1080
 
-        switch settings.settings.resolution {
-        // Adaptive resolution = Auto
+        switch updatedSettings.resolution {
         case 1:
-            let resolution = AppSettings.autoResolution()
-            width = resolution.width
-            height = resolution.height
-        // Adaptive resolution = 1080p
+            (width, height) = AppSettings.autoResolution()
         case 2:
             height = 1080
             width = getWidthFromAspectRatio(height)
-        // Adaptive resolution = 1440p
         case 3:
             height = 1440
             width = getWidthFromAspectRatio(height)
-        // Adaptive resolution = 4K
         case 4:
             height = 2160
             width = getWidthFromAspectRatio(height)
-        // Adaptive resolution = Custom
         case 5:
-            width = customWidth
-            height = customHeight
-        // Adaptive resolution = Off
+            (width, height) = (customWidth, customHeight)
+        case 7:
+            settings.applySmartAdaptDefaults(to: &updatedSettings)
+            (width, height) = (updatedSettings.windowWidth, updatedSettings.windowHeight)
         default:
-            height = 1080
-            width = 1920
+            break
         }
 
-        settings.settings.windowWidth = width
-        settings.settings.windowHeight = height
-        settings.settings.customScaler = customScaler
+        updatedSettings.windowWidth = width
+        updatedSettings.windowHeight = height
+        updatedSettings.customScaler = customScaler
+        settings.settings = updatedSettings
 
         showResolutionWarning = Double(width * height) * customScaler >= 2621440 * 2.0
-        // Tends to crash when the number of pixels exceeds that
     }
 
     func getWidthFromAspectRatio(_ height: Int) -> Int {

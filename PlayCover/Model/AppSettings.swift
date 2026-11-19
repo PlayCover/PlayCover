@@ -52,6 +52,7 @@ struct AppSettingsData: Codable {
     var resizableAspectRatioHeight = 0
     var blockSleepSpamming = false
     var ignoreUnityKeyboardInitializationError = false
+    var sdkShift = false
 
     init() {}
 
@@ -95,6 +96,7 @@ struct AppSettingsData: Codable {
         blockSleepSpamming = try container.decodeIfPresent(Bool.self, forKey: .blockSleepSpamming) ?? false
         ignoreUnityKeyboardInitializationError = try container.decodeIfPresent(
             Bool.self, forKey: .ignoreUnityKeyboardInitializationError) ?? false
+        sdkShift = try container.decodeIfPresent(Bool.self, forKey: .sdkShift) ?? false
     }
 }
 
@@ -142,6 +144,29 @@ class AppSettings {
         }
     }
 
+    static func applySmartAdaptDefaults(to data: inout AppSettingsData, info: AppInfo) {
+        guard data.resolution == 7 else { return }
+        if info.supportsAdaptiveWindowLayout(forceSDKShift: data.sdkShift) {
+            data.resizableAspectRatioType = 0
+            data.resizableAspectRatioWidth = 0
+            data.resizableAspectRatioHeight = 0
+            data.windowWidth = 900
+            data.windowHeight = 760
+        } else {
+            let ratio = info.recommendedAspectRatio
+            let logicalRes = info.recommendedLogicalResolution
+            data.resizableAspectRatioType = 1
+            data.resizableAspectRatioWidth = ratio.width
+            data.resizableAspectRatioHeight = ratio.height
+            data.windowWidth = logicalRes.width
+            data.windowHeight = logicalRes.height
+        }
+    }
+
+    func applySmartAdaptDefaults(to data: inout AppSettingsData) {
+        Self.applySmartAdaptDefaults(to: &data, info: info)
+    }
+
     public func sync() {
         var updatedSettings = settings
         updatedSettings.notch = NSScreen.hasNotch()
@@ -149,6 +174,8 @@ class AppSettings {
             let resolution = AppSettings.autoResolution()
             updatedSettings.windowWidth = resolution.width
             updatedSettings.windowHeight = resolution.height
+        } else if updatedSettings.resolution == 7 {
+            applySmartAdaptDefaults(to: &updatedSettings)
         }
         settings = updatedSettings
     }
@@ -168,6 +195,7 @@ class AppSettings {
     public func reset() {
         var defaults = AppSettingsData()
         defaults.bundleIdentifier = info.bundleIdentifier
+        applySmartAdaptDefaults(to: &defaults)
         settings = defaults
     }
 
