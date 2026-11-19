@@ -48,29 +48,31 @@ class PlayTools {
     static func installOnSystem() {
         Task(priority: .background) {
             do {
-                Log.shared.log("Installing PlayTools")
-
-                // Check if Frameworks folder exists, if not, create it
-                if !FileManager.default.fileExists(atPath: frameworksURL.path) {
-                    try FileManager.default.createDirectory(
-                        atPath: frameworksURL.path,
-                        withIntermediateDirectories: true,
-                        attributes: [:])
-                }
-
-                // Check if a version of PlayTools is already installed, if so remove it
-                FileManager.default.delete(at: URL(fileURLWithPath: playToolsFramework.path))
-
-                // Install version of PlayTools bundled with PlayCover
-                Log.shared.log("Copying PlayTools to Frameworks")
-                if FileManager.default.fileExists(atPath: playToolsFramework.path) {
-                    try FileManager.default.removeItem(at: playToolsFramework)
-                }
-                try FileManager.default.copyItem(at: bundledPlayToolsFramework, to: playToolsFramework)
+                try installOnSystemSync()
             } catch {
                 Log.shared.error(error)
             }
         }
+    }
+
+    static func installOnSystemSync() throws {
+        Log.shared.log("Installing PlayTools")
+
+        // Check if Frameworks folder exists, if not, create it
+        if !FileManager.default.fileExists(atPath: frameworksURL.path) {
+            try FileManager.default.createDirectory(
+                atPath: frameworksURL.path,
+                withIntermediateDirectories: true,
+                attributes: [:])
+        }
+
+        // Install version of PlayTools bundled with PlayCover
+        Log.shared.log("Copying PlayTools to Frameworks")
+        if FileManager.default.fileExists(atPath: playToolsFramework.path)
+            || (try? FileManager.default.destinationOfSymbolicLink(atPath: playToolsFramework.path)) != nil {
+            try FileManager.default.removeItem(at: playToolsFramework)
+        }
+        try FileManager.default.copyItem(at: bundledPlayToolsFramework, to: playToolsFramework)
     }
 
     static func installInIPA(_ exec: URL) async throws {
