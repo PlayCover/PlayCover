@@ -268,3 +268,96 @@ public class AppInfo {
         }
     }
 }
+
+extension AppInfo {
+    var deviceFamilies: [Int] {
+        if let ints = self[ints: "UIDeviceFamily"], !ints.isEmpty {
+            return ints
+        }
+        if let numbers = self[numbers: "UIDeviceFamily"], !numbers.isEmpty {
+            return numbers.map(\.intValue)
+        }
+        return [1]
+    }
+
+    var supportsIPad: Bool {
+        deviceFamilies.contains(2)
+    }
+
+    private static func parseSDKVersion(_ sdkName: String?) -> (major: Int, minor: Int) {
+        guard let sdk = sdkName else { return (0, 0) }
+        let digits = sdk.drop { !$0.isNumber }
+        let parts = digits.split(separator: ".")
+        let major = parts.first.flatMap { Int($0) } ?? 0
+        let minor = parts.dropFirst().first.flatMap { Int($0) } ?? 0
+        return (major, minor)
+    }
+
+    var supportsDuoAdaptive: Bool {
+        let sdk = Self.parseSDKVersion(self[string: "DTSDKName"])
+        return deviceFamilies.contains(1) && (sdk.major > 27 || (sdk.major == 27 && sdk.minor >= 1))
+    }
+
+    var requiresFullScreen: Bool {
+        let raw = self[bool: "UIRequiresFullScreen"] ?? false
+        let ignoredFromStr = (rawStorage["UIRequiresFullScreenIgnoredStartingWithVersion"] as? String)
+            ?? (rawStorage["UIRequiresFullScreenIgnoredStartingWithVersion"] as? NSNumber)?.stringValue
+        let ignoredFrom = Self.parseSDKVersion(ignoredFromStr)
+        let runtimeVer = ProcessInfo.processInfo.operatingSystemVersion
+        let ignoresRequiresFullScreen = ignoredFrom.major > 0
+            && (runtimeVer.majorVersion > ignoredFrom.major
+                || (runtimeVer.majorVersion == ignoredFrom.major && runtimeVer.minorVersion >= ignoredFrom.minor))
+        return raw && !ignoresRequiresFullScreen
+    }
+
+    private var supportedOrientations: [String] {
+        let ipadOrientations = self[strings: "UISupportedInterfaceOrientations~ipad"] ?? []
+        let iphoneOrientations = self[strings: "UISupportedInterfaceOrientations~iphone"] ?? []
+        let defaultOrientations = self[strings: "UISupportedInterfaceOrientations"] ?? []
+        if supportsIPad && !ipadOrientations.isEmpty {
+            return ipadOrientations
+        }
+        return !iphoneOrientations.isEmpty ? iphoneOrientations : defaultOrientations
+    }
+
+    var supportsAdaptiveWindowLayout: Bool {
+        supportsAdaptiveWindowLayout(forceSDKShift: false)
+    }
+
+    func supportsAdaptiveWindowLayout(forceSDKShift: Bool) -> Bool {
+        if forceSDKShift {
+            return true
+        }
+        let orientations = supportedOrientations
+        let hasPortrait = orientations.contains { $0.contains("Portrait") }
+        let hasLandscape = orientations.contains { $0.contains("Landscape") }
+        let hasSceneManifest = rawStorage["UIApplicationSceneManifest"] != nil
+        return (supportsIPad || supportsDuoAdaptive)
+            && !requiresFullScreen
+            && ((hasPortrait && hasLandscape) || hasSceneManifest)
+    }
+
+    var recommendedAspectRatio: (width: Int, height: Int) {
+        let orientations = supportedOrientations
+        let hasPortrait = orientations.contains { $0.contains("Portrait") }
+        let hasLandscape = orientations.contains { $0.contains("Landscape") }
+        if hasLandscape && !hasPortrait {
+            return (16, 9)
+        }
+        if supportsIPad && !deviceFamilies.contains(1) {
+            return (3, 4)
+        }
+        return (9, 16)
+    }
+
+    var recommendedLogicalResolution: (width: Int, height: Int) {
+        switch recommendedAspectRatio {
+        case (16, 9):
+            return (1280, 720)
+        case (3, 4):
+            return (768, 1024)
+        default:
+            return (414, 736)
+        }
+    }
+}

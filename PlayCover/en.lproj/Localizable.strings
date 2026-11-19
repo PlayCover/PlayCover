@@ -176,9 +176,13 @@
 "settings.picker.adaptiveRes.1" = "Auto (Based on Display)";
 "settings.picker.adaptiveRes.5" = "Custom";
 "settings.picker.adaptiveRes.6" = "Resizable";
+"settings.picker.adaptiveRes.7" = "Smart Auto-Adapt";
 "settings.text.customHeight" = "Height";
 "settings.text.customWidth" = "Width";
 "settings.text.detectedResolution" = "Detected Resolution:";
+"settings.text.smartAdaptDetected" = "Detected Layout:";
+"settings.text.smartAdapt.adaptive" = "Adaptive Window";
+"settings.text.smartAdapt.aspect" = "Recommended Aspect (%@)";
 "settings.picker.aspectRatio" = "Aspect ratio:";
 "settings.picker.aspectRatio.free" = "Free";
 "settings.picker.aspectRatio.custom" = "Custom";
@@ -196,6 +200,8 @@
 "settings.toggle.disableDisplaySleep.help" = "Prevent display from turning off while this app is running";
 "settings.toggle.hideTitleBar" = "Hide titlebar";
 "settings.toggle.floatingWindow" = "Floating window";
+"settings.toggle.sdkShift" = "SDK Shift (Unlock Free Resizing for Duo)";
+"settings.toggle.sdkShift.help" = "Inspired by SDKShift-for-Duo: reports iOS 27.2 SDK metadata to the app at runtime and lifts UIRequiresFullScreen / fixed-aspect scaling locks in Smart Auto-Adapt and Resizable modes so fixed-ratio iPhone apps can resize freely. Restart app to apply.";
 "settings.noPlayTools" = "PlayTools is not installed in this app";
 "settings.highResolution" = "High resolution may cause crashing";
 "settings.picker.scaler" = "Resolution Scaler";

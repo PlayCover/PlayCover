@@ -210,7 +210,14 @@
 "settings.picker.adaptiveRes.0" = "默认分辨率";
 "settings.picker.adaptiveRes.1" = "自动（基于显示器分辨率）";
 "settings.picker.adaptiveRes.5" = "自定义";
+"settings.picker.adaptiveRes.6" = "可自由调整大小";
+"settings.picker.adaptiveRes.7" = "智能自适应";
 "settings.picker.aspectRatio" = "长宽比：";
+"settings.picker.aspectRatio.free" = "自由";
+"settings.picker.aspectRatio.custom" = "自定义";
+"settings.text.smartAdaptDetected" = "检测到的布局：";
+"settings.text.smartAdapt.adaptive" = "自适应窗口";
+"settings.text.smartAdapt.aspect" = "推荐比例 (%@)";
 "settings.toggle.disableDisplaySleep.help" = "在该应用运行时防止显示屏关闭";
 "settings.toggle.jbBypass.help" = "尝试绕过某些游戏的越狱检测 （无法保证能够一直正常工作）";
 "settings.info.displayName" = "显示名称:";
@@ -338,6 +345,8 @@
 "settings.toggle.introspection" = "插入内省库";
 "settings.toggle.introspection.help" = "添加系统内省库到 app。已知可修复某些应用程序无法正确启动的问题";
 "settings.picker.scaler" = "分辨率缩放";
+"settings.toggle.sdkShift" = "SDK Shift（强制解锁自由自适应缩放）";
+"settings.toggle.sdkShift.help" = "参考 SDKShift for Duo 思路：运行时向应用提供高版本 Duo SDK（iOS 27.2）标识并解除全屏/单向锁定，使原本固定比例的应用窗口可自由调节大小（在智能自适应/自由调整模式下生效，重启应用生效）。";
 "keycover.masterPassword" = "主密码";
 "button.Enable" = "启用";
 "button.Reset" = "重置";
