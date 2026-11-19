@@ -199,6 +199,10 @@
 "settings.noPlayTools" = "PlayTools is not installed in this app";
 "settings.highResolution" = "High resolution may cause crashing";
 "settings.picker.scaler" = "Resolution Scaler";
+"settings.picker.uiScale" = "UI Scale";
+"settings.picker.uiScale.default" = "100% (1:1)";
+"settings.picker.uiScale.catalyst77" = "77% (macOS Catalyst Default)";
+"settings.picker.uiScale.help" = "Override macOS Catalyst's default ~77% scale factor (iOSMacScaleFactor) per app up to 200%. Restart app to apply.";
 
 "settings.tab.bypasses" = "Bypasses";
 "settings.toggle.jbBypass" = "Enable Jailbreak Bypass (Experimental)";

@@ -358,6 +358,21 @@ struct GraphicsView: View {
                         if customScaler > 0.5 { customScaler -= 0.1 }
                     }
                 }
+                HStack {
+                    Text("settings.picker.uiScale")
+                    Spacer()
+                    Picker("", selection: $settings.settings.uiScale) {
+                        Text("settings.picker.uiScale.catalyst77").tag(0.77)
+                        Text("settings.picker.uiScale.default").tag(1.0)
+                        Text("115%").tag(1.15)
+                        Text("125%").tag(1.25)
+                        Text("150%").tag(1.5)
+                        Text("175%").tag(1.75)
+                        Text("200%").tag(2.0)
+                    }
+                    .frame(width: 250)
+                    .help("settings.picker.uiScale.help")
+                }
                 VStack(alignment: .leading) {
                     if #available(macOS 13.2, *) {
                         HStack {
