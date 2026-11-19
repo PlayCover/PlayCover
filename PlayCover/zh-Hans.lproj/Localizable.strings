@@ -338,6 +338,12 @@
 "settings.toggle.introspection" = "插入内省库";
 "settings.toggle.introspection.help" = "添加系统内省库到 app。已知可修复某些应用程序无法正确启动的问题";
 "settings.picker.scaler" = "分辨率缩放";
+"settings.picker.layoutIdiom" = "界面布局模式";
+"settings.picker.layoutIdiom.auto" = "系统默认（自动）";
+"settings.picker.layoutIdiom.phone" = "手机布局 (iPhone)";
+"settings.picker.layoutIdiom.duo" = "iPhone Duo 布局 (折叠屏宽窗)";
+"settings.picker.layoutIdiom.pad" = "iPad 布局 (iPad)";
+"settings.picker.layoutIdiom.help" = "为通用 iOS 应用（同时包含手机、iPhone Duo 和 iPad 界面的应用）强制指定界面布局与设备身份，重启应用生效。";
 "keycover.masterPassword" = "主密码";
 "button.Enable" = "启用";
 "button.Reset" = "重置";

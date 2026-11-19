@@ -199,6 +199,12 @@
 "settings.noPlayTools" = "PlayTools is not installed in this app";
 "settings.highResolution" = "High resolution may cause crashing";
 "settings.picker.scaler" = "Resolution Scaler";
+"settings.picker.layoutIdiom" = "Interface Layout";
+"settings.picker.layoutIdiom.auto" = "System Default";
+"settings.picker.layoutIdiom.phone" = "iPhone Layout";
+"settings.picker.layoutIdiom.duo" = "iPhone Duo Layout";
+"settings.picker.layoutIdiom.pad" = "iPad Layout";
+"settings.picker.layoutIdiom.help" = "Override the UI idiom and device identity reported to Universal iOS apps (iPhone, foldable wide iPhone Duo, or iPad). Restart app to apply.";
 
 "settings.tab.bypasses" = "Bypasses";
 "settings.toggle.jbBypass" = "Enable Jailbreak Bypass (Experimental)";

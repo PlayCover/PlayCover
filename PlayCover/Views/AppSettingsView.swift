@@ -231,8 +231,21 @@ struct GraphicsView: View {
                         Text("iPhone 14 Pro Max | A16 | 6GB").tag("iPhone15,3")
                         Text("iPhone 15 Pro Max | A17 Pro | 8GB").tag("iPhone16,2")
                         Text("iPhone 16 Pro Max | A18 Pro | 8GB").tag("iPhone17,2")
+                        Text("iPhone Duo | A20 Pro").tag("iPhone19,4")
                     }
                     .frame(width: 250)
+                }
+                HStack {
+                    Text("settings.picker.layoutIdiom")
+                    Spacer()
+                    Picker("", selection: $settings.settings.layoutIdiom) {
+                        Text("settings.picker.layoutIdiom.auto").tag(0)
+                        Text("settings.picker.layoutIdiom.phone").tag(1)
+                        Text("settings.picker.layoutIdiom.duo").tag(3)
+                        Text("settings.picker.layoutIdiom.pad").tag(2)
+                    }
+                    .frame(width: 250)
+                    .help("settings.picker.layoutIdiom.help")
                 }
                 HStack {
                     if showResolutionWarning {
