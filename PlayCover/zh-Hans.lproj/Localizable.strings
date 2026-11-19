@@ -338,6 +338,10 @@
 "settings.toggle.introspection" = "插入内省库";
 "settings.toggle.introspection.help" = "添加系统内省库到 app。已知可修复某些应用程序无法正确启动的问题";
 "settings.picker.scaler" = "分辨率缩放";
+"settings.picker.uiScale" = "界面缩放比例";
+"settings.picker.uiScale.default" = "100% (1:1)";
+"settings.picker.uiScale.catalyst77" = "77% (系统默认)";
+"settings.picker.uiScale.help" = "为单个应用覆盖 macOS Catalyst 缩放比例（iOSMacScaleFactor），默认维持系统约 77%，也可调至 100% 或放大至 200%。重启应用生效。";
 "keycover.masterPassword" = "主密码";
 "button.Enable" = "启用";
 "button.Reset" = "重置";
