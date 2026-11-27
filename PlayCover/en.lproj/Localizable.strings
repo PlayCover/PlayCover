@@ -346,3 +346,14 @@
 "alert.version.title" = "New Version Available";
 "alert.version.text" = "A new version for %@ is available. Do you want to download it?";
 
+"settings.picker.cameraRotation" = "Camera rotation";
+"settings.picker.cameraRotation.automatic" = "Automatic";
+"settings.picker.cameraRotation.app" = "Let the app decide";
+"settings.picker.cameraRotation.help" = "Automatic levels compatible Mac camera captures. Set an angle to override the app’s rotation. Restart the app to apply.";
+"settings.picker.cameraFrontMirror" = "Front camera preview mirror";
+"settings.picker.cameraBackMirror" = "Rear camera preview mirror";
+"settings.picker.cameraMirror.automatic" = "Automatic";
+"settings.picker.cameraMirror.on" = "Mirrored";
+"settings.picker.cameraMirror.off" = "Not mirrored";
+"settings.picker.cameraFrontMirror.help" = "Control horizontal mirroring for front camera preview layers (AVCaptureVideoPreviewLayer) only. Does not flip captured photos or OCR/QR video frames. Automatic keeps the app's default behavior. Restart the app to apply.";
+"settings.picker.cameraBackMirror.help" = "Control horizontal mirroring for rear camera preview layers (AVCaptureVideoPreviewLayer) only. Does not flip captured photos or OCR/QR video frames. Automatic keeps the app's default behavior. Restart the app to apply.";
