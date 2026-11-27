@@ -52,6 +52,32 @@ struct AppSettingsData: Codable {
     var resizableAspectRatioHeight = 0
     var blockSleepSpamming = false
     var ignoreUnityKeyboardInitializationError = false
+    var appearanceStyle: Int = 0
+    var spoofPowerState = false {
+        didSet {
+            if spoofPowerState {
+                if powerStatePolicy != 1 {
+                    powerStatePolicy = 1
+                }
+            } else if powerStatePolicy == 1 {
+                powerStatePolicy = 0
+            }
+        }
+    }
+    var powerSavingMode: Bool = false
+    var memorySavingMode: Bool = false
+    var powerStatePolicy: Int = 0 {
+        didSet {
+            let legacySpoof = (powerStatePolicy == 1)
+            if spoofPowerState != legacySpoof {
+                spoofPowerState = legacySpoof
+            }
+        }
+    }
+    var frameRateCap: Int = 0
+    var fpsOverlay: Bool = false
+    var metalMemorySaver: Bool = false
+    var avMediaSaver: Bool = false
 
     init() {}
 
@@ -95,6 +121,32 @@ struct AppSettingsData: Codable {
         blockSleepSpamming = try container.decodeIfPresent(Bool.self, forKey: .blockSleepSpamming) ?? false
         ignoreUnityKeyboardInitializationError = try container.decodeIfPresent(
             Bool.self, forKey: .ignoreUnityKeyboardInitializationError) ?? false
+        try decodeEfficiencySettings(from: decoder)
+    }
+
+    private enum EfficiencyCodingKeys: String, CodingKey {
+        case appearanceStyle, spoofPowerState, powerSavingMode, memorySavingMode
+        case powerStatePolicy, frameRateCap, fpsOverlay, metalMemorySaver, avMediaSaver
+    }
+
+    private mutating func decodeEfficiencySettings(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: EfficiencyCodingKeys.self)
+        let decodedAppearanceStyle = try container.decodeIfPresent(Int.self, forKey: .appearanceStyle) ?? 0
+        appearanceStyle = (0...2).contains(decodedAppearanceStyle) ? decodedAppearanceStyle : 0
+        let legacySpoofPowerState = try container.decodeIfPresent(Bool.self, forKey: .spoofPowerState) ?? false
+        if let decodedPolicy = try container.decodeIfPresent(Int.self, forKey: .powerStatePolicy) {
+            powerStatePolicy = (0...2).contains(decodedPolicy) ? decodedPolicy : 0
+        } else {
+            powerStatePolicy = legacySpoofPowerState ? 1 : 0
+        }
+        spoofPowerState = (powerStatePolicy == 1)
+        powerSavingMode = try container.decodeIfPresent(Bool.self, forKey: .powerSavingMode) ?? false
+        memorySavingMode = try container.decodeIfPresent(Bool.self, forKey: .memorySavingMode) ?? false
+        let decodedFrameRateCap = try container.decodeIfPresent(Int.self, forKey: .frameRateCap) ?? 0
+        frameRateCap = [-1, 0, 10, 20, 30, 40, 45, 60].contains(decodedFrameRateCap) ? decodedFrameRateCap : 0
+        fpsOverlay = try container.decodeIfPresent(Bool.self, forKey: .fpsOverlay) ?? false
+        metalMemorySaver = try container.decodeIfPresent(Bool.self, forKey: .metalMemorySaver) ?? false
+        avMediaSaver = try container.decodeIfPresent(Bool.self, forKey: .avMediaSaver) ?? false
     }
 }
 
