@@ -391,6 +391,17 @@ struct GraphicsView: View {
                         }
                         .frame(alignment: .leading)
                     }
+                    HStack {
+                        Text("settings.picker.appearanceStyle")
+                        Spacer()
+                        Picker("", selection: $settings.settings.appearanceStyle) {
+                            Text("settings.picker.appearanceStyle.0").tag(0)
+                            Text("settings.picker.appearanceStyle.1").tag(1)
+                            Text("settings.picker.appearanceStyle.2").tag(2)
+                        }
+                        .frame(alignment: .leading)
+                    }
+                    .help("settings.picker.appearanceStyle.help")
                     Spacer()
                     Toggle("settings.toggle.disableDisplaySleep", isOn: $settings.settings.disableTimeout)
                         .help("settings.toggle.disableDisplaySleep.help")
@@ -752,6 +763,7 @@ struct MiscView: View {
                         .help("settings.toggle.ignoreUnityKeyboardInitializationError.help")
                     Spacer()
                 }
+                EfficiencySettingsView(settings: $settings, hasPlayTools: hasPlayTools)
                 CustomDylibView(app: app,
                                 showCustomPluginWarning: $showCustomPluginWarning,
                                 hasShownCustomPluginWarning: $hasShownCustomPluginWarning,
@@ -990,5 +1002,86 @@ struct AsyncToggleStyle: ToggleStyle {
 extension ToggleStyle where Self == AsyncToggleStyle {
     static func async(_ task: Binding<BlockingTask>, role: BlockingTask) -> AsyncToggleStyle {
         AsyncToggleStyle(task: task, role: role)
+    }
+}
+
+private struct EfficiencySettingsView: View {
+    @Binding var settings: AppSettings
+    var hasPlayTools: Bool?
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Divider()
+            Text("settings.section.efficiency")
+                .font(.headline)
+            HStack {
+                Text("settings.picker.powerStatePolicy")
+                Spacer()
+                Picker("", selection: $settings.settings.powerStatePolicy) {
+                    Text("settings.picker.powerStatePolicy.0").tag(0)
+                    Text("settings.picker.powerStatePolicy.1").tag(1)
+                    Text("settings.picker.powerStatePolicy.2").tag(2)
+                }
+                .labelsHidden()
+                .frame(width: 225)
+            }
+            .disabled(!(hasPlayTools ?? true))
+            .help("settings.picker.powerStatePolicy.help")
+            HStack {
+                Toggle("settings.toggle.powerSavingMode",
+                       isOn: $settings.settings.powerSavingMode)
+                    .disabled(!(hasPlayTools ?? true))
+                    .help("settings.toggle.powerSavingMode.help")
+                Spacer()
+            }
+            HStack {
+                Toggle("settings.toggle.memorySavingMode",
+                       isOn: $settings.settings.memorySavingMode)
+                    .disabled(!(hasPlayTools ?? true))
+                    .help("settings.toggle.memorySavingMode.help")
+                Spacer()
+            }
+            HStack {
+                Text("settings.picker.frameRateCap")
+                Spacer()
+                Picker("", selection: $settings.settings.frameRateCap) {
+                    Text("settings.picker.frameRateCap.0").tag(0)
+                    Text("settings.picker.frameRateCap.adaptive").tag(-1)
+                    Text(verbatim: "60 FPS").tag(60)
+                    Text(verbatim: "45 FPS").tag(45)
+                    Text(verbatim: "40 FPS").tag(40)
+                    Text(verbatim: "30 FPS").tag(30)
+                    Text(verbatim: "20 FPS").tag(20)
+                    Text(verbatim: "10 FPS").tag(10)
+                }
+                .labelsHidden()
+                .frame(width: 225)
+            }
+            .disabled(!(hasPlayTools ?? true))
+            .help("settings.picker.frameRateCap.help")
+            HStack {
+                Toggle("settings.toggle.fpsOverlay",
+                       isOn: $settings.settings.fpsOverlay)
+                    .disabled(!(hasPlayTools ?? true))
+                    .help("settings.toggle.fpsOverlay.help")
+                Spacer()
+            }
+            HStack {
+                Toggle("settings.toggle.metalMemorySaver",
+                       isOn: $settings.settings.metalMemorySaver)
+                    .disabled(!(hasPlayTools ?? true))
+                    .help("settings.toggle.metalMemorySaver.help")
+                Spacer()
+            }
+            HStack {
+                Toggle("settings.toggle.avMediaSaver",
+                       isOn: $settings.settings.avMediaSaver)
+                    .disabled(!(hasPlayTools ?? true))
+                    .help("settings.toggle.avMediaSaver.help")
+                Spacer()
+            }
+            Divider()
+        }
+        .padding(.vertical, 4)
     }
 }
