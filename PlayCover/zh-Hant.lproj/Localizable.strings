@@ -366,3 +366,15 @@
 "macos.version" = "This app can be installed from Mac App Store";
 "ipaLibrary.AlphabeticalSort" = "Sort source apps alphabetically";
 "alert.install.anyway" = "Install Anyway";
+"settings.toggle.mockLocation" = "模擬 GPS 定位";
+"settings.toggle.mockLocation.help" = "為此應用程式提供虛擬定位座標，覆蓋系統定位。重新啟動應用程式後生效。";
+"settings.button.pickLocation" = "在地圖上選點…";
+"settings.location.title" = "模擬定位設定";
+"settings.location.searchPlaceholder" = "搜尋城市或地點（例如：北京、紐約）";
+"settings.location.searchButton" = "搜尋";
+"settings.location.latitude" = "緯度";
+"settings.location.longitude" = "經度";
+"settings.location.chinaShift" = "中國大陸座標自動糾偏（GCJ-02 ↔ WGS-84）";
+"settings.location.chinaShift.help" = "自動在 Apple 中國地圖（GCJ-02）與 iOS 底層 GPS（WGS-84）間轉換，確保國內應用程式定位精準。";
+"settings.location.done" = "套用";
+"settings.location.cancel" = "取消";
