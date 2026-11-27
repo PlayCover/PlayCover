@@ -386,3 +386,14 @@
 "ipaLibrary.AlphabeticalSort" = "按字母顺序排列应用来源";
 "alert.install.anyway" = "仍然安装";
 "alert.open.appstore" = "打开 Mac App Store";
+"settings.picker.cameraRotation" = "相机方向";
+"settings.picker.cameraRotation.automatic" = "自动校正";
+"settings.picker.cameraRotation.app" = "由应用控制";
+"settings.picker.cameraRotation.help" = "自动校正适用的 Mac 相机画面，也可指定旋转角度。重启应用后生效。";
+"settings.picker.cameraFrontMirror" = "前置相机预览镜像";
+"settings.picker.cameraBackMirror" = "后置相机预览镜像";
+"settings.picker.cameraMirror.automatic" = "自动";
+"settings.picker.cameraMirror.on" = "镜像";
+"settings.picker.cameraMirror.off" = "不镜像";
+"settings.picker.cameraFrontMirror.help" = "仅控制前置摄像头预览层（AVCaptureVideoPreviewLayer）的左右镜像，不会翻转拍摄照片或扫码/OCR 视频帧。默认「自动」保持应用原有行为，重启应用后生效。";
+"settings.picker.cameraBackMirror.help" = "仅控制后置摄像头预览层（AVCaptureVideoPreviewLayer）的左右镜像，不会翻转拍摄照片或扫码/OCR 视频帧。默认「自动」保持应用原有行为，重启应用后生效。";
