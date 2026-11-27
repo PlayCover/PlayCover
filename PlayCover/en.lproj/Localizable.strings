@@ -346,3 +346,15 @@
 "alert.version.title" = "New Version Available";
 "alert.version.text" = "A new version for %@ is available. Do you want to download it?";
 
+"settings.toggle.mockLocation" = "Simulate GPS location";
+"settings.toggle.mockLocation.help" = "Spoof CoreLocation GPS coordinates for this app instead of your real Mac location. Restart app to apply.";
+"settings.button.pickLocation" = "Choose on Map…";
+"settings.location.title" = "Simulated Location";
+"settings.location.searchPlaceholder" = "Search city or place (e.g. Beijing, New York)";
+"settings.location.searchButton" = "Search";
+"settings.location.latitude" = "Latitude";
+"settings.location.longitude" = "Longitude";
+"settings.location.chinaShift" = "Mainland China GCJ-02 ↔ WGS-84 offset compensation";
+"settings.location.chinaShift.help" = "Converts between Apple Maps China (GCJ-02) and iOS raw GPS (WGS-84) so map pins match domestic apps accurately.";
+"settings.location.done" = "Apply";
+"settings.location.cancel" = "Cancel";

@@ -628,6 +628,7 @@ struct MiscView: View {
     @State var showPopover = false
     @State private var userDylibs: [URL] = []
     @State private var showCustomPluginWarning = false
+    @State private var showLocationPicker = false
     var app: PlayApp
     @State var applicationCategoryType: LSApplicationCategoryType
     var body: some View {
@@ -751,6 +752,27 @@ struct MiscView: View {
                         .disabled(!(hasPlayTools ?? true))
                         .help("settings.toggle.ignoreUnityKeyboardInitializationError.help")
                     Spacer()
+                }
+                HStack {
+                    Toggle("settings.toggle.mockLocation",
+                           isOn: $settings.settings.mockLocationEnabled)
+                        .disabled(!(hasPlayTools ?? true))
+                        .help("settings.toggle.mockLocation.help")
+                    Spacer()
+                    if settings.settings.mockLocationEnabled {
+                        Text(String(format: "%@ (%.4f, %.4f)",
+                                    settings.settings.mockLocationName,
+                                    settings.settings.mockLocationLatitude,
+                                    settings.settings.mockLocationLongitude))
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Button("settings.button.pickLocation") {
+                            showLocationPicker = true
+                        }
+                        .sheet(isPresented: $showLocationPicker) {
+                            LocationPickerView(settings: $settings)
+                        }
+                    }
                 }
                 CustomDylibView(app: app,
                                 showCustomPluginWarning: $showCustomPluginWarning,

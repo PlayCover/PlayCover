@@ -386,3 +386,15 @@
 "ipaLibrary.AlphabeticalSort" = "按字母顺序排列应用来源";
 "alert.install.anyway" = "仍然安装";
 "alert.open.appstore" = "打开 Mac App Store";
+"settings.toggle.mockLocation" = "模拟 GPS 定位";
+"settings.toggle.mockLocation.help" = "为当前应用提供虚拟定位坐标，覆盖系统真实位置。重启应用后生效。";
+"settings.button.pickLocation" = "在地图上选点…";
+"settings.location.title" = "模拟定位设置";
+"settings.location.searchPlaceholder" = "搜索城市或地点（如：北京、纽约、上海陆家嘴）";
+"settings.location.searchButton" = "搜索";
+"settings.location.latitude" = "纬度";
+"settings.location.longitude" = "经度";
+"settings.location.chinaShift" = "中国大陆坐标自动纠偏（GCJ-02 ↔ WGS-84）";
+"settings.location.chinaShift.help" = "自动在苹果中国地图（火星坐标）与 iOS 底层 GPS（WGS-84）间互转，确保高德/美团等国内应用定位精准不偏移。";
+"settings.location.done" = "确定";
+"settings.location.cancel" = "取消";

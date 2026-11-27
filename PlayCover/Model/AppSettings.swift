@@ -52,6 +52,10 @@ struct AppSettingsData: Codable {
     var resizableAspectRatioHeight = 0
     var blockSleepSpamming = false
     var ignoreUnityKeyboardInitializationError = false
+    var mockLocationEnabled = false
+    var mockLocationLatitude: Double = 39.9042
+    var mockLocationLongitude: Double = 116.4074
+    var mockLocationName: String = "Beijing"
 
     init() {}
 
@@ -95,6 +99,10 @@ struct AppSettingsData: Codable {
         blockSleepSpamming = try container.decodeIfPresent(Bool.self, forKey: .blockSleepSpamming) ?? false
         ignoreUnityKeyboardInitializationError = try container.decodeIfPresent(
             Bool.self, forKey: .ignoreUnityKeyboardInitializationError) ?? false
+        mockLocationEnabled = try container.decodeIfPresent(Bool.self, forKey: .mockLocationEnabled) ?? false
+        mockLocationLatitude = try container.decodeIfPresent(Double.self, forKey: .mockLocationLatitude) ?? 39.9042
+        mockLocationLongitude = try container.decodeIfPresent(Double.self, forKey: .mockLocationLongitude) ?? 116.4074
+        mockLocationName = try container.decodeIfPresent(String.self, forKey: .mockLocationName) ?? "Beijing"
     }
 }
 
