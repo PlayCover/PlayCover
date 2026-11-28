@@ -162,6 +162,48 @@ class Installer {
         return BaseApp(appUrl: url)
     }
 
+    private static let nonMachOExtensions: Set<String> = [
+        "png", "jpg", "jpeg", "webp", "gif", "svg", "ico", "icns", "heic",
+        "json", "plist", "strings", "stringsdict", "nib", "storyboardc", "car",
+        "ttf", "otf", "ttc", "woff", "woff2",
+        "mp3", "mp4", "m4a", "mov", "wav", "caf", "aiff", "ogg", "aac",
+        "html", "htm", "css", "js", "map", "txt", "md", "xml", "yaml", "yml", "pdf",
+        "zip", "gz", "tar", "br", "db", "sqlite", "sqlite3",
+        "cer", "der", "pem", "crt", "p12", "mobileprovision",
+        "metallib", "mom", "momd", "omo", "xcprivacy", "lproj",
+        "pak", "bin", "dat", "svga", "pag", "lottie", "wasm",
+        "h", "m", "swift", "modulemap"
+    ]
+
+    private static let validMachOMagics: Set<[UInt8]> = [
+        [0xCA, 0xFE, 0xBA, 0xBE],
+        [0xBE, 0xBA, 0xFE, 0xCA],
+        [0xCA, 0xFE, 0xBA, 0xBF],
+        [0xBF, 0xBA, 0xFE, 0xCA],
+        [0xCF, 0xFA, 0xED, 0xFE],
+        [0xFE, 0xED, 0xFA, 0xCF]
+    ]
+
+    private static func isValidMachOFile(_ url: URL) -> Bool {
+        guard let handle = try? FileHandle(forReadingFrom: url) else {
+            return false
+        }
+
+        defer {
+            do {
+                try handle.close()
+            } catch {
+                print("Failed to close FileHandle for \(url.absoluteString): \(error.localizedDescription)")
+            }
+        }
+
+        guard let data = try? handle.read(upToCount: 4), data.count == 4 else {
+            return false
+        }
+
+        return validMachOMagics.contains(Array(data))
+    }
+
     /// Returns an array of URLs to MachO files within the app
     static func resolveValidMachOs(_ baseApp: BaseApp) -> [URL] {
         if let validMachOs = baseApp.validMachOs {
@@ -169,40 +211,42 @@ class Installer {
         }
 
         var resolved: [URL] = []
-        let serialQueue = DispatchQueue(label: "baseAppUrlResolver")
+        var seen: Set<URL> = []
 
-        baseApp.url.enumerateContents { url, attributes in
-            guard attributes.isRegularFile == true, let fileSize = attributes.fileSize, fileSize > 4 else {
-                return
-            }
-
-            if !url.pathExtension.isEmpty && url.pathExtension != "dylib" {
-                return
-            }
-
-            let handle = try FileHandle(forReadingFrom: url)
-
-            defer {
-                do {
-                    try handle.close()
-                } catch {
-                    print("Failed to close FileHandle for \(url.absoluteString): \(error.localizedDescription)")
-                }
-            }
-
-            guard let data = try handle.read(upToCount: 4) else {
-                return
-            }
-
-            serialQueue.sync {
-                switch Array(data) {
-                case [202, 254, 186, 190]: resolved.append(url)
-                case [207, 250, 237, 254]: resolved.append(url)
-                default: return
-                }
-            }
+        let executableURL = baseApp.executable
+        if let execAttrs = try? executableURL.resourceValues(forKeys: [.isRegularFileKey, .fileSizeKey]),
+           execAttrs.isRegularFile == true,
+           let fileSize = execAttrs.fileSize,
+           fileSize > 4,
+           isValidMachOFile(executableURL) {
+            seen.insert(executableURL.standardizedFileURL)
+            resolved.append(executableURL)
         }
 
+        // Metadata enumeration is cheap local I/O. Scheduling an Operation for every
+        // asset and serializing results added thousands of tasks to otherwise warm launches.
+        // Keep the same package boundaries: frameworks belong to the host, app extensions
+        // and component bundles retain their independent platform and signing identity.
+        let keys: Set<URLResourceKey> = [.isRegularFileKey, .fileSizeKey, .isDirectoryKey, .isPackageKey]
+        if let enumerator = FileManager.default.enumerator(at: baseApp.url,
+                                                           includingPropertiesForKeys: Array(keys),
+                                                           options: [.skipsHiddenFiles]) {
+            for case let url as URL in enumerator {
+                let ext = url.pathExtension.lowercased()
+                // Directory URLs from FileManager carry the directory bit. Skip obvious
+                // resource files before asking Foundation to bridge their full metadata.
+                if !url.hasDirectoryPath, nonMachOExtensions.contains(ext) { continue }
+                guard let attributes = try? url.resourceValues(forKeys: keys) else { continue }
+                if attributes.isDirectory == true,
+                   attributes.isPackage == true || ["appex", "bundle"].contains(ext), ext != "framework" {
+                    enumerator.skipDescendants()
+                }
+                guard attributes.isRegularFile == true, let size = attributes.fileSize, size > 4,
+                      !nonMachOExtensions.contains(ext), isValidMachOFile(url) else { continue }
+                if seen.insert(url.standardizedFileURL).inserted { resolved.append(url) }
+            }
+        }
+        baseApp.validMachOs = resolved
         return resolved
     }
 

@@ -77,11 +77,16 @@ extension URL {
     func enumerateContents(blocking: Bool = true,
                            includingPropertiesForKeys keys: [URLResourceKey]? = nil,
                            options: FileManager.DirectoryEnumerationOptions? = nil,
+                           descendingIntoPackages packageExtensions: Set<String>? = nil,
                            _ callback: @escaping (URL, URLResourceValues) throws -> Void) {
+        var resourceKeys = keys ?? [.isRegularFileKey]
+        var enumerationOptions = options ?? [.skipsHiddenFiles, .skipsPackageDescendants]
+        if packageExtensions != nil {
+            enumerationOptions.remove(.skipsPackageDescendants)
+            resourceKeys += [.isDirectoryKey, .isPackageKey]
+        }
         guard let enumerator = FileManager.default.enumerator(
-            at: self,
-            includingPropertiesForKeys: keys ?? [.isRegularFileKey],
-            options: options ?? [.skipsHiddenFiles, .skipsPackageDescendants]) else {
+            at: self, includingPropertiesForKeys: resourceKeys, options: enumerationOptions) else {
             return
         }
 
@@ -91,6 +96,13 @@ extension URL {
         queue.maxConcurrentOperationCount = 15
 
         for case let fileURL as URL in enumerator {
+            if let packageExtensions = packageExtensions,
+               let attributes = try? fileURL.resourceValues(forKeys: [.isDirectoryKey, .isPackageKey]),
+               attributes.isDirectory == true,
+               attributes.isPackage == true || ["appex", "bundle"].contains(fileURL.pathExtension.lowercased()),
+               !packageExtensions.contains(fileURL.pathExtension.lowercased()) {
+                enumerator.skipDescendants()
+            }
             queue.addOperation {
                 do {
                     try callback(fileURL, fileURL.resourceValues(forKeys: [.isRegularFileKey, .fileSizeKey]))
