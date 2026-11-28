@@ -100,6 +100,10 @@ bypass:
     - (allow file* file-read* file-read-data file-read-metadata file-ioctl file-write* file-write-data (subpath "/private/tmp"))
     - (allow file-read-data (literal "${HomeDirectory}/Library/Preferences/com.apple.CloudKit.plist"))
     - (allow file-read-metadata file-read* file-read-data (literal "/usr/share/langid/langid.inv"))
+    # Keep C/POSIX locale data accessible alongside ICU.
+    - (allow file-read-data file-read-metadata (subpath "/usr/share/locale"))
+    # System font aliases in /Library/Fonts resolve to the existing /System allowlist.
+    - (allow file-read-metadata (subpath "/Library/Fonts"))
     - |
         (allow file-map-executable
                 (subpath "/Library/Apple/System/Library/Frameworks")
@@ -113,6 +117,8 @@ bypass:
             (allow file-map-executable
                     (subpath "/AppleInternal/Library/Frameworks")))
     - (allow file-read-metadata (literal "/private/etc/localtime"))
+    # Darwin resolves timezone data through the standard /etc and /var symlinks.
+    - (allow file-read-metadata (literal "/etc") (literal "/var"))
     - (allow file-read-metadata (path-ancestors "/System/Volumes/Data/private"))
     - (allow file-read* (literal "/"))
     - |
