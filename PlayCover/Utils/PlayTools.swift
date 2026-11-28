@@ -259,7 +259,7 @@ class PlayTools {
     static func isInstalled() throws -> Bool {
         try FileManager.default.fileExists(atPath: playToolsPath.path)
             && FileManager.default.fileExists(atPath: akInterfacePath.path)
-            && Macho.isMachoValidArch(playToolsPath)
+            && Macho.isMachoValidArch(playToolsPath, allowingUniversal: true)
     }
 
     // User plugins loading

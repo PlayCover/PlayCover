@@ -6,6 +6,7 @@
 import Cocoa
 import Foundation
 import IOKit.pwr_mgt
+import Security
 
 class PlayApp: BaseApp {
     // MARK: - Static
@@ -85,11 +86,16 @@ class PlayApp: BaseApp {
                 try PlayTools.installPluginInIPA(url)
             }
 
-            if try !Entitlements.areEntitlementsValid(app: self) {
+            let strippedRestrict = (try? Macho.stripRestrictSegment(atURL: executable)) ?? false
+            var signingInfo = Entitlements.signingInformation(exec: executable)
+
+            if try strippedRestrict
+                || !Entitlements.areEntitlementsValid(app: self, signingInfo: signingInfo) {
                 sign()
+                signingInfo = nil
             }
 
-            if try !isInfoPlistSigned() {
+            if try !isInfoPlistSigned(signingInfo: signingInfo) {
                 try Shell.signApp(executable)
             }
 
@@ -107,10 +113,8 @@ class PlayApp: BaseApp {
                 if settings.openWithLLDB {
                     try Shell.lldb(executable, withTerminalWindow: settings.openLLDBWithTerminal)
                 } else {
-                    // The bundle may have been modified and re-signed above, so rebuild the
-                    // alias to keep its Info.plist copy in sync with the sealed bundle
-                    removeAlias()
-                    createAlias()
+                    // Refresh the copied Info.plist only when its source changed.
+                    ensureAliasIfNeeded()
 
                     runAppExec() // Splitting to reduce complexity
                 }
@@ -308,8 +312,11 @@ extension PlayApp {
         FileManager.default.fileExists(atPath: aliasURL.path)
     }
 
-    func isInfoPlistSigned() throws -> Bool {
-        try Shell.run("/usr/bin/codesign", "-dv", executable.path).contains("Info.plist entries")
+    func isInfoPlistSigned(signingInfo: [String: Any]? = nil) throws -> Bool {
+        if let information = signingInfo ?? Entitlements.signingInformation(exec: executable) {
+            return information[kSecCodeInfoPList as String] != nil
+        }
+        return try Shell.run("/usr/bin/codesign", "-dv", executable.path).contains("Info.plist entries")
     }
 
     func showInFinder() {

@@ -41,8 +41,10 @@ class VersionCheck {
         }
     }
 
+    @MainActor
     func checkNewVersion(myApp: PlayApp) async -> Bool {
-        await StoreVM.shared.awaitResolveSources()
+        // Use metadata already available in the library. A slow/offline IPA source
+        // must not delay launching an installed app; source refresh continues independently.
         let storeApp = StoreVM.shared.sourcesApps
         if let app = storeApp.first(where: {$0.bundleID == myApp.info.bundleIdentifier}) {
             if myApp.info.bundleVersion.compare(app.version, options: .numeric) == .orderedAscending {
