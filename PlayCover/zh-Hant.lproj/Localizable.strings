@@ -366,3 +366,5 @@
 "macos.version" = "This app can be installed from Mac App Store";
 "ipaLibrary.AlphabeticalSort" = "Sort source apps alphabetically";
 "alert.install.anyway" = "Install Anyway";
+"settings.toggle.optionScrollZoom" = "按住 Option + 滾輪縮放";
+"settings.toggle.optionScrollZoom.help" = "按住 Option 鍵並捲動滑鼠滾輪或觸控板，以游標為中心縮放內容";
