@@ -346,3 +346,5 @@
 "alert.version.title" = "New Version Available";
 "alert.version.text" = "A new version for %@ is available. Do you want to download it?";
 
+"settings.toggle.optionScrollZoom" = "Option + scroll wheel to zoom";
+"settings.toggle.optionScrollZoom.help" = "Hold Option and scroll with the mouse wheel or trackpad to pinch-zoom around the cursor";

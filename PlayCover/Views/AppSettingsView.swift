@@ -167,6 +167,11 @@ struct KeymappingView: View {
                     Spacer()
                 }
                 HStack {
+                    Toggle("settings.toggle.optionScrollZoom", isOn: $settings.settings.optionScrollZoom)
+                        .help("settings.toggle.optionScrollZoom.help")
+                    Spacer()
+                }
+                HStack {
                     Toggle("settings.toggle.disableBuiltinMouse", isOn: $settings.settings.disableBuiltinMouse)
                         .help("settings.toggle.disableBuiltinMouse.help")
                     Spacer()

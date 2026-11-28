@@ -386,3 +386,5 @@
 "ipaLibrary.AlphabeticalSort" = "按字母顺序排列应用来源";
 "alert.install.anyway" = "仍然安装";
 "alert.open.appstore" = "打开 Mac App Store";
+"settings.toggle.optionScrollZoom" = "按住 Option + 滚轮缩放";
+"settings.toggle.optionScrollZoom.help" = "按住 Option 键并滚动鼠标滚轮或触控板，以光标为中心缩放内容";
