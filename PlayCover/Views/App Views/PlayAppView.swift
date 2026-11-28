@@ -129,10 +129,11 @@ struct PlayAppConditionalView: View {
             if isList {
                 HStack(alignment: .center, spacing: 0) {
                     Group {
-                        if let image = appIcon {
+                        if let image = appIcon ?? Cacher.shared.cachedAppIcon(forPath: app.url.path) {
                             Image(nsImage: image)
                                 .resizable()
-                                .aspectRatio(contentMode: .fit)
+                                .scaledToFit()
+                                .clipShape(RoundedRectangle(cornerRadius: 7.5, style: .continuous))
                         } else {
                             Rectangle()
                                  .fill(.regularMaterial)
@@ -177,10 +178,11 @@ struct PlayAppConditionalView: View {
             } else {
                 LazyVStack {
                     Group {
-                        if let image = appIcon {
+                        if let image = appIcon ?? Cacher.shared.cachedAppIcon(forPath: app.url.path) {
                             Image(nsImage: image)
                                 .resizable()
-                                .aspectRatio(contentMode: .fit)
+                                .scaledToFit()
+                                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                         } else {
                             Rectangle()
                                  .fill(.regularMaterial)
@@ -224,20 +226,15 @@ struct PlayAppConditionalView: View {
                 .frame(width: 130, height: 130)
             }
         }
-        .task(priority: .userInitiated) {
-            let appURL = app.url
-            let bundleIdentifier = app.info.bundleIdentifier
-            let bundleVersion = app.info.bundleVersion
-            let primaryIconName = app.info.primaryIconName
-            let iconData = await Task.detached(priority: .utility) {
-                Cacher.shared.resolveLocalIconData(
-                    at: appURL,
-                    bundleIdentifier: bundleIdentifier,
-                    bundleVersion: bundleVersion,
-                    primaryIconName: primaryIconName
-                )
-            }.value
-            appIcon = iconData.flatMap(NSImage.init(data:))
+        .task(id: app.url, priority: .userInitiated) {
+            let path = app.url.path
+            if appIcon == nil {
+                if let cached = Cacher.shared.cachedAppIcon(forPath: path) {
+                    appIcon = cached
+                } else {
+                    appIcon = await Cacher.shared.loadAppIcon(forPath: path)
+                }
+            }
         }
         .task(priority: .background) {
             hasPlayTools = app.hasPlayTools()
