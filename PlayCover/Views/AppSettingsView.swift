@@ -235,6 +235,11 @@ struct GraphicsView: View {
                     .frame(width: 250)
                 }
                 HStack {
+                    Toggle("settings.toggle.duoVerticalBar", isOn: $settings.settings.duoVerticalBar)
+                        .help("settings.toggle.duoVerticalBar.help")
+                    Spacer()
+                }
+                HStack {
                     if showResolutionWarning {
                         Spacer()
                         let highResIcon = Image(systemName: "exclamationmark.triangle")

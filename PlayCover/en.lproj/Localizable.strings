@@ -346,3 +346,25 @@
 "alert.version.title" = "New Version Available";
 "alert.version.text" = "A new version for %@ is available. Do you want to download it?";
 
+"settings.toggle.duoVerticalBar" = "Duo Vertical Bar";
+"settings.toggle.duoVerticalBar.duoOnly" = "(iPhone Duo layout only)";
+"settings.toggle.duoVerticalBar.help" = "Enable the right-edge vertical bar in iPhone Duo layout for back navigation, app custom side tools, and vertical dock/toolbar relocation (without a virtual phone status bar). Restart app to apply.";
+"preferences.tab.globalBack" = "Back & Home";
+"preferences.globalBack.section.titlebar" = "Titlebar Back Button";
+"preferences.globalBack.titlebarBackEnabled" = "Show back button (<) in window titlebar";
+"preferences.globalBack.titlebarHomeEnabled" = "Show home button (house) in window titlebar";
+"preferences.globalBack.onlyWhenNoSidebarBackButton" = "Only when no sidebar back button is visible";
+"preferences.globalBack.includeTopCloseButtons" = "Also match top close / collapse buttons (X / v)";
+"preferences.globalBack.section.shortcut" = "Global Back Shortcut";
+"preferences.globalBack.shortcutEnabled" = "Enable global back shortcut";
+"preferences.globalBack.shortcutLabel" = "Back Shortcut";
+"preferences.globalBack.section.homeShortcut" = "Global Home Shortcut";
+"preferences.globalBack.homeShortcutEnabled" = "Enable global home shortcut (back to first tab)";
+"preferences.globalBack.homeShortcutLabel" = "Home Shortcut";
+"preferences.globalBack.clickToRecord" = "Click to record keyboard or mouse shortcut";
+"preferences.globalBack.recordingPrompt" = "Press key combo or mouse button...";
+"preferences.globalBack.notSet" = "Not Set";
+"preferences.globalBack.resetDefault" = "Reset Default";
+"preferences.globalBack.clear" = "Clear";
+"preferences.globalBack.warning.unmodifiedLeftClick" = "Warning: Using an unmodified left mouse click for Back will intercept normal left clicks whenever a back/close action is available.";
+"preferences.globalBack.description" = "Works across all iOS apps on Mac, even when Duo Vertical Bar is turned off or the window is narrow.";

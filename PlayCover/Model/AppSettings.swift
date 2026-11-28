@@ -52,6 +52,7 @@ struct AppSettingsData: Codable {
     var resizableAspectRatioHeight = 0
     var blockSleepSpamming = false
     var ignoreUnityKeyboardInitializationError = false
+    var duoVerticalBar = false
 
     init() {}
 
@@ -95,6 +96,7 @@ struct AppSettingsData: Codable {
         blockSleepSpamming = try container.decodeIfPresent(Bool.self, forKey: .blockSleepSpamming) ?? false
         ignoreUnityKeyboardInitializationError = try container.decodeIfPresent(
             Bool.self, forKey: .ignoreUnityKeyboardInitializationError) ?? false
+        duoVerticalBar = try container.decodeIfPresent(Bool.self, forKey: .duoVerticalBar) ?? false
     }
 }
 
